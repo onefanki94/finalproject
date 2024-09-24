@@ -11,7 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-<div>
+<div class="container">
+<h1>스프링 부트 홈페이지</h1>
 </div>
 </body>
 </html>
