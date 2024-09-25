@@ -1,11 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <title>DashBoard</title>
-<link href="css/masterStyle.css" rel="stylesheet" type="text/css"></link>
+<link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="js/MasterPage.js"></script>
+<script src="/js/MasterPage.js"></script>
 <div class="mastermain">
     <nav class="navbar navbar-dark bg-dark">
         <div class="management">management

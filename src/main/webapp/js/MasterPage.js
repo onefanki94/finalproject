@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     $('.menu-item').click(function(e) {
         e.preventDefault(); // 기본 클릭 동작 방지
