@@ -11,9 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="container">
-<h1>스프링 부트 홈페이지</h1>
-<a href="/masterMain">관리자 페이지</a>
+<div>
 </div>
 </body>
 </html>
