@@ -15,6 +15,7 @@
 <h1>스프링 부트 홈페이지</h1>
 <a href="/masterMain">관리자 페이지</a>
 <a href="/aniList">애니리스트</a>
+<a href="/storeMain">굿즈메인페이지</a>
 </div>
 </body>
 </html>
