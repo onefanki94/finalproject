@@ -2,6 +2,15 @@
     display: flex;
 }
 
+.management {
+    font-size: 1.3em;
+}
+
+.management a {
+    text-decoration: none;
+    color : white;
+}
+
 nav {
     width: 200px;
     background-color: #343a40;
@@ -37,7 +46,7 @@ nav {
     padding-left: 20px;
 }
 
-// 차트
+/* 차트 스타일 */
 .chart {
     margin-left: 220px;
     padding: 20px;
@@ -46,6 +55,77 @@ nav {
 }
 
 .haruDailyChart, .monthDailyChart {
-    flex: 1;
     border: 1px solid gray;
+    padding: 10px;
+    flex: 1;
+    box-sizing: border-box;
+    height: 450px;
+}
+
+// 애니관리 - 애니목록 CSS
+.anime-list-container {
+    padding: 20px;
+}
+
+.anime-list {
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin : 0 auto;
+    margin-right : 100px;
+    width : 100%;
+    max-width : 1500px;
+}
+
+.anime-list th, .anime-list td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+}
+
+.anime-list th {
+    background-color: #343a40; /* 테이블 헤더 배경색 */
+    color: white; /* 헤더 글자색 */
+}
+
+.anime-list tr:nth-child(even) {
+    background-color: #f2f2f2; /* 짝수 행 배경색 */
+}
+
+.anime-list tr:hover {
+    background-color: #ddd; /* 마우스 오버 시 배경색 */
+}
+
+.add-btn, .edit-btn, .delete-btn {
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /* 커서를 포인터로 변경 */
+}
+
+.add-btn {
+    background-color: #E6E6FA;
+    color: black;
+}
+
+.edit-btn {
+    background-color: #007bff; /* 수정 버튼 색상 */
+    color: black;
+}
+
+.delete-btn {
+    background-color: #dc3545; /* 삭제 버튼 색상 */
+    color: black;
+}
+
+.add-btn:hover{
+    background-color: #888;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3; /* 수정 버튼 마우스 오버 색상 */
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* 삭제 버튼 마우스 오버 색상 */
 }

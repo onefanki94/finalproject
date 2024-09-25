@@ -18,5 +18,5 @@ public class HomeController {
  public String storeMain() {
      return "store/storeMain";
  }
- 
+
 }
