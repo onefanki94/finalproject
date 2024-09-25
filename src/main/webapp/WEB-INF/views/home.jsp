@@ -13,7 +13,7 @@
 <body>
 <div class="container">
 <h1>스프링 부트 홈페이지</h1>
-<a href="/master/masterMain">관리자 페이지</a>
+<a href="/masterMain">관리자 페이지</a>
 </div>
 </body>
 </html>
