@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>DashBoard</title>
+<title>DashBoard - 유저리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
@@ -10,8 +10,8 @@
         <div>
             <div class="manage_menu">
                 <ul>
-                    <a href="#" class="menu-item">회원관리</a>
-                    <li class="submenu"><a href="#">회원목록</a></li>
+                    <a href="" class="menu-item">회원관리</a>
+                    <li class="submenu"><a href="/master/userMasterList">회원목록</a></li>
                     <li class="submenu"><a href="#">신고계정목록</a></li>
                 </ul>
                 <ul>
@@ -42,13 +42,52 @@
         </div>
     </nav>
 </div>
-<div class="chart">
-        <div class="haruDailyChart">차트영역
-            <canvas id="haruDailyChartView"></canvas>
-        </div>
-        <div class="monthDailyChart">차트영역
-            <canvas id="monthDailyChartView"></canvas>
-        </div>
-        </div>
+<div class="anime-list-container">
+    <h2>애니 목록</h2>
+    <table class="anime-list">
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>이메일</th>
+                <th>작업</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>
+                    <button class="delete-btn">삭제</button>
+                </td>
+            </tr>
+            <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>
+                    <button class="delete-btn">삭제</button>
+                </td>
+            </tr>
+            <tr>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>
+                                <button class="delete-btn">삭제</button>
+                            </td>
+            </tr>
+            <tr>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>
+                                <button class="delete-btn">삭제</button>
+                            </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
