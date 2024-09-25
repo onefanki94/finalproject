@@ -1,0 +1,86 @@
+
+.main {
+    overflow: hidden;
+    width: 800px;
+    margin: 0 auto;
+    /* 중앙 정렬 */
+    display: flex;
+    /* Flexbox 레이아웃 사용 */
+    gap: 3px;
+    /* 카드 간 간격 설정 */
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+}
+
+.main_bar {
+    width: 1500px;
+    position: relative;
+    /* 카드의 상대 위치 설정 */
+    font-size: 1.5rem;
+    /* 텍스트 크기 설정 */
+    font-weight: bold;
+    /* 텍스트 두께 설정 */
+    color: white;
+    /* 텍스트 색상 설정 */
+    text-align: center;
+    /* 텍스트 중앙 정렬 */
+    border-radius: 10px;
+    /* 모서리 둥글게 설정 */
+    padding: 1rem;
+    /* 내부 여백 설정 */
+    height: 150px;
+    /* 카드 고정 높이 설정 */
+    background-color: #00000052;
+    /* 카드 배경 색상 설정 (반투명) */
+    transition: 0.5s ease-in-out;
+    /* 애니메이션 효과 부여 */
+}
+
+/* hover 시 카드 크기 증가 */
+.main_bar:hover {
+    flex: 3;
+    /* hover 시 카드 크기 증가 */
+    cursor: pointer;
+    /* 마우스 커서 포인터로 변경 */
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1920px) {
+    .main_bar {
+        flex: 1 1 30%;
+        /* 카드의 최소 너비를 30%로 설정 */
+        height: 150px;
+        /* 카드 높이 유지 */
+    }
+}
+
+@media (max-width: 1280px) {
+    .main_bar {
+        flex: 1 1 45%;
+        /* 카드의 최소 너비를 45%로 설정 */
+        height: 150px;
+        /* 카드 높이 유지 */
+    }
+}
+
+@media (max-width: 768px) {
+    .main_bar {
+        flex: 1 1 100%;
+        /* 카드의 최소 너비를 100%로 설정 */
+        height: 120px;
+        /* 카드의 높이를 줄임 */
+        font-size: 1.2rem;
+        /* 텍스트 크기 줄임 */
+    }
+}
+
+@media (max-width: 480px) {
+    .main_bar {
+        flex: 1 1 100%;
+        /* 카드의 너비를 100%로 설정 */
+        height: 100px;
+        /* 카드의 높이를 더 줄임 */
+        font-size: 1rem;
+        /* 텍스트 크기 더 줄임 */
+    }
+}
