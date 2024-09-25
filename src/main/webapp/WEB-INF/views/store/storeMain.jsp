@@ -10,10 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="/css/storeMain.css" rel="stylesheet" type="text/css"></link>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/storeMain.js"></script>
-
-
 </head>
 <body>
 
@@ -31,7 +28,6 @@
     </nav>
 </header>
 
-
 <!-- 배너 -->
 <section class="banner">
     <a href="bannerDetail.jsp">
@@ -39,42 +35,88 @@
     </a>
     <div class="banner-text">
         <h1>Welcome to MyShop</h1>
-     
     </div>
 </section>
 
-<!-- 상품 -->
+<!-- Featured Products Section -->
 <section class="products">
     <h2>Featured Products</h2>
-    <div class="product-grid">
-        <div class="product">
-            <a href="productDetail1.jsp">
-                <img src="product1.jpg" alt="Product 1">
-            </a>
-            <h3>Product 1</h3>
-            <p>$19.99</p>
+    <div class="carousel">
+        <button class="carousel-control prev" onclick="moveSlide('featured-products', -1)">&#10094;</button>
+        <div class="carousel-wrapper">
+            <div class="carousel-images">
+                <div class="product">
+                    <a href="productDetail1.jsp">
+                        <img src="product1.jpg" alt="Product 1">
+                    </a>
+                    <h3>Product 1</h3>
+                    <p>$19.99</p>
+                </div>
+                <div class="product">
+                    <a href="productDetail2.jsp">
+                        <img src="product2.jpg" alt="Product 2">
+                    </a>
+                    <h3>Product 2</h3>
+                    <p>$29.99</p>
+                </div>
+                <div class="product">
+                    <a href="productDetail3.jsp">
+                        <img src="product3.jpg" alt="Product 3">
+                    </a>
+                    <h3>Product 3</h3>
+                    <p>$39.99</p>
+                </div>
+                <div class="product">
+                    <a href="productDetail4.jsp">
+                        <img src="product4.jpg" alt="Product 4">
+                    </a>
+                    <h3>Product 4</h3>
+                    <p>$49.99</p>
+                </div>
+            </div>
         </div>
-        <div class="product">
-            <a href="productDetail2.jsp">
-                <img src="product2.jpg" alt="Product 2">
-            </a>
-            <h3>Product 2</h3>
-            <p>$29.99</p>
+        <button class="carousel-control next" onclick="moveSlide('featured-products', 1)">&#10095;</button>
+    </div>
+</section>
+
+<!-- More Products Section -->
+<section class="products2">
+    <h2>More Products</h2>
+    <div class="carousel">
+        <button class="carousel-control prev" onclick="moveSlide('more-products', -1)">&#10094;</button>
+        <div class="carousel-wrapper">
+            <div class="carousel-images">
+                <div class="product">
+                    <a href="productDetail1.jsp">
+                        <img src="product1.jpg" alt="Product 1">
+                    </a>
+                    <h3>Product 1</h3>
+                    <p>$19.99</p>
+                </div>
+                <div class="product">
+                    <a href="productDetail2.jsp">
+                        <img src="product2.jpg" alt="Product 2">
+                    </a>
+                    <h3>Product 2</h3>
+                    <p>$29.99</p>
+                </div>
+                <div class="product">
+                    <a href="productDetail3.jsp">
+                        <img src="product3.jpg" alt="Product 3">
+                    </a>
+                    <h3>Product 3</h3>
+                    <p>$39.99</p>
+                </div>
+                <div class="product">
+                    <a href="productDetail4.jsp">
+                        <img src="product4.jpg" alt="Product 4">
+                    </a>
+                    <h3>Product 4</h3>
+                    <p>$49.99</p>
+                </div>
+            </div>
         </div>
-        <div class="product">
-            <a href="productDetail3.jsp">
-                <img src="product3.jpg" alt="Product 3">
-            </a>
-            <h3>Product 3</h3>
-            <p>$39.99</p>
-        </div>
-        <div class="product">
-            <a href="productDetail4.jsp">
-                <img src="product4.jpg" alt="Product 4">
-            </a>
-            <h3>Product 4</h3>
-            <p>$49.99</p>
-        </div>
+        <button class="carousel-control next" onclick="moveSlide('more-products', 1)">&#10095;</button>
     </div>
 </section>
 
@@ -82,7 +124,7 @@
 <section class="original-goods">
     <h2>오리지널 굿즈</h2>
     <div class="carousel">
-        <button class="carousel-control prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-control prev" onclick="moveSlide('original-goods', -1)">&#10094;</button>
         <div class="carousel-wrapper">
             <div class="carousel-images">
                 <a href="detail1.jsp">
@@ -99,42 +141,7 @@
                 </a>
             </div>
         </div>
-        <button class="carousel-control next" onclick="moveSlide(1)">&#10095;</button>
-    </div>
-</section>
-
-<!-- 두 번째 Featured Products 섹션 -->
-<section class="products2">
-    <h2>More Products</h2>
-    <div class="product-grid">
-        <div class="product">
-            <a href="productDetail1.jsp">
-                <img src="product1.jpg" alt="Product 1">
-            </a>
-            <h3>Product 1</h3>
-            <p>$19.99</p>
-        </div>
-        <div class="product">
-            <a href="productDetail2.jsp">
-                <img src="product2.jpg" alt="Product 2">
-            </a>
-            <h3>Product 2</h3>
-            <p>$29.99</p>
-        </div>
-        <div class="product">
-            <a href="productDetail3.jsp">
-                <img src="product3.jpg" alt="Product 3">
-            </a>
-            <h3>Product 3</h3>
-            <p>$39.99</p>
-        </div>
-        <div class="product">
-            <a href="productDetail4.jsp">
-                <img src="product4.jpg" alt="Product 4">
-            </a>
-            <h3>Product 4</h3>
-            <p>$49.99</p>
-        </div>
+        <button class="carousel-control next" onclick="moveSlide('original-goods', 1)">&#10095;</button>
     </div>
 </section>
 
@@ -142,7 +149,7 @@
 <section class="md_pick">
     <h2>MD's pick</h2>
     <div class="md">
-        <button class="md-control prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="md-control prev" onclick="moveSlide('md_pick', -1)">&#10094;</button>
         <div class="md-wrapper">
             <div class="md-images">
                 <a href="md1.jsp">
@@ -159,15 +166,6 @@
                 </a>
             </div>
         </div>
-        <button class="md-control next" onclick="moveSlide(1)">&#10095;</button>
+        <button class="md-control next" onclick="moveSlide('md_pick', 1)">&#10095;</button>
     </div>
 </section>
-
-
-</section>
-
-
-
-
-</body>
-</html>
