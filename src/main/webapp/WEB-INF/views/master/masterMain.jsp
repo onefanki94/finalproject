@@ -41,5 +41,13 @@
         </div>
     </nav>
 </div>
+<div class="chart">
+        <div class="haruDailyChart">
+            <canvas id="haruDailyChartView"></canvas>
+        </div>
+        <div class="monthDailyChart">
+            <canvas id="monthDailyChartView"></canvas>
+        </div>
+</div>
 </body>
 </html>
