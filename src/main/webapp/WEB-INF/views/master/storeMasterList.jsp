@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>DashBoard - 애니리스트</title>
+<title>DashBoard - 굿즈 목록</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
@@ -48,15 +48,17 @@
         </div>
     </nav>
 </div>
-<div class="anime-list-container">
-    <h2>애니 목록 (값 불러오기전 front 단)</h2>
-    <table class="anime-list">
+<div class="user-list-container">
+    <h2>굿즈 전체 목록</h2>
+    <table class="user-list">
         <thead>
             <tr>
+                <th>카테고리</th>
+                <th>애니 타이틀</th>
                 <th>제목</th>
-                <th>장르</th>
-                <th>방영일</th>
-                <th>상태</th>
+                <th>가격</th>
+                <th>브랜드</th>
+                <th>개수</th>
                 <th>작업</th>
             </tr>
         </thead>
@@ -66,13 +68,17 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
                 <td>
-                    <button class="add-btn"><a href="/master/aniAddMaster">추가</a></button>
+                    <button class="add-btn">추가</button>
                     <button class="edit-btn">수정</button>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>
             <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -88,26 +94,27 @@
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
-                            <td>
-                                <button class="add-btn">추가</button>
-                                <button class="edit-btn">수정</button>
-                                <button class="delete-btn">삭제</button>
-                            </td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                <td>
+                    <button class="add-btn">추가</button>
+                    <button class="edit-btn">수정</button>
+                    <button class="delete-btn">삭제</button>
+                </td>
             </tr>
             <tr>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
-                            <td>
-                                <button class="add-btn">추가</button>
-                                <button class="edit-btn">수정</button>
-                                <button class="delete-btn">삭제</button>
-                            </td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                <td>
+                    <button class="add-btn">추가</button>
+                    <button class="edit-btn">수정</button>
+                    <button class="delete-btn">삭제</button>
+                </td>
             </tr>
         </tbody>
     </table>
-     <div class="aniPageing">페이징 영역</div>
-</div>
-</body>
-</html>
+        <div class="storePageing">페이징 영역</div>

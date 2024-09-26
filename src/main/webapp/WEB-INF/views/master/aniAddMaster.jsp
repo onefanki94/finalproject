@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<title>DashBoard - 애니 추가</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
@@ -19,7 +20,7 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">굿즈관리</a>
-                    <li class="submenu"><a href="#">굿즈목록</a></li>
+                    <li class="submenu"><a href="/master/storeMasterList">굿즈목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
