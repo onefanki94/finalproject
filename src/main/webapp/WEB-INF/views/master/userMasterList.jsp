@@ -42,9 +42,9 @@
         </div>
     </nav>
 </div>
-<div class="anime-list-container">
-    <h2>애니 목록</h2>
-    <table class="anime-list">
+<div class="user-list-container">
+    <h2>회원 전체 목록</h2>
+    <table class="user-list">
         <thead>
             <tr>
                 <th>이름</th>
@@ -88,6 +88,7 @@
             </tr>
         </tbody>
     </table>
+         <div class="userPageing">페이징 영역</div>
 </div>
 </body>
 </html>

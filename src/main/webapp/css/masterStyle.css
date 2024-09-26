@@ -62,9 +62,21 @@ nav {
     height: 450px;
 }
 
-// 애니관리 - 애니목록 CSS
+// 관리자 페이지 - 애니관리 - 애니목록 CSS
 .anime-list-container {
     padding: 20px;
+}
+
+.anime-list-container h2 {
+    margin : 20 auto;
+    padding : 20px;
+    background-color : beige;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
 }
 
 .anime-list {
@@ -128,4 +140,91 @@ nav {
 
 .delete-btn:hover {
     background-color: #c82333; /* 삭제 버튼 마우스 오버 색상 */
+}
+
+.aniPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
+}
+
+// 관리자 페이지 - 회원관리 - 회원목록 CSS
+.user-list-container {
+    padding: 20px;
+}
+
+.user-list-container h2 {
+    margin : 20 auto;
+    padding : 20px;
+    background-color : beige;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+}
+
+.user-list {
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin : 0 auto;
+    margin-right : 100px;
+    width : 100%;
+    max-width : 1500px;
+}
+
+.user-list th, .user-list td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+}
+
+.user-list th {
+    background-color: #343a40; /* 테이블 헤더 배경색 */
+    color: white; /* 헤더 글자색 */
+}
+
+.user-list tr:nth-child(even) {
+    background-color: #f2f2f2; /* 짝수 행 배경색 */
+}
+
+.user-list tr:hover {
+    background-color: #ddd; /* 마우스 오버 시 배경색 */
+}
+
+.delete-btn {
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /* 커서를 포인터로 변경 */
+}
+
+
+.delete-btn {
+    background-color: #dc3545; /* 삭제 버튼 색상 */
+    color: black;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* 삭제 버튼 마우스 오버 색상 */
+}
+
+.userPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
 }
