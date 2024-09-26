@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>DashBoard - 회원 유저리스트</title>
+<title>DashBoard - 신고계정 유저리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
@@ -42,15 +42,14 @@
         </div>
     </nav>
 </div>
-<div class="user-list-container">
-    <h2>회원 전체 목록</h2>
-    <table class="user-list">
+<div class="reportinguser-list-container">
+    <h2>신고 회원 전체 목록</h2>
+    <table class="reportinguser-list">
         <thead>
             <tr>
                 <th>아이디</th>
-                <th>이름</th>
-                <th>연락처</th>
-                <th>이메일</th>
+                <th>신고횟수</th>
+                <th>누적 횟수</th>
                 <th>작업</th>
             </tr>
         </thead>
@@ -59,8 +58,8 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
                 <td>
+                    <button class="memo-btn">메모</button>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>
@@ -68,17 +67,17 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
                 <td>
+                    <button class="memo-btn">메모</button>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>
             <tr>
-                            <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>
+                                <button class="memo-btn">메모</button>
                                 <button class="delete-btn">삭제</button>
                             </td>
             </tr>
@@ -86,14 +85,14 @@
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
                             <td>
+                                <button class="memo-btn">메모</button>
                                 <button class="delete-btn">삭제</button>
                             </td>
             </tr>
         </tbody>
     </table>
-         <div class="userPageing">페이징 영역</div>
+         <div class="reportinguserPageing">페이징 영역</div>
 </div>
 </body>
 </html>

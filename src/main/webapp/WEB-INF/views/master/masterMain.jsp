@@ -11,8 +11,8 @@
             <div class="manage_menu">
                 <ul>
                     <a href="#" class="menu-item">회원관리</a>
-                    <li class="submenu"><a href="#">회원목록</a></li>
-                    <li class="submenu"><a href="#">신고계정목록</a></li>
+                    <li class="submenu"><a href="/master/userMasterList">회원목록</a></li>
+                    <li class="submenu"><a href="/master/reporinguserMasterList">신고계정목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">애니관리</a>

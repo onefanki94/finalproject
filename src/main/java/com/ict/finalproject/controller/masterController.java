@@ -37,4 +37,12 @@ public class masterController {
             mav.setViewName("master/aniMasterList");
             return mav;
         }
+
+        // Dashboard - 회원관리 - 신고계정목록 출력하기
+        @GetMapping("/reporinguserMasterList")
+        public ModelAndView masterReportList(){
+            mav = new ModelAndView();
+            mav.setViewName("master/reportinguserMasterList");
+            return mav;
+        }
 }
