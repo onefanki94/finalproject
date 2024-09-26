@@ -20,11 +20,11 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">굿즈관리</a>
-                    <li class="submenu"><a href="#">굿즈목록</a></li>
+                    <li class="submenu"><a href="/master/storeMasterList">굿즈목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
-                    <li class="submenu"><a href="#">주문내역리스트</a></li>
+                    <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
                     <li class="submenu"><a href="#">일/월별 매출내역</a></li>
                 </ul>
                 <ul>

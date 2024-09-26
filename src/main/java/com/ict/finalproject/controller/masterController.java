@@ -46,7 +46,7 @@ public class masterController {
             return mav;
         }
 
-        //Dashboard - 애니관리 - 애니 목록 - 애니 추가
+        // Dashboard - 애니관리 - 애니 목록 - 애니 추가
         @GetMapping("/aniAddMaster")
         public ModelAndView aniAddMaster(){
             mav = new ModelAndView();
@@ -54,11 +54,19 @@ public class masterController {
             return mav;
         }
 
-        //Dashboard - 굿즈관리 - 굿즈목록 리스트
+        // Dashboard - 굿즈관리 - 굿즈목록 리스트
         @GetMapping("/storeMasterList")
         public ModelAndView storeMasterList(){
             mav = new ModelAndView();
             mav.setViewName("master/storeMasterList");
+            return mav;
+        }
+
+        // Dashboard - 주문관리 - 주문내역 리스트
+        @GetMapping("/orderMasterList")
+        public ModelAndView orderMasterList(){
+            mav = new ModelAndView();
+            mav.setViewName("master/orderMasterList");
             return mav;
         }
 }

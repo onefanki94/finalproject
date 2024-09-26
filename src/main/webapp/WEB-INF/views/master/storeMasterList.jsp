@@ -24,7 +24,7 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
-                    <li class="submenu"><a href="#">주문내역리스트</a></li>
+                    <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
                     <li class="submenu"><a href="#">일/월별 매출내역</a></li>
                 </ul>
                 <ul>
@@ -48,9 +48,9 @@
         </div>
     </nav>
 </div>
-<div class="user-list-container">
+<div class="store-list-container">
     <h2>굿즈 전체 목록</h2>
-    <table class="user-list">
+    <table class="store-list">
         <thead>
             <tr>
                 <th>카테고리</th>

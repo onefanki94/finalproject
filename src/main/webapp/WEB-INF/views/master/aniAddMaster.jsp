@@ -24,7 +24,7 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
-                    <li class="submenu"><a href="#">주문내역리스트</a></li>
+                    <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
                     <li class="submenu"><a href="#">일/월별 매출내역</a></li>
                 </ul>
                 <ul>
@@ -48,6 +48,8 @@
         </div>
     </nav>
 </div>
+<div class="aniAdd">
+<h2>애니 등록</h2>
 <form action="/master/aniAddMasterOk" method="post" enctype="multipart/form-data">
     <div>
         <label for="post_img">포스터 이미지:</label>
@@ -95,7 +97,13 @@
         <textarea id="outline" name="outline" rows="4" required></textarea>
     </div>
 
+
+    <div class="contentdiv">
+        <label for="내용">내용:</label>
+        <textarea id="content" name="content" rows="10" required></textarea>
+    </div>
     <div>
         <input type="submit" value="애니 추가">
     </div>
 </form>
+</div>
