@@ -12,7 +12,7 @@
                 <ul>
                     <a href="" class="menu-item">회원관리</a>
                     <li class="submenu"><a href="/master/userMasterList">회원목록</a></li>
-                    <li class="submenu"><a href="#">신고계정목록</a></li>
+                    <li class="submenu"><a href="/master/reporinguserMasterList">신고계정목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">애니관리</a>
@@ -43,7 +43,7 @@
     </nav>
 </div>
 <div class="anime-list-container">
-    <h2>애니 목록</h2>
+    <h2>애니 목록 (값 불러오기전 front 단)</h2>
     <table class="anime-list">
         <thead>
             <tr>
@@ -101,6 +101,7 @@
             </tr>
         </tbody>
     </table>
+     <div class="aniPageing">페이징 영역</div>
 </div>
 </body>
 </html>
