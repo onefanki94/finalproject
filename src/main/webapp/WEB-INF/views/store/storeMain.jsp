@@ -20,10 +20,10 @@
     </div>
     <nav class="nav">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">장바구니</a></li>
+            <li><a href="#">마이쇼핑</a></li>
+            <li><a href="#">최근본상품</a></li>
+      
         </ul>
     </nav>
 </header>
@@ -31,11 +31,9 @@
 <!-- 배너 -->
 <section class="banner">
     <a href="bannerDetail.jsp">
-        <img src="banner-image.jpg" alt="Main Banner">
+        <img src="img/store/banner.png" alt="Main Banner">
     </a>
-    <div class="banner-text">
-        <h1>Welcome to MyShop</h1>
-    </div>
+  
 </section>
 
 <!-- Featured Products Section -->

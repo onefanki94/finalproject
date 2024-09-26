@@ -1,0 +1,350 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "pretendard";
+  }
+  body {
+    background: #000;
+  }
+  ul,
+  li,
+  dl,
+  dt,
+  dd,
+  p,
+  span {
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+  li {
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+  }
+  *,
+  :after,
+  :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary: #359c95;
+    --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
+    --k-font: "Pretendard";
+    --e-font: "Montserrat";
+  }
+
+  /* Mainslide */
+  #mainVisual {
+    position: relative;
+  }
+  #mainVisual:after {
+    position: absolute;
+    bottom: -35px;
+    width: 100%;
+    height: 60px;
+    background: #000;
+    content: "";
+    z-index: 1;
+    filter: blur(15px);
+  }
+
+  #mainVisual .main_slide {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  #mainVisual .swiper-wrapper {
+    height: 100%;
+  }
+  #mainVisual .swiper-slide.bg01 {
+    position: relative;
+    background: url("img1.png") no-repeat center / cover;
+  }
+  #mainVisual .swiper-slide.bg02 {
+    position: relative;
+    background: url("img1.png") no-repeat center / cover;
+  }
+  #mainVisual .swiper-slide.bg03 {
+    position: relative;
+    background: url("img1.png") no-repeat center / cover;
+  }
+
+  #mainVisual .main_txt {
+    position: absolute;
+    top: 26vh;
+    z-index: 101;
+    width: 100%;
+    text-align: center;
+    line-height: 1.25;
+    color: #fff;
+  }
+  #mainVisual .main_txt span {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  #mainVisual .main_txt p {
+    margin: 20px 0 40px;
+    font-size: 72px;
+    font-weight: 200;
+    font-family: var(--e-font);
+  }
+
+  /* Pager */
+  #mainVisual .pager {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  #mainVisual .pager button {
+    opacity: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    background: transparent;
+    transition: 0.2s;
+  }
+  #mainVisual .pager button:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #fff;
+    content: "";
+    transition: all 0.2s;
+  }
+  #mainVisual .pager button.on:after {
+    opacity: 0;
+  }
+  #mainVisual .pager .progress {
+    transform: rotate(-90deg);
+  }
+  #mainVisual .pager .circle-origin {
+    fill: transparent;
+    stroke: rgb(255, 255, 255);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: all 0.2s;
+  }
+  #mainVisual .pager button.on .circle-origin {
+    animation: progress 4.5s ease;
+  }
+  @keyframes progress {
+    from {
+      stroke-dashoffset: -38;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* 반응형 [s] */
+  @media (max-width: 1024px) {
+    #mainVisual:after {
+      bottom: 0px;
+      height: 35px;
+    }
+    #mainVisual .main_slide {
+      height: 590px;
+    }
+    #mainVisual .main_txt {
+      top: 110px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 18px;
+    }
+    #mainVisual .main_txt p {
+      margin: 12px 0 28px;
+      font-size: 48px;
+    }
+  }
+  @media (max-width: 768px) {
+    #mainVisual .main_slide {
+      height: 480px;
+    }
+    #mainVisual .main_txt {
+      top: 80px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 16px;
+    }
+    #mainVisual .main_txt p {
+      margin: 10px 0 24px;
+      font-size: 34px;
+    }
+    #mainVisual .pager {
+      gap: 12px;
+    }
+  }
+  @media (max-width: 480px) {
+    #mainVisual .main_slide {
+      height: 365px;
+    }
+    #mainVisual .main_txt {
+      top: 60px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 14px;
+    }
+    #mainVisual .main_txt p {
+      margin: 8px 0 20px;
+      font-size: 26px;
+    }
+    #mainVisual .pager {
+      gap: 10px;
+    }
+  }
+  @media (max-width: 380px) {
+    #mainVisual .main_slide {
+      height: 345px;
+    }
+    #mainVisual .main_txt {
+      top: 50px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 13px;
+    }
+    #mainVisual .main_txt p {
+      margin: 6px 0 16px;
+      font-size: 23px;
+    }
+  }
+  /* 반응형 [e] */
+
+  /* scroll dowm */
+  #mainVisual .scroll {
+    position: absolute;
+    bottom: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    font-family: var(--e-font);
+  }
+  #mainVisual .scroll .bar {
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 130px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+  #mainVisual .scroll .bar:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    animation: scroll 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  @keyframes scroll {
+    0% {
+      top: 0;
+      opacity: 1;
+    }
+    70% {
+      top: 100%;
+      opacity: 0;
+    }
+    100% {
+      top: 0;
+      opacity: 0;
+    }
+  }
+
+  /* 반응형 [s] */
+  @media (max-width: 1024px) {
+    #mainVisual:after {
+      bottom: 0px;
+      height: 35px;
+    }
+    #mainVisual .main_slide {
+      height: 590px;
+    }
+    #mainVisual .main_txt {
+      top: 110px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 18px;
+    }
+    #mainVisual .main_txt p {
+      margin: 12px 0 28px;
+      font-size: 48px;
+    }
+  }
+  @media (max-width: 768px) {
+    #mainVisual .main_slide {
+      height: 480px;
+    }
+    #mainVisual .main_txt {
+      top: 80px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 16px;
+    }
+    #mainVisual .main_txt p {
+      margin: 10px 0 24px;
+      font-size: 34px;
+    }
+    #mainVisual .pager {
+      gap: 12px;
+    }
+  }
+  @media (max-width: 480px) {
+    #mainVisual .main_slide {
+      height: 365px;
+    }
+    #mainVisual .main_txt {
+      top: 60px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 14px;
+    }
+    #mainVisual .main_txt p {
+      margin: 8px 0 20px;
+      font-size: 26px;
+    }
+    #mainVisual .pager {
+      gap: 10px;
+    }
+  }
+  @media (max-width: 380px) {
+    #mainVisual .main_slide {
+      height: 345px;
+    }
+    #mainVisual .main_txt {
+      top: 50px;
+    }
+    #mainVisual .main_txt span {
+      font-size: 13px;
+    }
+    #mainVisual .main_txt p {
+      margin: 6px 0 16px;
+      font-size: 23px;
+    }
+  }
+  /* 반응형 [e] */
