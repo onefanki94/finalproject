@@ -54,37 +54,64 @@ h1, h2, h3, p {
     padding: 10px;
 }
 
-/* Banner Section */
+/* Banner */
+
 .banner {
     position: relative;
-    width: 100%;
-    height: 500px;
-    background-color: #f0f0f0;
-    margin-bottom: 50px;
+    overflow: hidden; /* 이미지가 넘치는 부분을 숨김 */
+    width: 100%; /* 원하는 너비 설정 */
+    max-width:1800px; /* 최대 너비 설정 */
+    margin: auto; /* 가운데 정렬 */
 }
 
-.banner img {
-    width: 100%;
-    height: 800px;
-    margin: 0 auto;
-    border-radius: 10px;
-    object-fit: cover;
+.carousel-banner-images {
+    display: flex;
+    max-width:1800px; /* 최대 너비 설정 */
+    transition: transform 0.5s ease; /* 부드러운 전환 효과 */
 }
 
-
-
-.banner-text h1 {
-    font-size: 64px;
-    margin-bottom: 20px;
+.carousel-banner-images img {
+    width: 100%; /* 부모 요소의 폭에 맞춤 */
+    height: 800px; /* 자동으로 높이를 설정하여 비율 유지 */
+   
 }
 
-.banner-text p {
+.carousel-banner-image1 {
+    left: 0;
+}
+
+.carousel-banner-image2 {
+    left: 100%;
+}
+
+.carousel-banner-image3 {
+    left: 200%;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    cursor: pointer;
     font-size: 24px;
-    margin-bottom: 30px;
+    padding: 10px;
+    z-index: 10; /* 버튼이 이미지 위에 보이도록 설정 */
 }
+
+.carousel-button.left {
+    left: 10px; /* 왼쪽 버튼 위치 */
+}
+
+.carousel-button.right {
+    right: 10px; /* 오른쪽 버튼 위치 */
+}
+
 
 /* Product Section */
 .products, .products2 {
+    margin-top: 400px;
     padding: 60px 40px;
     text-align: center;
     background-color: #fff;
@@ -102,16 +129,18 @@ h1, h2, h3, p {
 }
 
 .product {
+    width: 300px;
     background-color: #f9f9f9;
     padding: 30px;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    transition: transform 0.6s;
 }
 
-.product:hover {
-    transform: translateY(-10px);
+.product img:hover {
+    transform: scale(1.2);
+    transition: transform 0.8s ease-in-out;
 }
 
 .product img {
@@ -119,6 +148,7 @@ h1, h2, h3, p {
     height: 350px;
     object-fit: cover;
     margin-bottom: 20px;
+   
 }
 
 .product h3 {
@@ -136,8 +166,29 @@ h1, h2, h3, p {
 .original-goods {
     padding: 60px 40px;
     text-align: center;
-    margin: 60px 0;
+    margin: 0 auto;
 }
+
+.carousel-goods-images{
+    display: flex;
+    width:400px;
+    
+}
+
+.product-item img{
+    border-radius: 10px;
+    margin: 0 auto;
+
+}
+
+.carousel-original {
+    max-width: 1800px;
+    align-items: center;
+    overflow: hidden; /* 넘치는 이미지를 숨김 */
+    position: relative;
+}
+
+
 
 .carousel {
     position: relative;
@@ -152,6 +203,7 @@ h1, h2, h3, p {
 }
 
 .carousel-images {
+    
     display: flex;
     transition: transform 0.5s ease-in-out;
 }
