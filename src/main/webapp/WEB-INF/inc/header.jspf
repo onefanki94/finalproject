@@ -18,7 +18,9 @@
 
 // 관리자 페이지 메뉴 (해당 관리자 아이디에 로그인 햇을시 관리자페이지에서 메뉴 뜨게 설정)
 <div>
-<c:if test="">
+
+
+<c:if test="${id === 'master'}">
             <div class="manage_menu">
                 <ul>
                     <a href="#" class="menu-item">회원관리</a>
