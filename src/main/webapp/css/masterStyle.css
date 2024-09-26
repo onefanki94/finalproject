@@ -120,6 +120,11 @@ nav {
     color: black;
 }
 
+.add-btn a:link, .add-btn a:visited {
+    text-decoration : none;
+    color : black;
+}
+
 .edit-btn {
     background-color: #007bff;
     color: black;
@@ -132,6 +137,7 @@ nav {
 
 .add-btn:hover{
     background-color: #888;
+    text-decoration : none;
 }
 
 .edit-btn:hover {
@@ -311,4 +317,52 @@ nav {
     justify-content : center;
     height : 30px;
     border : 1px solid gray;
+}
+
+// 관리자페이지 - 애니관리 - 애니목록 - 추가
+form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+form div {
+    margin-bottom: 15px;
+    margin-left : 220px;
+    align-items: center;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="file"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
 }
