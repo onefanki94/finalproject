@@ -31,7 +31,7 @@
 <!-- 배너 -->
 <section class="banner">
     <a href="bannerDetail.jsp">
-        <img src="img/banner.png" alt="Main Banner">
+        <img src="img/store/banner.png" alt="Main Banner">
     </a>
   
 </section>
