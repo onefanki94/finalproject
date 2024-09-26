@@ -50,39 +50,20 @@
            <nav>
              <ul>
                <li class="check"><a class="active" href="/">홈</a></li>
-               <li class=""><a class="" href="/reserve">예약배송</a></li>
-               <li class=""><a class="" href="/stock">바로배송</a></li>
-               <li class=""><a class="" href="/original">오리지널 굿즈</a><em class="label"></em></li>
-               <li class=""><a class="" href="/discount">세일</a></li>
-               <li><a class="" href="/tag/1397"># 브라운더스트2</a></li>
-               <li><a class="" href="/tag/1317"># 나 혼자만 레벨업</a></li>
-               <li><a class="" href="/tag/472"># 로드 오브 히어로즈</a></li>
+               <li class=""><a class="" href="/reserve">의류</a></li>
+               <li class=""><a class="" href="/stock">완구/취미</a></li>
+               <li class=""><a class="" href="/original">문구/오피스</a></li>
+               <li class=""><a class="" href="/discount">생활용품</a></li>
              </ul>
            </nav>
          </div>
        </div>
-       <div class="search_form">
-         <legend class="blind">검색</legend>
-         <div class="search_input_box">
-           <input
-             name="keyword"
-             type="text"
-             title="[초성검색] 상품, 캐릭터, 브랜드, 카테고리를 검색해보세요"
-             placeholder="[초성검색] 상품, 캐릭터, 브랜드, 카테고리를 검색해보세요"
-             autocomplete="off"
-             class="search_input"
-             maxlength="100"
-             style="background-color: transparent; width: 100%"
-             value=""
-           />
-           <div></div>
+
          </div>
-         <button class="btn_search"><span class="blind">검색</span></button>
        </div>
        <ul class="mymenu">
          <li class="order"><a>장바구니</a></li>
          <li class="my"><a>마이쇼핑</a></li>
-         <li class="show"><a>최근 본 상품</a></li>
        </ul>
      </div>
    </header>
