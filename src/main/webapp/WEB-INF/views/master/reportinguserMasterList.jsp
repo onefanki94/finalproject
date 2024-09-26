@@ -92,7 +92,7 @@
             </tr>
         </tbody>
     </table>
-         <div class="reportinguserPageing">페이징 영역</div>
+        <div class="reportinguserPageing">페이징 영역</div>
 </div>
 </body>
 </html>
