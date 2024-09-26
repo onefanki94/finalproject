@@ -20,7 +20,7 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">굿즈관리</a>
-                    <li class="submenu"><a href="#">굿즈목록</a></li>
+                    <li class="submenu"><a href="/master/storeMasterList">굿즈목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
@@ -30,6 +30,12 @@
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>
                     <li class="submenu"><a href="#">신고목록</a></li>
+                </ul>
+                <ul>
+                    <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>
+                    <li class="submenu"><a href="#">게시판</a></li>
+                    <li class="submenu"><a href="#">댓글</a></li>
+                    <li class="submenu"><a href="#">리뷰</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">기타관리</a>

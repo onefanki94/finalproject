@@ -22,7 +22,7 @@ public class masterController {
             return mav;
         }
 
-        //Dashboard - 유저 목록 출력하기
+        //Dashboard - 회원관리 - 회원 목록 리스트
         @GetMapping("/userMasterList")
         public ModelAndView masterUserList(){
             mav = new ModelAndView();
@@ -30,7 +30,7 @@ public class masterController {
             return mav;
         }
 
-        // Dashboard - aniList목록 출력하기
+        // Dashboard - 애니관리 -  애니목록 리스트
         @GetMapping("/aniMasterList")
         public ModelAndView masterAniList(){
             mav = new ModelAndView();
@@ -38,11 +38,27 @@ public class masterController {
             return mav;
         }
 
-        // Dashboard - 회원관리 - 신고계정목록 출력하기
+        // Dashboard - 회원관리 - 신고계정목록 리스트
         @GetMapping("/reporinguserMasterList")
         public ModelAndView masterReportList(){
             mav = new ModelAndView();
             mav.setViewName("master/reportinguserMasterList");
+            return mav;
+        }
+
+        //Dashboard - 애니관리 - 애니 목록 - 애니 추가
+        @GetMapping("/aniAddMaster")
+        public ModelAndView aniAddMaster(){
+            mav = new ModelAndView();
+            mav.setViewName("master/aniAddMaster");
+            return mav;
+        }
+
+        //Dashboard - 굿즈관리 - 굿즈목록 리스트
+        @GetMapping("/storeMasterList")
+        public ModelAndView storeMasterList(){
+            mav = new ModelAndView();
+            mav.setViewName("master/storeMasterList");
             return mav;
         }
 }
