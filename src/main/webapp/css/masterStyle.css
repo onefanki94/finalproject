@@ -533,7 +533,7 @@ nav {
 }
 
 .orderManagement th {
-    background-color: #4CAF50;
+    background-color: #343a40;
     color: white;
 }
 
@@ -550,4 +550,16 @@ nav {
 
 .orderManagement a.btn-danger {
     background-color: #f44336;
+}
+
+.orderPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
 }

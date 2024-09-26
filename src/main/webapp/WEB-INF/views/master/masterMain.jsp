@@ -7,6 +7,7 @@
 <div class="mastermain">
     <nav class="navbar navbar-dark bg-dark">
         <div class="management"><a href="/master/masterMain">관리자 Management</a></div>
+        <div>${logId}로그인아이디 영역</div>
         <div>
             <div class="manage_menu">
                 <ul>
