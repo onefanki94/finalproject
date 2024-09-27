@@ -111,7 +111,7 @@ h1, h2, h3, p {
 
 /* Product Section */
 .products, .products2 {
-    margin-top: 400px;
+    margin-top: 100px;
     padding: 60px 40px;
     text-align: center;
     background-color: #fff;
@@ -170,24 +170,32 @@ h1, h2, h3, p {
 }
 
 .carousel-goods-images{
+    align-items: center;
     display: flex;
-    width:400px;
+   
 
 }
 
+
 .product-item img{
+    width: 500px;
+    display: flex;
     border-radius: 10px;
     margin: 0 auto;
+    
 
 }
 
 .carousel-original {
+    display: flex; /* Flexbox로 설정 */
+    flex-direction: row; /* 자식 요소들을 가로로 배치 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
     max-width: 1800px;
-    align-items: center;
     overflow: hidden; /* 넘치는 이미지를 숨김 */
     position: relative;
+    height: auto; /* 높이를 자동으로 설정하여 요소가 중앙 정렬되도록 함 */
 }
-
 
 
 .carousel {
@@ -198,7 +206,9 @@ h1, h2, h3, p {
 }
 
 .carousel-wrapper {
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    display: flex;
     width: 80%;
 }
 
@@ -209,13 +219,13 @@ h1, h2, h3, p {
 }
 
 .carousel-images a {
-    min-width: 33.33%;
+    width: 33.33%;
     text-align: center;
     color: #333;
 }
 
 .carousel-images img {
-    width: 100%;
+    width: 80%;
     border-radius: 8px;
 }
 
