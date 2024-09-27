@@ -29,13 +29,13 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>
-                    <li class="submenu"><a href="#">신고목록</a></li>
+                    <li class="submenu"><a href="/master/reportinguserListMaster">신고목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>
-                    <li class="submenu"><a href="#">게시판</a></li>
+                    <li class="submenu"><a href="/master/boardMasterAll">게시판</a></li>
                     <li class="submenu"><a href="#">댓글</a></li>
-                    <li class="submenu"><a href="#">리뷰</a></li>
+                    <li class="submenu"><a href="/master/boardMasterReviewAll">리뷰</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">기타관리</a>
@@ -59,6 +59,7 @@
                 <th>이메일</th>
                 <th>가입일</th>
                 <th>비밀번호 수정일</th>
+                <th>포인트내역</th>
                 <th>작업</th>
             </tr>
         </thead>
@@ -70,22 +71,25 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
-                <td>
-                    <button class="delete-btn">삭제</button>
-                </td>
-            </tr>
-            <tr>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>
             <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>
+                    <button class="delete-btn">삭제</button>
+                </td>
+            </tr>
+            <tr>
+                            <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
@@ -97,6 +101,7 @@
                             </td>
             </tr>
             <tr>
+                            <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
