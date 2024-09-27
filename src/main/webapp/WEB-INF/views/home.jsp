@@ -122,8 +122,59 @@
         </div>
       </div>
   </div>
+  <div class="mainContent2">
+    <div class="inc02">
+      <div class="inner">
+        <div class="tit">
+          <div class="control">
+            <div class="swiper-button-prev prev"><i data-feather="chevron-left"></i></div>
+            <p>함께 공유해요</p>
+            <div class="swiper-button-next next"><i data-feather="chevron-right"></i></div>
+          </div>
+          샘플장애인복지관의 특별하고 소중한 이야기를 소개합니다.
+        </div>
+        <div class="gall_slide">
+          <div class="swiper-container gall_list">
+            <ul class="swiper-wrapper">
+              <li class="swiper-slide">
+                <a href="">
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="">
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="">
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="">
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="">
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="pager_wrap">
+            <div class="swiper-pagination"></div>
+            <div class="more_box">
+              view more <a href="" class="more"><i data-feather="plus"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/js/home.js"></script>
