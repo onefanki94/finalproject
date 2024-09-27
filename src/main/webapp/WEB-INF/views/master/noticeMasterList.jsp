@@ -48,9 +48,9 @@
         </div>
     </nav>
 </div>
-<div class="anime-list-container">
+<div class="notice-list-container">
     <h2>공지사항 리스트</h2>
-    <table class="anime-list">
+    <table class="notice-list">
         <thead>
             <tr>
                 <th>No.</th>
@@ -117,7 +117,7 @@
             </tr>
         </tbody>
     </table>
-     <div class="aniPageing">페이징 영역</div>
+     <div class="noticePageing">페이징 영역</div>
 </div>
 </body>
 </html>
