@@ -1,86 +1,106 @@
+body {
+    background-color: black;
 
-.main {
-    overflow: hidden;
-    width: 800px;
+}
+
+.container {
+    max-width: 1920px;
+    /* 최대 너비 설정 */
     margin: 0 auto;
     /* 중앙 정렬 */
+
+}
+
+.div_ul {
     display: flex;
-    /* Flexbox 레이아웃 사용 */
-    gap: 3px;
-    /* 카드 간 간격 설정 */
+    /* Flexbox 사용 */
+    flex-wrap: wrap;
+    /* 카드가 여러 줄로 나뉘도록 설정 */
     justify-content: center;
-    /* 수평 중앙 정렬 */
-}
-
-.main_bar {
-    width: 1500px;
-    position: relative;
-    /* 카드의 상대 위치 설정 */
-    font-size: 1.5rem;
-    /* 텍스트 크기 설정 */
-    font-weight: bold;
-    /* 텍스트 두께 설정 */
+    /* 카드들을 중앙 정렬 */
     color: white;
-    /* 텍스트 색상 설정 */
-    text-align: center;
-    /* 텍스트 중앙 정렬 */
-    border-radius: 10px;
-    /* 모서리 둥글게 설정 */
-    padding: 1rem;
-    /* 내부 여백 설정 */
-    height: 150px;
-    /* 카드 고정 높이 설정 */
-    background-color: #00000052;
-    /* 카드 배경 색상 설정 (반투명) */
-    transition: 0.5s ease-in-out;
-    /* 애니메이션 효과 부여 */
 }
 
-/* hover 시 카드 크기 증가 */
-.main_bar:hover {
-    flex: 3;
-    /* hover 시 카드 크기 증가 */
+.div_li {
+    transition: transform 0.4s;
+    /* 변화의 속도 설정 */
+    width: 274.267px;
+    /* 카드의 고정 너비 설정 */
+    margin: 15px;
+    /* 카드 간격 */
+}
+
+.div_li:hover {
+    flex-grow: 2;
+    transform: scale(1.05);
+    /* 마우스 오버 시 5% 확대 */
+}
+
+#check-btn {
+    display: none;
+}
+
+#check-btn:checked~.menubars {
+    display: block;
+}
+
+.menubars {
+    display: none;
+}
+
+#check-btn {
+    display: none;
+}
+
+/*====================카테고리====================*/
+#check-btn {
+    display: none;
+    /* 체크박스를 숨깁니다 */
+}
+
+label {
     cursor: pointer;
-    /* 마우스 커서 포인터로 변경 */
+    /* 커서를 포인터로 변경하여 클릭 가능함을 나타냅니다 */
+    color: white;
+    /* 레이블 텍스트 색상 하얀색으로 설정 */
 }
 
-/* 반응형 스타일 */
-@media (max-width: 1920px) {
-    .main_bar {
-        flex: 1 1 30%;
-        /* 카드의 최소 너비를 30%로 설정 */
-        height: 150px;
-        /* 카드 높이 유지 */
-    }
+.menubars {
+    display: none;
+    /* 기본적으로 메뉴를 숨김 */
+    list-style-type: none;
+    /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    /* 패딩 제거 */
+    margin: 0;
+    /* 마진 제거 */
+    text-align: left;
+    /* 텍스트 왼쪽 정렬 */
 }
 
-@media (max-width: 1280px) {
-    .main_bar {
-        flex: 1 1 45%;
-        /* 카드의 최소 너비를 45%로 설정 */
-        height: 150px;
-        /* 카드 높이 유지 */
-    }
+#check-btn:checked+label+.menubars {
+    display: block;
+    /* 체크박스가 체크되면 메뉴를 표시 */
 }
 
-@media (max-width: 768px) {
-    .main_bar {
-        flex: 1 1 100%;
-        /* 카드의 최소 너비를 100%로 설정 */
-        height: 120px;
-        /* 카드의 높이를 줄임 */
-        font-size: 1.2rem;
-        /* 텍스트 크기 줄임 */
-    }
+.menubars li {
+    padding: 5px 0;
+    /* 리스트 아이템 간격 */
+    color: white;
+    /* 메뉴 항목 텍스트 색상 하얀색으로 설정 */
+
 }
 
-@media (max-width: 480px) {
-    .main_bar {
-        flex: 1 1 100%;
-        /* 카드의 너비를 100%로 설정 */
-        height: 100px;
-        /* 카드의 높이를 더 줄임 */
-        font-size: 1rem;
-        /* 텍스트 크기 더 줄임 */
-    }
+.submenu {
+    display: none;
+    /* 기본적으로 하위 메뉴를 숨김 */
+    padding-left: 20px;
+    /* 하위 메뉴 들여쓰기 */
+
+}
+
+.menu-item:checked+label+.submenu {
+    display: block;
+    /* 체크박스가 체크되면 하위 메뉴를 표시 */
+    list-style-type: none;
 }
