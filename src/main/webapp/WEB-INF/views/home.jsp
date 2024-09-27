@@ -126,48 +126,47 @@
     <div class="inc02">
       <div class="inner">
         <div class="tit">
+          <p class="content_title">New Goods</p>
           <div class="control">
             <div class="swiper-button-prev prev"><i data-feather="chevron-left"></i></div>
-            <p>함께 공유해요</p>
+            <p class="new_goods">새로운 굿즈를 만나보세요!</p>
             <div class="swiper-button-next next"><i data-feather="chevron-right"></i></div>
           </div>
-          샘플장애인복지관의 특별하고 소중한 이야기를 소개합니다.
+          당신을 위한 새로운 굿즈가 기다리고 있습니다.
         </div>
         <div class="gall_slide">
           <div class="swiper-container gall_list">
             <ul class="swiper-wrapper">
               <li class="swiper-slide">
                 <a href="">
-                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url('/img/main_img/goods1.png')"></div></div>
                 </a>
               </li>
               <li class="swiper-slide">
                 <a href="">
-                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url('/img/main_img/goods2.png')"></div></div>
                 </a>
               </li>
               <li class="swiper-slide">
                 <a href="">
-                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url('/img/main_img/goods3.png')"></div></div>
                 </a>
               </li>
               <li class="swiper-slide">
                 <a href="">
-                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url('/img/main_img/goods4.png')"></div></div>
                 </a>
               </li>
               <li class="swiper-slide">
                 <a href="">
-                  <div class="img_wrap"><div class="thum_img" style="background-image: url(https://co1137-res.shiningcorp.com/data/editor/2407/thumb-736ccff3f71ced47e0106f2103e2c1a2_1721960900_9954_690x.jpg)"></div></div>
+                  <div class="img_wrap"><div class="thum_img" style="background-image: url('/img/main_img/goods5.png')"></div></div>
                 </a>
               </li>
             </ul>
           </div>
           <div class="pager_wrap">
             <div class="swiper-pagination"></div>
-            <div class="more_box">
-              view more <a href="" class="more"><i data-feather="plus"></i></a>
-            </div>
+            <a class="more_btn" href="#">MORE VIEW</a>
           </div>
         </div>
       </div>

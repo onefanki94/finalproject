@@ -361,7 +361,7 @@ html {
   .inc01 {
   display: flex;
   position: relative;
-  margin: 200px auto 0;
+  margin: 200px auto;
   width: 1500px;
 }
 
@@ -373,7 +373,7 @@ html {
   font-size: 55px;
   font-weight: 700;
   line-height: 75px;
-  color: rgb(255, 255, 255, 0.2);
+  color: rgb(255, 255, 255, 0.5);
 }
 .inc01 .tit p span {
   color: var(--primary);
@@ -382,7 +382,7 @@ html {
   margin: 60px 0;
   font-size: 18px;
 }
-.inc01 .tit .more_btn {
+.inc01 .tit .more_btn, .inc02 .pager_wrap .more_btn {
   position: relative;
   display: flex;
   justify-content: center;
@@ -396,8 +396,9 @@ html {
   font-weight: 700;
   color: rgb(255, 255, 255, 0.3);
   transition: all 0.3s;
+  margin-left:40px;
 }
-.inc01 .tit .more_btn:after {
+.inc01 .tit .more_btn:after, .inc02 .pager_wrap .more_btn:after {
   position: absolute;
   top: 50%;
   left: calc(100% - 25px);
@@ -409,13 +410,13 @@ html {
   content: "";
   transition: all 0.3s;
 }
-.inc01 .tit .more_btn:hover {
+.inc01 .tit .more_btn:hover , .inc02 .pager_wrap .more_btn:hover{
   padding: 0 0 0 14px;
   border-color: var(--primary);
   color: #fff;
   background: var(--primary);
 }
-.inc01 .tit .more_btn:hover:after {
+.inc01 .tit .more_btn:hover:after, .inc02 .pager_wrap .more_btn:hover:after {
   left: 20px;
 }
 
@@ -557,11 +558,11 @@ html {
 .inc02 {
     overflow: hidden;
     position: relative;
-    padding: 120px 0 140px 0;
     font-size: 16px;
     line-height: 1.6;
     color: #666;
     font-family: var(--k-font);
+    background : black;
   }
   .inc02 * {
     letter-spacing: 0;
@@ -577,16 +578,15 @@ html {
     top: 0;
     width: 100%;
     height: 550px;
-    background: #fff9f0;
+    background: #0F0F0F;
     background-size: cover;
     background-position: 50% 40%;
-    border-radius: 0 200px 0 0;
     z-index: -1;
   }
   .inc02 .inner {
     width: 100%;
     max-width: 1500px;
-    margin: 0 auto;
+    margin: 100px auto;
   }
   .inc02 .inner .tit {
     width: max-content;
@@ -603,15 +603,15 @@ html {
   }
   .inc02 .inner .tit .control svg {
     height: 18px;
-    color: #111;
+    color: #575757;
   }
   .inc02 .inner .tit .control .swiper-button-next:after,
   .inc02 .control .swiper-button-prev:after {
     display: none;
   }
-  .inc02 .inner .tit p {
+  .inc02 .inner .tit .new_goods {
     padding-bottom: 20px;
-    color: #111;
+    color: rgb(255,255,255,0.9);
     font-weight: 800;
     font-size: 38px;
   }
@@ -667,7 +667,7 @@ html {
     display: flex;
     align-items: center;
     gap: 20px;
-    color: #111;
+    color:rgb(255,255,255,0.3);
     font-weight: 700;
   }
   .inc02 .inner .more {
@@ -697,8 +697,7 @@ html {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e1e1e1;
+    background: #0F0F0F;
     cursor: pointer;
   }
   .inc02 .control .swiper-button-next:after,
@@ -856,3 +855,10 @@ html {
     }
   }
   /* 반응형 [e] */
+
+.content_title{
+  margin-bottom : 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+}
