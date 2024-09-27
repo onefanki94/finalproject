@@ -21,3 +21,5 @@ var main_slide = new Swiper(".main_slide", {
       disableOnInteraction: false,
     },
 });
+
+AOS.init();
