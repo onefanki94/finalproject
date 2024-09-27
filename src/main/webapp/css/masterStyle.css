@@ -321,7 +321,6 @@ nav {
 }
 
 // 관리자페이지 - 애니관리 - 애니목록 - 추가
-/* 기본 스타일 */
 .aniAdd {
     width: 100%;
     max-width: 800px;
@@ -339,19 +338,18 @@ nav {
     margin-bottom: 20px;
 }
 
-/* 레이블과 입력 필드 한 줄 배치 */
 .aniAdd form > div {
     display: flex;
     align-items: center;
-    margin-bottom: 15px; /* 각 항목 사이의 간격 */
+    margin-bottom: 15px;
     margin-left : 200px;
     margin-right : 150px;
 }
 
 .aniAdd label {
-    width: 150px; /* 라벨의 고정 너비 */
-    margin-right: 10px; /* 입력 필드와 라벨 사이의 간격 */
-    text-align: right; /* 라벨 텍스트 오른쪽 정렬 */
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
     font-size: 14px;
     color: #555;
 }
@@ -359,7 +357,7 @@ nav {
 .aniAdd input,
 .aniAdd select,
 .aniAdd textarea {
-    flex: 1; /* 입력 필드가 남은 공간을 채우도록 */
+    flex: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -367,21 +365,19 @@ nav {
     color: #333;
 }
 
-/* 텍스트 영역 크기 변경 방지 */
 .aniAdd textarea {
     resize: none;
 }
 
-/* 파일 선택 필드 스타일 */
 .aniAdd input[type="file"] {
     padding: 5px;
-    border: none; /* 기본적으로 파일 입력에는 경계가 필요 없으므로 제거 */
+    border: none;
 }
 
 .contentdiv textarea {
     height : 450px;
 }
-/* 제출 버튼 스타일 */
+
 .aniAdd input[type="submit"] {
     background-color: #4CAF50;
     color: white;
@@ -400,8 +396,6 @@ nav {
 .aniAdd input[type="submit"]:hover {
     background-color: #45a049;
 }
-
-
 
 // 관리자 페이지 - 굿즈관리 - 굿즈목록 CSS
 .store-list-container {
@@ -905,4 +899,77 @@ nav {
     justify-content : center;
     height : 30px;
     border : 1px solid gray;
+}
+
+// Dashboard - 기타관리 - 공지사항
+.noticeAdd {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.noticeAdd h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.noticeAdd form > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left : 200px;
+    margin-right : 150px;
+}
+
+.noticeAdd label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 14px;
+    color: #555;
+}
+
+.noticeAdd input,
+.noticeAdd textarea {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.noticeAdd textarea {
+    resize: none;
+    height : 450px;
+}
+
+.noticeAdd input[type="file"] {
+    padding: 5px;
+    border: none;
+}
+
+.noticeAdd input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    margin-left : 300px;
+    margin-right : 150px;
+}
+
+.noticeAdd input[type="submit"]:hover {
+    background-color: #45a049;
 }

@@ -109,4 +109,19 @@ public class masterController {
         mav.setViewName("master/noticeMasterList");
         return mav;
     }
+    //  Dashboard - 기타관리 - 공지사항 - 추가
+    @GetMapping("/noticeAddMaster")
+    public ModelAndView noticeAddMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/noticeAddMaster");
+        return mav;
+    }
+
+    //  Dashboard - 기타관리 - 공지사항 - 수정
+    @GetMapping("/noticeEditMaster")
+    public ModelAndView noticeEditMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/noticeEditMaster");
+        return mav;
+    }
 }

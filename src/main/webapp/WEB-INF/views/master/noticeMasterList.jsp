@@ -71,8 +71,8 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
-                    <button class="add-btn"><a href="/master/aniAddMaster">추가</a></button>
-                    <button class="edit-btn">수정</button>
+                    <button class="add-btn"><a href="/master/noticeAddMaster">추가</a></button>
+                    <button class="edit-btn"><a href="/master/noticeEditMaster">수정</a></button>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>
