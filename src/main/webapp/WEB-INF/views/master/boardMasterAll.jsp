@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>DashBoard - 주문 내역 리스트</title>
-<link href="/css/masterStyle.css" rel="stylesheet" type="text/css" />
+<title>DashBoard - 게시판 전체 목록</title>
+<link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
 <div class="mastermain">
@@ -48,18 +48,19 @@
         </div>
     </nav>
 </div>
-<div class="orderManagement">
-    <h2>주문 내역 리스트</h2>
+<div class="boardManagement">
+    <h2>게시판 전체 목록</h2>
     <table>
         <thead>
             <tr>
-                <th>주문 번호</th>
-                <th>사용자 이름</th>
-                <th>상품 이름</th>
-                <th>수량</th>
-                <th>가격</th>
-                <th>상태</th>
-                <th>주문 일자</th>
+                <th>No.</th>
+                <th>카테고리</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+                <th>좋아요</th>
                 <th>작업</th>
             </tr>
         </thead>
@@ -72,18 +73,6 @@
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
-                    <td>
-                        <a href="#" class="btn btn-info">상세보기</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
@@ -98,12 +87,28 @@
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>
+                        <a href="#" class="btn btn-info">상세보기</a>
+                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
@@ -119,4 +124,4 @@
         </tbody>
     </table>
 </div>
-  <div class="orderPageing">페이징 영역</div>
+  <div class="boardPageing">페이징 영역</div>

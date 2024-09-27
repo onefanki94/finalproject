@@ -29,7 +29,7 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>
-                    <li class="submenu"><a href="#">신고목록</a></li>
+                    <li class="submenu"><a href="/master/reportinguserListMaster">신고목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>

@@ -69,4 +69,28 @@ public class masterController {
             mav.setViewName("master/orderMasterList");
             return mav;
         }
+
+        // Dashboard - 신고관리 - 신고목록 리스트
+        @GetMapping("/reportinguserListMaster")
+        public ModelAndView reportinguserListMaster(){
+            mav = new ModelAndView();
+            mav.setViewName("master/reportinguserListMaster");
+            return mav;
+        }
+
+        //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
+        @GetMapping("/boardMasterAll")
+        public ModelAndView boardMasterAll(){
+            mav = new ModelAndView();
+            mav.setViewName("master/boardMasterAll");
+            return mav;
+        }
+
+    //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
+    @GetMapping("/boardMasterReviewAll")
+    public ModelAndView boardMasterReviewAll(){
+        mav = new ModelAndView();
+        mav.setViewName("master/boardMasterReviewAll");
+        return mav;
+    }
 }

@@ -29,13 +29,13 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>
-                    <li class="submenu"><a href="#">신고목록</a></li>
+                    <li class="submenu"><a href="/master/reportinguserListMaster">신고목록</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>
-                    <li class="submenu"><a href="#">게시판</a></li>
+                    <li class="submenu"><a href="/master/boardMasterAll">게시판</a></li>
                     <li class="submenu"><a href="#">댓글</a></li>
-                    <li class="submenu"><a href="#">리뷰</a></li>
+                    <li class="submenu"><a href="/master/boardMasterReviewAll">리뷰</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">기타관리</a>
@@ -49,7 +49,7 @@
     </nav>
 </div>
 <div class="reportinguser-list-container">
-    <h2>신고 회원 전체 목록</h2>
+    <h2>신고 계정 목록</h2>
     <table class="reportinguser-list">
         <thead>
             <tr>
