@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../inc/store_header.jspf"%>
+<%@include file="/WEB-INF/inc/store_header.jspf"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -32,16 +32,6 @@ $(document).ready(function(){
 
 </script>
 
-
-
-<body>
-
-<header class="header">
-    <div class="logo">
-        <a href="#">AniWave Shop</a>
-    </div>
-    
-</header>
 
 
 <!-- 배너 -->
@@ -138,7 +128,7 @@ $(document).ready(function(){
 
 <!-- More Products Section -->
 <section class="products2">
-    <h2>More Products</h2>
+    <h2>NEW #신상굿즈</h2>
     <div class="carousel">
         <button class="carousel-control prev" onclick="moveSlide('more-products', -1)">&#10094;</button>
         <div class="carousel-wrapper">
