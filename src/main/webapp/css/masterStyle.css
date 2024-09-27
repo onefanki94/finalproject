@@ -563,3 +563,219 @@ nav {
     height : 30px;
     border : 1px solid gray;
 }
+
+// Dashboard - 신고관리 - 신고목록
+.reportinguserList-list-container {
+    padding: 20px;
+}
+
+.reportinguserList-list-container h2 {
+    margin : 20 auto;
+    padding : 20px;
+    background-color : beige;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+}
+
+.reportinguserList-list {
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin : 0 auto;
+    margin-right : 100px;
+    width : 100%;
+    max-width : 1500px;
+}
+
+.reportinguserList-list th, .reportinguserList-list td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.reportinguserList-list th {
+    background-color: #343a40;
+    color: white;
+}
+
+.reportinguserList-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.reportinguserList-list tr:hover {
+    background-color: #ddd;
+}
+
+.memo-btn, .delete-btn{
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.memo-btn {
+    background-color: #E6E6FA;
+    color: black;
+}
+
+.memo-btn a:link, .memo-btn a:visited {
+    text-decoration : none;
+    color : black;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: black;
+}
+
+.memo-btn:hover{
+    background-color: #888;
+    text-decoration : none;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.reportinguserListPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
+}
+
+// Dashboard - 게시판,댓글 ,리뷰 - 게시판
+.boardReviewManagement {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.boardReviewManagement h2 {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+    text-align : center;
+}
+
+.boardReviewManagement table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+}
+
+.boardReviewManagement th, .boardReviewManagement td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.boardReviewManagement th {
+    background-color: #343a40;
+    width : 14.2827%;
+    color: white;
+}
+
+.boardReviewManagement a.btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+
+.boardReviewManagement a.btn-info {
+    background-color: #2196F3;
+}
+
+.boardReviewManagement a.btn-danger {
+    background-color: #f44336;
+}
+
+.boardReviewPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
+}
+
+// Dashboard - 게시판,댓글 ,리뷰 - 게시판
+.boardManagement {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.boardManagement h2 {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+    text-align : center;
+}
+
+.boardManagement table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+}
+
+.boardManagement th, .boardManagement td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.boardManagement th {
+    background-color: #343a40;
+    color: white;
+}
+
+.boardManagement a.btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+
+.boardManagement a.btn-info {
+    background-color: #2196F3;
+}
+
+.boardManagement a.btn-danger {
+    background-color: #f44336;
+}
+
+.boardPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
+}
