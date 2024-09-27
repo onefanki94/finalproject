@@ -120,7 +120,7 @@ h1, h2, h3, p {
 .products h2, .products2 h2 {
     font-size: 48px;
     margin-bottom: 40px;
-}
+}   
 
 .product-grid {
     display: grid;
@@ -129,7 +129,8 @@ h1, h2, h3, p {
 }
 
 .product {
-    width: 300px;
+    width: 250px;
+    height: 250px;
     background-color: #f9f9f9;
     padding: 30px;
     text-align: center;
@@ -145,7 +146,7 @@ h1, h2, h3, p {
 
 .product img {
     width: 100%;
-    height: 350px;
+    height: 170px;
     object-fit: cover;
     margin-bottom: 20px;
 
@@ -156,24 +157,24 @@ h1, h2, h3, p {
     margin-bottom: 10px;
 }
 
-.product p {
-    font-size: 22px;
-    color: #ff5722;
-    margin-bottom: 10px;
-}
+
 
 /* Original Goods Section */
 .original-goods {
     padding: 60px 40px;
     text-align: center;
     margin: 0 auto;
+    transition: transform 0.5s ease-in-out;
 }
 
 .carousel-goods-images{
     align-items: center;
     display: flex;
-   
 
+}
+
+.orginal-goods img:hover {
+    transform: scale(1.2); 
 }
 
 
@@ -182,19 +183,19 @@ h1, h2, h3, p {
     display: flex;
     border-radius: 10px;
     margin: 0 auto;
-    
+    transition: transform 0.5s ease-in-out; 
 
 }
 
 .carousel-original {
-    display: flex; /* Flexbox로 설정 */
-    flex-direction: row; /* 자식 요소들을 가로로 배치 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center;
     max-width: 1800px;
-    overflow: hidden; /* 넘치는 이미지를 숨김 */
+    overflow: hidden; 
     position: relative;
-    height: auto; /* 높이를 자동으로 설정하여 요소가 중앙 정렬되도록 함 */
+    height: auto; 
 }
 
 
@@ -249,7 +250,7 @@ h1, h2, h3, p {
     right: 10px;
 }
 
-/* MD's pick Section */
+/* MD news Section */
 .md_pick {
     padding: 60px 40px;
     text-align: center;
@@ -270,7 +271,7 @@ h1, h2, h3, p {
 
 .md-images {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+  
 }
 
 .md-images a {
@@ -282,6 +283,11 @@ h1, h2, h3, p {
 .md-images img {
     width: 100%;
     border-radius: 8px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.md-images img:hover {
+    transform: scale(1.2); 
 }
 
 .md-control {

@@ -22,22 +22,11 @@
 </head>
 
 
-<script>
-
-$(document).ready(function(){
-  $('.carousel-banner-images').slick({
-   
-  });
-});    
-
-</script>
-
-
 
 <!-- 배너 -->
 <section class="banner" id="banner">
     <div class="carousel-banner-images" id="slider-div">
-        <div class="banner1">
+        <div class="bnaner1">
         <a href="bannerDetail1.jsp">
             <img src="img/store/banner1.png" alt="Main Banner1">
         </a>
@@ -69,25 +58,25 @@ $(document).ready(function(){
                     <a href="productDetail1.jsp">
                         <img src="img/store/f1.png" alt="Product 1">
                     </a>
-                    <h3>Product 1</h3>
+                    
                 </div>
                 <div class="product">
                     <a href="productDetail2.jsp">
                         <img src="img/store/f2.png" alt="Product 2">
                     </a>
-                    <h3>Product 2</h3>                
+                                
                 </div>
                 <div class="product">
                     <a href="productDetail3.jsp">
                         <img src="img/store/f3.png" alt="Product 3">
                     </a>
-                    <h3>Product 3</h3>            
+                          
                 </div>
                 <div class="product">
                     <a href="productDetail4.jsp">
                         <img src="img/store/f4.png" alt="Product 4">
                     </a>
-                    <h3>Product 4</h3>  
+                   
                 </div>
             </div>
         </div>
@@ -137,25 +126,25 @@ $(document).ready(function(){
                     <a href="productDetail1.jsp">
                         <img src="img/store/f5.png" alt="Product 1">
                     </a>
-                    <h3>Product 1</h3>
+               
                 </div>
                 <div class="product">
                     <a href="productDetail2.jsp">
                         <img src="img/store/f6.png" alt="Product 2">
                     </a>
-                    <h3>Product 2</h3>        
+                       
                 </div>
                 <div class="product">
                     <a href="productDetail3.jsp">
                         <img src="img/store/f7.png" alt="Product 3">
                     </a>
-                    <h3>Product 3</h3>                 
+                              
                 </div>
                 <div class="product">
                     <a href="productDetail4.jsp">
                         <img src="img/store/f8.png" alt="Product 4">
                     </a>
-                    <h3>Product 4</h3>           
+                     
                 </div>
             </div>
         </div>
