@@ -34,12 +34,12 @@
                 <ul>
                     <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>
                     <li class="submenu"><a href="/master/boardMasterAll">게시판</a></li>
-                    <li class="submenu"><a href="#">댓글</a></li>
+                    <li class="submenu"><a href="/master/boardMasterReplyAll">댓글</a></li>
                     <li class="submenu"><a href="/master/boardMasterReviewAll">리뷰</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">기타관리</a>
-                    <li class="submenu"><a href="#">공지사항</a></li>
+                    <li class="submenu"><a href="/master/noticeMasterList">공지사항</a></li>
                     <li class="submenu"><a href="#">문의사항</a></li>
                     <li class="submenu"><a href="#">FAQ</a></li>
                     <li class="submenu"><a href="#">이벤트</a></li>
