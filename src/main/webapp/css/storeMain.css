@@ -73,7 +73,7 @@ h1, h2, h3, p {
 .carousel-banner-images img {
     width: 100%; /* 부모 요소의 폭에 맞춤 */
     height: 800px; /* 자동으로 높이를 설정하여 비율 유지 */
-   
+
 }
 
 .carousel-banner-image1 {
@@ -148,7 +148,7 @@ h1, h2, h3, p {
     height: 350px;
     object-fit: cover;
     margin-bottom: 20px;
-   
+
 }
 
 .product h3 {
@@ -172,7 +172,7 @@ h1, h2, h3, p {
 .carousel-goods-images{
     display: flex;
     width:400px;
-    
+
 }
 
 .product-item img{
@@ -203,7 +203,7 @@ h1, h2, h3, p {
 }
 
 .carousel-images {
-    
+
     display: flex;
     transition: transform 0.5s ease-in-out;
 }

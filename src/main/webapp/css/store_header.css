@@ -1,0 +1,232 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+:root{--k-font:'Pretendard';--e-font:'Outfit'}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "pretendard";
+}
+
+body {
+  background: rgba(244, 244, 244, 0.8);
+  font-family:var(--e-font),var(--k-font);
+}
+
+
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+span {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+header {
+  position: sticky;
+  top: -75px;
+  background: rgba(244, 244, 244, 0.8);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  height: 150px;
+  padding: 0 50px;
+  margin: 0 auto;
+  max-width: 1920px;
+  z-index: 100;
+}
+
+header a {
+  color: #666666;
+}
+
+header .col01 {
+  width: 100%;
+  padding-top: 30px;
+  clear: both;
+}
+
+header .col01:before {
+  display: block;
+  overflow: hidden;
+  height: 1px;
+  margin-top: -1px;
+  content: "";
+}
+
+header .sh_logo {
+  position: relative;
+  z-index: 20;
+  float: left;
+  margin-right: 25px;
+}
+
+.sh_logo img {
+  width: 160px;
+  height: 35px;
+}
+
+header .nav {
+  float: left;
+  padding-top: 8px;
+}
+
+header .nav li {
+  display: inline-block;
+  margin-right: 12px;
+}
+
+header .nav a {
+  font-size: 19px;
+}
+
+header .nav a.active {
+  color: #000;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+header .nav_util {
+  float: right;
+  padding-top: 8px;
+}
+
+header .nav_util li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+header .nav_util li a {
+  font-size: 12px;
+}
+
+header .col02 {
+  width: 100%;
+  clear: both;
+  padding-top: 8px;
+}
+
+header .col02:before {
+  display: block;
+  overflow: hidden;
+  height: 1px;
+  margin-top: -1px;
+  content: "";
+}
+
+.fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 75px;
+  background: rgba(244, 244, 244, 0.8);
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+}
+
+header.fixed .col01 {
+  display: none;
+}
+
+header.fixed .col02 {
+  padding-top: 1px;
+}
+
+.snav {
+  overflow: hidden;
+  float: left;
+  padding-top: 26px;
+}
+
+.snav ul li {
+  position: relative;
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.snav ul li.check:before {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 100%;
+  background-color: #333;
+  content: "";
+}
+
+.snav ul li a {
+  font-size: 15px;
+}
+
+.snav ul li .active {
+  color: #000;
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) and (pointer: fine) {
+  .snav ul li :hover {
+    color: #999;
+    font-weight: 400;
+    padding: 4px;
+    transition: all 0.3s ease-out;
+  }
+}
+
+.mymenu {
+  float: right;
+  overflow: hidden;
+  margin: 26px 0 0;
+}
+
+.mymenu li {
+  float: left;
+  line-height: 20px;
+  margin-left: 12px;
+}
+
+.mymenu li.order,
+.mymenu li.my {
+  padding-left: 3px;
+  background-size: 24px;
+}
+
+.mymenu li a {
+  font-size: 15px;
+  color: #666666 !important;
+}
+
+@media (min-width: 1024px) and (pointer: fine) {
+  .mymenu li a:hover {
+    color: #000 !important;
+    font-weight: 700;
+    padding: 2px;
+    transition: all 0.3s ease-out;
+  }
+}
+
+.fa-solid {
+  margin-right: 5px;
+  color: #666666;
+}
