@@ -38,6 +38,7 @@
         <script src="js/storeMain.js"></script>
 </head>
 
+<<<<<<< HEAD
 <!-- 배너 -->
 <section class="banner" id="banner">
     <div class="carousel-banner-images" id="slider-div">
@@ -45,6 +46,17 @@
             <a href="bannerDetail1.jsp">
                 <img src="img/store/banner1.png" alt="Main Banner1">
             </a>
+=======
+
+
+<!-- 배너 -->
+<section class="banner" id="banner">
+    <div class="carousel-banner-images" id="slider-div">
+        <div class="bnaner1">
+        <a href="bannerDetail1.jsp">
+            <img src="img/store/banner1.png" alt="Main Banner1">
+        </a>
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
         </div>
         <div class="slide">
             <a href="bannerDetail2.jsp">
@@ -73,13 +85,21 @@
                     <a href="productDetail1.jsp">
                         <img src="img/store/f1.png" alt="Product 1">
                     </a>
+<<<<<<< HEAD
               
+=======
+                    
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
                 <div class="product">
                     <a href="productDetail2.jsp">
                         <img src="img/store/f2.png" alt="Product 2">
                     </a>
+<<<<<<< HEAD
                             
+=======
+                                
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
                 <div class="product">
                     <a href="productDetail3.jsp">
@@ -91,7 +111,11 @@
                     <a href="productDetail4.jsp">
                         <img src="img/store/f4.png" alt="Product 4">
                     </a>
+<<<<<<< HEAD
                   
+=======
+                   
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
             </div>
         </div>
@@ -141,25 +165,41 @@
                     <a href="productDetail1.jsp">
                         <img src="img/store/f5.png" alt="Product 1">
                     </a>
+<<<<<<< HEAD
          
+=======
+               
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
                 <div class="product">
                     <a href="productDetail2.jsp">
                         <img src="img/store/f6.png" alt="Product 2">
                     </a>
+<<<<<<< HEAD
          
+=======
+                       
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
                 <div class="product">
                     <a href="productDetail3.jsp">
                         <img src="img/store/f7.png" alt="Product 3">
                     </a>
+<<<<<<< HEAD
                                
+=======
+                              
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
                 <div class="product">
                     <a href="productDetail4.jsp">
                         <img src="img/store/f8.png" alt="Product 4">
                     </a>
+<<<<<<< HEAD
                        
+=======
+                     
+>>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
                 </div>
             </div>
         </div>
