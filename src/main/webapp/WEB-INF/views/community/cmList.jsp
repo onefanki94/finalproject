@@ -18,67 +18,69 @@
 
 
         <body>
-            <div class="notice_tab">
-                <img src="" class="background-img">
-                <ul class="list">
-                    <li class="selected">
-                        <a href="#tap1" class="btn">공지사항</a>
-                    </li>
-                    <li>
-                        <a href="#tap2" class="btn">자주 묻는 질문(FAQ)</a>
-                    </li>
-                    <li>
-                        <a href="#tap3" class="btn">1:1 문의</a>
-                    </li>
-                    <li>
-                        <a href="#tap4" class="btn">이용약관</a>
-                    </li>
-                </ul>
+            <div class="top_info">
+                <div class="cm_tab">
+                <h1>커뮤니티</h1>
+                    <ul class="list">
+                        <li class="selected">
+                            <a href="#tap1" class="btn">자랑</a>
+                        </li>
+                        <li>
+                            <a href="#tap2" class="btn">덕질</a>
+                        </li>
+                        <li>
+                            <a href="#tap3" class="btn">친목</a>
+                        </li>
+                        <li>
+                            <a href="#tap4" class="btn">팬아트</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
 
             <div class="container">
-                <div class="notice" id="content">
-                    <h1>공지사항</h1>
-                    <div class="search-area">
-                            <div class="left-area">
-                                <div class="head-box">
-                                    <select id="sel-head">
-                                        <option value="head1">말머리 1</option>
-                                        <option value="head2">말머리 2</option>
-                                    </select>
-                                </div>
-                                <div class="filter-box">
-                                    <select id="selectDirection">
-                                        <option value="DEFAULT">최신글순</option>
-                                        <option value="RECENT_REPLY">최신댓글순</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="cummunity" id="content">
 
-                            <div class="right-area">
-                                <div class="select-box">
-                                    <select id="selectCategory">
-                                        <option value="THREAD_TITLE_AND_CONTENT">제목 + 내용</option>
-                                        <option value="THREAD_TITLE">제목</option>
-                                        <option value="THREAD_CONTENT">내용</option>
-                                    </select>
-                                </div>
-                                <div class="search">
-                                    <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
-                                    <button type="button" id="btnSearch">검색</button>
-                                </div>
+                    <div class="search-area">
+                        <div class="left-area">
+                            <div class="head-box">
+                                <select id="sel-head">
+                                    <option value="head1">말머리 1</option>
+                                    <option value="head2">말머리 2</option>
+                                </select>
+                            </div>
+                            <div class="filter-box">
+                                <select id="selectDirection">
+                                    <option value="DEFAULT">최신글순</option>
+                                    <option value="RECENT_REPLY">최신댓글순</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="right-area">
+                            <div class="select-box">
+                                <select id="selectCategory">
+                                    <option value="THREAD_TITLE_AND_CONTENT">제목 + 내용</option>
+                                    <option value="THREAD_TITLE">제목</option>
+                                    <option value="THREAD_CONTENT">내용</option>
+                                </select>
+                            </div>
+                            <div class="search">
+                                <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
+                                <button type="button" id="btnSearch">검색</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 공지사항 리스트 -->
+
+                    <!-- 커뮤니티 리스트 -->
                     <div class="content active" id="tap1"> <!-- 기본적으로 active 클래스를 추가 -->
                         <div class="noticeList">
 
                             <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                             <div class="row">
-                                <div class="col-sm-1 p-2">[공지]</div>
+                                <div class="col-sm-1 p-2">[자랑]</div>
                                 <div class="col-sm-7 p-2"><a href="/boards/view/1">제목</a></div>
                                 <div class="col-sm-2 p-2">20024.01.01</div>
                                 <div class="col-sm-2 p-2">3</div>
@@ -98,7 +100,7 @@
 
                             <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                             <div class="row">
-                                <div class="col-sm-1 p-2">[질문]</div>
+                                <div class="col-sm-1 p-2">[덕질]</div>
                                 <div class="col-sm-7 p-2"><a href="/boards/view/1">띠롱</a></div>
                                 <div class="col-sm-2 p-2">20024.01.01</div>
                                 <div class="col-sm-2 p-2">3</div>
@@ -118,14 +120,14 @@
 
                             <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                             <div class="row">
-                                <div class="col-sm-1 p-2">[1:1]</div>
+                                <div class="col-sm-1 p-2">[친목]</div>
                                 <div class="col-sm-7 p-2"><a href="/boards/view/1">니ㅏ런ㅇ라ㅣ</a></div>
                                 <div class="col-sm-2 p-2">20024.01.01</div>
                                 <div class="col-sm-2 p-2">3</div>
                             </div>
                             <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                             <div class="row">
-                                <div class="col-sm-1 p-2">[1:1]</div>
+                                <div class="col-sm-1 p-2">[친목]</div>
                                 <div class="col-sm-7 p-2"><a href="/boards/view/1">닐아ㅓ미낭러</a></div>
                                 <div class="col-sm-2 p-2">20024.01.01</div>
                                 <div class="col-sm-2 p-2">3</div>
@@ -138,14 +140,14 @@
 
                             <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                             <div class="row">
-                                <div class="col-sm-1 p-2">[질문]</div>
+                                <div class="col-sm-1 p-2">[팬아트]</div>
                                 <div class="col-sm-7 p-2"><a href="/boards/view/1">띠롱</a></div>
                                 <div class="col-sm-2 p-2">20024.01.01</div>
                                 <div class="col-sm-2 p-2">3</div>
                             </div>
                             <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                             <div class="row">
-                                <div class="col-sm-1 p-2">[질문]</div>
+                                <div class="col-sm-1 p-2">[팬아트]</div>
                                 <div class="col-sm-7 p-2"><a href="/boards/view/1">따란</a></div>
                                 <div class="col-sm-2 p-2">20024.01.01</div>
                                 <div class="col-sm-2 p-2">3</div>
@@ -156,7 +158,7 @@
 
 
     <script>
-        const tabList = document.querySelectorAll('.notice_tab .list li');
+        const tabList = document.querySelectorAll('.cm_tab .list li');
         const contentList = document.querySelectorAll('.content');
 
         tabList.forEach((tab, index) => {
