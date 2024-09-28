@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="/WEB-INF/inc/store_header.jspf" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
