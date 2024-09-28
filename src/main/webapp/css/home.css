@@ -397,8 +397,12 @@ html {
   font-weight: 700;
   color: rgb(255, 255, 255, 0.3);
   transition: all 0.3s;
-  margin-left:40px;
 }
+
+.inc02 .pager_wrap .more_btn{
+    margin-left:40px;
+}
+
 .inc01 .tit .more_btn:after, .inc02 .pager_wrap .more_btn:after {
   position: absolute;
   top: 50%;
@@ -553,6 +557,11 @@ html {
     padding-right: 20%;
     font-size: 14px;
   }
+}
+
+.pl span{
+    display:inline-block;
+    padding-bottom:5px;
 }
 
 /* 최신 굿즈 */
@@ -864,4 +873,3 @@ html {
   color: var(--primary);
 }
 
-/* 커뮤니티,  */
