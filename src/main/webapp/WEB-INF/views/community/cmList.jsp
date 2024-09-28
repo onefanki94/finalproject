@@ -40,13 +40,37 @@
             <div class="container">
                 <div class="notice" id="content">
                     <h1>공지사항</h1>
-                    <div class="tools">
-                        <div class="search">
-                            <input type="text" id="textSearch" placeholder="검색어를 입력하세요." value>
-                            <button type="button" id="btnSearch">검색</button>
+                    <div class="search-area">
+                            <div class="left-area">
+                                <div class="head-box">
+                                    <select id="sel-head">
+                                        <option value="head1">말머리 1</option>
+                                        <option value="head2">말머리 2</option>
+                                    </select>
+                                </div>
+                                <div class="filter-box">
+                                    <select id="selectDirection">
+                                        <option value="DEFAULT">최신글순</option>
+                                        <option value="RECENT_REPLY">최신댓글순</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="right-area">
+                                <div class="select-box">
+                                    <select id="selectCategory">
+                                        <option value="THREAD_TITLE_AND_CONTENT">제목 + 내용</option>
+                                        <option value="THREAD_TITLE">제목</option>
+                                        <option value="THREAD_CONTENT">내용</option>
+                                    </select>
+                                </div>
+                                <div class="search">
+                                    <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
+                                    <button type="button" id="btnSearch">검색</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <!-- 공지사항 리스트 -->
                     <div class="content active" id="tap1"> <!-- 기본적으로 active 클래스를 추가 -->
