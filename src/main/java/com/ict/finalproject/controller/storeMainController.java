@@ -9,4 +9,10 @@ public class storeMainController {
  public String storeMain() {
      return "store/storeMain";
  }
+
+ 
+    @GetMapping("/storeList")
+ public String storeList(){
+    return "store/storeList";
+ } 
 }
