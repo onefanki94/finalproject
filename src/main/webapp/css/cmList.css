@@ -46,7 +46,7 @@ a:hover {
 .cm_tab .list li a{
     display:block;
     align-items:center;
-    color:#A4A4A4;;
+    color:#A4A4A4;
     font-size:18px;
 }
 
@@ -54,6 +54,7 @@ a:hover {
 .cm_tab .list li.selected a {
     color: #FFE600;
     border-bottom: 2px solid #FFE600;
+    border-radius: 0;
 }
 
 
@@ -96,6 +97,7 @@ select {
 li{
     list-style:none;
 }
+
 
 
 .head-box{
