@@ -33,8 +33,8 @@
       <div class="inc01">
         <div class="tit aos-init aos-animate" data-aos="fade-left">
           <p><span>Recommend </span> List</p>
-          <div class="pl" style="color: #fff">
-            모두가 애니메이션을 즐기는 세상, <br />
+          <div class="pl" style="color: rgb(255,255,255,0.9)">
+            <span style="margin-bottom:5px">모두가 애니메이션을 즐기는 세상,</span> <br />
             sing2727님이 선호할만한 애니메이션을 만나보세요!
           </div>
           <a class="more_btn" href="#">MORE VIEW</a>
@@ -128,7 +128,7 @@
   <div class="mainContent2">
     <div class="inc02">
       <div class="inner">
-        <div class="tit" data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate" data-aos-offset="300" data-aos-easing="ease-out-cubic" data-aos-duration="1000">
+        <div class="tit" data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate" data-aos-easing="ease-out-cubic" data-aos-duration="700">
           <p class="content_title">New Goods</p>
           <div class="control">
             <div class="swiper-button-prev prev"><i data-feather="chevron-left"></i></div>
@@ -137,7 +137,7 @@
           </div>
           당신을 위한 새로운 굿즈가 기다리고 있습니다.
         </div>
-        <div class="gall_slide" data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate" data-aos-offset="300" data-aos-easing="ease-out-cubic" data-aos-duration="1000">
+        <div class="gall_slide" data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate" data-aos-easing="ease-out-cubic" data-aos-duration="700">
           <div class="swiper-container gall_list">
             <ul class="swiper-wrapper">
               <li class="swiper-slide">
@@ -176,6 +176,7 @@
     </div>
   </div>
   <div class="mainContent3"></div>
+  <div class="mainContent4"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>

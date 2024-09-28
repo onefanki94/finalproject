@@ -36,36 +36,6 @@ p{
 }
 
 
-/* Header Styles */
-/*.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 20px 40px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.logo a {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-}
-
-.nav ul {
-    display: flex;
-    list-style: none;
-}
-
-*//*.nav li {
-    margin-left: 30px;
-}*//*
-
-.nav a {
-    font-size: 18px;
-    color: #333;
-    padding: 10px;
-}*/
 
 /* Banner */
 
@@ -177,11 +147,6 @@ p{
     margin-bottom: 10px;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
-
 /* Original Goods Section */
 .original-goods {
     padding: 60px 40px;
@@ -193,14 +158,9 @@ p{
 .carousel-goods-images{
     align-items: center;
     display: flex;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     gap: 0.5%;
->>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 }
-=======
->>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
+
 
 .product-item img:hover {
     transform: scale(1.2); /* 호버 시 이미지 확대 */
@@ -215,13 +175,9 @@ p{
     width: 500px;
     display: flex;
     border-radius: 10px;
-<<<<<<< HEAD
     margin: 0 auto;
     transition: transform 0.5s ease-in-out; 
-=======
     margin: 0 auto;    
->>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
-
 }
 
 .carousel-original {
@@ -281,13 +237,10 @@ p{
 }
 
 
-<<<<<<< HEAD
 .next {
     right: 10px;
 }
 
-=======
->>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 /* MD news Section */
 .md_pick {
     padding: 60px 40px;
@@ -309,15 +262,12 @@ p{
 
 .md-images {
     display: flex;
-<<<<<<< HEAD
-  
-=======
     gap: 0.5%;
 }
 
-.md-images a:hover {
+
+.md-images img:hover {
     transform: scale(1.2); /* 호버 시 크기 증가 */
->>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 }
 
 .md-images a {
@@ -329,15 +279,7 @@ p{
 .md-images img {
     width: 100%;
     border-radius: 8px;
-<<<<<<< HEAD
-    transition: transform 0.5s ease-in-out;
-}
-
-.md-images img:hover {
-    transform: scale(1.2); 
-=======
     transition: transform 1.3s ease-in-out;
->>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 }
 
 .md-control {
@@ -375,7 +317,6 @@ p{
 
 .notification-content {
     font-size: 16px;
- 
 }
 
 .notification-title {
@@ -388,7 +329,6 @@ p{
 
 .notification-title p {
     font-size: 14px; /* 부제목 크기 조정 */
-   
 }
 
 .pagination {
