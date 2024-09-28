@@ -37,11 +37,7 @@
           <div class="snav_inner">
             <nav>
               <ul>
-<<<<<<< HEAD
-                <li class="check"><a class="active" href="/master/masterMain">홈</a></li>
-=======
                 <li class="check"><a class="active" href="/storeMain">홈</a></li>
->>>>>>> a36e272f832a38e600b168ab3e1183f21cfbfea7
                 <li class=""><a href="#">의류</a></li>
                 <li class=""><a href="#">완구/취미</a></li>
                 <li class=""><a href="#">문구/오피스</a></li>
