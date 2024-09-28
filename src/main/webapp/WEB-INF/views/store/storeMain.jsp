@@ -80,28 +80,24 @@ $(document).ready(function(){
                         <img src="img/store/f1.png" alt="Product 1">
                     </a>
                     <h3>Product 1</h3>
-                    <p>$19.99</p>
                 </div>
                 <div class="product">
                     <a href="productDetail2.jsp">
                         <img src="img/store/f2.png" alt="Product 2">
                     </a>
-                    <h3>Product 2</h3>
-                    <p>$29.99</p>
+                    <h3>Product 2</h3>                
                 </div>
                 <div class="product">
                     <a href="productDetail3.jsp">
                         <img src="img/store/f3.png" alt="Product 3">
                     </a>
-                    <h3>Product 3</h3>
-                    <p>$39.99</p>
+                    <h3>Product 3</h3>            
                 </div>
                 <div class="product">
                     <a href="productDetail4.jsp">
                         <img src="img/store/f4.png" alt="Product 4">
                     </a>
-                    <h3>Product 4</h3>
-                    <p>$49.99</p>
+                    <h3>Product 4</h3>  
                 </div>
             </div>
         </div>
@@ -131,7 +127,7 @@ $(document).ready(function(){
                 <div class="product-item">
                 <a href="detail3.jsp">
                     <img src="img/store/origingoods3.png" alt="Product 3">
-                    <p>나 혼자만 레벨업 : 어라이즈</p>
+                    <p>도쿄리벤저스 콜라보 굿즈 예약판매</p>
                 </a>
                 </div>
             </div>
@@ -149,31 +145,27 @@ $(document).ready(function(){
             <div class="carousel-images">
                 <div class="product">
                     <a href="productDetail1.jsp">
-                        <img src="product1.jpg" alt="Product 1">
+                        <img src="img/store/f5.png" alt="Product 1">
                     </a>
                     <h3>Product 1</h3>
-                    <p>$19.99</p>
                 </div>
                 <div class="product">
                     <a href="productDetail2.jsp">
-                        <img src="product2.jpg" alt="Product 2">
+                        <img src="img/store/f6.png" alt="Product 2">
                     </a>
-                    <h3>Product 2</h3>
-                    <p>$29.99</p>
+                    <h3>Product 2</h3>        
                 </div>
                 <div class="product">
                     <a href="productDetail3.jsp">
-                        <img src="product3.jpg" alt="Product 3">
+                        <img src="img/store/f7.png" alt="Product 3">
                     </a>
-                    <h3>Product 3</h3>
-                    <p>$39.99</p>
+                    <h3>Product 3</h3>                 
                 </div>
                 <div class="product">
                     <a href="productDetail4.jsp">
-                        <img src="product4.jpg" alt="Product 4">
+                        <img src="img/store/f8.png" alt="Product 4">
                     </a>
-                    <h3>Product 4</h3>
-                    <p>$49.99</p>
+                    <h3>Product 4</h3>           
                 </div>
             </div>
         </div>
@@ -183,7 +175,7 @@ $(document).ready(function(){
 
 
 
-<!-- MD's pick Section -->
+<!-- MD news Section -->
 <section class="md_pick">
     <h2>MD's pick</h2>
     <div class="md">
@@ -191,16 +183,16 @@ $(document).ready(function(){
         <div class="md-wrapper">
             <div class="md-images">
                 <a href="md1.jsp">
-                    <img src="product1.jpg" alt="Product 1">
-                    <p>MD's pick1</p>
+                    <img src="img/store/news1.png" alt="Product 1">
+                   
                 </a>
                 <a href="md2.jsp">
-                    <img src="product2.jpg" alt="Product 2">
-                    <p>MD's pick2</p>
+                    <img src="img/store/news2.png" alt="Product 2">
+                 
                 </a>
                 <a href="md3.jsp">
-                    <img src="product3.jpg" alt="Product 3">
-                    <p>MD's pick3</p>
+                    <img src="img/store/news3.png" alt="Product 3">
+                 
                 </a>
             </div>
         </div>

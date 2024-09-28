@@ -779,3 +779,130 @@ nav {
     height : 30px;
     border : 1px solid gray;
 }
+
+// Dashboard - 게시판,댓글 ,리뷰 - 리뷰
+.boardReviewManagement {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.boardReviewManagement h2 {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+    text-align : center;
+}
+
+.boardReviewManagement table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+}
+
+.boardReviewManagement th, .boardReviewManagement td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.boardReviewManagement th {
+    background-color: #343a40;
+    width : 14.2827%;
+    color: white;
+}
+
+.boardReviewManagement a.btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+
+.boardReviewManagement a.btn-info {
+    background-color: #2196F3;
+}
+
+.boardReviewManagement a.btn-danger {
+    background-color: #f44336;
+}
+
+.boardReviewPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
+}
+
+// Dashboard - 게시판,댓글 ,리뷰 - 댓글
+.boardReplyManagement {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.boardReplyManagement h2 {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+    text-align : center;
+}
+
+.boardReplyManagement table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left : 300px;
+    margin-right : 300px;
+}
+
+.boardReplyManagement th, .boardReplyManagement td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.boardReplyManagement th {
+    background-color: #343a40;
+    color: white;
+}
+
+.boardReplyManagement a.btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+
+.boardReplyManagement a.btn-info {
+    background-color: #2196F3;
+}
+
+.boardReplyManagement a.btn-danger {
+    background-color: #f44336;
+}
+
+.boardReplyPageing {
+    margin : 20 auto;
+    padding : 20px;
+    margin-right : 80px;
+    width : 100%;
+    max-width : 1500px;
+    display : flex;
+    justify-content : center;
+    height : 30px;
+    border : 1px solid gray;
+}

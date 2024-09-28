@@ -93,4 +93,20 @@ public class masterController {
         mav.setViewName("master/boardMasterReviewAll");
         return mav;
     }
+
+    //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
+    @GetMapping("/boardMasterReplyAll")
+    public ModelAndView boardMasterReplyAll(){
+        mav = new ModelAndView();
+        mav.setViewName("master/boardMasterReplyAll");
+        return mav;
+    }
+
+    //  Dashboard - 기타관리 - 공지사항 목록
+    @GetMapping("/noticeMasterList")
+    public ModelAndView noticeMasterList(){
+        mav = new ModelAndView();
+        mav.setViewName("master/noticeMasterList");
+        return mav;
+    }
 }

@@ -52,6 +52,7 @@ header {
   margin: 0 auto;
   max-width: 1920px;
   z-index: 100;
+  margin-left : 500px;
 }
 
 header a {
