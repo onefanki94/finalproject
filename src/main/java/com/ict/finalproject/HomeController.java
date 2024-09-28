@@ -13,10 +13,4 @@ public class HomeController {
         return "home";
 
     }
-
- @GetMapping("/storeMain")
- public String storeMain() {
-     return "store/storeMain";
- }
-
 }
