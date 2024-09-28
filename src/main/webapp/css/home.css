@@ -48,6 +48,7 @@ html {
   /* Mainslide */
   #mainVisual {
     position: relative;
+    z-index:10;
   }
   #mainVisual:after {
     position: absolute;
