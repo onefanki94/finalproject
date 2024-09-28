@@ -51,8 +51,7 @@ header {
   padding: 0 50px;
   margin: 0 auto;
   max-width: 1920px;
-  z-index: 100;
-  margin-left : 500px;
+  z-index: 2000;
 }
 
 header a {
