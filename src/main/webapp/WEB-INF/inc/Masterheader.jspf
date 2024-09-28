@@ -24,7 +24,11 @@
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">굿즈관리</a>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/inc/Masterheader.jspf
                     <li class="submenu"><a href="/master/storeMasterList">굿즈목록</a></li>
+=======
+                    <li class="submenu"><a href="">굿즈목록</a></li>
+>>>>>>> 092ba056d8016eef326035bfa6b6c9a93fe908e6:src/main/webapp/WEB-INF/inc/header.jspf
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>

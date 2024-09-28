@@ -16,7 +16,7 @@ body {
     /* Flexbox 사용 */
     flex-wrap: wrap;
     /* 카드가 여러 줄로 나뉘도록 설정 */
-    justify-content: center;
+    justify-content: flex-end;
     /* 카드들을 중앙 정렬 */
     color: white;
 }
@@ -24,7 +24,7 @@ body {
 .div_li {
     transition: transform 0.4s;
     /* 변화의 속도 설정 */
-    width: 274.267px;
+    width: 180%;
     /* 카드의 고정 너비 설정 */
     margin: 15px;
     /* 카드 간격 */
@@ -63,6 +63,8 @@ label {
     /* 커서를 포인터로 변경하여 클릭 가능함을 나타냅니다 */
     color: white;
     /* 레이블 텍스트 색상 하얀색으로 설정 */
+    margin-top: 70px;
+    /* 위쪽 여백 설정 */
 }
 
 .menubars {
@@ -79,16 +81,17 @@ label {
 }
 
 #check-btn:checked+label+.menubars {
-    display: block;
-    /* 체크박스가 체크되면 메뉴를 표시 */
+    display: flex;
+    /* 체크박스가 체크되면 메뉴를 가로로 표시 */
+    flex-direction: row;
+    /* 가로 방향으로 배치 */
 }
 
 .menubars li {
-    padding: 5px 0;
-    /* 리스트 아이템 간격 */
+    padding: 5px 15px;
+    /* 리스트 아이템 간격 및 여백 */
     color: white;
     /* 메뉴 항목 텍스트 색상 하얀색으로 설정 */
-
 }
 
 .submenu {
@@ -96,11 +99,59 @@ label {
     /* 기본적으로 하위 메뉴를 숨김 */
     padding-left: 20px;
     /* 하위 메뉴 들여쓰기 */
-
 }
 
 .menu-item:checked+label+.submenu {
     display: block;
     /* 체크박스가 체크되면 하위 메뉴를 표시 */
     list-style-type: none;
+    /* 기본 리스트 스타일 제거 */
 }
+
+/*==============================================*/
+.list_img_bg img {
+    width: 100%;
+    height: auto;
+    /* 비율을 유지하며 높이 자동 조정 */
+}
+
+/* 화면이 1920px 이상일 때 */
+@media (min-width: 1920px) {
+    .div_li {
+        width: 30%;
+        /* 3개씩 배치 */
+    }
+}
+
+/* 화면이 1280px 이상일 때 */
+@media (min-width: 1280px) and (max-width: 1919px) {
+    .div_li {
+        width: 80%;
+        /* 3개씩 배치 */
+    }
+}
+
+/* 화면이 768px 이상일 때 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .div_li {
+        width: 45%;
+        /* 화면이 줄어들면 2개씩 배치 */
+    }
+}
+
+/* 화면이 767px 이하일 때 */
+@media (max-width: 767px) {
+    .div_li {
+        width: 90%;
+        /* 모바일 화면에서는 1개씩 배치 */
+    }
+}
+/*=============09.28======================= */
+.customImage{
+        /* class가 customImage인 요소에 적용 */
+        width: 50px;
+        height: 50px;
+        background-color: rgba(12, 3, 3, 0);
+        border: 2px solid blue;
+        margin-top: 80px;
+    }

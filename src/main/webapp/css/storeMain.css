@@ -65,28 +65,16 @@ h1, h2, h3, p {
 }
 
 .carousel-banner-images {
-    display: flex;
     max-width:1800px; /* 최대 너비 설정 */
-    transition: transform 0.5s ease; /* 부드러운 전환 효과 */
+
 }
 
 .carousel-banner-images img {
     width: 100%; /* 부모 요소의 폭에 맞춤 */
     height: 800px; /* 자동으로 높이를 설정하여 비율 유지 */
-
+    object-fit: cover; 
 }
 
-.carousel-banner-image1 {
-    left: 0;
-}
-
-.carousel-banner-image2 {
-    left: 100%;
-}
-
-.carousel-banner-image3 {
-    left: 200%;
-}
 
 .carousel-button {
     position: absolute;
@@ -172,8 +160,10 @@ h1, h2, h3, p {
 .carousel-goods-images{
     align-items: center;
     display: flex;
-   
+}
 
+.product-item img:hover {
+    transform: scale(1.2); /* 호버 시 이미지 확대 */
 }
 
 
