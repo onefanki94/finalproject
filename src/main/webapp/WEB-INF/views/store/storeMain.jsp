@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
+<%@include file="/WEB-INF/inc/footer.jspf"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -71,12 +72,27 @@
     </div>
 </section>
 
-
-
+<!--Notification-->
+<section>
+<div class="notification">
+    <div class="notification-header">
+        <span class="icon">&#128365;</span> <!-- 알림 아이콘 -->
+        <span class="date">2024-09-25</span>
+    </div>
+    <div class="notification-content">
+        <p>[9월 20일, 9월 23일 입고] 예약 상품 배송 안내</p>
+    </div>
+    <div class="pagination">
+        <button class="prev">&lt;</button>
+        <span class="page-info">1 / 10</span>
+        <button class="next">&gt;</button>
+    </div>
+</section>
 
 <!-- Featured Products Section -->
 <section class="products">
     <h2>Hot #인기굿즈</h2>
+    <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
     <div class="carousel">
         <button class="carousel-control prev" onclick="moveSlide('featured-products', -1)">&#10094;</button>
         <div class="carousel-wrapper">
@@ -154,9 +170,11 @@
     </div>
 </section>
 
+
 <!-- More Products Section -->
 <section class="products2">
     <h2>NEW #신상굿즈</h2>
+    <p>[11월 15일] 신규입고상품 안내</p>
     <div class="carousel">
         <button class="carousel-control prev" onclick="moveSlide('more-products', -1)">&#10094;</button>
         <div class="carousel-wrapper">
@@ -211,7 +229,7 @@
 
 <!-- MD news Section -->
 <section class="md_pick">
-    <h2>MD's pick</h2>
+    <h2>MD news</h2>
     <div class="md">
         <button class="md-control prev" onclick="moveSlide('md_pick', -1)">&#10094;</button>
         <div class="md-wrapper">

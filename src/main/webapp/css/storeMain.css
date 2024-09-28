@@ -18,10 +18,23 @@ a {
     color: inherit;
 }
 
-h1, h2, h3, p {
+h1, h3{
     margin: 0;
     padding: 0;
 }
+
+h2{
+    text-align: left;  /* 텍스트를 왼쪽으로 정렬 */
+    padding-left: 15px; /* 필요에 따라 여백 조정 */
+    margin-bottom: 20px; /* 필요에 따라 하단 여백 조정 */
+}
+
+p{
+    text-align: left; 
+    font-weight: bold;
+    color:rgb(135, 138, 141)
+}
+
 
 /* Header Styles */
 .header {
@@ -72,6 +85,7 @@ h1, h2, h3, p {
 .carousel-banner-images img {
     width: 100%; /* 부모 요소의 폭에 맞춤 */
     height: 800px; /* 자동으로 높이를 설정하여 비율 유지 */
+    border-radius: 10px;
     object-fit: cover; 
 }
 
@@ -94,6 +108,24 @@ h1, h2, h3, p {
 
 .carousel-button.right {
     right: 10px; /* 오른쪽 버튼 위치 */
+}
+
+.slick-prev, .slick-next {
+    font-size: 24px; /* 필요에 따라 크기 조정 */
+    color: black;    /* 필요에 따라 색상 조정 */
+    z-index: 1000;   /* 다른 요소 위에 표시되도록 */
+}
+
+.slick-prev {
+    left: 10px; /* 필요에 따라 위치 조정 */
+}
+
+.slick-next {
+    right: 10px; /* 필요에 따라 위치 조정 */
+}
+
+.slick-prev slick-arrow{
+    size: 0.8em;
 }
 
 
@@ -145,7 +177,10 @@ h1, h2, h3, p {
     margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 
 /* Original Goods Section */
 .original-goods {
@@ -159,6 +194,10 @@ h1, h2, h3, p {
     align-items: center;
     display: flex;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    gap: 0.5%;
+>>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 }
 =======
 >>>>>>> 877108fd39598119a7f3ea0d2bc07cd28140c042
@@ -176,8 +215,12 @@ h1, h2, h3, p {
     width: 500px;
     display: flex;
     border-radius: 10px;
+<<<<<<< HEAD
     margin: 0 auto;
     transition: transform 0.5s ease-in-out; 
+=======
+    margin: 0 auto;    
+>>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 
 }
 
@@ -208,9 +251,9 @@ h1, h2, h3, p {
 }
 
 .carousel-images {
-
+    gap: 0.5%;
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.8s ease-in-out;
 }
 
 .carousel-images a {
@@ -222,6 +265,7 @@ h1, h2, h3, p {
 .carousel-images img {
     width: 80%;
     border-radius: 8px;
+    transition: transform 0.8s ease-in-out;
 }
 
 .carousel-control {
@@ -236,14 +280,14 @@ h1, h2, h3, p {
     transform: translateY(-50%);
 }
 
-.prev {
-    left: 10px;
-}
 
+<<<<<<< HEAD
 .next {
     right: 10px;
 }
 
+=======
+>>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 /* MD news Section */
 .md_pick {
     padding: 60px 40px;
@@ -265,7 +309,15 @@ h1, h2, h3, p {
 
 .md-images {
     display: flex;
+<<<<<<< HEAD
   
+=======
+    gap: 0.5%;
+}
+
+.md-images a:hover {
+    transform: scale(1.2); /* 호버 시 크기 증가 */
+>>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 }
 
 .md-images a {
@@ -277,11 +329,15 @@ h1, h2, h3, p {
 .md-images img {
     width: 100%;
     border-radius: 8px;
+<<<<<<< HEAD
     transition: transform 0.5s ease-in-out;
 }
 
 .md-images img:hover {
     transform: scale(1.2); 
+=======
+    transition: transform 1.3s ease-in-out;
+>>>>>>> 33e5123a0ead17b254448218f142ccdb736b0e01
 }
 
 .md-control {
@@ -296,6 +352,70 @@ h1, h2, h3, p {
     transform: translateY(-50%);
 }
 
+
+
+/*공지사항*/
+
+.notification {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+.icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.date {
+    color: gray;
+}
+
+.notification-content {
+    font-size: 16px;
+ 
+}
+
+.notification-title {
+    margin: 10px 0; /* 여백 줄임 */
+}
+
+.notification-title h2 {
+    font-size: 16px; /* 제목 크기 조정 */
+}
+
+.notification-title p {
+    font-size: 14px; /* 부제목 크기 조정 */
+   
+}
+
+.pagination {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}
+
+.prev, .next {
+    background: none;
+    color: gray;
+    border: none;
+    padding: 0 auto; /* 패딩 조정 */
+    cursor: pointer;
+}
+
+.prev:hover, .next:hover {
+    color: #585858; /* 버튼 hover 색상 */
+    font-weight: bold;
+}
+
+.page-info {
+    font-size: 16px;
+    color: gray; /* 색상 설정 */
+    margin: 0 10px; /* 좌우 여백 추가 */
+}
+
 .prev {
     left: 10px;
 }
@@ -303,4 +423,3 @@ h1, h2, h3, p {
 .next {
     right: 10px;
 }
-
