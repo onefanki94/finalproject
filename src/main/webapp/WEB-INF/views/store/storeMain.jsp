@@ -2,43 +2,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 <%@include file="/WEB-INF/inc/footer.jspf"%>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Store Main</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-        <!-- Bootstrap CSS 로드 -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- jQuery 로드 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
-        <!-- jQuery Migrate 로드 (필요할 경우) -->
-        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    
-        <!-- Slick CSS 로드 -->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-    
-        <!-- Slick JS 로드 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    
-        <!-- Bootstrap JS 로드 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-        <!-- Custom CSS -->
-        <link href="/css/storeMain.css" rel="stylesheet" type="text/css">
-    
-        <!-- jQuery noConflict 설정 -->
-        <script type="text/javascript">
-            var $371 = $.noConflict();
-        </script>
-    
-        <!-- 기존 Custom JS가 있는 경우 -->
-        <script src="js/storeMain.js"></script>
-</head>
+<!-- jQuery 로드 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- jQuery Migrate 로드 (필요할 경우) -->
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<!-- Slick CSS 로드 -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+<!-- Slick JS 로드 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+<!-- Custom CSS -->
+<link href="/css/storeMain.css" rel="stylesheet" type="text/css">
+
+<!-- jQuery noConflict 설정 -->
+<script type="text/javascript">
+    var $371 = $.noConflict();
+</script>
+
+<!-- 기존 Custom JS가 있는 경우 -->
+<script src="js/storeMain.js"></script>
+
+<div class="storeMain_container">
 <!-- 배너 -->
 <section class="banner" id="banner">
     <div class="carousel-banner-images" id="slider-div">
@@ -211,3 +200,4 @@
         <button class="md-control next" onclick="moveSlide('md_pick', 1)">&#10095;</button>
     </div>
 </section>
+</div>

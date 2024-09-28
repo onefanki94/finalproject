@@ -1,11 +1,11 @@
 /* General Styles */
-body {
-    font-family: Arial, sans-serif;
+.storeMain_container {
+    /*font-family: Arial, sans-serif;*/
     margin: 0 auto;
     padding: 0 auto;
     box-sizing: border-box;
     max-width: 1920px;
-    height: 1080px;
+    /*height: 1080px;*/
     overflow-x: hidden;
 }
 
@@ -37,7 +37,7 @@ p{
 
 
 /* Header Styles */
-.header {
+/*.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -57,15 +57,15 @@ p{
     list-style: none;
 }
 
-.nav li {
+*//*.nav li {
     margin-left: 30px;
-}
+}*//*
 
 .nav a {
     font-size: 18px;
     color: #333;
     padding: 10px;
-}
+}*/
 
 /* Banner */
 
