@@ -36,36 +36,6 @@ p{
 }
 
 
-/* Header Styles */
-/*.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 20px 40px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.logo a {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-}
-
-.nav ul {
-    display: flex;
-    list-style: none;
-}
-
-*//*.nav li {
-    margin-left: 30px;
-}*//*
-
-.nav a {
-    font-size: 18px;
-    color: #333;
-    padding: 10px;
-}*/
 
 /* Banner */
 
@@ -188,6 +158,11 @@ p{
     align-items: center;
     display: flex;
     gap: 0.5%;
+
+}
+
+.original-goods img{
+    transition: transform 0.8s ease-in-out;
 }
 
 .product-item img:hover {
@@ -282,9 +257,11 @@ p{
 .md-images {
     display: flex;
     gap: 0.5%;
+ 
 }
 
-.md-images a:hover {
+
+.md-images img:hover {
     transform: scale(1.2); /* 호버 시 크기 증가 */
 }
 
@@ -297,7 +274,7 @@ p{
 .md-images img {
     width: 100%;
     border-radius: 8px;
-    transition: transform 1.3s ease-in-out;
+    transition: transform 0.8s ease-in-out;
 }
 
 .md-control {

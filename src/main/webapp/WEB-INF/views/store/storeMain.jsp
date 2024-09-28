@@ -177,7 +177,7 @@
 
 
 <!-- MD news Section -->
-<section class="md_pick">
+<section class="md_news">
     <h2>MD news</h2>
     <div class="md">
         <button class="md-control prev" onclick="moveSlide('md_pick', -1)">&#10094;</button>
