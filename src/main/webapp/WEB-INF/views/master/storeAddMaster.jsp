@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>DashBoard - 애니 추가</title>
+<title>DashBoard - 굿즈 상품 추가</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
@@ -48,9 +48,9 @@
         </div>
     </nav>
 </div>
-<div class="aniAdd">
-<h2>애니 등록</h2>
-<form action="/master/aniAddMasterOk" method="post" enctype="multipart/form-data">
+<div class="storeAdd">
+<h2>굿즈 상품 등록</h2>
+<form action="/master/storeAddMasterOk" method="post" enctype="multipart/form-data">
     <div>
         <label for="post_img">포스터 이미지:</label>
         <input type="file" id="post_img" name="post_img" accept="image/*" required>

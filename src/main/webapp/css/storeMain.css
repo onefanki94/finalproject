@@ -110,7 +110,7 @@ p{
 .products h2, .products2 h2 {
     font-size: 48px;
     margin-bottom: 40px;
-}
+}   
 
 .product-grid {
     display: grid;
@@ -119,7 +119,8 @@ p{
 }
 
 .product {
-    width: 300px;
+    width: 250px;
+    height: 250px;
     background-color: #f9f9f9;
     padding: 30px;
     text-align: center;
@@ -135,7 +136,7 @@ p{
 
 .product img {
     width: 100%;
-    height: 350px;
+    height: 170px;
     object-fit: cover;
     margin-bottom: 20px;
 
@@ -146,27 +147,27 @@ p{
     margin-bottom: 10px;
 }
 
-
 /* Original Goods Section */
 .original-goods {
     padding: 60px 40px;
     text-align: center;
     margin: 0 auto;
+    transition: transform 0.5s ease-in-out;
 }
 
 .carousel-goods-images{
     align-items: center;
     display: flex;
     gap: 0.5%;
-
 }
 
-.original-goods img{
-    transition: transform 0.8s ease-in-out;
-}
 
 .product-item img:hover {
     transform: scale(1.2); /* 호버 시 이미지 확대 */
+}
+
+.orginal-goods img:hover {
+    transform: scale(1.2); 
 }
 
 
@@ -174,19 +175,20 @@ p{
     width: 500px;
     display: flex;
     border-radius: 10px;
+    margin: 0 auto;
+    transition: transform 0.5s ease-in-out; 
     margin: 0 auto;    
-
 }
 
 .carousel-original {
-    display: flex; /* Flexbox로 설정 */
-    flex-direction: row; /* 자식 요소들을 가로로 배치 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center;
     max-width: 1800px;
-    overflow: hidden; /* 넘치는 이미지를 숨김 */
+    overflow: hidden; 
     position: relative;
-    height: auto; /* 높이를 자동으로 설정하여 요소가 중앙 정렬되도록 함 */
+    height: auto; 
 }
 
 
@@ -235,6 +237,10 @@ p{
 }
 
 
+.next {
+    right: 10px;
+}
+
 /* MD news Section */
 .md_pick {
     padding: 60px 40px;
@@ -257,7 +263,6 @@ p{
 .md-images {
     display: flex;
     gap: 0.5%;
- 
 }
 
 
@@ -274,7 +279,7 @@ p{
 .md-images img {
     width: 100%;
     border-radius: 8px;
-    transition: transform 0.8s ease-in-out;
+    transition: transform 1.3s ease-in-out;
 }
 
 .md-control {
@@ -312,7 +317,6 @@ p{
 
 .notification-content {
     font-size: 16px;
- 
 }
 
 .notification-title {
@@ -325,7 +329,6 @@ p{
 
 .notification-title p {
     font-size: 14px; /* 부제목 크기 조정 */
-   
 }
 
 .pagination {

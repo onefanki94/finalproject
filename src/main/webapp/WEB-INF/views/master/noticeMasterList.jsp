@@ -48,9 +48,9 @@
         </div>
     </nav>
 </div>
-<div class="anime-list-container">
+<div class="notice-list-container">
     <h2>공지사항 리스트</h2>
-    <table class="anime-list">
+    <table class="notice-list">
         <thead>
             <tr>
                 <th>No.</th>
@@ -71,8 +71,8 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
-                    <button class="add-btn"><a href="/master/aniAddMaster">추가</a></button>
-                    <button class="edit-btn">수정</button>
+                    <button class="add-btn"><a href="/master/noticeAddMaster">추가</a></button>
+                    <button class="edit-btn"><a href="/master/noticeEditMaster">수정</a></button>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>
@@ -117,7 +117,7 @@
             </tr>
         </tbody>
     </table>
-     <div class="aniPageing">페이징 영역</div>
+     <div class="noticePageing">페이징 영역</div>
 </div>
 </body>
 </html>
