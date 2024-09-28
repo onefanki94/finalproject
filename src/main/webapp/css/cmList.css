@@ -1,0 +1,90 @@
+body {
+    margin: 80px 0 0 0;
+}
+
+a:link,
+a:visited,
+a:hover {
+    text-decoration: none;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: -1; /* 배경으로 두기 위해 z-index 조정 */
+}
+
+
+.notice_tab {
+    height: 400px;
+    min-width: 1064px;
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+    width:100%;
+    background-image: url('/img/main_img/img3.png');
+    background-size: cover;
+    padding: 20px 0;
+}
+
+.notice_tab .list {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    float: left;
+    margin: 0 15px;
+}
+
+.notice_tab .list li .btn{
+    align-items:center;
+    color:white;
+    font-size:16px;
+}
+
+
+.notice{
+    border-bottom: 3px solid black;
+}
+
+.search {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search input {
+    padding: 0 12px;
+    font-size: 13px;
+    line-height: 16.8px;
+    letter-spacing: -.65px;
+    color: #737881;
+    border: 1px solid #dde1e5;
+    background-color: #fff;
+    width: 230px;
+    height: 42px;
+}
+
+.row{
+    border-bottom: 1px solid #ddd;
+    margin:10px 0px 10px 0px;
+    padding: 10px 0px;
+
+}
+.pagination{
+   margin:40px 0px;
+}
+
+.content {
+    display: none; /* 기본적으로 숨김 */
+}
+
+.active {
+    display: block; /* 활성화된 탭의 콘텐츠만 보임 */
+}
