@@ -38,8 +38,8 @@
             <div class="viewInfo">
                 <div class="row">
                     <div class="col-sm-1 custom-col">[자랑]</div>
-                    <div class="col-sm-10 custom-col"><h2>꿈을 꾸는 고래애애 룰루 고랭?</h2></div>
-                    <div class="col-sm-1 text-end">4</div>
+                    <div class="col-sm-10 custom-col"><h3>꿈을 꾸는 고래</h3></div>
+                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">4</div>
                 </div>
                 <div class="row bg-highlight">
                     <div class="col-sm-10 p-2">최보람</div>
@@ -59,6 +59,27 @@
 
             </div>
         <div>
+
+        <!-- 댓 글 -->
+           <div id="replyArea" style="margin-top:30px;" >
+              <!-- 로그인이 된 경우 댓글 폼 표시하기 -->
+
+                <form method="post" id="replyForm">
+                 <div class="review-writer">
+                     <div class="reply_input">
+                     <input type="text" id="textSearch" placeholder="정책위반 댓글은 삭제될 수 있습니다." />
+                     <button type="button" id="btnSearch">등록</button>
+                    </div>
+
+                   <!-- 원글 글번호 -->
+                     <input type="hidden" name="no" value="${vo.no}"/>
+                  </div>
+               </form>
+
+           <!-- 댓글 목록 -->
+           <div ></div>
+              <div id="replyList"></div>
+           </div>
 
         <!-- 리스트 목록 -->
            <div class="list_section">
@@ -82,6 +103,12 @@
                <!-- </c:if> -->
                <!-- <c:if test="${otherVo.nextNo==0}"></c:if>-->
            </div>
+
+            <div class="listBt">
+                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
+                    목록
+                </a>
+          </div>
     </div>
 
 
