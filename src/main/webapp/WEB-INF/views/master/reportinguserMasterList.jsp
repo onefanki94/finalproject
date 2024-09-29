@@ -25,7 +25,7 @@
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
                     <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
-                    <li class="submenu"><a href="#">일/월별 매출내역</a></li>
+                    <li class="submenu"><a href="/master/orderSalesMaster">일/월별 매출내역</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>
@@ -53,10 +53,13 @@
     <table class="reportinguser-list">
         <thead>
             <tr>
-                <th>아이디</th>
-                <th>신고횟수</th>
-                <th>누적 횟수</th>
-                <th>작업</th>
+                <th style="width:8%">아이디</th>
+                <th style="width:40%">제목</th>
+                <th style="width:10%">사유</th>
+                <th style="width:20%">작성일</th>
+                <th style="width:6%">신고횟수</th>
+                <th style="width:6%">누적 횟수</th>
+                <th style="width:15%">관리</th>
             </tr>
         </thead>
         <tbody>
@@ -64,12 +67,6 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
-                <td>
-                    <button class="memo-btn">메모</button>
-                    <button class="delete-btn">삭제</button>
-                </td>
-            </tr>
-            <tr>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -79,6 +76,21 @@
                 </td>
             </tr>
             <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>
+                    <button class="memo-btn">메모</button>
+                    <button class="delete-btn">삭제</button>
+                </td>
+            </tr>
+            <tr>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
@@ -88,6 +100,9 @@
                             </td>
             </tr>
             <tr>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>

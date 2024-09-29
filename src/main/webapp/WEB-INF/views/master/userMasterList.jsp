@@ -25,7 +25,7 @@
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
                     <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
-                    <li class="submenu"><a href="#">일/월별 매출내역</a></li>
+                    <li class="submenu"><a href="/master/orderSalesMaster">일/월별 매출내역</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>
@@ -53,18 +53,20 @@
     <table class="user-list">
         <thead>
             <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>연락처</th>
-                <th>이메일</th>
-                <th>가입일</th>
-                <th>비밀번호 수정일</th>
-                <th>포인트내역</th>
-                <th>작업</th>
+                <th style="width:2%"></th>
+                <th style="width:5%">유저번호</th>
+                <th style="width:8%">아이디</th>
+                <th style="width:8%">이름</th>
+                <th style="width:15%">이메일</th>
+                <th style="width:15%">연락처</th>
+                <th style="width:20%">가입일</th>
+                <th style="width:8%">포인트내역</th>
+                <th style="width:8%">관리</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td><input type="checkbox" name="select" id="select"/></td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -77,6 +79,7 @@
                 </td>
             </tr>
             <tr>
+                <td><input type="checkbox" name="select" id="select"/></td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -89,6 +92,7 @@
                 </td>
             </tr>
             <tr>
+                            <td><input type="checkbox" name="select" id="select"/></td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
@@ -101,6 +105,7 @@
                             </td>
             </tr>
             <tr>
+                            <td><input type="checkbox" name="select" id="select"/></td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>

@@ -3,7 +3,7 @@
 <title>DashBoard - 게시판 댓글 전체 목록</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
+
 <div class="mastermain">
     <nav class="navbar navbar-dark bg-dark">
         <div class="management"><a href="/master/masterMain">관리자 Management</a></div>
@@ -25,7 +25,7 @@
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
                     <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
-                    <li class="submenu"><a href="#">일/월별 매출내역</a></li>
+                    <li class="submenu"><a href="/master/orderSalesMaster">일/월별 매출내역</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>

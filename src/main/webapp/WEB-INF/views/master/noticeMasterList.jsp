@@ -25,7 +25,7 @@
                 <ul>
                     <a href="#" class="menu-item">주문관리</a>
                     <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
-                    <li class="submenu"><a href="#">일/월별 매출내역</a></li>
+                    <li class="submenu"><a href="/master/orderSalesMaster">일/월별 매출내역</a></li>
                 </ul>
                 <ul>
                     <a href="#" class="menu-item">신고관리</a>

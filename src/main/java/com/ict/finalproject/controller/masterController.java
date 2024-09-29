@@ -124,4 +124,12 @@ public class masterController {
         mav.setViewName("master/noticeEditMaster");
         return mav;
     }
+
+    //  Dashboard - 매출관리 - 일/월별 매출관리
+    @GetMapping("/orderSalesMaster")
+    public ModelAndView orderSalesMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/orderSalesMaster");
+        return mav;
+    }
 }
