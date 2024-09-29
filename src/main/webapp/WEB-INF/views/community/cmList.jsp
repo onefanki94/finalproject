@@ -13,24 +13,26 @@
 
         <div class="top_info">
             <div class="cm_tab">
-            <h1>커뮤니티</h1>
-                <ul class="list">
-                    <li class="selected">
-                        <a href="#tap1" class="btn">최신글보기</a>
-                    </li>
-                    <li>
-                        <a href="#tap2" class="btn">자랑</a>
-                    </li>
-                    <li>
-                        <a href="#tap4" class="btn">친목</a>
-                    </li>
-                    <li>
-                        <a href="#tap4" class="btn">팬아트</a>
-                    </li>
-                    <li>
-                        <a href="/notice/allnotice" class="btn">통합공지</a>
-                    </li>
-                </ul>
+                <h1>커뮤니티</h1>
+                <div class="cm_opt">
+                    <ul class="list">
+                        <li class="selected">
+                            <a href="#tap1" class="btn">최신글보기</a>
+                        </li>
+                        <li>
+                            <a href="#tap2" class="btn">자랑</a>
+                        </li>
+                        <li>
+                            <a href="#tap4" class="btn">친목</a>
+                        </li>
+                        <li>
+                            <a href="#tap4" class="btn">팬아트</a>
+                        </li>
+                        <li>
+                            <a href="/allnotice" class="btn">통합공지</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -80,8 +82,8 @@
 
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">카테고리</div>
-                            <div class="col-sm-6 p-2">제목</div>
+                            <div class="col-sm-1 p-2">카테고리</div>
+                            <div class="col-sm-7 p-2">제목</div>
                             <div class="col-sm-2 p-2">날짜</div>
                             <div class="col-sm-1 p-2">조회</div>
                         </div>
@@ -89,16 +91,16 @@
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">1234</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">배고프네</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -110,8 +112,8 @@
 
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">카테고리</div>
-                            <div class="col-sm-6 p-2">제목</div>
+                            <div class="col-sm-1 p-2">카테고리</div>
+                            <div class="col-sm-7 p-2">제목</div>
                             <div class="col-sm-2 p-2">날짜</div>
                             <div class="col-sm-1 p-2">조회</div>
                         </div>
@@ -119,16 +121,16 @@
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">1234</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">배고프네</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -140,8 +142,8 @@
 
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">카테고리</div>
-                            <div class="col-sm-6 p-2">제목</div>
+                            <div class="col-sm-1 p-2">카테고리</div>
+                            <div class="col-sm-7 p-2">제목</div>
                             <div class="col-sm-2 p-2">날짜</div>
                             <div class="col-sm-1 p-2">조회</div>
                         </div>
@@ -149,16 +151,16 @@
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">1234</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">배고프네</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -170,8 +172,8 @@
 
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">카테고리</div>
-                            <div class="col-sm-6 p-2">제목</div>
+                            <div class="col-sm-1 p-2">카테고리</div>
+                            <div class="col-sm-7 p-2">제목</div>
                             <div class="col-sm-2 p-2">날짜</div>
                             <div class="col-sm-1 p-2">조회</div>
                         </div>
@@ -179,16 +181,16 @@
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
                         <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
                         <div class="row">
                             <div class="col-sm-1 p-2">1234</div>
-                            <div class="col-sm-2 p-2">[덕질]</div>
-                            <div class="col-sm-6 p-2"><a href="/boards/view/1">배고프네</a></div>
+                            <div class="col-sm-1 p-2">[덕질]</div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -202,8 +204,15 @@
         const contentList = document.querySelectorAll('.content');
 
         tabList.forEach((tab, index) => {
-            tab.querySelector('.btn').addEventListener('click', function (e) {
-                e.preventDefault();
+            const button = tab.querySelector('.btn');
+
+            button.addEventListener('click', function (e) {
+                if (button.getAttribute('href') === '/allnotice') {
+                    // 통합공지 링크 클릭 시 페이지 이동
+                    return; // 기본 동작을 허용
+                }
+
+                e.preventDefault(); // 기본 동작 방지 (탭 링크 클릭 시)
                 // 모든 탭 비활성화 및 콘텐츠 숨김
                 tabList.forEach(t => t.classList.remove('selected'));
                 contentList.forEach(content => content.classList.remove('active'));

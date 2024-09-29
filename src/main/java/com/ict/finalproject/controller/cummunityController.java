@@ -33,10 +33,9 @@ public class cummunityController {
     }
 
     //커뮤니티-공지사항 이동
-//    @GetMapping("/allnotice")
-//    @ResponseBody
-//        public String allnotice(){
-//        return "notice/notice";
-//    }
+    @GetMapping("/allnotice")
+    public String allnotice(){
+        return "notice/notice";
+    }
 
 }

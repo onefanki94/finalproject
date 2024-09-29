@@ -22,6 +22,11 @@ a:hover {
     padding: 10px 0;
 }
 
+.cm_opt{
+
+
+}
+
 .cm_tab h1{
     font-weight:700;
     font-size:2.813rem;
@@ -29,6 +34,7 @@ a:hover {
     color:#fff;
     flex:none;
     margin-right:60px;
+
 }
 
 .cm_tab .list {
@@ -47,7 +53,7 @@ a:hover {
     display:block;
     align-items:center;
     color:#A4A4A4;
-    font-size:18px;
+    font-size:16.5px;
 }
 
 .cm_tab .list li a:hover,
@@ -57,6 +63,12 @@ a:hover {
     border-radius: 0;
 }
 
+.container{
+    max-width: 1200px;
+    height:auto;
+    margin: 0 auto;
+    justify-content: center;
+}
 
 .search-area {
     display: flex;
@@ -82,11 +94,11 @@ select {
     background-color: #fff;
     font-size: 14px;
     height: 44px;
-    cursor: pointer; /* 커서 포인터로 변경 */
+    cursor: pointer;
 }
 
 .select-box {
-    margin-right: 10px; /* 요소 간 간격 추가 */
+    margin-right: 10px;
 }
 
 
