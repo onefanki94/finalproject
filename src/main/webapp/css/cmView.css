@@ -1,0 +1,114 @@
+.cm_tab {
+    position: relative;
+    background-color:#F4F2EF;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+
+    width:100%;
+    height:255px;
+    background-image: url('https://lwi.nexon.com/kartdrift/gow/renewal/common/bg_sub.png');
+    background-size: cover;
+    padding: 10px 0;
+}
+
+.cm_tab h1{
+    font-weight:700;
+    font-size:2.813rem;
+    line-height:4.063rem;
+    color:#fff;
+    flex:none;
+    margin-right:60px;
+}
+
+.cm_tab .list {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cm_tab .list li {
+    float: left;
+    margin: 0 15px;
+}
+
+.cm_tab .list li a{
+    display:block;
+    align-items:center;
+    color:#A4A4A4;
+    font-size:18px;
+}
+
+.cm_tab .list li a:hover,
+.cm_tab .list li.selected a {
+    color: #FFE600;
+    border-bottom: 2px solid #FFE600;
+    border-radius: 0;
+}
+.container{
+    max-width: 1170px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.viewInfo{
+    margin:10px 0px 10px 0px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+.row{
+    display:flex;
+    align-items: center;
+    margin:5px 0px 5px 0px;
+}
+
+
+
+.bg-highlight {
+    background-color: #f0f8ff;
+    color: #737881;
+    font-size:14px;
+}
+
+.cmContent {
+    height:20%;
+    font-family: "맑은 고딕";
+    font-size: 12pt;
+    text-align: left;
+    line-height: normal;
+    margin: 0 20px;
+
+}
+
+.list_section {
+    margin: 60px 0 100px 0;
+}
+
+.list_pre,
+.list_next {
+    border-collapse: separate;
+    padding: 10px;/*수정*/
+    border-top: 1px solid #dde1e5;
+    border-bottom: 1px solid #dde1e5;
+}
+
+.list_pre:hover,
+.list_next:hover {
+    background-color: #cccccc3d;
+}
+
+.list_pre i,
+.list_next i {
+    font-size: 1.5em;
+    margin-right: 50px;
+}
+
+.list_pre span,
+.list_next span {
+    font-size: 1.5em;
+    margin-right: 76px;
+}
+

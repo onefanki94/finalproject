@@ -28,7 +28,7 @@
                         <a href="#tap4" class="btn">팬아트</a>
                     </li>
                     <li>
-                        <a href="/notice/notice" class="btn">통합공지</a>
+                        <a href="/notice/allnotice" class="btn">통합공지</a>
                     </li>
                 </ul>
             </div>
@@ -53,7 +53,7 @@
                                 <option value="DEFAULT">최신글순</option>
                                 <option value="NEW_REPLY">최신댓글순</option>
                                 <option value="REPLY">많은댓글순</option>
-                                <option value="LIKE">좋아요순</option>
+                                <option value="LIKE">조회수순</option>
                             </select>
                         </div>
                     </div>
