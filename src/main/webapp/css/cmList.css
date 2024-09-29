@@ -58,8 +58,6 @@ a:hover {
 }
 
 
-
-
 .search-area {
     display: flex;
     justify-content: space-between;
@@ -76,8 +74,6 @@ a:hover {
     display: flex;
     align-items: center;
 }
-
-
 
 
 select {
@@ -118,6 +114,8 @@ li{
 .search {
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    width: 230px;
 }
 
 .search input {
@@ -128,8 +126,24 @@ li{
     color: #737881;
     border: 1px solid #dde1e5;
     background-color: #fff;
-    width: 230px;
+    width: 100%;
     height: 44px;
+    box-sizing: border-box;
+    padding-right: 50px;
+}
+
+.search button{
+    position:absolute;
+    opacity: 0.3;
+    top:50%;
+    right:5px;
+    transform: translateY(-50%);
+    width:38px;
+    height:38px;
+    background-image:url('/img/cm/icon-search.gif');
+    cursor: pointer;
+    border:none;
+    text-indent: -9999px;
 }
 
 .row{
