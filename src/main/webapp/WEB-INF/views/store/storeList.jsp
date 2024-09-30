@@ -11,7 +11,6 @@
             <section class="list-banners" id="banner">
                 <div class="list-banner-images" id="List-div">
                     <div class="list-banner">
-                        <a href="bannerDetail1.jsp"></a>
                             <img src="img/store/list-banner.png" alt="List Banner1">
                     </div>
                 </div>
@@ -56,7 +55,7 @@
                             <li class="list-carousel-wrapper">
                                 <ul class="list-carousel-images">
                                     <li class="list-product">
-                                        <a href="productDetail1.jsp">
+                                        <a href="/storeDetail">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
                                     </li>
@@ -120,6 +119,9 @@
                         </ul>
                     </div>
                 </section>
+
 </div>
 
+
+        
 
