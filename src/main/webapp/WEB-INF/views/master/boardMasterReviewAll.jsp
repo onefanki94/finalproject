@@ -12,11 +12,10 @@
             <tr>
                 <th style="width:2%;">No.</th>
                 <th style="width:3%;">카테고리</th>
-                <th style="width:10%;">리뷰제목</th>
-                <th style="width:10%;">리뷰내용</th>
+                <th style="width:30%;">리뷰제목</th>
                 <th style="width:3%;">작성자</th>
                 <th style="width:3%;">작성일</th>
-                <th style="width:5%;">작업</th>
+                <th style="width:5%;">관리</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +25,16 @@
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
+                    <td>
+                        <a href="#" class="btn btn-info">상세보기</a>
+                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
+                    <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
@@ -38,26 +47,12 @@
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>
-                        <a href="#" class="btn btn-info">상세보기</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>
                     <td>데이터 바인딩</td>

@@ -10,18 +10,16 @@
     <table class="notice-list">
         <thead>
             <tr>
-                <th>No.</th>
-                <th>제목</th>
-                <th>내용</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>수정일</th>
-                <th>작업</th>
+                <th style="width:2%">No.</th>
+                <th style="width:30%">제목</th>
+                <th style="width:5%">작성자</th>
+                <th style="width:5%">작성일</th>
+                <th style="width:5%">수정일</th>
+                <th style="width:10%">관리</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -39,7 +37,6 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
                 <td>
                     <button class="add-btn">추가</button>
                     <button class="edit-btn">수정</button>
@@ -52,7 +49,6 @@
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
                             <td>
                                 <button class="add-btn">추가</button>
                                 <button class="edit-btn">수정</button>
@@ -60,7 +56,6 @@
                             </td>
             </tr>
             <tr>
-                            <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>

@@ -3,8 +3,7 @@
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <title>DashBoard - 일/월별 매출관리</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <div class="sales-management">
     <h2>매출 관리</h2>
@@ -80,4 +79,4 @@
         </div>
     </div>
 </div>
-<script src="/js/MasterPage.js"></script>
+    <script src="/js/MasterPage.js"></script>

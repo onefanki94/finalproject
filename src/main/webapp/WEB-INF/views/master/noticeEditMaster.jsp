@@ -4,18 +4,21 @@
 <title>DashBoard - 공지사항 수정</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="/ckeditor/ckeditor.css" type="text/css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/super-build/ckeditor.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
 <script src="/js/MasterPage.js"></script>
-<div class="noticeAdd">
+<div class="noticeEdit">
 <h2>공지사항 수정</h2>
 <form action="/master/noticeEditMasterOk" method="post">
 
     <div>
-        <label for="title">제목:</label>
+        <label for="title"></label>
         <input type="text" id="title" name="title" required>
     </div>
 
     <div>
-        <label for="내용">내용:</label>
+        <label for="내용"></label>
         <textarea id="content" name="content" rows="10" required></textarea>
     </div>
     <div>

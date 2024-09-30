@@ -12,11 +12,11 @@
             <tr>
                 <th style="width:2%;">No.</th>
                 <th style="width:3%;">카테고리</th>
-                <th style="width:15%;">댓글내용</th>
+                <th style="width:30%;">댓글내용</th>
                 <th style="width:3%;">작성자</th>
                 <th style="width:3%;">작성일</th>
                 <th style="width:3%;">답글갯수</th>
-                <th style="width:5%;">작업</th>
+                <th style="width:5%;">관리</th>
             </tr>
         </thead>
         <tbody>

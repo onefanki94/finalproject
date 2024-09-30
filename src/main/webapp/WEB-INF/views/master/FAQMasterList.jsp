@@ -5,15 +5,15 @@
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
-<div class="QNA-list-container">
+<div class="FAQ-list-container">
     <h2>자주묻는질문 리스트</h2>
-    <table class="QNA-list">
+    <table class="FAQ-list">
         <thead>
             <tr>
-                <th>No.</th>
-                <th>제목</th>
-                <th>작성일</th>
-                <th>관리</th>
+                <th style="width:2%">No.</th>
+                <th style="width:30%">제목</th>
+                <th style="width:5%">작성일</th>
+                <th style="width:10%">관리</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
-                    <button class="edit-btn"><a href="/master/QNAEditMaster">수정</a></button>
+                    <button class="edit-btn"><a href="/master/FAQEditMaster">수정</a></button>
                     <button class="delete-btn">삭제</button>
                 </td>
             </tr>

@@ -5,9 +5,8 @@
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
-
 <div class="user-list-container">
-    <h2>회원 전체 목록</h2>
+    <h2>사용자(회원) 정보 목록</h2>
     <table class="user-list">
         <thead>
             <tr>
@@ -77,7 +76,7 @@
             </tr>
         </tbody>
     </table>
-         <div class="userPageing">페이징 영역</div>
+        <div class="userPageing">페이징 영역</div>
 </div>
 </body>
 </html>

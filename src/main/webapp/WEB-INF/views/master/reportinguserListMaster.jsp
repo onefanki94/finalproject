@@ -11,13 +11,13 @@
     <table class="reportinguserList-list">
         <thead>
             <tr>
-                <th>No.</th>
-                <th>아이디</th>
-                <th>신고 상태</th>
-                <th>관리자아이디</th>
-                <th>관리자 신고 상태</th>
-                <th>증거자료</th>
-                <th>작업</th>
+                <th style="width:2%">No.</th>
+                <th style="width:5%">아이디</th>
+                <th style="width:10%">신고 상태</th>
+                <th style="width:5%">관리자아이디</th>
+                <th style="width:5%">관리자 신고 상태</th>
+                <th style="width:10%">증거자료</th>
+                <th style="width:10%">관리</th>
             </tr>
         </thead>
         <tbody>

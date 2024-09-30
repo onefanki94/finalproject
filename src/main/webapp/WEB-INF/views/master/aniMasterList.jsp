@@ -26,9 +26,9 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
-                    <button class="add-btn"><a href="/master/aniAddMaster">추가</a></button>
-                    <button class="edit-btn">수정</button>
-                    <button class="delete-btn">삭제</button>
+                    <button class="btn  btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
+                    <button class="btn  btn-outline-secondary">수정</button>
+                    <button class="btn  btn-outline-danger">삭제</button>
                 </td>
             </tr>
             <tr>
@@ -39,9 +39,9 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
-                    <button class="add-btn">추가</button>
-                    <button class="edit-btn">수정</button>
-                    <button class="delete-btn">삭제</button>
+                    <button class="btn  btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
+                    <button class="btn  btn-outline-secondary">수정</button>
+                    <button class="btn  btn-outline-danger">삭제</button>
                 </td>
             </tr>
             <tr>
@@ -52,9 +52,9 @@
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>
-                                <button class="add-btn">추가</button>
-                                <button class="edit-btn">수정</button>
-                                <button class="delete-btn">삭제</button>
+                    <button type="button" class="btn btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
+                    <button class="btn  btn-outline-secondary">수정</button>
+                    <button class="btn  btn-outline-danger">삭제</button>
                             </td>
             </tr>
             <tr>
@@ -65,9 +65,9 @@
                             <td>데이터 바인딩</td>
                             <td>데이터 바인딩</td>
                             <td>
-                                <button class="add-btn">추가</button>
-                                <button class="edit-btn">수정</button>
-                                <button class="delete-btn">삭제</button>
+                    <button class="btn  btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
+                    <button class="btn  btn-outline-secondary">수정</button>
+                    <button class="btn  btn-outline-danger">삭제</button>
                             </td>
             </tr>
         </tbody>
