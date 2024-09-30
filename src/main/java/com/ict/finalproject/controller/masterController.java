@@ -132,4 +132,92 @@ public class masterController {
         mav.setViewName("master/orderSalesMaster");
         return mav;
     }
+
+    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
+    @GetMapping("/orderSalesDetailMaster")
+    public ModelAndView orderSalesDetailMaster(){
+            mav = new ModelAndView();
+            mav.setViewName("master/orderSalesDetailMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 문의사항 리스트
+    @GetMapping("/QNAMasterList")
+    public ModelAndView QNAMasterList(){
+        mav = new ModelAndView();
+        mav.setViewName("master/QNAMasterList");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 문의사항 - 답변
+    @GetMapping("/QNAnswerDetailMaster")
+    public ModelAndView QNAnserDetailMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/QNAnswerDetailMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 자주묻는질문
+    @GetMapping("/FAQMasterList")
+    public ModelAndView FAQMasterList(){
+        mav = new ModelAndView();
+        mav.setViewName("master/FAQMasterList");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 자주묻는질문 - 작성
+    @GetMapping("/FAQAddMaster")
+    public ModelAndView FAQAddMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/FAQAddMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 자주묻는질문 - 수정
+    @GetMapping("/FAQEditMaster")
+    public ModelAndView FAQEditMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/FAQEditMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 자주묻는질문 - 삭제
+    @GetMapping("/FAQDelMaster")
+    public ModelAndView FAQDelMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/FAQDelMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트
+    @GetMapping("/EventMasterList")
+    public ModelAndView EventMasterList(){
+        mav = new ModelAndView();
+        mav.setViewName("master/EventMasterList");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트 - 작성
+    @GetMapping("/EventAddMaster")
+    public ModelAndView EventAddMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/EventAddMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트 - 수정
+    @GetMapping("/EventEditMaster")
+    public ModelAndView EventEditMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/EventEditMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트 - 삭제
+    @GetMapping("/EventDelMaster")
+    public ModelAndView EventDelMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/EventDelMaster");
+        return mav;
+    }
 }

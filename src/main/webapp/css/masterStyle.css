@@ -1225,3 +1225,244 @@ nav {
         border: 1px solid #ccc;
         text-align: center;
     }
+
+    // Dashboard - 일/월별 매출관리 - 상세보기
+    .order-list-container {
+        padding: 20px;
+    }
+
+    .order-list-container h2 {
+        margin : 20 auto;
+        padding : 20px;
+        background-color : beige;
+        margin-right : 80px;
+        width : 100%;
+        max-width : 1500px;
+        display : flex;
+        justify-content : center;
+        height : 30px;
+    }
+
+    .order-list {
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin : 0 auto;
+        margin-right : 100px;
+        width : 100%;
+        max-width : 1500px;
+    }
+
+    .order-list th, .order-list td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .order-list th {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .order-list tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .order-list tr:hover {
+        background-color: #ddd;
+    }
+
+    // 관리자 페이지 - 기타관리 - 문의사항
+    .QNA-list-container {
+        padding: 20px;
+    }
+
+    .QNA-list-container h2 {
+        margin : 20 auto;
+        padding : 20px;
+        background-color : beige;
+        margin-right : 80px;
+        width : 100%;
+        max-width : 1500px;
+        display : flex;
+        justify-content : center;
+        height : 30px;
+    }
+
+    .QNA-list {
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin : 0 auto;
+        margin-right : 100px;
+        width : 100%;
+        max-width : 1500px;
+    }
+
+    .QNA-list th, .QNA-list td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .QNA-list th {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .QNA-list tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .QNA-list tr:hover {
+        background-color: #ddd;
+    }
+
+    .add-btn, .edit-btn, .delete-btn {
+        padding: 5px 10px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add-btn {
+        background-color: #E6E6FA;
+        color: black;
+    }
+
+    .add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
+        text-decoration : none;
+        color : black;
+    }
+
+    .edit-btn {
+        background-color: #007bff;
+        color: black;
+    }
+
+    .delete-btn {
+        background-color: #dc3545;
+        color: black;
+    }
+
+    .add-btn:hover{
+        background-color: #888;
+        text-decoration : none;
+    }
+
+    .edit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+
+    .QNAPageing {
+        margin : 20 auto;
+        padding : 20px;
+        margin-right : 80px;
+        width : 100%;
+        max-width : 1500px;
+        display : flex;
+        justify-content : center;
+        height : 30px;
+        border : 1px solid gray;
+    }
+
+    // 관리자 페이지 - 기타관리 - 이벤트
+        .Event-list-container {
+            padding: 20px;
+        }
+
+        .Event-list-container h2 {
+            margin : 20 auto;
+            padding : 20px;
+            background-color : beige;
+            margin-right : 80px;
+            width : 100%;
+            max-width : 1500px;
+            display : flex;
+            justify-content : center;
+            height : 30px;
+        }
+
+        .Event-list {
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin : 0 auto;
+            margin-right : 100px;
+            width : 100%;
+            max-width : 1500px;
+        }
+
+        .Event-list th, .Event-list td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .Event-list th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .Event-list tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .Event-list tr:hover {
+            background-color: #ddd;
+        }
+
+        .add-btn, .edit-btn, .delete-btn {
+            padding: 5px 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background-color: #E6E6FA;
+            color: black;
+        }
+
+        .add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
+            text-decoration : none;
+            color : black;
+        }
+
+        .edit-btn {
+            background-color: #007bff;
+            color: black;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: black;
+        }
+
+        .add-btn:hover{
+            background-color: #888;
+            text-decoration : none;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .EventPageing {
+            margin : 20 auto;
+            padding : 20px;
+            margin-right : 80px;
+            width : 100%;
+            max-width : 1500px;
+            display : flex;
+            justify-content : center;
+            height : 30px;
+            border : 1px solid gray;
+        }
