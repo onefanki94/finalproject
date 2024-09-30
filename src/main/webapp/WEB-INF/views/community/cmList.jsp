@@ -12,8 +12,8 @@
         </link>
 
 
-        <div class="container">
-        <div class="top_info">
+
+        <section class="top_info">
             <div class="cm_tab">
                 <h1>커뮤니티</h1>
                 <div class="cm_opt">
@@ -36,10 +36,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
 
-
+        <div class="container">
             <div class="cummunity" id="content">
 
                 <div class="search-area">
@@ -94,7 +94,7 @@
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
                             <div class="col-sm-1 p-2">[덕질]</div>
-                            <div class="col-sm-7 custom-col"><a href="/boards/view/1">신나는 일요일</a></div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -102,7 +102,7 @@
                         <div class="row">
                             <div class="col-sm-1 p-2">1234</div>
                             <div class="col-sm-1 p-2">[덕질]</div>
-                            <div class="col-sm-7 black-link"><a href="/boards/view/1">배고프네</a></div>
+                            <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -203,9 +203,8 @@
                     <a href="#">글쓰기</a>
                 </div>
 
-
-
         </div>
+    </div>
 
 
     <script>
