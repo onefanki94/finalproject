@@ -2,7 +2,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -10,7 +12,7 @@
         </link>
 
 
-
+        <div class="container">
         <div class="top_info">
             <div class="cm_tab">
                 <h1>커뮤니티</h1>
@@ -37,7 +39,7 @@
         </div>
 
 
-        <div class="container">
+
             <div class="cummunity" id="content">
 
                 <div class="search-area">
@@ -92,7 +94,7 @@
                         <div class="row">
                             <div class="col-sm-1 p-2">번호</div>
                             <div class="col-sm-1 p-2">[덕질]</div>
-                            <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
+                            <div class="col-sm-7 custom-col"><a href="/boards/view/1">신나는 일요일</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -100,7 +102,7 @@
                         <div class="row">
                             <div class="col-sm-1 p-2">1234</div>
                             <div class="col-sm-1 p-2">[덕질]</div>
-                            <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
+                            <div class="col-sm-7 black-link"><a href="/boards/view/1">배고프네</a></div>
                             <div class="col-sm-2 p-2">2024-09-29</div>
                             <div class="col-sm-1 p-2">3</div>
                         </div>
@@ -196,6 +198,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="new_write">
+                    <a href="#">글쓰기</a>
+                </div>
+
+
+
         </div>
 
 
