@@ -1,56 +1,45 @@
-/* 배너 컨테이너 스타일 */
-.list-banners {
-    display: flex;
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    height: 400px; /* 배너 섹션의 높이 설정, 필요에 따라 조정 */
-    background-color: #f5f5f5; /* 배경색 설정 */
-    margin-top: 100px; /* 헤더와의 간격 설정 */
-    margin-bottom: 150px;
-
+.storeList_container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0;
 }
 
-/* h2 태그 스타일 */
-.storeList_container h2 {
-    margin: 100px 0; /* 상하 간격 조정 */
-    font-size: 24px; /* 글자 크기 */
-    color: rgb(58, 58, 58); /* 글자 색상 */
-    padding-left: 340px;
-   
+/* 부모 컨테이너에 flex 적용 */
+.contents-sub-content {
+    display: flex; /* left-con과 right-con을 나란히 배치 */
+    gap: 20px; /* 두 요소 사이 간격 */
+    width: 100%; /* 전체 너비 차지 */
+    box-sizing: border-box;
+    align-items: flex-start; /* 상단 정렬 */
 }
 
-/* 배너 이미지 스타일 */
-.list-banner-images {
-    max-width: 100%; /* 배너 이미지 최대 너비 설정 */
-    display: flex;
-    justify-content: center; /* 배너 이미지를 가운데 정렬 */
+/* left-con 스타일 */
+.left-con {
+    flex: 0 0 20%; /* 20% 너비 */
+    max-width: 20%; /* 왼쪽 컨텐츠의 최대 너비 설정 */
+    min-width: 200px; /* 최소 너비 설정 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
 }
 
-.list-banner {
-    display: flex;
-    justify-content: center; /* 이미지를 가운데 정렬 */
-    align-items: center; /* 이미지가 수직으로 가운데 오도록 설정 */
+/* right-con 스타일 */
+.right-con {
+    flex-grow: 1; /* 나머지 공간 차지 */
+    max-width: 80%; /* 오른쪽 컨텐츠의 최대 너비 설정 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    line-height: 140%;
 }
 
-.list-banner img {
-    max-width: 100%; /* 이미지가 부모의 최대 너비를 넘지 않도록 설정 */
-    height: auto; /* 이미지 비율 유지 */
-    border-radius: 10px; /* 이미지의 모서리를 둥글게 */
-    object-fit: cover; /* 이미지가 영역을 채우도록 설정 */
-}
-
-
-
-/* 필터 스타일 */
+/* 필터 섹션 스타일 */
 .filter-section {
-    font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-    width: 20%;
     border-radius: 10px;
     padding: 15px;
-    padding-left: 330px;
+    width: 20%; /* left-con 안에서 전체 너비 차지 */
+    box-sizing: border-box;
+
 }
 
+/* 필터 항목 스타일 */
 .filter-header {
     display: flex;
     justify-content: space-between;
@@ -86,7 +75,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: #007bff;
+    background-color: #161616;
     margin-right: 10px;
 }
 
@@ -95,94 +84,73 @@
     font-weight: bold;
 }
 
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 34px;
-    height: 20px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 20px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(14px);
-}
-
-/* 여기부터 */
-
 /* 상품 섹션 스타일 */
 .list-products {
-    flex: 1; /* 남은 공간을 모두 차지 */
     display: flex;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: flex-start; /* 상단 정렬 */
-    padding: 20px; /* 전체 패딩 */
-    width: 100%;
-}
-
-/* 상품 그리드 스타일 */
-.list-carousel-wrapper {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6개의 열 설정 */
-    gap: 20px; /* 각 상품 간격 */
-    width: 100%; /* 전체 너비 설정 */
+    flex-wrap: wrap; /* 상품을 가로로 정렬하고 넘치면 다음 줄로 */
+    gap: 20px; /* 가로, 세로 간격 */
+    justify-content: flex-start; /* 상품을 왼쪽에 정렬 */
+   
+    height: 250px;
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
 }
 
 /* 개별 상품 스타일 */
 .list-product {
-    background-color: #f9f9f9; /* 상품 배경색 */
+    width: 250px;
+    background-color: #f9f9f9;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     transition: transform 0.3s;
-  
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%; /* 개별 상품의 너비를 그리드 셀에 맞추기 */
-    box-sizing: border-box; /* 패딩 포함 크기 조정 */
+    flex: 1 1 calc(25% - 20px); /* 각 상품의 너비를 4개 열로 설정 */
+    box-sizing: border-box;
 }
 
+/* 상품 이미지 스타일 */
 .list-product img {
+    width: 250px;
     max-width: 100%; /* 상품 이미지가 그리드 셀 너비에 맞도록 설정 */
-    height: auto;
+    height: 250px;
     object-fit: cover; /* 이미지가 셀 안에 맞게 조정 */
     border-radius: 8px;
-    margin-bottom: 10px; /* 이미지와 텍스트 사이 간격 */
+    margin-bottom: 10px;
 }
 
+/* Hover 효과 */
 .list-product:hover {
     transform: translateY(-5px); /* 호버 시 살짝 올라가는 효과 */
+}
+
+.list-carousel{
+    display: flex;
+   
+    
+}
+
+
+
+/* 배너 섹션 스타일 */
+.list-banners {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background-color: #f5f5f5;
+    margin-top: 100px;
+    margin-bottom: 150px;
+}
+
+/* 배너 이미지 스타일 */
+.list-banner-images {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.list-banner img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
 }
