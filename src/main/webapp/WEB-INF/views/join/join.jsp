@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/css/login.css" type="text/css" />
+    <link rel="stylesheet" href="/css/join.css" type="text/css" />
   </head>
   <body>
     <div class="join_div">
@@ -36,37 +36,50 @@
       <div class="join_back_div_color"></div>
       <div class="login_div_pa">
         <div class="login_div_ch">
-          <a href="/"><img id="logo_img" src="/img/main_img/logo_ex.png"/></a>
+          <h1 style="color: #fff; margin:0 0 30px">회원가입</h1>
           <form class="login-form">
             <div class="login_input-group">
               <input
                 type="text"
                 id="userid"
                 name="userid"
-                placeholder="아이디를 입력하세요"
+                placeholder="아이디"
               />
+              <button type="button">중복확인</button>
             </div>
             <div class="login_input-group">
               <input
                 type="password"
                 id="userpwd"
                 name="userpwd"
-                placeholder="비밀번호를 입력하세요."
+                placeholder="비밀번호"
                 required
               />
             </div>
-            <button type="submit" class="login_button">로그인</button>
+            <div class="login_input-group">
+              <input
+                type="password"
+                id="userpwd2"
+                name="userpwd2"
+                placeholder="비밀번호 확인"
+                required
+              />
+            </div>
+            <div class="login_input-group">
+              <input
+                type="password"
+                id="userpwd2"
+                name="userpwd2"
+                placeholder="이름"
+                required
+              />
+            </div>
+
+            <button type="submit" class="login_button">회원가입</button>
           </form>
-          <div class="login_bottom">
-            <a>아이디 찾기</a>
-            <span>•</span>
-            <a>비밀번호 찾기</a>
-            <span>•</span>
-            <a href="/user/join">회원가입</a>
-          </div>
           <div class="login_bottom_line">
             <div class="or_line"></div>
-            <div class="or_txt">SNS 계정으로 로그인</div>
+            <div class="or_txt">SNS 계정으로 회원가입</div>
             <div class="or_line"></div>
           </div>
           <div class="sns_login_div">
@@ -104,12 +117,12 @@
                     clip-rule="evenodd"
                     d="M12 15.545c.957 0 1.76-.315 2.348-.858l-1.119-.867c-.3.21-.7.354-1.229.354a2.134 2.134 0 0 1-2.017-1.473l-1.147.89A3.538 3.538 0 0 0 12 15.545Z"
                     fill="#34A853"
-                  ></path></svg>
-                </a>
+                  ></path></svg
+              ></a>
             </div>
             <div class="sns_login kakao">
-              <a href="#">
-                <svg
+              <a href="#"
+                ><svg
                   width="100%"
                   height="100%"
                   viewBox="0 0 24 24"
@@ -124,9 +137,8 @@
                     d="M12.296 8.455c-2.122 0-3.841 1.314-3.841 2.936 0 1.008.665 1.897 1.677 2.426l-.426 1.54a.152.152 0 0 0 .062.164.158.158 0 0 0 .178.002l1.868-1.22c.158.015.318.024.48.024 2.122 0 3.842-1.315 3.842-2.936s-1.72-2.936-3.841-2.936"
                     fill="#000"
                     fill-opacity="0.9"
-                  ></path>
-                  </svg>
-                </a>
+                  ></path></svg
+              ></a>
             </div>
           </div>
         </div>
