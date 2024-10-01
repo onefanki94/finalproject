@@ -1,5 +1,6 @@
 body {
     margin: 80px 0 0 0;
+        background-color: #000;
 
 }
 
@@ -7,7 +8,6 @@ a:link,
 a:visited,
 a:hover {
     text-decoration: none;
-    color:black;
 }
 
 .notice_info{
@@ -22,25 +22,43 @@ a:hover {
 
 }
 
-.notice_top:{
-    width:100%;
+.notice_top .customer{
+    padding: 50px 70px 0;
+        height: 186px;
+        box-sizing: border-box;
+        font-size: 36px;
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+        font-family: GmarketSansBold;
+        height: 185px;
+        width: 100%;
+        background: url(/img/notice/customer_topbg.png) no-repeat 50%;
+        background-size: auto 100%;
 
 }
 
-.notice_tab {
-    height: 55px;
-    width:100%;
-    display: flex;
-    justify-content: center;
+.aaa .notice_tab {
+    position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 70px;
+        left: 0;
+        top: -40px;
+        z-index: 2;
 
 }
 
-.notice_tab .list {
+.aaa .notice_tab .list {
+        border: 1px solid #000;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .5);
+        overflow: hidden;
+}
 
-    text-align: center;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.aaa .notice_tab btn{
+    color: #fff;
+    background: linear-gradient(180deg, #4c4c4c 0, #3d3d3d 47%, #292929);
+
 }
 
 .list li {
@@ -48,6 +66,13 @@ a:hover {
     margin: 0 15px;
     color:#9FAAC6;
 }
+
+.aaa .container{
+    padding: 95px 70px 100px;
+    position: relative;
+    background: linear-gradient(180deg, #1e1e1e 0, #181818 9%, #070707 17%, #000);
+}
+
 
 .notice{
     display: flex;

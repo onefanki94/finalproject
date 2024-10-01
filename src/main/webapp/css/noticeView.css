@@ -54,19 +54,14 @@ body {
 
 .noticeView h1{
     height: 145px;
-        padding-top: 82px;
-        font: 700 28px NEXON Gothic;
-        color: #17191d;
+    padding-top: 82px;
+    font: 700 28px NEXON Gothic;
+    color: #17191d;
 }
 
 
 
-.container{
-    max-width: 1200px;
-    height:auto;
-    margin: 0 auto;
-    justify-content: center;
-}
+
 
 .viewInfo{
     margin:10px 0px 10px 0px;
@@ -112,9 +107,6 @@ body {
 }
 
 
-
-
-
 .list_section {
     margin: 60px 0 100px 0;
 
@@ -154,6 +146,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom:20px;
 }
 
 .listBt a{
@@ -168,6 +161,11 @@ body {
     border-radius:0;
 }
 
+@media all and (max-width:680px) {
+    html{
+        font-size: 80%
+    }
+}
 
 
 

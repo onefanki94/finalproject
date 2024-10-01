@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link href="/css/notice.css" rel="stylesheet" type="text/css">
+<link href="/css/notice2.css" rel="stylesheet" type="text/css">
 </link>
 </head>
 
@@ -20,7 +20,8 @@
 
 <section class="notice_info">
     <div class="notice_top">
-        <h1>고객센터</h1>
+        <h1 class="customer">고객센터</h1>
+        <div class="aaa">
         <div class="notice_tab">
             <ul class="list">
                 <li class="selected">
@@ -42,9 +43,11 @@
 
 <div class="container">
     <div class="notice" id="content">
-        <h1>공지사항</h1>
         <div class="tools">
             <div class="search">
+                <select>
+                    <option>제목</option>
+                </select>
                 <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
                 <button type="button" id="btnSearch">검색</button>
             </div>
@@ -129,6 +132,7 @@
                 <div class="col-sm-2 p-2">20024.01.01</div>
                 <div class="col-sm-2 p-2">3</div>
             </div>
+        </div>
         </div>
     </div>
 
