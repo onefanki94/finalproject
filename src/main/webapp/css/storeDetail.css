@@ -182,14 +182,13 @@
 }
 
 .product-info-table {
-    width: 100%;
+    width: 70%;
     border-collapse: collapse;
     margin-bottom: 30px;
 }
 
 .product-info-table th, .product-info-table td {
     padding: 12px 15px;
-    border: 1px solid #ddd;
     font-size: 14px;
     text-align: left;
 }

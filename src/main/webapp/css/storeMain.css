@@ -4,8 +4,7 @@
     margin: 0 auto;
     padding: 0 auto;
     box-sizing: border-box;
-    max-width: 1920px;
-    /*height: 1080px;*/
+    max-width: 1800px;
     overflow-x: hidden;
 }
 
@@ -126,7 +125,7 @@ p{
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.6s;
+    transition: transform 0.8s;
 }
 
 .product img:hover {
@@ -152,7 +151,7 @@ p{
     padding: 60px 40px;
     text-align: center;
     margin: 0 auto;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.8s ease-in-out;
 }
 
 .carousel-goods-images{
@@ -163,11 +162,11 @@ p{
 
 
 .product-item img:hover {
-    transform: scale(1.2); /* 호버 시 이미지 확대 */
+    transform: scale(1.1); /* 호버 시 이미지 확대 */
 }
 
 .orginal-goods img:hover {
-    transform: scale(1.2); 
+    transform: scale(1.1); 
 }
 
 
@@ -176,7 +175,7 @@ p{
     display: flex;
     border-radius: 10px;
     margin: 0 auto;
-    transition: transform 0.5s ease-in-out; 
+    transition: transform 0.8s ease-in-out; 
     margin: 0 auto;    
 }
 
@@ -262,12 +261,13 @@ p{
 
 .md-images {
     display: flex;
-    gap: 0.5%;
+    gap: 0.8%;
+    border-radius: 10px;
 }
 
 
 .md-images img:hover {
-    transform: scale(1.2); /* 호버 시 크기 증가 */
+    transform: scale(1.1); /* 호버 시 크기 증가 */
 }
 
 .md-images a {
@@ -279,7 +279,7 @@ p{
 .md-images img {
     width: 100%;
     border-radius: 8px;
-    transition: transform 1.3s ease-in-out;
+    transition: transform 0.8s ease-in-out;
 }
 
 .md-control {

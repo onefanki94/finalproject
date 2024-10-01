@@ -61,6 +61,7 @@
         <button class="tab active">상품정보</button>
         <button class="tab">배송/교환/반품</button>
         <button class="tab">1:1 상품문의</button>
+        <button class="tab">리뷰</button>
     </div>
 
     <!-- 상품 정보 섹션 추가 -->
@@ -112,7 +113,6 @@
         <h2>배송/교환/반품</h2>
         <div class="shipping-info">
             <h3>배송정보</h3>
-            <br/>
             <ul>
                 <li>발송 시기는 예고 없이 변경될 수 있습니다.</li>
                 <li>입고 상품의 배송 기간은 2~7일이 소요될 수 있습니다.</li>
