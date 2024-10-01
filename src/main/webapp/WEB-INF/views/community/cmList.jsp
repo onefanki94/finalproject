@@ -2,7 +2,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -11,7 +13,7 @@
 
 
 
-        <div class="top_info">
+        <section class="top_info">
             <div class="cm_tab">
                 <h1>커뮤니티</h1>
                 <div class="cm_opt">
@@ -34,7 +36,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
 
         <div class="container">
@@ -196,7 +198,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="new_write">
+                    <a href="#">글쓰기</a>
+                </div>
+
         </div>
+    </div>
 
 
     <script>

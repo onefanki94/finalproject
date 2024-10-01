@@ -6,69 +6,66 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
 <div class="boardReviewManagement">
-    <h2>게시판 리뷰 목록</h2>
-    <table>
-        <thead>
-            <tr>
-                <th style="width:2%;">No.</th>
-                <th style="width:3%;">카테고리</th>
-                <th style="width:10%;">리뷰제목</th>
-                <th style="width:10%;">리뷰내용</th>
-                <th style="width:3%;">작성자</th>
-                <th style="width:3%;">작성일</th>
-                <th style="width:5%;">작업</th>
-            </tr>
-        </thead>
-        <tbody>
+        <h2>게시판 리뷰 목록</h2>
+        <table>
+            <thead>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <th style="width:2%;">No.</th>
+                    <th style="width:3%;">카테고리</th>
+                    <th style="width:30%;">리뷰제목</th>
+                    <th style="width:3%;">작성자</th>
+                    <th style="width:3%;">작성일</th>
+                    <th style="width:5%;">관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>애니리뷰</td>
+                    <td>원피스 리뷰: 최고의 해적 이야기</td>
+                    <td>관리자</td>
+                    <td>2023-09-25</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <td>2</td>
+                    <td>애니리뷰</td>
+                    <td>나루토 리뷰: 닌자의 성장 이야기</td>
+                    <td>홍길동</td>
+                    <td>2023-09-24</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <td>3</td>
+                    <td>드라마리뷰</td>
+                    <td>겨울연가 리뷰: 사랑과 이별</td>
+                    <td>이영희</td>
+                    <td>2023-09-23</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <td>4</td>
+                    <td>웹툰리뷰</td>
+                    <td>신의탑 리뷰: 액션과 전략의 조화</td>
+                    <td>박철수</td>
+                    <td>2023-09-22</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
-        </tbody>
-    </table>
-</div>
-  <div class="boardReviewPageing">페이징 영역</div>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이징 영역 -->
+    <div class="boardReviewPageing">1 2 3 4 5 ...</div>

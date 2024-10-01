@@ -60,7 +60,7 @@
                 <!-- 로그인 안됐을때 -->
                 <c:if test="${logStatus != 'Y'}">
                    <div class="sh_login">
-                      <button id="login_btn" onclick="location.href='/seoulfloor/user/login'">로그인/가입</button>
+                      <button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>
                   </div>
                </c:if>
                <!-- 로그인 됐을때 -->

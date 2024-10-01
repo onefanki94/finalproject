@@ -14,25 +14,30 @@
 
 
 
-    <div class="top_info">
+    <section class="top_info">
         <div class="cm_tab">
-        <h1>커뮤니티</h1>
-            <ul class="list">
-                <li class="selected">
-                    <a href="#tap1" class="btn">자랑</a>
-                </li>
-                <li>
-                    <a href="#tap2" class="btn">덕질</a>
-                </li>
-                <li>
-                    <a href="#tap3" class="btn">친목</a>
-                </li>
-                <li>
-                    <a href="#tap4" class="btn">팬아트</a>
-                </li>
-            </ul>
+            <h1>커뮤니티</h1>
+            <div class="cm_opt">
+                <ul class="list">
+                    <li class="selected">
+                        <a href="#tap1" class="btn">최신글보기</a>
+                    </li>
+                    <li>
+                        <a href="#tap2" class="btn">자랑</a>
+                    </li>
+                    <li>
+                        <a href="#tap4" class="btn">친목</a>
+                    </li>
+                    <li>
+                        <a href="#tap4" class="btn">팬아트</a>
+                    </li>
+                    <li>
+                        <a href="/allnotice" class="btn">통합공지</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </section>
 
 
 <div class="container">

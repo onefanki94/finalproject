@@ -6,69 +6,71 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="boardReplyManagement">
-    <h2>게시판 댓글 목록</h2>
-    <table>
-        <thead>
-            <tr>
-                <th style="width:2%;">No.</th>
-                <th style="width:3%;">카테고리</th>
-                <th style="width:15%;">댓글내용</th>
-                <th style="width:3%;">작성자</th>
-                <th style="width:3%;">작성일</th>
-                <th style="width:3%;">답글갯수</th>
-                <th style="width:5%;">작업</th>
-            </tr>
-        </thead>
-        <tbody>
+        <h2>게시판 댓글 목록</h2>
+        <table>
+            <thead>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <th style="width:2%;">No.</th>
+                    <th style="width:3%;">카테고리</th>
+                    <th style="width:30%;">댓글내용</th>
+                    <th style="width:2%;">작성자</th>
+                    <th style="width:2%;">작성일</th>
+                    <th style="width:3%;">답글갯수</th>
+                    <th style="width:5%;">관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>애니리뷰</td>
+                    <td>이 애니 정말 재미있네요! 다음 시즌도 기대됩니다.</td>
+                    <td>홍길동</td>
+                    <td>2023-09-25</td>
+                    <td>5</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <td>2</td>
+                    <td>애니리뷰</td>
+                    <td>작화가 정말 좋아요. 하지만 스토리가 조금 아쉬웠습니다.</td>
+                    <td>김철수</td>
+                    <td>2023-09-24</td>
+                    <td>3</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <td>3</td>
+                    <td>드라마리뷰</td>
+                    <td>연출이 너무 멋졌어요! 배우들의 연기도 인상 깊었습니다.</td>
+                    <td>이영희</td>
+                    <td>2023-09-23</td>
+                    <td>8</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
+                    <td>4</td>
+                    <td>웹툰리뷰</td>
+                    <td>스토리 전개가 조금 더 빠르면 좋겠어요. 그래도 재밌네요!</td>
+                    <td>박민수</td>
+                    <td>2023-09-22</td>
+                    <td>2</td>
                     <td>
                         <a href="#" class="btn btn-info">상세보기</a>
                         <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
-        </tbody>
-    </table>
-</div>
-  <div class="boardReplyPageing">페이징 영역</div>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이징 영역 -->
+    <div class="boardReplyPageing">1 2 3 4 5 ...</div>
