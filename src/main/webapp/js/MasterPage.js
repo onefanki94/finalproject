@@ -21,6 +21,13 @@
                 }
 
 
+// 메뉴 서브메뉴 클릭시 나타나게하는 스크립트
+$(document).ready(function() {
+    $('.menu-item').click(function(e) {
+        e.preventDefault(); // 기본 클릭 동작 방지
+        $(this).nextAll('.submenu').slideToggle(); // 해당 메뉴의 서브메뉴 토글
+    });
+});
 
 // 주문 관리 에서 신규 주문 등 나타나게 하는 스크립트
 function updateOrderStatusCounts(data) {
