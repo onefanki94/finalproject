@@ -32,17 +32,17 @@
     <section class="banner" id="banner">
         <div class="carousel-banner-images" id="slider-div">
             <div class="slide">
-                <a href="bannerDetail1.jsp">
+                <a href="/storeList">
                     <img src="img/store/banner1.png" alt="Main Banner1">
                 </a>
             </div>
             <div class="slide">
-                <a href="bannerDetail2.jsp">
+                <a href="/storeList">
                     <img src="img/store/banner2.png" alt="Main Banner2">
                 </a>
             </div>
             <div class="slide">
-                <a href="bannerDetail3.jsp">
+                <a href="/storeList">
                     <img src="img/store/banner3.png" alt="Main Banner3">
                 </a>
             </div>
@@ -75,7 +75,7 @@
             <div class="carousel-wrapper">
                 <div class="carousel-images">
                     <div class="product">
-                        <a href="productDetail1.jsp">
+                        <a href="/storeList">
                             <img src="img/store/f1.png" alt="Product 1">
                         </a>
 
