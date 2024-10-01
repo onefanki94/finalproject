@@ -7,28 +7,25 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-	<link href="/css/cmView.css" rel="stylesheet" type="text/css">
+	<link href="/css/noticeView.css" rel="stylesheet" type="text/css">
 
 
-    <section class="top_info">
-        <div class="cm_tab">
-            <h1>커뮤니티</h1>
-            <div class="cm_opt">
+    <section class="notice_info">
+        <div class="notice_top">
+            <h1>고객센터</h1>
+            <div class="notice_tab">
                 <ul class="list">
                     <li class="selected">
-                        <a href="#tap1" class="btn">최신글보기</a>
+                        <a href="#tap1" class="btn">공지사항</a>
                     </li>
                     <li>
-                        <a href="#tap2" class="btn">자랑</a>
+                        <a href="#tap2" class="btn">자주 묻는 질문(FAQ)</a>
                     </li>
                     <li>
-                        <a href="#tap4" class="btn">친목</a>
+                        <a href="#tap3" class="btn">1:1 문의</a>
                     </li>
                     <li>
-                        <a href="#tap4" class="btn">팬아트</a>
-                    </li>
-                    <li>
-                        <a href="/allnotice" class="btn">통합공지</a>
+                        <a href="#tap4" class="btn">이용약관</a>
                     </li>
                 </ul>
             </div>
@@ -36,16 +33,17 @@
     </section>
 
     <div class="container">
-        <div class="cmView">
+        <div class="noticeView">
+            <h1>공지사항</h1>
+        </div>
             <div class="viewInfo">
                 <div class="row">
-                    <div class="col-sm-1 custom-col">[자랑]</div>
-                    <div class="col-sm-10 custom-col"><h3>꿈을 꾸는 고래</h3></div>
-                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">4</div>
+                    <div class="col-sm-12 p-2"><h3>꿈을 꾸는 고래</h3></div>
                 </div>
-                <div class="row bg-highlight">
-                    <div class="col-sm-10 p-2">최보람</div>
+                <div class="row custom-col">
+                    <div class="col-sm-9 p-2">[공지]</div>
                     <div class="col-sm-2 text-end">2024-00-00</div>
+                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">4</div>
                 </div>
             </div>
 
@@ -62,26 +60,7 @@
             </div>
         <div>
 
-        <!-- 댓 글 -->
-           <div id="replyArea" style="margin-top:30px;" >
-              <!-- 로그인이 된 경우 댓글 폼 표시하기 -->
 
-                <form method="post" id="replyForm">
-                 <div class="review-writer">
-                     <div class="reply_input">
-                     <input type="text" id="textSearch" placeholder="정책위반 댓글은 삭제될 수 있습니다." />
-                     <button type="button" id="btnSearch">등록</button>
-                    </div>
-
-                   <!-- 원글 글번호 -->
-                     <input type="hidden" name="no" value="${vo.no}"/>
-                  </div>
-               </form>
-
-           <!-- 댓글 목록 -->
-           <div ></div>
-              <div id="replyList"></div>
-           </div>
 
         <!-- 리스트 목록 -->
            <div class="list_section">
