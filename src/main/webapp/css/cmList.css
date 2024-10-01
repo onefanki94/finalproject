@@ -1,62 +1,143 @@
 body {
     margin: 80px 0 0 0;
+    background-color: #F4F2EF;
 }
 
 a:link,
 a:visited,
 a:hover {
     text-decoration: none;
+    color:black;
 }
 
-.background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    z-index: -1; /* 배경으로 두기 위해 z-index 조정 */
-}
-
-
-.notice_tab {
-    height: 400px;
-    min-width: 1064px;
-    display: flex;
-    justify-content: center;
-
+.top_info{
     position: relative;
-    width:100%;
-    background-image: url('/img/main_img/img3.png');
-    background-size: cover;
-    padding: 20px 0;
+    width: 100%;
+    height: 255px;
+    background:url(https://lwi.nexon.com/kartdrift/gow/renewal/common/bg_sub.png) center top no-repeat;
+    display: flex;
+    justify-content: space-around;
 }
 
-.notice_tab .list {
+.cm_tab {
+    position: relative;
+    max-width:1200px;
+    width:100%;
+    height:100%px;
+    display: flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+.cm_tab h1{
+    font-weight:700;
+    font-size:2.813rem;
+    line-height:4.063rem;
+    color:#fff;
+    flex:none;
+    margin-left:60px;
+}
+
+.cm_opt{
+    width:100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items:center;
+}
+
+.cm_tab .list {
     text-align: center;
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.list li {
+.cm_tab .list li {
     float: left;
     margin: 0 15px;
 }
 
-.notice_tab .list li .btn{
+.cm_tab .list li a{
+    display:block;
     align-items:center;
-    color:white;
-    font-size:16px;
+    color:#A4A4A4;
+    font-size:16.5px;
+}
+
+.cm_tab .list li a:hover,
+.cm_tab .list li.selected a {
+    color: #FFE600;
+    border-bottom: 2px solid #FFE600;
+    border-radius: 0;
+}
+
+.container{
+    max-width: 1200px;
+    height:auto;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.search-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.left-area {
+    display: flex;
+    align-items: center;
+}
+
+.right-area {
+    display: flex;
+    align-items: center;
 }
 
 
-.notice{
-    border-bottom: 3px solid black;
+select {
+    padding: 8px;
+    border: 1px solid black;
+    background-color: #F4F2EF;
+    font-size: 13px;
+    height: 44px;
+    cursor: pointer;
 }
+
+.select-box {
+    margin-right: 10px;
+}
+
+
+li{
+    list-style:none;
+}
+
+
+
+.head-box{
+    left :30px;
+    top:30px;
+    float:left;
+    width:135px;
+}
+
+.filter-box{
+    left:175px;
+    top : 30px;
+    width : 135px;
+    color: #737881;
+}
+
 
 .search {
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    width: 230px;
 }
 
 .search input {
@@ -65,20 +146,27 @@ a:hover {
     line-height: 16.8px;
     letter-spacing: -.65px;
     color: #737881;
-    border: 1px solid #dde1e5;
-    background-color: #fff;
-    width: 230px;
-    height: 42px;
+    border: 1px solid black;
+    background-color: #F4F2EF;
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    padding-right: 50px;
 }
 
-.row{
-    border-bottom: 1px solid #ddd;
-    margin:10px 0px 10px 0px;
-    padding: 10px 0px;
-
-}
-.pagination{
-   margin:40px 0px;
+.search button{
+    position:absolute;
+    opacity: 0.5;
+    top:50%;
+    right:5px;
+    transform: translateY(-50%);
+    width:38px;
+    height:38px;
+    background-image:url('/img/cm/icon-search.gif');
+    cursor: pointer;
+    border:none;
+    text-indent: -9999px;
+    background-color: #F4F2EF;
 }
 
 .content {
@@ -88,3 +176,57 @@ a:hover {
 .active {
     display: block; /* 활성화된 탭의 콘텐츠만 보임 */
 }
+
+.row{
+    border-bottom: 1px solid #ddd;
+    margin:10px 0px 10px 0px;
+    padding: 10px 0px;
+}
+
+
+.new_write{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float:right;
+}
+
+.new_write a{
+    display: inline-block;
+    min-width: 56px;
+    height: 36px;
+    font-size:12px;
+    padding-top: 5px; 5px;
+    border: 2px solid #9fa1a7;
+    text-decoration: none;
+    background-color:#fff;
+}
+
+@media all and (max-width:640px) {
+    html{
+        font-size: 80%
+    }
+
+    .top_info{
+     height: 27px;
+         background: #0C0C0C !important;
+         padding: 0 10px;
+    }
+
+    ..cm_tab .list li.selected a{
+        font-size:12px;
+        line-height:27px;
+        font-weight: 400;
+    }
+
+    .cm_tab .list li a:hover,
+    .cm_tab .list li.selected a {
+         color: #FFF;
+         border-top: 2px solid #FFC700;
+         border-bottom: 0;
+         line-height: 24px;
+         font-weight: 700;
+    }
+}
+
+

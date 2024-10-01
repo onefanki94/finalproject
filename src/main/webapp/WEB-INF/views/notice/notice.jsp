@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
         <!DOCTYPE html>
         <html lang="ko">
 
@@ -12,38 +13,39 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <link href="/css/notice.css" rel="stylesheet" type="text/css">
             </link>
-
         </head>
-
-
 
         <body>
 
 
-                <div class="notice_tab">
-                    <ul class="list">
-                        <li class="selected">
-                            <a href="#tap1" class="btn">공지사항</a>
-                        </li>
-                        <li>
-                            <a href="#tap2" class="btn">자주 묻는 질문(FAQ)</a>
-                        </li>
-                        <li>
-                            <a href="#tap3" class="btn">1:1 문의</a>
-                        </li>
-                        <li>
-                            <a href="#tap4" class="btn">이용약관</a>
-                        </li>
-                    </ul>
+            <section class="notice_info">
+                <div class="notice_top">
+                    <h1>고객센터</h1>
+                    <div class="notice_tab">
+                        <ul class="list">
+                            <li class="selected">
+                                <a href="#tap1" class="btn">공지사항</a>
+                            </li>
+                            <li>
+                                <a href="#tap2" class="btn">자주 묻는 질문(FAQ)</a>
+                            </li>
+                            <li>
+                                <a href="#tap3" class="btn">1:1 문의</a>
+                            </li>
+                            <li>
+                                <a href="#tap4" class="btn">이용약관</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
+            </section>
 
             <div class="container">
                 <div class="notice" id="content">
                     <h1>공지사항</h1>
                     <div class="tools">
                         <div class="search">
-                            <input type="text" id="textSearch" placeholder="검색어를 입력하세요." value>
+                            <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
                             <button type="button" id="btnSearch">검색</button>
                         </div>
                     </div>
