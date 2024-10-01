@@ -3,7 +3,7 @@
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
-<script src="js/storeMain.js"></script>
+<link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 
 
 <!-- 상품 상세 페이지 컨테이너 -->
@@ -61,7 +61,7 @@
         <button class="tab active">상품정보</button>
         <button class="tab">배송/교환/반품</button>
         <button class="tab">1:1 상품문의</button>
-        <button class="tab">리뷰</button>
+        <button class="tab" onclick ="toggleReviewSection()">리뷰</button>
     </div>
 
     <!-- 상품 정보 섹션 추가 -->
@@ -139,7 +139,97 @@
     <div class="inquiry-button-section">
         <button class="inquiry-button">1:1 상품 문의</button>
     </div>
+
+
+
+<script src="js/storeDetail.js"></script>
+
+<!-- 상품 리뷰 제목 -->
+<div class="review-title">
+    <h2>상품리뷰</h2>
+    <p>상품을 구매하신 분들만 본인이 작성하신 리뷰만 있습니다. 리뷰 작성시 아래 금액만큼 포인트가 적립됩니다.</p>
+    <div class="review-stats">
+        <span>텍스트 리뷰: 50원</span>
+        <span>포토/동영상 리뷰: 150원</span>
+    </div>
 </div>
 
- 
+<!-- 사용자 총 평점과 전체 리뷰수 섹션 -->
+<div class="review-summary">
+    <div class="average-rating">
+        <h3>사용자 총 평점</h3>
+        <div class="stars">★★★★★</div>
+        <div class="rating-number">
+            4.71 <small>/5</small>
+        </div>
+    </div>
+    <div class="total-reviews">
+        <h3>전체 리뷰수</h3>
+        <div class="review-count">97</div>
+    </div>
+</div>
+
+<!-- 리뷰 탭과 필터 -->
+<div class="review-tabs-and-filter">
+    <div class="review-tabs">
+        <span class="active" onclick="showTab('text')">텍스트 리뷰</span>
+        <span onclick="showTab('photo')">포토/동영상 리뷰</span>
+    </div>
+    <div class="review-filter">
+        <span class="active" onclick="filterReviews('latest')">최신순</span>
+        <span onclick="filterReviews('highest')">평점 높은순</span>
+        <span onclick="filterReviews('lowest')">평점 낮은순</span>
+    </div>
+</div>
+<!-- 리뷰 리스트 -->
+<div id="review-list">
+    <div class="review-item" data-rating="5" data-date="2024-09-06">
+        <div>
+            <span class="reviewer-name">naeb*****</span>
+            <span class="review-date">2024.09.06</span>
+        </div>
+        <div class="review-rating">
+            <!-- 여기서 별점이 동적으로 표시될 예정 -->
+             ★★★★☆
+        </div>
+        <div class="review-content">착용감 아주 편해요. 잘 맞아요!</div>
+        <div class="review-image">
+            <img src="/img/store/review1.png" alt="리뷰 이미지">
+        </div>
+    </div>
+    <!-- 더 많은 리뷰 추가 가능 -->
+</div>
+   
+
+
+<!-- 페이지 네이션 -->
+<div class="pagination">
+    <button class="active" onclick="changePage(1)">1</button>
+    <button onclick="changePage(2)">2</button>
+    <button onclick="changePage(3)">3</button>
+    <!-- 페이지 번호 추가 가능 -->
+</div>
+
+
+<!-- 리뷰 작성 및 사진 업로드 (오른쪽 하단 정렬) -->
+<div class="review-upload-section">
+    <label class="file-upload">
+        사진 올리기
+        <input type="file" id="review-image-upload" accept="image/*" onchange="previewImage(event)">
+    </label>
+    <button type="submit" class="btn btn-outline-primary">리뷰 작성</button>
+</div>
+
+<!-- 이미지 미리보기 영역 -->
+<div id="preview"></div>
+
+
+
+
+
+
+
+
+
+
 </div>
