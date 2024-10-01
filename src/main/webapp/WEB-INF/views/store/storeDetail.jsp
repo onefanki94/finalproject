@@ -224,7 +224,7 @@
         사진 올리기
         <input type="file" id="review-image-upload" accept="image/*" onchange="previewImage(event)">
     </label>
-    <button type="submit" class="btn btn-outline-primary">리뷰 작성</button>
+    <button type="submit" class="btn btn-outline-dark">리뷰 작성</button>
 </div>
 
 <!-- 이미지 미리보기 영역 -->
