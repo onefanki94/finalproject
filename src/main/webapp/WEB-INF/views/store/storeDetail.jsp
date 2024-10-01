@@ -190,15 +190,15 @@
 </div>
 <!-- 리뷰 리스트 -->
 <div id="review-list">
-    <div class="review-item" data-rating="5" data-date="2024-09-06">
-        <div>
+    
+    <div class="review-item" data-rating="5" data-date="2024-09-06">    
+     
+        <div class="review-nickname">
+            <span class="review-rating">★★★★☆</span>
             <span class="reviewer-name">naeb*****</span>
-            <span class="review-date">2024.09.06</span>
+            <span class="review-date">2024.09.06</span>         
         </div>
-        <div class="review-rating">
-            <!-- 여기서 별점이 동적으로 표시될 예정 -->
-             ★★★★☆
-        </div>
+        
         <div class="review-content">착용감 아주 편해요. 잘 맞아요!</div>
         <div class="review-image">
             <img src="/img/store/review1.png" alt="리뷰 이미지">
@@ -217,15 +217,6 @@
     <!-- 페이지 번호 추가 가능 -->
 </div>
 
-
-<!-- 리뷰 작성 및 사진 업로드 (오른쪽 하단 정렬) -->
-<div class="review-upload-section">
-    <label class="file-upload">
-        사진 올리기
-        <input type="file" id="review-image-upload" accept="image/*" onchange="previewImage(event)">
-    </label>
-    <button type="submit" class="btn btn-outline-dark">리뷰 작성</button>
-</div>
 
 <!-- 이미지 미리보기 영역 -->
 <div id="preview"></div>

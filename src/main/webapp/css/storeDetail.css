@@ -303,13 +303,16 @@
 
 /* 사용자 총 평점과 전체 리뷰수 정렬 */
 .review-summary {
+    width: 50%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 20px 0;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    margin-top: 10px;
     margin-bottom: 20px;
+    margin-left: 25%;
+    background-color: #f5f5f5;
+    border-radius: 10px;
 }
 
 .review-title span, .review-title p{
@@ -318,7 +321,8 @@
 
 /* 사용자 총 평점 */
 .average-rating {
-    text-align: left;
+    width: 50%;
+    text-align: center;
     flex-grow: 1;
 }
 
@@ -335,14 +339,15 @@
 }
 
 .rating-number small {
-    font-size: 16px;
+    font-size: 24px;
     color: #777;
 }
 
 /* 전체 리뷰수 */
 .total-reviews {
-    text-align: right;
-    flex-shrink: 0;
+    width: 50%;
+    text-align: center;
+   
 }
 
 .review-count {
@@ -353,7 +358,7 @@
 }
 
 .total-reviews h3 {
-    font-size: 1.2em;
+    font-size: 1.3em;
     color: #777;
     margin-bottom: 10px;
     margin-right: 70px;
@@ -374,6 +379,7 @@
 }
 
 .review-tabs span {
+    margin-left: 50px;
     cursor: pointer;
     margin-right: 20px;
     color: #666;
@@ -390,6 +396,7 @@
 
 /* 필터 (최신순/평점 높은순/평점 낮은순) 오른쪽 정렬 */
 .review-filter {
+    margin-right: 100px;
     font-size: 14px;
     color: #666;
 }
@@ -401,6 +408,7 @@
 }
 
 .review-filter span.active {
+    margin-left: 20px;
     font-weight: bold;
     color: #007BFF; /* 선택된 필터는 파란색 */
 }
@@ -410,48 +418,64 @@
 }
 
 /* 리뷰 리스트 */
-#review-list .review-item {
-    padding: 15px 10px; /* 상하 여백 줄임 */
-    border-bottom: 1px solid #e5e5e5;
+.review-item {
+    width: 95%;
+    padding: 0px auto; /* 상하 여백 줄임 */
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    border-top: 0.2px solid #999;
+    align-items: center;
+    margin-left: 30px;
+
 }
 
-#review-list .review-item:last-child {
-    border-bottom: none;
+.review-nickname{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
 }
 
 /* 리뷰 항목의 별점 스타일 */
 .review-rating {
     color: #FFD700; /* 노란색 별 */
-    font-size: 16px;
-    margin-left: 30px;
+    font-size: 18px;
+    align-items: center;
+    margin-left: 10px;
+    padding: 0 auto;
 }
+.review-info{
+    align-items:center;
+}
+
 
 /* 리뷰 작성자 정보 */
 .reviewer-name {
+    margin-left: 10px;
     font-size: 1.1em;
     font-weight: bold;
     color: #333;
-    align-items: center;
+
 }
 
 .review-date {
     color: #999;
     font-size: 0.9em;
-    margin-left: 30px; /* 사용자와 날짜 간격 줄임 */
+    margin-left: 15px; /* 사용자와 날짜 간격 줄임 */
 }
 
 /* 리뷰 내용 넓게 표시 */
 .review-content {
+    width: 80%;
     font-size: 1.1em;
     color: #333;
-    flex-grow: 2; /* 글 부분을 더 넓게 */
-    margin-left: 50px;
+    padding: 50px;
+    margin-bottom: 10px;
 }
 
 .review-image img {
+    float: right;
     width: 120px;
     height: 120px;
     margin-right: 10px;
@@ -459,41 +483,10 @@
     border-radius: 4px;
 }
 
-/* 리뷰 작성 섹션 오른쪽 하단 정렬 */
-.review-upload-section {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px; /* 사진 올리기와 리뷰 작성 간격 */
-    margin-top: 20px;
-}
-
-.file-upload {
-    padding: 8px 15px;
-    background-color: #4eb8ff;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.file-upload input[type="file"] {
-    display: none;
-}
-
-.review-upload button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.review-upload button:hover {
-    background-color: #218838;
-}
 
 /* 페이지 네이션 간결한 스타일 */
 .pagination {
+    width: 80%;
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -535,5 +528,5 @@
     cursor: pointer;
     text-align: center;
     font-size: 16px;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3); /* 위쪽에 그림자 추가 */
+    box-shadow: 0 -4px 8px rgba(75, 75, 75, 0.3); /* 위쪽에 그림자 추가 */
 }
