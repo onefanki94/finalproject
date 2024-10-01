@@ -66,7 +66,7 @@
           </div>
           <div class="login_bottom_line">
             <div class="or_line"></div>
-            <div class="or_txt">SNS 계정으로 로그인</div>
+            <div class="or_txt">SNS 계정으로 시작하기</div>
             <div class="or_line"></div>
           </div>
           <div class="sns_login_div">
