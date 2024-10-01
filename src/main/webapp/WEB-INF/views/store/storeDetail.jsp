@@ -51,10 +51,7 @@
 
     </div>
 
-    <!-- 상품 설명 섹션 -->
-    <div class="product-description-section">
-        <button class="toggle-description">상품정보 더보기</button>
-    </div>
+   
 
     <!-- 상품 정보 및 기타 탭 -->
     <div class="product-tabs">
@@ -106,7 +103,11 @@
                 </div>
 
             </div>
-        </div>
+             <!-- 상품 설명 섹션 -->
+                 <div class="product-description-section">
+                <button class="toggle-description" class="btn btn-primary btn-lg">상품정보 더보기▼</button>
+                </div>
+            </div>
 
         <!-- 배송/교환/반품 섹션 추가 -->
     <div class="shipping-exchange-return-section">
