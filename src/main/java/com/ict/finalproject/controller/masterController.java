@@ -46,6 +46,14 @@ public class masterController {
             return mav;
         }
 
+    // Dashboard - 회원관리 - 신고계정목록 리스트
+    @GetMapping("/reportinguserMasterList")
+    public ModelAndView masterListReport(){
+        mav = new ModelAndView();
+        mav.setViewName("master/reportinguserMasterList");
+        return mav;
+    }
+
         // Dashboard - 애니관리 - 애니 목록 - 애니 추가
         @GetMapping("/aniAddMaster")
         public ModelAndView aniAddMaster(){
