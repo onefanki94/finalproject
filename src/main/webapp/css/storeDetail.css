@@ -126,7 +126,7 @@
 
 /* 상품 설명 섹션 */
 .product-description-section {
-    margin: 20px 0;
+    margin: 0 auto;
 }
 
 .toggle-description {
@@ -517,4 +517,23 @@
 .pagination button:hover {
     color: #333; /* 호버 시 진해지는 효과 */
     font-weight: bold;
+}
+
+/* 기본적으로 상품 설명은 숨김 처리 */
+.hidden-description {
+    display: none;
+    margin-top: 20px;
+}
+
+/* 상품 설명 보기 버튼 스타일 */
+.toggle-description {
+    width: 60%;
+    margin-left: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3); /* 위쪽에 그림자 추가 */
 }

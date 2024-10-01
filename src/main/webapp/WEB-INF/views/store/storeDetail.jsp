@@ -103,11 +103,17 @@
                 </div>
 
             </div>
-             <!-- 상품 설명 섹션 -->
-                 <div class="product-description-section">
-                <button class="toggle-description" class="btn btn-primary btn-lg">상품정보 더보기▼</button>
-                </div>
-            </div>
+
+              <!-- 상품 설명 섹션 -->
+    <div class="product-description-section">
+        <button class="toggle-description btn btn-secondary btn-lg" onclick="toggleDescription()">상품정보 더보기▼</button>
+        
+        <!-- 숨겨진 상품 설명 -->
+        <div id="hidden-description" class="hidden-description">
+            <img src="img/store/storedetail2.png">
+        </div>
+    </div>
+</div>
 
         <!-- 배송/교환/반품 섹션 추가 -->
     <div class="shipping-exchange-return-section">

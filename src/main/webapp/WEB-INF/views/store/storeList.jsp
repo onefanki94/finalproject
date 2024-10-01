@@ -31,7 +31,7 @@
                             <h3>작품별</h3>
                             <ul class="filter-list">
                                 <li class="filter-item">
-                                    <img src="img/icon/hololive.png" alt="Hololive Icon">
+                                    <img src="img/store/icon.png" alt="Hololive Icon">
                                     <span class="filter-text">홀로 라이브</span>
                                 </li>
                             </ul>
@@ -48,6 +48,18 @@
                         </div>    
                     </div>
                 </section>
+
+                <!-- 상품 섹션 위쪽에 필터 추가 -->
+                        <section class="product-filter">
+                            <div class="filter-options">
+                                <span class="filter-option active" onclick="filterProducts('latest')">최신순</span>
+                                <span class="filter-option" onclick="filterProducts('popular')">인기순</span>
+                                <span class="filter-option" onclick="filterProducts('high-price')">높은 가격순</span>
+                                <span class="filter-option" onclick="filterProducts('low-price')">낮은 가격순</span>
+                            </div>
+                        </section>
+
+
                 <!--상품섹션-->
                 <section class="list-products">
                     <div class="right-con">

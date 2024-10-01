@@ -95,3 +95,16 @@ function generateStars(rating) {
     }
     return stars;
 }
+
+function toggleDescription() {
+    var description = document.getElementById("hidden-description");
+    var button = document.querySelector(".toggle-description");
+
+    if (description.style.display === "none" || description.style.display === "") {
+        description.style.display = "block";
+        button.innerHTML = "상품정보 접기▲";  // 버튼 텍스트 변경
+    } else {
+        description.style.display = "none";
+        button.innerHTML = "상품정보 더보기▼";  // 버튼 텍스트 원래대로
+    }
+}
