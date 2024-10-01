@@ -26,8 +26,8 @@
                         <td>관리자</td>
                         <td>2023-09-25</td>
                         <td>
-                            <a href="#" class="btn btn-info btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
                     <tr>
@@ -37,8 +37,8 @@
                         <td>홍길동</td>
                         <td>2023-09-24</td>
                         <td>
-                            <a href="#" class="btn btn-info btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
                     <tr>
@@ -48,8 +48,8 @@
                         <td>이영희</td>
                         <td>2023-09-23</td>
                         <td>
-                            <a href="#" class="btn btn-info btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
                     <tr>
@@ -59,8 +59,8 @@
                         <td>박철수</td>
                         <td>2023-09-22</td>
                         <td>
-                            <a href="#" class="btn btn-info btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
                 </tbody>

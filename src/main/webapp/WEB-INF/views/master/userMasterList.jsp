@@ -54,7 +54,7 @@
                     <th style="width:15%" class="sortable" onclick="sortTable(4)">이메일</th>
                     <th style="width:15%" class="sortable" onclick="sortTable(5)">연락처</th>
                     <th style="width:20%" class="sortable" onclick="sortTable(6)">가입일</th>
-                    <th style="width:8%" class="sortable" onclick="sortTable(7)">포인트내역</th>
+                    <th style="width:9%" class="sortable" onclick="sortTable(7)">포인트내역</th>
                     <th style="width:8%">관리</th>
                 </tr>
             </thead>

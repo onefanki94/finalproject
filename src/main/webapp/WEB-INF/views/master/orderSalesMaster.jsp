@@ -79,7 +79,7 @@
                                 <td>1500</td>
                                 <td>₩900,000</td>
                                 <td>₩500,000</td>
-                                <td><a href="#" class="btn btn-outline-success btn-sm">상세보기</a></td>
+                                <td><a href="/master/orderSalesDetail1Master" class="btn btn-outline-success btn-sm">상세보기</a></td>
                             </tr>
                         </tbody>
                     </table>

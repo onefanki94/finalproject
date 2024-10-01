@@ -14,7 +14,7 @@
                         <th style="width:40%">제목</th>
                         <th style="width:8%">작성자</th>
                         <th style="width:8%">작성일</th>
-                        <th style="width:12%">관리</th>
+                        <th style="width:12%">관리<a href="/master/EventAddMaster" class="btn btn-outline-success btn-sm">추가</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,9 +24,8 @@
                         <td>관리자</td>
                         <td>2023-09-25</td>
                         <td>
-                            <button class="btn btn-outline-success btn-sm">추가</button>
-                            <button class="btn btn-outline-secondary btn-sm">수정</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/EventEditMaster">수정</a></button>
+                            <button class="btn btn-outline-danger btn-sm"><a href="">삭제</a></button>
                         </td>
                     </tr>
                     <tr>
@@ -35,9 +34,8 @@
                         <td>관리자</td>
                         <td>2023-09-24</td>
                         <td>
-                            <button class="btn btn-outline-success btn-sm">추가</button>
-                            <button class="btn btn-outline-secondary btn-sm">수정</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/EventEditMaster">수정</a></button>
+                            <button class="btn btn-outline-danger btn-sm"><a href="">삭제</a></button>
                         </td>
                     </tr>
                     <tr>
@@ -46,9 +44,8 @@
                         <td>관리자</td>
                         <td>2023-09-23</td>
                         <td>
-                            <button class="btn btn-outline-success btn-sm">추가</button>
-                            <button class="btn btn-outline-secondary btn-sm">수정</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/EventEditMaster">수정</a></button>
+                            <button class="btn btn-outline-danger btn-sm"><a href="">삭제</a></button>
                         </td>
                     </tr>
                     <tr>
@@ -57,9 +54,8 @@
                         <td>관리자</td>
                         <td>2023-09-22</td>
                         <td>
-                            <button class="btn btn-outline-success btn-sm">추가</button>
-                            <button class="btn btn-outline-secondary btn-sm">수정</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/EventEditMaster">수정</a></button>
+                            <button class="btn btn-outline-danger btn-sm"><a href="">삭제</a></button>
                         </td>
                     </tr>
                 </tbody>

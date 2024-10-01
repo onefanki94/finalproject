@@ -157,6 +157,14 @@ public class masterController {
         return mav;
     }
 
+    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
+    @GetMapping("/orderSalesDetail1Master")
+    public ModelAndView orderSalesDetail1Master(){
+        mav = new ModelAndView();
+        mav.setViewName("master/orderSalesDetail1Master");
+        return mav;
+    }
+
     // Dashboard - 기타관리 - 문의사항 리스트
     @GetMapping("/QNAMasterList")
     public ModelAndView QNAMasterList(){

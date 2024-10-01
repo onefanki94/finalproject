@@ -62,7 +62,9 @@
                .notice-list-container h2,
                        .QNA-list-container h2,
                                 .FAQ-list-container h2,
-                                         .Event-list-container h2
+                                         .Event-list-container h2,
+                                                 .aniAdd h2,
+                                                  .aniEdit h2
  {
     display : flex;
     justify-content : center;
@@ -838,3 +840,386 @@
              margin-top: 20px;
              font-size: 16px;
          }
+
+// ---------------------------------------------------
+// 애니 추가
+.aniAdd {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.aniAdd form > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left : 200px;
+    margin-right : 150px;
+}
+
+.aniAdd label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 14px;
+    color: #555;
+}
+
+.aniAdd input,
+.aniAdd select,
+.aniAdd textarea {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.aniAdd textarea {
+    resize: none;
+}
+
+.aniAdd input[type="file"] {
+    padding: 5px;
+    border: none;
+}
+
+.contentdiv textarea {
+    height : 450px;
+}
+
+.aniAdd input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    margin-left : 300px;
+    margin-right : 150px;
+}
+
+.aniAdd input[type="submit"]:hover {
+    background-color: #45a049;
+}
+// -------------------------------------------------
+// 애니 수정
+.aniEdit {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.aniEdit form > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left : 200px;
+    margin-right : 150px;
+}
+
+.aniEdit label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 14px;
+    color: #555;
+}
+
+.aniEdit input,
+.aniEdit select,
+.aniEdit textarea {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.aniEdit textarea {
+    resize: none;
+}
+
+.aniEdit input[type="file"] {
+    padding: 5px;
+    border: none;
+}
+
+.contentdiv textarea {
+    height : 450px;
+}
+
+.aniEdit input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    margin-left : 300px;
+    margin-right : 150px;
+}
+
+.aniEdit input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+// ---------------------------------------------------------------
+// 이벤트, 수정 추가
+.EventAdd {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+        }
+
+        .EventAdd h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+.EventAdd form > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left : 350px;
+    margin-right : 50px;
+}
+
+
+        .EventAdd label {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .EventAdd input[type="text"],
+        .EventAdd textarea {
+            width: 100%;
+            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .EventAdd textarea {
+            height: 200px;
+        }
+
+        .EventAdd input[type="submit"] {
+            width: 150px;
+            margin-top: 20px;
+            font-size: 16px;
+            padding: 12px;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .EventAdd input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        // ---------------------------------------------------------------
+        // 공지 , 수정 추가
+        .noticeAdd {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+                }
+
+                .noticeAdd h2 {
+                    text-align: center;
+                    margin-bottom: 30px;
+                    font-weight: bold;
+                    color: #343a40;
+                }
+
+        .noticeAdd form > div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            margin-left : 350px;
+            margin-right : 50px;
+        }
+
+
+                .noticeAdd label {
+                    font-weight: bold;
+                    color: #495057;
+                    margin-bottom: 10px;
+                }
+
+                .noticeAdd input[type="text"],
+                .noticeAdd textarea {
+                    width: 100%;
+                    border-radius: 4px;
+                    padding: 12px;
+                    border: 1px solid #ced4da;
+                    box-sizing: border-box;
+                    margin-bottom: 20px;
+                    font-size: 16px;
+                }
+
+                .noticeAdd textarea {
+                    height: 200px;
+                }
+
+                .noticeAdd input[type="submit"] {
+                    width: 150px;
+                    margin-top: 20px;
+                    font-size: 16px;
+                    padding: 12px;
+                    background-color: #28a745;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .noticeAdd input[type="submit"]:hover {
+                    background-color: #218838;
+                }
+
+                // ---------------------------------------------------------------
+                        // FAQ , 수정 추가
+                        .FAQAdd {
+                            width: 100%;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                            background-color: #f9f9f9;
+                            border: 1px solid #ddd;
+                            border-radius: 8px;
+                                }
+
+                                .FAQAdd h2 {
+                                    text-align: center;
+                                    margin-bottom: 30px;
+                                    font-weight: bold;
+                                    color: #343a40;
+                                }
+
+                        .FAQAdd form > div {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 15px;
+                            margin-left : 350px;
+                            margin-right : 50px;
+                        }
+
+
+                                .FAQAdd label {
+                                    font-weight: bold;
+                                    color: #495057;
+                                    margin-bottom: 10px;
+                                }
+
+                                .FAQAdd input[type="text"],
+                                .FAQAdd textarea {
+                                    width: 100%;
+                                    border-radius: 4px;
+                                    padding: 12px;
+                                    border: 1px solid #ced4da;
+                                    box-sizing: border-box;
+                                    margin-bottom: 20px;
+                                    font-size: 16px;
+                                }
+
+                                .FAQAdd textarea {
+                                    height: 200px;
+                                }
+
+                                .FAQAdd input[type="submit"] {
+                                    width: 200px;
+                                    margin-top: 20px;
+                                    font-size: 16px;
+                                    padding: 12px;
+                                    background-color: #28a745;
+                                    color: #ffffff;
+                                    border: none;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    display: block;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                }
+
+                                .FAQAdd input[type="submit"]:hover {
+                                    background-color: #218838;
+                                }
+
+// ----------------------------------------------------
+.order-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+        }
+
+        .order-list-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .order-list {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+        }
+
+        .order-list th, .order-list td {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .order-list thead th {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+
+        .order-list tbody tr:hover {
+            background-color: #f1f1f1;
+        }

@@ -45,7 +45,7 @@
                      <th style="width:35%" class="sortable" onclick="sortTable(3)">작품명</th>
                      <th style="width:8%" class="sortable" onclick="sortTable(4)">최초방영일</th>
                      <th style="width:6%" class="sortable" onclick="sortTable(5)">등급</th>
-                     <th style="width:15%">관리</th>
+                     <th style="width:15%">관리<a href="/master/aniAddMaster" class="btn btn-outline-success btn-sm">추가</a></th>
                  </tr>
              </thead>
              <tbody id="animeTableBody">
@@ -57,8 +57,7 @@
                      <td>2002-10-03</td>
                      <td>15세</td>
                      <td>
-                         <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
-                         <button class="btn btn-outline-secondary btn-sm">수정</button>
+                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster">수정</a></button>
                          <button class="btn btn-outline-danger btn-sm">삭제</button>
                      </td>
                  </tr>
@@ -70,8 +69,7 @@
                      <td>1999-10-20</td>
                      <td>12세</td>
                      <td>
-                         <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
-                         <button class="btn btn-outline-secondary btn-sm">수정</button>
+                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster">수정</a></button>
                          <button class="btn btn-outline-danger btn-sm">삭제</button>
                      </td>
                  </tr>
@@ -83,7 +81,6 @@
                      <td>2004-10-05</td>
                      <td>15세</td>
                      <td>
-                         <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
                          <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster">수정</a></button>
                          <button class="btn btn-outline-danger btn-sm">삭제</button>
                      </td>

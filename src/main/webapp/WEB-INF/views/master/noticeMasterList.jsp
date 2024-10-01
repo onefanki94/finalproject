@@ -15,7 +15,7 @@
                         <th style="width:10%">작성자</th>
                         <th style="width:10%">작성일</th>
                         <th style="width:10%">수정일</th>
-                        <th style="width:15%">관리</th>
+                        <th style="width:15%;">관리<a href="/master/noticeAddMaster" class="btn btn-outline-success btn-sm">추가</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,6 @@
                         <td>2023-09-25</td>
                         <td>2023-09-26</td>
                         <td>
-                            <a href="/master/aniAddMaster" class="btn btn-outline-success btn-sm">추가</a>
                             <button class="btn btn-outline-secondary btn-sm">수정</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
@@ -38,7 +37,6 @@
                         <td>2023-09-24</td>
                         <td>2023-09-25</td>
                         <td>
-                            <a href="/master/aniAddMaster" class="btn btn-outline-success btn-sm">추가</a>
                             <button class="btn btn-outline-secondary btn-sm">수정</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
@@ -50,7 +48,6 @@
                         <td>2023-09-23</td>
                         <td>2023-09-24</td>
                         <td>
-                            <a href="/master/aniAddMaster" class="btn btn-outline-success btn-sm">추가</a>
                             <button class="btn btn-outline-secondary btn-sm">수정</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
@@ -62,7 +59,6 @@
                         <td>2023-09-22</td>
                         <td>2023-09-23</td>
                         <td>
-                            <a href="/master/aniAddMaster" class="btn btn-outline-success btn-sm">추가</a>
                             <button class="btn btn-outline-secondary btn-sm">수정</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>

@@ -13,7 +13,7 @@
                          <th style="width:5%">No.</th>
                          <th style="width:60%">제목</th>
                          <th style="width:15%">작성일</th>
-                         <th style="width:20%">관리</th>
+                         <th style="width:20%">관리<a href="/master/FAQAddMaster" class="btn btn-outline-success btn-sm">추가</a></th>
                      </tr>
                  </thead>
                  <tbody>
