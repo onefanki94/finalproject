@@ -11,11 +11,11 @@
                 <thead class="table-light">
                     <tr>
                         <th style="width:8%">아이디</th>
-                        <th style="width:40%">제목</th>
+                        <th style="width:30%">제목</th>
                         <th style="width:10%">사유</th>
                         <th style="width:20%">작성일</th>
-                        <th style="width:6%">신고횟수</th>
-                        <th style="width:6%">누적 횟수</th>
+                        <th style="width:7%">신고횟수</th>
+                        <th style="width:7%">누적 횟수</th>
                         <th style="width:15%">관리</th>
                     </tr>
                 </thead>

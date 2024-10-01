@@ -55,7 +55,14 @@
  .sales-management h2,
  .tab-content h3,
  .reportinguserList-list-container h2,
-  .reportinguser-list-container h2
+  .reportinguser-list-container h2,
+  .boardManagement h2,
+  .boardReplyManagement h2,
+       .boardReviewManagement h2,
+               .notice-list-container h2,
+                       .QNA-list-container h2,
+                                .FAQ-list-container h2,
+                                         .Event-list-container h2
  {
     display : flex;
     justify-content : center;
@@ -66,8 +73,6 @@
 
 // --------------------------------------------------------------------------------------------------------------
 // 관리자 회원
-
-
 /* === 테이블 스타일 === */
 .user-list {
     border-collapse: collapse;
@@ -584,3 +589,252 @@
             margin-top: 20px;
             font-size: 16px;
         }
+// ------------------------------------------------------------------------------------------
+// 게시판
+.boardManagement{
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+}
+        /* 테이블 스타일 */
+        .boardManagement table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+        }
+
+        .boardManagement th,
+        .boardManagement td {
+            text-align: center;
+            padding: 15px;
+            vertical-align: middle; /* 세로 가운데 정렬 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .boardManagement th {
+            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+        }
+
+
+        /* 페이징 스타일 */
+        .boardPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+// -------------------------------------------------------------------------
+// 댓글
+.boardReplyManagement {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+        }
+
+        /* 테이블 스타일 */
+        .boardReplyManagement table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+        }
+
+        .boardReplyManagement th,
+        .boardReplyManagement td {
+            text-align: center;
+            padding: 15px;
+            vertical-align: middle; /* 세로 가운데 정렬 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .boardReplyManagement th {
+            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+        }
+
+        /* 페이징 스타일 */
+        .boardReplyPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+// ----------------------------------------------------------------------------
+// 리뷰
+.boardReviewManagement {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+        }
+
+
+        /* 테이블 스타일 */
+        .boardReviewManagement table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+        }
+
+        .boardReviewManagement th,
+        .boardReviewManagement td {
+            text-align: center;
+            padding: 15px;
+            vertical-align: middle; /* 세로 가운데 정렬 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .boardReviewManagement th {
+            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+        }
+
+        /* 페이징 스타일 */
+        .boardReviewPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+// ------------------------------------------------------
+// 공지사항
+.notice-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+        }
+
+        /* 테이블 스타일 */
+        .notice-list {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+        }
+
+        .notice-list th,
+        .notice-list td {
+            text-align: center;
+            padding: 15px;
+            vertical-align: middle; /* 세로 가운데 정렬 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .notice-list th {
+            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+        }
+
+        /* 페이징 스타일 */
+        .noticePageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+// ----------------------------------------------
+// QNA
+.QNA-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+        }
+
+        /* 테이블 스타일 */
+        .QNA-list {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+        }
+
+        .QNA-list th,
+        .QNA-list td {
+            text-align: center;
+            padding: 15px;
+            vertical-align: middle; /* 세로 가운데 정렬 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .QNA-list th {
+            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+        }
+
+        /* 페이징 스타일 */
+        .QNAPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+ // ------------------------------------------------------------------------------------
+ // 자주 묻는 질문
+ .FAQ-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+         }
+
+         /* 테이블 스타일 */
+         .FAQ-list {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+         }
+
+         .FAQ-list th,
+         .FAQ-list td {
+             text-align: center;
+             padding: 15px;
+             vertical-align: middle; /* 세로 가운데 정렬 */
+             border-bottom: 1px solid #dee2e6;
+         }
+
+         .FAQ-list th {
+             background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+         }
+
+         /* 페이징 스타일 */
+         .FAQPageing {
+             text-align: center;
+             margin-top: 20px;
+             font-size: 16px;
+         }
+ // --------------------------------------------------------------------------
+ // 이벤트
+ .Event-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            max-width: 1400px; /* 최대 너비 */
+         }
+
+         /* 테이블 스타일 */
+         .Event-list {
+      width: 80%;
+      border-collapse: collapse;
+      margin-left : 300px;
+      margin-right : 300px;
+         }
+
+         .Event-list th,
+         .Event-list td {
+             text-align: center;
+             padding: 15px;
+             vertical-align: middle; /* 세로 가운데 정렬 */
+             border-bottom: 1px solid #dee2e6;
+         }
+
+         .Event-list th {
+             background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+         }
+
+         /* 페이징 스타일 */
+         .EventPageing {
+             text-align: center;
+             margin-top: 20px;
+             font-size: 16px;
+         }
