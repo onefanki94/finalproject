@@ -41,7 +41,7 @@
                      <option value="productName">상품명</option>
                  </select>
                  <input type="text" class="form-control" id="search-keyword" placeholder="검색어 입력" style="width: 200px; display: inline-block;">
-                 <button class="btn btn-primary" id="search-btn">검색</button>
+                 <button class="btn btn-outline-success" id="search-btn">검색</button>
              </div>
          </div>
      </div>
@@ -52,14 +52,14 @@
             <thead>
                 <tr>
                     <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
-                    <th style="width:6%">주문일시</th>
-                    <th style="width:6%">주문번호</th>
+                    <th style="width:8%">주문일시</th>
+                    <th style="width:8%">주문번호</th>
                     <th style="width:6%">주문상태</th>
-                    <th style="width:8%">주문자명</th>
-                    <th style="width:6%">주문자연락처</th>
+                    <th style="width:6%">주문자명</th>
+                    <th style="width:10%">주문자연락처</th>
                     <th style="width:6%">수령자명</th>
-                    <th style="width:6%">수령자연락처</th>
-                    <th style="width:30%">배송지</th>
+                    <th style="width:10%">수령자연락처</th>
+                    <th style="width:38%">배송지</th>
                     <th style="width:10%">관리</th>
                 </tr>
             </thead>
@@ -75,9 +75,7 @@
                     <td>010-9876-5432</td>
                     <td>서울특별시 강남구 테헤란로 123</td>
                     <td>
-                        <button class="btn btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
                         <button class="btn btn-outline-secondary">수정</button>
-                        <button class="btn btn-outline-danger">삭제</button>
                     </td>
                 </tr>
                 <tr>
@@ -91,9 +89,7 @@
                     <td>010-5678-1234</td>
                     <td>부산광역시 해운대구 해운대로 456</td>
                     <td>
-                        <button class="btn btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
                         <button class="btn btn-outline-secondary">수정</button>
-                        <button class="btn btn-outline-danger">삭제</button>
                     </td>
                 </tr>
                 <tr>
@@ -107,9 +103,7 @@
                     <td>010-1234-5678</td>
                     <td>대구광역시 중구 동성로 123</td>
                     <td>
-                        <button class="btn btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
                         <button class="btn btn-outline-secondary">수정</button>
-                        <button class="btn btn-outline-danger">삭제</button>
                     </td>
                 </tr>
                 <tr>
@@ -123,9 +117,7 @@
                     <td>010-4321-8765</td>
                     <td>인천광역시 남동구 예술로 456</td>
                     <td>
-                        <button class="btn btn-outline-success"><a href="/master/aniAddMaster">추가</a></button>
                         <button class="btn btn-outline-secondary">수정</button>
-                        <button class="btn btn-outline-danger">삭제</button>
                     </td>
                 </tr>
             </tbody>

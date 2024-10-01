@@ -54,6 +54,14 @@ public class masterController {
             return mav;
         }
 
+    // Dashboard - 애니관리 - 애니 목록 - 애니 수정
+    @GetMapping("/aniEditMaster")
+    public ModelAndView aniEditMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/aniEditMaster");
+        return mav;
+    }
+
         // Dashboard - 굿즈관리 - 굿즈목록 리스트
         @GetMapping("/storeMasterList")
         public ModelAndView storeMasterList(){

@@ -286,89 +286,44 @@ margin-top : 20px;
 }
 
 // 관리자페이지 - 애니관리 - 애니목록 - 추가
-.aniAdd {
-width: 100%;
-max-width: 800px;
-margin: 0 auto;
-padding: 20px;
-background-color: #f9f9f9;
-border: 1px solid #ddd;
-border-radius: 8px;
-}
+ .aniAdd {
+             margin: 50px auto; /* 컨테이너 상하 좌우 중앙 배치 */
+             padding: 30px;
+             background: #ffffff;
+             border-radius: 8px;
+         }
 
-.aniAdd h2 {
-text-align: center;
-font-size: 24px;
-color: #333;
-margin-bottom: 20px;
-}
+         /* 제목 스타일 */
+         .aniAdd h2 {
+             color: #343a40;
+             font-weight: bold;
+             text-align: center;
+             margin-bottom: 30px;
+             margin-top : 30px;
+         }
 
-.aniAdd form > div {
-display: flex;
-align-items: center;
-margin-bottom: 15px;
-margin-left : 200px;
-margin-right : 150px;
-}
+         /* 라벨 텍스트 오른쪽 정렬 */
+         .col-form-label {
+             text-align: right;
+         }
 
-.aniAdd label {
-width: 150px;
-margin-right: 10px;
-text-align: right;
-font-size: 14px;
-color: #555;
-}
+         /* 텍스트 영역 높이 설정 */
+         #outline {
+             height: 300px; /* 줄거리 높이 300px */
+             resize: none; /* 사용자가 크기 조절 불가능 */
+         }
 
-.aniAdd input,
-.aniAdd select,
-.aniAdd textarea {
-flex: 1;
-padding: 8px;
-border: 1px solid #ccc;
-border-radius: 4px;
-font-size: 14px;
-color: #333;
-}
+         #content {
+             height: 500px; /* 애니 상세내용 높이 500px */
+             resize: none; /* 사용자가 크기 조절 불가능 */
+         }
 
-.aniAdd textarea {
-resize: none;
-}
-
-.aniAdd input[type="file"] {
-padding: 5px;
-border: none;
-}
-
-.contentdiv textarea {
-height : 450px;
-}
-
-.aniAdd input[type="submit"] {
-background-color: #4CAF50;
-color: white;
-padding: 10px 20px;
-font-size: 16px;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-transition: background-color 0.3s ease;
-display: block;
-margin: 0 auto;
-margin-left : 300px;
-margin-right : 150px;
-}
-
-.aniAdd input[type="submit"]:hover {
-background-color: #45a049;
-}
 
 // 관리자 페이지 - 굿즈관리 - 굿즈목록 CSS
  .store-list-container {
              margin: 30px auto;
              padding: 20px;
              background: #ffffff;
-             border-radius: 8px;
-             max-width: 1200px;
              margin-top : 30px;
          }
 
@@ -391,9 +346,6 @@ background-color: #45a049;
          .store-list th,
          .store-list td {
              text-align: center; /* 수평 중앙 정렬 */
-             vertical-align: middle; /* 수직 중앙 정렬 */
-             height: 50px; /* 행 높이 */
-             line-height: 30px; /* 텍스트 줄 간격 */
              padding: 15px; /* 패딩 */
              border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
          }
@@ -404,47 +356,9 @@ background-color: #45a049;
 
          .store-list td {
              background-color: #ffffff; /* 테이블 데이터 배경색 */
+             vertical-align: middle; /* 수직 중앙 정렬 */
          }
 
-         /* 버튼 스타일 */
-         .btn {
-             margin: 0 5px;
-             font-size: 14px;
-             padding: 5px 10px;
-             border-radius: 4px;
-             cursor: pointer;
-             transition: background-color 0.3s ease, color 0.3s ease;
-         }
-
-         .add-btn {
-             background-color: #28a745; /* 추가 버튼 색상 */
-             color: #ffffff;
-             border: none;
-         }
-
-         .add-btn:hover {
-             background-color: #218838; /* hover 시 어두운 색 */
-         }
-
-         .edit-btn {
-             background-color: #ffc107; /* 수정 버튼 색상 */
-             color: #ffffff;
-             border: none;
-         }
-
-         .edit-btn:hover {
-             background-color: #e0a800; /* hover 시 어두운 색 */
-         }
-
-         .delete-btn {
-             background-color: #dc3545; /* 삭제 버튼 색상 */
-             color: #ffffff;
-             border: none;
-         }
-
-         .delete-btn:hover {
-             background-color: #c82333; /* hover 시 어두운 색 */
-         }
 
          /* 페이징 영역 */
          .storePageing {
@@ -454,20 +368,9 @@ background-color: #45a049;
              color: #495057;
          }
 
-         /* 버튼 내의 링크 스타일 */
-         .btn a {
-             text-decoration: none;
-             color: inherit; /* 버튼 색상 상속 */
-         }
-
-         .btn a:hover {
-             text-decoration: none; /* 링크의 기본 밑줄 제거 */
-         }
 
 
 // Dashboard - 주문관리 - 주문내역리스트
-
-
 .order-status, .order-date-filter, .order-search {
 margin-bottom: 15px;
 display : flex;
@@ -494,8 +397,7 @@ line-height : 50px;
 }
 
 .order-search select {
-height : 50px;
-line-height : 50px;
+text-align : center;
 }
 
 #search-keyword {
@@ -527,107 +429,142 @@ background-color: #ddd;
 
 .filterAll{
 border : 1px solid gray;
-margin : 2%;
 padding : 2%;
-margin-left: 250px;
+margin : 0 auto;
+text-align : center;
+margin-top : 30px;
 }
 
 .fileterh2 h2{
-width: 80%;
+width: 95%;
 border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
 text-align : center;
+margin-top : 30px;
+font-weight : bold;
 }
+
+.order-list-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .order-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .order-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .order-list th,
+        .order-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6;
+            border: 1px solid lightgray; /* 테두리 설정 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+        }
+
+        .order-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .order-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+
+
 
 // Dashboard - 신고관리 - 신고목록
-.reportinguserList-list-container {
-padding: 20px;
-}
+ .reportinguserList-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
 
-.reportinguserList-list-container h2 {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-}
+        /* 제목 스타일 */
+        .reportinguserList-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.reportinguserList-list {
-border-collapse: collapse;
-margin-top: 20px;
-margin : 0 auto;
-margin-right : 100px;
-width : 100%;
-max-width : 1500px;
-}
+        /* 신고 목록 테이블 스타일 */
+        .reportinguserList-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.reportinguserList-list th, .reportinguserList-list td {
-border: 1px solid #ddd;
-padding: 10px;
-text-align: center;
-}
+        .reportinguserList-list th,
+        .reportinguserList-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 설정 */
+        }
 
-.reportinguserList-list th {
-background-color: #343a40;
-color: white;
-}
+        .reportinguserList-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.reportinguserList-list tr:nth-child(even) {
-background-color: #f2f2f2;
-}
+        .reportinguserList-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.reportinguserList-list tr:hover {
-background-color: #ddd;
-}
+        /* 버튼 스타일 */
+        .memo-btn, .delete-btn {
+            margin: 0 5px;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-.memo-btn, .delete-btn{
-padding: 5px 10px;
-margin: 5px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-}
+        .memo-btn {
+            background-color: #28a745; /* 신고내역추가 버튼 색상 */
+        }
 
-.memo-btn {
-background-color: #E6E6FA;
-color: black;
-}
+        .memo-btn:hover {
+            background-color: #218838; /* hover 시 색상 */
+        }
 
-.memo-btn a:link, .memo-btn a:visited {
-text-decoration : none;
-color : black;
-}
+        .delete-btn {
+            background-color: #dc3545; /* 삭제 버튼 색상 */
+        }
 
-.delete-btn {
-background-color: #dc3545;
-color: black;
-}
+        .delete-btn:hover {
+            background-color: #c82333; /* hover 시 색상 */
+        }
 
-.memo-btn:hover{
-background-color: #888;
-text-decoration : none;
-}
-
-.delete-btn:hover {
-background-color: #c82333;
-}
-
-.reportinguserListPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 스타일 */
+        .reportinguserListPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // Dashboard - 게시판,댓글 ,리뷰 - 게시판
 .boardReviewManagement {
@@ -696,196 +633,156 @@ margin-top : 20px;
 
 // Dashboard - 게시판,댓글 ,리뷰 - 게시판
 .boardManagement {
-max-width: 1000px;
-margin: 0 auto;
-padding: 20px;
-background-color: #f9f9f9;
-border: 1px solid #ddd;
-border-radius: 8px;
-}
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
 
-.boardManagement h2 {
-width: 80%;
-border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
-text-align : center;
-}
+        /* 제목 스타일 */
+        .boardManagement h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.boardManagement table {
-width: 80%;
-border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
-}
+        /* 테이블 스타일 */
+        .boardManagement table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.boardManagement th, .boardManagement td {
-border: 1px solid #ddd;
-padding: 8px;
-text-align: center;
-}
+        .boardManagement th,
+        .boardManagement td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.boardManagement th {
-background-color: #343a40;
-color: white;
-}
+        .boardManagement th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.boardManagement a.btn {
-padding: 5px 10px;
-border-radius: 4px;
-color: white;
-text-decoration: none;
-}
+        .boardManagement td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.boardManagement a.btn-info {
-background-color: #2196F3;
-}
 
-.boardManagement a.btn-danger {
-background-color: #f44336;
-}
-
-.boardPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .boardPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // Dashboard - 게시판,댓글 ,리뷰 - 리뷰
 .boardReviewManagement {
-max-width: 1000px;
-margin: 0 auto;
-padding: 20px;
-background-color: #f9f9f9;
-border: 1px solid #ddd;
-border-radius: 8px;
-}
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+        }
 
-.boardReviewManagement h2 {
-width: 80%;
-border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
-text-align : center;
-}
+        /* 제목 스타일 */
+        .boardReviewManagement h2 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.boardReviewManagement table {
-width: 80%;
-border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
-}
+        /* 테이블 스타일 */
+        .boardReviewManagement table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.boardReviewManagement th, .boardReviewManagement td {
-border: 1px solid #ddd;
-padding: 8px;
-text-align: center;
-}
+        .boardReviewManagement th,
+        .boardReviewManagement td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.boardReviewManagement th {
-background-color: #343a40;
-width : 14.2827%;
-color: white;
-}
+        .boardReviewManagement th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+            color : black;
+        }
 
-.boardReviewManagement a.btn {
-padding: 5px 10px;
-border-radius: 4px;
-color: white;
-text-decoration: none;
-}
+        .boardReviewManagement td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.boardReviewManagement a.btn-info {
-background-color: #2196F3;
-}
-
-.boardReviewManagement a.btn-danger {
-background-color: #f44336;
-}
-
-.boardReviewPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .boardReviewPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // Dashboard - 게시판,댓글 ,리뷰 - 댓글
 .boardReplyManagement {
-max-width: 1000px;
-margin: 0 auto;
-padding: 20px;
-background-color: #f9f9f9;
-border: 1px solid #ddd;
-border-radius: 8px;
-}
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
 
-.boardReplyManagement h2 {
-width: 80%;
-border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
-text-align : center;
-}
+        /* 제목 스타일 */
+        .boardReplyManagement h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.boardReplyManagement table {
-width: 80%;
-border-collapse: collapse;
-margin-left : 300px;
-margin-right : 300px;
-}
+        /* 테이블 스타일 */
+        .boardReplyManagement table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.boardReplyManagement th, .boardReplyManagement td {
-border: 1px solid #ddd;
-padding: 8px;
-text-align: center;
-}
+        .boardReplyManagement th,
+        .boardReplyManagement td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.boardReplyManagement th {
-background-color: #343a40;
-color: white;
-}
+        .boardReplyManagement th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.boardReplyManagement a.btn {
-padding: 5px 10px;
-border-radius: 4px;
-color: white;
-text-decoration: none;
-}
+        .boardReplyManagement td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.boardReplyManagement a.btn-info {
-background-color: #2196F3;
-}
-
-.boardReplyManagement a.btn-danger {
-background-color: #f44336;
-}
-
-.boardReplyPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .boardReplyPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // Dashboard - 기타관리 - 공지사항 수정
 .noticeEdit {
@@ -1025,204 +922,76 @@ background-color: #45a049;
 }
 
 // 관리자 페이지 - 기타관리 - 공지사항
-.notice-list-container {
-padding: 20px;
-}
+ .notice-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
 
-.notice-list-container h2 {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-}
+        /* 제목 스타일 */
+        .notice-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.notice-list {
-border-collapse: collapse;
-margin-top: 20px;
-margin : 0 auto;
-margin-right : 100px;
-width : 100%;
-max-width : 1500px;
-}
+        /* 테이블 스타일 */
+        .notice-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.notice-list th, .notice-list td {
-border: 1px solid #ddd;
-padding: 10px;
-text-align: center;
-}
+        .notice-list th,
+        .notice-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.notice-list th {
-background-color: #343a40;
-color: white;
-}
+        .notice-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.notice-list tr:nth-child(even) {
-background-color: #f2f2f2;
-}
+        .notice-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.notice-list tr:hover {
-background-color: #ddd;
-}
 
-.add-btn, .edit-btn, .delete-btn {
-padding: 5px 10px;
-margin: 5px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-}
 
-.add-btn {
-background-color: #E6E6FA;
-color: black;
-}
-
-.add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
-text-decoration : none;
-color : black;
-}
-
-.edit-btn {
-background-color: #007bff;
-color: black;
-}
-
-.delete-btn {
-background-color: #dc3545;
-color: black;
-}
-
-.add-btn:hover{
-background-color: #888;
-text-decoration : none;
-}
-
-.edit-btn:hover {
-background-color: #0056b3;
-}
-
-.delete-btn:hover {
-background-color: #c82333;
-}
-
-.noticePageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .noticePageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // Dashboard - 주문관리 - 일/월별 매출내역
-.sales-management {
-margin: 20px;
-}
-
-.sales-management  h2{
-display : flex;
-justify-content : center;
-margin-left : 220px;
-}
-
-.search-period {
-margin-bottom: 20px;
-margin-left : 220px;
-display : flex;
-justify-content : center;
-line-height : 30px;
-}
-
-.search-period label, .search-period span {
-margin-right: 10px;
-}
-
-.search-period input[type="date"] {
-padding: 5px;
-margin-right: 10px;
-}
-
-#search-btn {
-padding: 6px 12px;
-cursor: pointer;
-}
-
-.sales-statistics {
-margin-top: 20px;
-}
-
-.tabs {
-display: flex;
-list-style-type: none;
-padding: 0;
-margin-bottom: 20px;
-border-bottom: 1px solid #ccc;
-margin-left : 220px;
-display : flex;
-justify-content : center;
-}
-
-.tab-item {
-margin-right: 20px;
-padding: 10px 20px;
-cursor: pointer;
-background-color: #f9f9f9;
-border: 1px solid #ccc;
-border-bottom: none;
-}
-
-.tab-item.active {
-background-color: white;
-border-top: 2px solid #007bff;
-}
-
-.tab-panel {
-display: none;
-}
-
-.tab-panel.active {
-display: block;
-}
-
-.sales-table {
-width : 80%;
-margin-left : 280px;
-border-collapse: collapse;
-justify-content : center;
-}
-
-.sales-table th, .sales-table td {
-padding: 10px;
-border: 1px solid #ccc;
-text-align: center;
-}
-
-// Dashboard - 일/월별 매출관리 - 상세보기
 .sales-management {
             margin: 30px auto;
             padding: 20px;
             background: #ffffff;
             border-radius: 8px;
-            max-width: 1000px;
         }
 
         /* 제목 스타일 */
         .sales-management h2 {
             color: #343a40;
             font-weight: bold;
-            margin-bottom: 20px;
             text-align: center;
+            margin-bottom: 30px;
+            margin-top: 30px;
         }
 
-        /* 검색 기간 스타일 */
+        /* 검색 기간 설정 스타일 */
         .search-period {
             display: flex;
             justify-content: center;
@@ -1243,24 +1012,21 @@ text-align: center;
         }
 
         .search-period button {
-            padding: 5px 15px;
+            padding: 7px 15px;
             border: none;
             background-color: #007bff;
             color: #ffffff;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
+            margin-left: 10px;
         }
 
         .search-period button:hover {
             background-color: #0056b3;
         }
 
-        /* 매출 통계 탭 스타일 */
-        .sales-statistics {
-            margin: 20px 0;
-        }
-
+        /* 탭 스타일 */
         .tabs {
             display: flex;
             justify-content: center;
@@ -1299,12 +1065,16 @@ text-align: center;
 
         /* 테이블 스타일 */
         .sales-table {
-            width: 100%;
+            width: 95%;
             border-collapse: collapse;
             margin: 20px auto;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
+        }
+
+        .tab-content h3 {
+            margin : 0 auto;
+            text-align : center;
         }
 
         .sales-table th,
@@ -1313,7 +1083,7 @@ text-align: center;
             vertical-align: middle; /* 수직 중앙 정렬 */
             padding: 15px; /* 패딩 */
             border-bottom: 1px solid #dee2e6;
-            border: 1px solid #dee2e6;
+            border: 1px solid #dee2e6; /* 테두리 설정 */
         }
 
         .sales-table th {
@@ -1358,289 +1128,155 @@ text-align: center;
 
 // 관리자 페이지 - 기타관리 - 문의사항
 .QNA-list-container {
-padding: 20px;
-}
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
 
-.QNA-list-container h2 {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-}
+        /* 제목 스타일 */
+        .QNA-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.QNA-list {
-border-collapse: collapse;
-margin-top: 20px;
-margin : 0 auto;
-margin-right : 100px;
-width : 100%;
-max-width : 1500px;
-}
+        /* 테이블 스타일 */
+        .QNA-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.QNA-list th, .QNA-list td {
-border: 1px solid #ddd;
-padding: 10px;
-text-align: center;
-}
+        .QNA-list th,
+        .QNA-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.QNA-list th {
-background-color: #343a40;
-color: white;
-}
+        .QNA-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.QNA-list tr:nth-child(even) {
-background-color: #f2f2f2;
-}
+        .QNA-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.QNA-list tr:hover {
-background-color: #ddd;
-}
-
-.add-btn, .edit-btn, .delete-btn {
-padding: 5px 10px;
-margin: 5px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-}
-
-.add-btn {
-background-color: #E6E6FA;
-color: black;
-}
-
-.add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
-text-decoration : none;
-color : black;
-}
-
-.edit-btn {
-background-color: #007bff;
-color: black;
-}
-
-.delete-btn {
-background-color: #dc3545;
-color: black;
-}
-
-.add-btn:hover{
-background-color: #888;
-text-decoration : none;
-}
-
-.edit-btn:hover {
-background-color: #0056b3;
-}
-
-.delete-btn:hover {
-background-color: #c82333;
-}
-
-.QNAPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .QNAPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // 관리자 페이지 - 기타관리 - 문의사항
 .FAQ-list-container {
-padding: 20px;
-}
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
 
-.FAQ-list-container h2 {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-}
+        /* 제목 스타일 */
+        .FAQ-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.FAQ-list {
-border-collapse: collapse;
-margin-top: 20px;
-margin : 0 auto;
-margin-right : 100px;
-width : 100%;
-max-width : 1500px;
-}
+        /* 테이블 스타일 */
+        .FAQ-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.FAQ-list th, .FAQ-list td {
-border: 1px solid #ddd;
-padding: 10px;
-text-align: center;
-}
+        .FAQ-list th,
+        .FAQ-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.FAQ-list th {
-background-color: #343a40;
-color: white;
-}
+        .FAQ-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.FAQ-list tr:nth-child(even) {
-background-color: #f2f2f2;
-}
+        .FAQ-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.FAQ-list tr:hover {
-background-color: #ddd;
-}
-
-.edit-btn, .delete-btn {
-padding: 5px 10px;
-margin: 5px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-}
-
-
-.edit-btn a:link, .edit-btn a:visited {
-text-decoration : none;
-color : black;
-}
-
-.edit-btn {
-background-color: #007bff;
-color: black;
-}
-
-.delete-btn {
-background-color: #dc3545;
-color: black;
-}
-
-
-.edit-btn:hover {
-background-color: #0056b3;
-}
-
-.delete-btn:hover {
-background-color: #c82333;
-}
-
-.FAQPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .FAQPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // 관리자 페이지 - 기타관리 - 이벤트
-.Event-list-container {
-padding: 20px;
-}
+ .Event-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+        }
 
-.Event-list-container h2 {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-}
+        /* 제목 스타일 */
+        .Event-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
 
-.Event-list {
-border-collapse: collapse;
-margin-top: 20px;
-margin : 0 auto;
-margin-right : 100px;
-width : 100%;
-max-width : 1500px;
-}
+        /* 테이블 스타일 */
+        .Event-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.Event-list th, .Event-list td {
-border: 1px solid #ddd;
-padding: 10px;
-text-align: center;
-}
+        .Event-list th,
+        .Event-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
 
-.Event-list th {
-background-color: #343a40;
-color: white;
-}
+        .Event-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
 
-.Event-list tr:nth-child(even) {
-background-color: #f2f2f2;
-}
+        .Event-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
 
-.Event-list tr:hover {
-background-color: #ddd;
-}
-
-.add-btn, .edit-btn, .delete-btn {
-padding: 5px 10px;
-margin: 5px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-}
-
-.add-btn {
-background-color: #E6E6FA;
-color: black;
-}
-
-.add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
-text-decoration : none;
-color : black;
-}
-
-.edit-btn {
-background-color: #007bff;
-color: black;
-}
-
-.delete-btn {
-background-color: #dc3545;
-color: black;
-}
-
-.add-btn:hover{
-background-color: #888;
-text-decoration : none;
-}
-
-.edit-btn:hover {
-background-color: #0056b3;
-}
-
-.delete-btn:hover {
-background-color: #c82333;
-}
-
-.EventPageing {
-margin : 0 auto;
-padding : 20px;
-margin-right : 80px;
-width : 100%;
-max-width : 1500px;
-display : flex;
-justify-content : center;
-height : 30px;
-border : 1px solid gray;
-margin-top : 20px;
-}
+        /* 페이징 영역 */
+        .EventPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // Dashboard - 로그인 정보 표시
 .loginInfo {

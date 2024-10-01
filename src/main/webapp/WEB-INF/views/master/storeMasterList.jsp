@@ -31,9 +31,9 @@
                     <td>10</td>
                     <td>2023-01-01</td>
                     <td>
-                        <button class="btn add-btn">추가</button>
-                        <button class="btn edit-btn">수정</button>
-                        <button class="btn delete-btn">삭제</button>
+                        <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
+                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
                 <tr>
@@ -45,9 +45,9 @@
                     <td>5</td>
                     <td>2023-02-10</td>
                     <td>
-                        <button class="btn add-btn">추가</button>
-                        <button class="btn edit-btn">수정</button>
-                        <button class="btn delete-btn">삭제</button>
+                        <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
+                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
                 <tr>
@@ -59,9 +59,9 @@
                     <td>50</td>
                     <td>2023-03-15</td>
                     <td>
-                        <button class="btn add-btn">추가</button>
-                        <button class="btn edit-btn">수정</button>
-                        <button class="btn delete-btn">삭제</button>
+                        <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
+                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
                 <tr>
@@ -73,9 +73,9 @@
                     <td>20</td>
                     <td>2023-04-20</td>
                     <td>
-                        <button class="btn add-btn">추가</button>
-                        <button class="btn edit-btn">수정</button>
-                        <button class="btn delete-btn">삭제</button>
+                        <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
+                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
             </tbody>

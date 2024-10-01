@@ -9,7 +9,7 @@
             <thead>
                 <tr>
                     <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
-                    <th style="width:6%">애니번호</th>
+                    <th style="width:5%">애니번호</th>
                     <th style="width:6%">카테고리</th>
                     <th style="width:35%">작품명</th>
                     <th style="width:8%">최초방영일</th>
@@ -53,7 +53,7 @@
                     <td>15세</td>
                     <td>
                         <button class="btn btn-outline-success btn-sm"><a href="/master/aniAddMaster">추가</a></button>
-                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
