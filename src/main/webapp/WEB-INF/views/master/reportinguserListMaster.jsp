@@ -11,29 +11,23 @@
     <table class="reportinguserList-list">
         <thead>
             <tr>
-                <th>No.</th>
-                <th>아이디</th>
-                <th>신고 상태</th>
-                <th>관리자아이디</th>
-                <th>관리자 신고 상태</th>
-                <th>증거자료</th>
-                <th>작업</th>
+                <th style="width:2%"></th>
+                <th style="width:2%">No.</th>
+                <th style="width:5%">아이디</th>
+                <th style="width:12%">신고상태</th>
+                <th style="width:6%">관리자아이디</th>
+                <th style="width:6%">처리현황</th>
+                <th style="width:10%">증거자료</th>
+                <th style="width:3.5%">신고횟수</th>
+                <th style="width:3.5%">누적횟수</th>
+                <th style="width:10%">관리</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td><input type="checkbox" /></td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>
-                    <button class="memo-btn">신고내역추가</button>
-                    <button class="delete-btn">삭제</button>
-                </td>
-            </tr>
-            <tr>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -41,11 +35,29 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>
-                    <button class="memo-btn">신고내역추가</button>
-                    <button class="delete-btn">삭제</button>
+                    <button class="btn btn-outline-success btn-sm">신고내역추가</button>
+                    <button class="btn btn-outline-danger btn-sm">삭제</button>
                 </td>
             </tr>
             <tr>
+                <td><input type="checkbox" /></td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>
+                    <button class="btn btn-outline-success btn-sm">신고내역추가</button>
+                    <button class="btn btn-outline-danger btn-sm">삭제</button>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -53,11 +65,14 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                             <td>
-                                <button class="memo-btn">신고내역추가</button>
-                                <button class="delete-btn">삭제</button>
+                    <button class="btn btn-outline-success btn-sm">신고내역추가</button>
+                    <button class="btn btn-outline-danger btn-sm">삭제</button>
                             </td>
             </tr>
             <tr>
+                <td><input type="checkbox" /></td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
@@ -65,8 +80,8 @@
                 <td>데이터 바인딩</td>
                 <td>데이터 바인딩</td>
                             <td>
-                                <button class="memo-btn">신고내역추가</button>
-                                <button class="delete-btn">삭제</button>
+                    <button class="btn btn-outline-success btn-sm">신고내역추가</button>
+                    <button class="btn btn-outline-danger btn-sm">삭제</button>
                             </td>
             </tr>
         </tbody>

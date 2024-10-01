@@ -1,1468 +1,1295 @@
 .mastermain {
-    display: flex;
-}
-
-.management {
-    font-size: 1.3em;
+display: flex;
 }
 
 .management a {
-    text-decoration: none;
-    color : white;
+text-decoration: none;
+color : white;
 }
 
-nav {
-    width: 200px;
-    background-color: #343a40;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    color: white;
-    padding: 10px;
+.navbar {
+background-color: #343a40; /* 네비게이션 바 배경 색상 */
+padding: 15px;
 }
 
-.manage_menu ul {
-    list-style-type: none;
-    padding: 0;
+
+.navbar-nav .nav-item .menu-item {
+color: #f8f9fa;
+font-size: 16px;
+margin: 0 15px;
+font-weight: 500;
+transition: color 0.3s, background 0.3s;
 }
 
-.menu-item, .submenu a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
+/* 메뉴 항목 hover 스타일 */
+.navbar-nav .nav-item .menu-item:hover {
+color: #28a745;
+text-decoration: none;
 }
 
-.menu-item:hover, .submenu a:hover {
-    background-color: #495057;
+/* 드롭다운 서브메뉴 스타일 */
+.dropdown-menu {
+background-color: #495057;
+border: none;
 }
 
-.submenu {
-    display: none;
-    text-align : center;
+.dropdown-menu .dropdown-item {
+color: #ffffff;
+text-align:center;
 }
 
-.submenu a {
-    padding-left: 20px;
+.dropdown-menu .dropdown-item:hover {
+background-color: #6c757d;
+color: #ffffff;
 }
 
 /* 차트 스타일 */
 .chart {
-    margin-left: 220px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
+margin-left: 220px;
+padding: 20px;
+display: flex;
+gap: 20px;
 }
 
 .haruDailyChart, .monthDailyChart {
-    border: 1px solid gray;
-    padding: 10px;
-    flex: 1;
-    box-sizing: border-box;
-    height: 450px;
+border: 1px solid gray;
+padding: 10px;
+flex: 1;
+box-sizing: border-box;
+height: 450px;
 }
 
 // 관리자 페이지 - 애니관리 - 애니목록 CSS
-.anime-list-container {
-    padding: 20px;
-}
+ .anime-list-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            max-width: 1000px;
+            margin-top : 30px;
+        }
 
-.anime-list-container h2 {
-    margin : 20 auto;
-    padding : 20px;
-    background-color : beige;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-}
+        /* 제목 스타일 */
+        .anime-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top :30px;
+        }
 
-.anime-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
-}
+        /* 테이블 스타일 */
+        .anime-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
 
-.anime-list th, .anime-list td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
+        .anime-list th,
+        .anime-list td {
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
 
-.anime-list th {
-    background-color: #343a40;
-    color: white;
-}
+        .anime-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+        }
 
-.anime-list tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+        /* 버튼 스타일 */
+        .btn {
+            margin: 0 5px;
+            font-size: 14px;
+        }
 
-.anime-list tr:hover {
-    background-color: #ddd;
-}
+        /* 버튼 내의 링크 스타일 */
+        .btn a {
+            text-decoration: none;
+            color: inherit; /* 버튼 색상 상속 */
+        }
 
-.add-btn, .edit-btn, .delete-btn {
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .btn a:hover {
+            text-decoration: none; /* 링크의 기본 밑줄 제거 */
+        }
 
-.add-btn {
-    background-color: #E6E6FA;
-    color: black;
-}
-
-.add-btn a:link, .add-btn a:visited {
-    text-decoration : none;
-    color : black;
-}
-
-.edit-btn {
-    background-color: #007bff;
-    color: black;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: black;
-}
-
-.add-btn:hover{
-    background-color: #888;
-    text-decoration : none;
-}
-
-.edit-btn:hover {
-    background-color: #0056b3;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-.aniPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
+        /* 페이징 영역 */
+        .aniPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
 
 // 관리자 페이지 - 회원관리 - 회원목록 CSS
 .user-list-container {
-    padding: 20px;
-}
-
-.user-list-container h2 {
-    margin : 20 auto;
-    padding : 20px;
-    background-color : beige;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-}
-
-.user-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
-}
-
-.user-list th, .user-list td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.user-list th {
-    background-color: #343a40;
-    color: white;
-}
-
-.user-list tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.user-list tr:hover {
-    background-color: #ddd;
-}
-
-.delete-btn {
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
-.delete-btn {
-    background-color: #dc3545;
-    color: black;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-.userPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// 관리자 페이지 - 회원관리 - 신고회원목록 CSS
-.reportinguser-list-container {
-    padding: 20px;
-}
-
-.reportinguser-list-container h2 {
-    margin : 20 auto;
-    padding : 20px;
-    background-color : beige;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-}
-
-.reportinguser-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
-
-}
-
-.reportinguser-list th, .reportinguser-list td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.reportinguser-list th {
-    background-color: #343a40;
-    color: white;
-}
-
-.reportinguser-list tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.reportinguser-list tr:hover {
-    background-color: #ddd;
-}
-
-.memo-btn,.delete-btn {
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.memo-btn {
-    background-color : #ff1242;
-    color : black;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: black;
-}
-
-.memo-btn:hover {
-    background-color: #c52333;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-.reportinguserPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// 관리자페이지 - 애니관리 - 애니목록 - 추가
-.aniAdd {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.aniAdd h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.aniAdd form > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-left : 200px;
-    margin-right : 150px;
-}
-
-.aniAdd label {
-    width: 150px;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 14px;
-    color: #555;
-}
-
-.aniAdd input,
-.aniAdd select,
-.aniAdd textarea {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
-}
-
-.aniAdd textarea {
-    resize: none;
-}
-
-.aniAdd input[type="file"] {
-    padding: 5px;
-    border: none;
-}
-
-.contentdiv textarea {
-    height : 450px;
-}
-
-.aniAdd input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    margin-left : 300px;
-    margin-right : 150px;
-}
-
-.aniAdd input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-// 관리자 페이지 - 굿즈관리 - 굿즈목록 CSS
-.store-list-container {
-    padding: 20px;
-}
-
-.store-list-container h2 {
-    margin : 20 auto;
-    padding : 20px;
-    background-color : beige;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-}
-
-.store-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
-}
-
-.store-list th, .store-list td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.store-list th {
-    background-color: #343a40;
-    color: white;
-}
-
-.store-list tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.store-list tr:hover {
-    background-color: #ddd;
-}
-
-.add-btn, .edit-btn, .delete-btn {
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.add-btn {
-    background-color: #E6E6FA;
-    color: black;
-}
-
-.add-btn a:link, .add-btn a:visited {
-    text-decoration : none;
-    color : black;
-}
-
-.edit-btn {
-    background-color: #007bff;
-    color: black;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: black;
-}
-
-.add-btn:hover{
-    background-color: #888;
-    text-decoration : none;
-}
-
-.edit-btn:hover {
-    background-color: #0056b3;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-.storePageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 주문관리 - 주문내역리스트
-.orderManagement {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.orderManagement h2 {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-    text-align : center;
-}
-
-.orderManagement table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-}
-
-.orderManagement th, .orderManagement td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.orderManagement th {
-    background-color: #343a40;
-    color: white;
-}
-
-.orderManagement a.btn {
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-decoration: none;
-}
-
-.orderManagement a.btn-info {
-    background-color: #2196F3;
-}
-
-.orderManagement a.btn-danger {
-    background-color: #f44336;
-}
-
-.orderPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
- .order-status, .order-date-filter, .order-search {
-        margin-bottom: 15px;
-        display : flex;
-        justify-content : center;
-    }
-
-    .status-btn, .date-btn, #search-btn {
-        padding: 8px 12px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-    #search-type, #search-keyword {
-        margin-right: 10px;
-        padding: 5px;
-    }
-
-    .order-search label {
-        line-height : 50px;
-    }
-
-       .order-date-filter label {
-            line-height : 50px;
-        }
-
-       .order-search select {
-            height : 50px;
-            line-height : 50px;
-        }
-
-         #search-keyword {
-            padding: 5px;
-            width: 500px;
-         }
-
-    .order-status-summary {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            justify-content : center;
-            width : 100%;
-        }
-
-        .order-status-summary span {
-            padding: 10px;
-            cursor: pointer;
-            width : 10%;
-            display : flex;
-            justify-content : center;
-            font-size : 1.4em;
-        }
-
-        .order-status-summary span:hover {
-            background-color: #ddd;
-        }
-
-        .filterAll{
-            border : 1px solid gray;
-            margin : 2%;
-            padding : 2%;
-            margin-left: 250px;
-        }
-                .fileterh2 h2{
-                      width: 80%;
-                        border-collapse: collapse;
-                        margin-left : 300px;
-                        margin-right : 300px;
-                        text-align : center;
-                }
-
-// Dashboard - 신고관리 - 신고목록
-.reportinguserList-list-container {
-    padding: 20px;
-}
-
-.reportinguserList-list-container h2 {
-    margin : 20 auto;
-    padding : 20px;
-    background-color : beige;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-}
-
-.reportinguserList-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
-}
-
-.reportinguserList-list th, .reportinguserList-list td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.reportinguserList-list th {
-    background-color: #343a40;
-    color: white;
-}
-
-.reportinguserList-list tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.reportinguserList-list tr:hover {
-    background-color: #ddd;
-}
-
-.memo-btn, .delete-btn{
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.memo-btn {
-    background-color: #E6E6FA;
-    color: black;
-}
-
-.memo-btn a:link, .memo-btn a:visited {
-    text-decoration : none;
-    color : black;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: black;
-}
-
-.memo-btn:hover{
-    background-color: #888;
-    text-decoration : none;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-.reportinguserListPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 게시판,댓글 ,리뷰 - 게시판
-.boardReviewManagement {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.boardReviewManagement h2 {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-    text-align : center;
-}
-
-.boardReviewManagement table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-}
-
-.boardReviewManagement th, .boardReviewManagement td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.boardReviewManagement th {
-    background-color: #343a40;
-    width : 14.2827%;
-    color: white;
-}
-
-.boardReviewManagement a.btn {
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-decoration: none;
-}
-
-.boardReviewManagement a.btn-info {
-    background-color: #2196F3;
-}
-
-.boardReviewManagement a.btn-danger {
-    background-color: #f44336;
-}
-
-.boardReviewPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 게시판,댓글 ,리뷰 - 게시판
-.boardManagement {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.boardManagement h2 {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-    text-align : center;
-}
-
-.boardManagement table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-}
-
-.boardManagement th, .boardManagement td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.boardManagement th {
-    background-color: #343a40;
-    color: white;
-}
-
-.boardManagement a.btn {
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-decoration: none;
-}
-
-.boardManagement a.btn-info {
-    background-color: #2196F3;
-}
-
-.boardManagement a.btn-danger {
-    background-color: #f44336;
-}
-
-.boardPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 게시판,댓글 ,리뷰 - 리뷰
-.boardReviewManagement {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.boardReviewManagement h2 {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-    text-align : center;
-}
-
-.boardReviewManagement table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-}
-
-.boardReviewManagement th, .boardReviewManagement td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.boardReviewManagement th {
-    background-color: #343a40;
-    width : 14.2827%;
-    color: white;
-}
-
-.boardReviewManagement a.btn {
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-decoration: none;
-}
-
-.boardReviewManagement a.btn-info {
-    background-color: #2196F3;
-}
-
-.boardReviewManagement a.btn-danger {
-    background-color: #f44336;
-}
-
-.boardReviewPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 게시판,댓글 ,리뷰 - 댓글
-.boardReplyManagement {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.boardReplyManagement h2 {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-    text-align : center;
-}
-
-.boardReplyManagement table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-left : 300px;
-    margin-right : 300px;
-}
-
-.boardReplyManagement th, .boardReplyManagement td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.boardReplyManagement th {
-    background-color: #343a40;
-    color: white;
-}
-
-.boardReplyManagement a.btn {
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-decoration: none;
-}
-
-.boardReplyManagement a.btn-info {
-    background-color: #2196F3;
-}
-
-.boardReplyManagement a.btn-danger {
-    background-color: #f44336;
-}
-
-.boardReplyPageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 기타관리 - 공지사항 추가
-.noticeAdd {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.noticeAdd h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.noticeAdd form > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-left : 200px;
-    margin-right : 150px;
-}
-
-.noticeAdd label {
-    width: 150px;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 14px;
-    color: #555;
-}
-
-.noticeAdd input,
-.noticeAdd textarea {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
-}
-
-.noticeAdd textarea {
-    resize: none;
-    height : 450px;
-}
-
-.noticeAdd input[type="file"] {
-    padding: 5px;
-    border: none;
-}
-
-.noticeAdd input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    margin-left : 300px;
-    margin-right : 150px;
-}
-
-.noticeAdd input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-// 관리자 페이지 - 기타관리 - 공지사항
-.notice-list-container {
-    padding: 20px;
-}
-
-.notice-list-container h2 {
-    margin : 20 auto;
-    padding : 20px;
-    background-color : beige;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-}
-
-.notice-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
-}
-
-.notice-list th, .notice-list td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.notice-list th {
-    background-color: #343a40;
-    color: white;
-}
-
-.notice-list tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.notice-list tr:hover {
-    background-color: #ddd;
-}
-
-.add-btn, .edit-btn, .delete-btn {
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.add-btn {
-    background-color: #E6E6FA;
-    color: black;
-}
-
-.add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
-    text-decoration : none;
-    color : black;
-}
-
-.edit-btn {
-    background-color: #007bff;
-    color: black;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: black;
-}
-
-.add-btn:hover{
-    background-color: #888;
-    text-decoration : none;
-}
-
-.edit-btn:hover {
-    background-color: #0056b3;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-.noticePageing {
-    margin : 20 auto;
-    padding : 20px;
-    margin-right : 80px;
-    width : 100%;
-    max-width : 1500px;
-    display : flex;
-    justify-content : center;
-    height : 30px;
-    border : 1px solid gray;
-}
-
-// Dashboard - 주문관리 - 일/월별 매출내역
- .sales-management {
-        margin: 20px;
-    }
-
- .sales-management  h2{
-        display : flex;
-        justify-content : center;
-        margin-left : 220px;
-    }
-
-    .search-period {
-        margin-bottom: 20px;
-        margin-left : 220px;
-        display : flex;
-        justify-content : center;
-        line-height : 30px;
-    }
-
-    .search-period label, .search-period span {
-        margin-right: 10px;
-    }
-
-    .search-period input[type="date"] {
-        padding: 5px;
-        margin-right: 10px;
-    }
-
-    #search-btn {
-        padding: 6px 12px;
-        cursor: pointer;
-    }
-
-    .sales-statistics {
-        margin-top: 20px;
-    }
-
-    .tabs {
-        display: flex;
-        list-style-type: none;
-        padding: 0;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #ccc;
-                margin-left : 220px;
-                display : flex;
-                justify-content : center;
-    }
-
-    .tab-item {
-        margin-right: 20px;
-        padding: 10px 20px;
-        cursor: pointer;
-        background-color: #f9f9f9;
-        border: 1px solid #ccc;
-        border-bottom: none;
-    }
-
-    .tab-item.active {
-        background-color: white;
-        border-top: 2px solid #007bff;
-    }
-
-    .tab-panel {
-        display: none;
-    }
-
-    .tab-panel.active {
-        display: block;
-    }
-
-    .sales-table {
-    width : 80%;
-    margin-left : 280px;
-    border-collapse: collapse;
-    justify-content : center;
-    }
-
-    .sales-table th, .sales-table td {
-        padding: 10px;
-        border: 1px solid #ccc;
-        text-align: center;
-    }
-
-    // Dashboard - 일/월별 매출관리 - 상세보기
-    .order-list-container {
-        padding: 20px;
-    }
-
-    .order-list-container h2 {
-        margin : 20 auto;
-        padding : 20px;
-        background-color : beige;
-        margin-right : 80px;
-        width : 100%;
-        max-width : 1500px;
-        display : flex;
-        justify-content : center;
-        height : 30px;
-    }
-
-    .order-list {
-        border-collapse: collapse;
-        margin-top: 20px;
-        margin : 0 auto;
-        margin-right : 100px;
-        width : 100%;
-        max-width : 1500px;
-    }
-
-    .order-list th, .order-list td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .order-list th {
-        background-color: #343a40;
-        color: white;
-    }
-
-    .order-list tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .order-list tr:hover {
-        background-color: #ddd;
-    }
-
-    // 관리자 페이지 - 기타관리 - 문의사항
-    .QNA-list-container {
-        padding: 20px;
-    }
-
-    .QNA-list-container h2 {
-        margin : 20 auto;
-        padding : 20px;
-        background-color : beige;
-        margin-right : 80px;
-        width : 100%;
-        max-width : 1500px;
-        display : flex;
-        justify-content : center;
-        height : 30px;
-    }
-
-    .QNA-list {
-        border-collapse: collapse;
-        margin-top: 20px;
-        margin : 0 auto;
-        margin-right : 100px;
-        width : 100%;
-        max-width : 1500px;
-    }
-
-    .QNA-list th, .QNA-list td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .QNA-list th {
-        background-color: #343a40;
-        color: white;
-    }
-
-    .QNA-list tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .QNA-list tr:hover {
-        background-color: #ddd;
-    }
-
-    .add-btn, .edit-btn, .delete-btn {
-        padding: 5px 10px;
-        margin: 5px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .add-btn {
-        background-color: #E6E6FA;
-        color: black;
-    }
-
-    .add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
-        text-decoration : none;
-        color : black;
-    }
-
-    .edit-btn {
-        background-color: #007bff;
-        color: black;
-    }
-
-    .delete-btn {
-        background-color: #dc3545;
-        color: black;
-    }
-
-    .add-btn:hover{
-        background-color: #888;
-        text-decoration : none;
-    }
-
-    .edit-btn:hover {
-        background-color: #0056b3;
-    }
-
-    .delete-btn:hover {
-        background-color: #c82333;
-    }
-
-    .QNAPageing {
-        margin : 20 auto;
-        padding : 20px;
-        margin-right : 80px;
-        width : 100%;
-        max-width : 1500px;
-        display : flex;
-        justify-content : center;
-        height : 30px;
-        border : 1px solid gray;
-    }
-
-    // 관리자 페이지 - 기타관리 - 이벤트
-        .Event-list-container {
+            margin: 30px auto;
             padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            max-width: 1200px;
+            margin-top : 30px;
         }
 
-        .Event-list-container h2 {
-            margin : 20 auto;
-            padding : 20px;
-            background-color : beige;
-            margin-right : 80px;
-            width : 100%;
-            max-width : 1500px;
-            display : flex;
-            justify-content : center;
-            height : 30px;
-        }
-
-        .Event-list {
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin : 0 auto;
-            margin-right : 100px;
-            width : 100%;
-            max-width : 1500px;
-        }
-
-        .Event-list th, .Event-list td {
-            border: 1px solid #ddd;
-            padding: 10px;
+        /* 제목 스타일 */
+        .user-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
             text-align: center;
+            margin-top : 30px;
         }
 
-        .Event-list th {
-            background-color: #343a40;
-            color: white;
+        /* 테이블 스타일 */
+        .user-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
         }
 
-        .Event-list tr:nth-child(even) {
-            background-color: #f2f2f2;
+        .user-list th,
+        .user-list td {
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            border : 1px solid lightgray;
         }
 
-        .Event-list tr:hover {
-            background-color: #ddd;
+        .user-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
         }
 
-        .add-btn, .edit-btn, .delete-btn {
-            padding: 5px 10px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .user-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+            vertical-align: middle;
         }
 
-        .add-btn {
-            background-color: #E6E6FA;
-            color: black;
+        /* 버튼 스타일 */
+        .btn {
+            margin: 0 5px;
+            font-size: 14px;
         }
 
-        .add-btn a:link, .add-btn a:visited,.edit-btn a:link, .edit-btn a:visited {
-            text-decoration : none;
-            color : black;
+        /* 버튼 내의 링크 스타일 */
+        .btn a {
+            text-decoration: none;
+            color: inherit; /* 버튼 색상 상속 */
         }
 
-        .edit-btn {
-            background-color: #007bff;
-            color: black;
+        .btn a:hover {
+            text-decoration: none; /* 링크의 기본 밑줄 제거 */
         }
 
+        /* 삭제 버튼 스타일 */
         .delete-btn {
+            color: #ffffff;
             background-color: #dc3545;
-            color: black;
-        }
-
-        .add-btn:hover{
-            background-color: #888;
-            text-decoration : none;
-        }
-
-        .edit-btn:hover {
-            background-color: #0056b3;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .delete-btn:hover {
             background-color: #c82333;
         }
 
-        .EventPageing {
-            margin : 20 auto;
-            padding : 20px;
-            margin-right : 80px;
-            width : 100%;
-            max-width : 1500px;
-            display : flex;
-            justify-content : center;
-            height : 30px;
-            border : 1px solid gray;
+        /* 페이징 영역 */
+        .userPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
         }
+
+// 관리자 페이지 - 회원관리 - 신고회원목록 CSS
+.reportinguser-list-container {
+padding: 20px;
+}
+
+.reportinguser-list-container h2 {
+margin : 0 auto;
+padding : 20px;
+margin-right : 80px;
+width : 100%;
+max-width : 1500px;
+display : flex;
+justify-content : center;
+height : 30px;
+}
+
+.reportinguser-list {
+border-collapse: collapse;
+margin-top: 20px;
+margin : 0 auto;
+margin-right : 100px;
+width : 100%;
+max-width : 1500px;
+}
+
+.reportinguser-list th, .reportinguser-list td {
+border: 1px solid #ddd;
+padding: 10px;
+text-align: center;
+}
+
+.reportinguser-list th {
+background-color: #343a40;
+color: white;
+}
+
+.reportinguser-list tr:nth-child(even) {
+background-color: #f2f2f2;
+}
+
+.reportinguser-list tr:hover {
+background-color: #ddd;
+}
+
+.memo-btn,.delete-btn {
+padding: 5px 10px;
+margin: 5px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.memo-btn {
+background-color : #ff1242;
+color : black;
+}
+
+.delete-btn {
+background-color: #dc3545;
+color: black;
+}
+
+.memo-btn:hover {
+background-color: #c52333;
+}
+
+.delete-btn:hover {
+background-color: #c82333;
+}
+
+.reportinguserPageing {
+margin : 0 auto;
+padding : 20px;
+margin-right : 80px;
+width : 100%;
+max-width : 1500px;
+display : flex;
+justify-content : center;
+height : 30px;
+border : 1px solid gray;
+margin-top : 20px;
+}
+
+// 관리자페이지 - 애니관리 - 애니목록 - 추가
+ .aniAdd {
+             margin: 50px auto; /* 컨테이너 상하 좌우 중앙 배치 */
+             padding: 30px;
+             background: #ffffff;
+             border-radius: 8px;
+         }
+
+         /* 제목 스타일 */
+         .aniAdd h2 {
+             color: #343a40;
+             font-weight: bold;
+             text-align: center;
+             margin-bottom: 30px;
+             margin-top : 30px;
+         }
+
+         /* 라벨 텍스트 오른쪽 정렬 */
+         .col-form-label {
+             text-align: right;
+         }
+
+         /* 텍스트 영역 높이 설정 */
+         #outline {
+             height: 300px; /* 줄거리 높이 300px */
+             resize: none; /* 사용자가 크기 조절 불가능 */
+         }
+
+         #content {
+             height: 500px; /* 애니 상세내용 높이 500px */
+             resize: none; /* 사용자가 크기 조절 불가능 */
+         }
+
+
+// 관리자 페이지 - 굿즈관리 - 굿즈목록 CSS
+ .store-list-container {
+             margin: 30px auto;
+             padding: 20px;
+             background: #ffffff;
+             margin-top : 30px;
+         }
+
+         /* 제목 스타일 */
+         .store-list-container h2 {
+             color: #343a40;
+             font-weight: bold;
+             margin-bottom: 20px;
+             text-align: center;
+             margin-top : 30px;
+         }
+
+         /* 테이블 스타일 */
+         .store-list {
+             width: 95%;
+             border-collapse: collapse;
+             margin : 0 auto;
+         }
+
+         .store-list th,
+         .store-list td {
+             text-align: center; /* 수평 중앙 정렬 */
+             padding: 15px; /* 패딩 */
+             border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+         }
+
+         .store-list th {
+             background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+         }
+
+         .store-list td {
+             background-color: #ffffff; /* 테이블 데이터 배경색 */
+             vertical-align: middle; /* 수직 중앙 정렬 */
+         }
+
+
+         /* 페이징 영역 */
+         .storePageing {
+             text-align: center;
+             margin-top: 20px;
+             font-size: 18px;
+             color: #495057;
+         }
+
+
+
+// Dashboard - 주문관리 - 주문내역리스트
+.order-status, .order-date-filter, .order-search {
+margin-bottom: 15px;
+display : flex;
+justify-content : center;
+}
+
+.status-btn, .date-btn, #search-btn {
+padding: 8px 12px;
+margin-right: 10px;
+cursor: pointer;
+}
+
+#search-type, #search-keyword {
+margin-right: 10px;
+padding: 5px;
+}
+
+.order-search label {
+line-height : 50px;
+}
+
+.order-date-filter label {
+line-height : 50px;
+}
+
+.order-search select {
+text-align : center;
+}
+
+#search-keyword {
+padding: 5px;
+width: 500px;
+}
+
+.order-status-summary {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+font-size: 16px;
+justify-content : center;
+width : 100%;
+}
+
+.order-status-summary span {
+padding: 10px;
+cursor: pointer;
+width : 20%;
+display : flex;
+justify-content : center;
+font-size : 1.4em;
+}
+
+.order-status-summary span:hover {
+background-color: #ddd;
+}
+
+.filterAll{
+border : 1px solid gray;
+padding : 2%;
+margin : 0 auto;
+text-align : center;
+margin-top : 30px;
+}
+
+.fileterh2 h2{
+width: 95%;
+border-collapse: collapse;
+text-align : center;
+margin-top : 30px;
+font-weight : bold;
+}
+
+.order-list-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .order-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .order-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .order-list th,
+        .order-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6;
+            border: 1px solid lightgray; /* 테두리 설정 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+        }
+
+        .order-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .order-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+
+
+
+// Dashboard - 신고관리 - 신고목록
+ .reportinguserList-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .reportinguserList-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 신고 목록 테이블 스타일 */
+        .reportinguserList-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .reportinguserList-list th,
+        .reportinguserList-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 설정 */
+        }
+
+        .reportinguserList-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .reportinguserList-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 버튼 스타일 */
+        .memo-btn, .delete-btn {
+            margin: 0 5px;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .memo-btn {
+            background-color: #28a745; /* 신고내역추가 버튼 색상 */
+        }
+
+        .memo-btn:hover {
+            background-color: #218838; /* hover 시 색상 */
+        }
+
+        .delete-btn {
+            background-color: #dc3545; /* 삭제 버튼 색상 */
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333; /* hover 시 색상 */
+        }
+
+        /* 페이징 영역 스타일 */
+        .reportinguserListPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// Dashboard - 게시판,댓글 ,리뷰 - 게시판
+.boardReviewManagement {
+max-width: 1000px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+}
+
+.boardReviewManagement h2 {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+text-align : center;
+}
+
+.boardReviewManagement table {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
+
+.boardReviewManagement th, .boardReviewManagement td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: center;
+}
+
+.boardReviewManagement th {
+background-color: #343a40;
+width : 14.2827%;
+color: white;
+}
+
+.boardReviewManagement a.btn {
+padding: 5px 10px;
+border-radius: 4px;
+color: white;
+text-decoration: none;
+}
+
+.boardReviewManagement a.btn-info {
+background-color: #2196F3;
+}
+
+.boardReviewManagement a.btn-danger {
+background-color: #f44336;
+}
+
+.boardReviewPageing {
+margin : 0 auto;
+padding : 20px;
+margin-right : 80px;
+width : 100%;
+max-width : 1500px;
+display : flex;
+justify-content : center;
+height : 30px;
+border : 1px solid gray;
+margin-top : 20px;
+}
+
+// Dashboard - 게시판,댓글 ,리뷰 - 게시판
+.boardManagement {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .boardManagement h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .boardManagement table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .boardManagement th,
+        .boardManagement td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .boardManagement th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .boardManagement td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+
+        /* 페이징 영역 */
+        .boardPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// Dashboard - 게시판,댓글 ,리뷰 - 리뷰
+.boardReviewManagement {
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        /* 제목 스타일 */
+        .boardReviewManagement h2 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .boardReviewManagement table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .boardReviewManagement th,
+        .boardReviewManagement td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .boardReviewManagement th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+            color : black;
+        }
+
+        .boardReviewManagement td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 페이징 영역 */
+        .boardReviewPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// Dashboard - 게시판,댓글 ,리뷰 - 댓글
+.boardReplyManagement {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .boardReplyManagement h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .boardReplyManagement table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .boardReplyManagement th,
+        .boardReplyManagement td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .boardReplyManagement th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .boardReplyManagement td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 페이징 영역 */
+        .boardReplyPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// Dashboard - 기타관리 - 공지사항 수정
+.noticeEdit {
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+}
+
+.noticeEdit h2 {
+text-align: center;
+font-size: 24px;
+color: #333;
+margin-bottom: 20px;
+}
+
+.noticeEdit form > div {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 200px;
+margin-right : 150px;
+}
+
+.noticeEdit label {
+width: 150px;
+margin-right: 10px;
+text-align: right;
+font-size: 14px;
+color: #555;
+}
+
+.noticeEdit input,
+.noticeEdit textarea {
+flex: 1;
+padding: 8px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+color: #333;
+}
+
+.noticeEdit textarea {
+resize: none;
+height : 450px;
+}
+
+.noticeEdit input[type="submit"] {
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+display: block;
+margin: 0 auto;
+margin-left : 300px;
+margin-right : 150px;
+}
+
+.noticeEdit input[type="submit"]:hover {
+background-color: #45a049;
+}
+
+// Dashboard - 기타관리 - 공지사항 추가
+.noticeAdd {
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+}
+
+.noticeAdd h2 {
+text-align: center;
+font-size: 24px;
+color: #333;
+margin-bottom: 20px;
+}
+
+.noticeAdd form > div {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 200px;
+margin-right : 150px;
+}
+
+.noticeAdd label {
+width: 150px;
+margin-right: 10px;
+text-align: right;
+font-size: 14px;
+color: #555;
+}
+
+.noticeAdd input,
+.noticeAdd textarea {
+flex: 1;
+padding: 8px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+color: #333;
+}
+
+.noticeAdd textarea {
+resize: none;
+height : 450px;
+}
+
+
+.noticeAdd input[type="submit"] {
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+display: block;
+margin: 0 auto;
+margin-left : 300px;
+margin-right : 150px;
+}
+
+.noticeAdd input[type="submit"]:hover {
+background-color: #45a049;
+}
+
+// 관리자 페이지 - 기타관리 - 공지사항
+ .notice-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .notice-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .notice-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .notice-list th,
+        .notice-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .notice-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .notice-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+
+
+        /* 페이징 영역 */
+        .noticePageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// Dashboard - 주문관리 - 일/월별 매출내역
+.sales-management {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .sales-management h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        /* 검색 기간 설정 스타일 */
+        .search-period {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-period label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .search-period input[type="date"] {
+            margin: 0 10px;
+            padding: 5px 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+
+        .search-period button {
+            padding: 7px 15px;
+            border: none;
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .search-period button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 탭 스타일 */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #6c757d;
+            border-bottom: 3px solid transparent;
+            transition: border-bottom 0.3s ease, color 0.3s ease;
+        }
+
+        .tab-item:hover {
+            color: #007bff;
+        }
+
+        .tab-item.active {
+            border-bottom: 3px solid #007bff;
+            color: #007bff;
+        }
+
+        /* 탭 패널 스타일 */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* 테이블 스타일 */
+        .sales-table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab-content h3 {
+            margin : 0 auto;
+            text-align : center;
+        }
+
+        .sales-table th,
+        .sales-table td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6;
+            border: 1px solid #dee2e6; /* 테두리 설정 */
+        }
+
+        .sales-table th {
+            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .sales-table td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 버튼 스타일 */
+        .btn {
+            margin: 0 5px;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-info {
+            border-color: #17a2b8;
+            color: #ffffff;
+            background-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+        /* 버튼 내의 링크 스타일 */
+        .btn a {
+            text-decoration: none;
+            color: inherit; /* 버튼 색상 상속 */
+        }
+
+        .btn a:hover {
+            text-decoration: none; /* 링크의 기본 밑줄 제거 */
+        }
+
+// 관리자 페이지 - 기타관리 - 문의사항
+.QNA-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .QNA-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .QNA-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .QNA-list th,
+        .QNA-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .QNA-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .QNA-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 페이징 영역 */
+        .QNAPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// 관리자 페이지 - 기타관리 - 문의사항
+.FAQ-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* 제목 스타일 */
+        .FAQ-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .FAQ-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .FAQ-list th,
+        .FAQ-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .FAQ-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .FAQ-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 페이징 영역 */
+        .FAQPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// 관리자 페이지 - 기타관리 - 이벤트
+ .Event-list-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        /* 제목 스타일 */
+        .Event-list-container h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        /* 테이블 스타일 */
+        .Event-list {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .Event-list th,
+        .Event-list td {
+            text-align: center; /* 수평 중앙 정렬 */
+            vertical-align: middle; /* 수직 중앙 정렬 */
+            padding: 15px; /* 패딩 */
+            border-bottom: 1px solid #dee2e6; /* 하단 테두리 */
+            border: 1px solid lightgray; /* 전체 테두리 */
+        }
+
+        .Event-list th {
+            background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+            font-weight: bold; /* 헤더 글씨 두껍게 */
+        }
+
+        .Event-list td {
+            background-color: #ffffff; /* 테이블 데이터 배경색 */
+        }
+
+        /* 페이징 영역 */
+        .EventPageing {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+
+// Dashboard - 로그인 정보 표시
+.loginInfo {
+margin-top : 20px;
+text-align : center;
+}
+
+.loginInfo a:link, .loginInfo a:visited {
+color : white;
+text-decoration : none;
+}
+
+.loginInfo a:hover {
+color : red;
+text-decoration : none;
+}
