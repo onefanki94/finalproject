@@ -10,12 +10,12 @@
 <form action="/master/FAQAddMasterOk" method="post">
     <div>
         <label for="title"></label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="title" placeholder="자주 묻는 질문 제목을 입력하세요."  required>
     </div>
 
     <div>
         <label for="내용"></label>
-        <textarea id="content" name="content" rows="10" required></textarea>
+        <textarea id="content" name="content" rows="10"   required></textarea>
     </div>
     <div>
         <input type="submit" value="자주 묻는 질문 등록">

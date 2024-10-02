@@ -82,6 +82,7 @@
            <div ></div>
               <div id="replyList"></div>
            </div>
+        </div>
 
         <!-- 리스트 목록 -->
            <div class="list_section">

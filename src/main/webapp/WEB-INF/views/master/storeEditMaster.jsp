@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
-<div class="storeAdd">
-    <h2>굿즈 상품 등록</h2>
-    <form action="/master/storeAddMasterOk" method="post" enctype="multipart/form-data">
+<div class="storeEdit">
+    <h2>굿즈 상품 수정</h2>
+    <form action="/master/storeEditMasterOk" method="post" enctype="multipart/form-data">
         <!-- 상품명 추가 -->
         <div>
             <label for="product_name">상품명:</label>
@@ -66,7 +66,7 @@
 
         <!-- 폼 제출 버튼 -->
         <div>
-            <input type="submit" value="굿즈 상품 추가">
+            <input type="submit" value="굿즈 상품 수정">
         </div>
     </form>
 </div>

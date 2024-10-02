@@ -20,9 +20,13 @@
 
         <!-- 매출 통계 탭 -->
         <div class="sales-statistics">
-            <ul class="tabs">
-                <li class="tab-item active" data-tab="daily">일별</li>
-                <li class="tab-item" data-tab="monthly">월별</li>
+            <ul class="tabs nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active tab-item" data-tab="daily" href="#daily" role="tab">일별</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link tab-item" data-tab="monthly" href="#monthly" role="tab">월별</a>
+                </li>
             </ul>
 
             <!-- 탭 내용 -->
@@ -30,7 +34,7 @@
                 <!-- 일별 매출 통계 -->
                 <div id="daily" class="tab-panel active">
                     <h3>일별 매출 통계</h3>
-                    <table class="sales-table">
+                    <table class="sales-table table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th style="width:10%">날짜</th>
@@ -48,7 +52,7 @@
                                 <td>50</td>
                                 <td>₩30,000</td>
                                 <td>₩20,000</td>
-                                <td><a href="/master/orderSalesDetailMaster" class="btn btn-outline-success">상세보기</a></td>
+                                <td><a href="/master/orderSalesDetailMaster" class="btn btn-outline-success btn-sm">상세보기</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -57,7 +61,7 @@
                 <!-- 월별 매출 통계 -->
                 <div id="monthly" class="tab-panel">
                     <h3>월별 매출 통계</h3>
-                    <table class="sales-table">
+                    <table class="sales-table table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th style="width:10%">날짜</th>
@@ -75,7 +79,7 @@
                                 <td>1500</td>
                                 <td>₩900,000</td>
                                 <td>₩500,000</td>
-                                <td><a href="#" class="btn btn-outline-success">상세보기</a></td>
+                                <td><a href="/master/orderSalesDetail1Master" class="btn btn-outline-success btn-sm">상세보기</a></td>
                             </tr>
                         </tbody>
                     </table>

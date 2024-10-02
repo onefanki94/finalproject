@@ -3,7 +3,7 @@
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <div class="order-list-container">
-    <h2>일별 매출 상세보기</h2>
+    <h2>월별 매출 상세보기</h2>
     <table class="order-list">
         <thead>
             <tr>
