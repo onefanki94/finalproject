@@ -1,0 +1,244 @@
+.review_tabmenu {
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 4px solid rgb(48, 48, 51);
+  position: relative;
+}
+
+.review_tabmenu .tab_activate {
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 180px;
+  height: 49px;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+}
+
+.review_tabmenu .tab_deactivate {
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 180px;
+  height: 49px;
+  font-size: 14px;
+  color: #a0a0a0;
+  background-color: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-bottom: 0;
+}
+
+.review_list_ul {
+  margin-bottom: 50px;
+}
+
+.review_list_li {
+  border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+.review_list_li_one {
+  padding: 30px 0;
+}
+
+.review_list_li_one_detail {
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+
+.review_product {
+  display: flex;
+  gap: 20px;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 60%;
+}
+
+.review_product_img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.review_product_inform {
+  display: block;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgb(48, 48, 51);
+  word-break: break-all;
+}
+
+.review_product_inform strong {
+  margin-bottom: 2px;
+  font-weight: 800;
+  font-size: 16px;
+  color: rgb(48, 48, 51);
+}
+
+.review_product_inform p {
+  color: rgb(48, 48, 51);
+}
+
+.order_state_date {
+  width: 15%;
+  font-size: 15px;
+  text-align: center;
+}
+
+.order_state_date span {
+  font-weight: bold;
+  font-size: 21px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.review_write_btn {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 25px;
+  width: 120px;
+  height: 34px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+  border-radius: 5px;
+  padding: 26px;
+}
+
+.user_review_list_li {
+  display: flex;
+  width: 100%;
+  padding: 30px 0px;
+  border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+.review_write_list {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.review_write_list a {
+  display: flex;
+  gap: 20px;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.review_write_list a img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.review_write_list_inform {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.review_write_list_inform strong {
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: 800;
+  color: rgb(48, 48, 51);
+}
+
+.fa-star {
+  color: #fdba39;
+}
+
+.review_txt {
+  margin-bottom: 10px;
+}
+
+.review_txt p {
+  font-size: 14px;
+  line-height: 22px;
+  color: rgb(48, 48, 51);
+  white-space: pre-wrap;
+}
+
+.review_img {
+  display: flex;
+  gap: 4px;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.review_img img {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+}
+
+.review_regDT {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 20%;
+}
+
+.review_regDT p {
+  font-size: 16px;
+  color: rgb(48, 48, 51);
+}
+
+.review_modi_del_btn {
+  display: flex;
+  flex: 1 1 0%;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+
+.review_modi_del_btn > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+
+.review_modi_del_btn > div > button {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 25px;
+  width: 100px;
+  height: 34px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(93, 93, 93);
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.off {
+  display: none;
+}

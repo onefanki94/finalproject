@@ -1,19 +1,19 @@
 body {
     margin: 80px 0 0 0;
-    color:black;
+
 }
 
 a:link,
 a:visited,
 a:hover {
     text-decoration: none;
+    color:black;
 }
 
 .notice_info{
     padding: 50px 70px 0;
     box-sizing: border-box;
     font-size: 36px;
-
     text-align: center;
     font-weight: 700;
     font-family: GmarketSansBold;
@@ -24,10 +24,10 @@ a:hover {
 
 .notice_top:{
     width:100%;
+
 }
 
 .notice_tab {
-
     height: 55px;
     width:100%;
     display: flex;
@@ -36,7 +36,7 @@ a:hover {
 }
 
 .notice_tab .list {
-    color:#9fa1a7;
+
     text-align: center;
     list-style-type: none;
     padding: 0;
@@ -49,15 +49,20 @@ a:hover {
     color:#9FAAC6;
 }
 
-
-
 .notice{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 0;
+    margin-top:40px;
+    padding: 20px 0;
     border-bottom: 2px solid black;
 }
+
+.notice h1{
+    font: 700 28px NEXON Gothic;
+    color: #17191d;
+}
+
 
 .search {
     display: flex;
@@ -101,8 +106,26 @@ a:hover {
     padding: 10px 0px;
 
 }
+/*페이징 부분*/
 .pagination{
-   margin:40px 0px;
+    justify-content: center;
+}
+.paging{
+     list-style-type: none;
+     margin: 50px 0;
+}
+.paging > li  {
+    list-style-type: none;
+    float: left;
+    text-align: Center;
+    box-sizing: border-box;
+    border-color: none;
+    padding: 0px 5px;
+}
+.page-link {
+    font-size:16px;
+    border-color: #FFF;
+    font-weight:700;
 }
 
 .content {
@@ -111,4 +134,14 @@ a:hover {
 
 .active {
     display: block; /* 활성화된 탭의 콘텐츠만 보임 */
+}
+
+@media all and (max-width:680px) {
+    html{
+        font-size: 80%
+    }
+
+
+
+
 }
