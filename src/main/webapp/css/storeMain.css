@@ -254,6 +254,12 @@ a {
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 100px;
+
+}
+
+.event-carousel-wrapper{
+    width: 1800px;
+    overflow: hidden;
 }
 
 .event-item{
@@ -268,15 +274,14 @@ a {
 
 }
 
-.event-carousel{
-    
+.event-carousel{   
     align-items: center;
     margin: 0 auto;
     margin-top: 50px;
 }
 
 .event-carousel-images{
-    overflow: hidden;
+    
     display:flex;
     gap:15px;
    
@@ -291,10 +296,6 @@ a {
     transition: 0.5s ease-in-out;
 }
 
-.event-carousel-wrapper{
-    overflow: hidden;
-    width: 1800px;
-    height: 500px;
-}
+
 
 
