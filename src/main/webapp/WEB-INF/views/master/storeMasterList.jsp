@@ -49,7 +49,7 @@
                     <th style="width:8%" class="sortable" onclick="sortTable(4)">판매가</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(5)">재고</th>
                     <th style="width:10%" class="sortable" onclick="sortTable(6)">등록일</th>
-                    <th style="width:15%">관리<a href="/master/StoreAddMaster"class="btn btn-outline-success btn-sm" >추가</a></th>
+                    <th style="width:15%">관리<a href="/master/storeAddMaster"class="btn btn-outline-success btn-sm" >추가</a></th>
                 </tr>
             </thead>
             <tbody id="storeTableBody">
@@ -62,7 +62,7 @@
                     <td>10</td>
                     <td>2023-01-01</td>
                     <td>
-                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
@@ -75,7 +75,7 @@
                     <td>5</td>
                     <td>2023-02-10</td>
                     <td>
-                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
@@ -88,7 +88,7 @@
                     <td>50</td>
                     <td>2023-03-15</td>
                     <td>
-                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
@@ -101,7 +101,7 @@
                     <td>20</td>
                     <td>2023-04-20</td>
                     <td>
-                        <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeAddMaster">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>

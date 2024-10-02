@@ -64,7 +64,9 @@
                                 .FAQ-list-container h2,
                                          .Event-list-container h2,
                                                  .aniAdd h2,
-                                                  .aniEdit h2
+                                                  .aniEdit h2,
+                                                  .storeAdd h2,
+                                                  .storeEdit h2
  {
     display : flex;
     justify-content : center;
@@ -1223,3 +1225,66 @@
         .order-list tbody tr:hover {
             background-color: #f1f1f1;
         }
+
+// ---------------------------------------------------
+// 굿즈 추가, 수정
+.storeAdd, .storeEdit {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.storeAdd form > div , .storeEdit form  > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left : 200px;
+    margin-right : 150px;
+}
+
+.storeAdd label, .storeEdit label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 14px;
+    color: #555;
+}
+
+.storeAdd input, .storeEdit input,
+.storeAdd select, .storeEdit select {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+
+.storeAdd input[type="file"], .storeEdit input[type="file"]  {
+    padding: 5px;
+    border: none;
+}
+
+.storeAdd input[type="submit"], .storeEdit input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    margin-left : 300px;
+    margin-right : 150px;
+}
+
+.storeAdd input[type="submit"]:hover , .storeEdit input[type="submit"]:hover {
+    background-color: #45a049;
+}

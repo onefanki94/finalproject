@@ -244,4 +244,20 @@ public class masterController {
         mav.setViewName("master/EventDelMaster");
         return mav;
     }
+
+    // Dashboard - 굿즈관리 - 상품 추가
+    @GetMapping("/storeAddMaster")
+    public ModelAndView storeAddMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/storeAddMaster");
+        return mav;
+    }
+
+    // Dashboard - 굿즈관리 - 상품 수정
+    @GetMapping("/storeEditMaster")
+    public ModelAndView storeEditMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/storeEditMaster");
+        return mav;
+    }
 }
