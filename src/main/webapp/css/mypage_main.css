@@ -1,0 +1,232 @@
+.mypage_right_element .my_order {
+  overflow: hidden;
+  position: relative;
+}
+
+.mypage_right_element .my_order .my_tit {
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 30px;
+  position: relative;
+  border-bottom: 4px solid rgb(48, 48, 51);
+  color: rgb(48, 48, 51);
+  margin: 0;
+}
+
+.mypage_right_element .my_order .my_order_tbl .my_order_tit > div {
+  border-bottom: 1px solid rgb(48, 48, 51);
+  font-weight: 700;
+  font-size: 13px;
+  text-align: center;
+  height: 51px;
+}
+
+.mypage_right_element .my_order .my_order_tbl .my_tbl {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+  height: 81px;
+  padding: 10px 0;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.mypage_right_element .my_order .my_order_tbl .my_tbl > div {
+  -webkit-box-flex: 0;
+  flex: none;
+  font-size: 14px;
+  color: #303033;
+}
+
+.my_order_tbl .date {
+  width: 110px;
+  text-align: center;
+}
+
+.mypage_right_element .my_order .my_order_tbl .my_tbl .history_top {
+  height: auto;
+}
+
+.my_order_tbl .history {
+  position: relative;
+  width: calc(100% - 440px);
+  height: 100%;
+}
+
+.my_order_tbl .num {
+  width: 210px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.my_order_tbl .amount {
+  width: 120px;
+  text-align: center;
+}
+
+.btn_my_more {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  padding-right: 12px;
+  font-size: 14px;
+  color: #303033;
+  line-height: 24px;
+}
+
+.btn_my_more::after {
+  position: absolute;
+  top: 9px;
+  right: 2px;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  transform: rotate(45deg);
+  content: "";
+}
+
+.my_order_tbl .imgbx {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+}
+
+.my_order_tbl .imgbx .imgin {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100% !important;
+}
+
+.my_order_tbl .imgbx .imgin img {
+  width: 100%;
+}
+
+.my_tbl .prd_order {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 80px;
+}
+
+.my_tbl .prd_order .prd_order_flex,
+.prd_order_in .pre {
+  -webkit-box-flex: 1;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.prd_order .elp {
+  display: inline-block;
+  float: left;
+  max-width: 80%;
+  margin-right: 5px;
+  vertical-align: middle;
+  font-style: normal;
+}
+
+.split_wrap {
+  margin-top: 70px;
+}
+
+.my_heart {
+  position: relative;
+}
+
+.my_heart .my_tit {
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 30px;
+  position: relative;
+  border-bottom: 4px solid rgb(48, 48, 51);
+  color: rgb(48, 48, 51);
+  margin: 0;
+}
+
+.my_heart .heart_artwrap {
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.my_heart .heart_artwrap .h_tit {
+  margin-top: 32px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.my_heart .heart_artwrap .heart_lst {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -20px;
+}
+
+.my_heart .heart_artwrap .heart_lst li {
+  -webkit-box-flex: 0;
+  flex: none;
+  width: 20%;
+  padding: 0 0 40px 20px;
+  box-sizing: border-box;
+}
+
+.my_heart .heart_artwrap .heart_lst .imgbx {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.my_heart .heart_artwrap .heart_lst .imgbx .imgin {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.my_heart .heart_artwrap .heart_lst .imgbx .imgin img {
+  width: 100%;
+}
+
+.my_heart .heart_artwrap .heart_lst p {
+  margin: 21px 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #5d5d5d;
+}
+
+.order_list_none {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 105px;
+  /* font-weight: 700; */
+  font-size: 17px;
+  color: #5d5d5d;
+}
+
+.order_list_none p {
+  margin-bottom: 50px;
+}
+
+.my_heart .heart_artwrap:last-of-type {
+  border: 0;
+}

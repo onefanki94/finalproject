@@ -1,0 +1,329 @@
+.order_detail_all {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.my_tit {
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 30px;
+  position: relative;
+  border-bottom: 4px solid rgb(48, 48, 51);
+  color: rgb(48, 48, 51);
+  margin: 0;
+}
+
+.order_detail_all .order_detail_state .my_data {
+  display: flex;
+  padding-top: 16px;
+}
+
+.order_detail_all .order_detail_state .my_data p {
+  position: relative;
+  margin-right: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(48, 48, 51);
+}
+
+.order_detail_all .order_detail_state .my_data p span {
+  font-weight: normal;
+}
+
+.order_detail_all .order_detail_state .order_state {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.order_detail_all .order_detail_state .order_state .order_state_li {
+  position: relative;
+  width: 13%;
+  line-height: 1.3;
+  color: rgb(48, 48, 51);
+}
+
+.order_detail_all .order_detail_state .order_state .order_state_li .order_state_div {
+  padding-top: 100%;
+  background-color: rgb(244, 244, 244);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.order_state_ok {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.order_detail_all .order_detail_state .order_state .order_state_li .order_state_div::after {
+  margin-top: -8px;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -19%;
+  transform: rotate(45deg);
+  clear: both;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-top: 1px solid rgb(160, 160, 160);
+  border-right: 1px solid rgb(160, 160, 160);
+}
+
+.order_current_state {
+  color: #fff;
+  background-color: rgb(48, 48, 51);
+  padding-top: 100%;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.order_detail_inform .tb_header {
+  display: flex;
+  border-bottom: 2px solid rgb(48, 48, 51);
+}
+
+.tb_header_proinform {
+  flex: 1;
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tb_header_fee {
+  width: min(20%, 140px);
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tb_header_state {
+  width: min(28%, 300px);
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.order_detail_inform ul {
+  padding: 10px 0;
+}
+
+.tb_body_ul {
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.order_detail_inform .order_data_list_one {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.order_detail_inform .order_data_list_one > a {
+  flex: 1;
+}
+
+.order_detail_inform .order_data_list_one .order_data_inform {
+  display: flex;
+  color: rgb(48, 48, 51);
+}
+
+.order_detail_inform .order_data_list_one .order_data_inform .order_data_img {
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+.order_detail_inform .order_data_list_one .order_data_inform .order_data_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.order_detail_inform .order_data_list_one .order_data_inform .order_pro_name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.order_detail_inform .order_data_list_one .order_data_inform .order_pro_option {
+  margin-top: 13px;
+  font-size: 12px;
+}
+
+.order_delivery_fee_data {
+  width: min(23%, 235px);
+  padding: 20px;
+  font-size: 15px;
+}
+
+.order_current_state_div {
+  width: min(20%, 180px);
+}
+
+.order_state_all .order_state_data {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.order_state_all .order_state_okdate {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.order_package {
+  font-size: 12px;
+  color: rgb(93, 93, 93);
+  background: transparent;
+  border: 0;
+  margin-top: 10px;
+}
+
+.order_package span {
+  color: rgb(55, 95, 255);
+  text-decoration: underline;
+}
+
+.buyer_inform,
+.delivery_inform {
+  table-layout: fixed;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgb(48, 48, 51);
+  text-align: left;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.th_style {
+  padding: 15px 10px 15px min(3%, 35px);
+  border: 1px solid rgb(228, 228, 228);
+  font-weight: normal;
+}
+
+.th_style:first-of-type {
+  border-left: 0;
+}
+
+.td_style {
+  border: 1px solid rgb(228, 228, 228);
+  padding: 3px 10px 3px min(3%, 35px);
+  font-weight: bold;
+}
+
+.td_style:last-of-type {
+  border-right: 0;
+}
+
+.pay_inform_ol {
+  display: flex;
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.pay_inform_ol .pay_inform_li {
+  width: 30%;
+  min-height: 225px;
+  padding-bottom: 15px;
+  border-right: 1px solid rgb(228, 228, 228);
+}
+
+.pay_inform_ol .pay_inform_li .li_top,
+.pay_inform_li_toss .li_top {
+  position: relative;
+  height: 80px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  padding: 0 27px;
+  display: flex;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  color: rgb(48, 48, 51);
+  font-weight: bold;
+}
+
+.pay_inform_ol .pay_inform_li .li_bottom,
+.pay_inform_li_toss .li_bottom {
+  padding: 0px 27px;
+  display: flex;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 40px;
+  color: rgb(48, 48, 51);
+  font-size: 13px;
+}
+
+.pay_inform_ol .pay_inform_li .li_top::before,
+.pay_inform_ol .pay_inform_li .li_top::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translate(50%, -50%);
+  display: block;
+}
+
+.pay_inform_ol .pay_inform_li .li_top::before {
+  z-index: 3;
+  width: 10px;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+}
+
+.pay_inform_ol .pay_inform_li .li_top::after {
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  background-color: rgb(93, 93, 93);
+  border-radius: 50%;
+}
+
+.pay_inform_li_toss {
+  width: 40%;
+  border-right: none;
+  padding-bottom: 15px;
+  min-height: 225px;
+}
+
+.receipt_btn_div {
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+
+.receipt_btn_div button {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-height: 25px;
+  min-width: 82px;
+  height: 40px;
+  margin-left: 5px;
+  padding: 0px 17px;
+  font-size: 13px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+}
