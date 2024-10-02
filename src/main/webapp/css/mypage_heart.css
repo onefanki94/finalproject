@@ -1,0 +1,108 @@
+.heart_tabmenu {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 66px;
+}
+
+.heart_tabmenu ul li {
+  float: left;
+  padding: 0 10px;
+  padding: 0 20px;
+  font-size: 24px;
+  line-height: 30px;
+  color: #000;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.heart_on_tab {
+  font-weight: bold !important;
+}
+
+.goods_list_all,
+.ani_list_all {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 -20px;
+}
+
+.goods_list_li,
+.ani_list_li {
+  -webkit-box-flex: 0;
+  flex: none;
+  position: relative;
+  width: 25%;
+  padding: 0 0 40px 20px;
+}
+
+.ani_list_li {
+  width: 20% !important;
+}
+
+.prd_b {
+  position: relative;
+}
+
+.prd_b a {
+  display: block;
+  color: rgb(48, 48, 51);
+}
+
+.goods_img_bx,
+.ani_img_bx {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.goods_img_bx img,
+.ani_img_bx img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.goods_imform,
+.ani_imform {
+  margin-top: 7px;
+}
+
+.goods_imform strong,
+.ani_imform strong {
+  color: rgb(48, 48, 51);
+  display: block;
+  margin-bottom: 7px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.ani_imform strong {
+  font-size: 15px !important;
+}
+
+.goods_imform p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #5d5d5d;
+}
+
+.heart_state {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 10px;
+  background-color: #f5f7f6;
+  border-radius: 50%;
+}
+
+.fa-heart {
+  color: #ed1c24;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+.off {
+  display: none;
+}
