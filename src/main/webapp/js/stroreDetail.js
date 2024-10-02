@@ -108,3 +108,17 @@ function toggleDescription() {
         button.innerHTML = "상품정보 더보기▼";  // 버튼 텍스트 원래대로
     }
 }
+
+
+$(window).scroll(function() {
+    var scrollPosition = $(window).scrollTop();
+    var windowHeight = $(window).height();
+    var documentHeight = $(document).height();
+
+    // 스크롤이 페이지의 20% 이상 내려가면 푸터를 보여줍니다.
+    if (scrollPosition > (documentHeight - windowHeight) * 0.2) {
+        $('.sticky-footer').addClass('show');
+    } else {
+        $('.sticky-footer').removeClass('show');
+    }
+});

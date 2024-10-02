@@ -25,7 +25,7 @@
 </script>
 
 <!-- 기존 Custom JS가 있는 경우 -->
-<script src="js/storeMain.js"></script>
+<script src="/js/storeMain.js"></script>
 
 <div class="storeMain_container">
     <!-- 배너 -->

@@ -5,6 +5,11 @@
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src = "../../../js/stroreDetail.js"></script>
+<!-- <script src="/js/storeDetail.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
@@ -149,7 +154,7 @@
 
 
 
-<script src="js/storeDetail.js"></script>
+<script src="/js/storeDetail.js"></script>
 
 <!-- 상품 리뷰 제목 -->
 <div class="review-title">
@@ -221,9 +226,20 @@
 <!-- 이미지 미리보기 영역 -->
 <div id="preview"></div>
 
-
-
-
+<!-- Sticky Footer -->
+<div class="sticky-footer">
+    <div class="d-flex justify-content-between">
+        <div class="left">
+            <span class="fw-bold">내 마음의 위험한 녀석 트레이딩 캔뱃지</span>
+            <span class="price">4,000</span>
+            <span class="cnt">원</span>
+        </div>
+        <div class="right">
+            <button class="btn btn-primary">장바구니</button>
+            <button class="btn btn-dark">바로구매</button>
+        </div>
+    </div>
+</div>
 
 
 
