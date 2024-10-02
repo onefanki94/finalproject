@@ -260,4 +260,12 @@ public class masterController {
         mav.setViewName("master/storeEditMaster");
         return mav;
     }
+
+    // Dashboard - 굿즈관리 - 상품 수정
+    @GetMapping("/orderEditMaster")
+    public ModelAndView orderEditMaster(){
+        mav = new ModelAndView();
+        mav.setViewName("master/orderEditMaster");
+        return mav;
+    }
 }

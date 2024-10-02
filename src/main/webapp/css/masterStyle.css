@@ -1,163 +1,209 @@
 .sidebar {
-            width: 200px;
-            height: 100vh;
-            background-color: #343a40;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow-y: auto;
-            padding-top: 20px;
-        }
+width: 200px;
+height: 100vh;
+background-color: #343a40;
+position: fixed;
+top: 0;
+left: 0;
+overflow-y: auto;
+padding-top: 20px;
+}
 
-        .sidebar .nav-link {
-            color: #ffffff;
-            padding: 10px 20px;
-            display: block;
-            text-decoration: none;
-        }
+.loginInfo {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-size: 0.9em;
+color: white;
+margin-bottom: 20px;
+padding: 10px 0;
+border-bottom: 1px solid #6c757d; /* 로그인 정보 하단에 경계선을 추가 */
+}
 
-        .sidebar .nav-link:hover {
-            background-color: #495057;
-        }
+.loginInfo span {
+font-size : 10px;
 
-        .sidebar .nav-link.active {
-            background-color: #007bff;
-        }
+}
 
-        .sidebar .dropdown-menu {
-            background-color: #343a40;
-            border: none;
-            font-size : 0.8em;
-        }
+.loginInfo a {
+color: red;
+text-decoration: none;
+}
 
-        .sidebar .dropdown-menu .dropdown-item {
-            color: #ffffff;
-            padding: 10px 20px;
-        }
+.logout {
+text-align : center;
+}
 
-        .sidebar .dropdown-menu .dropdown-item:hover {
-            background-color: #495057;
-        }
+/* 로그아웃 버튼 스타일 */
+.logout a {
+text-decoration: none;
+display: inline-block;
+color: #f8f9fa;
+background-color: #6c757d;
+border: 1px solid #6c757d;
+padding: 8px 15px;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+justify-content : center;
+width : 100px;
+}
 
-        .sidebar .navbar-brand {
-                    margin: 0 auto;
-                    color: #ffffff;
-                    text-decoration: none;
-        }
+.logout a:hover {
+background-color: #5a6268; /* 호버 시 색상 변경 */
+border-color: #5a6268;
+}
 
 
+.sidebar .nav-link {
+color: #ffffff;
+padding: 10px 20px;
+display: block;
+text-decoration: none;
+}
+
+.sidebar .nav-link:hover {
+background-color: #495057;
+}
+
+.sidebar .nav-link.active {
+background-color: #007bff;
+}
+
+.sidebar .dropdown-menu {
+background-color: #343a40;
+border: none;
+font-size : 0.8em;
+}
+
+.sidebar .dropdown-menu .dropdown-item {
+color: #ffffff;
+padding: 10px 20px;
+}
+
+.sidebar .dropdown-menu .dropdown-item:hover {
+background-color: #495057;
+}
+
+.sidebar .navbar-brand {
+color: #ffffff;
+text-decoration: none;
+margin-left : 5%;
+}
 
 .user-list-container h2,
 .anime-list-container h2,
 .store-list-container h2,
 .order-list-container h2,
 .fileterh2 h2,
- .sales-management h2,
- .tab-content h3,
- .reportinguserList-list-container h2,
-  .reportinguser-list-container h2,
-  .boardManagement h2,
-  .boardReplyManagement h2,
-       .boardReviewManagement h2,
-               .notice-list-container h2,
-                       .QNA-list-container h2,
-                                .FAQ-list-container h2,
-                                         .Event-list-container h2,
-                                                 .aniAdd h2,
-                                                  .aniEdit h2,
-                                                  .storeAdd h2,
-                                                  .storeEdit h2
- {
-    display : flex;
-    justify-content : center;
-    margin : 0 auto;
-    margin-top : 30px;
-    margin-bottom : 30px;
+.sales-management h2,
+.tab-content h3,
+.reportinguserList-list-container h2,
+.reportinguser-list-container h2,
+.boardManagement h2,
+.boardReplyManagement h2,
+.boardReviewManagement h2,
+.notice-list-container h2,
+.QNA-list-container h2,
+.FAQ-list-container h2,
+.Event-list-container h2,
+.aniAdd h2,
+.aniEdit h2,
+.storeAdd h2,
+.storeEdit h2,
+.noticeAdd h2,
+.noticeEdit h2
+{
+display : flex;
+justify-content : center;
+margin : 0 auto;
+margin-top : 30px;
+margin-bottom : 30px;
 }
 
 // --------------------------------------------------------------------------------------------------------------
 // 관리자 회원
 /* === 테이블 스타일 === */
 .user-list {
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin : 0 auto;
-    margin-right : 100px;
-    width : 100%;
-    max-width : 1500px;
+border-collapse: collapse;
+margin-top: 20px;
+margin : 0 auto;
+margin-right : 100px;
+width : 100%;
+max-width : 1500px;
 }
 
 .user-list th,
 .user-list td {
-    padding: 15px; /* 셀 내부 패딩 */
-    border: 1px solid #ddd; /* 셀 테두리 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    vertical-align: middle; /* 수직 중앙 정렬 */
+padding: 15px; /* 셀 내부 패딩 */
+border: 1px solid #ddd; /* 셀 테두리 */
+text-align: center; /* 텍스트 중앙 정렬 */
+vertical-align: middle; /* 수직 중앙 정렬 */
 }
 
 /* 테이블 헤더 스타일 */
 .user-list th {
-    background-color: #f8f8f8; /* 배경색 */
-    font-weight: bold; /* 글자 굵기 */
+background-color: #f8f8f8; /* 배경색 */
+font-weight: bold; /* 글자 굵기 */
 }
 
 /* 페이징 스타일 */
 .userPageing {
-    margin-top: 20px; /* 상단 여백 */
-    font-size: 18px; /* 글자 크기 */
-    color: #495057; /* 글자 색상 */
+margin-top: 20px; /* 상단 여백 */
+font-size: 18px; /* 글자 크기 */
+color: #495057; /* 글자 색상 */
 }
 
 /* 체크박스 스타일 */
 .user-list input[type="checkbox"] {
-    width: 16px; /* 체크박스 너비 */
-    height: 16px; /* 체크박스 높이 */
-    cursor: pointer; /* 마우스 커서 변경 */
+width: 16px; /* 체크박스 너비 */
+height: 16px; /* 체크박스 높이 */
+cursor: pointer; /* 마우스 커서 변경 */
 }
 
 
 .userPageing span,
 .userPageing a {
-    margin: 0 5px; /* 좌우 여백 */
-    cursor: pointer; /* 마우스 커서 변경 */
-    color: #007bff; /* 기본 글자 색상 */
-    text-decoration: none; /* 밑줄 제거 */
+margin: 0 5px; /* 좌우 여백 */
+cursor: pointer; /* 마우스 커서 변경 */
+color: #007bff; /* 기본 글자 색상 */
+text-decoration: none; /* 밑줄 제거 */
 }
 
 .userPageing a:hover {
-    text-decoration: none; /* hover 시 밑줄 표시 */
+text-decoration: none; /* hover 시 밑줄 표시 */
 }
 
- .user-list-container {
-            padding: 30px;
-            background: #ffffff;
-            border-radius: 8px;
-            margin-top: 30px;
-            max-width: 1400px; /* 페이지별 컨테이너 최대 너비 제한 */
-            text-align: center;
-            margin-left: auto; /* 좌우 중앙 정렬 */
-            margin-right: auto; /* 좌우 중앙 정렬 */
-                margin-left : 350px;
-        }
-        .search-bar {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
+.user-list-container {
+padding: 30px;
+background: #ffffff;
+border-radius: 8px;
+margin-top: 30px;
+max-width: 1400px; /* 페이지별 컨테이너 최대 너비 제한 */
+text-align: center;
+margin-left: auto; /* 좌우 중앙 정렬 */
+margin-right: auto; /* 좌우 중앙 정렬 */
+margin-left : 350px;
+}
+.search-bar {
+margin-bottom: 20px;
+display: flex;
+justify-content: space-between;
+}
 
-        .summary {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-        }
-        .summary div {
-            text-align: center;
-            font-size: 18px;
-        }
+.summary {
+display: flex;
+justify-content: space-around;
+margin: 20px 0;
+padding: 20px;
+background-color: #f8f9fa;
+border: 1px solid #dee2e6;
+border-radius: 8px;
+}
+.summary div {
+text-align: center;
+font-size: 18px;
+}
 
 // -----------------------------------------------------------------------------------------------------------------------
 // 관리자 애니
@@ -166,83 +212,83 @@
 
 /* === 테이블 스타일 === */
 .anime-list {
-    border-collapse: collapse;
-      margin-top: 20px;
-      margin : 0 auto;
-      margin-right : 100px;
-      width : 100%;
-      max-width : 1500px;
+border-collapse: collapse;
+margin-top: 20px;
+margin : 0 auto;
+margin-right : 100px;
+width : 100%;
+max-width : 1500px;
 }
 
 .anime-list th,
 .anime-list td {
-    padding: 15px; /* 셀 내부 패딩 */
-    border: 1px solid #ddd; /* 셀 테두리 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    vertical-align: middle; /* 수직 중앙 정렬 */
+padding: 15px; /* 셀 내부 패딩 */
+border: 1px solid #ddd; /* 셀 테두리 */
+text-align: center; /* 텍스트 중앙 정렬 */
+vertical-align: middle; /* 수직 중앙 정렬 */
 }
 
 /* 테이블 헤더 스타일 */
 .anime-list th {
-    background-color: #f8f8f8; /* 테이블 헤더 배경색 */
-    font-weight: bold; /* 글자 굵기 */
+background-color: #f8f8f8; /* 테이블 헤더 배경색 */
+font-weight: bold; /* 글자 굵기 */
 }
 
 
 .anime-list-container {
-            padding: 30px;
-            background: #ffffff;
-            border-radius: 8px;
-            margin-top: 30px;
-            max-width: 1400px; /* 페이지별 컨테이너 최대 너비 제한 */
-            text-align: center;
-            margin-left: auto; /* 좌우 중앙 정렬 */
-            margin-right: auto; /* 좌우 중앙 정렬 */
-            margin-left : 350px;
-        }
+padding: 30px;
+background: #ffffff;
+border-radius: 8px;
+margin-top: 30px;
+max-width: 1400px; /* 페이지별 컨테이너 최대 너비 제한 */
+text-align: center;
+margin-left: auto; /* 좌우 중앙 정렬 */
+margin-right: auto; /* 좌우 중앙 정렬 */
+margin-left : 350px;
+}
 
-        .search-bar {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.search-bar {
+margin-bottom: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 
-        .animePageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #495057;
-        }
+.animePageing {
+text-align: center;
+margin-top: 20px;
+font-size: 18px;
+color: #495057;
+}
 
-        table {
-            margin-top: 20px; /* 상단 여백 */
-        }
+table {
+margin-top: 20px; /* 상단 여백 */
+}
 
-        .btn-sm a {
-            text-decoration: none;
-            color: inherit; /* 링크의 기본 색상 유지 */
-        }
+.btn-sm a {
+text-decoration: none;
+color: inherit; /* 링크의 기본 색상 유지 */
+}
 
-        .summary {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-        }
+.summary {
+display: flex;
+justify-content: space-around;
+margin: 20px 0;
+padding: 20px;
+background-color: #f8f9fa;
+border: 1px solid #dee2e6;
+border-radius: 8px;
+}
 
-        .summary div {
-            text-align: center;
-            font-size: 18px;
-        }
+.summary div {
+text-align: center;
+font-size: 18px;
+}
 
-        .sortable:hover {
-            cursor: pointer;
-            text-decoration: none;
-        }
+.sortable:hover {
+cursor: pointer;
+text-decoration: none;
+}
 
 // ---------------------------------------------------------------------------------------------
 // 굿즈
@@ -250,1041 +296,1188 @@
 
 /* === 테이블 스타일 === */
 .store-list {
-    border-collapse: collapse;
-      margin-top: 20px;
-      margin : 0 auto;
-      margin-right : 100px;
-      width : 100%;
-      max-width : 1500px;
+border-collapse: collapse;
+margin-top: 20px;
+margin : 0 auto;
+margin-right : 100px;
+width : 100%;
+max-width : 1500px;
 }
 
 .store-list th,
 .store-list td {
-    padding: 15px; /* 셀 내부 패딩 */
-    border: 1px solid #ddd; /* 셀 테두리 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    vertical-align: middle; /* 수직 중앙 정렬 */
+padding: 15px; /* 셀 내부 패딩 */
+border: 1px solid #ddd; /* 셀 테두리 */
+text-align: center; /* 텍스트 중앙 정렬 */
+vertical-align: middle; /* 수직 중앙 정렬 */
 }
 
 /* 테이블 헤더 스타일 */
 .store-list th {
-    background-color: #f8f8f8; /* 테이블 헤더 배경색 */
-    font-weight: bold; /* 글자 굵기 */
+background-color: #f8f8f8; /* 테이블 헤더 배경색 */
+font-weight: bold; /* 글자 굵기 */
 }
 
 /* === 페이징 스타일 === */
 .storePageing {
-    margin-top: 20px; /* 상단 여백 */
-    font-size: 18px; /* 글자 크기 */
-    color: #495057; /* 글자 색상 */
-    text-align: center; /* 중앙 정렬 */
+margin-top: 20px; /* 상단 여백 */
+font-size: 18px; /* 글자 크기 */
+color: #495057; /* 글자 색상 */
+text-align: center; /* 중앙 정렬 */
 }
 
 .store-list-container {
-            padding: 30px;
-            background: #ffffff;
-            border-radius: 8px;
-            margin-top: 30px;
-            max-width: 1400px; /* 페이지별 컨테이너 최대 너비 제한 */
-            text-align: center;
-            margin-left: auto; /* 좌우 중앙 정렬 */
-            margin-right: auto; /* 좌우 중앙 정렬 */
-            margin-left : 350px;
-        }
+padding: 30px;
+background: #ffffff;
+border-radius: 8px;
+margin-top: 30px;
+max-width: 1400px; /* 페이지별 컨테이너 최대 너비 제한 */
+text-align: center;
+margin-left: auto; /* 좌우 중앙 정렬 */
+margin-right: auto; /* 좌우 중앙 정렬 */
+margin-left : 350px;
+}
 
-        .search-bar {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.search-bar {
+margin-bottom: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 
-        .storePageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #495057;
-        }
+.storePageing {
+text-align: center;
+margin-top: 20px;
+font-size: 18px;
+color: #495057;
+}
 
-        table {
-            margin-top: 20px; /* 상단 여백 */
-        }
+table {
+margin-top: 20px; /* 상단 여백 */
+}
 
-        .btn-sm a {
-            text-decoration: none;
-            color: inherit; /* 링크의 기본 색상 유지 */
-        }
+.btn-sm a {
+text-decoration: none;
+color: inherit; /* 링크의 기본 색상 유지 */
+}
 
-        .summary {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-        }
+.summary {
+display: flex;
+justify-content: space-around;
+margin: 20px 0;
+padding: 20px;
+background-color: #f8f9fa;
+border: 1px solid #dee2e6;
+border-radius: 8px;
+}
 
-        .summary div {
-            text-align: center;
-            font-size: 18px;
-        }
+.summary div {
+text-align: center;
+font-size: 18px;
+}
 
-        .sortable:hover {
-            cursor: pointer;
-            text-decoration: none;
-        }
+.sortable:hover {
+cursor: pointer;
+text-decoration: none;
+}
 
-        // --------------------------------------------------------------------
-        // 주문내역리스트
-        .order-list-container {
-                    padding: 30px;
-                    background: #ffffff;
-                    border-radius: 8px;
-                    margin-top: 30px;
-                    max-width: 1400px;
-                    text-align: center;
-                    margin-left: 350px;
-                    margin-right: auto;
+// --------------------------------------------------------------------
+// 주문내역리스트
+.order-list-container {
+padding: 30px;
+background: #ffffff;
+border-radius: 8px;
+margin-top: 30px;
+max-width: 1400px;
+text-align: center;
+margin-left: 350px;
+margin-right: auto;
 
 
-                }
+}
 
-                .filterAll {
-                    padding: 20px;
-                    margin-bottom: 20px;
-                    border: 1px solid #dee2e6;
-                    background-color: #f8f9fa;
-                    border-radius: 8px;
-                    width : 80%;
-                    margin-left: 300px;
-                }
+.filterAll {
+padding: 20px;
+margin-bottom: 20px;
+border: 1px solid #dee2e6;
+background-color: #f8f9fa;
+border-radius: 8px;
+width : 80%;
+margin-left: 300px;
+}
 
-                .order-status-summary span {
-                    margin-right: 20px;
-                    font-size: 18px;
-                }
+.order-status-summary span {
+margin-right: 20px;
+font-size: 18px;
+}
 
-                .filter-section {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-top: 15px;
-                }
+.filter-section {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 15px;
+}
 
-                .orderPageing {
-                    text-align: center;
-                    margin-top: 20px;
-                    font-size: 18px;
-                    color: #495057;
-                }
+.orderPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 18px;
+color: #495057;
+}
 
-                .order-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-                }
+.order-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-                .order-list th,
-                .order-list td {
-                    padding: 15px;
-                    border-bottom: 1px solid #dee2e6;
-                    vertical-align: middle;
-                    text-align: center;
-                }
+.order-list th,
+.order-list td {
+padding: 15px;
+border-bottom: 1px solid #dee2e6;
+vertical-align: middle;
+text-align: center;
+}
 
-                .order-list th {
-                    background-color: #f1f1f1;
-                }
+.order-list th {
+background-color: #f1f1f1;
+}
 
-                .order-search input,
-                .order-search select {
-                    display: inline-block;
-                    margin-right: 10px;
-                }
+.order-search input,
+.order-search select {
+display: inline-block;
+margin-right: 10px;
+}
 
-                .order-search button {
-                    margin-left: 5px;
-                }
+.order-search button {
+margin-left: 5px;
+}
 
- // -----------------------------------------------------------------
- // 일 /월별 매출 내역
+// -----------------------------------------------------------------
+// 일 /월별 매출 내역
 .sales-management {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 8px;
-            max-width: 1400px; /* 최대 너비 설정 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+border-radius: 8px;
+max-width: 1400px; /* 최대 너비 설정 */
+}
 
-        .search-period {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.search-period {
+margin-bottom: 20px;
+text-align: center;
+}
 
-        .search-period input[type="date"] {
-            margin: 0 10px;
-        }
+.search-period input[type="date"] {
+margin: 0 10px;
+}
 
-        .search-period button {
-            margin-left: 10px;
-        }
+.search-period button {
+margin-left: 10px;
+}
 
-        .sales-statistics {
-            margin-top: 20px;
-        }
+.sales-statistics {
+margin-top: 20px;
+}
 
-        .tabs {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+.tabs {
+list-style-type: none;
+padding: 0;
+display: flex;
+justify-content: center;
+margin-bottom: 20px;
+}
 
-        .tab-item {
-            padding: 10px 20px;
-            cursor: pointer;
-            border: 1px solid #dee2e6;
-            border-radius: 5px 5px 0 0;
-            margin: 0 5px;
-            background-color: #f8f9fa;
-        }
+.tab-item {
+padding: 10px 20px;
+cursor: pointer;
+border: 1px solid #dee2e6;
+border-radius: 5px 5px 0 0;
+margin: 0 5px;
+background-color: #f8f9fa;
+}
 
-        .tab-item.active {
-            background-color: #007bff;
-            color: #ffffff;
-            border-bottom: none;
-        }
+.tab-item.active {
+background-color: #007bff;
+color: #ffffff;
+border-bottom: none;
+}
 
-        .tab-content {
-            border: 1px solid #dee2e6;
-            border-radius: 0 5px 5px 5px;
-            padding: 20px;
-            background-color: #ffffff;
-        }
+.tab-content {
+border: 1px solid #dee2e6;
+border-radius: 0 5px 5px 5px;
+padding: 20px;
+background-color: #ffffff;
+}
 
-        .tab-panel {
-            display: none;
-        }
+.tab-panel {
+display: none;
+}
 
-        .tab-panel.active {
-            display: block;
-        }
+.tab-panel.active {
+display: block;
+}
 
-        .sales-table {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+.sales-table {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .sales-table th,
-        .sales-table td {
-            text-align: center;
-            padding: 15px;
-            border-bottom: 1px solid #dee2e6;
-            vertical-align: middle;
-        }
+.sales-table th,
+.sales-table td {
+text-align: center;
+padding: 15px;
+border-bottom: 1px solid #dee2e6;
+vertical-align: middle;
+}
 
-        .sales-table th {
-            background-color: #f1f1f1;
-        }
- // ---------------------------------------------------------------
- // 회원별 신고 신청
+.sales-table th {
+background-color: #f1f1f1;
+}
+// ---------------------------------------------------------------
+// 회원별 신고 신청
 .reportinguserList-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 8px;
-            max-width: 1400px; /* 최대 너비 설정 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+border-radius: 8px;
+max-width: 1400px; /* 최대 너비 설정 */
+}
 
-        /* 테이블 스타일 */
-        .reportinguserList-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.reportinguserList-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .reportinguserList-list th,
-        .reportinguserList-list td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.reportinguserList-list th,
+.reportinguserList-list td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .reportinguserList-list th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.reportinguserList-list th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-        /* 버튼 스타일 */
-        .btn {
-            font-size: 14px;
-        }
+/* 버튼 스타일 */
+.btn {
+font-size: 14px;
+}
 
-        .btn-sm {
-            font-size: 12px;
-            padding: 5px 10px;
-        }
+.btn-sm {
+font-size: 12px;
+padding: 5px 10px;
+}
 
-        /* 페이징 스타일 */
-        .reportinguserListPageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+/* 페이징 스타일 */
+.reportinguserListPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 
-        .reportinguserList-list-container summary{
-                    display: flex;
-                    justify-content: space-around;
-                    margin: 20px 0;
-                    padding: 20px;
-                    background-color: #f8f9fa;
-                    border: 1px solid #dee2e6;
-                    border-radius: 8px;
-        }
+.reportinguserList-list-container summary{
+display: flex;
+justify-content: space-around;
+margin: 20px 0;
+padding: 20px;
+background-color: #f8f9fa;
+border: 1px solid #dee2e6;
+border-radius: 8px;
+}
 
 // -----------------------------------------------------------------------------------------
 //  회원별 신고 내역
 .reportinguser-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-        /* 테이블 스타일 */
-        .reportinguser-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.reportinguser-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .reportinguser-list th,
-        .reportinguser-list td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.reportinguser-list th,
+.reportinguser-list td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .reportinguser-list th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.reportinguser-list th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-        /* 버튼 스타일 */
-        .btn {
-            font-size: 14px;
-        }
+/* 버튼 스타일 */
+.btn {
+font-size: 14px;
+}
 
-        .btn-sm {
-            font-size: 12px;
-            padding: 5px 10px;
-        }
+.btn-sm {
+font-size: 12px;
+padding: 5px 10px;
+}
 
-        /* 페이징 스타일 */
-        .reportinguserPageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+/* 페이징 스타일 */
+.reportinguserPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 // ------------------------------------------------------------------------------------------
 // 게시판
 .boardManagement{
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
 }
-        /* 테이블 스타일 */
-        .boardManagement table {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.boardManagement table {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .boardManagement th,
-        .boardManagement td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.boardManagement th,
+.boardManagement td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .boardManagement th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.boardManagement th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
 
-        /* 페이징 스타일 */
-        .boardPageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+/* 페이징 스타일 */
+.boardPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 
 // -------------------------------------------------------------------------
 // 댓글
 .boardReplyManagement {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-        /* 테이블 스타일 */
-        .boardReplyManagement table {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.boardReplyManagement table {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .boardReplyManagement th,
-        .boardReplyManagement td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.boardReplyManagement th,
+.boardReplyManagement td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .boardReplyManagement th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.boardReplyManagement th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-        /* 페이징 스타일 */
-        .boardReplyPageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+/* 페이징 스타일 */
+.boardReplyPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 
 // ----------------------------------------------------------------------------
 // 리뷰
 .boardReviewManagement {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
 
-        /* 테이블 스타일 */
-        .boardReviewManagement table {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.boardReviewManagement table {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .boardReviewManagement th,
-        .boardReviewManagement td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.boardReviewManagement th,
+.boardReviewManagement td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .boardReviewManagement th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.boardReviewManagement th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-        /* 페이징 스타일 */
-        .boardReviewPageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+/* 페이징 스타일 */
+.boardReviewPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 
 // ------------------------------------------------------
 // 공지사항
 .notice-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-        /* 테이블 스타일 */
-        .notice-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.notice-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .notice-list th,
-        .notice-list td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.notice-list th,
+.notice-list td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .notice-list th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.notice-list th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-        /* 페이징 스타일 */
-        .noticePageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+/* 페이징 스타일 */
+.noticePageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 // ----------------------------------------------
 // QNA
 .QNA-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-        /* 테이블 스타일 */
-        .QNA-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+/* 테이블 스타일 */
+.QNA-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .QNA-list th,
-        .QNA-list td {
-            text-align: center;
-            padding: 15px;
-            vertical-align: middle; /* 세로 가운데 정렬 */
-            border-bottom: 1px solid #dee2e6;
-        }
+.QNA-list th,
+.QNA-list td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-        .QNA-list th {
-            background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-        }
+.QNA-list th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-        /* 페이징 스타일 */
-        .QNAPageing {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
- // ------------------------------------------------------------------------------------
- // 자주 묻는 질문
- .FAQ-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-         }
+/* 페이징 스타일 */
+.QNAPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
+// ------------------------------------------------------------------------------------
+// 자주 묻는 질문
+.FAQ-list-container {
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-         /* 테이블 스타일 */
-         .FAQ-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-         }
+/* 테이블 스타일 */
+.FAQ-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-         .FAQ-list th,
-         .FAQ-list td {
-             text-align: center;
-             padding: 15px;
-             vertical-align: middle; /* 세로 가운데 정렬 */
-             border-bottom: 1px solid #dee2e6;
-         }
+.FAQ-list th,
+.FAQ-list td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-         .FAQ-list th {
-             background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-         }
+.FAQ-list th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-         /* 페이징 스타일 */
-         .FAQPageing {
-             text-align: center;
-             margin-top: 20px;
-             font-size: 16px;
-         }
- // --------------------------------------------------------------------------
- // 이벤트
- .Event-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-         }
+/* 페이징 스타일 */
+.FAQPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
+// --------------------------------------------------------------------------
+// 이벤트
+.Event-list-container {
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-         /* 테이블 스타일 */
-         .Event-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-         }
+/* 테이블 스타일 */
+.Event-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-         .Event-list th,
-         .Event-list td {
-             text-align: center;
-             padding: 15px;
-             vertical-align: middle; /* 세로 가운데 정렬 */
-             border-bottom: 1px solid #dee2e6;
-         }
+.Event-list th,
+.Event-list td {
+text-align: center;
+padding: 15px;
+vertical-align: middle; /* 세로 가운데 정렬 */
+border-bottom: 1px solid #dee2e6;
+}
 
-         .Event-list th {
-             background-color: #f8f9fa; /* 테이블 헤더 배경색 */
-         }
+.Event-list th {
+background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+}
 
-         /* 페이징 스타일 */
-         .EventPageing {
-             text-align: center;
-             margin-top: 20px;
-             font-size: 16px;
-         }
+/* 페이징 스타일 */
+.EventPageing {
+text-align: center;
+margin-top: 20px;
+font-size: 16px;
+}
 
 // ---------------------------------------------------
 // 애니 추가
 .aniAdd {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
 }
 
 .aniAdd form > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-left : 200px;
-    margin-right : 150px;
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 200px;
+margin-right : 150px;
 }
 
 .aniAdd label {
-    width: 150px;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 14px;
-    color: #555;
+width: 150px;
+margin-right: 10px;
+text-align: right;
+font-size: 14px;
+color: #555;
 }
 
 .aniAdd input,
 .aniAdd select,
 .aniAdd textarea {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
+flex: 1;
+padding: 8px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+color: #333;
 }
 
 .aniAdd textarea {
-    resize: none;
+resize: none;
 }
 
 .aniAdd input[type="file"] {
-    padding: 5px;
-    border: none;
+padding: 5px;
+border: none;
 }
 
 .contentdiv textarea {
-    height : 450px;
+height : 450px;
 }
 
 .aniAdd input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    margin-left : 300px;
-    margin-right : 150px;
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+display: block;
+margin: 0 auto;
+margin-left : 300px;
+margin-right : 150px;
 }
 
 .aniAdd input[type="submit"]:hover {
-    background-color: #45a049;
+background-color: #45a049;
 }
 // -------------------------------------------------
 // 애니 수정
 .aniEdit {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
 }
 
 .aniEdit form > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-left : 200px;
-    margin-right : 150px;
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 200px;
+margin-right : 150px;
 }
 
 .aniEdit label {
-    width: 150px;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 14px;
-    color: #555;
+width: 150px;
+margin-right: 10px;
+text-align: right;
+font-size: 14px;
+color: #555;
 }
 
 .aniEdit input,
 .aniEdit select,
 .aniEdit textarea {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
+flex: 1;
+padding: 8px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+color: #333;
 }
 
 .aniEdit textarea {
-    resize: none;
+resize: none;
 }
 
 .aniEdit input[type="file"] {
-    padding: 5px;
-    border: none;
+padding: 5px;
+border: none;
 }
 
 .contentdiv textarea {
-    height : 450px;
+height : 450px;
 }
 
 .aniEdit input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    margin-left : 300px;
-    margin-right : 150px;
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+display: block;
+margin: 0 auto;
+margin-left : 300px;
+margin-right : 150px;
 }
 
 .aniEdit input[type="submit"]:hover {
-    background-color: #45a049;
+background-color: #45a049;
 }
 
 // ---------------------------------------------------------------
 // 이벤트, 수정 추가
 .EventAdd {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-        }
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+}
 
-        .EventAdd h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: bold;
-            color: #343a40;
-        }
+.EventAdd h2 {
+text-align: center;
+margin-bottom: 30px;
+font-weight: bold;
+color: #343a40;
+}
 
 .EventAdd form > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-left : 350px;
-    margin-right : 50px;
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 350px;
+margin-right : 50px;
 }
 
 
-        .EventAdd label {
-            font-weight: bold;
-            color: #495057;
-            margin-bottom: 10px;
-        }
+.EventAdd label {
+font-weight: bold;
+color: #495057;
+margin-bottom: 10px;
+}
 
-        .EventAdd input[type="text"],
-        .EventAdd textarea {
-            width: 100%;
-            border-radius: 4px;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
+.EventAdd input[type="text"],
+.EventAdd textarea {
+width: 100%;
+border-radius: 4px;
+padding: 12px;
+border: 1px solid #ced4da;
+box-sizing: border-box;
+margin-bottom: 20px;
+font-size: 16px;
+}
 
-        .EventAdd textarea {
-            height: 200px;
-        }
+.EventAdd textarea {
+height: 200px;
+}
 
-        .EventAdd input[type="submit"] {
-            width: 150px;
-            margin-top: 20px;
-            font-size: 16px;
-            padding: 12px;
-            background-color: #28a745;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+.EventAdd input[type="submit"] {
+width: 150px;
+margin-top: 20px;
+font-size: 16px;
+padding: 12px;
+background-color: #28a745;
+color: #ffffff;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
 
-        .EventAdd input[type="submit"]:hover {
-            background-color: #218838;
-        }
+.EventAdd input[type="submit"]:hover {
+background-color: #218838;
+}
 
-        // ---------------------------------------------------------------
-        // 공지 , 수정 추가
-        .noticeAdd {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-                }
+// ---------------------------------------------------------------
+// 공지 , 수정 추가
+.noticeAdd, .noticeEdit {
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+}
 
-                .noticeAdd h2 {
-                    text-align: center;
-                    margin-bottom: 30px;
-                    font-weight: bold;
-                    color: #343a40;
-                }
-
-        .noticeAdd form > div {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            margin-left : 350px;
-            margin-right : 50px;
-        }
+.noticeAdd form > div, .noticeEdit form > div {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 350px;
+margin-right : 50px;
+}
 
 
-                .noticeAdd label {
-                    font-weight: bold;
-                    color: #495057;
-                    margin-bottom: 10px;
-                }
+.noticeAdd label, .noticeEdit label {
+font-weight: bold;
+color: #495057;
+margin-bottom: 10px;
+}
 
-                .noticeAdd input[type="text"],
-                .noticeAdd textarea {
-                    width: 100%;
-                    border-radius: 4px;
-                    padding: 12px;
-                    border: 1px solid #ced4da;
-                    box-sizing: border-box;
-                    margin-bottom: 20px;
-                    font-size: 16px;
-                }
+.noticeAdd input[type="text"], .noticeEdit input[type="text"],
+.noticeAdd textarea, .noticeEdit textarea {
+width: 100%;
+border-radius: 4px;
+padding: 12px;
+border: 1px solid #ced4da;
+box-sizing: border-box;
+margin-bottom: 20px;
+font-size: 16px;
+}
 
-                .noticeAdd textarea {
-                    height: 200px;
-                }
+.noticeAdd textarea, . noticeEdit textarea {
+height: 200px;
+}
 
-                .noticeAdd input[type="submit"] {
-                    width: 150px;
-                    margin-top: 20px;
-                    font-size: 16px;
-                    padding: 12px;
-                    background-color: #28a745;
-                    color: #ffffff;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
+.noticeAdd input[type="submit"] , .noticeEdit input[type="submit"] {
+width: 150px;
+margin-top: 20px;
+font-size: 16px;
+padding: 12px;
+background-color: #28a745;
+color: #ffffff;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
 
-                .noticeAdd input[type="submit"]:hover {
-                    background-color: #218838;
-                }
+.noticeAdd input[type="submit"]:hover, .noticeEdit input[type="submit"]:hover {
+background-color: #218838;
+}
 
-                // ---------------------------------------------------------------
-                        // FAQ , 수정 추가
-                        .FAQAdd {
-                            width: 100%;
-                            max-width: 800px;
-                            margin: 0 auto;
-                            padding: 20px;
-                            background-color: #f9f9f9;
-                            border: 1px solid #ddd;
-                            border-radius: 8px;
-                                }
+// ---------------------------------------------------------------
+// FAQ , 수정 추가
+.FAQAdd, .FAQEdit{
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+}
 
-                                .FAQAdd h2 {
-                                    text-align: center;
-                                    margin-bottom: 30px;
-                                    font-weight: bold;
-                                    color: #343a40;
-                                }
+.FAQAdd h2, .FAQEdit h2 {
+text-align: center;
+margin-bottom: 30px;
+font-weight: bold;
+color: #343a40;
+}
 
-                        .FAQAdd form > div {
-                            display: flex;
-                            align-items: center;
-                            margin-bottom: 15px;
-                            margin-left : 350px;
-                            margin-right : 50px;
-                        }
+.FAQAdd form > div, .FAQEdit form > div {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 350px;
+margin-right : 50px;
+}
 
 
-                                .FAQAdd label {
-                                    font-weight: bold;
-                                    color: #495057;
-                                    margin-bottom: 10px;
-                                }
+.FAQAdd label, .FAQEdit label {
+font-weight: bold;
+color: #495057;
+margin-bottom: 10px;
+}
 
-                                .FAQAdd input[type="text"],
-                                .FAQAdd textarea {
-                                    width: 100%;
-                                    border-radius: 4px;
-                                    padding: 12px;
-                                    border: 1px solid #ced4da;
-                                    box-sizing: border-box;
-                                    margin-bottom: 20px;
-                                    font-size: 16px;
-                                }
+.FAQAdd input[type="text"], .FAQEdit input[type="text"],
+.FAQAdd textarea, .FAQEdit textarea {
+width: 100%;
+border-radius: 4px;
+padding: 12px;
+border: 1px solid #ced4da;
+box-sizing: border-box;
+margin-bottom: 20px;
+font-size: 16px;
+}
 
-                                .FAQAdd textarea {
-                                    height: 200px;
-                                }
+.FAQAdd textarea, .FAQEdit textarea {
+height: 200px;
+}
 
-                                .FAQAdd input[type="submit"] {
-                                    width: 200px;
-                                    margin-top: 20px;
-                                    font-size: 16px;
-                                    padding: 12px;
-                                    background-color: #28a745;
-                                    color: #ffffff;
-                                    border: none;
-                                    border-radius: 4px;
-                                    cursor: pointer;
-                                    display: block;
-                                    margin-left: auto;
-                                    margin-right: auto;
-                                }
+.FAQAdd input[type="submit"],.FAQEdit input[type="submit"] {
+width: 200px;
+margin-top: 20px;
+font-size: 16px;
+padding: 12px;
+background-color: #28a745;
+color: #ffffff;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
 
-                                .FAQAdd input[type="submit"]:hover {
-                                    background-color: #218838;
-                                }
+.FAQAdd input[type="submit"]:hover, .FAQEdit input[type="submit"]:hover {
+background-color: #218838;
+}
 
 // ----------------------------------------------------
 .order-list-container {
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            max-width: 1400px; /* 최대 너비 */
-        }
+margin: 30px auto;
+padding: 20px;
+background: #ffffff;
+max-width: 1400px; /* 최대 너비 */
+}
 
-        .order-list-container h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: bold;
-            color: #343a40;
-        }
+.order-list-container h2 {
+text-align: center;
+margin-bottom: 30px;
+font-weight: bold;
+color: #343a40;
+}
 
-        .order-list {
-      width: 80%;
-      border-collapse: collapse;
-      margin-left : 300px;
-      margin-right : 300px;
-        }
+.order-list {
+width: 80%;
+border-collapse: collapse;
+margin-left : 300px;
+margin-right : 300px;
+}
 
-        .order-list th, .order-list td {
-            padding: 15px;
-            border: 1px solid #dee2e6;
-            text-align: center;
-            vertical-align: middle;
-        }
+.order-list th, .order-list td {
+padding: 15px;
+border: 1px solid #dee2e6;
+text-align: center;
+vertical-align: middle;
+}
 
-        .order-list thead th {
-            background-color: #e9ecef;
-            font-weight: bold;
-        }
+.order-list thead th {
+background-color: #e9ecef;
+font-weight: bold;
+}
 
-        .order-list tbody tr:hover {
-            background-color: #f1f1f1;
-        }
+.order-list tbody tr:hover {
+background-color: #f1f1f1;
+}
 
 // ---------------------------------------------------
 // 굿즈 추가, 수정
 .storeAdd, .storeEdit {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
 }
 
 .storeAdd form > div , .storeEdit form  > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-left : 200px;
-    margin-right : 150px;
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+margin-left : 200px;
+margin-right : 150px;
 }
 
 .storeAdd label, .storeEdit label {
-    width: 150px;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 14px;
-    color: #555;
+width: 150px;
+margin-right: 10px;
+text-align: right;
+font-size: 14px;
+color: #555;
 }
 
 .storeAdd input, .storeEdit input,
 .storeAdd select, .storeEdit select {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
+flex: 1;
+padding: 8px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+color: #333;
 }
 
 
 .storeAdd input[type="file"], .storeEdit input[type="file"]  {
-    padding: 5px;
-    border: none;
+padding: 5px;
+border: none;
 }
 
 .storeAdd input[type="submit"], .storeEdit input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    margin-left : 300px;
-    margin-right : 150px;
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+display: block;
+margin: 0 auto;
+margin-left : 300px;
+margin-right : 150px;
 }
 
 .storeAdd input[type="submit"]:hover , .storeEdit input[type="submit"]:hover {
-    background-color: #45a049;
+background-color: #45a049;
+}
+
+// ----------------------------------------------------------
+// 메인화면
+.page-header {
+text-align: center;
+margin-bottom: 30px;
+}
+.page-header h1{
+text-align: left;
+margin-bottom: 30px;
+margin-left : 250px;
+}
+.page-header p{
+text-align: left;
+margin-bottom: 30px;
+margin-left : 250px;
+}
+.card {
+margin: 15px 0;
+transition: 0.3s;
+}
+.chart {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+padding: 20px;
+margin-left : 150px;
+}
+.chart > div {
+width: 40%;
+margin-bottom: 20px;
+padding: 15px;
+background-color: #ffffff;
+border: 1px solid #e0e0e0;
+border-radius: 8px;
+margin-left : 80px;
+margin-right : 80px;
+}
+.chart canvas {
+width: 100%;
+height: 300px;
+}
+.summary-card {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+margin-bottom: 30px;
+width : 75%;
+margin-left : 320px;
+}
+.summary-card .card {
+width: 20%;
+padding: 15px;
+text-align: center;
+}
+.summary-card .card .icon {
+font-size: 50px;
+margin-bottom: 10px;
+color: #007bff;
+}
+.table-container {
+width: 75%;
+margin: 0 auto;
+display : flex;
+gap : 5%;
+margin-left : 250px;
+}
+
+/* 섹션 스타일 */
+.activity-section {
+position: relative; /* 더보기 링크 위치 설정 */
+margin-bottom: 30px;
+}
+
+/* 섹션 제목 및 더보기 링크를 같은 줄에 배치 */
+.section-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 15px;
+width : 100%;
+}
+
+.table-title {
+margin: 0;
+font-size: 1.4em;
+font-weight: bold;
+text-transform: uppercase;
+color: #343a40;
+}
+
+.more-link {
+font-size: 1.1em;
+color: black;
+text-decoration: none;
+padding: 6px 6px;
+border-radius: 5px;
+transition: all 0.3s ease;
+}
+
+.more-link:hover {
+color: red;
+text-decoration : none;
+}
+
+/* 테이블 스타일 */
+.activity-table {
+width: 100%;
+border-collapse: collapse;
+background-color: #ffffff; /* 테이블 배경색 */
+}
+
+.activity-table th, .activity-table td {
+border: 1px solid #e0e0e0;
+padding: 12px 15px;
+text-align: center; /* 중앙 정렬 */
+vertical-align: middle;
+}
+
+.activity-table th {
+background-color: #f8f9fa;
+font-weight: 600;
+color: #6c757d;
+white-space: nowrap; /* 헤더 내용이 한 줄로 표시되도록 설정 */
+}
+
+.activity-table td {
+font-size : 0.6em;
+}
+
+.activity-table tbody tr:hover {
+background-color: #f1f1f1;
+}
+
+/* 배지 스타일 */
+.badge {
+display: inline-block;
+padding: 6px 12px;
+font-size: 0.9em;
+border-radius: 12px;
+font-weight: 600;
+text-align: center;
+white-space: nowrap;
+}
+
+.badge-warning {
+background-color: #ffc107;
+color: #fff;
+}
+
+.badge-success {
+background-color: #28a745;
+color: #fff;
 }
