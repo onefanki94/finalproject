@@ -12,8 +12,8 @@ public class noticeController {
     }
 
     //상세페이지
-    @GetMapping("/noticeView")
-    public String cmView(){
-        return "notice/noticeView";
-    }
+//    @GetMapping("/noticeView")
+//    public String cmView(){
+//        return "notice/noticeView";
+//    }
 }
