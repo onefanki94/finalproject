@@ -46,6 +46,14 @@ public class masterController {
             return mav;
         }
 
+    // Dashboard - 회원관리 - 신고계정목록 리스트
+    @GetMapping("/reportinguserMasterList")
+    public ModelAndView masterListReport(){
+        mav = new ModelAndView();
+        mav.setViewName("master/reportinguserMasterList");
+        return mav;
+    }
+
         // Dashboard - 애니관리 - 애니 목록 - 애니 추가
         @GetMapping("/aniAddMaster")
         public ModelAndView aniAddMaster(){
@@ -146,6 +154,14 @@ public class masterController {
     public ModelAndView orderSalesDetailMaster(){
             mav = new ModelAndView();
             mav.setViewName("master/orderSalesDetailMaster");
+        return mav;
+    }
+
+    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
+    @GetMapping("/orderSalesDetail1Master")
+    public ModelAndView orderSalesDetail1Master(){
+        mav = new ModelAndView();
+        mav.setViewName("master/orderSalesDetail1Master");
         return mav;
     }
 

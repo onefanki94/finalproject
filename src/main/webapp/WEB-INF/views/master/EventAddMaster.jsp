@@ -10,7 +10,7 @@
 <form action="/master/EventAddMasterOk" method="post">
     <div>
         <label for="title"></label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="title" placeholder="이벤트 제목을 입력하세요." required>
     </div>
 
     <div>

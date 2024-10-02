@@ -180,6 +180,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom:20px;
 }
 
 .listBt a{
@@ -194,7 +195,43 @@ body {
     border-radius:0;
 }
 
+@media all and (max-width:680px) {
+    html{
+        font-size: 80%
+    }
 
+    .top_info{
+     height: 27px;
+     background: #0C0C0C !important;
+     padding: 0 10px;
+    }
+
+    .cm_tab h1{
+        display: none;
+    }
+
+    .cm_tab .list .btn{
+        font-size:12px;
+        line-height:27px;
+        font-weight: 400;
+        white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    }
+
+    .cm_tab .list li a:hover,
+    .cm_tab .list li.selected a {
+         color: #FFF;
+         border-top: 2px solid #FFC700;
+         border-bottom: 0;
+         line-height: 24px;
+         font-weight: 700;
+    }
+
+    .header {
+        display: none; /* 작은 화면에서는 헤더 숨기기 */
+    }
+
+
+}
 
 
 
