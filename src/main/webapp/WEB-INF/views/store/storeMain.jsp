@@ -51,56 +51,59 @@
 
     <!--Notification-->
     <section>
-    <div class="notification">
-        <div class="notification-header">
-            <span class="icon">&#128365;</span> <!-- 알림 아이콘 -->
-            <span class="date">2024-09-25</span>
-        </div>
-        <div class="notification-content">
-            <p>[9월 20일, 9월 23일 입고] 예약 상품 배송 안내</p>
-        </div>
-        <div class="pagination">
-            <button class="prev">&lt;</button>
-            <span class="page-info">1 / 10</span>
-            <button class="next">&gt;</button>
+        <div class="notification">
+            <div class="notification-header">
+                <span class="icon">&#128365;</span> <!-- 알림 아이콘 -->
+                <span class="date">2024-09-25</span>
+            </div>
+            <div class="notification-content">
+                <p>[9월 20일, 9월 23일 입고] 예약 상품 배송 안내</p>
+            </div>
+            <div class="pagination">
+                <button class="prev">&lt;</button>
+                <span class="page-info">1 / 10</span>
+                <button class="next">&gt;</button>
+            </div>
         </div>
     </section>
 
-    <!-- Featured Products Section -->
+        <!-- 인기굿즈 -->
     <section class="products">
     <h2>Hot #인기굿즈</h2>
     <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
-    <div class="pop-carousel">
-        <div class="pop-carousel-wrapper">
-            <div class="pop-carousel-images">
-            <div class="product">
-                <a href="/storeList">
-                    <img src="img/store/f1.png" alt="Product 1">
-                    <span class="cnt">2</span>                
-                    <span class="rcont"></span>
-                    <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                    <span class="price">
-                        <span class="discount">4,000원</span>
-                    </span>
-                    <span class="tag" style="cursor: default;">
-                        <span>입고</span>
-                        <span>오리지널</span>
-                    </span>
-                </a>
-                <div class="product">
-                    <a href="/storeList">
-                        <img src="img/store/f2.png" alt="Product 1">
-                        <span class="cnt">2</span>
-                        <span class="rcont"></span>
-                        <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                        <span class="price">
-                            <span class="discount">4,000원</span>
-                        </span>
-                        <span class="tag" style="cursor: default;">
-                            <span>입고</span>
-                            <span>오리지널</span>
-                        </span>
-                    </a>
+        <div class="pop-carousel">
+            <div class="pop-carousel-wrapper">
+                <div class="pop-carousel-images">
+                    <div class="product">
+                        <a href="/storeList">
+                            <img src="img/store/f1.png" alt="Product 1">
+                            <span class="cnt">2</span>                
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="product">
+                        <a href="/storeList">
+                            <img src="img/store/f2.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
+                        </a>
+                    </div>
                     <div class="product">
                         <a href="/storeList">
                             <img src="img/store/f3.png" alt="Product 1">
@@ -115,6 +118,7 @@
                                 <span>오리지널</span>
                             </span>
                         </a>
+                    </div>
                     <div class="product">
                         <a href="/storeList">
                             <img src="img/store/f4.png" alt="Product 1">
@@ -129,7 +133,178 @@
                                 <span>오리지널</span>
                             </span>
                         </a>
-                        <div class="product">
+                    </div>
+                    <div class="product">
+                        <a href="/storeList">
+                            <img src="img/store/f5.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="product">
+                        <a href="/storeList">
+                            <img src="img/store/f6.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
+                        </a>  
+                    </div>      
+                    <div class="product">
+                        <a href="/storeList">
+                            <img src="img/store/f7.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
+                        </a>  
+                    </div> 
+                    <div class="product">
+                        <a href="/storeList">
+                            <img src="img/store/f8.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
+                        </a>  
+                    </div>                                                                                                                    
+                </div>
+            </div>            
+        </div>       
+    </section>
+
+
+    <section class="origin-goods">
+        <h2>오리지널 굿즈</h2>
+            <div class="origin-carousel">
+                <div class="origin-carousel-wrapper">
+                    <div class="origin-carousel-images">
+                        <div class="origin-item">
+                            <a href="/storeList">
+                                <img src="img/store/origingoods1.png" alt="Product 1">                             
+                            </a>
+                            <a href="/storeList">
+                                <span class="origin-tag">블루아카이브 2주년</span>
+                            </a>                        
+                        </div>
+                        <div class="origin-item">
+                            <a href="/storeList">
+                                <img src="img/store/origingoods2.png" alt="Product 1">                             
+                            </a>
+                            <a href="/storeList">
+                                <span class="origin-tag">블루아카이브 2주년</span>
+                            </a>                  
+                        </div>
+                        <div class="origin-item">
+                            <a href="/storeList">
+                                <img src="img/store/origingoods3.png" alt="Product 1">                             
+                            </a>
+                            <a href="/storeList">
+                                <span class="origin-tag">블루아카이브 2주년</span>
+                            </a>                        
+                        </div>
+                
+
+
+                    </div>    
+                </div>
+            </div>
+    </section>
+
+    <!-- 신규굿즈 -->
+    <section class="new-products">
+        <h2>Hot #신규굿즈</h2>
+        <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
+            <div class="new-carousel">
+                <div class="new-carousel-wrapper">
+                    <div class="new-carousel-images">
+                        <div class="new-product">
+                            <a href="/storeList">
+                                <img src="img/store/f1.png" alt="Product 1">
+                                <span class="cnt">2</span>                
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="new-product">
+                            <a href="/storeList">
+                                <img src="img/store/f2.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="new-product">
+                            <a href="/storeList">
+                                <img src="img/store/f3.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="new-product">
+                            <a href="/storeList">
+                                <img src="img/store/f4.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="new-product">
                             <a href="/storeList">
                                 <img src="img/store/f5.png" alt="Product 1">
                                 <span class="cnt">2</span>
@@ -143,7 +318,8 @@
                                     <span>오리지널</span>
                                 </span>
                             </a>
-                        <div class="product">
+                        </div>
+                        <div class="new-product">
                             <a href="/storeList">
                                 <img src="img/store/f6.png" alt="Product 1">
                                 <span class="cnt">2</span>
@@ -156,111 +332,78 @@
                                     <span>입고</span>
                                     <span>오리지널</span>
                                 </span>
-                            </a>
-                                                                                    
+                            </a>  
+                        </div>      
+                        <div class="new-product">
+                            <a href="/storeList">
+                                <img src="img/store/f7.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>  
+                        </div> 
+                        <div class="new-product">
+                            <a href="/storeList">
+                                <img src="img/store/f8.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>  
+                        </div>                                                                                                                    
+                    </div>
+                </div>            
+            </div>       
+        </section>
 
-                   
+        <!--event-->
+        <section class="event">
+            <h2>이벤트#신규이벤트 업데이트</h2>
+                <div class="event-carousel">
+                    <div class="event-carousel-wrapper">
+                        <div class="event-carousel-images">
+                            <div class="event-item">
+                                <a href="/storeList">
+                                    <img src="img/store/news1.png" alt="Product 1">                             
+                                </a>
+                                <a href="/storeList">
+                                    <span class="event-tag">스파이패밀리 콜라보 소식</span>
+                                </a>                        
+                            </div>
+                            <div class="event-item">
+                                <a href="/storeList">
+                                    <img src="img/store/news2.png" alt="Product 1">                             
+                                </a>
+                                <a href="/storeList">
+                                    <span class="event-tag">스파이패밀리 콜라보 소식</span>
+                                </a>                        
+                            </div>
+                            <div class="event-item">
+                                <a href="/storeList">
+                                    <img src="img/store/news3.png" alt="Product 1">                             
+                                </a>
+                                <a href="/storeList">
+                                    <span class="event-tag">스파이패밀리 콜라보 소식</span>
+                                </a>                        
+                            </div>
+                           
+                        
+                        </div>    
                     </div>
                 </div>
-            </div>
- 
-        </div>
-       
-    </section>
+        </section>
 
-    <!-- Original Goods Section -->
-    <section class="original-goods">
-        <h2>오리지널 굿즈</h2>
-        <div class="carousel-original">
-
-            <div class="ori-carousel-wrapper">
-                <div class="carousel-goods-images">
-                    <div class="goods-item">
-                        <a href="detail1.jsp">
-                            <img src="img/store/origingoods1.png" alt="Product 1">
-                          <p>러브라이브 굿즈 판매</p>         
-                        </a>
-                              
-                    </div>
-                    <div class="goods-item">
-                    <a href="detail2.jsp">
-                        <img src="img/store/origingoods2.png" alt="Product 2">
-                        <p>hololive GAMERS 콜라보 굿즈 예약판매</p>
-                    </a>
-                    </div>
-                    <div class="goods-item">
-                    <a href="detail3.jsp">
-                        <img src="img/store/origingoods3.png" alt="Product 3">
-                        <p>도쿄리벤저스 콜라보 굿즈 예약판매</p>
-                    </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- new Products Section -->
-    <section class="products2">
-        <button class="carousel-control prev" onclick="moveSlide('banner', -1)">&#10094;</button>
-        <button class="carousel-control next" onclick="moveSlide('banner', 1)">&#10095;</button>
-        <h2>NEW #신상굿즈</h2>
-        <p>[11월 15일] 신규입고상품 안내</p>
-        <div class="product2">
-            <div class="new-carousel-wrapper">
-                <div class="new-carousel-images">
-                    <div class="product">
-                        <a href="productDetail1.jsp">
-                            <img src="img/store/f5.png" alt="Product 1">
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="productDetail2.jsp">
-                            <img src="img/store/f6.png" alt="Product 2">
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="productDetail3.jsp">
-                            <img src="img/store/f7.png" alt="Product 3">
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="productDetail4.jsp">
-                            <img src="img/store/f8.png" alt="Product 4">
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-     </section>
-
-    <!-- MD news Section -->
-    <section class="md_pick">
-      
-        <h2>MD news</h2>
-        <div class="md">   
-            <div class="md-wrapper">
-  <button class="md-carousel-control prev" onclick="moveSlide('banner', -1)">&#10094;</button>
-        <button class="md-carousel-control next" onclick="moveSlide('banner', 1)">&#10095;</button>
-
-                <div class="md-images">
-                    <a href="md1.jsp">
-                        <img src="img/store/news1.png" alt="Product 1">
-                    </a>
-                    <a href="md2.jsp">
-                        <img src="img/store/news2.png" alt="Product 2">
-                    </a>
-                    <a href="md3.jsp">
-                        <img src="img/store/news3.png" alt="Product 3">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
 </div>
