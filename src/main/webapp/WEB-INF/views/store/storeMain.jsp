@@ -68,62 +68,127 @@
 
     <!-- Featured Products Section -->
     <section class="products">
-        <h2>Hot #인기굿즈</h2>
-        <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
-        <div class="carousel">
-            <button class="carousel-control prev" onclick="moveSlide('featured-products', -1)">&#10094;</button>
-            <div class="carousel-wrapper">
-                <div class="carousel-images">
+    <h2>Hot #인기굿즈</h2>
+    <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
+    <div class="pop-carousel">
+        <div class="pop-carousel-wrapper">
+            <div class="pop-carousel-images">
+            <div class="product">
+                <a href="/storeList">
+                    <img src="img/store/f1.png" alt="Product 1">
+                    <span class="cnt">2</span>                
+                    <span class="rcont"></span>
+                    <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                    <span class="price">
+                        <span class="discount">4,000원</span>
+                    </span>
+                    <span class="tag" style="cursor: default;">
+                        <span>입고</span>
+                        <span>오리지널</span>
+                    </span>
+                </a>
+                <div class="product">
+                    <a href="/storeList">
+                        <img src="img/store/f2.png" alt="Product 1">
+                        <span class="cnt">2</span>
+                        <span class="rcont"></span>
+                        <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                        <span class="price">
+                            <span class="discount">4,000원</span>
+                        </span>
+                        <span class="tag" style="cursor: default;">
+                            <span>입고</span>
+                            <span>오리지널</span>
+                        </span>
+                    </a>
                     <div class="product">
                         <a href="/storeList">
-                            <img src="img/store/f1.png" alt="Product 1">
+                            <img src="img/store/f3.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
                         </a>
-
-                    </div>
                     <div class="product">
-                        <a href="productDetail2.jsp">
-                            <img src="img/store/f2.png" alt="Product 2">
+                        <a href="/storeList">
+                            <img src="img/store/f4.png" alt="Product 1">
+                            <span class="cnt">2</span>
+                            <span class="rcont"></span>
+                            <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                            <span class="price">
+                                <span class="discount">4,000원</span>
+                            </span>
+                            <span class="tag" style="cursor: default;">
+                                <span>입고</span>
+                                <span>오리지널</span>
+                            </span>
                         </a>
+                        <div class="product">
+                            <a href="/storeList">
+                                <img src="img/store/f5.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>
+                        <div class="product">
+                            <a href="/storeList">
+                                <img src="img/store/f6.png" alt="Product 1">
+                                <span class="cnt">2</span>
+                                <span class="rcont"></span>
+                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
+                                <span class="price">
+                                    <span class="discount">4,000원</span>
+                                </span>
+                                <span class="tag" style="cursor: default;">
+                                    <span>입고</span>
+                                    <span>오리지널</span>
+                                </span>
+                            </a>
+                                                                                    
 
-                    </div>
-                    <div class="product">
-                        <a href="productDetail3.jsp">
-                            <img src="img/store/f3.png" alt="Product 3">
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="productDetail4.jsp">
-                            <img src="img/store/f4.png" alt="Product 4">
-                        </a>
-
+                   
                     </div>
                 </div>
             </div>
-            <button class="carousel-control next" onclick="moveSlide('featured-products', 1)">&#10095;</button>
+ 
         </div>
+       
     </section>
 
     <!-- Original Goods Section -->
     <section class="original-goods">
         <h2>오리지널 굿즈</h2>
         <div class="carousel-original">
-            <button class="carousel-control prev" onclick="moveSlide('original-goods', -1)">&#10094;</button>
-            <div class="carousel-wrapper">
+
+            <div class="ori-carousel-wrapper">
                 <div class="carousel-goods-images">
-                    <div class="product-item">
-                    <a href="detail1.jsp">
-                        <img src="img/store/origingoods1.png" alt="Product 1">
-                        <p>러브라이브 굿즈 판매</p>
+                    <div class="goods-item">
+                        <a href="detail1.jsp">
+                            <img src="img/store/origingoods1.png" alt="Product 1">
+                          <p>러브라이브 굿즈 판매</p>         
+                        </a>
+                              
                     </div>
-                    <div class="product-item">
-                    </a>
+                    <div class="goods-item">
                     <a href="detail2.jsp">
                         <img src="img/store/origingoods2.png" alt="Product 2">
                         <p>hololive GAMERS 콜라보 굿즈 예약판매</p>
                     </a>
                     </div>
-                    <div class="product-item">
+                    <div class="goods-item">
                     <a href="detail3.jsp">
                         <img src="img/store/origingoods3.png" alt="Product 3">
                         <p>도쿄리벤저스 콜라보 굿즈 예약판매</p>
@@ -131,19 +196,20 @@
                     </div>
                 </div>
             </div>
-            <button class="carousel-control next" onclick="moveSlide('original-goods', 1)">&#10095;</button>
+
         </div>
+
     </section>
 
-
-    <!-- More Products Section -->
+    <!-- new Products Section -->
     <section class="products2">
+        <button class="carousel-control prev" onclick="moveSlide('banner', -1)">&#10094;</button>
+        <button class="carousel-control next" onclick="moveSlide('banner', 1)">&#10095;</button>
         <h2>NEW #신상굿즈</h2>
         <p>[11월 15일] 신규입고상품 안내</p>
-        <div class="carousel">
-            <button class="carousel-control prev" onclick="moveSlide('more-products', -1)">&#10094;</button>
-            <div class="carousel-wrapper">
-                <div class="carousel-images">
+        <div class="product2">
+            <div class="new-carousel-wrapper">
+                <div class="new-carousel-images">
                     <div class="product">
                         <a href="productDetail1.jsp">
                             <img src="img/store/f5.png" alt="Product 1">
@@ -170,34 +236,31 @@
                     </div>
                 </div>
             </div>
-            <button class="carousel-control next" onclick="moveSlide('more-products', 1)">&#10095;</button>
         </div>
-    </section>
-
-
+     </section>
 
     <!-- MD news Section -->
     <section class="md_pick">
+      
         <h2>MD news</h2>
-        <div class="md">
-            <button class="md-control prev" onclick="moveSlide('md_pick', -1)">&#10094;</button>
+        <div class="md">   
             <div class="md-wrapper">
+  <button class="md-carousel-control prev" onclick="moveSlide('banner', -1)">&#10094;</button>
+        <button class="md-carousel-control next" onclick="moveSlide('banner', 1)">&#10095;</button>
+
                 <div class="md-images">
                     <a href="md1.jsp">
                         <img src="img/store/news1.png" alt="Product 1">
-
                     </a>
                     <a href="md2.jsp">
                         <img src="img/store/news2.png" alt="Product 2">
-
                     </a>
                     <a href="md3.jsp">
                         <img src="img/store/news3.png" alt="Product 3">
-
                     </a>
                 </div>
             </div>
-            <button class="md-control next" onclick="moveSlide('md_pick', 1)">&#10095;</button>
         </div>
     </section>
+    
 </div>

@@ -26,6 +26,7 @@ a {
 
 
  p{
+    margin-bottom: 20px;
     text-align: left; 
     font-weight: bold;
     color:rgb(135, 138, 141);
@@ -76,48 +77,55 @@ a {
 
 
 /* Product Section */
-.products, .products2 {
-    margin-top: 100px;
-    padding: 60px 40px;
-    text-align: center;
-    border-radius: 10px;
-    background-color: #fff;
-}
 
 .products h2, .products2 h2 {
     font-size: 48px;
     margin-bottom: 40px;
 }   
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
+.pop-carousel-wrapper {
+    align-items: center;
+    flex-direction: column; 
+    justify-content: flex-start;
+     
 }
 
 .product {
     width: 250px;
     height: 250px;
     background-color: #f9f9f9;
-    padding: 30px;
+    display: flex; 
+    gap:7%;
     text-align: center;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.8s;
+}
+
+
+.product-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.product img{
+    border-radius: 10px;
+}
+
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }
 
 .product img:hover {
-    transform: scale(1.2);
-    transition: transform 0.8s ease-in-out;
+    animation: shake 0.5s ease-in-out; 
 }
 
-.product img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    margin-bottom: 20px;
 
-}
 
 .product h3 {
     font-size: 24px;
@@ -128,8 +136,8 @@ a {
 .original-goods {
     padding: 60px 40px;
     text-align: center;
-    margin: 0 auto;
-    transition: transform 0.8s ease-in-out;
+    margin-top: 100px;
+
 }
 
 .carousel-goods-images{
@@ -138,87 +146,42 @@ a {
     gap: 0.5%;
 }
 
-
-.product-item img:hover {
+.goods-item img:hover {
     transform: scale(1.1); /* 호버 시 이미지 확대 */
 }
 
-.orginal-goods img:hover {
-    transform: scale(1.1); 
-}
-
-
-.product-item img{
-    width: 500px;
-    display: flex;
+/*오리지널굿즈 이미지*/
+.goods-item img{
     border-radius: 10px;
-    margin: 0 auto;
-    transition: transform 0.8s ease-in-out; 
-    margin: 0 auto;    
+    transition: transform 0.8s ease-in-out;  
 }
 
+/*오리지널굿즈*/
 .carousel-original {
-    display: flex;
-    flex-direction: row; 
-    justify-content: center; 
     align-items: center;
     max-width: 1800px;
-    overflow: hidden; 
     position: relative;
-    align-items: center;
-    height: auto; 
 }
 
-
-.carousel {
-    position: relative;
-    display: flex;
-    justify-content: center;
+/*오리지널굿즈 wrapper*/
+.ori-carousel-wrapper {
     align-items: center;
+    width: 100%;
+    overflow: hidden;
 }
 
-.carousel-wrapper {
-    display: flex;
-    align-items: center;
-    display: flex;
-    width: 80%;
-}
-
-.carousel-images {
+/*신상굿즈 리스트*/
+.new-carousel-images {
     gap: 0.5%;
     display: flex;
     transition: transform 0.8s ease-in-out;
 }
 
-.carousel-images a {
-    width: 33.33%;
-    text-align: center;
-    color: #333;
-}
-
+/*상품리스트 이미지*/
 .carousel-images img {
-    width: 80%;
+    width: 100%;
     border-radius: 8px;
-    transition: transform 0.8s ease-in-out;
-}
-
-.carousel-control {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    font-size: 36px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.prev {
-    left: 10px;
-}
-.next {
-    right: 10px;
+    overflow: hidden;
 }
 
 /* MD news Section */
@@ -228,8 +191,7 @@ a {
     margin: 60px 0;
 }
 
-.md {
-    position: relative;
+.md { 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -343,4 +305,38 @@ a {
 
 .next {
     right: 10px;
+}
+
+
+/* 부모 요소에 position 설정 */
+.carousel-original, .md_pick, .products2 {
+    position: relative; /* 화살표 버튼이 부모 기준으로 위치 설정되도록 함 */
+}
+
+/* 공통 화살표 스타일 */
+.carousel-control {
+    background-color: rgba(0, 0, 0, 0.5); /* 배경 색상 반투명 */
+    color: white; /* 화살표 색상 */
+    border: none; /* 테두리 제거 */
+    padding: 15px; /* 버튼 크기 조정 */
+    cursor: pointer; /* 마우스 커서 포인터 */
+    font-size: 36px; /* 화살표 크기 */
+    position: absolute; /* 부모 요소 기준으로 위치 설정 */
+    top: 50%; /* 슬라이더의 세로 중앙에 위치 */
+    transform: translateY(-50%); /* 세로 중앙에 정확히 위치하도록 변환 */
+    z-index: 100; /* 버튼이 다른 요소 위에 나타나도록 z-index 설정 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 호버 시 색상과 크기 애니메이션 */
+}
+
+.carousel-control.prev {
+    left: 10px; /* 왼쪽 화살표 위치 */
+}
+
+.carousel-control.next {
+    right: 10px; /* 오른쪽 화살표 위치 */
+}
+
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* 호버 시 배경색 진하게 */
+    transform: translateY(-50%) scale(1.1); /* 호버 시 약간 확대 */
 }

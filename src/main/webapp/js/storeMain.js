@@ -16,3 +16,13 @@ $371(document).ready(function() {
     });
     console.log('Slick initialized'); // 초기화 확인을 위한 로그 출력
 });
+
+function moveSlide(sectionId, direction) {
+    var $section = $('#' + sectionId + ' .pop-carousel-images, #' + sectionId + ' .carousel-goods-images, #' + sectionId + ' .new-carousel-images, #' + sectionId + ' .md-images');
+    var slideWidth = $section.find('.product, .goods-item').outerWidth(true); // 슬라이드 너비 계산
+    var newPosition = $section.scrollLeft() + (direction * slideWidth); // 이동할 위치 계산
+
+    $section.animate({
+        scrollLeft: newPosition
+    }, 600); // 부드럽게 스크롤
+}
