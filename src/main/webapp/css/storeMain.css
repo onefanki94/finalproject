@@ -103,6 +103,9 @@ a {
     animation: shake 0.5s ease-in-out; 
 }
 
+.product img{
+    border-radius: 10px;
+}
 
 /*공지사항*/
 

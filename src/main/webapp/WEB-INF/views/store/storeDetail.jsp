@@ -6,7 +6,7 @@
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src = "../../../js/stroreDetail.js"></script>
+<script src = "../../../js/storeDetail.js"></script>
 <!-- <script src="/js/storeDetail.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -107,12 +107,14 @@
                     <img src="img/store/storedetail1.png" alt="상품 상세 이미지" />
                 </div>
 
+
+                          <!-- 상품 설명 섹션 -->
+                <div class="product-description-section">
+                    <button class="toggle-description btn btn-secondary btn-lg" onclick="toggleDescription()">상품정보 더보기▼</button>
             </div>
 
-              <!-- 상품 설명 섹션 -->
-    <div class="product-description-section">
-        <button class="toggle-description btn btn-secondary btn-lg" onclick="toggleDescription()">상품정보 더보기▼</button>
-        
+            
+                    
         <!-- 숨겨진 상품 설명 -->
         <div id="hidden-description" class="hidden-description">
             <img src="img/store/storedetail2.png">
@@ -226,24 +228,21 @@
 <!-- 이미지 미리보기 영역 -->
 <div id="preview"></div>
 
+</div>
+
+<!--영역 외부-->
+
 <!-- Sticky Footer -->
 <div class="sticky-footer">
     <div class="d-flex justify-content-between">
-        <div class="left">
-            <span class="fw-bold">내 마음의 위험한 녀석 트레이딩 캔뱃지</span>
-            <span class="price">4,000</span>
-            <span class="cnt">원</span>
+        <div class="sticky-left">
+            <div class="fw-bold">내 마음의 위험한 녀석 트레이딩 캔뱃지</div>
+              
         </div>
-        <div class="right">
-            <button class="btn btn-primary">장바구니</button>
+        <div class="sticky-right">
+            <div class="price">4,000 원</div>
+            <button class="btn btn-secondary">장바구니</button>
             <button class="btn btn-dark">바로구매</button>
         </div>
     </div>
-</div>
-
-
-
-
-
-
 </div>

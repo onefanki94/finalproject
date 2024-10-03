@@ -1,26 +1,27 @@
-// 리뷰 섹션을 보이거나 숨기는 함수
-function toggleReviewSection() {
-    var reviewSection = document.getElementById("review-section");
-    if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
-        reviewSection.style.display = "block";
-    } else {
-        reviewSection.style.display = "none";
-    }
-}
 
-// 탭 전환 및 필터링 상태를 관리하는 전역 변수
-let activeTab = 'text';  // 기본값: 텍스트 리뷰
-let activeFilter = 'latest';  // 기본값: 최신순
+// // 리뷰 섹션을 보이거나 숨기는 함수
+// function toggleReviewSection() {
+//     var reviewSection = document.getElementById("review-section");
+//     if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
+//         reviewSection.style.display = "block";
+//     } else {
+//         reviewSection.style.display = "none";
+//     }
+// }
 
-// 리뷰 탭 전환 함수
-function showTab(tabType) {
-    activeTab = tabType;
-    const allTabs = document.querySelectorAll('.review-tabs span');
-    allTabs.forEach(tab => tab.classList.remove('active'));
+// // 탭 전환 및 필터링 상태를 관리하는 전역 변수
+// let activeTab = 'text';  // 기본값: 텍스트 리뷰
+// let activeFilter = 'latest';  // 기본값: 최신순
 
-    document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
-    applyFilters();  // 필터 적용
-}
+// // 리뷰 탭 전환 함수
+// function showTab(tabType) {
+//     activeTab = tabType;
+//     const allTabs = document.querySelectorAll('.review-tabs span');
+//     allTabs.forEach(tab => tab.classList.remove('active'));
+
+//     document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
+//     applyFilters();  // 필터 적용
+// }
 
 // 필터링 함수
 function filterReviews(filterType) {
@@ -110,15 +111,18 @@ function toggleDescription() {
 }
 
 
-$(window).scroll(function() {
-    var scrollPosition = $(window).scrollTop();
-    var windowHeight = $(window).height();
-    var documentHeight = $(document).height();
+$(document).ready(function() {
+    $(window).scroll(function() {
+        console.log("Scroll event triggered");
+        var scrollPosition = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        var documentHeight = $(document).height();
 
-    // 스크롤이 페이지의 20% 이상 내려가면 푸터를 보여줍니다.
-    if (scrollPosition > (documentHeight - windowHeight) * 0.2) {
-        $('.sticky-footer').addClass('show');
-    } else {
-        $('.sticky-footer').removeClass('show');
-    }
+        if (scrollPosition > (documentHeight - windowHeight) * 0.1) {
+            $('.sticky-footer').addClass('show');
+            console.log("Scroll event triggered");
+        } else {
+            $('.sticky-footer').removeClass('show');
+        }
+    });
 });

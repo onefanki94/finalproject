@@ -129,15 +129,6 @@
     margin: 0 auto;
 }
 
-.toggle-description {
-    width: 40%;
-    margin-left: 400px;
-    padding: 10px;
-    border-radius: 30px; 
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-}
 
 /* 상품 정보 탭 */
 .product-tabs {
@@ -248,6 +239,7 @@
     line-height: 1.6;
     color: #333;
 }
+
 
 /* 배송/교환/반품 섹션 */
 .shipping-exchange-return-section {
@@ -512,16 +504,26 @@
     font-weight: bold;
 }
 
-/* 기본적으로 상품 설명은 숨김 처리 */
+/* 상품 더보기 기본적으로 상품 설명은 숨김 처리 */
 .hidden-description {
     display: none;
     margin-top: 20px;
+
 }
+
+.hidden-description img{
+    border-radius: 10px;
+    width: 600px;
+    height: 600px;
+
+}
+
+
+
 
 /* 상품 설명 보기 버튼 스타일 */
 .toggle-description {
-    width: 60%;
-    margin-left: 300px;
+    width: 650px;
     padding: 10px;
     border: none;
     border-radius: 30px;
@@ -529,4 +531,46 @@
     text-align: center;
     font-size: 16px;
     box-shadow: 0 -4px 8px rgba(75, 75, 75, 0.3); /* 위쪽에 그림자 추가 */
+}
+
+
+.sticky-right{
+    display: flex;
+    justify-content: space-between;
+    gap:20px;
+    
+}
+
+.sticky-left{
+    font-size: 1em;
+}
+
+.price{
+    margin-right: 50px;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #0f0f0f;
+}
+
+
+/* 푸터 기본적으로 숨김 처리 */
+.sticky-footer {
+    display: none;
+    margin: 0 auto;
+    width: 90%;
+    background-color: #eff3f5;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    position: fixed; /* 화면 하단에 고정 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* 푸터가 보여질 때 */
+.sticky-footer.show {
+    display: block; /* 보일 때만 display:block */
 }
