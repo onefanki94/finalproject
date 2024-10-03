@@ -39,8 +39,25 @@ dependencies {
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' // JSTL API
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' // JSTL 구현체
 
+	// 마이바티스
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+	//  시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.3.4'
+
 	implementation 'javax.inject:javax.inject:1'
 	implementation 'org.json:json:20240303'
+
+	//테스트
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
+
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
 }
 
 tasks.named('test') {
