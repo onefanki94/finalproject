@@ -25,7 +25,7 @@
 </script>
 
 <!-- 기존 Custom JS가 있는 경우 -->
-<script src="/js/storeMain.js"></script>
+<script src = "../../../js/storeMain.js"></script>
 
 <div class="storeMain_container">
     <!-- 배너 -->
@@ -206,27 +206,33 @@
                 <div class="origin-carousel-wrapper">
                     <div class="origin-carousel-images">
                         <div class="origin-item">
+                            <div class="origin-item-img">
                             <a href="/storeList">
                                 <img src="img/store/origingoods1.png" alt="Product 1">                             
                             </a>
-                            <a href="/storeList">
-                                <span class="origin-tag">블루아카이브 2주년</span>
-                            </a>                        
+                            </div>
+                           
+                             <div class="origin-tag">블루아카이브 2주년</div>
+                                                   
                         </div>
                         <div class="origin-item">
+                            <div class="origin-item-img">
                             <a href="/storeList">
                                 <img src="img/store/origingoods2.png" alt="Product 1">                             
                             </a>
+                            </div>
                             <a href="/storeList">
-                                <span class="origin-tag">블루아카이브 2주년</span>
+                                <div class="origin-tag">블루아카이브 2주년</div>
                             </a>                  
                         </div>
                         <div class="origin-item">
+                            <div class="origin-item-img">
                             <a href="/storeList">
                                 <img src="img/store/origingoods3.png" alt="Product 1">                             
                             </a>
+                            </div>
                             <a href="/storeList">
-                                <span class="origin-tag">블루아카이브 2주년</span>
+                                <div class="origin-tag">블루아카이브 2주년</div>
                             </a>                        
                         </div>
                 
@@ -380,7 +386,7 @@
                                     <img src="img/store/news1.png" alt="Product 1">                             
                                 </a>
                                 <a href="/storeList">
-                                    <span class="event-tag">스파이패밀리 콜라보 소식</span>
+                                    <div class="event-tag">스파이패밀리 콜라보 소식</div>
                                 </a>                        
                             </div>
                             <div class="event-item">
@@ -388,7 +394,7 @@
                                     <img src="img/store/news2.png" alt="Product 1">                             
                                 </a>
                                 <a href="/storeList">
-                                    <span class="event-tag">스파이패밀리 콜라보 소식</span>
+                                    <div class="event-tag">스파이패밀리 콜라보 소식</div>
                                 </a>                        
                             </div>
                             <div class="event-item">
@@ -396,7 +402,7 @@
                                     <img src="img/store/news3.png" alt="Product 1">                             
                                 </a>
                                 <a href="/storeList">
-                                    <span class="event-tag">스파이패밀리 콜라보 소식</span>
+                                    <div class="event-tag">스파이패밀리 콜라보 소식</div>
                                 </a>                        
                             </div>
                            

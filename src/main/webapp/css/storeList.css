@@ -163,11 +163,12 @@
 
 .list-carousel-images {
     display: flex;
-    gap: 30px; /* 각 상품 이미지 사이 간격 */
+    gap: 20px; /* 각 상품 이미지 사이 간격 */
     flex-wrap: wrap; /* 화면 너비에 맞게 다음 줄로 넘기기 */
     margin-bottom: 20px;
 
 }
+
 
 /* 커스텀 체크박스 (토글 스위치 스타일) */
 .switch {

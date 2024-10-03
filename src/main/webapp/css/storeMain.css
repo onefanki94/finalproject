@@ -6,7 +6,7 @@
     box-sizing: border-box;
     max-width: 1800px;
     height: 100vh;
-    overflow-x: hidden;
+    overflow-x: visible;
 }
 
 
@@ -19,7 +19,7 @@ a {
  h2{
     text-align: left;  /* 텍스트를 왼쪽으로 정렬 */
     padding-left: 15px; /* 필요에 따라 여백 조정 */
-    margin-top: 20px;
+
 
 }
 
@@ -36,7 +36,7 @@ a {
 
 .banner {
     position: relative;
-    overflow: hidden; /* 이미지가 넘치는 부분을 숨김 */
+    overflow: visible; /* 이미지가 넘치는 부분을 숨김 */
     width: 100%; /* 원하는 너비 설정 */
     max-width:1800px; /* 최대 너비 설정 */
     margin: auto; /* 가운데 정렬 */
@@ -55,22 +55,136 @@ a {
 }
 
 
-.slick-prev, .slick-next {
-    font-size: 24px; /* 필요에 따라 크기 조정 */
-    color: black;    /* 필요에 따라 색상 조정 */
+.carousel-banner-images .slick-prev, 
+.carousel-banner-images.slick-next {
+    font-size: 60px; /* 필요에 따라 크기 조정 */
+    z-index: 100;   /* 다른 요소 위에 표시되도록 */
+}
+
+.carousel-banner-images .slick-prev::before, 
+.carousel-banner-images .slick-next::before {
+    color: rgb(167, 203, 245);    /* 필요에 따라 색상 조정 */
+    z-index: 100;   /* 다른 요소 위에 표시되도록 */
+
+}
+
+.carousel-banner-images .slick-prev {
+    left: -30px; /* 필요에 따라 위치 조정 */
     z-index: 1000;   /* 다른 요소 위에 표시되도록 */
+
+  
 }
 
-.slick-prev {
-    left: 20px; /* 필요에 따라 위치 조정 */
+
+.carousel-banner-images .slick-next {
+    right: 15px; /* 필요에 따라 위치 조정 */
 }
 
-.slick-next {
-    right: 20px; /* 필요에 따라 위치 조정 */
+
+
+.slick-next:before, .slick-prev:before {
+    font-size: 60px;
+    z-index: 999;
 }
 
-.slick-prev slick-arrow::before{
-    size: 2em;
+
+/*인기굿즈*/
+.pop-carousel-images .slick-prev, 
+.pop-carousel-images .slick-next {
+ 
+    font-size: 30px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 30%; /* 원하는 위치 조정 */
+    z-index: 1000;
+}
+
+.pop-carousel-images .slick-prev {
+    left: -40px; /* 이전 버튼 위치 조정 */
+}
+
+.pop-carousel-images .slick-next {
+    right: 40px; /* 다음 버튼 위치 조정 */
+}
+
+/* 인기굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
+.pop-carousel-images .slick-prev::before, 
+.pop-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
+}
+
+/* 오리지널 굿즈 슬라이더 화살표 스타일링 */
+.origin-carousel-images .slick-prev, 
+.origin-carousel-images .slick-next {
+    font-size: 60px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 30%; /* 원하는 위치 조정 */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.origin-carousel-images .slick-prev {
+    left: 100px; /* 이전 버튼 위치 조정 */
+}
+
+.origin-carousel-images .slick-next {
+    right: 100px; /* 다음 버튼 위치 조정 */
+}
+
+.origin-carousel-images .slick-prev::before, 
+.origin-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
+}
+
+
+/*인기굿즈*/
+.new-carousel-images .slick-prev, 
+.new-carousel-images .slick-next {
+ 
+    font-size: 30px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 30%; /* 원하는 위치 조정 */
+    z-index: 1000;
+}
+
+.new-carousel-images .slick-prev {
+    left: -30px; /* 이전 버튼 위치 조정 */
+    z-index: 1000;
+}
+
+.new-carousel-images .slick-next {
+    right: 40px; /* 다음 버튼 위치 조정 */
+    z-index: 1000;
+}
+
+/* 인기굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
+.new-carousel-images .slick-prev::before, 
+.new-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
+}
+
+/*인기굿즈*/
+.event-carousel-images .slick-prev, 
+.event-carousel-images .slick-next {
+ 
+    font-size: 30px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 30%; /* 원하는 위치 조정 */
+    z-index: 1000;
+}
+
+.event-carousel-images .slick-prev {
+    left: -30px; /* 이전 버튼 위치 조정 */
+    z-index: 1000;
+}
+
+.event-carousel-images .slick-next {
+    right: -60px; /* 다음 버튼 위치 조정 */
+    z-index: 1000;
+}
+
+/* 인기굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
+.event-carousel-images .slick-prev::before, 
+.event-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
 }
 
 
@@ -189,37 +303,24 @@ a {
 }
 
 .origin-carousel-wrapper{
-    overflow: hidden;
     width: 1800px;
-    height: 500px;
-    display: flex;
     margin-bottom: 20px;
-}
-
-.origin-item{
-    display: flex;
-    flex-direction: column;
-
+    gap:20px;
 }
 
 
-.origin-item a:first-of-type {
-    overflow: hidden;
+.origin-tag {
     text-align: left;
     color: #888;
     font-weight: bold;
-
+    overflow: cover;
 }
 
-.origin-carousel-images{
-    display: flex;
-    gap:20px;
-    margin-top: 20px;
-}
 
 .origin-carousel-images img{
      border-radius: 10px;
-     width: 600px;
+     width: 580px;
+     gap:20px;
 }
 
 .origin-carousel-images img:hover{
@@ -231,7 +332,7 @@ a {
 .new-products{
     width: 1800px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .new-carousel-images{
@@ -262,13 +363,13 @@ a {
 
 .event-carousel-wrapper{
     width: 1800px;
-    overflow: hidden;
+  
+   
 }
 
-.event-item{
-    display: flex;
-    flex-direction: column;
 
+.event-item img{
+    gap:20px;
 }
 
 
@@ -284,7 +385,6 @@ a {
 }
 
 .event-carousel-images{
-    
     display:flex;
     gap:15px;
    
