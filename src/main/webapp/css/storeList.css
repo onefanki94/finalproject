@@ -102,22 +102,21 @@
 
 /* 개별 상품 스타일 */
 .list-product {
-    width: 250px;
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 0 auto;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     box-sizing: border-box;
     display:inline-flex;  
+    overflow: hidden;
+ 
 }
 
 
 /* 상품 이미지 스타일 */
 .list-product img {
-    width: 250px;
-    max-width: 100%; /* 상품 이미지가 그리드 셀 너비에 맞도록 설정 */
+    width: 100%;
     height: 250px;
-    object-fit: cover; /* 이미지가 셀 안에 맞게 조정 */
     border-radius: 8px;
     transition: transform 0.8s ease-in-out;
   
@@ -125,7 +124,7 @@
 
 /* Hover 효과 */
 .list-product img:hover {
-    transform: scale(1.1); 
+    transform: scale(1.2); 
 }
 
 
@@ -156,17 +155,17 @@
 }
 
 
-.list-carousel {
-    display: flex;
-    flex-direction: column;
-}
+
+
 
 .list-carousel-images {
     display: flex;
-    gap: 30px; /* 각 상품 이미지 사이 간격 */
+    gap: 20px; /* 각 상품 이미지 사이 간격 */
     flex-wrap: wrap; /* 화면 너비에 맞게 다음 줄로 넘기기 */
     margin-bottom: 20px;
+
 }
+
 
 /* 커스텀 체크박스 (토글 스위치 스타일) */
 .switch {
@@ -243,3 +242,4 @@ input:checked + .slider::before {
 .filter-option:hover {
     color: #007BFF; /* 마우스 오버 시 파란색 */
 }
+

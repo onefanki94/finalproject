@@ -4,7 +4,7 @@
 
 
 <link href="/css/storeList.css" rel="stylesheet" type="text/css">
-<script src="js/storeMain.js"></script>
+<script src="/js/storeList.js"></script>
 
 <div class="storeList_container">
         <h2>#hololive GAMERS 콜라보 굿즈 예약 판매 (~12.15)</h2>
