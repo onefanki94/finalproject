@@ -857,8 +857,8 @@ a {
   display: flex;
   align-items: center;
   overflow: hidden;
-  width: 100% !important;
-  height: 100vh !important;
+  width: 100%;
+  height: 100vh;
   margin: 0 auto;
 }
 #mainVisual .main_video video {
