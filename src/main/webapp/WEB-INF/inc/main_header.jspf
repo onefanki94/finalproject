@@ -41,13 +41,13 @@
             <div class="sh_nav">
               <ul>
                 <li>
-                  <a href="#">ANIMATION</a>
+                  <a href="/aniList">ANIMATION</a>
                 </li>
                 <li>
                   <a href="/storeMain">GOODS</a>
                 </li>
                 <li>
-                  <a href="#">COMMUNITY</a>
+                  <a href="/cmList">COMMUNITY</a>
                 </li>
                 <li>
                   <a href="#">EVENT</a>

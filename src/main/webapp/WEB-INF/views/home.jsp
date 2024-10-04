@@ -157,7 +157,7 @@
         </ul>
       </div>
       <div class="more_btn_div">
-        <a class="more_btn" href="#">MORE VIEW</a>
+        <a class="more_btn" href="/aniList">MORE VIEW</a>
       </div>
     </div>
   </div>
@@ -298,7 +298,7 @@
           </div>
           <div class="pager_wrap">
             <div class="swiper-pagination"></div>
-            <a class="more_btn" href="#">MORE VIEW</a>
+            <a class="more_btn" href="/storeMain">MORE VIEW</a>
           </div>
         </div>
       </div>
@@ -329,7 +329,7 @@
         </div>
         <div class="r_cont">
           <div class="cont">
-            <a href="">
+            <a href="/cmList">
               <p class="view_btn">
                 view<svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -452,3 +452,5 @@
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/js/home.js"></script>
+
+<%@include file="/WEB-INF/inc/footer.jspf"%>
