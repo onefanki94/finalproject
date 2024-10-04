@@ -37,7 +37,7 @@
       <div class="login_div_pa">
         <div class="login_div_ch">
           <a href="/"><img id="logo_img" src="/img/main_img/logo_ex.png"/></a>
-          <form class="login-form">
+          <form class="login-form" action="/user/loginOk" method="POST">
             <div class="login_input-group">
               <input
                 type="text"
