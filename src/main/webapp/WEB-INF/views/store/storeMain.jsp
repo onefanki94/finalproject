@@ -426,5 +426,6 @@
             </section>
             
             <!-- <button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button> --!>
-     
 </div>
+
+<%@include file="/WEB-INF/inc/store_footer.jspf"%>
