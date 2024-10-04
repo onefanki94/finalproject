@@ -17,17 +17,6 @@
    <link rel="stylesheet" href="/css/main_header.css" type="text/css"/>
 
      <script>
-<<<<<<< HEAD
-        $(function(){
-            // 스크롤 시 header fade-in
-            $(document).on('scroll', function(){
-                if($(window).scrollTop() > 100){
-                    $("#main_header").addClass("active");
-                }else{
-                    $("#main_header").removeClass("active");
-                }
-            })
-=======
        $(function () {
            // 스크롤 시 header fade-in
            $(document).on("scroll", function () {
@@ -37,10 +26,7 @@
                $("#hd").removeClass("on");
              }
            });
->>>>>>> c27fad1d38715978c5f18ab738f9077224bdc7db
         });
-
-
 
         // 로그인 상태 확인 함수
         function checkLoginStatus() {
