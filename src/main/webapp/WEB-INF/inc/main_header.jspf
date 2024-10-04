@@ -24,8 +24,83 @@
                     $("#main_header").removeClass("active");
                 }
             })
-
         });
+
+        // 로그인 요청 함수
+        function login() {
+                const userid = document.getElementById("userid").value;
+                const userpwd = document.getElementById("userpwd").value;
+
+                if (!userid || !userpwd) {
+                    alert("아이디와 비밀번호를 입력해 주세요.");
+                    return;
+                }
+
+                // 서버에 로그인 요청 보내기 (JSP의 EL 해석 방지)
+                fetch('/loginOk', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: "userid=" + encodeURIComponent(userid) + "&userpwd=" + encodeURIComponent(userpwd)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('로그인 실패: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    localStorage.setItem("token", data.token); // 로컬 스토리지에 JWT 토큰 저장
+                    alert("로그인 성공!");
+
+                    // 페이지 이동 또는 상태 업데이트
+                    window.location.href = "/";
+                })
+                .catch(error => {
+                    console.error("로그인 중 오류 발생:", error);
+                    alert("로그인 실패: 아이디 또는 비밀번호를 확인해 주세요.");
+                });
+            }
+
+        // 로그인 상태 확인 함수
+        function checkLoginStatus() {
+            // 로컬 스토리지에서 토큰을 가져옴
+            const token = localStorage.getItem("token");
+
+            // .sh_login 클래스가 있는 div 요소 찾기
+            const loginDiv = document.querySelector(".sh_login");
+
+            // loginDiv 요소가 있는지 확인
+            if (!loginDiv) {
+                console.error("로그인 버튼을 표시할 .sh_login 요소를 찾을 수 없습니다.");
+                return;
+            }
+
+            // 토큰이 없는 경우 (로그아웃 상태)
+            if (!token) {
+                loginDiv.innerHTML = `
+                    <button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>
+                `;
+            } else {
+                // 토큰이 있는 경우 (로그인 상태)
+                loginDiv.innerHTML = `
+                    <button id="login_btn" onclick="location.href='/user/mypage'">MyPage</button>
+                    <button id="login_btn" onclick="logout()">Logout</button>
+                `;
+            }
+        }
+
+        // 로그아웃 기능 구현
+        function logout() {
+            // 로컬 스토리지에서 토큰 제거
+            localStorage.removeItem("token");  // 로컬 스토리지에서 토큰 제거
+            alert("로그아웃 성공");
+            location.href = '/'; // 메인 페이지로 이동
+        }
+
+        // 페이지가 로드된 후 checkLoginStatus 함수 호출
+        window.onload = checkLoginStatus;
      </script>
      <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
@@ -57,19 +132,7 @@
                 <div class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-                <!-- 로그인 안됐을때 -->
-                <c:if test="${logStatus != 'Y'}">
-                   <div class="sh_login">
-                      <button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>
-                  </div>
-               </c:if>
-               <!-- 로그인 됐을때 -->
-               <c:if test="${logStatus == 'Y'}">
-                  <div class="sh_login">
-                      <button id="login_btn" onclick="location.href='/seoulfloor/user/memberStamp'">MyPage</button>
-                      <button id="login_btn" onclick="location.href='/seoulfloor/user/logout'">Logout</button>
-                  </div>
-               </c:if>
+            <div class="sh_login"></div>
            </div>
        </div>
    </header>

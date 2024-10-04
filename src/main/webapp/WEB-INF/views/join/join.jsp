@@ -25,7 +25,7 @@
       <div class="join_div_pa">
         <div class="join_div_ch">
           <h1 style="color: #fff; margin: 0 0 40px">회원가입</h1>
-          <form class="join-form" method="POST" action="#" onsubmit="return formCheck()">
+          <form class="join-form" method="POST" action="/user/joinformOk" onsubmit="return formCheck()">
             <div class="join_input-group">
               <span>아이디 *</span>
               <input type="text" id="userid" name="userid" />

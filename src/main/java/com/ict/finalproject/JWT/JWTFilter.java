@@ -33,8 +33,10 @@ public class JWTFilter extends OncePerRequestFilter {
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
 
-            System.out.println("token null");
+            System.out.println("토큰 없음");
             filterChain.doFilter(request, response);
+
+            System.out.println("Authorization 헤더 : " + authorization);
 
             //조건이 해당되면 메소드 종료 (필수)
             return;
@@ -45,7 +47,7 @@ public class JWTFilter extends OncePerRequestFilter {
         //토큰 소멸 시간 검증
         if (jwtUtil.isExpired(token)) {
 
-            System.out.println("token expired");
+            System.out.println("만료된 토큰");
             filterChain.doFilter(request, response);
 
             //조건이 해당되면 메소드 종료 (필수)
@@ -53,13 +55,12 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
 
-        String username = jwtUtil.getUsername(token);
-        String role = jwtUtil.getRole(token);
+        String userid = jwtUtil.getUserid(token);
+        String userpwd = jwtUtil.getUserpwd(token);
 
         MemberVO memberVO = new MemberVO();
-        memberVO.setUsername(username);
+        memberVO.setUserid(userid);
         memberVO.setUserpwd("temppassword");
-        memberVO.setRole(role);
 
         CustomUserDetails customUserDetails = new CustomUserDetails(memberVO);
 
