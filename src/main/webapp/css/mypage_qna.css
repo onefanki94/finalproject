@@ -1,0 +1,133 @@
+.my_tit_qna {
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 30px;
+  position: relative;
+  color: rgb(48, 48, 51);
+  margin: 0;
+}
+
+.qna_top {
+  border-bottom: 4px solid rgb(48, 48, 51);
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.qna_top span:first-of-type {
+  display: block;
+  margin-bottom: 5px;
+}
+.qna_write_btn {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 25px;
+  width: 150px;
+  height: 34px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+  border-radius: 5px;
+  padding: 26px;
+  position: relative;
+  top: -10px;
+}
+
+.myqna_list {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.myqna_list ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.myqna_list_li {
+  display: flex;
+  flex-direction: row;
+  min-height: 50px;
+  border-bottom: 1px solid rgb(48, 48, 51);
+}
+
+.qna_type,
+.qna_regDT,
+.qna_replyState,
+.qna_delBtn_div {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-height: 50px;
+  flex: 0 0 100px;
+}
+
+.qna_regDT {
+  flex: 0 0 160px !important;
+}
+
+.myqna_list_li span,
+.myqna_write_list span {
+  display: inline-block;
+  font-weight: bold;
+  line-height: 140%;
+  font-size: 14px;
+  color: rgb(48, 48, 51);
+}
+
+.qna_title {
+  display: flex;
+  flex: 1 1 0;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 15px 3%;
+}
+
+.qna_replyState {
+  flex: 0 0 70px !important;
+}
+
+.qna_delBtn_div {
+  flex: 0 0 60px !important;
+}
+
+.myqna_write_list {
+  display: flex;
+  flex-direction: row;
+  min-height: 50px;
+  border-bottom: 1px solid rgb(212, 212, 212);
+  cursor: pointer;
+}
+
+.myqna_write_list span {
+  font-weight: normal;
+}
+
+.myqna_write_list > div:nth-child(4) span {
+  font-weight: bold !important;
+}
+
+.qna_delBtn {
+  width: 43px;
+  height: 34px;
+  font-size: 12px;
+  color: rgb(93, 93, 93);
+  border: 1px solid rgb(212, 212, 212);
+  background: none;
+}

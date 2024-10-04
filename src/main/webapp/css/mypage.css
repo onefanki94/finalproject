@@ -10,7 +10,7 @@ html {
 }
 body {
   background: white;
-  /* animation: fadeIn 2.5s ease-out; */
+  animation: fadeIn 1.5s ease-out;
 }
 @keyframes fadeIn {
   from {
