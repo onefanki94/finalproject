@@ -103,7 +103,7 @@
 /* 개별 상품 스타일 */
 .list-product {
     background-color: #f9f9f9;
-    padding: 2px;
+    padding: 0 auto;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     box-sizing: border-box;
@@ -115,7 +115,7 @@
 
 /* 상품 이미지 스타일 */
 .list-product img {
-    width: 300px;
+    width: 100%;
     height: 250px;
     border-radius: 8px;
     transition: transform 0.8s ease-in-out;
@@ -124,7 +124,7 @@
 
 /* Hover 효과 */
 .list-product img:hover {
-    transform: scale(1.1); 
+    transform: scale(1.2); 
 }
 
 
@@ -155,11 +155,8 @@
 }
 
 
-.list-carousel {
-    display: flex;
-    flex-direction: column;
-    
-}
+
+
 
 .list-carousel-images {
     display: flex;
