@@ -18,6 +18,7 @@
 
      <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
         $(function(){
             // 스크롤 시 header fade-in
             $(document).on('scroll', function(){
@@ -28,6 +29,8 @@
                 }
             })
 
+=======
+>>>>>>> 91cc66b8558bda643b2eaa7d91af6bb6b318d5bb
        $(function () {
            // 스크롤 시 header fade-in
            $(document).on("scroll", function () {
@@ -38,8 +41,6 @@
              }
            });
         });
-
-
 
         // 로그인 상태 확인 함수
         function checkLoginStatus() {
