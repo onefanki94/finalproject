@@ -131,8 +131,8 @@ $(document).ready(function() {
 window.addEventListener('scroll', () => {
     // 스크롤 위치가 100px 이상일 때 위로 가기 버튼을 보이게 함
     if (
-      document.body.scrollTop > 100 ||
-      document.documentElement.scrollTop > 100
+      document.body.scrollTop > 50 ||
+      document.documentElement.scrollTop > 50
     ) {
       document.getElementById('btn-back-to-top').style.display = 'block';
     } else {
