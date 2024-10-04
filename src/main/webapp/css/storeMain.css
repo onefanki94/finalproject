@@ -77,7 +77,7 @@ a {
 
 
 .carousel-banner-images .slick-next {
-    right: 15px; /* 필요에 따라 위치 조정 */
+    right: 5px; /* 필요에 따라 위치 조정 */
 }
 
 
@@ -88,6 +88,7 @@ a {
 }
 
 .products{
+    width: 100%;
     margin-top: 70px;
 }
 
@@ -106,7 +107,7 @@ a {
 }
 
 .pop-carousel-images .slick-next {
-    right: 40px; /* 다음 버튼 위치 조정 */
+    right: 5px; /* 다음 버튼 위치 조정 */
 }
 
 /* 인기굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
@@ -207,7 +208,7 @@ a {
 }
 
 .next {
-    right: 10px;
+    right: 15px;
 }
 
 .pop-carousel-images{
@@ -241,7 +242,7 @@ a {
 
 .origin-carousel-images img{
      border-radius: 10px;
-     width: 580px;
+     width: 500px;
      gap:20px;
 }
 
@@ -265,7 +266,7 @@ a {
 }
 
 .origin-carousel-images .slick-next {
-    right: 5px; /* 다음 버튼 위치 조정 */
+    right: 15px; /* 다음 버튼 위치 조정 */
 }
 
 /* 신규굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
@@ -276,7 +277,7 @@ a {
 
 /* 신규굿즈 */
 .new-products{
-    width: 1800px;
+    width: 100%;
     margin: 0 auto;
     overflow: visible;
 }
@@ -311,7 +312,7 @@ a {
 }
 
 .new-carousel-images .slick-next {
-    right: 40px; /* 다음 버튼 위치 조정 */
+    right: 5px; /* 다음 버튼 위치 조정 */
 }
 
 /* 신규굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
@@ -341,8 +342,8 @@ a {
 
 
 .md-item img {
-    width: 580px; /* 이미지 크기를 원하는 값으로 설정 */
-    height: 600px;
+    width: 500px; /* 이미지 크기를 원하는 값으로 설정 */
+    height: 500px;
     border-radius: 10px; 
     transition: transform 0.5s ease-in-out; /* 호버 시 부드럽게 확대 */
   }

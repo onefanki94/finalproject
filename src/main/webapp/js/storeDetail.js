@@ -148,3 +148,14 @@ window.addEventListener('scroll', () => {
     });
   }
 
+  function scrollToSection() {
+    const section = document.querySelector('.shipping-exchange-return-section');
+    const sectionPosition = section.getBoundingClientRect().top + window.scrollY; // 섹션의 Y 위치 계산
+    const offset = -120; // 원하는 만큼 위로 배치 (여기서는 120px 위로)
+  
+    window.scrollTo({
+      top: sectionPosition + offset, // 섹션 위치에서 offset 만큼 위로
+      behavior: 'smooth' // 부드러운 스크롤 애니메이션
+    });
+  }
+
