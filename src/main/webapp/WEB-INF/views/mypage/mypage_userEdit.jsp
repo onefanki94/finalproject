@@ -8,7 +8,7 @@
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
     <div class="mypage_left">
-      <p class="mypage_home">MY PAGE</p>
+      <a href="/user/mypage" class="mypage_home">MY PAGE</a>
       <section class="mypage_menu">
           <h3>나의 쇼핑정보</h3>
           <ul>
@@ -60,17 +60,17 @@
     <div class="mypage_right">
       <ul class="mypage_right_top">
         <li class="user_inform">
-          <a class="atag_css" href=""
-            ><strong>회원정보</strong><span>sing2727 님</span></a
+          <a class="atag_css" href="/user/mypage_userEdit"
+            ><strong>회원정보 수정</strong><span>sing2727 님</span></a
           >
         </li>
         <li class="user_retention_details">
-          <a class="atag_css" href=""
+          <a class="atag_css" href="/user/mypage_point"
             ><strong class="">적립금</strong><span class="">360</span></a
           >
         </li>
         <li class="user_retention_details">
-          <a class="atag_css" href=""
+          <a class="atag_css" href="/user/mypage_review"
             ><strong class="">작성한 리뷰</strong><span class="">1</span></a
           >
         </li>

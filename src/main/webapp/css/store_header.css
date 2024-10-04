@@ -14,7 +14,7 @@ html {
 body {
   background: rgba(244, 244, 244, 0.8);
   font-family:var(--e-font),var(--k-font);
-  animation: fadeIn 1.5s ease-out;
+  animation: fadeIn 1s ease-out;
 }
 
 @keyframes fadeIn {
