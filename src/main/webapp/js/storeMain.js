@@ -75,3 +75,4 @@ $371(document).ready(function() {
     });
     console.log('실행 여부 확인'); // 초기화 확인을 위한 로그 출력
 });
+
