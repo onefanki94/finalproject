@@ -5,19 +5,24 @@ function filterProducts(filterType) {
 
     let products = Array.from(document.querySelectorAll('.list-product'));
 
-    // 필터 조건에 맞춰 정렬
-    if (filterType === 'latest') {
-        products.sort((a, b) => new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date')));
-    } else if (filterType === 'popular') {
-        products.sort((a, b) => b.getAttribute('data-popularity') - a.getAttribute('data-popularity'));
-    } else if (filterType === 'high-price') {
-        products.sort((a, b) => b.getAttribute('data-price') - a.getAttribute('data-price'));
-    } else if (filterType === 'low-price') {
-        products.sort((a, b) => a.getAttribute('data-price') - b.getAttribute('data-price'));
-    }
-
-    // 정렬된 상품을 화면에 다시 렌더링
-    const listCarousel = document.querySelector('.list-carousel-images');
-    listCarousel.innerHTML = "";
-    products.forEach(product => listCarousel.appendChild(product));
 }
+// 스크롤 이벤트 리스너
+window.addEventListener('scroll', () => {
+    // 스크롤 위치가 100px 이상일 때 위로 가기 버튼을 보이게 함
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      document.getElementById('btn-back-to-top').style.display = 'block';
+    } else {
+      document.getElementById('btn-back-to-top').style.display = 'none';
+    }
+  });
+  
+  // 클릭 시 페이지 맨 위로 스크롤 (애니메이션 효과 추가)
+  function backToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 부드러운 스크롤
+    });
+  }

@@ -2,10 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
-<link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
+<link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src = "../../../js/storeDetail.js"></script>
 <!-- <script src="/js/storeDetail.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -211,23 +210,23 @@
             <img src="/img/store/review1.png" alt="리뷰 이미지">
         </div>
     </div>
-    <!-- 더 많은 리뷰 추가 가능 -->
+    
 </div>
    
 
 
-<!-- 페이지 네이션 -->
-<div class="pagination">
-    <button class="active" onclick="changePage(1)">1</button>
-    <button onclick="changePage(2)">2</button>
-    <button onclick="changePage(3)">3</button>
-    <!-- 페이지 번호 추가 가능 -->
-</div>
+    <!-- 페이지 네이션 -->
+    <div class="pagination">
+        <button class="active" onclick="changePage(1)">1</button>
+        <button onclick="changePage(2)">2</button>
+        <button onclick="changePage(3)">3</button>
+        <!-- 페이지 번호 추가 가능 -->
+    </div>
 
 
-<!-- 이미지 미리보기 영역 -->
-<div id="preview"></div>
-
+    <!-- 이미지 미리보기 영역 -->
+    <div id="preview"></div>
+<!--<button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>-->
 </div>
 
 <!--영역 외부-->
