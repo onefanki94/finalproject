@@ -11,6 +11,57 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/daum_api.js"></script>
     <script src="/js/join_ effectiveness.js"></script>
+    <script>
+   function register() {
+       const userid = document.getElementById("userid").value.trim();
+       const userpwd = document.getElementById("userpwd").value.trim();
+       const username = document.getElementById("username").value.trim();
+       const email = document.getElementById("email").value.trim();
+
+       if (!userid || !userpwd || !username || !email) {
+           alert("모든 필드를 입력해 주세요.");
+           return;
+       }
+
+       // URLSearchParams를 사용하여 데이터를 인코딩
+       const params = new URLSearchParams();
+       params.append('userid', userid);
+       params.append('userpwd', userpwd);
+       params.append('username', username);
+       params.append('email', email);
+
+       // 서버에 회원가입 요청 보내기
+       fetch('/user/joinformOk', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/x-www-form-urlencoded'
+           },
+           body: params.toString()  // URLSearchParams 객체를 문자열로 변환하여 전송
+       })
+       .then(response => {
+           if (!response.ok) {
+               throw new Error('회원가입 실패: ' + response.status);
+           }
+           return response.json();  // JSON 형식의 응답을 파싱
+       })
+       .then(data => {
+           if (data.token) {
+               // JWT 토큰을 로컬 스토리지에 저장
+               localStorage.setItem("token", data.token);
+               alert("회원가입 성공!");
+
+               // 로그인 페이지로 이동
+               window.location.href = "/user/login";
+           } else {
+               alert("회원가입 실패: " + data.errorMessage);
+           }
+       })
+       .catch(error => {
+           console.error("회원가입 중 오류 발생:", error);
+           alert("회원가입 실패: 다시 시도해 주세요.");
+       });
+   }
+    </script>
   </head>
   <body>
     <div class="join_div">
@@ -50,7 +101,7 @@
             <!--
             <div class="join_input-group">
               <span>전화번호</span>
-              <input type="text" id="username" name="username" />
+              <input type="text" id="tel" name="tel" />
             </div>
             -->
             <div class="join_input-group">

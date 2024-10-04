@@ -2,8 +2,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.MemberDAO">
-    <insert id="memberCreate">
-        insert into t_user(userid, userpwd,username, tel,email,zipcode,addr, birth) values(#{userid},#{userpwd},#{username},#{tel},#{email},#{zipcode},#{addr}, #{birth})
+    <insert id="memberCreate" parameterType="memberVO">
+        insert into t_user(userid, userpwd,username,email,zipcode,addr, birth) values(#{userid},#{userpwd},#{username},#{email},#{zipcode},#{addr}, #{birth})
     </insert>
     <select id="memberLogin" parameterType="map" resultType="MemberVO">
         select userid, userpwd, username, role from t_user where userid=#{userid}

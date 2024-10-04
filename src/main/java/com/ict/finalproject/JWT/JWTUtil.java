@@ -26,9 +26,9 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userid", String.class);
     }
 
-    public String getUserpwd(String token) {
+    public String getUserRole(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userpwd", String.class);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
 
     public Boolean isExpired(String token) {
@@ -37,13 +37,14 @@ public class JWTUtil {
     }
 
 
-    public String createJwt(String userid, String userpwd, Long expiredMs) {
+    // JWT 생성 메서드 (비밀번호 제거, role 추가)
+    public String createJwt(String userid, String role, Long expiredMs) {
         return Jwts.builder()
                 .claim("userid", userid)
-                .claim("userpwd", userpwd)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
-                .signWith(secretKey)
-                .compact();
+                .claim("role", role)  // 역할(role) 정보 추가
+                .setIssuedAt(new Date(System.currentTimeMillis()))  // 토큰 발행 시간 설정
+                .setExpiration(new Date(System.currentTimeMillis() + expiredMs))  // 만료 시간 설정
+                .signWith(secretKey)  // 서명 방식 설정
+                .compact();  // 토큰 생성
     }
 }
