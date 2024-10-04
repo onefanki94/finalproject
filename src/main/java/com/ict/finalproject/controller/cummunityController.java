@@ -37,5 +37,4 @@ public class cummunityController {
     public String allnotice(){
         return "notice/notice2";
     }
-
 }

@@ -2,10 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
-<link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
+<link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src = "../../../js/storeDetail.js"></script>
 <!-- <script src="/js/storeDetail.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -227,7 +226,7 @@
 
     <!-- 이미지 미리보기 영역 -->
     <div id="preview"></div>
-<button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>
+<!--<button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>-->
 </div>
 
 <!--영역 외부-->
