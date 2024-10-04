@@ -214,8 +214,6 @@
     
 </div>
    
-
-
     <!-- 페이지 네이션 -->
     <div class="pagination">
         <button class="active" onclick="changePage(1)">1</button>
@@ -223,14 +221,6 @@
         <button onclick="changePage(3)">3</button>
         <!-- 페이지 번호 추가 가능 -->
     </div>
-
-
-    <!-- 이미지 미리보기 영역 -->
-    <div id="preview"></div>
-<button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>
-</div>
-
-<!--영역 외부-->
 
 <!-- Sticky Footer -->
 <div class="sticky-footer">

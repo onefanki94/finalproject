@@ -1,27 +1,27 @@
 
-// // 리뷰 섹션을 보이거나 숨기는 함수
-// function toggleReviewSection() {
-//     var reviewSection = document.getElementById("review-section");
-//     if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
-//         reviewSection.style.display = "block";
-//     } else {
-//         reviewSection.style.display = "none";
-//     }
-// }
+// 리뷰 섹션을 보이거나 숨기는 함수
+function toggleReviewSection() {
+    var reviewSection = document.getElementById("review-section");
+    if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
+        reviewSection.style.display = "block";
+    } else {
+        reviewSection.style.display = "none";
+    }
+}
 
-// // 탭 전환 및 필터링 상태를 관리하는 전역 변수
-// let activeTab = 'text';  // 기본값: 텍스트 리뷰
-// let activeFilter = 'latest';  // 기본값: 최신순
+// 탭 전환 및 필터링 상태를 관리하는 전역 변수
+let activeTab = 'text';  // 기본값: 텍스트 리뷰
+let activeFilter = 'latest';  // 기본값: 최신순
 
-// // 리뷰 탭 전환 함수
-// function showTab(tabType) {
-//     activeTab = tabType;
-//     const allTabs = document.querySelectorAll('.review-tabs span');
-//     allTabs.forEach(tab => tab.classList.remove('active'));
+// 리뷰 탭 전환 함수
+function showTab(tabType) {
+    activeTab = tabType;
+    const allTabs = document.querySelectorAll('.review-tabs span');
+    allTabs.forEach(tab => tab.classList.remove('active'));
 
-//     document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
-//     applyFilters();  // 필터 적용
-// }
+    document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
+    applyFilters();  // 필터 적용
+}
 
 // 필터링 함수
 function filterReviews(filterType) {
@@ -60,19 +60,6 @@ function applyFilters() {
 }
 
 
-// 이미지 미리보기 기능
-function previewImage(event) {
-    var preview = document.getElementById("preview");
-    preview.innerHTML = "";
-    var reader = new FileReader();
-    reader.onload = function() {
-        var img = document.createElement("img");
-        img.src = reader.result;
-        preview.appendChild(img);
-    }
-    reader.readAsDataURL(event.target.files[0]);
-}
-
 // 페이지 로드 후 각 리뷰 아이템에 별점 표시하기
 document.addEventListener('DOMContentLoaded', function() {
     const reviews = document.querySelectorAll('.review-item');
@@ -83,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingContainer.innerHTML = generateStars(rating); // 별점 생성 함수 사용
     });
 });
+
 
 // 별점 생성 함수
 function generateStars(rating) {
@@ -110,7 +98,6 @@ function toggleDescription() {
     }
 }
 
-
 $(document).ready(function() {
     $(window).scroll(function() {
         console.log("Scroll event triggered");
@@ -127,35 +114,5 @@ $(document).ready(function() {
     });
 });
 
-// 스크롤 이벤트 리스너
-window.addEventListener('scroll', () => {
-    // 스크롤 위치가 100px 이상일 때 위로 가기 버튼을 보이게 함
-    if (
-      document.body.scrollTop > 50 ||
-      document.documentElement.scrollTop > 50
-    ) {
-      document.getElementById('btn-back-to-top').style.display = 'block';
-    } else {
-      document.getElementById('btn-back-to-top').style.display = 'none';
-    }
-  });
-  
-  // 클릭 시 페이지 맨 위로 스크롤 (애니메이션 효과 추가)
-  function backToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 부드러운 스크롤
-    });
-  }
 
-  function scrollToSection() {
-    const section = document.querySelector('.shipping-exchange-return-section');
-    const sectionPosition = section.getBoundingClientRect().top + window.scrollY; // 섹션의 Y 위치 계산
-    const offset = -120; // 원하는 만큼 위로 배치 (여기서는 120px 위로)
-  
-    window.scrollTo({
-      top: sectionPosition + offset, // 섹션 위치에서 offset 만큼 위로
-      behavior: 'smooth' // 부드러운 스크롤 애니메이션
-    });
-  }
 
