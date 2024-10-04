@@ -27,7 +27,7 @@
                     $("#main_header").removeClass("active");
                 }
             })
-=======
+
        $(function () {
            // 스크롤 시 header fade-in
            $(document).on("scroll", function () {
@@ -37,7 +37,6 @@
                $("#hd").removeClass("on");
              }
            });
->>>>>>> c27fad1d38715978c5f18ab738f9077224bdc7db
         });
 
 
