@@ -17,7 +17,7 @@
 </head>
 <body>
    <header id="hd">
-      <div id="main_header" class="active">
+      <div id="main_header" style="background:rgb(0,0,0,0.85)">
             <div class="sh_logo">
               <a href="/"><img id="logo_img" src="/img/main_img/logo_ex.png"/></a>
             </div>

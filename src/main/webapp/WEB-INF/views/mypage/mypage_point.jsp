@@ -22,7 +22,7 @@
           <h3>나의 계정설정</h3>
           <ul>
             <li>
-              <a href="">회원정보수정</a>
+              <a href="/user/mypage_userEdit">회원정보수정</a>
             </li>
             <li>
               <a href="">내가 쓴 글</a>
@@ -34,13 +34,13 @@
               <a href="/user/mypage_heart">좋아요</a>
             </li>
             <li>
-              <a href="">회원탈퇴</a>
+              <a href="/user/mypage_userDel">회원탈퇴</a>
             </li>
           </ul>
           <h3>고객센터</h3>
           <ul>
             <li>
-              <a href="">1:1 문의</a>
+              <a href="/user/mypage_qna">1:1 문의</a>
             </li>
             <li>
               <a href="">공지사항</a>
@@ -49,7 +49,7 @@
               <a href="">FAQ</a>
             </li>
           </ul>
-            </section>
+        </section>
 
       <section>
         <div class="btn_bx">

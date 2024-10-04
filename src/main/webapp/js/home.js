@@ -1,25 +1,27 @@
-var main_slide = new Swiper(".main_slide", {
-    loop: true,
-    speed: 1000,
-    effect: "fade",
-    pagination: {
-      el: ".pager",
-      clickable: true,
-      bulletActiveClass: "on",
-      renderBullet: function (i, className) {
-        return `
-                <button class="${className}">
-                    <svg class="progress" width="16" height="16">
-                        <circle class="circle-origin" r="6" cx="8" cy="8"></circle>
-                    </svg>
-                </button>
-                `;
-      },
+gsap.registerPlugin(ScrollTrigger);
+  gsap.to("#mainVisual .main_video", {
+    scrollTrigger: {
+      pin: true,
+      scrub: 0.2,
+      trigger: "#mainVisual",
+      toggleClass: "on",
+      start: "top top",
+      end: "+=1500",
     },
-    autoplay: {
-      delay: 3500,
-      disableOnInteraction: false,
-    },
+    width: "1500px",
+    height: "730px",
+    "margin-top": "130px",
+  });
+  $(function () {
+    setTimeout(function () {
+      $("#mainVisual .txt01").addClass("active");
+    }, 400);
+    setTimeout(function () {
+      $("#mainVisual .txt03").addClass("active");
+    }, 400);
+    setTimeout(function () {
+      $("#mainVisual .txt02").addClass("active");
+    }, 800);
 });
 
 feather.replace();

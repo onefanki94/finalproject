@@ -81,4 +81,31 @@ public class UserController {
 
         return mav;
     }
+
+    //마이페이지-문의리스트 view
+    @GetMapping("/mypage_qna")
+    public ModelAndView mypageQna(){
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_qna");
+
+        return mav;
+    }
+
+    //마이페이지-회원정보수정 view
+    @GetMapping("/mypage_userEdit")
+    public ModelAndView mypageEdit(){
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_userEdit");
+
+        return mav;
+    }
+
+    //마이페이지-회원탈퇴 view
+    @GetMapping("/mypage_userDel")
+    public ModelAndView mypageDel(){
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_userDel");
+
+        return mav;
+    }
 }
