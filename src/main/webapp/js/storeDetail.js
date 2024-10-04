@@ -1,14 +1,4 @@
 
-// 리뷰 섹션을 보이거나 숨기는 함수
-function toggleReviewSection() {
-    var reviewSection = document.getElementById("review-section");
-    if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
-        reviewSection.style.display = "block";
-    } else {
-        reviewSection.style.display = "none";
-    }
-}
-
 // 탭 전환 및 필터링 상태를 관리하는 전역 변수
 let activeTab = 'text';  // 기본값: 텍스트 리뷰
 let activeFilter = 'latest';  // 기본값: 최신순
@@ -114,5 +104,25 @@ $(document).ready(function() {
     });
 });
 
+function scrollToShippingSection() {
+    const section = document.querySelector('.shipping-exchange-return-section');
+    const sectionPosition = section.getBoundingClientRect().top + window.scrollY; // 섹션의 Y 위치 계산
+    const offset = -160; // 원하는 만큼 위로 배치 (여기서는 100px 위로)
+  
+    window.scrollTo({
+      top: sectionPosition + offset, // 섹션 위치에서 offset 만큼 위로
+      behavior: 'smooth' // 부드러운 스크롤 애니메이션
+    });
+  }
 
+  function scrollToReviewSection() {
+    const section = document.querySelector('.review-title');
+    const sectionPosition = section.getBoundingClientRect().top + window.scrollY; // 섹션의 Y 위치 계산
+    const offset = -100; // 원하는 만큼 위로 배치 (여기서는 100px 위로)
+  
+    window.scrollTo({
+      top: sectionPosition + offset, // 섹션 위치에서 offset 만큼 위로
+      behavior: 'smooth' // 부드러운 스크롤 애니메이션
+    });
+  }
 

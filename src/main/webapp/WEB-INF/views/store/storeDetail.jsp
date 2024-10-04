@@ -61,9 +61,9 @@
     <!-- 상품 정보 및 기타 탭 -->
     <div class="product-tabs">
         <button class="tab active">상품정보</button>
-        <button class="tab" onclick="scrollToSection()">배송/교환/반품</button>
+        <button class="tab" onclick="scrollToShippingSection()">배송/교환/반품</button>
         <button class="tab">1:1 상품문의</button>
-        <button class="tab" onclick ="toggleReviewSection()">리뷰</button>
+        <button class="tab" onclick ="scrollToReviewSection()">리뷰</button>
     </div>
 
     <!-- 상품 정보 섹션 추가 -->
