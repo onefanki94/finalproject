@@ -111,92 +111,10 @@ a {
 .pop-carousel-images .slick-next::before {
     color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
 }
-
-/* 오리지널 굿즈 슬라이더 화살표 스타일링 */
-.origin-carousel-images .slick-prev, 
-.origin-carousel-images .slick-next {
-    font-size: 60px; /* 화살표 크기 조정 */
-    position: absolute;
-    top: 30%; /* 원하는 위치 조정 */
-    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
-}
-
-.origin-carousel-images .slick-prev {
-    left: 100px; /* 이전 버튼 위치 조정 */
-}
-
-.origin-carousel-images .slick-next {
-    right: 100px; /* 다음 버튼 위치 조정 */
-}
-
-.origin-carousel-images .slick-prev::before, 
-.origin-carousel-images .slick-next::before {
-    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
-}
-
-
-/*인기굿즈*/
-.new-carousel-images .slick-prev, 
-.new-carousel-images .slick-next {
- 
-    font-size: 30px; /* 화살표 크기 조정 */
-    position: absolute;
-    top: 30%; /* 원하는 위치 조정 */
-    z-index: 1000;
-}
-
-.new-carousel-images .slick-prev {
-    left: -30px; /* 이전 버튼 위치 조정 */
-    z-index: 1000;
-}
-
-.new-carousel-images .slick-next {
-    right: 40px; /* 다음 버튼 위치 조정 */
-    z-index: 1000;
-}
-
-/* 인기굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
-.new-carousel-images .slick-prev::before, 
-.new-carousel-images .slick-next::before {
-    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
-}
-
-/*인기굿즈*/
-.event-carousel-images .slick-prev, 
-.event-carousel-images .slick-next {
- 
-    font-size: 30px; /* 화살표 크기 조정 */
-    position: absolute;
-    top: 30%; /* 원하는 위치 조정 */
-    z-index: 1000;
-}
-
-.event-carousel-images .slick-prev {
-    left: -30px; /* 이전 버튼 위치 조정 */
-    z-index: 1000;
-}
-
-.event-carousel-images .slick-next {
-    right: -60px; /* 다음 버튼 위치 조정 */
-    z-index: 1000;
-}
-
-/* 인기굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
-.event-carousel-images .slick-prev::before, 
-.event-carousel-images .slick-next::before {
-    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
-}
-
-
-/* Product Section */
-
 .products h2, .products2 h2 {
     font-size: 48px;
     margin-bottom: 40px;
 }   
-
-
-
 
 .pop-carousel-images{
     display: flex;
@@ -303,19 +221,20 @@ a {
 }
 
 .origin-carousel-wrapper{
-    width: 1800px;
+    width: 100%;
     margin-bottom: 20px;
-    gap:20px;
+    overflow: visible;
 }
 
+.origin-carousel-images {
+    gap: 20px; /* 이미지 간의 간격 */
+  }
 
 .origin-tag {
     text-align: left;
     color: #888;
     font-weight: bold;
-    overflow: cover;
 }
-
 
 .origin-carousel-images img{
      border-radius: 10px;
@@ -324,8 +243,32 @@ a {
 }
 
 .origin-carousel-images img:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: 0.5s ease-in-out;
+}
+
+.origin-carousel-images .slick-prev, 
+.origin-carousel-images .slick-next {
+ 
+    font-size: 30px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 45%; /* 원하는 위치 조정 */
+    z-index: 1000;
+}
+
+.origin-carousel-images .slick-prev {
+    left: -30px; /* 이전 버튼 위치 조정 */
+  
+}
+
+.origin-carousel-images .slick-next {
+    right: 40px; /* 다음 버튼 위치 조정 */
+}
+
+/* 신규굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
+.origin-carousel-images .slick-prev::before, 
+.origin-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
 }
 
 /* 신규굿즈 */
@@ -350,53 +293,84 @@ a {
 .new-carousel-images img:hover {
     animation: shake 0.5s ease-in-out; 
 }
+/*신규굿즈*/
+.new-carousel-images .slick-prev, 
+.new-carousel-images .slick-next {
+ 
+    font-size: 30px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 30%; /* 원하는 위치 조정 */
+    z-index: 1000;
+}
+
+.new-carousel-images .slick-prev {
+    left: -40px; /* 이전 버튼 위치 조정 */
+}
+
+.new-carousel-images .slick-next {
+    right: 40px; /* 다음 버튼 위치 조정 */
+}
+
+/* 신규굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
+.new-carousel-images .slick-prev::before, 
+.new-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
+}
 
 /* MD news */
-.event{
-    width: 1800px;
+.md{
+    width: 100%;
     height: 100vh;
     margin: 0 auto;
     margin-top: 50px;
-    margin-bottom: 100px;
-
 }
 
-.event-carousel-wrapper{
-    width: 1800px;
+.md-carousel-images{
+    display: flex;
+    gap:30px;
   
-   
 }
 
+.md-item {
+    display: flex;
+    flex-direction: column; /* 이미지와 태그가 수직으로 정렬되도록 설정*/
+  }
 
-.event-item img{
-    gap:20px;
+
+
+
+.md-item img {
+    width: 580px; /* 이미지 크기를 원하는 값으로 설정 */
+    border-radius: 10px; 
+    transition: transform 0.5s ease-in-out; /* 호버 시 부드럽게 확대 */
+  }
+
+.md-carousel-images img:hover{
+    transform: scale(1.05);
 }
 
-
-.event-item a:first-of-type {
-    overflow: hidden;
-
+.md-carousel-images .slick-prev, 
+.md-carousel-images .slick-next {
+ 
+    font-size: 30px; /* 화살표 크기 조정 */
+    position: absolute;
+    top: 50%; /* 원하는 위치 조정 */
+    z-index: 1000;
 }
 
-.event-carousel{   
-    align-items: center;
-    margin: 0 auto;
-    margin-top: 50px;
+.md-carousel-images .slick-prev {
+    left: 100px; /* 이전 버튼 위치 조정 */
+  
 }
 
-.event-carousel-images{
-    display:flex;
-    gap:15px;
-   
+.md-carousel-images .slick-next {
+    right: 100px; /* 다음 버튼 위치 조정 */
 }
 
-.event-carousel-images img{
-   border-radius: 10px; 
-}
-
-.event-carousel-images img:hover{
-    transform: scale(1.1);
-    transition: 0.5s ease-in-out;
+/* 신규굿즈 슬라이더의 화살표 버튼에 색상을 적용 */
+.md-carousel-images .slick-prev::before, 
+.md-carousel-images .slick-next::before {
+    color: rgb(167, 203, 245);  /* 화살표 색상 변경 */
 }
 
 

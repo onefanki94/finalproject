@@ -51,6 +51,7 @@ $371(document).ready(function() {
     console.log('Slick initialized'); // 초기화 확인을 위한 로그 출력
 });
 
+
 $371(document).ready(function() {
     $371('.new-carousel-images').slick({
         infinite: true,
@@ -64,7 +65,7 @@ $371(document).ready(function() {
 });
 
 $371(document).ready(function() {
-    $371('.event-carousel-images').slick({
+    $371('.md-carousel-images').slick({
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,
