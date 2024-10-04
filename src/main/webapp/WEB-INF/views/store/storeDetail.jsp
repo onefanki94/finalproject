@@ -5,6 +5,11 @@
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src = "../../../js/storeDetail.js"></script>
+<!-- <script src="/js/storeDetail.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
@@ -102,12 +107,14 @@
                     <img src="img/store/storedetail1.png" alt="상품 상세 이미지" />
                 </div>
 
+
+                          <!-- 상품 설명 섹션 -->
+                <div class="product-description-section">
+                    <button class="toggle-description btn btn-secondary btn-lg" onclick="toggleDescription()">상품정보 더보기▼</button>
             </div>
 
-              <!-- 상품 설명 섹션 -->
-    <div class="product-description-section">
-        <button class="toggle-description btn btn-secondary btn-lg" onclick="toggleDescription()">상품정보 더보기▼</button>
-        
+            
+                    
         <!-- 숨겨진 상품 설명 -->
         <div id="hidden-description" class="hidden-description">
             <img src="img/store/storedetail2.png">
@@ -149,7 +156,7 @@
 
 
 
-<script src="js/storeDetail.js"></script>
+<script src="/js/storeDetail.js"></script>
 
 <!-- 상품 리뷰 제목 -->
 <div class="review-title">
@@ -190,15 +197,15 @@
 </div>
 <!-- 리뷰 리스트 -->
 <div id="review-list">
-    <div class="review-item" data-rating="5" data-date="2024-09-06">
-        <div>
+    
+    <div class="review-item" data-rating="5" data-date="2024-09-06">    
+     
+        <div class="review-nickname">
+            <span class="review-rating">★★★★☆</span>
             <span class="reviewer-name">naeb*****</span>
-            <span class="review-date">2024.09.06</span>
+            <span class="review-date">2024.09.06</span>         
         </div>
-        <div class="review-rating">
-            <!-- 여기서 별점이 동적으로 표시될 예정 -->
-             ★★★★☆
-        </div>
+        
         <div class="review-content">착용감 아주 편해요. 잘 맞아요!</div>
         <div class="review-image">
             <img src="/img/store/review1.png" alt="리뷰 이미지">
@@ -218,25 +225,24 @@
 </div>
 
 
-<!-- 리뷰 작성 및 사진 업로드 (오른쪽 하단 정렬) -->
-<div class="review-upload-section">
-    <label class="file-upload">
-        사진 올리기
-        <input type="file" id="review-image-upload" accept="image/*" onchange="previewImage(event)">
-    </label>
-    <button type="submit" class="btn btn-outline-dark">리뷰 작성</button>
-</div>
-
 <!-- 이미지 미리보기 영역 -->
 <div id="preview"></div>
 
+</div>
 
+<!--영역 외부-->
 
-
-
-
-
-
-
-
+<!-- Sticky Footer -->
+<div class="sticky-footer">
+    <div class="d-flex justify-content-between">
+        <div class="sticky-left">
+            <div class="fw-bold">내 마음의 위험한 녀석 트레이딩 캔뱃지</div>
+              
+        </div>
+        <div class="sticky-right">
+            <div class="price">4,000 원</div>
+            <button class="btn btn-secondary">장바구니</button>
+            <button class="btn btn-dark">바로구매</button>
+        </div>
+    </div>
 </div>

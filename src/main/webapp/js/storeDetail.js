@@ -1,26 +1,27 @@
-// 리뷰 섹션을 보이거나 숨기는 함수
-function toggleReviewSection() {
-    var reviewSection = document.getElementById("review-section");
-    if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
-        reviewSection.style.display = "block";
-    } else {
-        reviewSection.style.display = "none";
-    }
-}
 
-// 탭 전환 및 필터링 상태를 관리하는 전역 변수
-let activeTab = 'text';  // 기본값: 텍스트 리뷰
-let activeFilter = 'latest';  // 기본값: 최신순
+// // 리뷰 섹션을 보이거나 숨기는 함수
+// function toggleReviewSection() {
+//     var reviewSection = document.getElementById("review-section");
+//     if (reviewSection.style.display === "none" || reviewSection.style.display === "") {
+//         reviewSection.style.display = "block";
+//     } else {
+//         reviewSection.style.display = "none";
+//     }
+// }
 
-// 리뷰 탭 전환 함수
-function showTab(tabType) {
-    activeTab = tabType;
-    const allTabs = document.querySelectorAll('.review-tabs span');
-    allTabs.forEach(tab => tab.classList.remove('active'));
+// // 탭 전환 및 필터링 상태를 관리하는 전역 변수
+// let activeTab = 'text';  // 기본값: 텍스트 리뷰
+// let activeFilter = 'latest';  // 기본값: 최신순
 
-    document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
-    applyFilters();  // 필터 적용
-}
+// // 리뷰 탭 전환 함수
+// function showTab(tabType) {
+//     activeTab = tabType;
+//     const allTabs = document.querySelectorAll('.review-tabs span');
+//     allTabs.forEach(tab => tab.classList.remove('active'));
+
+//     document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
+//     applyFilters();  // 필터 적용
+// }
 
 // 필터링 함수
 function filterReviews(filterType) {
@@ -108,3 +109,20 @@ function toggleDescription() {
         button.innerHTML = "상품정보 더보기▼";  // 버튼 텍스트 원래대로
     }
 }
+
+
+$(document).ready(function() {
+    $(window).scroll(function() {
+        console.log("Scroll event triggered");
+        var scrollPosition = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        var documentHeight = $(document).height();
+
+        if (scrollPosition > (documentHeight - windowHeight) * 0.1) {
+            $('.sticky-footer').addClass('show');
+            console.log("Scroll event triggered");
+        } else {
+            $('.sticky-footer').removeClass('show');
+        }
+    });
+});
