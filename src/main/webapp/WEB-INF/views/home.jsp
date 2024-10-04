@@ -2,42 +2,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/main_header.jspf"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <link href="/css/home.css" rel="stylesheet" type="text/css"></link>
 
-<div id="mainVisual">
-  <div class="swiper-container main_slide">
-    <div class="main_txt">
-      <span></span>
-      <p></p>
-      <div
-        data-aos="fade-blur"
-        data-aos-delay="200"
-        data-aos-duration="1500"
-        class="pager"
-      ></div>
+<div class="pin-spacer">
+  <div id="mainVisual">
+    <div class="main_banner">
+      <div class="main_video">
+        <video
+          id="myVideo"
+          preload="auto"
+          autoplay
+          loop
+          muted
+          src="/img/main_img/ani1.mp4"
+        ></video>
+      </div>
+      <div class="main_txt">
+        <p class="txt01"><span>#</span>Ready for the Animation</p>
+        <p class="txt02">ENJOY THE ANIMATION</p>
+        <p class="txt03">
+          다양한 애니메이션과 굿즈로 당신에게 즐거움을 선사합니다.
+        </p>
+      </div>
     </div>
-    <ul class="swiper-wrapper">
-      <li class="swiper-slide bg01"></li>
-      <li class="swiper-slide bg02"></li>
-      <li class="swiper-slide bg03"></li>
-    </ul>
-  </div>
-
-  <div class="scroll">
-    <span
-      data-aos="fade-blur"
-      data-aos-delay="200"
-      data-aos-duration="1500"
-      class="aos-init aos-animate"
-      >Scroll down</span
-    >
-    <div
-      class="bar aos-init aos-animate"
-      data-aos="fade-blur"
-      data-aos-delay="200"
-      data-aos-duration="1500"
-    ></div>
+    <div class="main_sub">
+      <span>이제 애니메이션은 더 이상 소수의 취미가 아닙니다. </span>
+      다양한 애니메이션 리스트와 굿즈를 감상하며, 당신만의 애니메이션 세계에
+      흠뻑 빠져보세요!
+    </div>
   </div>
 </div>
 
@@ -429,66 +424,27 @@
         </div>
       </div>
     </div>
-    <!-- <div class="txt_bar">
-      <ul class="loop_txt">
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/Aniplus_logo.svg.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/laftel_logo.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/freepik-logo.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/Aniplus_logo.svg.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/Aniplus_logo.svg.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/Aniplus_logo.svg.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-        <li>
-          <div class="logo_img">
-            <a href="#">
-              <img src="/img/main_img/Aniplus_logo.svg.png" />
-            </a>
-          </div>
-          <span></span>
-        </li>
-      </ul>
-    </div> -->
+    <div
+      class="inc04 aos-init aos-animate"
+      data-aos="fade-up"
+      data-aos-delay="100"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="500"
+    >
+      <div class="l_get">
+        <div class="l_get_div">
+          READY FOR<br />THE ANIMATION ?
+          <p></p>
+        </div>
+      </div>
+      <div class="r_get">
+        <div class="r_get_div">Going out to have fun</div>
+        <p>
+          당신이 원하는 애니메이션을 빠르고 쉽게 즐겨보세요. <br />원하는
+          애니메이션의 굿즈를 구매하고 공유해보세요.
+        </p>
+      </div>
+    </div>
   </div>
   <div>dsad</div>
 </div>
