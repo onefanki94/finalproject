@@ -73,5 +73,5 @@ $371(document).ready(function() {
         prevArrow: '<button class="slick-prev"></button>', // 이전 버튼 커스텀
         nextArrow: '<button class="slick-next"></button>', // 다음 버튼 커스텀
     });
-    console.log('Slick initialized'); // 초기화 확인을 위한 로그 출력
+    console.log('실행 여부 확인'); // 초기화 확인을 위한 로그 출력
 });

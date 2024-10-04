@@ -379,43 +379,50 @@
         </section>
 
             <!--MD event-->
-        <section class="md">
-                    <h2>이벤트#신규이벤트 업데이트</h2>
-                        <div class="md-carousel">
-                            <div class="md-carousel-wrapper">
-                                <div class="md-carousel-images">
-                                    <div class="md-item">
-                                        <a href="/storeList">
-                                            <img src="img/store/news1.png" alt="Product 1">                             
-                                        </a>
-                                        <br>
-                                        <a href="/storeList">
-                                            <div class="md-tag">스파이패밀리 콜라보 소식</div>
-                                        </a>                        
+            <section class="md">
+                <h2>이벤트#신규이벤트 업데이트</h2>
+                    <div class="md-carousel">
+                        <div class="md-carousel-wrapper">
+                            <div class="md-carousel-images">
+                                <div class="md-item">
+                                    <div class="md-item-img">
+                                    <a href="/storeList">
+                                        <img src="img/store/news1.png" alt="Product 1">                             
+                                    </a>
                                     </div>
-                                    <div class="md-item">
-                                        <a href="/storeList">
-                                            <img src="img/store/news2.png" alt="Product 1">                             
-                                        </a>
-                                        <br>
-                                        <a href="/storeList">
-                                            <div class="md-tag">스파이패밀리 콜라보 소식</div>
-                                        </a>                        
+                                    <br>
+                                    <div class="md-tag">블루아카이브 2주년</div>
+                                                    
+                                </div>
+                                <div class="md-item">
+                                    <div class="md-item-img">
+                                    <a href="/storeList">
+                                        <img src="img/store/news2.png" alt="Product 2">                             
+                                    </a>
                                     </div>
-                                    <div class="md-item">
-                                        <a href="/storeList">
-                                            <img src="img/store/news3.png" alt="Product 1">                             
-                                        </a>
-                                        <br>
-                                        <a href="/storeList">
-                                            <div class="md-tag">스파이패밀리 콜라보 소식</div>
-                                        </a>                        
+                                    <br>
+                                    <a href="/storeList">
+                                        <div class="md-tag">블루아카이브 2주년</div>
+                                    </a>                  
+                                </div>
+                                <div class="md-item">
+                                    <div class="md-item-img">
+                                    <a href="/storeList">
+                                        <img src="img/store/news3.png" alt="Product 3">                             
+                                    </a>
                                     </div>
-                                
-                                
-                                </div>    
-                            </div>
+                                    <br>
+                                    <a href="/storeList">
+                                        <div class="md-tag">블루아카이브 2주년</div>
+                                    </a>                        
+                                </div>
+                                <div>
+                        
+    
+    
+                            </div>    
                         </div>
-        </section>
+                    </div>
+            </section>
 
 </div>
