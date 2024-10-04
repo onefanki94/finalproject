@@ -25,6 +25,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 @Slf4j
 public class UserController {
     @Inject
@@ -43,7 +44,7 @@ public class UserController {
 
 
     @PostMapping("/loginOk")
-    public ModelAndView loginOk(@RequestParam String userid, @RequestParam String userpwd, HttpServletRequest request) {
+    public ModelAndView loginOk(@RequestParam String userid, @RequestParam String userpwd) {
         ModelAndView mav = new ModelAndView();
 
         // 회원 정보 검증
@@ -51,7 +52,6 @@ public class UserController {
 
         if (member == null) {
             mav.setViewName("redirect:/user/login");  // 로그인 실패 시 로그인 페이지로 리다이렉트
-            mav.addObject("errorMessage", "Invalid credentials. Please try again.");
             return mav;
         }
 
@@ -59,18 +59,16 @@ public class UserController {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(userpwd, member.getUserpwd())) {
             mav.setViewName("redirect:/user/login");  // 비밀번호가 일치하지 않으면 로그인 페이지로 리다이렉트
-            mav.addObject("errorMessage", "Invalid credentials. Please try again.");
             return mav;
         }
 
         // JWT 토큰 생성
         String token = jwtUtil.createJwt(userid, "ROLE_USER", 3600000L);
 
-        // 세션에 토큰 저장
-        request.getSession().setAttribute("token", token);  // 세션에 JWT 토큰 저장 (클라이언트에 직접 전달하지 않음)
-
-        // 로그인 성공 후 메인 페이지로 리다이렉트
+        // 로그인 성공 시 메인 페이지로 리다이렉트하면서 JWT 토큰을 URL 파라미터로 전달
         mav.setViewName("redirect:/");  // 메인 페이지로 리다이렉트
+        mav.addObject("token", token);      // URL 파라미터에 JWT 토큰 추가
+        mav.addObject("userid", userid);
 
         return mav;
     }

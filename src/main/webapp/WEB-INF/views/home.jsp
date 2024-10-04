@@ -6,7 +6,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <link href="/css/home.css" rel="stylesheet" type="text/css"></link>
+<script>
+        // URL에서 쿼리 파라미터를 추출하여 객체로 변환하는 함수
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const queryParams = {};
+            for (const [key, value] of params.entries()) {
+                queryParams[key] = value;
+            }
+            return queryParams;
+        }
 
+        // 페이지 로드 시 실행될 함수
+        document.addEventListener("DOMContentLoaded", function () {
+            // URL에서 JWT 토큰과 사용자 정보를 가져옴
+            const params = getQueryParams();
+            const token = params.token;    // JWT 토큰 추출
+            const username = params.username;  // 사용자 이름 추출
+
+            if (token) {
+                // JWT 토큰을 로컬 스토리지에 저장
+                localStorage.setItem("token", token);
+                console.log("JWT 토큰이 로컬 스토리지에 저장되었습니다.");
+
+                // 사용자 정보를 페이지에 표시하거나 다른 작업 수행
+                document.getElementById("welcome-message").innerText = `Welcome, ${username}!`;
+            } else {
+                console.error("토큰이 URL 파라미터에 없습니다.");
+            }
+        });
+    </script>
 <div class="pin-spacer">
   <div id="mainVisual">
     <div class="main_banner">
