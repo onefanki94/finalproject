@@ -1,5 +1,6 @@
 package com.ict.finalproject.controller;
 
+import com.ict.finalproject.DTO.LoginRequestDTO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.MemberVO;
@@ -25,7 +26,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "/**")
 @Slf4j
 public class UserController {
     @Inject
@@ -42,10 +43,29 @@ public class UserController {
         return mav;
     }
 
+    @GetMapping("/userinfo")
+    public String getUserInfo(){
+        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(userid.equals("anonymousUser")) {
+            System.out.println("등록된 사용자 없음");
+            return null;
+        }else{
+            System.out.println(userid);
+            return userid;
+        }
+    }
+
 
     @PostMapping("/loginOk")
-    public ModelAndView loginOk(@RequestParam String userid, @RequestParam String userpwd) {
-        ModelAndView mav = new ModelAndView();
+    public ModelAndView loginOk(@ModelAttribute LoginRequestDTO loginRequest, HttpServletRequest request, HttpServletResponse response) {
+
+
+        String userid = loginRequest.getUserid();
+        String userpwd = loginRequest.getUserpwd();
+
+        log.info("로그인 성공: " + userid);
+        log.info("토큰값 : " + response.getHeader("Authorization"));
+        log.info("토큰값 : " + request.getHeader("Authorization"));
 
         // 회원 정보 검증
         MemberVO member = service.memberLogin(userid, userpwd);
@@ -63,12 +83,14 @@ public class UserController {
         }
 
         // JWT 토큰 생성
-        String token = jwtUtil.createJwt(userid, "ROLE_USER", 3600000L);
+        String token = jwtUtil.createJwt(userid, "ROLE_USER", 604800000L);
 
         // 로그인 성공 시 메인 페이지로 리다이렉트하면서 JWT 토큰을 URL 파라미터로 전달
         mav.setViewName("redirect:/");  // 메인 페이지로 리다이렉트
         mav.addObject("token", token);      // URL 파라미터에 JWT 토큰 추가
         mav.addObject("userid", userid);
+
+        response.setHeader("Authorization", "Bearer " + token);
 
         return mav;
     }
@@ -85,8 +107,6 @@ public class UserController {
 
     @PostMapping("/joinformOk")
     public ModelAndView joinOk(HttpServletRequest request, @RequestParam String userid, @RequestParam String userpwd, @RequestParam String username, @RequestParam String email) {
-        ModelAndView mav = new ModelAndView();
-
         try {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             MemberVO vo = new MemberVO();
