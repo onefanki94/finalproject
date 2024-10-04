@@ -28,6 +28,8 @@
            });
         });
 
+
+
         // 로그인 상태 확인 함수
         function checkLoginStatus() {
             // 로컬 스토리지에서 토큰을 가져옴
