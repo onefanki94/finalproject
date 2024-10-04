@@ -52,10 +52,22 @@
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">
                             <div class="filter-options">
+
+                                <!-- 검색창 추가 -->
+                                <div class="search-section">
+                                    <div class="search_window">
+                                    <input type="text" id="productSearch" class="search-input" placeholder="검색어를 입력하세요..." onkeyup="searchProducts()" />
+                                    </div>
+                                    <div class="search-icon">
+                                        <img src="img/store/search_box_btn.png">
+                                    </div>
+                                </div>
+                                <div class="filter-option-keyword">
                                 <span class="filter-option active" onclick="filterProducts('latest')">최신순</span>
                                 <span class="filter-option" onclick="filterProducts('popular')">인기순</span>
                                 <span class="filter-option" onclick="filterProducts('high-price')">높은 가격순</span>
                                 <span class="filter-option" onclick="filterProducts('low-price')">낮은 가격순</span>
+                                </div>
                             </div>
                         </section>
 
