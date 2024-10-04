@@ -127,7 +127,7 @@
                     <span>답변완료</span>
                   </div>
                   <div class="qna_delBtn_div">
-                    <button class="qna_delBtn">삭제<button>
+                    <button class="qna_delBtn">삭제</button>
                   </div>
                 </li>
                 <li class="myqna_write_list">
@@ -144,7 +144,7 @@
                     <span>답변완료</span>
                   </div>
                   <div class="qna_delBtn_div">
-                    <button class="qna_delBtn">삭제<button>
+                    <button class="qna_delBtn">삭제</button>
                   </div>
                 </li>
               </ul>
