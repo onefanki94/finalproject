@@ -109,7 +109,13 @@
 
             <div class="listBt">
                 <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
+                    수정
+                </a>
+                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
                     목록
+                </a>
+                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
+                    삭제
                 </a>
           </div>
     </div>

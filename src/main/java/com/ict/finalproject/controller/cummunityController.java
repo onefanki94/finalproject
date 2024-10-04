@@ -35,7 +35,7 @@ public class cummunityController {
     //커뮤니티-공지사항 이동
     @GetMapping("/allnotice")
     public String allnotice(){
-        return "notice/notice";
+        return "notice/notice2";
     }
 
 }
