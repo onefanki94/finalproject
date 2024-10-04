@@ -17,20 +17,6 @@
    <link rel="stylesheet" href="/css/main_header.css" type="text/css"/>
 
      <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $(function(){
-            // 스크롤 시 header fade-in
-            $(document).on('scroll', function(){
-                if($(window).scrollTop() > 100){
-                    $("#main_header").addClass("active");
-                }else{
-                    $("#main_header").removeClass("active");
-                }
-            })
-
-=======
->>>>>>> 91cc66b8558bda643b2eaa7d91af6bb6b318d5bb
        $(function () {
            // 스크롤 시 header fade-in
            $(document).on("scroll", function () {
