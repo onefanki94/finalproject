@@ -11,11 +11,11 @@
         <!-- 사용자 요약 정보 -->
         <div class="summary">
             <div>
-                <strong>총 사용자 수</strong>
+                <strong>총 유저 수</strong>
                 <p id="totalUsers">3 명</p>
             </div>
             <div>
-                <strong>활성 사용자</strong>
+                <strong>활성 사용자 </strong>
                 <p id="activeUsers">2 명</p>
             </div>
             <div>
@@ -37,8 +37,8 @@
             <div>
                 <select class="form-select w-auto" id="filterSelect">
                     <option value="">모든 사용자</option>
-                    <option value="active">활성 사용자</option>
-                    <option value="inactive">비활성 사용자</option>
+                    <option value="active">신규 유저</option>
+                    <option value="inactive">신고 유저</option>
                 </select>
             </div>
         </div>

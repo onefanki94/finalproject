@@ -22,7 +22,7 @@
                          <td>FAQ 1번 질문 내용</td>
                          <td>2023-09-25</td>
                          <td>
-                             <button class="btn btn-outline-secondary btn-sm">수정</button>
+                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
                              <button class="btn btn-outline-danger btn-sm">삭제</button>
                          </td>
                      </tr>
@@ -31,7 +31,7 @@
                          <td>FAQ 2번 질문 내용</td>
                          <td>2023-09-24</td>
                          <td>
-                             <button class="btn btn-outline-secondary btn-sm">수정</button>
+                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
                              <button class="btn btn-outline-danger btn-sm">삭제</button>
                          </td>
                      </tr>
@@ -40,7 +40,7 @@
                          <td>FAQ 3번 질문 내용</td>
                          <td>2023-09-23</td>
                          <td>
-                             <button class="btn btn-outline-secondary btn-sm">수정</button>
+                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
                              <button class="btn btn-outline-danger btn-sm">삭제</button>
                          </td>
                      </tr>
@@ -49,7 +49,7 @@
                          <td>FAQ 4번 질문 내용</td>
                          <td>2023-09-22</td>
                          <td>
-                             <button class="btn btn-outline-secondary btn-sm">수정</button>
+                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
                              <button class="btn btn-outline-danger btn-sm">삭제</button>
                          </td>
                      </tr>
