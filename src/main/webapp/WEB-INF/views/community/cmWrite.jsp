@@ -41,7 +41,7 @@
 
 
 <div class="container">
-  <form class="write_tbl"method="post" action="/cafein/commu/writeOk" onsubmit="return commuFormCheck()">
+  <form class="write_tbl"method="post" action="" onsubmit="return commuFormCheck()">
      <table class="cm-write">
            <tr>
                   <th>
