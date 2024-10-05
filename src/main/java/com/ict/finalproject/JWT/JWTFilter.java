@@ -39,9 +39,10 @@ public class JWTFilter extends OncePerRequestFilter {
 
         // JWT 토큰 파싱 및 검증
         String token = authorization.substring(7);
-        if (jwtUtil.isExpired(token)) {
-            filterChain.doFilter(request, response);
-            return;
+
+        if (!jwtUtil.isExpired(token)) {
+            // JWT 토큰을 사용하여 사용자 인증 정보 설정
+            authenticateWithJwt(token);
         }
 
         // 사용자 정보 및 권한 설정
@@ -54,5 +55,17 @@ public class JWTFilter extends OncePerRequestFilter {
         System.out.println("SecurityContext 권한 정보: " + SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
         filterChain.doFilter(request, response);
+    }
+
+    private void authenticateWithJwt(String token) {
+        String userid = jwtUtil.getUserid(token);  // JWT 토큰에서 사용자 ID 추출
+        List<GrantedAuthority> authorities = jwtUtil.getAuthorities(token);  // JWT 토큰에서 권한 추출
+
+        // Spring Security의 Authentication 객체 생성
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(userid, null, authorities);
+
+        // SecurityContextHolder에 설정
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

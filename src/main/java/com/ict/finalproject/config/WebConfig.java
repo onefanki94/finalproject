@@ -22,9 +22,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // JwtInterceptor 등록 및 특정 경로에만 적용
+        // JwtInterceptor 등록
         registry.addInterceptor(new JwtIntercepter(jwtUtil))
-                .addPathPatterns("/master/**")  // /master/** 경로에만 JWT 인증 인터셉터 적용
-                .excludePathPatterns("/login", "/join", "/cmList");  // 인증 예외 경로 설정
+                .addPathPatterns("/master/**");  // /master/** 경로에 대해 인터셉터 적용
     }
 }

@@ -2,8 +2,13 @@ package com.ict.finalproject.JWT;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+
+import java.util.List;
 
 public class JwtIntercepter implements HandlerInterceptor {
 
@@ -41,5 +46,18 @@ public class JwtIntercepter implements HandlerInterceptor {
         System.out.println("요청 URL: " + request.getRequestURI() + ", JWT 토큰: " + token);
 
         return true;  // true를 반환하면 요청을 컨트롤러로 전달
+    }
+
+    // authenticateWithJwt 메서드 호출
+    private void authenticateWithJwt(String token) {
+        String userid = jwtUtil.getUserid(token);  // JWT 토큰에서 사용자 ID 추출
+        List<GrantedAuthority> authorities = jwtUtil.getAuthorities(token);  // JWT 토큰에서 권한 추출
+
+        // Spring Security의 Authentication 객체 생성
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(userid, null, authorities);
+
+        // SecurityContextHolder에 설정
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

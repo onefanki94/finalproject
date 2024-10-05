@@ -36,20 +36,59 @@ function login() {
     .catch(error => console.error('로그인 실패:', error));
 }
 
-// 로컬 스토리지에서 JWT 토큰을 가져와 요청에 Authorization 헤더로 추가하는 예제 코드
-function makeAuthenticatedRequest(url, options = {}) {
-    // 로컬 스토리지에서 JWT 토큰 가져오기
+async function makeAuthenticatedRequest(url, options = {}) {
     const token = localStorage.getItem("token");
     if (!token) {
         console.error("로컬 스토리지에 JWT 토큰이 없습니다. 로그인이 필요합니다.");
-        return Promise.reject("JWT 토큰이 없습니다. 로그인이 필요합니다.");
+        throw new Error("JWT 토큰이 없습니다. 로그인이 필요합니다.");
     }
 
-    // Authorization 헤더에 JWT 토큰 추가 (Bearer 접두어 포함)
     if (!options.headers) options.headers = {};
     options.headers['Authorization'] = `Bearer ${token}`;
-    console.log("Authorization 헤더에 설정된 JWT 토큰: ", options.headers['Authorization']);
 
-    // fetch를 사용하여 요청 보내기
-    return fetch(url, options);
+    try {
+        const response = await fetch(url, options);
+        if (response.redirected) {
+            // 서버에서 리다이렉트 응답을 보낸 경우, 해당 URL로 이동
+        }
+        return response;
+    } catch (error) {
+        console.error("요청 중 오류 발생:", error);
+        throw error;
+    }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const adminLink = document.getElementById("adminLink");
+
+    if (adminLink) {
+        let isNavigating = false;  // 중복 이동 방지 플래그
+
+        adminLink.addEventListener("click", async function (event) {
+            event.preventDefault();  // 기본 링크 동작 막기
+
+            if (isNavigating) return;  // 이미 이동 중이면 실행하지 않음
+            isNavigating = true;
+
+            try {
+                const response = await makeAuthenticatedRequest('/master/masterMain');
+
+                if (response.ok) {
+                    console.log("페이지 접근 성공");
+                    // fetch 요청 후 페이지를 이동시키지 않고 서버의 응답 데이터를 처리함
+                    // window.location.href 또는 window.location.replace 사용하지 않음
+                    // 대신에 서버의 응답 데이터를 DOM에 표시하거나 다른 방식으로 UI를 업데이트함
+                } else {
+                    console.error('페이지 접근 권한이 없습니다.', response.status);
+                    alert("admin 계정만 접근 가능합니다");
+                }
+            } catch (error) {
+                console.error('페이지 접근 실패:', error);
+            } finally {
+                isNavigating = false;
+            }
+        });
+    } else {
+        console.error("adminLink 요소가 존재하지 않습니다. ID를 확인하세요.");
+    }
+});

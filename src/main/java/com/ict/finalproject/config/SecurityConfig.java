@@ -58,7 +58,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/", "/join", "/cmList").permitAll()  // 특정 경로는 인증 없이 접근 가능
-                        .requestMatchers("/master/**").hasAuthority("ROLE_admin")  // /master/** 경로는 ROLE_admin 권한 필요
+                        .requestMatchers("/master/**").hasRole("admin")  // /master/** 경로는 ROLE_admin 권한 필요
                         .anyRequest().permitAll()  // 나머지 모든 요청은 인증 없이 접근 가능
                 );
 

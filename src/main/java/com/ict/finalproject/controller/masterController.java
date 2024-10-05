@@ -20,7 +20,7 @@ public class masterController {
         @GetMapping("/masterMain")
         public ModelAndView masterMain() {
             System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
-            ModelAndView mav = new ModelAndView();
+            mav = new ModelAndView();
             mav.setViewName("master/masterMain");  // 뷰 이름 설정
             return mav;  // 중복 리다이렉트 발생 여부 확인
         }
