@@ -5,7 +5,6 @@
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
-<script src="/js/JWTLogin.js"></script>
 <div class="page-header">
             <h1>DashBoard</h1>
             <p>일별 및 월별 통계, 사용자 활동 및 시스템 관리 정보를 확인할 수 있는 대시보드입니다.</p>

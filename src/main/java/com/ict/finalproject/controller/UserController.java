@@ -26,7 +26,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "/**")
 @Slf4j
 public class UserController {
     @Inject

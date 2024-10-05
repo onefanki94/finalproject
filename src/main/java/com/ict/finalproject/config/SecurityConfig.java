@@ -42,37 +42,39 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        //csrf disable
+        // 1. CSRF 비활성화
         http
-                .csrf((auth) -> auth.disable());
+                .csrf((csrf) -> csrf.disable());
 
-        //From 로그인 방식 disable
+        // 2. 기본 Form 로그인 방식 비활성화
         http
-                .formLogin((auth) -> auth.disable());
+                .formLogin((formLogin) -> formLogin.disable());
 
-        //http basic 인증 방식 disable
+        // 3. HTTP 기본 인증 방식 비활성화
         http
-                .httpBasic((auth) -> auth.disable());
+                .httpBasic((basicAuth) -> basicAuth.disable());
 
-
+        // 4. 요청 권한 설정
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/", "/join", "/cmList").permitAll()
-                        .requestMatchers("/master/**").hasRole("admin")
-                        .anyRequest().permitAll()
+                        .requestMatchers("/login", "/", "/join", "/cmList").permitAll()  // 특정 경로는 인증 없이 접근 가능
+                        .requestMatchers("/master/**").hasAuthority("ROLE_admin")  // /master/** 경로는 ROLE_admin 권한 필요
+                        .anyRequest().permitAll()  // 나머지 모든 요청은 인증 없이 접근 가능
                 );
 
-
+        // 5. JWT 필터 추가: UsernamePasswordAuthenticationFilter 전에 JWTFilter 추가
         http
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
-        http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
 
-        //세션 설정
+                // 6. Login 필터 추가: JWTFilter 이후에 LoginFilter 추가
+                .addFilterAfter(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), JWTFilter.class);
+
+        // 7. 세션 설정: 세션을 생성하지 않음 (STATELESS 모드)
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        // 8. SecurityFilterChain 객체 반환
         return http.build();
     }
 }

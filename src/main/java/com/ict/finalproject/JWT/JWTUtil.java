@@ -93,4 +93,8 @@ public class JWTUtil {
         // SecurityContextHolder에 설정
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
+    public String getRoleFromToken(String token) {
+        return getClaims(token).getBody().get("role", String.class);
+    }
 }

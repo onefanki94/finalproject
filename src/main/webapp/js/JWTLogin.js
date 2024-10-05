@@ -53,31 +53,3 @@ function makeAuthenticatedRequest(url, options = {}) {
     // fetch를 사용하여 요청 보내기
     return fetch(url, options);
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const adminLink = document.getElementById("adminLink");
-
-    if (adminLink) {
-        adminLink.addEventListener("click", function (event) {
-            event.preventDefault();  // 기본 링크 동작 막기
-
-            // JWT 토큰을 포함하여 요청 보내기
-            makeAuthenticatedRequest('/master/masterMain')
-                .then(response => {
-                    if (response.ok) {
-                        console.log("페이지 접근 성공 - 응답 데이터를 사용하여 UI를 업데이트");
-                        alert("관리자 페이지로 이동합니다.");
-
-                        // 서버의 응답 데이터를 사용하여 UI를 업데이트하거나 상태를 변경할 수 있음
-                        response.text().then(data => console.log(data));
-                    } else {
-                        console.error('페이지 접근 권한이 없습니다.', response.status);
-                        alert("admin계정만 접근 가능합니다");
-                    }
-                })
-                .catch(error => console.error('페이지 접근 실패:', error));
-        });
-    } else {
-        console.error("adminLink 요소가 존재하지 않습니다. ID를 확인하세요.");
-    }
-});
