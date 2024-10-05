@@ -56,10 +56,12 @@ public class SecurityConfig {
 
 
         http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join","/cmList").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/", "/join", "/cmList").permitAll()
                         .requestMatchers("/master/**").hasRole("admin")
-                        .anyRequest().permitAll());
+                        .anyRequest().permitAll()
+                );
+
 
         http
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);

@@ -2,6 +2,7 @@ package com.ict.finalproject.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,8 @@ public class masterController {
 
         // Dashboard 매핑
         @GetMapping("/masterMain")
-        public ModelAndView masterMain(){
+        public ModelAndView masterMain() {
+            System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
             mav = new ModelAndView();
             mav.setViewName("master/masterMain");
             return mav;

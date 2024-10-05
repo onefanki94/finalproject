@@ -59,41 +59,48 @@ public class UserController {
     @PostMapping("/loginOk")
     public ModelAndView loginOk(@ModelAttribute LoginRequestDTO loginRequest, HttpServletRequest request, HttpServletResponse response) {
 
-
+        // 클라이언트에서 전달받은 로그인 정보
         String userid = loginRequest.getUserid();
         String userpwd = loginRequest.getUserpwd();
 
-        log.info("로그인 성공: " + userid);
-        log.info("토큰값 : " + response.getHeader("Authorization"));
-        log.info("토큰값 : " + request.getHeader("Authorization"));
-
-        // 회원 정보 검증
+        // 회원 정보 검증: 데이터베이스에서 사용자 정보 조회
         MemberVO member = service.memberLogin(userid, userpwd);
-
         if (member == null) {
-            mav.setViewName("redirect:/user/login");  // 로그인 실패 시 로그인 페이지로 리다이렉트
+            // 사용자 정보가 없으면 로그인 실패로 간주하고 로그인 페이지로 리다이렉트
+            mav.setViewName("redirect:/user/login");
             return mav;
         }
 
         // 비밀번호 검증
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(userpwd, member.getUserpwd())) {
-            mav.setViewName("redirect:/user/login");  // 비밀번호가 일치하지 않으면 로그인 페이지로 리다이렉트
+            // 비밀번호가 일치하지 않을 경우 로그인 페이지로 리다이렉트
+            mav.setViewName("redirect:/user/login");
             return mav;
         }
 
-        // JWT 토큰 생성
-        String token = jwtUtil.createJwt(userid, "ROLE_USER", 604800000L);
+        // 데이터베이스에서 해당 사용자의 role 정보 가져오기 (예: "ROLE_admin" 또는 "ROLE_user")
+        String role = member.getRole();
+        log.info("로그인 성공: " + userid);
+        log.info("사용자 권한: " + role);
 
-        // 로그인 성공 시 메인 페이지로 리다이렉트하면서 JWT 토큰을 URL 파라미터로 전달
-        mav.setViewName("redirect:/");  // 메인 페이지로 리다이렉트
-        mav.addObject("token", token);      // URL 파라미터에 JWT 토큰 추가
-        mav.addObject("userid", userid);
+        // JWT 토큰 생성 (7일 동안 유효)
+        String token = jwtUtil.createJwt(userid, role, 604800000L);
 
+        // JWT 토큰을 HTTP 응답 헤더에 추가
         response.setHeader("Authorization", "Bearer " + token);
+        log.info("응답 헤더에 설정된 토큰 값: " + response.getHeader("Authorization"));
 
+        // JWT 토큰을 ModelAndView 객체에 추가
+        mav.addObject("token", token);
+        mav.addObject("userid", userid);
+        mav.addObject("role", role);
+
+        // 메인 페이지로 리다이렉트
+        mav.setViewName("redirect:/");
         return mav;
     }
+
 
 
 

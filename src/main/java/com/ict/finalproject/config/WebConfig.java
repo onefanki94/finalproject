@@ -2,6 +2,7 @@ package com.ict.finalproject.config;
 
 import com.ict.finalproject.JWT.JwtIntercepter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -9,10 +10,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        // 인터셉터 등록 및 URL 패턴 설정
-        registry.addInterceptor(new JwtIntercepter())
-                .addPathPatterns("/api/**")  // "/api/**" 패턴에 대해 인터셉터 실행
-                .excludePathPatterns("/api/public/**", "/user/login", "/user/join");  // 인증이 필요하지 않은 경로는 제외
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:9911")  // 클라이언트의 도메인 주소
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("Authorization", "Content-Type")  // 허용할 헤더 추가
+                .exposedHeaders("Authorization")  // 클라이언트가 읽을 수 있도록 허용할 응답 헤더 추가
+                .allowCredentials(true)
+                .maxAge(3600);  // CORS 설정 캐시 시간
     }
 }
