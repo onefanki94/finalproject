@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import java.util.List;
@@ -48,16 +49,19 @@ public class JwtIntercepter implements HandlerInterceptor {
         return true;  // true를 반환하면 요청을 컨트롤러로 전달
     }
 
-    // authenticateWithJwt 메서드 호출
-    private void authenticateWithJwt(String token) {
-        String userid = jwtUtil.getUserid(token);  // JWT 토큰에서 사용자 ID 추출
-        List<GrantedAuthority> authorities = jwtUtil.getAuthorities(token);  // JWT 토큰에서 권한 추출
-
-        // Spring Security의 Authentication 객체 생성
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userid, null, authorities);
-
-        // SecurityContextHolder에 설정
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        // 뷰 렌더링 전에 데이터 가공 및 추가 작업을 할 때 사용
+        System.out.println("postHandle: 요청 처리가 완료되었으며, 뷰 렌더링 전에 호출됨");
     }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        // 뷰 렌더링 후에 리소스 정리나 로깅 작업을 할 때 사용
+        if (ex != null) {
+            System.err.println("afterCompletion: 요청 처리 중 예외 발생 - " + ex.getMessage());
+        }
+        System.out.println("afterCompletion: 요청 처리가 완료되고, 뷰 렌더링 이후에 호출됨");
+    }
+
 }

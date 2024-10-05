@@ -45,12 +45,10 @@ async function makeAuthenticatedRequest(url, options = {}) {
 
     if (!options.headers) options.headers = {};
     options.headers['Authorization'] = `Bearer ${token}`;
+    console.log("Authorization 헤더에 설정된 JWT 토큰: ", options.headers['Authorization']);
 
     try {
         const response = await fetch(url, options);
-        if (response.redirected) {
-            // 서버에서 리다이렉트 응답을 보낸 경우, 해당 URL로 이동
-        }
         return response;
     } catch (error) {
         console.error("요청 중 오류 발생:", error);
@@ -71,13 +69,20 @@ document.addEventListener("DOMContentLoaded", function () {
             isNavigating = true;
 
             try {
+                // JWT 토큰을 포함하여 요청 보내기
                 const response = await makeAuthenticatedRequest('/master/masterMain');
 
                 if (response.ok) {
                     console.log("페이지 접근 성공");
-                    // fetch 요청 후 페이지를 이동시키지 않고 서버의 응답 데이터를 처리함
-                    // window.location.href 또는 window.location.replace 사용하지 않음
-                    // 대신에 서버의 응답 데이터를 DOM에 표시하거나 다른 방식으로 UI를 업데이트함
+                    location.href = "/master/masterMain";
+                    // fetch 요청 후 페이지를 강제로 이동시키지 않음
+                    // UI를 업데이트하거나 서버가 리다이렉트 응답을 보내도록 설정
+                    // 서버가 리다이렉트 응답을 보내지 않았다면, DOM을 업데이트하거나 상태를 변경함
+                    response.text().then(data => {
+                        console.log("서버의 응답 데이터: ", data);
+                        // 페이지 내 UI를 업데이트하거나 필요한 로직을 추가하세요.
+
+                    });
                 } else {
                     console.error('페이지 접근 권한이 없습니다.', response.status);
                     alert("admin 계정만 접근 가능합니다");
