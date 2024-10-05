@@ -12,6 +12,31 @@
 <link href="/css/cmList.css" rel="stylesheet" type="text/css">
 </link>
 
+<script>
+    window.onload = function(){
+    console.log("호출");
+        var token = localStorage.getItem("token");
+        if(token != "" && token != null){
+            $.ajax({
+                url:"/getuser",
+                type:"get",
+                data:{Authorization:token},
+                success: function(r){
+                console.log(r);
+                    userid=r;
+                    tag="";
+                    tag+=`
+                        <div>`+userid+`</div>
+                    `;
+                    document.getElementById("test").innerHTML=tag;
+                }
+
+                    })
+        }
+
+    }
+
+</script>
 
 
 <section class="top_info">
@@ -38,7 +63,7 @@
         </div>
     </div>
 </section>
-
+<div id="test"></div>
 
 <div class="container">
     <div class="cummunity" id="content">
