@@ -82,61 +82,85 @@
                                         <a href="/storeDetail">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail2.jsp">
                                             <img src="img/store/f2.png" alt="list-product2">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail3.jsp">
                                             <img src="img/store/f3.png" alt="list-product3">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail4.jsp">
                                             <img src="img/store/f4.png" alt="list-product4">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail1.jsp">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail2.jsp">
                                             <img src="img/store/f2.png" alt="list-product2">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail3.jsp">
                                             <img src="img/store/f3.png" alt="list-product3">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail4.jsp">
                                             <img src="img/store/f4.png" alt="list-product4">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail1.jsp">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail2.jsp">
                                             <img src="img/store/f2.png" alt="list-product2">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail3.jsp">
                                             <img src="img/store/f3.png" alt="list-product3">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail4.jsp">
                                             <img src="img/store/f4.png" alt="list-product4">
                                         </a>
+                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
+                                        <p>25,000 원</p>
                                     </li>
                                 </ul>
                             </li>

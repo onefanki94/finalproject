@@ -101,6 +101,8 @@
 
 /* 개별 상품 스타일 */
 .list-product {
+    display: flex;
+    flex-direction: column;
     background-color: #f9f9f9;
     padding: 0 auto;
     border-radius: 10px;
@@ -112,13 +114,27 @@
 }
 
 
+
 /* 상품 이미지 스타일 */
 .list-product img {
-    width: 200px;
+    width: 250px;
     height: 200px;
     border-radius: 8px;
     transition: transform 0.8s ease-in-out;
   
+}
+
+.list-product p{
+    margin: 0 auto;
+    width: 200px;
+    background-color: rgba(244, 244, 244, 0.8);
+    color: #888;
+    font-size: 0.9em;
+   
+}
+
+.list-product :first-child{
+    overflow: hidden;
 }
 
 /* Hover 효과 */
