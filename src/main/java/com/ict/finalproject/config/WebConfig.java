@@ -1,18 +1,33 @@
 package com.ict.finalproject.config;
 
+import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.JWT.JwtIntercepter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    private final JWTUtil jwtUtil;
+
+    public WebConfig(JWTUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 인터셉터 등록 및 URL 패턴 설정
-        registry.addInterceptor(new JwtIntercepter())
-                .addPathPatterns("/api/**")  // "/api/**" 패턴에 대해 인터셉터 실행
-                .excludePathPatterns("/api/public/**", "/user/login", "/user/join");  // 인증이 필요하지 않은 경로는 제외
+        // JwtInterceptor 등록
+        registry.addInterceptor(new JwtIntercepter(jwtUtil))
+                .addPathPatterns("/master/**");  // /master/** 경로에 대해 인터셉터 적용
     }
 }

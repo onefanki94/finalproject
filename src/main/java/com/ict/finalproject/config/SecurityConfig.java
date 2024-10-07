@@ -3,6 +3,7 @@ package com.ict.finalproject.config;
 import com.ict.finalproject.JWT.JWTFilter;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.JWT.LoginFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,64 +14,68 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
+    private final AuthenticationConfiguration authenticationConfiguration;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
-
-        this.authenticationConfiguration = authenticationConfiguration;
+    public SecurityConfig(JWTUtil jwtUtil, AuthenticationConfiguration authenticationConfiguration) {
         this.jwtUtil = jwtUtil;
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-
-        return configuration.getAuthenticationManager();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-
-        return new BCryptPasswordEncoder();
+        this.authenticationConfiguration = authenticationConfiguration;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // CSRF 비활성화
+        http.csrf(csrf -> csrf.disable());
 
-        //csrf disable
-        http
-                .csrf((auth) -> auth.disable());
+        // 폼 로그인 및 Http Basic 비활성화
+        http.formLogin(form -> form.disable());
+        http.httpBasic(httpBasic -> httpBasic.disable());
 
-        //From 로그인 방식 disable
-        http
-                .formLogin((auth) -> auth.disable());
+        // 권한 및 인증 설정
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/login", "/", "/join", "/cmList").permitAll()  // 인증 없이 접근 가능
+                .requestMatchers("/master/**").authenticated()  // 특정 경로는 인증 필요
+                .anyRequest().permitAll()  // 나머지 모든 요청은 인증 필요
+        );
 
-        //http basic 인증 방식 disable
-        http
-                .httpBasic((auth) -> auth.disable());
+        // JWT 필터 추가
+        http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), JWTFilter.class);
 
+        // 세션 관리 설정
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join","/cmList").permitAll()
-                        .requestMatchers("/master/**").hasRole("admin")
-                        .anyRequest().permitAll());
+        // 예외 처리
+        http.exceptionHandling(handling -> handling
+                .authenticationEntryPoint((request, response, authException) -> {
+                    System.out.println("접근 거부됨: " + authException.getMessage());
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "권한 없음");  // UNAUTHORIZED로 변경
+                })
+        );
 
-        http
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
-        http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
-
-        //세션 설정
-        http
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.cors(cors -> cors.configurationSource(request -> {
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedOrigins(Arrays.asList("http://localhost:9911")); // 클라이언트 도메인 설정
+            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+            config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+            config.setExposedHeaders(Arrays.asList("Authorization")); // 응답 헤더 노출
+            config.setAllowCredentials(true);
+            return config;
+        }));
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
