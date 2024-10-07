@@ -28,8 +28,8 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // request에서 Authorization 헤더를 찾음
         String authorization = request.getHeader("Authorization");
+        System.out.println("Authorization 헤더 값 : " + authorization);
 
         // Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
@@ -39,21 +39,22 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
         // 토큰 파싱 (Bearer 접두어 제거)
-        String token = authorization.split(" ")[1];
+        String token = authorization.substring(7);
+        System.out.println("Authorization 헤더에서 추출한 JWT 토큰 : " + token);
 
-        // 토큰 유효성 검증
+
+        // 토큰의 유효성을 검증하고 사용자 정보를 추출합니다.
         if (jwtUtil.isExpired(token)) {
             System.out.println("만료된 토큰");
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 토큰으로부터 사용자 ID 및 권한 정보 추출
+        // 사용자 ID 및 권한 정보 추출
         String userid = jwtUtil.getUserid(token);
-        String userRole = jwtUtil.getUserRole(token);
 
         // 사용자 인증 설정
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userid, null, Collections.singletonList(new SimpleGrantedAuthority(userRole)));
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userid, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         // 요청 처리 계속 진행

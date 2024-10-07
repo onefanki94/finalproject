@@ -8,4 +8,8 @@
     <select id="memberLogin" parameterType="map" resultType="MemberVO">
         select userid, userpwd, username, role from t_user where userid=#{userid}
     </select>
+
+    <select id="getUseridx" resultType="int">
+        select idx from t_user where userid = #{param1}
+    </select>
 </mapper>

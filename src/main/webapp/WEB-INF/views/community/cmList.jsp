@@ -19,17 +19,17 @@
         <h1>커뮤니티</h1>
         <div class="cm_opt">
             <ul class="list">
-                <li class="selected">
-                    <a href="#tap1" class="btn">최신글보기</a>
+                <li class="${commtype == 'all' ? 'selected' : ''}">
+                    <a href="javascript:void(0);" class="btn" onclick="showTab('all')">최신글보기</a>
                 </li>
-                <li>
-                    <a href="#tap2" class="btn">자랑</a>
+                <li class="${commtype == '10' ? 'selected' : ''}">
+                    <a href="javascript:void(0);" class="btn" onclick="showTab('10')">자랑</a>
                 </li>
-                <li>
-                    <a href="#tap4" class="btn">친목</a>
+                <li class="${commtype == '30' ? 'selected' : ''}">
+                    <a href="javascript:void(0);" class="btn" onclick="showTab('30')">친목</a>
                 </li>
-                <li>
-                    <a href="#tap4" class="btn">팬아트</a>
+                <li class="${commtype == '40' ? 'selected' : ''}">
+                    <a href="javascript:void(0);" class="btn" onclick="showTab('40')">팬아트</a>
                 </li>
                 <li>
                     <a href="/allnotice" class="btn">통합공지</a>
@@ -39,50 +39,48 @@
     </div>
 </section>
 
-
 <div class="container">
     <div class="cummunity" id="content">
-
-        <div class="search-area">
-            <div class="left-area">
-                <div class="head-box">
-                    <select id="sel-head">
-                        <option value="head1">최신글보기</option>
-                        <option value="head2">자랑</option>
-                        <option value="head1">친목</option>
-                        <option value="head2">팬아트</option>
-                    </select>
+        <form id="searchForm" action="/cmList" method="get">
+            <div class="search-area">
+                <div class="left-area">
+                    <div class="head-box">
+                        <select id="commtype" name="commtype">
+                            <option value="all" ${commtype == 'all' ? 'selected' : ''}>최신글보기</option>
+                            <option value="10" ${commtype == '10' ? 'selected' : ''}>자랑</option>
+                            <option value="30" ${commtype == '30' ? 'selected' : ''}>친목</option>
+                            <option value="40" ${commtype == '40' ? 'selected' : ''}>팬아트</option>
+                        </select>
+                    </div>
+                    <div class="filter-box">
+                        <select id="selectDirection" name="orderBy">
+                            <option value="DEFAULT">최신글순</option>
+                            <option value="NEW_REPLY">최신댓글순</option>
+                            <option value="REPLY">많은댓글순</option>
+                            <option value="LIKE">조회수순</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-box">
-                    <select id="selectDirection">
-                        <option value="DEFAULT">최신글순</option>
-                        <option value="NEW_REPLY">최신댓글순</option>
-                        <option value="REPLY">많은댓글순</option>
-                        <option value="LIKE">조회수순</option>
-                    </select>
+
+                <div class="right-area">
+                    <div class="select-box">
+                        <select id="selectCategory" name="searchCategory">
+                            <option value="THREAD_TITLE_AND_CONTENT">제목 + 내용</option>
+                            <option value="THREAD_TITLE">제목</option>
+                            <option value="THREAD_CONTENT">내용</option>
+                        </select>
+                    </div>
+                    <div class="search">
+                        <input type="text" id="textSearch" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요." />
+                        <button type="button" id="btnSearch">검색</button>
+                    </div>
                 </div>
             </div>
+        </form>
 
-            <div class="right-area">
-                <div class="select-box">
-                    <select id="selectCategory">
-                        <option value="THREAD_TITLE_AND_CONTENT">제목 + 내용</option>
-                        <option value="THREAD_TITLE">제목</option>
-                        <option value="THREAD_CONTENT">내용</option>
-                    </select>
-                </div>
-                <div class="search">
-                    <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
-                    <button type="button" id="btnSearch">검색</button>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- 커뮤니티 리스트 -->
-        <div class="content active" id="tap1"> <!-- 기본적으로 active 클래스를 추가 -->
+        <!-- 공통 커뮤니티 리스트 -->
+        <div class="content active" id="contentList"> <!-- 리스트를 하나로 통합 -->
             <div class="newList">
-
                 <div class="row header">
                     <div class="col-sm-1 p-2">번호</div>
                     <div class="col-sm-1 p-2">카테고리</div>
@@ -91,116 +89,23 @@
                     <div class="col-sm-1 p-2">조회</div>
                 </div>
 
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/cmView">신나는 일요일</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">1234</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/cmView">배고프네</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
+                <!-- 통합된 리스트 출력 -->
+                <c:forEach var="vo" items="${list}">
+                    <!-- commtype을 문자열로 변환 후 비교 -->
+                    <c:if test="${commtype eq 'all' || (vo.commtype eq '자랑' && commtype eq 10) || (vo.commtype eq '친목' && commtype eq 30) || (vo.commtype eq '팬아트' && commtype eq 40)}">
+                        <div class="row">
+                            <div class="col-sm-1 p-2">${vo.idx}</div>
+                            <div class="col-sm-1 p-2">${vo.commtype}</div>
+                            <div class="col-sm-7 p-2"><a href="/cmView?idx=${vo.idx}">${vo.title}</a></div>
+                            <div class="col-sm-2 p-2">${vo.regDT}</div>
+                            <div class="col-sm-1 p-2">${vo.hit}</div>
+                        </div>
+                    </c:if>
+                </c:forEach>
             </div>
         </div>
 
-        <div class="content" id="tap2">
-            <div class="boastList">
-
-                <div class="row header">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">카테고리</div>
-                    <div class="col-sm-7 p-2">제목</div>
-                    <div class="col-sm-2 p-2">날짜</div>
-                    <div class="col-sm-1 p-2">조회</div>
-                </div>
-
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">1234</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content" id="tap3">
-            <div class="friendList">
-
-                <div class="row header">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">카테고리</div>
-                    <div class="col-sm-7 p-2">제목</div>
-                    <div class="col-sm-2 p-2">날짜</div>
-                    <div class="col-sm-1 p-2">조회</div>
-                </div>
-
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">1234</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content" id="tap4">
-            <div class="fanartList">
-
-                <div class="row header">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">카테고리</div>
-                    <div class="col-sm-7 p-2">제목</div>
-                    <div class="col-sm-2 p-2">날짜</div>
-                    <div class="col-sm-1 p-2">조회</div>
-                </div>
-
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">번호</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/boards/view/1">신나는 일요일</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-                <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                <div class="row">
-                    <div class="col-sm-1 p-2">1234</div>
-                    <div class="col-sm-1 p-2">[덕질]</div>
-                    <div class="col-sm-7 p-2"><a href="/boards/view/1">배고프네</a></div>
-                    <div class="col-sm-2 p-2">2024-09-29</div>
-                    <div class="col-sm-1 p-2">3</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="new_write">
+        <div class="new_write" style="display:none;">
             <a href="/cmWrite">글쓰기</a>
         </div>
     </div>
@@ -236,28 +141,52 @@
 
 
 <script>
-const tabList = document.querySelectorAll('.cm_tab .list li');
-const contentList = document.querySelectorAll('.content');
 
-tabList.forEach((tab, index) => {
-    const button = tab.querySelector('.btn');
-
-    button.addEventListener('click', function (e) {
-        if (button.getAttribute('href') === '/allnotice') {
-            // 통합공지 링크 클릭 시 페이지 이동
-            return; // 기본 동작을 허용
+// showTab 함수 정의(탭 전환)
+        function showTab(commtype) {
+            console.log("Tab clicked: " + commtype); // 클릭 시 commtype 값 출력
+            // 검색 폼에 commtype 값을 설정
+            document.getElementById("commtype").value = commtype;
+            document.getElementById("searchForm").submit();
         }
 
-        e.preventDefault(); // 기본 동작 방지 (탭 링크 클릭 시)
-        // 모든 탭 비활성화 및 콘텐츠 숨김
-        tabList.forEach(t => t.classList.remove('selected'));
-        contentList.forEach(content => content.classList.remove('active'));
+window.onload = function(){
+    console.log("호출");
 
-        // 현재 탭 활성화 및 해당 콘텐츠 보여줌
-        tab.classList.add('selected');
-        contentList[index].classList.add('active');
-    });
-});
+    var token = localStorage.getItem("token"); //토근 값 가져오기
+    if(token != "" && token != null){
+        $.ajax({
+            url:"/getuser",
+            type:"get",
+            data:{Authorization:token},
+            success: function(userid){
+                console.log("로그인된 사용자 ID:" + userid);
+
+                    if(userid && userid.trim() !== ""){
+                        //로그인 상태일 때 글쓰기 버튼을 표시
+                        document.querySelector(".new_write").style.display ="block";
+                    }else{
+                        //로그인되지 않은 상태일 때 글쓰기 버튼을 숨김
+                        document.querySelector(".new_wrtie").style.display= "none";
+                    }
+                },
+                error: function(){
+                    console.error("로그인 여부 확인 실패");
+                    document.querySelector(".new_write").style.display = "none"
+                }
+        });
+    }else{
+        //토큰이 없을 때 글쓰기 버튼 숨김
+        document.querySelector(".new_write").style.display ="none";
+    }
+
+
+
+
+
+
+};
+
 </script>
 
 </body>

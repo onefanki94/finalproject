@@ -40,37 +40,37 @@
     </section>
 
 
-<div class="container">
-  <form class="write_tbl"method="post" action="" onsubmit="return commuFormCheck()">
-     <table class="cm-write">
-           <tr>
-                  <th>
-               <div class="topics" >
-                   <select class="filter-dropdown" id="header_no" name="header_no" value="" >
-                        <option value="">분류를 선택하세요 </option>
-                     <c:if test="${logId=='goguma1234'}">
-                        <option value="10">자랑</option>
-                     </c:if>
-                        <option value="20">덕질</option>
-                        <option value="30">친목</option>
-                        <option value="40">팬아트</option>
-                   </select>
-               </div>
-                </th>
-                <td>
-                <input type="text" name="subject" value="" id="subject" size="100"placeholder="제목을 입력하세요">
-                </td>
-            </tr>
-     </table>
-      <input type="hidden" id="sub_content" name="sub_content">
-      <div>
-          <textarea id="content" name="content" class="smarteditor2"placeholder="내용을 입력하세요" style="width: 90%; height: 100%;"></textarea>
-      </div>
-     <div  style="margin: 30px auto 0 auto; text-align:center;">
-          <button class="write_btn">글등록하기</button>
-     </div>
-  </form>
- </div>
+    <div class="container">
+        <form class="write_tbl" method="post" action="/cmWriteOk" onsubmit="return commuFormCheck()">
+            <table class="cm-write">
+                <tr>
+                    <th>
+                        <div class="topics">
+                            <select class="filter-dropdown" id="code" name="code" value="">
+                                <option value="">분류를 선택하세요</option>
+                                <option value="10">자랑</option>
+                                <option value="20">덕질</option>
+                                <option value="30">친목</option>
+                                <option value="40">팬아트</option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <input type="text" name="title" value="" id="title" size="100" placeholder="제목을 입력하세요">
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+                <textarea id="content" name="content" class="smarteditor2" placeholder="내용을 입력하세요" style="width: 90%; height: 100%;"></textarea>
+            </div>
+
+            <div style="margin: 30px auto 0 auto; text-align: center;">
+                <button type="submit" class="write_btn">글등록하기</button>
+            </div>
+           <input type="text" id="token" name="token"value="11" />
+        </form>
+    </div>
 
  <script>
      window.onload =()=>{
@@ -82,44 +82,38 @@
              .catch(error => {
                  console.error('CKEditor 5 initialization error:', error);
              });
+
+
+         var token = localStorage.getItem("token"); //토근 값 가져오기
+         document.getElementById("token").value=token;
+
+
      };
 
+
+
+
      function commuFormCheck() {
+        alert("함수넘어오는지 확인");
           if (!window.editorInstance) {
               console.error('CKEditor instance is not initialized.');
               return false;
           }
 
-          // CKEditor에서 HTML 데이터를 가져옵니다.
-          const contentValue = window.editorInstance.getData();
-          console.log('Content Value:', contentValue);
 
-          // HTML에서 텍스트만 추출
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = contentValue;
-          const textContent = tempDiv.textContent || tempDiv.innerText || '';
-
-          // 텍스트의 처음 20자 추출
-          const first68Chars = textContent.slice(0, 68);
-          console.log('First 68 Characters:', first80Chars);
-
-          document.getElementById('sub_content').value = first68Chars;
-
-          if (document.getElementById('header_no').value === '') {
+          if (document.getElementById('code').value == '') {
               alert('분류를 선택하세요');
               return false;
           }
-          if (document.getElementById('subject').value === '') {
+          if (document.getElementById('title').value == '') {
               alert('제목을 입력하세요.');
               return false;
           }
+          if (window.editorInstance.getData().trim() === '') {
+                      alert('내용을 입력하세요.');
+                      return false;
+                  }
 
-          if (document.getElementById('header_no').value ==='20' || document.getElementById('header_no').value ==='30') {
-              if (contentValue.indexOf('<img') === -1) {
-                  alert('최소한 사진 한 장을 올려주세요.');
-                  return false;
-              }
-          }
           return true;
      }
  </script>

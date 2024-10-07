@@ -1,5 +1,8 @@
 package com.ict.finalproject.JWT;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,22 +21,26 @@ public class JWTUtil {
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
 
         System.out.println("JWT Secret: " + secret); // secret 값 출력
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
+
+    // JWT 토큰에서 Claims를 추출하는 메서드
+    public Jws<Claims> getClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(secretKey.getEncoded())
+                .build().parseClaimsJws(token);
     }
 
     public String getUserid(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userid", String.class);
+        return getClaims(token).getBody().get("userid", String.class);
     }
 
-    public String getUserRole(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
-    }
 
     public Boolean isExpired(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+        return getClaims(token).getBody().getExpiration().before(new Date());
     }
 
 

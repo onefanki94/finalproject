@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.CommuDAO">
+    <insert id="insertBoard" parameterType="CommuVO">
+        insert into t_community (useridx, commtype, title, content, regDT, modifyState, modifyDT, delState, delDT, hit)
+        values (#{useridx}, #{commtype}, #{title}, #{content}, NOW(), 0, NOW(), 0, NOW(), 0)
+    </insert>
+
+    <!-- community_mapper.xml -->
+    <select id="List" resultType="com.ict.finalproject.vo.CommuVO">
+        SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit
+        FROM t_community c
+        JOIN t_communitytype ct ON c.commtype = ct.code
+        WHERE c.delState = 0
+        <if test="commtype != null and commtype != 'all'">
+            AND c.commtype = #{commtype}  <!-- 필터링 조건 확인 -->
+        </if>
+        ORDER BY c.regDT DESC
+    </select>
+
+
+
+
+
+</mapper>

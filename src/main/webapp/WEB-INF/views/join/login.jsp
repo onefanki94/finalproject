@@ -8,38 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
-    <script>
-    function makeAuthenticatedRequest() {
-        const token = localStorage.getItem("token");
-
-        // JWT 토큰이 존재하는지 확인
-        if (!token) {
-            console.error("로컬 스토리지에 토큰이 없습니다. 로그인이 필요합니다.");
-            return;
-        }
-
-        // 서버에 인증이 필요한 요청을 보냄
-        fetch('/user/login', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,  // Authorization 헤더에 JWT 토큰 설정
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Authorization failed: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('요청 성공:', data);
-        })
-        .catch(error => {
-            console.error('요청 중 오류 발생:', error);
-        });
-    }
-    </script>
+    <script src="/js/JWTLogin.js"></script>
   </head>
   <body>
     <div class="join_div">

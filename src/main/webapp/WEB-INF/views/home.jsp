@@ -22,19 +22,21 @@
             // URL에서 JWT 토큰과 사용자 정보를 가져옴
             const params = getQueryParams();
             const token = params.token;    // JWT 토큰 추출
-            const username = params.username;  // 사용자 이름 추출
+            const userid = params.userid;  // 사용자 이름 추출
 
             if (token) {
                 // JWT 토큰을 로컬 스토리지에 저장
                 localStorage.setItem("token", token);
                 console.log("JWT 토큰이 로컬 스토리지에 저장되었습니다.");
-
-                // 사용자 정보를 페이지에 표시하거나 다른 작업 수행
-                document.getElementById("welcome-message").innerText = `Welcome, ${username}!`;
-            } else {
-                console.error("토큰이 URL 파라미터에 없습니다.");
-            }
+                }
         });
+
+         document.addEventListener("DOMContentLoaded", function () {
+                // 현재 URL에서 쿼리 파라미터 제거
+                const url = new URL(window.location.href);
+                url.search = "";  // 쿼리 파라미터 부분을 비워서 제거
+                window.history.replaceState({}, document.title, url.toString());  // URL을 쿼리 파라미터 없이 대체
+            });
     </script>
 <div class="pin-spacer">
   <div id="mainVisual">
