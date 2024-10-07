@@ -1,13 +1,12 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MemberDAO;
-import com.ict.finalproject.vo.CommuVO;
+
 import com.ict.finalproject.vo.MemberVO;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -24,10 +23,22 @@ public class MemberServiceImpl implements MemberService {
         return dao.memberLogin(userid, userpwd);
     }
 
+<<<<<<< HEAD
     // userid로 index구하기
     @Override
     public int getUseridx(String userid) {
         return dao.getUseridx(userid);
     }
 
+=======
+    @Override
+    public MemberVO findByUserid(String userid) {
+        return dao.findByUserid(userid);
+    }
+
+    @Override
+    public MemberVO adminLogin(String userid) {
+        return dao.adminLogin(userid);
+    }
+>>>>>>> ae542fcc19f9739d7f3beded0f26485fad2d85b0
 }

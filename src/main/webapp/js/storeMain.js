@@ -76,24 +76,4 @@ $371(document).ready(function() {
     console.log('Slick initialized'); // 초기화 확인을 위한 로그 출력
 });
 
-// 스크롤 이벤트 리스너
-window.addEventListener('scroll', () => {
-    // 스크롤 위치가 100px 이상일 때 위로 가기 버튼을 보이게 함
-    if (
-      document.body.scrollTop > 100 ||
-      document.documentElement.scrollTop > 100
-    ) {
-      document.getElementById('btn-back-to-top').style.display = 'block';
-    } else {
-      document.getElementById('btn-back-to-top').style.display = 'none';
-    }
-  });
-  
-  // 클릭 시 페이지 맨 위로 스크롤 (애니메이션 효과 추가)
-  function backToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 부드러운 스크롤
-    });
-  }
 

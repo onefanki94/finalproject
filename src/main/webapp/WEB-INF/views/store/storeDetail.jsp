@@ -2,9 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
-<link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
+<link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src = "../../../js/storeDetail.js"></script>
 <!-- <script src="/js/storeDetail.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -60,9 +61,9 @@
     <!-- 상품 정보 및 기타 탭 -->
     <div class="product-tabs">
         <button class="tab active">상품정보</button>
-        <button class="tab" onclick="scrollToSection()">배송/교환/반품</button>
+        <button class="tab" onclick="scrollToShippingSection()">배송/교환/반품</button>
         <button class="tab">1:1 상품문의</button>
-        <button class="tab" onclick ="toggleReviewSection()">리뷰</button>
+        <button class="tab" onclick ="scrollToReviewSection()">리뷰</button>
     </div>
 
     <!-- 상품 정보 섹션 추가 -->
@@ -213,8 +214,6 @@
     
 </div>
    
-
-
     <!-- 페이지 네이션 -->
     <div class="pagination">
         <button class="active" onclick="changePage(1)">1</button>
@@ -222,14 +221,6 @@
         <button onclick="changePage(3)">3</button>
         <!-- 페이지 번호 추가 가능 -->
     </div>
-
-
-    <!-- 이미지 미리보기 영역 -->
-    <div id="preview"></div>
-<!--<button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>-->
-</div>
-
-<!--영역 외부-->
 
 <!-- Sticky Footer -->
 <div class="sticky-footer">
