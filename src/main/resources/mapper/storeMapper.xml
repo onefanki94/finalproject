@@ -2,17 +2,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.StoreDAO">
-
-<select id="storeContent" parameterType="storeVO">
-insert into t_product(title, price, detail_img, relDT,brand, fee, stock, pro_detail, category, ani_title)
-values
-('(OG) 내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종', 4000, 'img/store/f1.png', '2024-01-15', '나혼자만레벨업', 3500, 100, '내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종 세트입니다.', '인기굿즈', '내 마음의 위험한 녀석'),
-('(콜라보) [세븐나이츠 키우기] 트레이딩 영웅 포토카드', 5000, 'img/store/f2.png', '2023-12-10', '세븐나이츠키우기', 3500, 200, '세븐나이츠 키우기 트레이딩 영웅 포토카드입니다.', '신규굿즈', '세븐나이츠'),
-('페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET', 289000, 'img/store/f3.png', '2024-03-25', 'lolive', 3500, 50, '페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET입니다.', '인기굿즈', '페이트 스테이 나이트'),
-('(콜라보) [나혼자만 레벨업: 어라이즈] 헌터 협회 여권 케이스 & 헌터 출입증', 25000, 'img/store/f4.png', '2024-02-20', '블루아카이브', 3500, 150, '나혼자만 레벨업 헌터 협회 여권 케이스 & 출입증입니다.', '신규굿즈', '나혼자만 레벨업');
-</select>
-
-
+        <select id="storeContent" parameterType="storeVO">
+                inset into (title, price, detail_img, relDT, brand, fee, stock, pro_detail, category, ani_title)
+                values
+                ('(OG) 내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종', 4000, 'img/store/f1.png', '2024-01-15', '나혼자만레벨업', '3500원', 100, '내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종 세트입니다.', 2, '내 마음의 위험한 녀석'),
+                ('(콜라보) [세븐나이츠 키우기] 트레이딩 영웅 포토카드', 5000, 'img/store/f2.png', '2023-12-10', '세븐나이츠키우기', '3500원', 200, '세븐나이츠 키우기 트레이딩 영웅 포토카드입니다.', 2, '세븐나이츠'),
+                ('페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET', 289000, 'img/store/f3.png', '2024-03-25', 'lolive', '3500원', 50, '페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET입니다.', 3, '페이트 스테이 나이트'),
+                ('(콜라보) [나혼자만 레벨업: 어라이즈] 헌터 협회 여권 케이스 & 헌터 출입증', 25000, 'img/store/f4.png', '2024-02-20', '블루아카이브', '3500원', 150, '나혼자만 레벨업 헌터 협회 여권 케이스 & 출입증입니다.', 3, '나혼자만 레벨업');
+        </select>
+        <select id="getStoreList" resultType="StoreVO">
+                select title, price, detail_img from t_product
+        </select>
 </mapper>
 
 

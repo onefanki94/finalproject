@@ -1,8 +1,10 @@
 package com.ict.finalproject.Service;
 
+import java.util.List;
+
 import com.ict.finalproject.vo.StoreVO;
 
 public interface StoreService {
-    
-    public StoreVO storeContent(StoreVO vo);
+
+    public List<StoreVO> getStoreList();
 }

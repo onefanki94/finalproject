@@ -5,17 +5,26 @@ function filterProducts(filterType) {
 
     let products = Array.from(document.querySelectorAll('.list-product'));
 
-    // 모든 상품 숨기기
-    products.forEach(product => product.style.display = 'none');
+    // 상품 정렬 로직 추가
+    if (filterType === 'latest') {
+        // 최신순: data-date 값으로 정렬
+        products.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+    } else if (filterType === 'popular') {
+        // 인기순: data-popular 값으로 정렬
+        products.sort((a, b) => b.dataset.popular - a.dataset.popular);
+    } else if (filterType === 'high-price') {
+        // 높은 가격순: data-price 값으로 정렬
+        products.sort((a, b) => b.dataset.price - a.dataset.price);
+    } else if (filterType === 'low-price') {
+        // 낮은 가격순: data-price 값으로 정렬
+        products.sort((a, b) => a.dataset.price - b.dataset.price);
+    }
 
-    // 특정 필터 타입에 맞는 상품만 표시하기
-    products.forEach(product => {
-        if (product.dataset.filter === filterType || filterType === 'all') {
-            product.style.display = 'block';
-        }
-    });
-}
-
+    // 정렬된 상품을 다시 DOM에 추가
+    const productContainer = document.querySelector('.list-carousel-images');
+    productContainer.innerHTML = '';  // 기존 상품 제거
+    products.forEach(product => productContainer.appendChild(product));  // 정렬된 상품 다시 추가
+ }
   //검색창
 
   // 간단한 검색 기능 구현
