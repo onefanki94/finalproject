@@ -10,11 +10,22 @@
 
 body {
   font-family: var(--e-font), var(--k-font);
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 body,
 header,
-nav {
+nav,
+button{
   margin: 0;
   padding: 0;
 }
@@ -106,8 +117,29 @@ a {
   display: flex;
   float: left;
   position: relative;
-  top: 11px;
   margin-right: 10px;
+}
+
+.search-button button{
+    padding:0 6px;
+    background : none;
+    border:0;
+}
+
+.search-button input{
+    background: none;
+    border: 0;
+    border-bottom: 1px solid #f6f6f6b3;
+    width: 0; /* 기본 크기는 0으로 설정 */
+    padding: 0;
+    transition: width 0.4s ease; /* 너비 변화에 애니메이션 추가 */
+    overflow: hidden; /* 내용이 넘치지 않도록 설정 */
+    color:#fff;
+    outline: none;
+}
+
+.search-button:hover input {
+  width: 220px;
 }
 
 #login_btn {

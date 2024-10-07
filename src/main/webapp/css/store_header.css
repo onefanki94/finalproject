@@ -14,6 +14,16 @@ html {
 body {
   background: rgba(244, 244, 244, 0.8);
   font-family:var(--e-font),var(--k-font);
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
+    <script src="/js/JWTLogin.js"></script>
   </head>
   <body>
     <div class="join_div">
@@ -37,7 +38,7 @@
       <div class="login_div_pa">
         <div class="login_div_ch">
           <a href="/"><img id="logo_img" src="/img/main_img/logo_ex.png"/></a>
-          <form class="login-form">
+          <form class="login-form" action="/user/loginOk" method="POST">
             <div class="login_input-group">
               <input
                 type="text"

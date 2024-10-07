@@ -52,7 +52,7 @@
 
         <ul class="mymenu">
           <li class="order"><i class="fa-solid fa-basket-shopping"></i><a>장바구니</a></li>
-          <li class="my"><i class="fa-solid fa-user-check"></i><a>마이쇼핑</a></li>
+          <li class="my"><i class="fa-solid fa-user-check"></i><a>마이페이지</a></li>
         </ul>
       </div>
     </header>

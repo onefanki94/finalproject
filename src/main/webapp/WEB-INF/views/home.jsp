@@ -6,7 +6,38 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <link href="/css/home.css" rel="stylesheet" type="text/css"></link>
+<script>
+        // URL에서 쿼리 파라미터를 추출하여 객체로 변환하는 함수
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const queryParams = {};
+            for (const [key, value] of params.entries()) {
+                queryParams[key] = value;
+            }
+            return queryParams;
+        }
 
+        // 페이지 로드 시 실행될 함수
+        document.addEventListener("DOMContentLoaded", function () {
+            // URL에서 JWT 토큰과 사용자 정보를 가져옴
+            const params = getQueryParams();
+            const token = params.token;    // JWT 토큰 추출
+            const userid = params.userid;  // 사용자 이름 추출
+
+            if (token) {
+                // JWT 토큰을 로컬 스토리지에 저장
+                localStorage.setItem("token", token);
+                console.log("JWT 토큰이 로컬 스토리지에 저장되었습니다.");
+                }
+        });
+
+         document.addEventListener("DOMContentLoaded", function () {
+                // 현재 URL에서 쿼리 파라미터 제거
+                const url = new URL(window.location.href);
+                url.search = "";  // 쿼리 파라미터 부분을 비워서 제거
+                window.history.replaceState({}, document.title, url.toString());  // URL을 쿼리 파라미터 없이 대체
+            });
+    </script>
 <div class="pin-spacer">
   <div id="mainVisual">
     <div class="main_banner">
@@ -17,7 +48,7 @@
           autoplay
           loop
           muted
-          src="/img/main_img/ani1.mp4"
+          src="/img/main_img/ani1_4kup.mp4"
         ></video>
       </div>
       <div class="main_txt">
@@ -157,7 +188,7 @@
         </ul>
       </div>
       <div class="more_btn_div">
-        <a class="more_btn" href="#">MORE VIEW</a>
+        <a class="more_btn" href="/aniList">MORE VIEW</a>
       </div>
     </div>
   </div>
@@ -298,7 +329,7 @@
           </div>
           <div class="pager_wrap">
             <div class="swiper-pagination"></div>
-            <a class="more_btn" href="#">MORE VIEW</a>
+            <a class="more_btn" href="/storeMain">MORE VIEW</a>
           </div>
         </div>
       </div>
@@ -329,7 +360,7 @@
         </div>
         <div class="r_cont">
           <div class="cont">
-            <a href="">
+            <a href="/cmList">
               <p class="view_btn">
                 view<svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -452,3 +483,5 @@
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/js/home.js"></script>
+
+<%@include file="/WEB-INF/inc/footer.jspf"%>
