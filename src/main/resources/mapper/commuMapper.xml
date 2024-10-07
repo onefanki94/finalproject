@@ -38,7 +38,17 @@
         select * from t_community where idx &lt; #{idx} order by idx desc limit 1
     </select>
 
+    <update id="UpdateBoard" parameterType="com.ict.finalproject.vo.CommuVO">
+        UPDATE t_community
+        SET title = #{title},
+        content = #{content},
+        modifyDT = NOW()
+        WHERE idx = #{idx}
+    </update>
 
+    <delete id="Delete" parameterType="int">
+        delete from t_community where idx = #{idx}
+    </delete>
 
 
 

@@ -93,22 +93,27 @@
                <c:if test="${nextPost == null}"></c:if>
            </div>
         <div class="listBt">
-            <a class="btn btn-secondary btn-sm" href="#" role="button">
+            <a class="btn btn-secondary btn-sm" href="/cmEdit?idx=${vo.idx}" role="button">
                 수정
             </a>
             <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
                 목록
             </a>
-            <a class="btn btn-secondary btn-sm" href="#" role="button">
+            <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
                 삭제
             </a>
-      </div>
+        </div>
 
     </div>
 
+    <!-- 삭제 확인 및 처리 -->
+    <script type="text/javascript">
+        function confirmDelete(idx) {
+            if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+                // 삭제 확인 시 삭제 URL로 이동
+                location.href = '/cmDelete?idx=' + idx;
+            }
+        }
+    </script>
 
 
-
-
-</body>
-</html>

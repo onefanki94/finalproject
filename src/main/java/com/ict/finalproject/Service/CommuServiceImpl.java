@@ -45,5 +45,16 @@ public class CommuServiceImpl implements CommuService {
         return commuDAO.NextPost(idx);
     }
 
+    @Override
+    public boolean UpdateBoard(CommuVO board) {
+        int result = commuDAO.UpdateBoard(board);
+        return result > 0; // 1 이상이면 수정 성공
+    }
+
+    @Override
+    public int Delete(int idx) {
+        return commuDAO.Delete(idx);
+    }
+
 
 }

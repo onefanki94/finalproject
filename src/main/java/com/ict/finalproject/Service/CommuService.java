@@ -26,4 +26,8 @@ public interface CommuService {
     //이전, 다음페이지
     CommuVO PreviousPost(int idx);
     CommuVO NextPost(int idx);
+
+    // 게시글 수정 메서드
+    boolean UpdateBoard(CommuVO board);
+    int Delete(int idx);
 }

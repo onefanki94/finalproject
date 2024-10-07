@@ -49,9 +49,11 @@ public class communityController {
         return "community/cmList";
     }
 
+    //상세페이지
     @GetMapping("/cmView")
     public String cmView(@RequestParam("idx") int idx, Model model) {
         System.out.println("Received idx: " + idx); // idx 값 확인
+
         CommuVO Detail = commuService.Detail(idx);
         if (Detail == null) {
             return "redirect:/error";
@@ -68,6 +70,44 @@ public class communityController {
 
         return "community/cmView";
     }
+
+    // 수정 페이지로 이동
+    @GetMapping("/cmEdit")
+    public String editPage(@RequestParam("idx") int idx, Model model) {
+        // 기존 게시글 정보 조회
+        CommuVO detail = commuService.Detail(idx);
+        model.addAttribute("vo", detail);
+        return "community/cmEdit";  // 수정 페이지로 이동 (cmEdit.jsp)
+    }
+
+
+    @PostMapping("/cmEditOk")
+    public String updateBoard(CommuVO board) {
+        boolean success = commuService.UpdateBoard(board);
+
+        // 수정 성공 시 수정된 게시글의 상세 페이지로 리다이렉트
+        if (success) {
+            return "redirect:/cmView?idx=" + board.getIdx();
+        } else {
+            // 실패 시 오류 메시지 출력 후, 수정 페이지로 다시 이동
+            return "community/cmEdit";
+        }
+    }
+
+
+    @GetMapping("/cmDelete")
+    public String delete(@RequestParam("idx") int idx, Model model) {
+        int result = commuService.Delete(idx);
+        if (result > 0) {
+            return "redirect:/cmList";  // 삭제 성공 시 게시글 목록 페이지로 이동
+        } else {
+            model.addAttribute("errorMessage", "게시글 삭제에 실패했습니다.");
+            return "community/cmView";  // 삭제 실패 시 현재 페이지로 다시 이동
+        }
+    }
+
+
+
 
 
     //로그인 여부

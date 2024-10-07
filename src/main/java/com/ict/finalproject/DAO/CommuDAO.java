@@ -27,5 +27,10 @@ public interface CommuDAO {
     CommuVO PreviousPost(int idx);
     CommuVO NextPost(int idx);
 
+    // 게시글 수정 메서드
+    int UpdateBoard(CommuVO board);
+    int Delete(int idx);
+
+
 
 }
