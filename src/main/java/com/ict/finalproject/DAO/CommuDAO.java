@@ -14,11 +14,7 @@ public interface CommuDAO {
     // 글 작성 메서드
     int insertBoard(CommuVO board);
 
-    // 전체 게시글 불러오기 메서드
-    List<CommuVO> newList();
-
+    // 게시글 불러오기 메서드
     List<CommuVO> List(String commtype);
-    List<CommuVO> BoastList();
-    List<CommuVO> FriendList();
-    List<CommuVO> FanartList();
+
 }

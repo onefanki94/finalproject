@@ -32,6 +32,7 @@ public class communityController {
 
 
 //    ModelAndView mav = null;
+
     // 커뮤니티 리스트 페이지
     @GetMapping("/cmList")
     public String cmList(@RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype, Model model) {

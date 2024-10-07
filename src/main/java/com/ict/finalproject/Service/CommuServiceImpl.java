@@ -21,26 +21,6 @@ public class CommuServiceImpl implements CommuService {
     }
 
     @Override
-    public List<CommuVO> newList() {
-        return commuDAO.newList();
-    }
-
-    @Override
-    public List<CommuVO> BoastList() {
-        return commuDAO.BoastList();
-    }
-
-    @Override
-    public List<CommuVO> FriendList() {
-        return commuDAO.FriendList();
-    }
-
-    @Override
-    public List<CommuVO> FanartList() {
-        return commuDAO.FanartList();
-    }
-
-    @Override
     public List<CommuVO> List(String commtype) {
         return commuDAO.List(commtype);
     }
