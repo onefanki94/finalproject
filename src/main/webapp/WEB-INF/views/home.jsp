@@ -46,7 +46,7 @@
           autoplay
           loop
           muted
-          src="/img/main_img/ani1.mp4"
+          src="/img/main_img/ani1_4kup.mp4"
         ></video>
       </div>
       <div class="main_txt">
