@@ -32,6 +32,7 @@ public class communityController {
 
 
 //    ModelAndView mav = null;
+
     // 커뮤니티 리스트 페이지
     @GetMapping("/cmList")
     public String cmList(@RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype, Model model) {
@@ -46,6 +47,17 @@ public class communityController {
         model.addAttribute("list", list);
         model.addAttribute("commtype", commtype); // 현재 선택된 커뮤니티 타입 전달
         return "community/cmList";
+    }
+
+    @GetMapping("/cmView")
+    public String cmView(@RequestParam("idx") int idx, Model model) {
+        System.out.println("Received idx: " + idx); // idx 값 확인
+        CommuVO Detail = commuService.Detail(idx);
+        if (Detail == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("vo", Detail);
+        return "community/cmView";
     }
 
 
@@ -113,11 +125,7 @@ public class communityController {
 
 
 
-    //상세페이지
-    @GetMapping("/cmView")
-    public String cmView(){
-        return "community/cmView";
-    }
+
 
     //커뮤니티-공지사항 이동
     @GetMapping("/allnotice")
