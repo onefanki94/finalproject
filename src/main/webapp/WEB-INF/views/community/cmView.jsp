@@ -78,21 +78,31 @@
         <!-- 리스트 목록 -->
            <div class="list_section">
                <c:if test="${previousPost != null}"></c:if>
-                    <a href="/cmView?idx=${vo.idx}">
+                    <a href="/cmView?idx=${go.idx}">
                     <div class="list_pre">
                         <i class="bi bi-chevron-up"></i>이전페이지
                     </div></a>
                <c:if test="${previousPost == null}"></c:if>
 
                <c:if test="${nextPost != null}"></c:if>
-               <a href="/cmView?idx=${vo.idx}">
+               <a href="/cmView?idx=${tun.idx}">
                 <div class="list_next">
                     <i class="bi bi-chevron-down"></i>다음페이지
                 </div></a>
 
                <c:if test="${nextPost == null}"></c:if>
            </div>
-
+        <div class="listBt">
+            <a class="btn btn-secondary btn-sm" href="#" role="button">
+                수정
+            </a>
+            <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
+                목록
+            </a>
+            <a class="btn btn-secondary btn-sm" href="#" role="button">
+                삭제
+            </a>
+      </div>
 
     </div>
 

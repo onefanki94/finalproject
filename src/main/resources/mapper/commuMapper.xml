@@ -31,11 +31,11 @@
     </update>
 
     <select id="PreviousPost" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
-        select * from t_community where idx &lt; #{idx} order by idx desc limit 1
+        select * from t_community where idx &gt; #{idx} order by idx asc limit 1
     </select>
 
     <select id="NextPost" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
-        select * from t_community where idx &gt; #{idx} order by idx asc limit 1
+        select * from t_community where idx &lt; #{idx} order by idx desc limit 1
     </select>
 
 

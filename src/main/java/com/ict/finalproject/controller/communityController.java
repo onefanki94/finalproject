@@ -63,8 +63,8 @@ public class communityController {
         CommuVO nextPost = commuService.NextPost(idx);
 
         model.addAttribute("vo", Detail);
-        model.addAttribute("vo", previousPost);
-        model.addAttribute("vo", nextPost);
+        model.addAttribute("go", previousPost);
+        model.addAttribute("tun", nextPost);
 
         return "community/cmView";
     }
