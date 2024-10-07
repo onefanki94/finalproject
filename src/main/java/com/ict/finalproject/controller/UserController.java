@@ -62,11 +62,16 @@ public class UserController {
         String userid = loginRequest.getUserid();
         String userpwd = loginRequest.getUserpwd();
 
-        // 회원 정보 검증: 데이터베이스에서 사용자 정보 조회
+        // 일반 사용자 로그인 시도
         MemberVO member = service.memberLogin(userid, userpwd);
         if (member == null) {
-            // 사용자 정보가 없으면 로그인 실패로 간주하고 로그인 페이지로 리다이렉트
-            mav.setViewName("redirect:/user/login");
+            // 사용자 정보가 없으면 관리자 정보 조회
+            member = service.adminLogin(userid);
+        }
+
+        // 사용자 또는 관리자 정보가 없으면 로그인 실패로 간주하고 로그인 페이지로 리다이렉트
+        if (member == null) {
+            mav.setViewName("redirect:/user/login"); // 로그인 페이지로 리다이렉트
             return mav;
         }
 
@@ -78,22 +83,18 @@ public class UserController {
             return mav;
         }
 
-        // 데이터베이스에서 해당 사용자의 role 정보 가져오기 (예: "ROLE_admin" 또는 "ROLE_user")
-        String role = member.getRole();
         log.info("로그인 성공: " + userid);
-        log.info("사용자 권한: " + role);
 
-        // JWT 토큰 생성 (7일 동안 유효)
-        String token = jwtUtil.createJwt(userid, role, 604800000L);
+        // JWT 토큰 생성 (7일 동안 유효), role 사용하지 않음
+        String token = jwtUtil.createJwt(userid, member.getIdx(), 604800000L);  // idx 사용
 
         // JWT 토큰을 HTTP 응답 헤더에 추가
         response.setHeader("Authorization", "Bearer " + token);
         log.info("응답 헤더에 설정된 토큰 값: " + response.getHeader("Authorization"));
 
-        // JWT 토큰을 ModelAndView 객체에 추가
+        // JWT 토큰을 ModelAndView 객체에 추가 (필요시)
         mav.addObject("token", token);
         mav.addObject("userid", userid);
-        mav.addObject("role", role);
 
         // 메인 페이지로 리다이렉트
         mav.setViewName("redirect:/");
@@ -112,23 +113,31 @@ public class UserController {
     }
 
     @PostMapping("/joinformOk")
-    public ModelAndView joinOk(HttpServletRequest request, @RequestParam String userid, @RequestParam String userpwd, @RequestParam String username, @RequestParam String email) {
+    public ModelAndView joinOk(HttpServletRequest request,
+                               @RequestParam String userid,
+                               @RequestParam String userpwd,
+                               @RequestParam String username,
+                               @RequestParam String email) {
+        ModelAndView mav = new ModelAndView(); // Initialize ModelAndView
+
         try {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             MemberVO vo = new MemberVO();
             vo.setUserid(userid);
-            vo.setUserpwd(passwordEncoder.encode(userpwd));
+            vo.setUserpwd(passwordEncoder.encode(userpwd)); // 비밀번호 암호화
             vo.setUsername(username);
             vo.setEmail(email);
 
             int resultMember = service.memberCreate(vo);
 
             if (resultMember == 1) {
-                // JWT 토큰 생성 및 세션에 저장
-                String token = jwtUtil.createJwt(userid, "ROLE_USER", 3600000L);
-                request.getSession().setAttribute("token", token);  // 세션에 저장
+                // JWT 토큰 생성 (ROLE_USER 제거)
+                String token = jwtUtil.createJwt(userid, vo.getIdx(), 3600000L); // idx가 있다면 사용
 
-                // 세션에서 데이터 접근 가능
+                // JWT 토큰을 세션에 저장
+                request.getSession().setAttribute("token", token);
+
+                // 회원가입 성공 후 로그인 페이지로 리다이렉트
                 mav.setViewName("redirect:/user/login");
             } else {
                 mav.setViewName("redirect:/user/join");

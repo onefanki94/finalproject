@@ -42,7 +42,7 @@ public class SecurityConfig {
         // 권한 및 인증 설정
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/", "/join", "/cmList").permitAll()  // 인증 없이 접근 가능
-                .requestMatchers("/master/**").hasAuthority("ROLE_admin")  // 특정 경로는 admin 권한 필요
+                .requestMatchers("/master/**").authenticated()  // 특정 경로는 인증 필요
                 .anyRequest().permitAll()  // 나머지 모든 요청은 인증 필요
         );
 

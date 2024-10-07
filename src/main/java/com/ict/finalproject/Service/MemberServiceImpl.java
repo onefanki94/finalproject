@@ -21,4 +21,14 @@ public class MemberServiceImpl implements MemberService {
     public MemberVO memberLogin(String userid, String userpwd) {
         return dao.memberLogin(userid, userpwd);
     }
+
+    @Override
+    public MemberVO findByUserid(String userid) {
+        return dao.findByUserid(userid);
+    }
+
+    @Override
+    public MemberVO adminLogin(String userid) {
+        return dao.adminLogin(userid);
+    }
 }
