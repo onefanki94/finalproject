@@ -5,6 +5,15 @@ function filterProducts(filterType) {
 
     let products = Array.from(document.querySelectorAll('.list-product'));
 
+    // 모든 상품 숨기기
+    products.forEach(product => product.style.display = 'none');
+
+    // 특정 필터 타입에 맞는 상품만 표시하기
+    products.forEach(product => {
+        if (product.dataset.filter === filterType || filterType === 'all') {
+            product.style.display = 'block';
+        }
+    });
 }
 
   //검색창

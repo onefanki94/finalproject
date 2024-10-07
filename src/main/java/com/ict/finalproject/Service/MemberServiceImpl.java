@@ -1,13 +1,12 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MemberDAO;
-import com.ict.finalproject.vo.CommuVO;
+
 import com.ict.finalproject.vo.MemberVO;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {

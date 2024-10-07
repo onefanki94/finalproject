@@ -82,22 +82,22 @@
                                         <a href="/storeDetail">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>(OG)내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종 </p>
+                                        <p>4,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail2.jsp">
                                             <img src="img/store/f2.png" alt="list-product2">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>(콜라보)[세븐나이츠 키우기] 트레이딩 영웅 포토카드</p>
+                                        <p>5,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail3.jsp">
                                             <img src="img/store/f3.png" alt="list-product3">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET </p>
+                                        <p>289,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail4.jsp">
@@ -110,22 +110,22 @@
                                         <a href="productDetail1.jsp">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>(OG)내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종 </p>
+                                        <p>4,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail2.jsp">
                                             <img src="img/store/f2.png" alt="list-product2">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>(콜라보)[세븐나이츠 키우기] 트레이딩 영웅 포토카드</p>
+                                        <p>5,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail3.jsp">
                                             <img src="img/store/f3.png" alt="list-product3">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET </p>
+                                        <p>289,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail4.jsp">
@@ -138,22 +138,22 @@
                                         <a href="productDetail1.jsp">
                                             <img src="img/store/f1.png" alt="list-product1">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>(OG)내 마음의 위험한 녀석 트레이딩 원형 캔뱃지 7종 </p>
+                                        <p>4,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail2.jsp">
                                             <img src="img/store/f2.png" alt="list-product2">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>(콜라보)[세븐나이츠 키우기] 트레이딩 영웅 포토카드</p>
+                                        <p>5,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail3.jsp">
                                             <img src="img/store/f3.png" alt="list-product3">
                                         </a>
-                                        <p>(콜라보)[나혼자만 레벨업:어라이즈]헌터 협회 여권 케이스 & 헌터 출입증 </p>
-                                        <p>25,000 원</p>
+                                        <p>페이트 스테이 나이트 헤브느필 ONLY 블루레이 SET </p>
+                                        <p>289,000 원</p>
                                     </li>
                                     <li class="list-product">
                                         <a href="productDetail4.jsp">
