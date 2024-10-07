@@ -17,4 +17,8 @@ public interface CommuDAO {
     // 게시글 불러오기 메서드
     List<CommuVO> List(String commtype);
 
+    //디테일 페이지
+    CommuVO Detail(int idx);
+
+
 }

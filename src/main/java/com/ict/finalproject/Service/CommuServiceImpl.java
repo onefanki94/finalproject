@@ -25,5 +25,10 @@ public class CommuServiceImpl implements CommuService {
         return commuDAO.List(commtype);
     }
 
+    @Override
+    public CommuVO Detail(int idx) {
+        return commuDAO.Detail(idx);
+    }
+
 
 }

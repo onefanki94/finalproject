@@ -49,6 +49,17 @@ public class communityController {
         return "community/cmList";
     }
 
+    @GetMapping("/cmView")
+    public String cmView(@RequestParam("idx") int idx, Model model) {
+        System.out.println("Received idx: " + idx); // idx 값 확인
+        CommuVO Detail = commuService.Detail(idx);
+        if (Detail == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("vo", Detail);
+        return "community/cmView";
+    }
+
 
     //로그인 여부
     @ResponseBody
@@ -114,11 +125,7 @@ public class communityController {
 
 
 
-    //상세페이지
-    @GetMapping("/cmView")
-    public String cmView(){
-        return "community/cmView";
-    }
+
 
     //커뮤니티-공지사항 이동
     @GetMapping("/allnotice")
