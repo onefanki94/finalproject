@@ -23,14 +23,14 @@ public class MemberServiceImpl implements MemberService {
         return dao.memberLogin(userid, userpwd);
     }
 
-<<<<<<< HEAD
+
     // userid로 index구하기
     @Override
     public int getUseridx(String userid) {
         return dao.getUseridx(userid);
     }
 
-=======
+
     @Override
     public MemberVO findByUserid(String userid) {
         return dao.findByUserid(userid);
@@ -40,5 +40,5 @@ public class MemberServiceImpl implements MemberService {
     public MemberVO adminLogin(String userid) {
         return dao.adminLogin(userid);
     }
->>>>>>> ae542fcc19f9739d7f3beded0f26485fad2d85b0
+
 }
