@@ -273,7 +273,7 @@
 
 
 <script>
-
+//탭1_공지사항_모달
     document.querySelectorAll('.noticeTitle').forEach(item => {
         item.addEventListener('click', function (e) {
             e.preventDefault(); // 링크 기본 동작 방지
