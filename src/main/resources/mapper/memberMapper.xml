@@ -6,7 +6,7 @@
         insert into t_user(userid, userpwd,username,email,zipcode,addr, birth) values(#{userid},#{userpwd},#{username},#{email},#{zipcode},#{addr}, #{birth})
     </insert>
     <select id="memberLogin" parameterType="map" resultType="MemberVO">
-        select userid, userpwd, username, role from t_user where userid=#{userid}
+        select userid, userpwd, username from t_user where userid=#{userid}
     </select>
 
     <select id="getUseridx" resultType="int">
