@@ -22,4 +22,7 @@ public interface MemberDAO {
         public int getUseridx(String userid);
 
 
+        public MemberVO findByUserid(String userid);
+
+        MemberVO adminLogin(@Param("userid") String userid);
 }

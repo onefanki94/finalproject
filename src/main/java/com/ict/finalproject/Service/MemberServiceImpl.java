@@ -30,4 +30,13 @@ public class MemberServiceImpl implements MemberService {
         return dao.getUseridx(userid);
     }
 
+    @Override
+    public MemberVO findByUserid(String userid) {
+        return dao.findByUserid(userid);
+    }
+
+    @Override
+    public MemberVO adminLogin(String userid) {
+        return dao.adminLogin(userid);
+    }
 }
