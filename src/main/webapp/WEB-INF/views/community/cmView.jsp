@@ -65,7 +65,7 @@
                     </div>
 
                    <!-- 원글 글번호 -->
-                     <input type="hidden" name="no" value="${vo.no}"/>
+                     <input type="hidden" name="no" value="${vo.idx}"/>
                   </div>
                </form>
 
@@ -77,38 +77,23 @@
 
         <!-- 리스트 목록 -->
            <div class="list_section">
-               <!-- <c:if test="${otherVo.preNo!=0}"></c:if> -->
-                    <a href="#">
+               <c:if test="${previousPost != null}"></c:if>
+                    <a href="/cmView?idx=${vo.idx}">
                     <div class="list_pre">
                         <i class="bi bi-chevron-up"></i>이전페이지
-                    </div>
-                    </a>
+                    </div></a>
+               <c:if test="${previousPost == null}"></c:if>
 
-               <!-- <c:if test="${otherVo.preNo==0}"></c:if> -->
-
-
-
-               <!-- <c:if test="${otherVo.nextNo!=0}"> -->
-               <a href="#">
+               <c:if test="${nextPost != null}"></c:if>
+               <a href="/cmView?idx=${vo.idx}">
                 <div class="list_next">
                     <i class="bi bi-chevron-down"></i>다음페이지
-                </div>
-                  </a>
-               <!-- </c:if> -->
-               <!-- <c:if test="${otherVo.nextNo==0}"></c:if>-->
+                </div></a>
+
+               <c:if test="${nextPost == null}"></c:if>
            </div>
 
-            <div class="listBt">
-                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
-                    수정
-                </a>
-                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
-                    목록
-                </a>
-                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
-                    삭제
-                </a>
-          </div>
+
     </div>
 
 

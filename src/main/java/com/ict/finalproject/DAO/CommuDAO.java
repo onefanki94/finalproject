@@ -17,8 +17,15 @@ public interface CommuDAO {
     // 게시글 불러오기 메서드
     List<CommuVO> List(String commtype);
 
-    //디테일 페이지
+    //상세페이지
     CommuVO Detail(int idx);
+
+    //조회수
+    void HitCount(@Param("idx") int idx);
+
+    //이전, 다음페이지
+    CommuVO PreviousPost(int idx);
+    CommuVO NextPost(int idx);
 
 
 }

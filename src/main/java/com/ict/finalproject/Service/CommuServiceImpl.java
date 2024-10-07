@@ -30,5 +30,20 @@ public class CommuServiceImpl implements CommuService {
         return commuDAO.Detail(idx);
     }
 
+    @Override
+    public void HitCount(int idx) {
+        commuDAO.HitCount(idx);
+    }
+
+    @Override
+    public CommuVO PreviousPost(int idx) {
+        return commuDAO.PreviousPost(idx);
+    }
+
+    @Override
+    public CommuVO NextPost(int idx) {
+        return commuDAO.NextPost(idx);
+    }
+
 
 }

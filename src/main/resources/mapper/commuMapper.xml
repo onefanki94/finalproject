@@ -26,6 +26,20 @@
         WHERE c.idx = #{idx} <!-- idx에 해당하는 항목 조회 -->
     </select>
 
+    <update id="HitCount" parameterType="int">
+        UPDATE t_community SET hit = hit + 1 WHERE idx = #{idx}
+    </update>
+
+    <select id="PreviousPost" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
+        select * from t_community where idx &lt; #{idx} order by idx desc limit 1
+    </select>
+
+    <select id="NextPost" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
+        select * from t_community where idx &gt; #{idx} order by idx asc limit 1
+    </select>
+
+
+
 
 
 

@@ -56,7 +56,16 @@ public class communityController {
         if (Detail == null) {
             return "redirect:/error";
         }
+
+        commuService.HitCount(idx);
+
+        CommuVO previousPost = commuService.PreviousPost(idx);
+        CommuVO nextPost = commuService.NextPost(idx);
+
         model.addAttribute("vo", Detail);
+        model.addAttribute("vo", previousPost);
+        model.addAttribute("vo", nextPost);
+
         return "community/cmView";
     }
 
@@ -81,8 +90,6 @@ public class communityController {
     }
 
     //글 등록(DB)
-
-
     @PostMapping("/cmWriteOk")
     public ResponseEntity<String> writeOk(
             @RequestParam("code") String code, // communitytype 테이블의 code 필드와 매핑

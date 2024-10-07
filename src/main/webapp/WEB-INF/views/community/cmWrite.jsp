@@ -68,7 +68,7 @@
             <div style="margin: 30px auto 0 auto; text-align: center;">
                 <button type="submit" class="write_btn">글등록하기</button>
             </div>
-           <input type="text" id="token" name="token"value="11" />
+
         </form>
     </div>
 
