@@ -1,9 +1,8 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MemberDAO;
-
 import com.ict.finalproject.vo.MemberVO;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -23,10 +22,8 @@ public class MemberServiceImpl implements MemberService {
         return dao.memberLogin(userid, userpwd);
     }
 
-    // userid로 index구하기
     @Override
-    public int getUseridx(String userid) {
+    public Integer getUseridx(String userid) {
         return dao.getUseridx(userid);
     }
-
 }

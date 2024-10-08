@@ -21,28 +21,39 @@ public class CommuServiceImpl implements CommuService {
     }
 
     @Override
-    public List<CommuVO> newList() {
-        return commuDAO.newList();
-    }
-
-    @Override
-    public List<CommuVO> BoastList() {
-        return commuDAO.BoastList();
-    }
-
-    @Override
-    public List<CommuVO> FriendList() {
-        return commuDAO.FriendList();
-    }
-
-    @Override
-    public List<CommuVO> FanartList() {
-        return commuDAO.FanartList();
-    }
-
-    @Override
     public List<CommuVO> List(String commtype) {
         return commuDAO.List(commtype);
+    }
+
+    @Override
+    public CommuVO Detail(int idx) {
+        return commuDAO.Detail(idx);
+    }
+
+    @Override
+    public void HitCount(int idx) {
+        commuDAO.HitCount(idx);
+    }
+
+    @Override
+    public CommuVO PreviousPost(int idx) {
+        return commuDAO.PreviousPost(idx);
+    }
+
+    @Override
+    public CommuVO NextPost(int idx) {
+        return commuDAO.NextPost(idx);
+    }
+
+    @Override
+    public boolean UpdateBoard(CommuVO board) {
+        int result = commuDAO.UpdateBoard(board);
+        return result > 0; // 1 이상이면 수정 성공
+    }
+
+    @Override
+    public int Delete(int idx) {
+        return commuDAO.Delete(idx);
     }
 
 

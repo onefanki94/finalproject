@@ -80,7 +80,7 @@
                                 <ul class="list-carousel-images">
                                   <!--db에서 가져온 상품목록-->
                                   <c:forEach var="product" items="${storeList}">
-                                    <li class="list-products">
+                                    <li class="list-product">
                                         <a href="/storeDetail">
                                             <img src="${product.detail_img}" alt="${product.title}">
                                         </a>
@@ -93,9 +93,9 @@
                         </ul>
                     </div>
                 </section>
-                
-      
-                
+
+
+
 </div>
 
 

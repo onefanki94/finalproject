@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberVO {
+    private int idx;
     private String userid;
     private String userpwd;
     private String username;
@@ -16,5 +17,4 @@ public class MemberVO {
     private String zipcode;
     private String addr;
     private String birth;
-    private String role;
 }

@@ -1,30 +1,26 @@
 package com.ict.finalproject.controller;
 
-import java.util.List;
-
+import com.ict.finalproject.Service.StoreService;
+import com.ict.finalproject.vo.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ict.finalproject.Service.StoreService;
-import com.ict.finalproject.vo.StoreVO;
-
+import java.util.List;
 
 
 @Controller
 public class storeMainController {
+
     @Autowired
-    private StoreService storeService;
-    //StoreService service;
-    ModelAndView mav = null;
+    StoreService storeService;
+     @GetMapping("/storeMain")
+ public String storeMain() {
+     return "store/storeMain";
+ }
 
-    @GetMapping("/storeMain")
-    public String storeMain() {
-        return "store/storeMain";
-    }
 
- 
     @GetMapping("/storeList")
     public ModelAndView getStoreList(){
         System.out.println(11);
@@ -34,27 +30,11 @@ public class storeMainController {
         mav.addObject("storeList", storeList);
         mav.setViewName("store/storeList");
         return mav;
-    } 
-
-//    @GetMapping("/storeDetail")
-//    public ModelAndView storDetail(StoreVO vo) {
-//     mav = new ModelAndView();
-
-//      vo = service.storeContent(vo);
-        
-//        return mav;
-//    }
-
-    @GetMapping("/shoppingBag")
-    public String shoppingBag() {
-        return "store/shopping_bag";
     }
 
-    @GetMapping("/orderpage")
-    public String orderpage() {
-        return "store/orderpage";
-    }
+    @GetMapping("/storeDetail")
+   public String storDetail() {
+       return "store/storeDetail";
+   }
+   
 }
-
-
-

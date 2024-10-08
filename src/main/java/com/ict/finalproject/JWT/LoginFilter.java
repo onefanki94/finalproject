@@ -1,6 +1,7 @@
 package com.ict.finalproject.JWT;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ict.finalproject.DTO.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,25 +26,26 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    // 1주일(7일) 동안의 만료 시간 (밀리초)
+    private static final long TOKEN_EXPIRATION_TIME = 7 * 24 * 60 * 60 * 1000L;
 
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
         // 로그인 요청에서 username과 password 파라미터를 명확하게 추출
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String userid = request.getParameter("userid");
+        String password = request.getParameter("userpwd");
 
-        if (username == null || password == null) {
+        if (userid == null || password == null) {
             throw new IllegalArgumentException("잘못된 정보.");
         }
 
         // 로그인을 위한 인증 토큰 생성
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userid, password);
 
         // AuthenticationManager를 사용하여 인증 시도
         return authenticationManager.authenticate(authToken);
@@ -51,32 +53,26 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-
         // 인증된 사용자 정보 가져오기
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        String username = customUserDetails.getUsername();
+        String userid = customUserDetails.getUsername();
 
-        // 사용자의 권한(role) 정보 추출
-        Collection<? extends GrantedAuthority> authorities = customUserDetails.getAuthorities();
-        String role = authorities.stream().findFirst().map(GrantedAuthority::getAuthority).orElse("ROLE_USER");
-
-        // JWT 토큰 생성
-        String token = jwtUtil.createJwt(username, role, 3600000L);  // 1시간 만료 시간
+        // JWT 토큰 생성 (1주일 동안 유효한 토큰)
+        String token = jwtUtil.createJwt(userid, TOKEN_EXPIRATION_TIME);
 
         // JSON 형식으로 JWT 토큰 반환
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("username", username);
-        responseBody.put("role", role);
+        responseBody.put("userid", userid);
         responseBody.put("token", "Bearer " + token);
 
+        response.getWriter().write(new ObjectMapper().writeValueAsString(responseBody));
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-
-        response.setStatus(401);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }
