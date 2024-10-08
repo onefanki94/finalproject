@@ -23,4 +23,10 @@ public class OrderVO {
     private String request_memo;
     private int use_point;
     private String token;
+
+    // 매개변수가 있는 생성자
+    public OrderVO(int useridx, int total_price) {
+        this.useridx = useridx;
+        this.total_price= total_price;
+    }
 }

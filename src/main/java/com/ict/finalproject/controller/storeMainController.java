@@ -36,5 +36,10 @@ public class storeMainController {
    public String storDetail() {
        return "store/storeDetail";
    }
+
+    @GetMapping("/shoppingBag")
+    public String shoppingBag() {
+        return "store/shopping_bag";
+    }
    
 }

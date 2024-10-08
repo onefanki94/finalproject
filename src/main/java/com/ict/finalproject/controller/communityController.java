@@ -135,12 +135,14 @@ public class communityController {
             @RequestParam("code") String code,
             @RequestParam("title") String title,
             @RequestParam("content") String content,
-            @RequestHeader(value = "Authorization", required = false) String authHeader  // Authorization 헤더 값이 없을 때도 예외가 발생하지 않도록 설정
+            @RequestHeader("Authorization") String authHeader  // Authorization 헤더 값이 없을 때도 예외가 발생하지 않도록 설정
     ) {
         ModelAndView mav = new ModelAndView();
 
+        System.out.println(authHeader);
         // Authorization 헤더 확인
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("1");
             mav.setViewName("redirect:/user/login");  // 인증 실패 시 로그인 페이지로 리다이렉트
             mav.addObject("errorMessage", "Authorization 헤더가 없거나 잘못되었습니다.");
             return mav;
@@ -150,6 +152,7 @@ public class communityController {
         String token = authHeader.substring(7);  // 'Bearer ' 다음의 문자열부터 토큰이 시작됨
 
         if (token.isEmpty()) {
+            System.out.println("2");
             mav.setViewName("redirect:/user/login");
             mav.addObject("errorMessage", "JWT 토큰이 비어 있습니다.");
             return mav;
@@ -162,12 +165,14 @@ public class communityController {
         } catch (Exception e) {
             // 토큰 파싱 오류 처리
             e.printStackTrace();
+            System.out.println("3");
             mav.setViewName("redirect:/user/login");
             mav.addObject("errorMessage", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
             return mav;
         }
 
         if (userid == null || userid.isEmpty()) {
+            System.out.println("4");
             mav.setViewName("redirect:/user/login");
             mav.addObject("errorMessage", "유효하지 않은 JWT 토큰입니다. 사용자 정보를 찾을 수 없습니다.");
             return mav;
@@ -176,6 +181,7 @@ public class communityController {
         // userid로 index 구하기 (Integer 타입으로 반환하여 null 처리)
         Integer useridx = mservice.getUseridx(userid);
         if (useridx == null) {
+            System.out.println("5");
             mav.setViewName("redirect:/user/login");
             mav.addObject("errorMessage", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
             return mav;

@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.OrderDAO">
+    <!-- T_order에 데이터 삽입 -->
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="idx" parameterType="OrderVO">
+        INSERT INTO T_order (useridx, total_price) VALUES (#{useridx}, #{total_price})
+    </insert>
+
+    <!-- T_orderlist에 데이터 삽입 -->
+    <insert id="insertOrderList" parameterType="OrderListVO">
+        INSERT INTO T_orderlist (order_idx, pro_idx) VALUES (#{order_idx}, #{pro_idx})
+    </insert>
+
+    <!-- T_order select -> orderpage에 보여주기 위함 -->
+    <select id="selectOrderById"  resultType="com.ict.finalproject.vo.OrderVO">
+        SELECT * FROM T_order WHERE idx = #{order_idx}
+    </select>
+
+    <!-- T_orderlist select -> orderpage에 보여주기 위함 -->
+    <select id="selectOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
+        SELECT * FROM T_orderlist WHERE order_idx = #{order_idx}
+    </select>
+</mapper>

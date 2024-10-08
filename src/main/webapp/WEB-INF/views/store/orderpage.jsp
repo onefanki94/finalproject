@@ -158,7 +158,7 @@
         <h3>결제 정보</h3>
         <dl>
           <dt>주문상품금액</dt>
-          <dd>66,000원</dd>
+          <dd>${order.total_price}</dd>
         </dl>
         <dl>
           <dt>배송비</dt>
@@ -170,7 +170,7 @@
         </dl>
         <dl class="total_price">
           <dt>총 결제 예정 금액</dt>
-          <dd>66,000원</dd>
+          <dd>${order.total_price}</dd>
         </dl>
         <dl class="spoint">
           <dt>적립 예정 포인트</dt>

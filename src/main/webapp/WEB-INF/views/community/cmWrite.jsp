@@ -86,13 +86,10 @@
 
 
          var token = localStorage.getItem("token"); //토근 값 가져오기
-         document.getElementById("token").value=token;
+         //document.getElementById("token").value=token;
 
 
      };
-
-
-
 
     // 글 작성 폼 제출 시 호출되는 함수
     function commuFormCheck() {
@@ -103,7 +100,8 @@
         }
 
         const token = localStorage.getItem("token");  // 로컬 스토리지에서 JWT 토큰 가져오기
-        if (!token) {
+        console.log("처음 가져온 token: ", token);
+        if (!token || token.trim() === '') {
             alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
             return false;
         }
@@ -112,6 +110,12 @@
         const code = document.getElementById("code").value;
         const title = document.getElementById("title").value;
         const content = window.editorInstance.getData().trim(); // CKEditor의 내용 가져오기
+        console.log(code);
+        console.log(title);
+        console.log(content);//ㅇㅋ
+
+        console.log("두번째로 가져온 token: ", token);
+
 
         if (!code || code.trim() === "") {
             alert("분류를 선택하세요.");  // code가 비어 있으면 경고 메시지 출력
@@ -119,35 +123,39 @@
             return false;
         }
 
-        // 서버로 전송할 데이터를 URLSearchParams 객체에 추가
-        const postData = new URLSearchParams();
-        postData.append("code", code);  // code 파라미터 추가
-        postData.append("title", title);
-        postData.append("content", content);
+        console.log("세번째로 가져온 token: ", token);
 
-        // fetch를 사용하여 POST 요청 보내기
-        fetch("/cmWriteOk", {
+        // 서버로 전송할 데이터를 객체에 추가
+        const postData = {
+            code: code,
+            title: title,
+            content: content
+        };
+
+    console.log("네번째로 가져온 token: ", token);
+        console.log(`Authorization: Bearer ${token}`);
+
+        $.ajax({
+            url: "/cmWriteOk",
             method: "POST",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
                 "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
             },
-            body: postData
-        })
-        .then(response => {
-            if (response.status === 401) {
-                alert('인증에 실패했습니다. 다시 로그인하세요.');
-                return false;
+            data: postData,
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status === 401) {
+                    alert('인증에 실패했습니다. 다시 로그인하세요.');
+                } else {
+                    console.error("Error:", error);
+                }
             }
-            return response.text();
-        })
-        .then(data => {
-            document.write(data);  // 서버에서 반환된 HTML을 페이지에 출력
-        })
-        .catch(error => console.error("Error:", error));
+        });
 
         return false;  // 기본 폼 제출 방지
-    }
+}
 
  </script>
 </body>
