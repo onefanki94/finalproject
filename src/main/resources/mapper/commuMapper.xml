@@ -7,7 +7,7 @@
         values (#{useridx}, #{commtype}, #{title}, #{content}, NOW(), 0, NOW(), 0, NOW(), 0)
     </insert>
 
-    <!-- community_mapper.xml -->
+    <!-- 리스트 -->
     <select id="List" resultType="com.ict.finalproject.vo.CommuVO">
         SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit
         FROM t_community c
@@ -19,8 +19,34 @@
         ORDER BY c.regDT DESC
     </select>
 
+    <!-- 상세페이지 -->
+    <select id="Detail" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
+        SELECT c.idx, c.commtype, c.title, c.content, c.regDT, c.hit
+        FROM t_community c
+        WHERE c.idx = #{idx} <!-- idx에 해당하는 항목 조회 -->
+    </select>
 
+    <update id="HitCount" parameterType="int">
+        UPDATE t_community SET hit = hit + 1 WHERE idx = #{idx}
+    </update>
 
+    <select id="PreviousPost" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
+        select * from t_community where idx &gt; #{idx} order by idx asc limit 1
+    </select>
 
+    <select id="NextPost" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
+        select * from t_community where idx &lt; #{idx} order by idx desc limit 1
+    </select>
 
+    <update id="UpdateBoard" parameterType="com.ict.finalproject.vo.CommuVO">
+        UPDATE t_community
+        SET title = #{title},
+        content = #{content},
+        modifyDT = NOW()
+        WHERE idx = #{idx}
+    </update>
+
+    <delete id="Delete" parameterType="int">
+        delete from t_community where idx = #{idx}
+    </delete>
 </mapper>
