@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.StoreDAO">
     <select id="getStoreList" resultType="StoreVO">
-        select idx, title, price, detail_img from t_product where idx=#{idx}
+        select title, price, detail_img from t_product
     </select>
 
     <select id="getStoreListByFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
