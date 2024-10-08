@@ -27,66 +27,43 @@ public class JWTFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
 
     public JWTFilter(JWTUtil jwtUtil) {
-
         this.jwtUtil = jwtUtil;
     }
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
+        // Authorization 헤더가 없거나, Bearer 토큰으로 시작하지 않는 경우 필터를 통과
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
+        // Authorization 헤더에서 JWT 토큰 추출
         String token = authorizationHeader.substring(7);
 
-        // 토큰의 유효성 검증
+        // JWT 토큰이 만료된 경우 필터를 통과
         if (jwtUtil.isExpired(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 사용자 ID 및 권한 추출
-        String userid = jwtUtil.getUserid(token);
-        List<GrantedAuthority> authorities = jwtUtil.getAuthorities(token);
+        // JWT 토큰에서 사용자 ID 추출
+        String userid = jwtUtil.getUserIdFromToken(token);
 
-        // Spring Security의 Authentication 객체 생성
+        // Spring Security의 Authentication 객체 생성 (권한 리스트는 빈 리스트로 설정)
         UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userid, null, authorities);
+                new UsernamePasswordAuthenticationToken(userid, null, Collections.emptyList());
 
-        // 인증 정보 설정
+        // SecurityContextHolder에 인증 정보 설정
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // 로그 출력 (설정된 인증 정보 확인)
         System.out.println("SecurityContextHolder에 설정된 인증 정보: " + SecurityContextHolder.getContext().getAuthentication());
 
+        // 필터 체인을 통해 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
     }
-
-    private void authenticateWithJwt(String token) {
-        String userid = jwtUtil.getUserid(token);  // JWT 토큰에서 사용자 ID 추출
-        List<GrantedAuthority> authorities = jwtUtil.getAuthorities(token);  // JWT 토큰에서 권한 추출
-
-        // Spring Security의 Authentication 객체 생성
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userid, null, authorities);
-
-        // SecurityContextHolder에 설정
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    public List<GrantedAuthority> getAuthorities(String token) {
-        Jws<Claims> claims = jwtUtil.getClaims(token);
-        String role = claims.getBody().get("role", String.class);  // role 정보를 가져옴
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if (role != null) {
-            authorities.add(new SimpleGrantedAuthority(role));  // 권한 설정
-        }
-        return authorities;
-    }
-
 }

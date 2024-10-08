@@ -1,0 +1,8 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.StoreDAO">
+    <select id="getStoreList" resultType="StoreVO">
+        select title, price, detail_img from t_product
+    </select>
+</mapper>

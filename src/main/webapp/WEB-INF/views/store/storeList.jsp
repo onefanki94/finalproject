@@ -78,75 +78,25 @@
                         <ul class="list-carousel">
                             <li class="list-carousel-wrapper">
                                 <ul class="list-carousel-images">
-                                    <li class="list-product">
+                                  <!--db에서 가져온 상품목록-->
+                                  <c:forEach var="product" items="${storeList}">
+                                    <li class="list-products">
                                         <a href="/storeDetail">
-                                            <img src="img/store/f1.png" alt="list-product1">
+                                            <img src="${product.detail_img}" alt="${product.title}">
                                         </a>
+                                        <p>${product.title}</p>
+                                        <p>${product.price} 원</p>
                                     </li>
-                                    <li class="list-product">
-                                        <a href="productDetail2.jsp">
-                                            <img src="img/store/f2.png" alt="list-product2">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail3.jsp">
-                                            <img src="img/store/f3.png" alt="list-product3">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail4.jsp">
-                                            <img src="img/store/f4.png" alt="list-product4">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail1.jsp">
-                                            <img src="img/store/f1.png" alt="list-product1">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail2.jsp">
-                                            <img src="img/store/f2.png" alt="list-product2">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail3.jsp">
-                                            <img src="img/store/f3.png" alt="list-product3">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail4.jsp">
-                                            <img src="img/store/f4.png" alt="list-product4">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail1.jsp">
-                                            <img src="img/store/f1.png" alt="list-product1">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail2.jsp">
-                                            <img src="img/store/f2.png" alt="list-product2">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail3.jsp">
-                                            <img src="img/store/f3.png" alt="list-product3">
-                                        </a>
-                                    </li>
-                                    <li class="list-product">
-                                        <a href="productDetail4.jsp">
-                                            <img src="img/store/f4.png" alt="list-product4">
-                                        </a>
-                                    </li>
+                                  </c:forEach>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                 </section>
-                
-      
-                
+
+
+
 </div>
 
-  <button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>
+
 
