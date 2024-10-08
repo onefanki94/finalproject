@@ -17,10 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.nio.charset.Charset;
 import java.util.List;
 
+
 //@RequestMapping("/community")
 @Controller
 public class communityController {
-
+    // userid로 index구하기
     @Autowired
     MemberService mservice;
 
@@ -35,18 +36,28 @@ public class communityController {
 
     // 커뮤니티 리스트 페이지
     @GetMapping("/cmList")
-    public String cmList(@RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype, Model model) {
-        System.out.println("Received commtype: " + commtype); // 전달받은 commtype 값 확인
+    public String cmList(
+            @RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "DEFAULT") String orderBy,
+            @RequestParam(value = "searchCategory", required = false, defaultValue = "TITLE_AND_CONTENT") String searchCategory,
+            @RequestParam(value = "searchKeyword", required = false, defaultValue = "") String searchKeyword,
+            Model model) {
+
+        // commtype이 "all"인 경우에만 드롭다운의 필터링 조건을 사용
         List<CommuVO> list;
         if ("all".equals(commtype)) {
-            list = commuService.List(null); // 전체 목록 조회
+            list = commuService.FilteredList(null, orderBy, searchCategory, searchKeyword); // 전체 탭에서 드롭다운 조건 사용
         } else {
-            list = commuService.List(commtype); // 특정 commtype 목록 조회
+            list = commuService.List(commtype); // 특정 commtype (예: 자랑, 친목 등)으로 필터링
         }
-        System.out.println("Filtered List: " + list); // 필터링된 목록 출력
+
         model.addAttribute("list", list);
-        model.addAttribute("commtype", commtype); // 현재 선택된 커뮤니티 타입 전달
-        return "community/cmList";
+        model.addAttribute("commtype", commtype);
+        model.addAttribute("orderBy", orderBy);
+        model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("searchKeyword", searchKeyword);
+
+        return "community/cmList";  // JSP 파일 이름 (cmList.jsp)
     }
 
     //상세페이지
@@ -110,6 +121,13 @@ public class communityController {
 
 
 
+
+
+
+
+
+
+
     //로그인 여부
     @ResponseBody
     @GetMapping("/getuser")
@@ -132,7 +150,7 @@ public class communityController {
     //글 등록(DB)
     @PostMapping("/cmWriteOk")
     public ModelAndView writeOk(
-            @RequestParam("code") String code,
+            @RequestParam("code") String code,// communitytype 테이블의 code 필드와 매핑
             @RequestParam("title") String title,
             @RequestParam("content") String content,
             @RequestHeader(value = "Authorization", required = false) String authHeader  // Authorization 헤더 값이 없을 때도 예외가 발생하지 않도록 설정
@@ -183,10 +201,11 @@ public class communityController {
 
         // 게시글 VO 객체 생성 및 설정
         CommuVO board = new CommuVO();
-        board.setUseridx(useridx);  // 사용자 ID 설정
-        board.setCommtype(code);  // communitytype의 code 필드 설정
-        board.setTitle(title);  // 제목 설정
-        board.setContent(content);  // 내용 설정
+        board.setUseridx(useridx); // 사용자 ID 설정
+        board.setCommtype(code); // communitytype의 code 필드 설정
+        board.setTitle(title); // 제목 설정
+        board.setContent(content); // 내용 설정
+        //참고로 이런 비즈니스 로직은 service단에서 하고 컨트롤러에서는 그냥 서비스에 전달해주는 게 권장되는 방식
 
         try {
             CommuVO resultBoard = commuService.writeBoard(board);  // 게시글 등록 서비스 호출
@@ -206,6 +225,9 @@ public class communityController {
 
         return mav;
     }
+
+
+
 
 
     //커뮤니티-공지사항 이동

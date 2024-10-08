@@ -45,42 +45,42 @@
             <div class="search-area">
                 <div class="left-area">
                     <div class="head-box">
-                        <select id="commtype" name="commtype">
-                            <option value="all" ${commtype == 'all' ? 'selected' : ''}>최신글보기</option>
-                            <option value="10" ${commtype == '10' ? 'selected' : ''}>자랑</option>
-                            <option value="30" ${commtype == '30' ? 'selected' : ''}>친목</option>
-                            <option value="40" ${commtype == '40' ? 'selected' : ''}>팬아트</option>
-                        </select>
+                        <select id="commtype" name="commtype" onchange="submitSearchForm()">
+                                                    <option value="all" ${commtype == 'all' ? 'selected="selected"' : ''}>최신글보기</option>
+                                                    <option value="10" ${commtype == '10' ? 'selected="selected"' : ''}>자랑</option>
+                                                    <option value="30" ${commtype == '30' ? 'selected="selected"' : ''}>친목</option>
+                                                    <option value="40" ${commtype == '40' ? 'selected="selected"' : ''}>팬아트</option>
+                                                </select>
                     </div>
                     <div class="filter-box">
-                        <select id="selectDirection" name="orderBy">
-                            <option value="DEFAULT">최신글순</option>
-                            <option value="NEW_REPLY">최신댓글순</option>
-                            <option value="REPLY">많은댓글순</option>
-                            <option value="LIKE">조회수순</option>
-                        </select>
+                        <select id="selectDirection" name="orderBy" onchange="submitSearchForm()">
+                                                    <option value="DEFAULT" ${orderBy == 'DEFAULT' ? 'selected="selected"' : ''}>최신글순</option>
+                                                    <option value="NEW_REPLY" ${orderBy == 'NEW_REPLY' ? 'selected="selected"' : ''}>최신댓글순</option>
+                                                    <option value="REPLY" ${orderBy == 'REPLY' ? 'selected="selected"' : ''}>많은댓글순</option>
+                                                    <option value="LIKE" ${orderBy == 'LIKE' ? 'selected="selected"' : ''}>조회수순</option>
+                                                </select>
                     </div>
                 </div>
 
                 <div class="right-area">
                     <div class="select-box">
                         <select id="selectCategory" name="searchCategory">
-                            <option value="THREAD_TITLE_AND_CONTENT">제목 + 내용</option>
-                            <option value="THREAD_TITLE">제목</option>
-                            <option value="THREAD_CONTENT">내용</option>
+                            <option value="TITLE_AND_CONTENT" ${searchCategory == 'TITLE_AND_CONTENT' ? 'selected' : ''}>제목 + 내용</option>
+                            <option value="TITLE" ${searchCategory == 'TITLE' ? 'selected' : ''}>제목</option>
+                            <option value="CONTENT" ${searchCategory == 'CONTENT' ? 'selected' : ''}>내용</option>
                         </select>
                     </div>
                     <div class="search">
                         <input type="text" id="textSearch" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요." />
-                        <button type="button" id="btnSearch">검색</button>
+                        <button type="button" id="btnSearch" onclick="submitSearchForm()">검색</button>
                     </div>
                 </div>
             </div>
         </form>
 
         <!-- 공통 커뮤니티 리스트 -->
-        <div class="content active" id="contentList"> <!-- 리스트를 하나로 통합 -->
-            <div class="newList">
+        <div class="content active" id="contentList">
+            <div class="allList">
                 <div class="row header">
                     <div class="col-sm-1 p-2">번호</div>
                     <div class="col-sm-1 p-2">카테고리</div>
@@ -142,6 +142,16 @@
 
 <script>
 
+// 전체 탭을 클릭하면 필터를 초기화하고 탭 필터링을 수행
+    function resetFilterAndShowTab(commtype) {
+        document.getElementById("commtype").value = "all"; // 드롭다운을 초기화
+        showTab(commtype);
+    }
+
+
+
+
+
 // showTab 함수 정의(탭 전환)
         function showTab(commtype) {
             console.log("Tab clicked: " + commtype); // 클릭 시 commtype 값 출력
@@ -149,6 +159,17 @@
             document.getElementById("commtype").value = commtype;
             document.getElementById("searchForm").submit();
         }
+
+// 드롭다운 변경 시 폼 제출
+    function submitSearchForm() {
+        document.getElementById("searchForm").submit();
+    }
+
+
+        // 검색 폼 제출 함수
+            function submitSearchForm() {
+                document.getElementById("searchForm").submit();
+            }
 
 window.onload = function(){
     console.log("호출");
