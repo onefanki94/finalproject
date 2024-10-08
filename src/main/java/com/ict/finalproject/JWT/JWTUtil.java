@@ -20,7 +20,8 @@ import java.util.List;
 public class JWTUtil {
 
     private final SecretKey secretKey;
-
+    // 리프레시 토큰 만료 시간 (예: 30일)
+    private final long refreshTokenExpiration = 30 * 24 * 60 * 60 * 1000L;
     // 생성자에서 JWT SecretKey를 초기화
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
         System.out.println("JWT Secret: " + secret); // secret 값 출력
@@ -67,6 +68,19 @@ public class JWTUtil {
                 .setIssuedAt(new Date(System.currentTimeMillis()))  // 발행 시간 설정
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))  // 만료 시간 설정
                 .signWith(secretKey)  // 서명 설정
+
+                .compact();
+    }
+
+    public String createRefreshToken(String userId) {
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + refreshTokenExpiration);  // 현재 시간 + 리프레시 토큰 만료 시간
+
+        return Jwts.builder()
+                .setSubject(userId)
+                .setIssuedAt(now)  // 발급 시간
+                .setExpiration(expiration)  // 만료 시간
+                .signWith(secretKey, SignatureAlgorithm.HS256)  // 서명 알고리즘
                 .compact();
     }
 
@@ -95,11 +109,10 @@ public class JWTUtil {
     // JWT 토큰의 유효성을 검사하는 메서드
     public boolean validateToken(String token) {
         try {
-            Claims claims = getClaims(token);
-            System.out.println("Claims: " + claims);  // Claims가 올바르게 파싱되었는지 확인
-            return claims != null && !isExpired(token);
-        } catch (JwtException | IllegalArgumentException e) {
-            System.out.println("JWT 유효성 검증 실패: " + e.getMessage());
+            Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
+            return true;
+        } catch (JwtException e) {
+            System.out.println("토큰 유효성 검증 실패: " + e.getMessage());
             return false;
         }
     }
@@ -117,5 +130,18 @@ public class JWTUtil {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
+    }
+
+    // 새로운 액세스 토큰 생성 메서드
+    public String createAccessToken(String userId, long expirationTime) {
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + expirationTime);  // 현재 시간 + 만료 시간
+
+        return Jwts.builder()
+                .setSubject(userId)
+                .setIssuedAt(now)  // 발급 시간
+                .setExpiration(expiration)  // 만료 시간
+                .signWith(secretKey, SignatureAlgorithm.HS256)  // 서명 알고리즘
+                .compact();
     }
 }
