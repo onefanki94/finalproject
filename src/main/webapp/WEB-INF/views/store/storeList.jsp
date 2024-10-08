@@ -52,7 +52,6 @@
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">
                             <div class="filter-options">
-
                                 <!-- 검색창 추가 -->
                                 <div class="search-section">
                                     <div class="search_window">

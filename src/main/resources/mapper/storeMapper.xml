@@ -5,4 +5,43 @@
     <select id="getStoreList" resultType="StoreVO">
         select title, price, detail_img from t_product
     </select>
+
+    <select id="getStoreListByFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT * FROM store
+        <choose>
+            <when test="'latest'.equals(filterType)">
+                ORDER BY created_date DESC
+            </when>
+            <when test="'popular'.equals(filterType)">
+                ORDER BY popularity DESC
+            </when>
+            <when test="'high-price'.equals(filterType)">
+                ORDER BY price DESC
+            </when>
+            <when test="'low-price'.equals(filterType)">
+                ORDER BY price ASC
+            </when>
+        </choose>
+    </select>
+
+    <select id="searchStoreList" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT * FROM store
+        WHERE product_name LIKE CONCAT('%', #{keyword}, '%')
+           OR description LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+     <!-- 필터링된 상품 목록 -->
+    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT * FROM store
+        WHERE 1 = 1
+        <if test="category != null and category != ''">
+            AND category = #{category}
+        </if>
+        <if test="brand != null and brand != ''">
+            AND brand = #{brand}
+        </if>
+        <if test="includeSoldOut == false">
+            AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
+        </if>
+    </select>
 </mapper>

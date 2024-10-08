@@ -15,8 +15,18 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<StoreVO> getStoreList(){
-        System.out.println(dao);
         return  dao.getStoreList();
+    }
+    public List<StoreVO> getStoreListByFilter(String filterType){
+        return dao.getStoreListByFilter(filterType);
+    }
+
+    public List<StoreVO> searchStoreList(String keyword){
+        return dao.searchStoreList(keyword);
+    }
+
+    public List<StoreVO> getStoreListByFilterCriteria(String brand, String ani_tile) {
+        return dao.getStoreListByFilterCriteria(brand, ani_tile);
     }
 
 }
