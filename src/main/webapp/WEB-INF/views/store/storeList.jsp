@@ -32,7 +32,7 @@
                             <ul class="filter-list">
                                 <li class="filter-item">
                                     <img src="img/store/icon.png" alt="Hololive Icon">
-                                    <span class="filter-text">홀로 라이브</span>
+                                    <span class="filter-text">세븐 나이츠</span>
                                 </li>
                             </ul>
                         </div>
@@ -48,6 +48,20 @@
                         </div>    
                     </div>
                 </section>
+                                    <!-- 상품 리스트 섹션 -->
+                    <!-- <section class="product-section">
+                        <div class="product-list"> -->
+                            <!-- 필터링된 상품 리스트 출력 -->
+                            <!-- <c:forEach var="product" items="${storeList}">
+                                <div class="product-item"> -->
+                                    <!-- <h3>${product.title}</h3> -->
+                                    <!-- <p>${product.title}</p>
+                                    <p>${product.price}원</p>
+                                    <img src="${product.detail_img}" alt="${product.title}">
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </section> -->
 
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">
@@ -80,7 +94,7 @@
                                   <!--db에서 가져온 상품목록-->
                                   <c:forEach var="product" items="${storeList}">
                                     <li class="list-product">
-                                        <a href="/storeDetail">
+                                        <a href="/storeDetail/idx=${product.title}">
                                             <img src="${product.detail_img}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>

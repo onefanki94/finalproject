@@ -1,5 +1,6 @@
 package com.ict.finalproject.DAO;
 
+import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,5 +15,5 @@ public interface StoreDAO {
 
     public List<StoreVO> searchStoreList(@Param("keyword") String keyword);
 
-    public List<StoreVO> getStoreListByFilterCriteria(@Param("brand") String brand, @Param("ani_title") String ani_title);
+    public List<ProductFilterVO> getStoreListByFilterCriteria(ProductFilterVO filterCriteria);
 }

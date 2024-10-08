@@ -41,3 +41,26 @@ function searchProducts() {
         }
     });
 }
+
+// 필터링된 데이터를 가져오는 함수
+function filterProducts() {
+    const aniTitle = document.querySelector('.filter-category .active .filter-text').innerText;
+    const brand = document.querySelector('.filter-brand .active .filter-text').innerText;
+
+    const filterCriteria = {
+        ani_title: aniTitle,
+        brand: brand,
+        stock: document.querySelector('.filter-header input[type="checkbox"]').checked ? 1 : 0
+    };
+
+    fetch('/filterStoreList', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(filterCriteria)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // 필터링된 데이터를 콘솔에 출력하거나 UI에 표시
+    })
+    .catch(error => console.error('Error:', error));
+}
