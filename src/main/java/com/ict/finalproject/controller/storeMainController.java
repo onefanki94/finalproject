@@ -6,6 +6,7 @@ import com.ict.finalproject.vo.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -78,9 +79,19 @@ public ModelAndView filterStoreList(
 }
 
 
-    @GetMapping("/storeDetail")
-   public String storDetail() {
-       return "store/storeDetail";
-   }
+//     @GetMapping("/storeDetail")
+//    public String storDetail() {
+//        return "store/storeDetail";
+//    }
+
+@GetMapping("/storeDetail/{idx}")
+public ModelAndView getStoreDetail(@PathVariable("idx") int idx) {
+    System.out.println("Received idx: " + idx); // idx 값 출력
+    StoreVO storeDetail = storeService.getStoreDetail(idx); // idx로 상품 조회
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("storeDetail", storeDetail);
+    mav.setViewName("store/storeDetail");
+    return mav;
+}
    
 }

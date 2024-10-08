@@ -94,13 +94,14 @@
                                   <!--db에서 가져온 상품목록-->
                                   <c:forEach var="product" items="${storeList}">
                                     <li class="list-product">
-                                        <a href="/storeDetail/idx=${product.title}">
+                                        <!-- idx 값을 사용하여 링크 생성 -->
+                                        <a href="/storeDetail/${product.idx}"> 
                                             <img src="${product.detail_img}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>
                                         <p>${product.price} 원</p>
                                     </li>
-                                  </c:forEach>
+                                </c:forEach>
                                 </ul>
                             </li>
                         </ul>

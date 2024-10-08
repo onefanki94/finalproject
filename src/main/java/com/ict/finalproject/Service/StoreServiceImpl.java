@@ -30,4 +30,8 @@ public class StoreServiceImpl implements StoreService {
         return dao.getStoreListByFilterCriteria(filterCriteria);
     }
 
+    public StoreVO getStoreDetail(int idx){
+        return dao.getStoreDetail(idx);
+    }
+
 }

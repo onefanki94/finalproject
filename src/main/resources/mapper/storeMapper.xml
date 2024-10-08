@@ -31,17 +31,24 @@
     </select>
 
      <!-- 필터링된 상품 목록 -->
-<select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.ProductFilterVO">
-    SELECT ani_title, brand, stock FROM t_product
-    WHERE 1 = 1
-    <if test="ani_title != null and ani_title != ''">
-        AND ani_title = #{ani_title}
-    </if>
-    <if test="brand != null and brand != ''">
-        AND brand = #{brand}
-    </if>
-    <if test="stock == 0">
-        AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
-    </if>
-</select>
+    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.ProductFilterVO">
+        SELECT ani_title, brand, stock FROM t_product
+        WHERE 1 = 1
+        <if test="ani_title != null and ani_title != ''">
+            AND ani_title = #{ani_title}
+        </if>
+        <if test="brand != null and brand != ''">
+            AND brand = #{brand}
+        </if>
+        <if test="stock == 0">
+            AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
+        </if>
+    </select>
+
+    <!-- 제품 제목을 기준으로 제품 세부 정보를 가져오는 쿼리 -->
+    <select id="getStoreDetail" parameterType="int" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT * FROM t_product
+        WHERE idx = #{idx}
+    </select>
+
 </mapper>

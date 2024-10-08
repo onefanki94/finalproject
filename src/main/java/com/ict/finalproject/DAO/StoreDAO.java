@@ -16,4 +16,6 @@ public interface StoreDAO {
     public List<StoreVO> searchStoreList(@Param("keyword") String keyword);
 
     public List<ProductFilterVO> getStoreListByFilterCriteria(ProductFilterVO filterCriteria);
+
+    public StoreVO getStoreDetail(int idx);
 }

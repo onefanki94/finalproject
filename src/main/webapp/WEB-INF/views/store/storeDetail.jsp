@@ -13,39 +13,40 @@
 
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
-    <!-- 상품 이미지 및 정보 섹션 -->
     <div class="product-wrapper">
         <!-- 상품 이미지 섹션 -->
         <div class="product-image-section">
-            <img src="img/store/storedetail1.png" alt="상품 이미지" class="main-image">
+            <img src="${storeList.detail_img}" alt="${storeDetail.title}" class="main-image">
         </div>
-
+    
         <!-- 상품 정보 섹션 -->
         <div class="product-info-section">
-            <h1 class="product-title">(OG) 러브 라이브 선샤인 가을 아크릴 스탠드 / 하나마루</h1>
-            <p class="product-price">18,000원</p>
-
+            <h1 class="product-title">${storeDetail.title}</h1>
+            <p class="product-price">${storeDetail.price}원</p>
+    
             <div class="product-meta-info">
-                <p>발매일: 2023년 11월 22일 예정</p>
-                <p>적립포인트: 180원</p>
-                <p>배송비: 3,000원 / 50,000원 이상 또는 멤버십 무료</p>
+                <p>발매일: ${storeDetail.relDT}</p>
+                <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
+                <p>배송비: ${storeDetail.fee}</p>
             </div>
-
+    
             <!-- 상품 선택 옵션 -->
             <div class="product-selection">
                 <div class="selection-box">
                     <span class="product-name">상품명</span>
-                    <p>(OG) 러브 라이브 선샤인 가을 아크릴 스탠드 / 하나마루</p>
+                    <p>${storeDetail.title}</p>
                     <span class="product-quantity-control">
-                        <button class="quantity-button">-</button>
-                        <input type="number" value="1" min="1" max="10" class="quantity-input">
-                        <button class="quantity-button">+</button>
+                        <button class="quantity-button" onclick="decreaseQuantity()">-</button>
+                        <input type="number" value="1" min="1" max="${storeDetail.stock}" class="quantity-input">
+                        <button class="quantity-button" onclick="increaseQuantity()">+</button>
                     </span>
-                    <span class="product-price-info">18,000원</span>
+                    <span class="product-price-info">${storeDetail.price}원</span>
                 </div>
-
-                <div class="total-price">총 결제금액: 18,000원</div>
+    
+                <div class="total-price">총 결제금액: <span id="totalPrice">${storeDetail.price}</span>원</div>
             </div>
+        </div>
+    </div>
 
             <!-- 구매 버튼 -->
             <div class="buy-buttons">
