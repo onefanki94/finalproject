@@ -1,5 +1,7 @@
 package com.ict.finalproject.config;
 
+import com.ict.finalproject.DAO.TAdminDAO;
+import com.ict.finalproject.JWT.AdminFilter;
 import com.ict.finalproject.JWT.JWTFilter;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.JWT.LoginFilter;
@@ -22,12 +24,12 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final TAdminDAO tAdminDAO;  // TAdminDAO 주입
     private final JWTUtil jwtUtil;
-    private final AuthenticationConfiguration authenticationConfiguration;
 
-    public SecurityConfig(JWTUtil jwtUtil, AuthenticationConfiguration authenticationConfiguration) {
+    public SecurityConfig(TAdminDAO tAdminDAO, JWTUtil jwtUtil) {
+        this.tAdminDAO = tAdminDAO;
         this.jwtUtil = jwtUtil;
-        this.authenticationConfiguration = authenticationConfiguration;
     }
 
     @Bean
@@ -41,14 +43,13 @@ public class SecurityConfig {
 
         // 권한 및 인증 설정
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/", "/join", "/cmList").permitAll()  // 인증 없이 접근 가능
-                .requestMatchers("/master/**").authenticated()  // 특정 경로는 인증 필요
-                .anyRequest().permitAll()  // 나머지 모든 요청은 인증 필요
+                .requestMatchers("/master/**").authenticated()  // /master/** 경로는 인증이 필요함
+                .anyRequest().permitAll()  // 나머지 모든 요청은 인증 필요 없음
         );
 
         // JWT 필터 추가
         http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), JWTFilter.class);
+                .addFilterAfter(new AdminFilter(tAdminDAO, jwtUtil), JWTFilter.class);
 
         // 세션 관리 설정
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -10,26 +10,12 @@
 
     <!-- 로그인 시 사용되는 쿼리 (권한 정보 포함) -->
     <select id="memberLogin" parameterType="map" resultType="MemberVO">
-        SELECT idx, userid, userpwd, username
-        FROM t_user
-        WHERE userid = #{userid}
+        select userid, userpwd, username
+        from t_user
+        where userid = #{userid}
     </select>
 
-<<<<<<< HEAD
-    <select id="getUseridx" resultType="int">
+    <select id="getUseridx" parameterType="String" resultType="Integer">
         select idx from t_user where userid = #{param1}
     </select>
-=======
-    <!-- ID로 사용자 조회 -->
-    <select id="findByUserid" parameterType="String" resultType="com.ict.finalproject.vo.MemberVO">
-        SELECT * FROM t_user WHERE userid = #{userid}
-    </select>
-
-    <select id="adminLogin" parameterType="map" resultType="MemberVO">
-        SELECT idx, userid, userpwd, username
-        FROM t_admin
-        WHERE userid = #{userid}
-    </select>
-
->>>>>>> ae542fcc19f9739d7f3beded0f26485fad2d85b0
 </mapper>
