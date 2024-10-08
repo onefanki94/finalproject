@@ -62,16 +62,6 @@ public class SecurityConfig {
                 })
         );
 
-        http.cors(cors -> cors.configurationSource(request -> {
-            CorsConfiguration config = new CorsConfiguration();
-            config.setAllowedOrigins(Arrays.asList("http://localhost:9911")); // 클라이언트 도메인 설정
-            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-            config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-            config.setExposedHeaders(Arrays.asList("Authorization")); // 응답 헤더 노출
-            config.setAllowCredentials(true);
-            return config;
-        }));
-
         return http.build();
     }
 

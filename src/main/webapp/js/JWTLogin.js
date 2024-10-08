@@ -41,12 +41,13 @@ function login() {
 async function makeAuthenticatedRequest(url, options = {}) {
     const token = localStorage.getItem("token");  // 로컬 스토리지에서 JWT 토큰 가져오기
     if (!token) {
-        console.error("로컬 스토리지에 JWT 토큰이 없습니다. 로그인이 필요합니다.");  // 토큰 미존재 경고
+        alert("로그인이 필요합니다.");  // 토큰이 없을 경우 로그인 필요 메시지
         throw new Error("JWT 토큰이 없습니다. 로그인이 필요합니다.");  // 에러 발생
     }
 
-    if (!options.headers) options.headers = {};  // 헤더가 없으면 초기화
-    options.headers['Authorization'] = `Bearer ${token}`;  // Authorization 헤더에 토큰 추가
+    // Authorization 헤더에 JWT 토큰 추가
+    if (!options.headers) options.headers = {};
+    options.headers['Authorization'] = `Bearer ${token}`;
     console.log("Authorization 헤더에 설정된 JWT 토큰: ", options.headers['Authorization']);  // 디버그용 로그
 
     try {
@@ -54,11 +55,11 @@ async function makeAuthenticatedRequest(url, options = {}) {
         return response;  // 응답 반환
     } catch (error) {
         console.error("요청 중 오류 발생:", error);  // 요청 오류 출력
+        alert("요청 처리 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
         throw error;  // 에러 발생
     }
 }
 
-// DOMContentLoaded 이벤트가 발생할 때 실행
 document.addEventListener("DOMContentLoaded", function () {
     const adminLink = document.getElementById("adminLink");  // 관리자 링크 요소 찾기
 
@@ -73,20 +74,24 @@ document.addEventListener("DOMContentLoaded", function () {
             isNavigating = true;  // 이동 시작
 
             try {
-                // JWT 토큰을 포함하여 요청 보내기
-                const response = await makeAuthenticatedRequest('/master/masterMain');
+                // makeAuthenticatedRequest 함수를 사용하여 관리자 권한 확인 요청 보내기
+                const response = await makeAuthenticatedRequest('/master/checkAdmin', { method: 'GET' });
 
-                if (response.ok) {
+                // 응답에서 관리자 여부 확인
+                const isAdmin = await response.json();  // 서버에서 반환된 값 (true/false)
+
+                if (response.ok && isAdmin) {
                     console.log("페이지 접근 성공");  // 접근 성공 로그
                     location.href = "/master/masterMain";  // 관리자 페이지로 이동
                 } else {
                     console.error('페이지 접근 권한이 없습니다.', response.status);  // 접근 권한 오류 출력
-                    alert("admin 계정만 접근 가능합니다");  // 접근 불가 알림
+                    alert("admin 계정만 접근 가능합니다.");  // 접근 불가 알림
                 }
             } catch (error) {
                 console.error('페이지 접근 실패:', error);  // 페이지 접근 실패 로그
+                alert("페이지 접근에 실패했습니다. 나중에 다시 시도해 주세요.");  // 오류 발생 시 사용자 피드백
             } finally {
-                isNavigating = false;  // 이동 완료
+                isNavigating = false;  // 이동 완료, 플래그 초기화
             }
         });
     } else {

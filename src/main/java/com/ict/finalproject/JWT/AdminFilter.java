@@ -28,20 +28,24 @@ public class AdminFilter extends OncePerRequestFilter {
         // /master/** 경로에 대해서만 필터링
         if (requestURI.startsWith("/master/")) {
             String token = jwtUtil.resolveToken(request);
+
             if (token != null && jwtUtil.validateToken(token)) {
                 String userId = jwtUtil.getUserIdFromToken(token);
-                boolean isAdmin = tAdminDAO.existsById(userId);
 
-                if (!isAdmin) {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "관리자 권한 필요");
+                // t_admin 테이블의 "admin" 아이디만 접근 허용
+                if (!"admin".equals(userId)) {
+                    // admin 아이디가 아니면 접근 차단
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "관리자 권한이 필요합니다.");
                     return;
                 }
             } else {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않은 토큰");
+                // 유효하지 않은 토큰 또는 토큰이 없을 경우 접근 차단
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않은 토큰입니다.");
                 return;
             }
         }
 
+        // 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
     }
 }
