@@ -12,4 +12,7 @@ public interface MemberDAO {
 
         // 로그인
         public MemberVO memberLogin(String userid, String userpwd);
+
+        // idx로 해당 아이디 구하기
+        Integer getUseridx(String userid);
 }

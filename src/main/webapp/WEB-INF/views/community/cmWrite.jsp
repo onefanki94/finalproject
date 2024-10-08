@@ -40,88 +40,115 @@
     </section>
 
 
-<div class="container">
-  <form class="write_tbl"method="post" action="" onsubmit="return commuFormCheck()">
-     <table class="cm-write">
-           <tr>
-                  <th>
-               <div class="topics" >
-                   <select class="filter-dropdown" id="header_no" name="header_no" value="" >
-                        <option value="">분류를 선택하세요 </option>
-                     <c:if test="${logId=='goguma1234'}">
-                        <option value="10">자랑</option>
-                     </c:if>
-                        <option value="20">덕질</option>
-                        <option value="30">친목</option>
-                        <option value="40">팬아트</option>
-                   </select>
-               </div>
-                </th>
-                <td>
-                <input type="text" name="subject" value="" id="subject" size="100"placeholder="제목을 입력하세요">
-                </td>
-            </tr>
-     </table>
-      <input type="hidden" id="sub_content" name="sub_content">
-      <div>
-          <textarea id="content" name="content" class="smarteditor2"placeholder="내용을 입력하세요" style="width: 90%; height: 100%;"></textarea>
-      </div>
-     <div  style="margin: 30px auto 0 auto; text-align:center;">
-          <button class="write_btn">글등록하기</button>
-     </div>
-  </form>
- </div>
+    <div class="container">
+        <form class="write_tbl" method="post" action="/cmWriteOk" onsubmit="return commuFormCheck()">
+            <table class="cm-write">
+                <tr>
+                    <th>
+                        <div class="topics">
+                            <select class="filter-dropdown" id="code" name="code" value="">
+                                <option value="">분류를 선택하세요</option>
+                                <option value="10">자랑</option>
+                                <option value="20">덕질</option>
+                                <option value="30">친목</option>
+                                <option value="40">팬아트</option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <input type="text" name="title" value="" id="title" size="100" placeholder="제목을 입력하세요">
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+                <textarea id="content" name="content" class="smarteditor2" placeholder="내용을 입력하세요" style="width: 90%; height: 100%;"></textarea>
+            </div>
+
+            <div style="margin: 30px auto 0 auto; text-align: center;">
+                <button type="submit" class="write_btn">글등록하기</button>
+            </div>
+
+        </form>
+    </div>
 
  <script>
      window.onload =()=>{
          CKEDITOR.ClassicEditor.create(document.getElementById("content"),option)
              .then(editor => {
                  console.log('CKEditor 5 is ready.');
+                 console.log("로컬스토리지 토큰값 : ", token);
                  window.editorInstance = editor; // 에디터 인스턴스를 전역 변수로 저장
              })
              .catch(error => {
                  console.error('CKEditor 5 initialization error:', error);
              });
+
+
+         var token = localStorage.getItem("token"); //토근 값 가져오기
+         document.getElementById("token").value=token;
+
+
      };
 
-     function commuFormCheck() {
-          if (!window.editorInstance) {
-              console.error('CKEditor instance is not initialized.');
-              return false;
-          }
 
-          // CKEditor에서 HTML 데이터를 가져옵니다.
-          const contentValue = window.editorInstance.getData();
-          console.log('Content Value:', contentValue);
 
-          // HTML에서 텍스트만 추출
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = contentValue;
-          const textContent = tempDiv.textContent || tempDiv.innerText || '';
 
-          // 텍스트의 처음 20자 추출
-          const first68Chars = textContent.slice(0, 68);
-          console.log('First 68 Characters:', first80Chars);
+    // 글 작성 폼 제출 시 호출되는 함수
+    function commuFormCheck() {
+        // 입력값 유효성 검사
+        if (!window.editorInstance || window.editorInstance.getData().trim() === '') {
+            alert('내용을 입력하세요.');
+            return false;
+        }
 
-          document.getElementById('sub_content').value = first68Chars;
+        const token = localStorage.getItem("token");  // 로컬 스토리지에서 JWT 토큰 가져오기
+        if (!token) {
+            alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
+            return false;
+        }
 
-          if (document.getElementById('header_no').value === '') {
-              alert('분류를 선택하세요');
-              return false;
-          }
-          if (document.getElementById('subject').value === '') {
-              alert('제목을 입력하세요.');
-              return false;
-          }
+        // 입력 필드 값 가져오기
+        const code = document.getElementById("code").value;
+        const title = document.getElementById("title").value;
+        const content = window.editorInstance.getData().trim(); // CKEditor의 내용 가져오기
 
-          if (document.getElementById('header_no').value ==='20' || document.getElementById('header_no').value ==='30') {
-              if (contentValue.indexOf('<img') === -1) {
-                  alert('최소한 사진 한 장을 올려주세요.');
-                  return false;
-              }
-          }
-          return true;
-     }
+        if (!code || code.trim() === "") {
+            alert("분류를 선택하세요.");  // code가 비어 있으면 경고 메시지 출력
+            System.out.println("Received code: " + code);
+            return false;
+        }
+
+        // 서버로 전송할 데이터를 URLSearchParams 객체에 추가
+        const postData = new URLSearchParams();
+        postData.append("code", code);  // code 파라미터 추가
+        postData.append("title", title);
+        postData.append("content", content);
+
+        // fetch를 사용하여 POST 요청 보내기
+        fetch("/cmWriteOk", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+            },
+            body: postData
+        })
+        .then(response => {
+            if (response.status === 401) {
+                alert('인증에 실패했습니다. 다시 로그인하세요.');
+                return false;
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.write(data);  // 서버에서 반환된 HTML을 페이지에 출력
+        })
+        .catch(error => console.error("Error:", error));
+
+        return false;  // 기본 폼 제출 방지
+    }
+
  </script>
 </body>
 </html>

@@ -19,36 +19,44 @@ import java.util.List;
 @Component
 public class JWTUtil {
 
-    private SecretKey secretKey;
+    private final SecretKey secretKey;
 
     // 생성자에서 JWT SecretKey를 초기화
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
         System.out.println("JWT Secret: " + secret); // secret 값 출력
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));  // SecretKey 객체 생성
+    }
+
+    // JWT 토큰에서 Claims 추출
+    public Claims getClaims(String token) {
+        try {
+            // JWT 토큰을 파싱하여 Claims 반환
+            return Jwts.parser()                 // 최신 버전에서는 parserBuilder() 사용
+                    .setSigningKey(secretKey)           // setSigningKey에 SecretKey 전달
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();                         // Claims 객체 반환
+        } catch (JwtException e) {
+            e.printStackTrace();
+            return null;  // JWT 파싱 오류가 발생하면 null 반환
+        }
     }
 
     // JWT 토큰에서 사용자 ID를 추출하는 메서드
     public String getUserIdFromToken(String token) {
-        Jws<Claims> claims = getClaims(token);  // JWT 토큰에서 Claims 추출
-        return claims != null ? claims.getBody().get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
-    }
-
-    // JWT 토큰에서 Claims를 추출하는 메서드
-    public Jws<Claims> getClaims(String token) {
-        try {
-            return Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(token);
-        } catch (JwtException | IllegalArgumentException e) {
-            System.out.println("JWT 토큰 파싱 오류: " + e.getMessage());
-            return null;
-        }
+        Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
+        return claims != null ? claims.get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
     }
 
     // JWT 토큰이 만료되었는지 확인하는 메서드
     public Boolean isExpired(String token) {
-        Date expiration = getClaims(token).getBody().getExpiration();
+        Claims claims = getClaims(token);
+        if (claims == null) {
+            // Claims가 null인 경우 토큰이 유효하지 않음
+            return true;
+        }
+        Date expiration = claims.getExpiration();
+        System.out.println("토큰 만료 시간: " + expiration);
         return expiration.before(new Date());
     }
 
@@ -82,12 +90,27 @@ public class JWTUtil {
     // JWT 토큰의 유효성을 검사하는 메서드
     public boolean validateToken(String token) {
         try {
-            // 토큰을 파싱하여 서명 확인 및 유효성 검증
-            Jws<Claims> claims = getClaims(token);
-            return claims != null && !isExpired(token);  // 유효한 토큰이며 만료되지 않았는지 확인
+            Claims claims = getClaims(token);
+            System.out.println("Claims: " + claims);  // Claims가 올바르게 파싱되었는지 확인
+            return claims != null && !isExpired(token);
         } catch (JwtException | IllegalArgumentException e) {
             System.out.println("JWT 유효성 검증 실패: " + e.getMessage());
             return false;
         }
+    }
+
+    // JWT 토큰에서 권한 정보 추출
+    public List<GrantedAuthority> getAuthorities(String token) {
+        Claims claims = getClaims(token);
+        if (claims == null) {
+            return new ArrayList<>();  // Claims가 null이면 빈 권한 리스트 반환
+        }
+        String role = claims.get("role", String.class);
+        if (role == null || role.isEmpty()) {
+            return new ArrayList<>();  // role 정보가 없으면 빈 권한 리스트 반환
+        }
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+        return authorities;
     }
 }

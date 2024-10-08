@@ -21,4 +21,9 @@ public class MemberServiceImpl implements MemberService {
     public MemberVO memberLogin(String userid, String userpwd) {
         return dao.memberLogin(userid, userpwd);
     }
+
+    @Override
+    public Integer getUseridx(String userid) {
+        return dao.getUseridx(userid);
+    }
 }

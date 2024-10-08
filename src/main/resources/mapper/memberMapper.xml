@@ -14,4 +14,8 @@
         from t_user
         where userid = #{userid}
     </select>
+
+    <select id="getUseridx" parameterType="String" resultType="Integer">
+        select idx from t_user where userid = #{param1}
+    </select>
 </mapper>
