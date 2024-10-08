@@ -90,13 +90,9 @@
 
 /* 상품 섹션 스타일 */
 .list-products {
-    flex-wrap: wrap; /* 상품을 가로로 정렬하고 넘치면 다음 줄로 */
     gap: 20px; /* 가로, 세로 간격 */
-    justify-content: flex-start; /* 상품을 왼쪽에 정렬 */
-    height: 250px;
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
     display: flex;
-    gap: 20px;
 }
 
 /* 개별 상품 스타일 */
@@ -162,6 +158,7 @@
     justify-content: center;
 }
 
+
 .list-banner img {
     max-width: 100%;
     height: auto;
@@ -171,12 +168,16 @@
 
 .list-carousel-images {
     display: flex;
-    gap: 40px; /* 각 상품 이미지 사이 간격 */
-    flex-wrap: wrap; /* 화면 너비에 맞게 다음 줄로 넘기기 */
+    flex-wrap: wrap;
     margin: 0 auto;
-    margin-left: 60px;
-    margin-bottom: 20px;
+    overflow: hidden;
+    gap:30px;
+    margin-left: 100px;
 
+}
+
+.list-carousel-images img {
+    border-radius: 10px;
 }
 
 

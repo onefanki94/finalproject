@@ -1,7 +1,10 @@
 package com.ict.finalproject.controller;
 
 
+import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.TAdminService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class masterController {
 
         ModelAndView mav = null;
+        TAdminService tAdminService;
+        JWTUtil jwtUtil;
+
+    @Autowired
+        public masterController(TAdminService tAdminService, JWTUtil jwtUtil) {
+        this.tAdminService = tAdminService;
+        this.jwtUtil = jwtUtil;
+    }
+
+        // t_admin에  admin아이디 있는지 체크 하는 API
 
         // Dashboard 매핑
         @GetMapping("/masterMain")

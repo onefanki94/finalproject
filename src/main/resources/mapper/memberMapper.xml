@@ -18,4 +18,11 @@
     <select id="getUseridx" parameterType="String" resultType="Integer">
         select idx from t_user where userid = #{param1}
     </select>
+
+    <!-- 관리자 ID 존재 여부 확인 -->
+    <select id="existsById" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM t_admin
+        WHERE userid = #{userid}
+    </select>
 </mapper>
