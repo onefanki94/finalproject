@@ -78,7 +78,7 @@ public ModelAndView filterStoreList(
 }
 
 
-    @GetMapping("/storeDetail/idx")
+    @GetMapping("/storeDetail")
    public String storDetail() {
        return "store/storeDetail";
    }

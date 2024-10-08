@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoreVO {
+    private int idx;
     private String title;
     private int price;
     private String detail_img;
