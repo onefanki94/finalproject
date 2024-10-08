@@ -35,18 +35,28 @@ public class communityController {
 
     // 커뮤니티 리스트 페이지
     @GetMapping("/cmList")
-    public String cmList(@RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype, Model model) {
-        System.out.println("Received commtype: " + commtype); // 전달받은 commtype 값 확인
+    public String cmList(
+            @RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "DEFAULT") String orderBy,
+            @RequestParam(value = "searchCategory", required = false, defaultValue = "TITLE_AND_CONTENT") String searchCategory,
+            @RequestParam(value = "searchKeyword", required = false, defaultValue = "") String searchKeyword,
+            Model model) {
+
+        // commtype이 "all"인 경우에만 드롭다운의 필터링 조건을 사용
         List<CommuVO> list;
         if ("all".equals(commtype)) {
-            list = commuService.List(null); // 전체 목록 조회
+            list = commuService.FilteredList(null, orderBy, searchCategory, searchKeyword); // 전체 탭에서 드롭다운 조건 사용
         } else {
-            list = commuService.List(commtype); // 특정 commtype 목록 조회
+            list = commuService.List(commtype); // 특정 commtype (예: 자랑, 친목 등)으로 필터링
         }
-        System.out.println("Filtered List: " + list); // 필터링된 목록 출력
+
         model.addAttribute("list", list);
-        model.addAttribute("commtype", commtype); // 현재 선택된 커뮤니티 타입 전달
-        return "community/cmList";
+        model.addAttribute("commtype", commtype);
+        model.addAttribute("orderBy", orderBy);
+        model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("searchKeyword", searchKeyword);
+
+        return "community/cmList";  // JSP 파일 이름 (cmList.jsp)
     }
 
     //상세페이지

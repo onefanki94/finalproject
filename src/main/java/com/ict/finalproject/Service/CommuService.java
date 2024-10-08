@@ -14,8 +14,11 @@ public interface CommuService {
     //글작성
     CommuVO writeBoard(CommuVO board);
 
-    //게시글 가져오기
+    // 게시글(탭 구분-전체, 자랑, 추천 등)
     List<CommuVO> List(String commtype);
+
+    // 필터, 정렬, 검색 게시글 목록
+    List<CommuVO> FilteredList(String commtype, String orderBy, String searchCategory, String searchKeyword);
 
     //상세페이지
     CommuVO Detail(int idx);
@@ -27,7 +30,7 @@ public interface CommuService {
     CommuVO PreviousPost(int idx);
     CommuVO NextPost(int idx);
 
-    // 게시글 수정 메서드
+    // 게시글 수정, 삭제
     boolean UpdateBoard(CommuVO board);
     int Delete(int idx);
 }
