@@ -72,60 +72,68 @@
         </form>
     </div>
 
- <script>
-     window.onload =()=>{
-         CKEDITOR.ClassicEditor.create(document.getElementById("content"),option)
-             .then(editor => {
-                 console.log('CKEditor 5 is ready.');
-                 console.log("로컬스토리지 토큰값 : ", token);
-                 window.editorInstance = editor; // 에디터 인스턴스를 전역 변수로 저장
-             })
-             .catch(error => {
-                 console.error('CKEditor 5 initialization error:', error);
-             });
+<script>
+    window.onload =()=>{
+        CKEDITOR.ClassicEditor.create(document.getElementById("content"),option)
+            .then(editor => {
+              console.log('CKEditor 5 is ready.');
+              window.editorInstance = editor; // 에디터 인스턴스를 전역 변수로 저장
+            })
+            .catch(error => {
+              console.error('CKEditor 5 initialization error:', error);
+            });
 
 
-         var token = localStorage.getItem("token"); //토근 값 가져오기
-         document.getElementById("token").value=token;
+        // 로컬 스토리지에서 JWT 토큰 가져오기 및 토큰 필드에 설정
+          var token = localStorage.getItem("token");
+          document.getElementById("token").value = token;
+          console.log("로컬 스토리지에서 가져온 토큰 값:", token);  // 토큰 값 확인
+
+    };
 
 
-     };
 
 
-
-
-    // 글 작성 폼 제출 시 호출되는 함수
+// 글 작성 폼 제출 시 호출되는 함수
     function commuFormCheck() {
-        // 입력값 유효성 검사
-        if (!window.editorInstance || window.editorInstance.getData().trim() === '') {
+
+    const token = localStorage.getItem("token");  // 로컬 스토리지에서 JWT 토큰 가져오기
+    if (!token) {
+        alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
+        return false;
+    }
+
+    // 입력 필드 값 가져오기
+        const code = document.getElementById("code").value;
+        const title = document.getElementById("title").value;
+        const content = window.editorInstance ? window.editorInstance.getData().trim() : ''; // CKEditor의 내용 가져오기
+
+    // 유효성 검사
+        if (!code || code.trim() === "") {
+            alert("분류를 선택하세요.");
+            return false;
+        }
+        if (!title || title.trim() === "") {
+            alert("제목을 입력하세요.");
+            return false;
+        }
+        if (!content || content.trim() === "") {
             alert('내용을 입력하세요.');
             return false;
         }
 
-        const token = localStorage.getItem("token");  // 로컬 스토리지에서 JWT 토큰 가져오기
-        if (!token) {
-            alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
-            return false;
-        }
 
-        // 입력 필드 값 가져오기
-        const code = document.getElementById("code").value;
-        const title = document.getElementById("title").value;
-        const content = window.editorInstance.getData().trim(); // CKEditor의 내용 가져오기
 
-        if (!code || code.trim() === "") {
-            alert("분류를 선택하세요.");  // code가 비어 있으면 경고 메시지 출력
-            System.out.println("Received code: " + code);
-            return false;
-        }
+    // 서버로 전송할 데이터를 URLSearchParams 객체에 추가
+    const postData = new URLSearchParams();
+    postData.append("code", code);  // code 파라미터 추가
+    postData.append("title", title);
+    postData.append("content", content);
 
-        // 서버로 전송할 데이터를 URLSearchParams 객체에 추가
-        const postData = new URLSearchParams();
-        postData.append("code", code);  // code 파라미터 추가
-        postData.append("title", title);
-        postData.append("content", content);
+    // 서버로 fetch 요청 보내기 전에 Authorization 헤더에 JWT 토큰이 설정되었는지 확인
+        console.log("Authorization Header에 추가된 토큰: ", token);
 
-        // fetch를 사용하여 POST 요청 보내기
+    // fetch를 사용하여 POST 요청 보내기
         fetch("/cmWriteOk", {
             method: "POST",
             headers: {
@@ -137,9 +145,10 @@
         .then(response => {
             if (response.status === 401) {
                 alert('인증에 실패했습니다. 다시 로그인하세요.');
+                window.location.href = "/user/login";  // 로그인 페이지로 리다이렉트
                 return false;
             }
-            return response.text();
+            return response.text();  // 서버의 응답을 텍스트로 변환
         })
         .then(data => {
             document.write(data);  // 서버에서 반환된 HTML을 페이지에 출력
@@ -149,6 +158,4 @@
         return false;  // 기본 폼 제출 방지
     }
 
- </script>
-</body>
-</html>
+</script>

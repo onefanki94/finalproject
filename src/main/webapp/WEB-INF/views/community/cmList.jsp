@@ -46,19 +46,19 @@
                 <div class="left-area">
                     <div class="head-box">
                         <select id="commtype" name="commtype" onchange="submitSearchForm()">
-                                                    <option value="all" ${commtype == 'all' ? 'selected="selected"' : ''}>최신글보기</option>
-                                                    <option value="10" ${commtype == '10' ? 'selected="selected"' : ''}>자랑</option>
-                                                    <option value="30" ${commtype == '30' ? 'selected="selected"' : ''}>친목</option>
-                                                    <option value="40" ${commtype == '40' ? 'selected="selected"' : ''}>팬아트</option>
-                                                </select>
+                            <option value="all" ${commtype == 'all' ? 'selected="selected"' : ''}>최신글보기</option>
+                            <option value="10" ${commtype == '10' ? 'selected="selected"' : ''}>자랑</option>
+                            <option value="30" ${commtype == '30' ? 'selected="selected"' : ''}>친목</option>
+                            <option value="40" ${commtype == '40' ? 'selected="selected"' : ''}>팬아트</option>
+                        </select>
                     </div>
                     <div class="filter-box">
                         <select id="selectDirection" name="orderBy" onchange="submitSearchForm()">
-                                                    <option value="DEFAULT" ${orderBy == 'DEFAULT' ? 'selected="selected"' : ''}>최신글순</option>
-                                                    <option value="NEW_REPLY" ${orderBy == 'NEW_REPLY' ? 'selected="selected"' : ''}>최신댓글순</option>
-                                                    <option value="REPLY" ${orderBy == 'REPLY' ? 'selected="selected"' : ''}>많은댓글순</option>
-                                                    <option value="LIKE" ${orderBy == 'LIKE' ? 'selected="selected"' : ''}>조회수순</option>
-                                                </select>
+                            <option value="DEFAULT" ${orderBy == 'DEFAULT' ? 'selected="selected"' : ''}>최신글순</option>
+                            <option value="NEW_REPLY" ${orderBy == 'NEW_REPLY' ? 'selected="selected"' : ''}>최신댓글순</option>
+                            <option value="REPLY" ${orderBy == 'REPLY' ? 'selected="selected"' : ''}>많은댓글순</option>
+                            <option value="LIKE" ${orderBy == 'LIKE' ? 'selected="selected"' : ''}>조회수순</option>
+                        </select>
                     </div>
                 </div>
 
