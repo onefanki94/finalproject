@@ -39,28 +39,19 @@
         <div class="cmView">
             <div class="viewInfo">
                 <div class="row">
-                    <div class="col-sm-1 custom-col">[자랑]</div>
-                    <div class="col-sm-10 custom-col"><h3>꿈을 꾸는 고래</h3></div>
-                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">4</div>
+                    <div class="col-sm-1 custom-col">${vo.commtype}</div>
+                    <div class="col-sm-10 custom-col">${vo.title}</div>
+                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">${vo.hit}</div>
                 </div>
                 <div class="row bg-highlight">
-                    <div class="col-sm-10 p-2">최보람</div>
-                    <div class="col-sm-2 text-end">2024-00-00</div>
+                    <div class="col-sm-10 p-2">${vo.useridx}</div>
+                    <div class="col-sm-2 text-end">${vo.regDT}</div>
                 </div>
             </div>
 
-            <div class="cmContent">
-                안녕하세요, 넥슨 고객 여러분.
-                </br>
-                매주 목요일은 넥슨 정기점검으로 9월 26일(목) 오전 4시 30분부터 오전 6시까지
-                넥슨OTP 이용이 원활하지 않습니다.
-                </br>
-                고객 여러분들의 너그러운 양해 부탁드리며
-                자세한 점검시간과 작업영향은 아래 내용을 확인해 주시기 바랍니다.
+            <div class="cmContent">${vo.content}</div>
 
-
-            </div>
-        <div>
+        </div>
 
         <!-- 댓 글 -->
            <div id="replyArea" style="margin-top:30px;" >
@@ -74,7 +65,7 @@
                     </div>
 
                    <!-- 원글 글번호 -->
-                     <input type="hidden" name="no" value="${vo.no}"/>
+                     <input type="hidden" name="no" value="${vo.idx}"/>
                   </div>
                </form>
 
@@ -86,43 +77,43 @@
 
         <!-- 리스트 목록 -->
            <div class="list_section">
-               <!-- <c:if test="${otherVo.preNo!=0}"></c:if> -->
-                    <a href="#">
+               <c:if test="${previousPost != null}"></c:if>
+                    <a href="/cmView?idx=${go.idx}">
                     <div class="list_pre">
                         <i class="bi bi-chevron-up"></i>이전페이지
-                    </div>
-                    </a>
+                    </div></a>
+               <c:if test="${previousPost == null}"></c:if>
 
-               <!-- <c:if test="${otherVo.preNo==0}"></c:if> -->
-
-
-
-               <!-- <c:if test="${otherVo.nextNo!=0}"> -->
-               <a href="#">
+               <c:if test="${nextPost != null}"></c:if>
+               <a href="/cmView?idx=${tun.idx}">
                 <div class="list_next">
                     <i class="bi bi-chevron-down"></i>다음페이지
-                </div>
-                  </a>
-               <!-- </c:if> -->
-               <!-- <c:if test="${otherVo.nextNo==0}"></c:if>-->
-           </div>
+                </div></a>
 
-            <div class="listBt">
-                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
-                    수정
-                </a>
-                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
-                    목록
-                </a>
-                <a class="btn btn-secondary btn-sm" href="javascript:reloadPage(${vo.nowSearchKey});" role="button">
-                    삭제
-                </a>
-          </div>
+               <c:if test="${nextPost == null}"></c:if>
+           </div>
+        <div class="listBt">
+            <a class="btn btn-secondary btn-sm" href="/cmEdit?idx=${vo.idx}" role="button">
+                수정
+            </a>
+            <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
+                목록
+            </a>
+            <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
+                삭제
+            </a>
+        </div>
+
     </div>
 
+    <!-- 삭제 확인 및 처리 -->
+    <script type="text/javascript">
+        function confirmDelete(idx) {
+            if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+                // 삭제 확인 시 삭제 URL로 이동
+                location.href = '/cmDelete?idx=' + idx;
+            }
+        }
+    </script>
 
 
-
-
-</body>
-</html>

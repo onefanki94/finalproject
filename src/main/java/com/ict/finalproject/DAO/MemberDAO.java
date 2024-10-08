@@ -19,12 +19,6 @@ public interface MemberDAO {
         // 로그인
         public MemberVO memberLogin(String userid, String userpwd);
 
-        // userid로 index구하기
-        public int getUseridx(String userid);
-
-
-
-        public MemberVO findByUserid(String userid);
-
-        MemberVO adminLogin(@Param("userid") String userid);
+        // idx로 해당 아이디 구하기
+        Integer getUseridx(String userid);
 }
