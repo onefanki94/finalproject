@@ -9,30 +9,36 @@ function login() {
     }
 
     // 로그인 요청 보내기
-    fetch('/user/loginOk', {  // 로그인 요청 URL
+    fetch('/user/loginOk', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },  // 요청 헤더 설정
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userid, userpwd })  // 입력값을 JSON으로 변환하여 요청 본문에 포함
     })
     .then(response => {
+        console.log("로그인 응답 상태 코드: ", response.status);  // 응답 상태 코드 확인
+        console.log("로그인 응답 헤더: ", response.headers);  // 응답 헤더 확인
+
         // 서버 응답 헤더에서 JWT 토큰 추출
         let token = response.headers.get("Authorization");
 
-        if (token) {
-            // "Bearer " 접두어가 포함되어 있을 경우 제거
-            if (token.startsWith("Bearer ")) {
-                token = token.substring(7);  // "Bearer " 문자열 제거
-            }
-
-            // 로컬 스토리지에 JWT 토큰 저장
-            localStorage.setItem("token", token);  // JWT 토큰 저장
-            console.log("JWT 토큰 저장 성공: ", token);
-
-            // 로그인 성공 시 메인 페이지로 이동
-            window.location.href = "/";  // 메인 페이지로 리다이렉트
-        } else {
-            console.error("서버로부터 JWT 토큰을 받지 못했습니다.");  // 토큰 미수신 경고
+        // 헤더에 Authorization이 있는지 확인
+        if (!token) {
+            console.error("서버로부터 JWT 토큰을 받지 못했습니다. 응답 헤더를 확인하세요.");
+            alert("로그인에 실패했습니다. 관리자에게 문의하세요.");
+            return;
         }
+
+        // "Bearer " 접두어가 포함되어 있을 경우 제거
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);  // "Bearer " 문자열 제거
+        }
+
+        // 로컬 스토리지에 JWT 토큰 저장
+        localStorage.setItem("token", token);  // JWT 토큰 저장
+        console.log("JWT 토큰 저장 성공: ", token);
+
+        // 로그인 성공 시 메인 페이지로 이동
+        window.location.href = "/";  // 메인 페이지로 리다이렉트
     })
     .catch(error => console.error('로그인 실패:', error));  // 로그인 실패 시 오류 출력
 }

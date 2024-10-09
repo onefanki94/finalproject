@@ -70,17 +70,6 @@ public class JWTUtil {
                 .compact();
     }
 
-    // JWT 토큰으로부터 사용자 ID를 추출하여 Spring Security의 Authentication 객체에 설정하는 메서드
-    public void authenticateWithJwt(String token) {
-        String userid = getUserIdFromToken(token);  // JWT 토큰에서 사용자 ID 추출
-
-        // Spring Security의 Authentication 객체 생성 (권한은 비워둠)
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userid, null, new ArrayList<>());
-
-        // SecurityContextHolder에 설정하여 SecurityContext에 인증 정보 저장
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
 
     // HTTP 요청 헤더에서 JWT 토큰을 추출하는 메서드
     public String resolveToken(HttpServletRequest request) {
