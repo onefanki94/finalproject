@@ -72,7 +72,7 @@
         </form>
     </div>
 
- <script>
+<script>
      window.onload = () => {
          // 로컬 스토리지에서 JWT 토큰 가져오기
          var token = localStorage.getItem("token");  // 토큰 값 가져오기
@@ -90,6 +90,7 @@
              .then(editor => {
                  console.log("CKEditor 5 is ready.");
                  window.editorInstance = editor;  // 에디터 인스턴스를 전역 변수로 저장
+
              })
              .catch(error => {
                  console.error("CKEditor 5 initialization error:", error);
