@@ -2,7 +2,9 @@ package com.ict.finalproject.controller;
 
 
 import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.TAdminService;
+import com.ict.finalproject.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("/master")
 public class masterController {
 
+        @Autowired
+        TAdminService tAdminService;
+    @Autowired
+        MemberService service;
         ModelAndView mav = null;
         /*TAdminService tAdminService;
         JWTUtil jwtUtil;
@@ -69,8 +77,25 @@ public class masterController {
 
         //Dashboard - 회원관리 - 회원 목록 리스트
         @GetMapping("/userMasterList")
-        public ModelAndView masterUserList(){
+        public ModelAndView masterUserList(MemberVO vo){
+
+            // 유저 List 가져오기
+            List<MemberVO> memberList = service.getMemberList(vo);
+
+            // 총 유저수 구하기
+            int totalUser = service.getTotalUser();
+
+            // 오늘 가입자 수 구하기
+            int newUsers = service.getNewUsers();
+
+            // 최근 7일간 가입자 수 구하기
+            int newSignups = service.getNewSignups();
+
             mav = new ModelAndView();
+            mav.addObject("memberList", memberList);
+            mav.addObject("totalUser", totalUser);
+            mav.addObject("newUsers", newUsers);
+            mav.addObject("newSignups", newSignups);
             mav.setViewName("master/userMasterList");
             return mav;
         }

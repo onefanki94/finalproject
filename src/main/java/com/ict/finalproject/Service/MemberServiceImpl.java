@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-    @Inject
+    @Autowired
     MemberDAO dao;
 
     @Override
@@ -27,4 +28,23 @@ public class MemberServiceImpl implements MemberService {
         return dao.getUseridx(userid);
     }
 
+    @Override
+    public List<MemberVO> getMemberList(MemberVO vo) {
+        return dao.getMemberList(vo);
+    }
+
+    @Override
+    public int getTotalUser() {
+        return dao.getTotalUser();
+    }
+
+    @Override
+    public int getNewUsers() {
+        return dao.getNewUsers();
+    }
+
+    @Override
+    public int getNewSignups() {
+        return dao.getNewSignups();
+    }
 }

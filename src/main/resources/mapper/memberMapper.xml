@@ -19,10 +19,24 @@
         select idx from t_user where userid = #{param1}
     </select>
 
-    <!-- 관리자 ID 존재 여부 확인 -->
-    <select id="existsByAdminId" resultType="boolean">
-        SELECT COUNT(*) > 0
-        FROM t_admin
-        WHERE adminid = #{adminid}
+    <!-- 전체 멤버 리스트 구하기 -->
+    <select id="getMemberList" resultType="com.ict.finalproject.vo.MemberVO">
+        select idx, userid, username, email, regDT, point from t_user
     </select>
+
+    <!-- 총 유저수 구하기 -->
+    <select id="getTotalUser">
+        SELECT COUNT(*) FROM t_user
+    </select>
+
+    <!--오늘 가입한 유저수 구하기 -->
+    <select id="getNewUsers">
+        SELECT COUNT(*) FROM t_user WHERE DATE(regDT) = CURDATE()
+    </select>
+
+    <!-- 최근 7일간 가입한 유저수 구하기 -->
+    <select id="getNewSignups">
+        SELECT COUNT(*) FROM t_user WHERE regDT >= CURDATE() - INTERVAL 7 DAY
+    </select>
+
 </mapper>
