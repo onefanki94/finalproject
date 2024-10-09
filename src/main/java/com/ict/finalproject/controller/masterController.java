@@ -49,7 +49,7 @@ public class masterController {
             String userId = jwtUtil.getUserIdFromToken(token);
 
             // t_admin 테이블의 "admin" 아이디만 접근 허용
-            boolean isAdmin = tAdminService.isAdmin(userId);
+            boolean isAdmin = tAdminService.existsByAdminId(userId);
 
             return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
         }

@@ -20,9 +20,9 @@
     </select>
 
     <!-- 관리자 ID 존재 여부 확인 -->
-    <select id="existsById" resultType="boolean">
+    <select id="existsByAdminId" resultType="boolean">
         SELECT COUNT(*) > 0
         FROM t_admin
-        WHERE userid = #{userid}
+        WHERE adminid = #{adminid}
     </select>
 </mapper>

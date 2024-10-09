@@ -12,11 +12,11 @@ import java.io.IOException;
 
 public class AdminFilter extends OncePerRequestFilter {
 
-    private final TAdminDAO tAdminDAO;
+    private final TAdminService tAdminService;
     private final JWTUtil jwtUtil;
 
-    public AdminFilter(TAdminDAO tAdminDAO, JWTUtil jwtUtil) {
-        this.tAdminDAO = tAdminDAO;
+    public AdminFilter(TAdminService tAdminService, JWTUtil jwtUtil) {
+        this.tAdminService = tAdminService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -32,9 +32,9 @@ public class AdminFilter extends OncePerRequestFilter {
             if (token != null && jwtUtil.validateToken(token)) {
                 String userId = jwtUtil.getUserIdFromToken(token);
 
-                // t_admin 테이블의 "admin" 아이디만 접근 허용
-                if (!"admin".equals(userId)) {
-                    // admin 아이디가 아니면 접근 차단
+                // t_admin 테이블의 adminid가 userId와 일치하는지 확인
+                if (!tAdminService.existsByAdminId(userId)) { // Use the service to check for admin ID
+                    // adminid가 일치하지 않으면 접근 차단
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "관리자 권한이 필요합니다.");
                     return;
                 }
