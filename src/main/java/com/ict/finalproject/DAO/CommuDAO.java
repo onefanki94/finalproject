@@ -1,8 +1,10 @@
 package com.ict.finalproject.DAO;
 
+
 import com.ict.finalproject.vo.CommuVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,5 +30,7 @@ public interface CommuDAO {
     // 게시글 수정 메서드
     int UpdateBoard(CommuVO board);
     int Delete(int idx);
+
+
 
 }
