@@ -21,20 +21,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class masterController {
 
         ModelAndView mav = null;
-        TAdminService tAdminService;
+        /*TAdminService tAdminService;
         JWTUtil jwtUtil;
 
     @Autowired
         public masterController(TAdminService tAdminService, JWTUtil jwtUtil) {
         this.tAdminService = tAdminService;
         this.jwtUtil = jwtUtil;
-    }
+    }*/
 
         // t_admin에  admin아이디 있는지 체크 하는 API
-        @GetMapping("/checkAdmin")
+        /*@GetMapping("/checkAdmin")
         public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
             // Authorization 헤더 확인
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                System.out.println("Authorization 헤더가 없거나 형식이 잘못되었습니다.");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
             }
 
@@ -42,17 +43,20 @@ public class masterController {
 
             // JWT 토큰 유효성 검사
             if (!jwtUtil.validateToken(token)) {
+                System.out.println("JWT 토큰이 유효하지 않습니다.");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
             }
 
             // 토큰에서 사용자 ID 추출
             String userId = jwtUtil.getUserIdFromToken(token);
+            System.out.println("JWT 토큰에서 추출한 사용자 ID: " + userId);  // 추출된 ID 출력
 
             // t_admin 테이블의 "admin" 아이디만 접근 허용
             boolean isAdmin = tAdminService.existsByAdminId(userId);
+            System.out.println("t_admin 테이블에 " + userId + " 존재 여부: " + isAdmin);
 
             return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
-        }
+        }*/
 
         // Dashboard 매핑
         @GetMapping("/masterMain")

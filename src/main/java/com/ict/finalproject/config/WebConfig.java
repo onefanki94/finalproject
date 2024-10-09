@@ -26,12 +26,12 @@ public class WebConfig implements WebMvcConfigurer {
         this.jwtInterceptor = jwtInterceptor;
     }
 
-    @Override
+  /*  @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // JwtInterceptor 등록
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/master/**");  // /master/** 경로에 대해 인터셉터 적용
-    }
+    }*/
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

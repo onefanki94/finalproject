@@ -95,16 +95,38 @@ public class JWTUtil {
 
     // JWT 토큰에서 권한 정보 추출
     public List<GrantedAuthority> getAuthorities(String token) {
+        // JWT 토큰에서 Claims 추출
         Claims claims = getClaims(token);
+        System.out.println("Claims 정보: " + claims);
+
+        // Claims가 null이거나, adminid가 없으면 빈 권한 리스트 반환
         if (claims == null) {
-            return new ArrayList<>();  // Claims가 null이면 빈 권한 리스트 반환
+            System.out.println("Claims가 null입니다. 권한 리스트 반환.");
+            return new ArrayList<>();
         }
-        String role = claims.get("role", String.class);
-        if (role == null || role.isEmpty()) {
-            return new ArrayList<>();  // role 정보가 없으면 빈 권한 리스트 반환
+
+        // JWT Claims에서 adminid 값 추출
+        String adminid = claims.get("adminid", String.class);
+        System.out.println("JWT Claims에서 추출한 adminid: " + adminid);
+
+        // adminid가 null이거나 비어 있으면 빈 권한 리스트 반환
+        if (adminid == null || adminid.isEmpty()) {
+            System.out.println("adminid 값이 null이거나 비어 있습니다. 권한 리스트 반환.");
+            return new ArrayList<>();
         }
+
+        // 특정 adminid에 대해 GrantedAuthority 설정 (예: "admin"이라는 ID만 권한 부여)
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
+        if ("admin".equals(adminid)) {
+            System.out.println("adminid가 'admin'입니다. ROLE_ADMIN 권한 부여.");
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            System.out.println("adminid가 'admin'이 아닙니다. 권한 부여하지 않음.");
+        }
+
+        System.out.println("GrantedAuthority 리스트: " + authorities);
         return authorities;
     }
+
+
 }
