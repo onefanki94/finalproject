@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface TAdminDAO {
-    boolean existsById(String userId);
+    boolean existsByAdminId(String adminId);
 }

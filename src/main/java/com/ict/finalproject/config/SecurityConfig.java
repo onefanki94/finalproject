@@ -5,6 +5,7 @@ import com.ict.finalproject.JWT.AdminFilter;
 import com.ict.finalproject.JWT.JWTFilter;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.JWT.LoginFilter;
+import com.ict.finalproject.Service.TAdminService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +25,11 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final TAdminDAO tAdminDAO;  // TAdminDAO 주입
+    private final TAdminService tAdminService;  // TAdminDAO 주입
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(TAdminDAO tAdminDAO, JWTUtil jwtUtil) {
-        this.tAdminDAO = tAdminDAO;
+    public SecurityConfig(TAdminService tAdminService, JWTUtil jwtUtil) {
+        this.tAdminService = tAdminService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -49,7 +50,7 @@ public class SecurityConfig {
 
         // JWT 필터 추가
         http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new AdminFilter(tAdminDAO, jwtUtil), JWTFilter.class);
+                .addFilterAfter(new AdminFilter(tAdminService, jwtUtil), JWTFilter.class);
 
         // 세션 관리 설정
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
