@@ -20,7 +20,11 @@ import java.util.List;
 //@RequestMapping("/community")
 @Controller
 public class communityController {
+<<<<<<< HEAD
     // userid로 index구하기
+=======
+
+>>>>>>> 3c7d9805cac6812f187fd93d93170f7e5b13590a
     @Autowired
     MemberService mservice;
 

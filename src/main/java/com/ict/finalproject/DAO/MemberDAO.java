@@ -3,7 +3,6 @@ package com.ict.finalproject.DAO;
 
 import com.ict.finalproject.vo.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface MemberDAO {

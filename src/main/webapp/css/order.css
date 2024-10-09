@@ -1,0 +1,376 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--e-font), var(--k-font);
+}
+body {
+  background: white;
+  /* animation: fadeIn 2s ease-out; */
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+span,
+ol,
+button {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #359c95;
+  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
+  --k-font: "Pretendard";
+  --e-font: "Outfit";
+}
+
+button {
+  cursor: pointer;
+}
+
+.order_container {
+  max-width: 1500px;
+  margin: 0px auto;
+  padding: 0px 50px 200px;
+}
+
+.order_progress {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 70px 0px 78px;
+}
+
+.order_progress ol {
+  display: flex;
+}
+
+.order_progress ol li {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgb(228, 228, 228);
+}
+
+.fa-chevron-right {
+  margin: 0px 15px;
+  color: rgb(228, 228, 228);
+  font-size: 15px;
+}
+
+.order_progress ol li:nth-of-type(2) {
+  color: rgb(48, 48, 51);
+}
+
+.order_pay {
+  margin-top: 15px;
+  height: 100%;
+  min-height: 1200px;
+  position: relative;
+}
+
+.order_pay::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.order_pay_left {
+  float: left;
+  width: 73%;
+}
+
+.order_pay_right {
+  position: sticky;
+  top: 100px;
+  float: right;
+  width: 25%;
+  border-radius: 10px;
+  padding: 30px 2% 40px;
+  margin: 10px 5px 15px;
+  background-color: #fff;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2),
+    -2px -2px 6px 0 hsla(0, 0%, 100%, 0.2),
+    inset 0 0 0 1px hsla(0, 0%, 100%, 0.5);
+}
+
+.order_proinfo,
+.order_addr,
+.order_point {
+  position: relative;
+  border-top: 2px solid rgb(48, 48, 51);
+  margin: 10px 5px;
+}
+
+.order_proinfo_tit,
+.order_addr_tit,
+.order_point_tit {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 74px;
+  border-top: 2px solid rgb(48, 48, 51);
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.order_proinfo_tit h2,
+.order_addr_tit h2,
+.order_point_tit h2 {
+  font-weight: bold;
+  line-height: 136%;
+  font-size: 18px;
+  color: rgb(48, 48, 51);
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.order_proinfo ul {
+  margin: 24px 0px;
+}
+
+.order_proinfo ul li {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.order_product_li {
+  display: flex;
+  width: 100%;
+}
+
+.order_product_img {
+  margin-right: 20px;
+}
+
+.order_product_img img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.order_product_info {
+  margin-top: 5px;
+  gap: 24px;
+  width: 100%;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+}
+
+.order_product_info_detail {
+  gap: 6px;
+  width: 100%;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  color: rgb(48, 48, 51);
+}
+
+.order_product_info_tit a {
+  font-weight: bold;
+  line-height: 140%;
+  font-size: 20px;
+  color: rgb(48, 48, 51);
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+.order_product_info_total {
+  margin-top: 10px;
+}
+
+.order_product_info_total span {
+  font-weight: bold;
+  font-size: 15px;
+  color: rgb(48, 48, 51);
+}
+
+.order_addr_info {
+  margin: 24px 0px;
+  position: relative;
+}
+
+.order_div {
+  display: flex;
+  padding-bottom: 10px;
+}
+
+.order_div h2 {
+  display: flex;
+  flex-shrink: 0;
+  -webkit-box-align: center;
+  align-items: center;
+  align-self: flex-start;
+  width: 130px;
+  font-size: 14px;
+  font-weight: normal;
+  color: rgb(48, 48, 51);
+}
+
+.order_recipient {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: row;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-right: 0px;
+  margin-bottom: 10px;
+}
+
+.order_recipient input {
+  display: block;
+  width: 15%;
+  height: 45px;
+  padding: 0px 14px;
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  border: 1px solid rgb(228, 228, 228);
+  outline: none;
+}
+
+.order_addr_div,
+.order_tel_div {
+  -webkit-box-align: center;
+  align-items: center;
+  padding-right: 0px;
+  width: 100%;
+}
+
+.order_addr_div div {
+  display: flex;
+}
+
+.order_addr_div div input {
+  display: block;
+  width: 15%;
+  height: 45px;
+  padding: 0px 14px;
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  border: 1px solid rgb(228, 228, 228);
+  outline: none;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.order_addr_div div button {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 102px;
+  height: 45px;
+  font-size: 12px;
+  color: rgb(48, 48, 51);
+  text-align: center;
+  background: rgb(244, 244, 244);
+  border: 0;
+}
+
+.order_addr_div input {
+  display: block;
+  width: 27.8%;
+  height: 45px;
+  padding: 0px 14px;
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  border: 1px solid rgb(228, 228, 228);
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.order_addr_div input:nth-of-type(2) {
+  margin-bottom: 10px !important;
+  width: 35%;
+}
+
+.order_tel_div select {
+  height: 45px;
+  padding: 0px 14px;
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  border: 1px solid rgb(228, 228, 228);
+  width: 9.6%;
+}
+
+.order_tel_div span {
+  flex-shrink: 0;
+  width: 22px;
+  color: rgb(228, 228, 228);
+  text-align: center;
+  padding: 0 6.5px;
+}
+
+.order_tel_div input {
+  height: 45px;
+  padding: 0px 14px;
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  border: 1px solid rgb(228, 228, 228);
+  width: 9.6%;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.delivery_requestmemo {
+  font-family: var(--e-font), var(--k-font);
+  width: 30.5%;
+  padding: 14px;
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  border: 1px solid rgb(228, 228, 228);
+  outline: none;
+  resize: none;
+  height: 70px;
+}

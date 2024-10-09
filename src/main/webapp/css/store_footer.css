@@ -1,0 +1,20 @@
+#main_footer{
+    color: #666;
+    background: #f0f0f0;
+    border-top: 2px solid #E6E6EB;
+    box-shadow: inset -2px -2px 7px #fff, inset 2px 2px 7px rgba(174, 174, 192, .3);
+}
+
+#main_footer .info_footer div a{
+    color: #666;
+}
+
+#main_footer .flex_footer {
+    color: #666;
+}
+
+#main_footer .bottom_footer div a:hover{color:#222}
+
+#main_footer .info_footer{
+    border-bottom: 1px solid #666;
+}

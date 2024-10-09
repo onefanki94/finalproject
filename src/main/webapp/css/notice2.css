@@ -7,9 +7,11 @@ a:link,
 a:visited,
 a:hover {
     text-decoration: none;
-    decoration:none;
     color: #b2b2b2;
 }
+
+
+/*tab1_modal*/
 
 .detail_layer_pop {
     z-index: 999;
@@ -86,6 +88,7 @@ a:hover {
 }
 
 
+/*탭 메뉴*/
 
 .notice_info{
     padding: 50px 70px 0;
@@ -115,18 +118,21 @@ a:hover {
 }
 .aaa{
     position:relative;
+    display: flex;
+        justify-content: center;
 }
 
 .notice_tab {
-    position: absolute;
-    width: 100%;
+    position: relative;
+    width:100%;
+    max-width: 1500px;
     box-sizing: border-box;
     padding: 0 70px;
     left: 0;
     top: -40px;
     z-index: 2;
-
 }
+
 
 .notice_tab a{
     display: block;
@@ -144,6 +150,11 @@ a:hover {
     background: linear-gradient(180deg, #363636 0, #252525 50%, #1f1f1f);
 }
 
+.notice_tab a:hover {
+    color: #b2b2b2;
+    background: #3F3F3F;
+}
+
 .selected {
     list-style: none;
 }
@@ -153,14 +164,26 @@ a:hover {
 }
 
 
+
 .container{
- box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
     width: 100vw;
     max-width:100%;
     padding: 95px 70px 100px;
     position: relative;
     background: linear-gradient(180deg, #1e1e1e 0, #181818 9%, #070707 17%, #000);
 }
+
+.con_width{
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+
+}
+
+/*검색창*/
 
 .notice{
     display: flex;
@@ -169,17 +192,15 @@ a:hover {
     width: 100%;
     margin-top:30px;
     padding: 0;
-
-
 }
 
 .tools {
     display: flex;
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
-    width: 100%; /* 부모 요소의 너비만큼 차지 */
-    margin: 20px 0; /* 상하 여백 */
-    padding: 0; /* 패딩 제거 */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+    padding: 0;
 }
 
 .search {
@@ -206,7 +227,7 @@ a:hover {
 
 .search input {
     margin-left:4px;
-    width: 100%;
+    width: 300px;
     box-sizing: border-box;
     font-size: 12px;
     color: #fff;
@@ -257,7 +278,7 @@ a:hover {
 }
 
 
-
+/*tab1-공지사항 리스트*/
 .row .header div{
     position: relative;
     border-bottom: 1px solid #232323;
@@ -280,9 +301,40 @@ a:hover {
     padding: 10px 0px;
     background: #050505;
     justify-center:center;
-        align-items:center;
+    align-items:center;
+}
 
 
+.FAQList table tr td:last-child {
+    text-align: left;
+}
+.FAQList table tr td {
+    background: #050505;
+    text-align: center;
+    border-bottom: 1px solid #232323;
+    font-size: 14px;
+    color: #b2b2b2;
+    padding: 25px;
+    position: relative;
+}
+
+.FAQList table .on td {
+    background: #101010;
+    color: #ff5d24;
+}
+
+.FAQList table tr td:last-child img {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+
+
+img {
+    max-width: 100%;
 }
 
 /* 전체 1:1 문의 내역 컨테이너 */
@@ -291,7 +343,6 @@ a:hover {
     padding: 30px;
     background-color: #1f1f1f;
     border: 1px solid #333;
-
     margin-bottom: 50px;
 }
 

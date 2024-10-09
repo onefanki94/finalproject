@@ -96,9 +96,10 @@
               </ul>
             </div>
             <div class="sh_search_login">
-                <div class="search-button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+                <form class="search-button">
+                    <input type="text" id="search_key" name="search_key" class="search-input" placeholder="검색어를 입력하세요" />
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             <div class="sh_login"></div>
            </div>
        </div>

@@ -26,4 +26,5 @@ public class MemberServiceImpl implements MemberService {
     public Integer getUseridx(String userid) {
         return dao.getUseridx(userid);
     }
+
 }

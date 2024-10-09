@@ -1,10 +1,16 @@
 package com.ict.finalproject.controller;
 
 
+import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.TAdminService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +21,38 @@ import org.springframework.web.servlet.ModelAndView;
 public class masterController {
 
         ModelAndView mav = null;
+        TAdminService tAdminService;
+        JWTUtil jwtUtil;
+
+    @Autowired
+        public masterController(TAdminService tAdminService, JWTUtil jwtUtil) {
+        this.tAdminService = tAdminService;
+        this.jwtUtil = jwtUtil;
+    }
+
+        // t_admin에  admin아이디 있는지 체크 하는 API
+        @GetMapping("/checkAdmin")
+        public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
+            // Authorization 헤더 확인
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+            }
+
+            String token = authHeader.substring(7);  // 'Bearer ' 제거
+
+            // JWT 토큰 유효성 검사
+            if (!jwtUtil.validateToken(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+            }
+
+            // 토큰에서 사용자 ID 추출
+            String userId = jwtUtil.getUserIdFromToken(token);
+
+            // t_admin 테이블의 "admin" 아이디만 접근 허용
+            boolean isAdmin = tAdminService.isAdmin(userId);
+
+            return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
+        }
 
         // Dashboard 매핑
         @GetMapping("/masterMain")

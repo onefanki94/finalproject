@@ -5,12 +5,13 @@
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 <link rel="stylesheet" href="/css/mypage_review.css" type="text/css" />
+<link rel="stylesheet" href="/css/mypage_reviewmodal.css" type="text/css"/>
 <script src="/js/mypage_review.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
     <div class="mypage_left">
-      <p class="mypage_home">MY PAGE</p>
+      <a href="/user/mypage" class="mypage_home">MY PAGE</a>
       <section class="mypage_menu">
           <h3>나의 쇼핑정보</h3>
           <ul>
@@ -61,16 +62,22 @@
     </div>
     <div class="mypage_right">
       <ul class="mypage_right_top">
-        <li class="user_inform">
-          <a class="atag_css" href=""><strong>회원정보</strong><span>sing2727 님</span></a>
-        </li>
-        <li class="user_retention_details">
-          <a class="atag_css" href=""><strong class="">적립금</strong><span class="">360</span></a>
-        </li>
-        <li class="user_retention_details">
-          <a class="atag_css" href=""><strong class="">작성한 리뷰</strong><span class="">1</span></a>
-        </li>
-      </ul>
+          <li class="user_inform">
+            <a class="atag_css" href="/user/mypage_userEdit"
+              ><strong>회원정보 수정</strong><span>sing2727 님</span></a
+            >
+          </li>
+          <li class="user_retention_details">
+            <a class="atag_css" href="/user/mypage_point"
+              ><strong class="">적립금</strong><span class="">360</span></a
+            >
+          </li>
+          <li class="user_retention_details">
+            <a class="atag_css" href="/user/mypage_review"
+              ><strong class="">작성한 리뷰</strong><span class="">1</span></a
+            >
+          </li>
+        </ul>
 
       <div class="mypage_right_element">
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
@@ -97,7 +104,7 @@
                         </div>
                       </div>
                       <span class="order_state_date"><span>구매확정</span><br />2024.07.04</span>
-                      <div><button class="review_write_btn" type="button">리뷰쓰기</button></div>
+                      <div><button class="review_write_btn" type="button" onclick="review_write()">리뷰쓰기</button></div>
                     </div>
                   </div>
                 </li>
