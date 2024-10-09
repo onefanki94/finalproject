@@ -76,4 +76,7 @@ $371(document).ready(function() {
     console.log('Slick initialized'); // 초기화 확인을 위한 로그 출력
 });
 
-
+//공지사항이동
+function goToNoticePage() {
+    window.location.href = "/allnotice"; // notice 페이지로 이동
+}

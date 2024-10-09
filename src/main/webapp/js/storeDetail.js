@@ -135,16 +135,16 @@ function scrollToShippingSection() {
     }
 }
 
-function increaseQuantity() {
-    let quantityInput = document.querySelector('.quantity-input');
-    if (quantityInput.value < ${storeDetail.stock}) {
-        quantityInput.value = parseInt(quantityInput.value) + 1;
-        updateTotalPrice();
-    }
-}
+// function increaseQuantity() {
+//     let quantityInput = document.querySelector('.quantity-input');
+//     if (quantityInput.value < ${storeDetail.stock}) {
+//         quantityInput.value = parseInt(quantityInput.value) + 1;
+//         updateTotalPrice();
+//     }
+// }
 
-function updateTotalPrice() {
-    let quantity = document.querySelector('.quantity-input').value;
-    let price = ${storeDetail.price};
-    document.getElementById('totalPrice').textContent = price * quantity;
-}
+// function updateTotalPrice() {
+//     let quantity = document.querySelector('.quantity-input').value;
+//     let price = ${storeDetail.price};
+//     document.getElementById('totalPrice').textContent = price * quantity;
+// }

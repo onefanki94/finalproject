@@ -71,6 +71,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/javax.inject/javax.inject
 	implementation 'javax.inject:javax.inject:1'
 
+	//Jsoup
+	 implementation 'org.jsoup:jsoup:1.15.3'
+
 }
 
 tasks.named('test') {

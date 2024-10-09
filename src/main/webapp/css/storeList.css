@@ -106,7 +106,6 @@
     box-sizing: border-box;
     display:inline-flex;  
     overflow: hidden;
- 
 }
 
 
@@ -132,6 +131,11 @@
 .list-product :first-child{
     overflow: hidden;
 }
+
+.list-product :last-child{
+    font-weight: bold;
+}
+
 
 /* Hover 효과 */
 .list-product img:hover {

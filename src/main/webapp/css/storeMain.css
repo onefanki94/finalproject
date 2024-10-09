@@ -92,6 +92,26 @@ a {
     margin-top: 70px;
 }
 
+/* 4,000원 글씨를 굵게 설정 */
+.product .price .discount {
+    color: #858585;
+    font-weight: bolder; /* 글씨를 굵게 만듦 */
+}
+
+/* '입고'와 '오리지널' 태그를 회색 박스로 만들기 */
+.product .tag span {
+    background-color: #bdbdbd; /* 회색 배경 */
+    padding: 5px 10px; /* 내부 여백 */
+    border-radius: 5px; /* 모서리를 둥글게 */
+    display: inline-block; /* 박스 형태로 만들기 */
+    margin-right: 5px; /* 태그 사이 간격 */
+    font-size: 12px; /* 글자 크기 조정 */
+    color: #ffffff; /* 글자 색상 */
+}
+
+
+
+
 /*인기굿즈*/
 .pop-carousel-images .slick-prev, 
 .pop-carousel-images .slick-next {
@@ -152,6 +172,7 @@ a {
     padding: 5px;
     max-width: 1800px;
     margin: 0 auto;
+    cursor: pointer;
 }
 .icon {
     font-size: 24px;
@@ -164,6 +185,7 @@ a {
 
 .notification-content {
     font-size: 16px;
+   
 }
 
 .notification-title {
@@ -220,24 +242,30 @@ a {
 
 .origin-goods{
     width: 100%;
-    margin-top: 150px;
+    margin-top: 100px;
     margin-bottom: 100px; 
 }
 
 .origin-carousel-wrapper{
     width: 100%;
     margin-bottom: 20px;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .origin-carousel-images {
     gap: 20px; /* 이미지 간의 간격 */
   }
 
+.origin-item-img{
+    overflow: hidden;
+}
+
+
 .origin-tag {
     text-align: left;
-    color: #888;
+    color: #858585;
     font-weight: bold;
+ 
 }
 
 .origin-carousel-images img{
@@ -297,7 +325,30 @@ a {
 .new-carousel-images img:hover {
     animation: shake 0.5s ease-in-out; 
 }
-/*신규굿즈*/
+
+.tit, .cnt{
+    color: #858585;
+}
+
+/* 4,000원 글씨를 굵게 설정 */
+.new-product .price .discount {
+    color: #858585;
+    font-weight: bolder; /* 글씨를 굵게 만듦 */
+}
+
+/* '입고'와 '오리지널' 태그를 회색 박스로 만들기 */
+.new-product .tag span {
+    background-color: #bdbdbd; /* 회색 배경 */
+    padding: 5px 10px; /* 내부 여백 */
+    border-radius: 5px; /* 모서리를 둥글게 */
+    display: inline-block; /* 박스 형태로 만들기 */
+    margin-right: 5px; /* 태그 사이 간격 */
+    font-size: 12px; /* 글자 크기 조정 (필요시) */
+    color: #ffffff; /* 글자 색상 */
+}
+
+
+/*신규굿즈 화살표*/
 .new-carousel-images .slick-prev, 
 .new-carousel-images .slick-next {
  
@@ -326,7 +377,7 @@ a {
     width: 100%;
     height: 100vh;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 100px;
     
 }
 
@@ -337,23 +388,26 @@ a {
 .md-carousel-images{
     display: flex;
     gap:30px;
-    overflow: visible;
 }
 
 
-.md-item img {
+.md-item-img {
     width: 500px; /* 이미지 크기를 원하는 값으로 설정 */
     height: 500px;
     border-radius: 10px; 
-    transition: transform 0.5s ease-in-out; /* 호버 시 부드럽게 확대 */
+    overflow: hidden;
+   
   }
 
+
+
 .md-carousel-images img:hover{
+    transition: transform 0.5s ease-in-out; /* 호버 시 부드럽게 확대 */
     transform: scale(1.05);
 }
 
 .md-tag{
-    color: #888;
+    color: #858585;
     font-size: 16px;
     font-weight: bold;
 }
