@@ -67,11 +67,10 @@ public class JWTFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);  // "Bearer " 문자열 이후의 토큰만 반환
-        }
-        return null;
+    // 관리자 페이지 접근을 허용할 사용자 ID 확인 로직
+    private boolean isAdminUser(String userid) {
+        // 여기에 관리자 페이지 접근을 허용할 사용자 ID를 확인하는 로직을 구현
+        // 예: 특정 ID가 존재하는지 확인하거나 t_admin 테이블에서 조회
+        return "adminUser".equals(userid);  // 예: "adminUser"만 관리자 페이지 접근 가능
     }
 }

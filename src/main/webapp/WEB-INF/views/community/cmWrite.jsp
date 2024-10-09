@@ -72,36 +72,26 @@
         </form>
     </div>
 
-<script>
-     window.onload = () => {
-         // 로컬 스토리지에서 JWT 토큰 가져오기
-         var token = localStorage.getItem("token");  // 토큰 값 가져오기
-
-         if (!token) {
-             alert("로그인이 필요합니다.");
-             location.href = "/user/login";  // 로그인 페이지로 이동
-             return;
-         }
-
-         console.log("로컬 스토리지 토큰 값: ", token);  // 로컬 스토리지에서 가져온 토큰 값 출력
-
-         // CKEditor5 초기화
-         CKEDITOR.ClassicEditor.create(document.getElementById("content"), option)
+ <script>
+     window.onload =()=>{
+         CKEDITOR.ClassicEditor.create(document.getElementById("content"),option)
              .then(editor => {
-                 console.log("CKEditor 5 is ready.");
-                 window.editorInstance = editor;  // 에디터 인스턴스를 전역 변수로 저장
-
+                 console.log('CKEditor 5 is ready.');
+                 window.editorInstance = editor; // 에디터 인스턴스를 전역 변수로 저장
              })
              .catch(error => {
-                 console.error("CKEditor 5 initialization error:", error);
+                 console.error('CKEditor 5 initialization error:', error);
              });
 
-         // JWT 토큰을 hidden input 필드에 설정 (만약 필요하다면)
-         const tokenInput = document.getElementById("token");
-         if (tokenInput) {
-             tokenInput.value = token;
-         }
+
+         var token = localStorage.getItem("token"); //토근 값 가져오기
+         document.getElementById("token").value=token;
+
+
      };
+
+
+
 
      // 글 작성 폼 제출 시 호출되는 함수
      function commuFormCheck() {
@@ -130,54 +120,35 @@
              return false;
          }
 
-         // 서버로 전송할 데이터를 URLSearchParams 객체에 추가
+         // 서버로 전송할 데이터를 FormData 객체에 추가
          const postData = new URLSearchParams();
          postData.append("code", code);  // code 파라미터 추가
          postData.append("title", title);
          postData.append("content", content);
+         postData.append("token", token);  // token 추가
 
-         console.log("JWT 토큰: ", token);  // JWT 토큰 값 출력
-         console.log("Post Data: ", postData.toString());  // 전송할 데이터 출력
-
-         // fetch를 사용하여 POST 요청 보내기
-         fetch("/cmWriteOk", {
-             method: "POST",
+         // AJAX 요청 보내기
+         $.ajax({
+             url: "/cmWriteOk",
+             type: "POST",
+             data: postData.toString(),
+             contentType: "application/x-www-form-urlencoded",
              headers: {
-                 "Content-Type": "application/x-www-form-urlencoded",
                  "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
              },
-             body: postData
-         })
-         .then(response => {
-             console.log("Response Status: ", response.status);  // 서버 응답 상태 코드 출력
-
-             // 401: 인증 실패
-             if (response.status === 401) {
-                 alert('인증에 실패했습니다. 다시 로그인하세요.');
-                 location.href = "/user/login";  // 로그인 페이지로 이동
-                 return false;
-             }
-
-             // 403: 권한 없음
-             if (response.status === 403) {
-                 alert('권한이 없습니다. 관리자에게 문의하세요.');
-                 return false;
-             }
-
-             // 응답이 성공적으로 처리된 경우에도 로그인 페이지로 이동할 수 있으므로, 응답 데이터를 로그로 출력
-             return response.text().then(data => {
-                 console.log("Response Data: ", data);  // 서버에서 반환된 데이터를 출력하여 확인
-                 if (data.includes("로그인") || data.includes("login")) {
-                     alert("세션이 만료되었거나 인증되지 않은 사용자입니다. 다시 로그인하세요.");
-                     location.href = "/user/login";
-                     return false;
+             success: function(data) {
+                 alert('글 작성이 완료되었습니다.');  // 성공 메시지
+                 location.href = "/cmList";  // 글 목록 페이지로 이동
+             },
+             error: function(xhr, status, error) {
+                 if (xhr.status === 401) {
+                     alert('인증에 실패했습니다. 다시 로그인하세요.');
+                     location.href = "/user/login";  // 로그인 페이지로 이동
+                 } else {
+                     alert("요청 처리 중 오류가 발생했습니다.");
                  }
-                 document.write(data);  // 서버에서 반환된 HTML을 페이지에 출력
-             });
-         })
-         .catch(error => {
-             console.error("Error:", error);  // 오류 출력
-             alert("요청 처리 중 오류가 발생했습니다. 다시 시도해 주세요.");
+                 console.error("Error:", error);  // 오류 출력
+             }
          });
 
          return false;  // 기본 폼 제출 방지
