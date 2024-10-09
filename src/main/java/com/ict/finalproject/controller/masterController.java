@@ -2,8 +2,10 @@ package com.ict.finalproject.controller;
 
 
 import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.TAdminService;
+import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,8 +25,10 @@ public class masterController {
 
         @Autowired
         TAdminService tAdminService;
-    @Autowired
+        @Autowired
         MemberService service;
+        @Autowired
+        MasterService masterService;
         ModelAndView mav = null;
         /*TAdminService tAdminService;
         JWTUtil jwtUtil;
@@ -201,6 +202,21 @@ public class masterController {
         mav = new ModelAndView();
         mav.setViewName("master/noticeAddMaster");
         return mav;
+    }
+
+    @PostMapping("/noticeAddMasterOk")
+    public ModelAndView noticeAddMasterOk(MasterVO vo){
+            mav = new ModelAndView();
+            int result = 0;
+            try{
+                    if(result > 0){
+                        result = masterService.createNotice(vo);
+                        mav.addObject("result", result);
+                    }
+            }catch (Exception e){
+                log.info("공지사항 등록 실패", e.getMessage());
+            }
+            return  mav;
     }
 
     //  Dashboard - 기타관리 - 공지사항 - 수정

@@ -10,6 +10,7 @@
 <form action="/master/noticeAddMasterOk" method="post">
     <div>
         <label for="title"></label>
+        <input type="hidden" name="idx" />
         <input type="text" id="title" name="title" placeholder="공지사항 제목을 입력하세요." required>
     </div>
 
