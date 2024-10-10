@@ -88,10 +88,14 @@ public ModelAndView filterStoreList(
 public ModelAndView getStoreDetail(@PathVariable("idx") int idx) {
     System.out.println("Received idx: " + idx); // idx 값 출력
     StoreVO storeDetail = storeService.getStoreDetail(idx); // idx로 상품 조회
+    System.out.println("Store Detail: " + storeDetail); // StoreVO 내용 출력
     ModelAndView mav = new ModelAndView();
     mav.addObject("storeDetail", storeDetail);
     mav.setViewName("store/storeDetail");
     return mav;
 }
+
+
+
    
 }
