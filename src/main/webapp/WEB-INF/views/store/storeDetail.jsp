@@ -33,7 +33,7 @@
             <div class="product-selection">
                 <div class="selection-box">
                     <span class="product-name">상품명</span>
-                    <p>${storeDetail.title}</p>
+                         <p>${storeDetail.title}</p>
                     <span class="product-quantity-control">
                         <button class="quantity-button" onclick="decreaseQuantity()">-</button>
                         <input type="number" value="1" min="1" max="${storeDetail.stock}" class="quantity-input">
@@ -43,16 +43,18 @@
                 </div>
     
                 <div class="total-price">총 결제금액: <span id="totalPrice">${storeDetail.price}</span>원</div>
+                    
             </div>
+                    <!-- 구매 버튼 -->
+                <div class="buy-buttons">
+                    <button class="add-to-cart">장바구니</button>
+                    <button class="buy-now">바로 구매</button>
+                </div>
         </div>
+        
     </div>
 
-            <!-- 구매 버튼 -->
-            <div class="buy-buttons">
-                <button class="add-to-cart">장바구니</button>
-                <button class="buy-now">바로 구매</button>
-            </div>
-        
+          
 
    
 
@@ -74,7 +76,7 @@
                 <th>출시일</th>
                 <td>${storeDetail.relDT}</td>
                 <th>정가</th>
-                <td>${storeDetail.price}</td>
+                <td>${storeDetail.price} 원</td>
             </tr>
             <tr>
                 <th>상품명</th>

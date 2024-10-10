@@ -249,7 +249,7 @@ a {
 .origin-carousel-wrapper{
     width: 100%;
     margin-bottom: 20px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .origin-carousel-images {
@@ -262,6 +262,7 @@ a {
 
 
 .origin-tag {
+
     text-align: left;
     color: #858585;
     font-weight: bold;
