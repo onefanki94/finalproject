@@ -114,4 +114,14 @@ public class OrderController {
         return mav;
     }
 
+    //로그인 여부
+    @ResponseBody
+    @GetMapping("/getuserid")
+    public String getuserid(@RequestParam("Authorization") String token){
+        log.info("getuserid 메서드 호출됨");
+        String userid = jwtUtil.getUserIdFromToken(token); //토큰에서 사용자 아이디 추출
+        log.info("userid : " + userid);
+        return userid;
+    }
+
 }
