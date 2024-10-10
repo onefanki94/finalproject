@@ -14,4 +14,9 @@ public class OrderListVO {
     private int amount;
     private int orderState;
 
+    // 매개변수가 있는 생성자
+    public OrderListVO(int order_idx, int pro_idx) {
+        this.order_idx = order_idx;
+        this.pro_idx= pro_idx;
+    }
 }

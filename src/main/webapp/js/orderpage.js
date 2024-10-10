@@ -14,4 +14,6 @@ $(function () {
         $("label[for='chk_agree']").removeClass("checkedLabel");
       }
     });
+
+
   });
