@@ -5,6 +5,8 @@ import com.ict.finalproject.vo.MasterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MasterServiceImpl implements MasterService {
     @Autowired
@@ -20,5 +22,10 @@ public class MasterServiceImpl implements MasterService {
          * @return 데이터베이스에 공지사항을 성공적으로 추가한 경우 1, 실패한 경우 0 반환
          */
         return dao.createNotice(vo);
+    }
+
+    @Override
+    public List<MasterVO> getStoreList() {
+        return dao.getStoreList();
     }
 }

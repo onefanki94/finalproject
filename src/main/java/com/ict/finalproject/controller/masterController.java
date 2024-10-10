@@ -8,6 +8,7 @@ import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.TAdminService;
 import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
+import com.ict.finalproject.vo.StoreVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -152,7 +153,11 @@ public class masterController {
         // Dashboard - 굿즈관리 - 굿즈목록 리스트
         @GetMapping("/storeMasterList")
         public ModelAndView storeMasterList(){
+            System.out.println("관리자페이지 굿즈 상품 테이블 불러오기");
+            List<MasterVO> storeList = masterService.getStoreList();
+            System.out.println(storeList);
             mav = new ModelAndView();
+            mav.addObject("storeList", storeList);
             mav.setViewName("master/storeMasterList");
             return mav;
         }

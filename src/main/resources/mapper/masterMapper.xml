@@ -6,4 +6,9 @@
     <insert id="createNotice" parameterType="MasterVO">
         insert into t_notice(title, content, adminidx) values(#{title},#{content}, #{adminidx})
     </insert>
+
+    <!-- 굿즈 상품 테이블 전체 목록 조회 -->
+    <select id="getStoreList" resultType="MasterVO">
+        select idx, category, title, price, stock, relDT from t_product
+    </select>
 </mapper>
