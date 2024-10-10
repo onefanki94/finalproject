@@ -79,22 +79,36 @@
            <div class="list_section">
                <c:if test="${previousPost != null}"></c:if>
                     <a href="/cmView/${go.idx}">
+
                     <div class="list_pre">
                         <i class="bi bi-chevron-up"></i>이전페이지
 
                     </div></a>
+
+                        <div class="list_pre">
+                            <i class="bi bi-chevron-up"></i>이전페이지
+                        </div>
+                    </a>
+
                <c:if test="${previousPost == null}"></c:if>
 
                <c:if test="${nextPost != null}"></c:if>
                <a href="/cmView/${tun.idx}">
+
                 <div class="list_next">
                     <i class="bi bi-chevron-down"></i>다음페이지
                 </div></a>
 
+                   <div class="list_next">
+                       <i class="bi bi-chevron-down"></i>다음페이지
+                   </div>
+               </a>
+
+
                <c:if test="${nextPost == null}"></c:if>
            </div>
         <div class="listBt">
-            <a class="btn btn-secondary btn-sm" href="/cmEdit?idx=${vo.idx}" role="button">
+            <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
                 수정
             </a>
             <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
@@ -112,7 +126,7 @@
         function confirmDelete(idx) {
             if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
                 // 삭제 확인 시 삭제 URL로 이동
-                location.href = '/cmDelete?idx=' + idx;
+                location.href = '/cmDelete/' + idx;
             }
         }
     </script>

@@ -21,6 +21,7 @@ import java.util.List;
 //@RequestMapping("/community")
 @Controller
 public class communityController {
+    // userid로 index구하기
     @Autowired
     MemberService mservice;
 
@@ -34,19 +35,39 @@ public class communityController {
 //    ModelAndView mav = null;
 
     // 커뮤니티 리스트 페이지
+    // Controller: communityController.java
     @GetMapping("/cmList")
-    public String cmList(@RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype, Model model) {
-        System.out.println("Received commtype: " + commtype); // 전달받은 commtype 값 확인
+    public String cmList(
+            @RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "DEFAULT") String orderBy,
+            @RequestParam(value = "searchCategory", required = false, defaultValue = "TITLE_AND_CONTENT") String searchCategory,
+            @RequestParam(value = "searchKeyword", required = false, defaultValue = "") String searchKeyword,
+            Model model) {
+
+        // commtype이 null이거나 빈 문자열일 때 기본값 "all"로 설정
+        if (commtype == null || commtype.trim().isEmpty()) {
+            commtype = "all";
+        }
+
+        // 전체 리스트 조회 또는 특정 커뮤니티 타입으로 필터링된 리스트 조회
         List<CommuVO> list;
         if ("all".equals(commtype)) {
-            list = commuService.List(null); // 전체 목록 조회
+            list = commuService.FilteredList(null, orderBy, searchCategory, searchKeyword);
         } else {
-            list = commuService.List(commtype); // 특정 commtype 목록 조회
+            list = commuService.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
         }
-        System.out.println("Filtered List: " + list); // 필터링된 목록 출력
+
+        // 검색어 입력 후 검색어를 초기화하여 JSP로 전달
+        searchKeyword = "";  // 검색 후 검색어 초기화
+
+        // JSP에 전달할 데이터 설정
         model.addAttribute("list", list);
-        model.addAttribute("commtype", commtype); // 현재 선택된 커뮤니티 타입 전달
-        return "community/cmList";
+        model.addAttribute("commtype", commtype);
+        model.addAttribute("orderBy", orderBy);
+        model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("searchKeyword", searchKeyword);
+
+        return "community/cmList";  // JSP 파일 이름 (cmList.jsp)
     }
 
     //상세페이지
@@ -77,8 +98,8 @@ public class communityController {
     }
 
     // 수정 페이지로 이동
-    @GetMapping("/cmEdit")
-    public String editPage(@RequestParam("idx") int idx, Model model) {
+    @GetMapping("/cmEdit/{idx}")
+    public String editPage(@PathVariable("idx") int idx, Model model) {
         // 기존 게시글 정보 조회
         CommuVO detail = commuService.Detail(idx);
         model.addAttribute("vo", detail);
@@ -92,7 +113,7 @@ public class communityController {
 
         // 수정 성공 시 수정된 게시글의 상세 페이지로 리다이렉트
         if (success) {
-            return "redirect:/cmView?idx=" + board.getIdx();
+            return "redirect:/cmView/" + board.getIdx(); // 기존 "redirect:/cmView?idx="에서 수정
         } else {
             // 실패 시 오류 메시지 출력 후, 수정 페이지로 다시 이동
             return "community/cmEdit";
@@ -100,8 +121,8 @@ public class communityController {
     }
 
 
-    @GetMapping("/cmDelete")
-    public String delete(@RequestParam("idx") int idx, Model model) {
+    @GetMapping("/cmDelete/{idx}")
+    public String delete(@PathVariable("idx") int idx, Model model) {
         int result = commuService.Delete(idx);
         if (result > 0) {
             return "redirect:/cmList";  // 삭제 성공 시 게시글 목록 페이지로 이동

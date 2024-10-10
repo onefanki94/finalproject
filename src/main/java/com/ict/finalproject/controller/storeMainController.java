@@ -26,7 +26,7 @@ public class storeMainController {
 
 
     @GetMapping("/storeList")
-    public ModelAndView getStoreList(){
+    public ModelAndView getStoreListAndView(){
         System.out.println(11);
         List<StoreVO> storeList = storeService.getStoreList();
         System.out.println(storeList);
@@ -36,15 +36,22 @@ public class storeMainController {
         return mav;
     }
 
-    // // 필터링된 상품 목록 가져오기
-    // @GetMapping("/filterStoreList")
-    // public ModelAndView filterStoreList(@RequestParam("filterType") String filterType) {
-    //     List<StoreVO> filteredStoreList = storeService.getStoreListByFilter(filterType);
-    //     ModelAndView mav = new ModelAndView();
-    //     mav.addObject("storeList", filteredStoreList);
-    //     mav.setViewName("store/storeList");
-    //     return mav;
-    // }
+    @GetMapping("/storeListAndView")
+    public ModelAndView getStoreList() {
+        // 데이터베이스에서 StoreVO 리스트를 가져오기
+        List<StoreVO> storeList = storeService.getStoreList();
+
+        // ModelAndView 객체 생성
+        ModelAndView mav = new ModelAndView();
+
+        // 모델에 데이터를 추가
+        mav.addObject("storeList", storeList);
+
+        // 반환할 JSP 경로 설정
+        mav.setViewName("store/storeList");  // JSP 파일 경로
+
+        return mav;
+    }
 
     // 검색된 상품 목록 가져오기
     @GetMapping("/searchStoreList")
@@ -57,7 +64,7 @@ public class storeMainController {
     }
 
     @PostMapping("/filterStoreList")
-public ModelAndView filterStoreList(
+    public ModelAndView filterStoreList(
         @RequestParam(value = "ani_title", required = false) String ani_title,
         @RequestParam(value = "brand", required = false) String brand,
         @RequestParam(value = "stock", required = false, defaultValue = "0") int stock) {
@@ -88,10 +95,14 @@ public ModelAndView filterStoreList(
 public ModelAndView getStoreDetail(@PathVariable("idx") int idx) {
     System.out.println("Received idx: " + idx); // idx 값 출력
     StoreVO storeDetail = storeService.getStoreDetail(idx); // idx로 상품 조회
+    System.out.println("Store Detail: " + storeDetail); // StoreVO 내용 출력
     ModelAndView mav = new ModelAndView();
     mav.addObject("storeDetail", storeDetail);
     mav.setViewName("store/storeDetail");
     return mav;
 }
+
+
+
    
 }

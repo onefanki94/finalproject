@@ -2,8 +2,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.StoreDAO">
+
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
-        select idx, title, price, detail_img from t_product
+        SELECT 
+            idx, title, price, detail_img, ani_title, relDT, brand, fee, stock, pro_detail, category 
+        FROM t_product
     </select>
 
     <select id="getStoreListByFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
@@ -50,5 +53,7 @@
         SELECT * FROM t_product
         WHERE idx = #{idx}
     </select>
+        
+  
 
 </mapper>

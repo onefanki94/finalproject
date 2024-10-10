@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://js.tosspayments.com/v2/standard"></script>
+<script src="/js/orderpage.js"></script>
 <link rel="stylesheet" href="/css/order.css" type="text/css" />
 
 <div class="order_container">
@@ -28,9 +31,7 @@
           <li>
             <div class="order_product_li">
               <div class="order_product_img">
-                <img
-                  src="https://img.29cm.co.kr/item/202409/11ef6a6bfe7c7a14a980adf1df7d5bb0.jpg?width=300"
-                />
+                <img src="https://img.29cm.co.kr/item/202409/11ef6a6bfe7c7a14a980adf1df7d5bb0.jpg?width=300" />
               </div>
               <div class="order_product_info">
                 <div class="order_product_info_detail">
@@ -40,9 +41,7 @@
                   <div class="order_product_info_price">
                     <span>65,000원</span>
                   </div>
-                  <div class="order_product_info_amount">
-                    수량 : <span>1</span>
-                  </div>
+                  <div class="order_product_info_amount">수량 : <span>1</span></div>
                 </div>
                 <div class="order_product_info_total">
                   <span>주문 금액 : 65,000원</span>
@@ -53,9 +52,7 @@
           <li>
             <div class="order_product_li">
               <div class="order_product_img">
-                <img
-                  src="https://img.29cm.co.kr/item/202409/11ef6a6bfe7c7a14a980adf1df7d5bb0.jpg?width=300"
-                />
+                <img src="https://img.29cm.co.kr/item/202409/11ef6a6bfe7c7a14a980adf1df7d5bb0.jpg?width=300" />
               </div>
               <div class="order_product_info">
                 <div class="order_product_info_detail">
@@ -65,9 +62,7 @@
                   <div class="order_product_info_price">
                     <span>65,000원</span>
                   </div>
-                  <div class="order_product_info_amount">
-                    수량 : <span>1</span>
-                  </div>
+                  <div class="order_product_info_amount">수량 : <span>1</span></div>
                 </div>
                 <div class="order_product_info_total">
                   <span>주문 금액 : 65,000원</span>
@@ -96,12 +91,7 @@
                 <button>우편번호 찾기</button>
               </div>
               <input type="text" name="addr1" id="addr1" />
-              <input
-                type="text"
-                name="addr2"
-                id="addr2"
-                placeholder="상세주소를 입력해주세요."
-              />
+              <input type="text" name="addr2" id="addr2" placeholder="상세주소를 입력해주세요." />
             </div>
           </div>
           <div class="order_div">
@@ -116,7 +106,6 @@
               <input type="text" id="tel2" name="tel2" />
               <span>-</span>
               <input type="text" id="tel3" name="tel3" />
-              <input type="hidden" id="tel" name="tel" />
             </div>
           </div>
           <div class="order_div">
@@ -129,44 +118,77 @@
         <div class="order_point_tit">
           <h2>적립금 사용</h2>
         </div>
-        <div class="css-bc460x e1qmh2620">
-          <div class="css-klnuo1 e1qmh2621">
-            <h2 class="e1qmh2622 css-n0cpi0 ejv90e50" color="secondary">
-              사용 금액 입력
-            </h2>
-            <div class="css-ym9sku e1qmh2623">
-              <div class="css-cvis2 e1qmh2624">
-                <div class="css-1axl4gh ejv90e529">
-                  <label class="css-8hdaxb ejv90e530"
-                    ><input
-                      type="numeric"
-                      class="css-1cyeafc ejv90e531"
-                      value="0"
-                  /></label>
+        <div class="order_point_div">
+          <div>
+            <h2>사용 금액 입력</h2>
+            <div>
+              <div class="order_point_usediv">
+                <div>
+                  <label><input type="numeric" value="0" /></label>
                 </div>
-                <button class="e1qmh2626 css-asx8mm ejv90e57" type="button">
-                  <span
-                    class="ruler-button-text css-izpnhq ejv90e50"
-                    color="primary"
-                    >모두 사용</span
-                  >
+                <button type="button">
+                  <span>모두 사용</span>
                 </button>
               </div>
-              <span class="e1qmh2627 css-lxsjav ejv90e50" color="primary"
-                >사용 가능 <em class="css-35ezg3 e1qmh2628">360P</em> /
-                <span class="css-tbvf2 ejv90e50" color="tertiary"
-                  >보유 <em class="css-35ezg3 e1qmh2628">360P</em
-                  ><button type="button" class="css-8np7i5 e1qmh2629">
-                    ?
-                  </button></span
-                ></span
-              >
+              <span class="use_point">
+                사용 가능
+                <em>360P</em>
+                /
+                <span>
+                  보유
+                  <em>360P</em>
+                </span>
+              </span>
             </div>
           </div>
         </div>
       </div>
+      <div class="order_payment">
+        <div class="order_payment_tit">
+          <h2>결제방법</h2>
+        </div>
+        <div class="order_payment_div">
+          <input type="checkbox" id="chk_payment" name="payment_card" />
+          <label id="order_payment_label" for="chk_payment"><i class="fa-regular fa-credit-card"></i>신용카드</label>
+        </div>
+      </div>
     </div>
-    <div class="order_pay_right"></div>
+    <div class="order_pay_right">
+      <h3>결제 정보</h3>
+      <dl>
+        <dt>주문상품금액</dt>
+        <dd>${order.total_price}</dd>
+      </dl>
+      <dl>
+        <dt>배송비</dt>
+        <dd>0원</dd>
+      </dl>
+      <dl class="point">
+        <dt>포인트 사용</dt>
+        <dd>-0P</dd>
+      </dl>
+      <dl class="total_price">
+        <dt>총 결제 예정 금액</dt>
+        <dd>${order.total_price}</dd>
+      </dl>
+      <dl class="spoint">
+        <dt>적립 예정 포인트</dt>
+        <dd>660 P</dd>
+      </dl>
+      <dl class="agree">
+        <dt>주문동의</dt>
+        <dd>주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의하시겠습니까?(전자상거래법 제8조 제2항)<br /><br />굿즈 상품은 상황에 따라 교환/반품이 불가능할 수 있는 점을 충분히 숙지하였습니다.</dd>
+        <dd class="check_wrap"><input type="checkbox" id="chk_agree" name="agreement" /><label for="chk_agree">동의합니다</label></dd>
+      </dl>
+      <div class="btn_wp"><button type="button" id="payBtn" class="payment_btn">결제하기</button></div>
+    </div>
   </div>
 </div>
+
+<script>
+    // JSP에서 서버 변수를 자바스크립트 전역 변수로 설정
+    var amount = ${order.total_price};
+    var order_idx = ${order.idx};
+</script>
+<script src="/js/tosspayments.js"></script>
 
