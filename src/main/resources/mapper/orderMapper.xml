@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.OrderDAO">
     <!-- T_order에 데이터 삽입 -->
-    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="idx" parameterType="OrderVO">
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="idx" parameterType="com.ict.finalproject.vo.OrderVO">
         INSERT INTO T_order (useridx, total_price) VALUES (#{useridx}, #{total_price})
     </insert>
 
     <!-- T_orderlist에 데이터 삽입 -->
-    <insert id="insertOrderList" parameterType="OrderListVO">
+    <insert id="insertOrderList" parameterType="com.ict.finalproject.vo.OrderListVO">
         INSERT INTO T_orderlist (order_idx, pro_idx) VALUES (#{order_idx}, #{pro_idx})
     </insert>
 
@@ -23,7 +23,7 @@
     </select>
 
     <!-- T_Payment insert -> 결제요청정보를 저장해놓기 위함 why? 데이터 무결성! -->
-    <insert id="insertPaymentRequest" parameterType="PaymentReqDTO">
+    <insert id="insertPaymentRequest" parameterType="com.ict.finalproject.DTO.PaymentReqDTO">
         INSERT INTO T_payment (orderId, amount, customerName, order_idx)
         VALUES (#{orderId}, #{amount}, #{customerName}, #{order_idx})
     </insert>

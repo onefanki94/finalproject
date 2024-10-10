@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootApplication
 @MapperScan("com.ict.finalproject.DAO")
+
 public class FinalprojectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FinalprojectApplication.class, args);
     }
-
 }
