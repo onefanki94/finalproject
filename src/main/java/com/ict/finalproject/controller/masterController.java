@@ -1,6 +1,7 @@
 package com.ict.finalproject.controller;
 
 
+import com.ict.finalproject.DAO.TAdminDAO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
@@ -9,13 +10,16 @@ import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 @Slf4j
@@ -29,9 +33,13 @@ public class masterController {
         MemberService service;
         @Autowired
         MasterService masterService;
+        @Autowired
+        JWTUtil jwtUtil;
+        @Autowired
+        TAdminDAO dao;
         ModelAndView mav = null;
         /*TAdminService tAdminService;
-        JWTUtil jwtUtil;
+
 
     @Autowired
         public masterController(TAdminService tAdminService, JWTUtil jwtUtil) {
@@ -205,19 +213,65 @@ public class masterController {
     }
 
     @PostMapping("/noticeAddMasterOk")
-    public ModelAndView noticeAddMasterOk(MasterVO vo){
-            mav = new ModelAndView();
-            int result = 0;
-            try{
-                    if(result > 0){
-                        result = masterService.createNotice(vo);
-                        mav.addObject("result", result);
-                    }
-            }catch (Exception e){
-                log.info("공지사항 등록 실패", e.getMessage());
+    public ResponseEntity<String> noticeAddMasterOk(
+            MasterVO vo,
+            @RequestParam("token") String token  // token을 @RequestParam으로 받기
+    ) {
+        String bodyTag = "";
+
+        String adminid;
+        Integer adminidx;
+
+        // 토큰 확인
+        if (token == null || token.isEmpty()) {
+            log.info("토큰 값이 존재하지 않거나 잘못된 토큰.");
+            bodyTag += "<script>alert('토큰이 존재하지 않거나 잘못되었습니다. 다시 로그인해 주세요.');history.back();</script>";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            // 토큰에서 adminid 추출
+            adminid = jwtUtil.getAdminIdFromToken(token);
+            log.info("추출한 adminid 값: " + adminid);
+
+            // adminid를 통해 t_admin 테이블의 idx 값 조회
+            adminidx = tAdminService.getAdminIdxByAdminId(adminid);
+            log.info("조회한 adminidx 값: " + adminidx);
+
+            if (adminidx == null) {
+                log.info("해당 adminid에 해당하는 idx 값이 없음");
+                bodyTag += "<script>alert('해당 관리자 정보가 존재하지 않습니다.');history.back();</script>";
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
             }
-            return  mav;
+
+            // MasterVO 객체에 adminidx 값 설정
+            vo.setAdminidx(adminidx);
+
+            // 공지사항 등록 로직 수행
+            int result = masterService.createNotice(vo);
+            if (result > 0) {
+                bodyTag += "<script>alert('공지사항이 성공적으로 등록되었습니다.'); location.href='/master/noticeMasterList';</script>";
+            } else {
+                bodyTag += "<script>alert('공지사항 등록에 실패했습니다.');history.back();</script>";
+            }
+        } catch (Exception e) {
+            log.info("공지사항 등록 중 오류 발생: " + e.getMessage());
+            bodyTag += "<script>alert('공지사항 등록 중 오류가 발생했습니다.');history.back();</script>";
+        }
+
+        // HTML 형태로 응답을 설정하기 위한 HttpHeaders 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+
+        // 응답을 HTML로 반환
+        return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
     }
+
+
 
     //  Dashboard - 기타관리 - 공지사항 - 수정
     @GetMapping("/noticeEditMaster")

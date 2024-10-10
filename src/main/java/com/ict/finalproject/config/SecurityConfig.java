@@ -1,7 +1,7 @@
 package com.ict.finalproject.config;
 
 import com.ict.finalproject.DAO.TAdminDAO;
-import com.ict.finalproject.JWT.AdminFilter;
+
 import com.ict.finalproject.JWT.JWTFilter;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.JWT.LoginFilter;

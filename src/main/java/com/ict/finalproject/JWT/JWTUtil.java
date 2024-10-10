@@ -48,6 +48,12 @@ public class JWTUtil {
         return claims != null ? claims.get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
     }
 
+    // JWT 토큰에서 t_Admin에 있는 사용자 ID를 추출하는 메서드
+    public String getAdminIdFromToken(String token) {
+        Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
+        return claims != null ? claims.get("adminid", String.class) : null;  // Claims에서 "userid" 키 값 추출
+    }
+
     // JWT 토큰이 만료되었는지 확인하는 메서드
     public Boolean isExpired(String token) {
         Claims claims = getClaims(token);

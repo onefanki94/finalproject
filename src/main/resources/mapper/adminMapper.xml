@@ -8,4 +8,9 @@
         FROM t_admin
         WHERE adminid = #{adminid}
     </select>
+
+    <!-- adminid를 사용하여 t_admin 테이블의 idx 값을 조회 -->
+    <select id="findIdxByAdminId" parameterType="String" resultType="Integer">
+        select idx from t_admin where adminid = #{adminid}
+    </select>
 </mapper>

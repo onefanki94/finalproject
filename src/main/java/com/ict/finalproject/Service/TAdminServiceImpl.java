@@ -19,4 +19,9 @@ public class TAdminServiceImpl implements TAdminService {
     public boolean existsByAdminId(String adminid) {
         return dao.existsByAdminId(adminid);
     }
+
+    @Override
+    public Integer getAdminIdxByAdminId(String adminid) {
+        return dao.findIdxByAdminId(adminid);
+    }
 }
