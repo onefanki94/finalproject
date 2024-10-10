@@ -7,20 +7,39 @@ function generateUUID() {
 }
 
 async function requestPayment(userid) {
-    // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
-    // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
-    const clientKey = "test_ck_ZLKGPx4M3MGJP1NJGYWdrBaWypv1";
+    // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요. -> /request
     const customerKey = userid;
+    const orderId = generateUUID();
+
+    console.log("customerKey :",customerKey);
+    console.log("userid :",userid);
+    console.log("orderId :",orderId);
+    console.log("amount :",amount);
+    console.log("order_idx :",order_idx);
+
+    // 서버로 결제 정보 저장 요청
+    $.ajax({
+        url: "/order/request",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            orderId: orderId,
+            amount: amount,
+            customerName: customerKey,
+            order_idx: order_idx,
+        }),
+        success: function(response) {
+            console.log("결제 요청 저장 완료");
+        },
+        error: function(error) {
+            console.log("결제 요청 저장 실패", error);
+        }
+    }); //완료
+
+    const clientKey = "test_ck_ZLKGPx4M3MGJP1NJGYWdrBaWypv1";
     const tossPayments = TossPayments(clientKey);
 
     const payment = tossPayments.payment({ customerKey });
-
-    const orderId = generateUUID();
-
-    console.log("customerKey : ",customerKey);
-    console.log("userid : ",userid);
-    console.log("orderId : ",orderId);
-    console.log("amount : ",amount);
 
     await payment.requestPayment({
         method: "CARD", // 카드 결제
@@ -30,9 +49,9 @@ async function requestPayment(userid) {
         },  // 결제 금액
         orderId: orderId,  // 생성된 UUID로 주문번호 설정
         orderName: "토스 티셔츠 외 2건",  // 상품명
-        successUrl: window.location.origin + "/success",  // 결제 성공시 리다이렉트 URL
-        failUrl: window.location.origin + "/fail",  // 결제 실패시 리다이렉트 URL
-        customerName: userid,
+        successUrl: window.location.origin + "/order/success",  // 결제 성공시 리다이렉트 URL
+        failUrl: window.location.origin + "/order/fail",  // 결제 실패시 리다이렉트 URL
+        customerName: customerKey,
         card: {
             useEscrow: false,
             flowMode: "DEFAULT", // 통합결제창 여는 옵션

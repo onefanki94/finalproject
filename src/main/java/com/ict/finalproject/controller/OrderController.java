@@ -1,6 +1,8 @@
 package com.ict.finalproject.controller;
 
 import com.ict.finalproject.DTO.OrderRequest;
+import com.ict.finalproject.DTO.PaymentApprovalDTO;
+import com.ict.finalproject.DTO.PaymentReqDTO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.OrderService;
@@ -123,5 +125,27 @@ public class OrderController {
         log.info("userid : " + userid);
         return userid;
     }
+    
+    // 결제요청정보 DB에 저장
+    @PostMapping("/request")
+    public ResponseEntity<?> requestPayment(@RequestBody PaymentReqDTO paymentRequest) {
+        service.savePaymentRequest(paymentRequest); // 결제 요청 정보 DB에 저장
+        return ResponseEntity.ok("Payment requested");
+    }
+
+    @GetMapping("/success")
+    public String paymentSuccess(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam int amount) {
+        PaymentApprovalDTO approvalDTO = new PaymentApprovalDTO();
+        approvalDTO.setPaymentKey(paymentKey);
+        approvalDTO.setOrderId(orderId);
+        approvalDTO.setAmount(amount);
+
+        // Toss 결제 승인 처리
+        service.approvePayment(approvalDTO);
+
+        return "결제가 성공적으로 완료되었습니다.";
+    }
+
+
 
 }

@@ -21,4 +21,25 @@
     <select id="selectOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
         SELECT * FROM T_orderlist WHERE order_idx = #{order_idx}
     </select>
+
+    <!-- T_Payment insert -> 결제요청정보를 저장해놓기 위함 why? 데이터 무결성! -->
+    <insert id="insertPaymentRequest" parameterType="PaymentReqDTO">
+        INSERT INTO T_payment (orderId, amount, customerName, order_idx)
+        VALUES (#{orderId}, #{amount}, #{customerName}, #{order_idx})
+    </insert>
+
+    <!-- orderId로 결제 정보 조회 -->
+    <select id="getPaymentByOrderId" parameterType="String" resultType="com.ict.finalproject.vo.PaymentVO">
+        SELECT * FROM T_payment WHERE orderId = #{orderId}
+    </select>
+
+    <!-- 결제 성공 정보 업데이트 -->
+    <update id="updatePaymentSuccess" parameterType="com.ict.finalproject.vo.PaymentVO">
+        UPDATE T_payment
+        SET successYN = 1,
+        paymentKey = #{paymentKey},
+        paytype = #{paytype},
+        ordername = #{ordername}
+        WHERE orderId = #{orderId}
+    </update>
 </mapper>

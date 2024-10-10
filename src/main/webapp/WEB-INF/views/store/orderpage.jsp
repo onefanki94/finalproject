@@ -188,6 +188,7 @@
 <script>
     // JSP에서 서버 변수를 자바스크립트 전역 변수로 설정
     var amount = ${order.total_price};
+    var order_idx = ${order.idx};
 </script>
 <script src="/js/tosspayments.js"></script>
 
