@@ -17,4 +17,6 @@ public class MemberVO {
     private String zipcode;
     private String addr;
     private String birth;
+    private String point;
+    private String regDT;
 }

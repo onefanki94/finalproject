@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
+<script src="/js/Master.js"></script>
 <div class="storeAdd">
     <h2>굿즈 상품 등록</h2>
     <form action="/master/storeAddMasterOk" method="post" enctype="multipart/form-data">
@@ -52,11 +53,25 @@
             <input type="text" id="price" name="price" required>
         </div>
 
-        <!-- 카테고리 추가 -->
-        <div>
-            <label for="category">카테고리:</label>
-            <input type="text" id="category" name="category" required>
-        </div>
+        <!-- 카테고리 ( 대분류 중분류 )추가 -->
+       <div>
+               <label for="main-category">대분류:</label>
+               <select id="main-category" name="main-category">
+                   <option value="">대분류 선택</option>
+                   <option value="1">의류</option>
+                   <option value="2">완구/취미</option>
+                   <option value="3">문구/오피스</option>
+                   <option value="4">생활용품</option>
+               </select>
+           </div>
+
+           <!-- 중분류 선택 -->
+           <div>
+               <label for="sub-category">중분류:</label>
+               <select id="sub-category" name="sub-category" disabled>
+                   <option value="">중분류 선택</option>
+               </select>
+           </div>
 
         <!-- 상세 내용 이미지 추가 -->
         <div>

@@ -8,16 +8,15 @@
 
  <div class="store-list-container">
         <h2>굿즈 전체 목록</h2>
-
         <!-- 굿즈 요약 정보 -->
         <div class="summary">
             <div>
                 <strong>총 상품 수</strong>
-                <p id="totalGoods">4 개</p>
+                <p id="getTotalStore"> ${totalStore} 개</p>
             </div>
             <div>
                 <strong>카테고리별</strong>
-                <p id="categorySummary">피규어: 1, 티셔츠: 1, 악세사리: 1, 포스터: 1</p>
+                <p id="categorySummary">의류 : ${categoryCode1Count} 개, 완구/취미 : ${categoryCode2Count} 개, 문구/오피스 : ${categoryCode3Count} 개, 생활용품 : ${categoryCode4Count} 개</p>
             </div>
         </div>
 
@@ -53,58 +52,21 @@
                 </tr>
             </thead>
             <tbody id="storeTableBody">
+            <c:forEach var="store" items="${storeList}">
                 <tr>
                     <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>001</td>
-                    <td>피규어</td>
-                    <td>나루토 피규어</td>
-                    <td>50,000원</td>
-                    <td>10</td>
-                    <td>2023-01-01</td>
+                    <td>${store.idx}</td>
+                    <td>${store.category}</td>
+                    <td>${store.title}</td>
+                    <td>${store.price}<span> 원</span></td>
+                    <td>${store.stock}<span> 개</span></td>
+                    <td>${store.relDT}</td>
                     <td>
                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>
-                <tr>
-                    <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>002</td>
-                    <td>티셔츠</td>
-                    <td>원피스 티셔츠</td>
-                    <td>20,000원</td>
-                    <td>5</td>
-                    <td>2023-02-10</td>
-                    <td>
-                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
-                        <button class="btn btn-outline-danger btn-sm">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>003</td>
-                    <td>악세사리</td>
-                    <td>포켓몬 열쇠고리</td>
-                    <td>15,000원</td>
-                    <td>50</td>
-                    <td>2023-03-15</td>
-                    <td>
-                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
-                        <button class="btn btn-outline-danger btn-sm">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>004</td>
-                    <td>포스터</td>
-                    <td>드래곤볼 포스터</td>
-                    <td>30,000원</td>
-                    <td>20</td>
-                    <td>2023-04-20</td>
-                    <td>
-                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeAddMaster">수정</a></button>
-                        <button class="btn btn-outline-danger btn-sm">삭제</button>
-                    </td>
-                </tr>
+                </c:forEach>
             </tbody>
         </table>
 

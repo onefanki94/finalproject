@@ -26,6 +26,11 @@ public class CommuServiceImpl implements CommuService {
     }
 
     @Override
+    public List<CommuVO> FilteredList(String commtype, String orderBy, String searchCategory, String searchKeyword) {
+        return commuDAO.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
+    }
+
+    @Override
     public CommuVO Detail(int idx) {
         return commuDAO.Detail(idx);
     }

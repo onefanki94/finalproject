@@ -5,6 +5,20 @@
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <div class="boardManagement">
             <h2>게시판 전체 목록</h2>
+            <div class="summary">
+                        <div>
+                            <strong>총 게시글 수</strong>
+                            <p id="totalBoard">${totalUser} 명</p>
+                        </div>
+                        <div>
+                            <strong>오늘 작성된 게시글 수 </strong>
+                            <p id="newUsers">${newUsers}  명</p>
+                        </div>
+                        <div>
+                            <strong>7일간 작성된 게시글 수</strong>
+                            <p id="newSignups">${newSignups}  명</p>
+                        </div>
+                    </div>
             <table class="table table-hover table-bordered">
                 <thead class="table-light">
                     <tr>
@@ -14,63 +28,24 @@
                         <th style="width:5%">작성자</th>
                         <th style="width:7%">작성일</th>
                         <th style="width:4%">조회수</th>
-                        <th style="width:4%">좋아요</th>
                         <th style="width:10%">관리</th>
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="board" items="${boardList}">
                     <tr>
-                        <td>1</td>
-                        <td>공지사항</td>
-                        <td>게시판 사용 안내</td>
-                        <td>관리자</td>
-                        <td>2023-09-25</td>
-                        <td>100</td>
-                        <td>50</td>
+                        <td>${board.idx}</td>
+                        <td>${board.category}</td>
+                        <td>${board.title}</td>
+                        <td>${board.author}</td>
+                        <td>${board.regDT}</td>
+                        <td>${board.hit}</td>
                         <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
+                            <a href="/cmView/${board.idx}" class="btn btn-outline-success btn-sm">상세보기</a>
                             <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>공지사항</td>
-                        <td>서버 점검 안내</td>
-                        <td>관리자</td>
-                        <td>2023-09-24</td>
-                        <td>150</td>
-                        <td>75</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Q&A</td>
-                        <td>서비스 관련 문의</td>
-                        <td>홍길동</td>
-                        <td>2023-09-23</td>
-                        <td>80</td>
-                        <td>40</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>자유게시판</td>
-                        <td>새로운 기능 제안</td>
-                        <td>이영희</td>
-                        <td>2023-09-22</td>
-                        <td>50</td>
-                        <td>30</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

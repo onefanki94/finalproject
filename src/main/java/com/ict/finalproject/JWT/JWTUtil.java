@@ -48,6 +48,12 @@ public class JWTUtil {
         return claims != null ? claims.get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
     }
 
+    // JWT 토큰에서 t_Admin에 있는 사용자 ID를 추출하는 메서드
+    public String getAdminIdFromToken(String token) {
+        Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
+        return claims != null ? claims.get("adminid", String.class) : null;  // Claims에서 "userid" 키 값 추출
+    }
+
     // JWT 토큰이 만료되었는지 확인하는 메서드
     public Boolean isExpired(String token) {
         Claims claims = getClaims(token);
@@ -70,21 +76,15 @@ public class JWTUtil {
                 .compact();
     }
 
-    // JWT 토큰으로부터 사용자 ID를 추출하여 Spring Security의 Authentication 객체에 설정하는 메서드
-    public void authenticateWithJwt(String token) {
-        String userid = getUserIdFromToken(token);  // JWT 토큰에서 사용자 ID 추출
-
-        // Spring Security의 Authentication 객체 생성 (권한은 비워둠)
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userid, null, new ArrayList<>());
-
-        // SecurityContextHolder에 설정하여 SecurityContext에 인증 정보 저장
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
 
     // HTTP 요청 헤더에서 JWT 토큰을 추출하는 메서드
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            // 'Bearer ' 이후의 토큰 문자열을 추출하고, 앞뒤 공백을 제거하여 반환
+            return bearerToken.substring(7).trim();
+        }
+        return null;
     }
 
     // JWT 토큰의 유효성을 검사하는 메서드
@@ -101,16 +101,38 @@ public class JWTUtil {
 
     // JWT 토큰에서 권한 정보 추출
     public List<GrantedAuthority> getAuthorities(String token) {
+        // JWT 토큰에서 Claims 추출
         Claims claims = getClaims(token);
+        System.out.println("Claims 정보: " + claims);
+
+        // Claims가 null이거나, adminid가 없으면 빈 권한 리스트 반환
         if (claims == null) {
-            return new ArrayList<>();  // Claims가 null이면 빈 권한 리스트 반환
+            System.out.println("Claims가 null입니다. 권한 리스트 반환.");
+            return new ArrayList<>();
         }
-        String role = claims.get("role", String.class);
-        if (role == null || role.isEmpty()) {
-            return new ArrayList<>();  // role 정보가 없으면 빈 권한 리스트 반환
+
+        // JWT Claims에서 adminid 값 추출
+        String adminid = claims.get("adminid", String.class);
+        System.out.println("JWT Claims에서 추출한 adminid: " + adminid);
+
+        // adminid가 null이거나 비어 있으면 빈 권한 리스트 반환
+        if (adminid == null || adminid.isEmpty()) {
+            System.out.println("adminid 값이 null이거나 비어 있습니다. 권한 리스트 반환.");
+            return new ArrayList<>();
         }
+
+        // 특정 adminid에 대해 GrantedAuthority 설정 (예: "admin"이라는 ID만 권한 부여)
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
+        if ("admin".equals(adminid)) {
+            System.out.println("adminid가 'admin'입니다. ROLE_ADMIN 권한 부여.");
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            System.out.println("adminid가 'admin'이 아닙니다. 권한 부여하지 않음.");
+        }
+
+        System.out.println("GrantedAuthority 리스트: " + authorities);
         return authorities;
     }
+
+
 }

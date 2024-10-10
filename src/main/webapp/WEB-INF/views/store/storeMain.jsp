@@ -52,11 +52,11 @@
         <!--Notification-->
         <section>
             <div class="notification">
-                <div class="notification-header">
+                <div class="notification-header" onclick="goToNoticePage()">
                     <span class="icon">&#128365;</span> <!-- 알림 아이콘 -->
                     <span class="date">2024-09-25</span>
                 </div>
-                <div class="notification-content">
+                <div class="notification-content" onclick="goToNoticePage()">
                     <p>[9월 20일, 9월 23일 입고] 예약 상품 배송 안내</p>
                 </div>
                 <div class="pagination">
@@ -211,7 +211,7 @@
                                     <img src="img/store/origingoods1.png" alt="Product 1">                             
                                 </a>
                                 </div>
-                                <br>
+                                
                                 <div class="origin-tag">블루아카이브 2주년</div>
                                                 
                             </div>
@@ -221,7 +221,7 @@
                                     <img src="img/store/origingoods2.png" alt="Product 2">                             
                                 </a>
                                 </div>
-                                <br>
+                                
                                 <a href="/storeList">
                                     <div class="origin-tag">블루아카이브 2주년</div>
                                 </a>                  
@@ -232,7 +232,7 @@
                                     <img src="img/store/origingoods3.png" alt="Product 3">                             
                                 </a>
                                 </div>
-                                <br>
+                                
                                 <a href="/storeList">
                                     <div class="origin-tag">블루아카이브 2주년</div>
                                 </a>                        
@@ -390,17 +390,15 @@
                                         <img src="img/store/news1.png" alt="Product 1">                             
                                     </a>
                                     </div>
-                                    <br>
-                                    <div class="md-tag">블루아카이브 2주년</div>
-                                                    
+                                    
+                                        <div class="md-tag">블루아카이브 2주년</div>                                                  
                                 </div>
                                 <div class="md-item">
                                     <div class="md-item-img">
                                     <a href="/storeList">
                                         <img src="img/store/news2.png" alt="Product 2">                             
                                     </a>
-                                    </div>
-                                    <br>
+                                    </div>                                 
                                     <a href="/storeList">
                                         <div class="md-tag">블루아카이브 2주년</div>
                                     </a>                  
@@ -410,8 +408,7 @@
                                     <a href="/storeList">
                                         <img src="img/store/news3.png" alt="Product 3">                             
                                     </a>
-                                    </div>
-                                    <br>
+                                    </div>                                  
                                     <a href="/storeList">
                                         <div class="md-tag">블루아카이브 2주년</div>
                                     </a>                        

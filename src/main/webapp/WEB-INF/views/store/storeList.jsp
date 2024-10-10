@@ -22,7 +22,7 @@
                         <div class="filter-header">
                             <span>판매종료 포함</span>
                             <label class="switch">
-                                <input type="checkbox">
+                                <input type="checkbox" id="stockFilter" onclick="applyFilters()">
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -30,20 +30,23 @@
                         <div class="filter-category">
                             <h3>작품별</h3>
                             <ul class="filter-list">
-                                <li class="filter-item">
-                                    <img src="img/store/icon.png" alt="Hololive Icon">
-                                    <span class="filter-text">홀로 라이브</span>
-                                </li>
+                                    <!-- 데이터베이스에서 가져온 작품별 리스트를 출력 -->
+                                    <c:forEach var="product" items="${storeList}">
+                                        <li class="filter-item" onclick="toggleFilter(this)">
+                                            <span class="filter-text">${product.ani_title}</span>
+                                        </li>
+                                    </c:forEach>
                             </ul>
                         </div>
                         <hr>
                         <div class="filter-brand">
-                            <h3>브랜드</h3>
+                            <h3>카테고리</h3>
                             <ul class="filter-list">
-                                <li class="filter-item">
-                                    <span class="filter-circle"></span>
-                                    <span class="filter-text">애니플러스</span>
-                                </li>
+                                <c:forEach var="product" items="${storeList}">
+                                    <li class="filter-item" onclick="toggleFilter(this)">
+                                        <span class="filter-text">${product.category}</span>
+                                    </li>
+                                </c:forEach>  
                             </ul>
                         </div>    
                     </div>
@@ -52,7 +55,6 @@
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">
                             <div class="filter-options">
-
                                 <!-- 검색창 추가 -->
                                 <div class="search-section">
                                     <div class="search_window">
@@ -63,10 +65,11 @@
                                     </div>
                                 </div>
                                 <div class="filter-option-keyword">
-                                <span class="filter-option active" onclick="filterProducts('latest')">최신순</span>
-                                <span class="filter-option" onclick="filterProducts('popular')">인기순</span>
-                                <span class="filter-option" onclick="filterProducts('high-price')">높은 가격순</span>
-                                <span class="filter-option" onclick="filterProducts('low-price')">낮은 가격순</span>
+                                    <span class="filter-option" onclick="filterProductsByType('latest')">최신순</span>
+                                    <span class="filter-option" onclick="filterProductsByType('popular')">인기순</span>
+                                    <span class="filter-option" onclick="filterProductsByType('high-price')">높은 가격순</span>
+                                    <span class="filter-option" onclick="filterProductsByType('low-price')">낮은 가격순</span>
+                                    
                                 </div>
                             </div>
                         </section>
@@ -80,14 +83,15 @@
                                 <ul class="list-carousel-images">
                                   <!--db에서 가져온 상품목록-->
                                   <c:forEach var="product" items="${storeList}">
-                                    <li class="list-products">
-                                        <a href="/storeDetail">
-                                            <img src="${product.detail_img}" alt="${product.title}">
+                                    <li class="list-product">
+                                        <!-- idx 값을 사용하여 링크 생성 -->
+                                        <a href="/storeDetail/${product.idx}"> 
+                                            <img src="${pageContext.request.contextPath}/${product.detail_img}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>
                                         <p>${product.price} 원</p>
                                     </li>
-                                  </c:forEach>
+                                </c:forEach>
                                 </ul>
                             </li>
                         </ul>

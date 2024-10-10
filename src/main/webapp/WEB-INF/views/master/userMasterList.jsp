@@ -12,19 +12,15 @@
         <div class="summary">
             <div>
                 <strong>총 유저 수</strong>
-                <p id="totalUsers">3 명</p>
+                <p id="totalUsers">${totalUser} 명</p>
             </div>
             <div>
-                <strong>활성 사용자 </strong>
-                <p id="activeUsers">2 명</p>
+                <strong>오늘 가입한 사용자 </strong>
+                <p id="newUsers">${newUsers}  명</p>
             </div>
             <div>
-                <strong>비활성 사용자</strong>
-                <p id="inactiveUsers">1 명</p>
-            </div>
-            <div>
-                <strong>오늘 가입한 사용자</strong>
-                <p id="newUsers">1 명</p>
+                <strong>7일간 가입한 사용자 수</strong>
+                <p id="newSignups">${newSignups}  명</p>
             </div>
         </div>
 
@@ -37,8 +33,8 @@
             <div>
                 <select class="form-select w-auto" id="filterSelect">
                     <option value="">모든 사용자</option>
-                    <option value="active">신규 유저</option>
-                    <option value="inactive">신고 유저</option>
+                    <option value="newUsers">오늘 가입한 사용자</option>
+                    <option value="newSignups">7일간 가입한 사용자 수</option>
                 </select>
             </div>
         </div>
@@ -52,45 +48,24 @@
                     <th style="width:8%" class="sortable" onclick="sortTable(2)">아이디</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(3)">이름</th>
                     <th style="width:15%" class="sortable" onclick="sortTable(4)">이메일</th>
-                    <th style="width:15%" class="sortable" onclick="sortTable(5)">연락처</th>
-                    <th style="width:20%" class="sortable" onclick="sortTable(6)">가입일</th>
-                    <th style="width:9%" class="sortable" onclick="sortTable(7)">포인트내역</th>
+                    <th style="width:20%" class="sortable" onclick="sortTable(5)">가입일</th>
+                    <th style="width:9%" class="sortable" onclick="sortTable(6)">포인트내역</th>
                     <th style="width:8%">관리</th>
                 </tr>
             </thead>
             <tbody id="userTableBody">
-                <tr class="active">
+            <c:forEach var="member" items="${memberList}">
+                <tr>
                     <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>1</td>
-                    <td>user1</td>
-                    <td>홍길동</td>
-                    <td>hong@example.com</td>
-                    <td>010-1234-5678</td>
-                    <td>2022-01-15</td>
-                    <td>1000 <span> point</span></td>
+
+                    <td>${member.idx}</td>
+                    <td>${member.userid}</td>
+                    <td>${member.username}</td>
+                    <td>${member.email}</td>
+                    <td>${member.regDT}</td>
+                    <td>${member.point}<span> point</span></td>
                     <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
-                </tr>
-                <tr class="inactive">
-                    <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>2</td>
-                    <td>user2</td>
-                    <td>김철수</td>
-                    <td>kim@example.com</td>
-                    <td>010-9876-5432</td>
-                    <td>2022-03-10</td>
-                    <td>2000 <span> point</span></td>
-                    <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
-                </tr>
-                <tr class="active">
-                    <td><input type="checkbox" name="select" id="select"/></td>
-                    <td>3</td>
-                    <td>user3</td>
-                    <td>이영희</td>
-                    <td>lee@example.com</td>
-                    <td>010-5678-1234</td>
-                    <td>2022-05-20</td>
-                    <td>1500 <span> point</span></td>
-                    <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
+                    </c:forEach>
                 </tr>
             </tbody>
         </table>

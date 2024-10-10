@@ -16,7 +16,12 @@ public class TAdminServiceImpl implements TAdminService {
     }
 
     @Override
-    public boolean isAdmin(String userId) {
-        return dao.existsById(userId);
+    public boolean existsByAdminId(String adminid) {
+        return dao.existsByAdminId(adminid);
+    }
+
+    @Override
+    public Integer getAdminIdxByAdminId(String adminid) {
+        return dao.findIdxByAdminId(adminid);
     }
 }
