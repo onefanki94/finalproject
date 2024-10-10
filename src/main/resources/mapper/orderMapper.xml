@@ -42,4 +42,12 @@
         ordername = #{ordername}
         WHERE orderId = #{orderId}
     </update>
+
+    <!-- 결제 실패 정보 업데이트 -->
+    <update id="updatePaymentFailure" parameterType="com.ict.finalproject.vo.PaymentVO">
+        UPDATE T_payment
+        SET successYN = 0,
+        failReason = #{failReason}
+        WHERE orderId = #{orderId}
+    </update>
 </mapper>

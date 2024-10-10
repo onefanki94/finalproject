@@ -23,4 +23,7 @@ public interface OrderDAO {
 
     // 결제 성공 업데이트
     void updatePaymentSuccess(PaymentVO payment);
+
+    // 결제 실패
+    void updatePaymentFailure(PaymentVO payment);
 }

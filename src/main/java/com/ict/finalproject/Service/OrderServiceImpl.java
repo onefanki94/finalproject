@@ -111,5 +111,13 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    @Override
+    public void handleFailure(String orderId, String errorCode, String errorMessage) {
+        PaymentVO payment = dao.getPaymentByOrderId(orderId);
+        payment.setFailReason(errorMessage);  // 실패 이유 저장
+        payment.setSuccessYN(0);  // 실패로 처리
+        dao.updatePaymentFailure(payment);
+    }
+
 
 }

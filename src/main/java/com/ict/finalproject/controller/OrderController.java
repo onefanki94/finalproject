@@ -146,6 +146,12 @@ public class OrderController {
         return "결제가 성공적으로 완료되었습니다.";
     }
 
+    @GetMapping("/fail")
+    public String paymentFail(@RequestParam String orderId, @RequestParam String code, @RequestParam String message) {
+        // 실패 처리 로직
+        service.handleFailure(orderId, code, message);
+        return "결제가 실패했습니다. 다시 시도해주세요.";
+    }
 
 
 }

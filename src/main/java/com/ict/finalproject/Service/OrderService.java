@@ -21,4 +21,7 @@ public interface OrderService {
 
     // 결제 승인요청
     void approvePayment(PaymentApprovalDTO approvalDTO);
+    
+    // 결제 실패
+    public void handleFailure(String orderId, String code, String message);
 }
