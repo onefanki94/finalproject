@@ -42,16 +42,13 @@
 <div class="container">
     <div class="cummunity" id="content">
         <form id="searchForm" action="/cmList" method="get">
+         <input type="hidden" id="commtype" name="commtype" value="${commtype}" />  <!-- Hidden 필드 추가 -->
+            <!-- 커뮤니티 타입 선택 드롭다운 (예: 자랑, 친목) -->
             <div class="search-area">
                 <div class="left-area">
-                    <div class="head-box">
-                        <select id="commtype" name="commtype" onchange="submitSearchForm()">
-                            <option value="all" ${commtype == 'all' ? 'selected="selected"' : ''}>최신글보기</option>
-                            <option value="10" ${commtype == '10' ? 'selected="selected"' : ''}>자랑</option>
-                            <option value="30" ${commtype == '30' ? 'selected="selected"' : ''}>친목</option>
-                            <option value="40" ${commtype == '40' ? 'selected="selected"' : ''}>팬아트</option>
-                        </select>
-                    </div>
+
+
+                    <!-- 정렬 조건 선택 -->
                     <div class="filter-box">
                         <select id="selectDirection" name="orderBy" onchange="submitSearchForm()">
                             <option value="DEFAULT" ${orderBy == 'DEFAULT' ? 'selected="selected"' : ''}>최신글순</option>
@@ -62,7 +59,9 @@
                     </div>
                 </div>
 
+                <!-- 검색 조건 -->
                 <div class="right-area">
+                    <!-- 검색 카테고리 선택 -->
                     <div class="select-box">
                         <select id="selectCategory" name="searchCategory">
                             <option value="TITLE_AND_CONTENT" ${searchCategory == 'TITLE_AND_CONTENT' ? 'selected' : ''}>제목 + 내용</option>
@@ -70,8 +69,10 @@
                             <option value="CONTENT" ${searchCategory == 'CONTENT' ? 'selected' : ''}>내용</option>
                         </select>
                     </div>
+
+                    <!-- 검색어 입력 -->
                     <div class="search">
-                        <input type="text" id="textSearch" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요." />
+                        <input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요." />
                         <button type="button" id="btnSearch" onclick="submitSearchForm()">검색</button>
                     </div>
                 </div>

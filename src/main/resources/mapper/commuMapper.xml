@@ -21,31 +21,23 @@
 
     <!-- 필터, 정렬, 검색 조건에 따른 게시글 목록 조회 메서드 -->
     <select id="FilteredList" resultType="com.ict.finalproject.vo.CommuVO">
-        SELECT *
-        FROM t_community
-        WHERE delState = 0
+        SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit
+        FROM t_community c
+        JOIN t_communitytype ct ON c.commtype = ct.code
+        WHERE c.delState = 0
         <if test="commtype != null and commtype != 'all'">
-            AND commtype = #{commtype}
+            AND c.commtype = #{commtype}
         </if>
         <if test="searchKeyword != null and searchKeyword != ''">
-            <choose>
-                <when test="searchCategory == 'TITLE'">
-                    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-                </when>
-                <when test="searchCategory == 'CONTENT'">
-                    AND content LIKE CONCAT('%', #{searchKeyword}, '%')
-                </when>
-                <otherwise>
-                    AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR content LIKE CONCAT('%', #{searchKeyword}, '%'))
-                </otherwise>
-            </choose>
+            AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
         </if>
         ORDER BY
         <choose>
-            <when test="orderBy == 'NEW_REPLY'"> replyDate DESC </when>
-            <when test="orderBy == 'REPLY'"> replyCount DESC </when>
-            <when test="orderBy == 'LIKE'"> hit DESC </when>
-            <otherwise> regDT DESC </otherwise>
+            <when test="orderBy == 'NEW_REPLY'">c.replyCount DESC, c.regDT DESC</when>
+            <when test="orderBy == 'REPLY'">c.replyCount DESC</when>
+            <when test="orderBy == 'LIKE'">c.hit DESC</when>
+            <otherwise>c.regDT DESC</otherwise>
         </choose>
     </select>
 

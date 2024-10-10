@@ -35,6 +35,7 @@ public class communityController {
 //    ModelAndView mav = null;
 
     // 커뮤니티 리스트 페이지
+    // Controller: communityController.java
     @GetMapping("/cmList")
     public String cmList(
             @RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype,
@@ -43,14 +44,20 @@ public class communityController {
             @RequestParam(value = "searchKeyword", required = false, defaultValue = "") String searchKeyword,
             Model model) {
 
-        // commtype이 "all"인 경우에만 드롭다운의 필터링 조건을 사용
-        List<CommuVO> list;
-        if ("all".equals(commtype)) {
-            list = commuService.FilteredList(null, orderBy, searchCategory, searchKeyword); // 전체 탭에서 드롭다운 조건 사용
-        } else {
-            list = commuService.List(commtype); // 특정 commtype (예: 자랑, 친목 등)으로 필터링
+        // commtype이 null이거나 빈 문자열일 때 기본값 "all"로 설정
+        if (commtype == null || commtype.trim().isEmpty()) {
+            commtype = "all";
         }
 
+        // 전체 리스트 조회 또는 특정 커뮤니티 타입으로 필터링된 리스트 조회
+        List<CommuVO> list;
+        if ("all".equals(commtype)) {
+            list = commuService.FilteredList(null, orderBy, searchCategory, searchKeyword);
+        } else {
+            list = commuService.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
+        }
+
+        // JSP에 전달할 데이터 설정
         model.addAttribute("list", list);
         model.addAttribute("commtype", commtype);
         model.addAttribute("orderBy", orderBy);
