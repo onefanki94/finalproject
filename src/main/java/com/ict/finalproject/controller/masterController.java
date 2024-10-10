@@ -78,6 +78,13 @@ public class masterController {
             return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
         }*/
 
+        // 관리자페이지 로그인 매핑
+        @GetMapping("/admin_login")
+        public String adminLogin(){
+            return "join/admin_login";
+        }
+
+
         // Dashboard 매핑
         @GetMapping("/masterMain")
         public ModelAndView masterMain() {

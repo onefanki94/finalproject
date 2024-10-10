@@ -50,24 +50,5 @@ async function makeAuthenticatedRequest(url, options = {}) {
 }
 
 
-window.onload = function() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        console.error('토큰이 로컬 스토리지에 없습니다.');
-    } else {
-        $.ajax({
-            url: '/checkAuthentication',
-            type: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token // JWT 토큰을 Authorization 헤더에 추가
-            },
-            success: function(response) {
-                console.log('Authentication Response:', response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Authentication Error:', error);
-            }
-        });
-    }
-};
+
 

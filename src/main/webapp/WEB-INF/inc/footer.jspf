@@ -33,7 +33,7 @@
                 <div class="bottom_footer">
                 ⓒ 애니웨이브 - 홈페이지
                 <div>
-                    <a href="/master/masterMain" id="adminLink">ADMIN</a>
+                    <a href="/master/admin_login" id="adminLink">ADMIN</a>
                     <a href="/">HOME</a>
                 </div>
             </div>
