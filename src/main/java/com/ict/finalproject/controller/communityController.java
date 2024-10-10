@@ -98,8 +98,8 @@ public class communityController {
     }
 
     // 수정 페이지로 이동
-    @GetMapping("/cmEdit")
-    public String editPage(@RequestParam("idx") int idx, Model model) {
+    @GetMapping("/cmEdit/{idx}")
+    public String editPage(@PathVariable("idx") int idx, Model model) {
         // 기존 게시글 정보 조회
         CommuVO detail = commuService.Detail(idx);
         model.addAttribute("vo", detail);
@@ -113,7 +113,7 @@ public class communityController {
 
         // 수정 성공 시 수정된 게시글의 상세 페이지로 리다이렉트
         if (success) {
-            return "redirect:/cmView?idx=" + board.getIdx();
+            return "redirect:/cmView/" + board.getIdx(); // 기존 "redirect:/cmView?idx="에서 수정
         } else {
             // 실패 시 오류 메시지 출력 후, 수정 페이지로 다시 이동
             return "community/cmEdit";
@@ -121,8 +121,8 @@ public class communityController {
     }
 
 
-    @GetMapping("/cmDelete")
-    public String delete(@RequestParam("idx") int idx, Model model) {
+    @GetMapping("/cmDelete/{idx}")
+    public String delete(@PathVariable("idx") int idx, Model model) {
         int result = commuService.Delete(idx);
         if (result > 0) {
             return "redirect:/cmList";  // 삭제 성공 시 게시글 목록 페이지로 이동
