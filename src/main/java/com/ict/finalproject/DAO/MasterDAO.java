@@ -13,7 +13,7 @@ import java.util.Map;
 @Repository
 public interface MasterDAO {
     // 공지사항 추가 DAO
-    int createNotice(MasterVO vo);
+    int  insertNotice(MasterVO masterNotice);
 
     // 굿즈 상품테이블 리스트 전체 출력
     public List<MasterVO> getStoreList();

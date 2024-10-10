@@ -237,17 +237,19 @@ public class masterController {
         return mav;
     }
 
-    @PostMapping("/noticeAddMasterOk")
+    @PostMapping(value = "/noticeAddMasterOk", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<String> noticeAddMasterOk(
-            @RequestBody MasterVO vo,  // @RequestBody로 JSON 데이터 받기
-            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestHeader(value = "Authorization", required = false) String Authorization) {
 
-        String bodyTag = "";  // 응답으로 보낼 HTML 태그 변수
-
-        // Authorization 헤더 확인 및 토큰 추출
+        // 로직 수행
+        // 예: 토큰 확인 및 공지사항 등록
+        String bodyTag = "";
         String token = null;
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);  // 'Bearer ' 이후의 토큰 값만 추출
+
+        if (Authorization != null && Authorization.startsWith("Bearer ")) {
+            token = Authorization.substring(7);
             log.info("Authorization 헤더에서 추출한 토큰 값: " + token);
         } else {
             log.info("Authorization 헤더가 없거나 잘못된 형식입니다.");
@@ -257,40 +259,11 @@ public class masterController {
             return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
         }
 
-        try {
-            // 토큰에서 adminid 추출 및 관리자 idx 조회 로직 수행
-            String adminid = jwtUtil.getAdminIdFromToken(token);
-            Integer adminidx = tAdminService.getAdminIdxByAdminId(adminid);
-            if (adminidx == null) {
-                bodyTag += "<script>alert('해당 관리자 정보가 존재하지 않습니다.');history.back();</script>";
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
-            }
-
-            // MasterVO 객체에 adminidx 값 설정 및 공지사항 등록
-            vo.setAdminidx(adminidx);
-            int result = masterService.createNotice(vo);
-            if (result > 0) {
-                bodyTag += "<script>alert('공지사항이 성공적으로 등록되었습니다.'); location.href='/master/noticeMasterList';</script>";
-            } else {
-                bodyTag += "<script>alert('공지사항 등록에 실패했습니다.');history.back();</script>";
-            }
-        } catch (Exception e) {
-            log.info("공지사항 등록 중 오류 발생: " + e.getMessage());
-            bodyTag += "<script>alert('공지사항 등록 중 오류가 발생했습니다.');history.back();</script>";
-        }
-
-        // HTML 형태로 응답을 설정하기 위한 HttpHeaders 설정
+        // 공지사항 등록 로직 수행
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-
-        // 응답을 HTML로 반환
         return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
     }
-
-
-
 
 
     //  Dashboard - 기타관리 - 공지사항 - 수정

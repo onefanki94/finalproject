@@ -38,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:9911") // 허용할 출처(도메인) 지정
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
+                .allowedHeaders("Content-Type", "Authorization")
                 .exposedHeaders("Authorization")
                 .allowCredentials(true)  // 쿠키와 인증 정보를 허용
                 .maxAge(3600);

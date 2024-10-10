@@ -42,6 +42,18 @@ public class JWTUtil {
         }
     }
 
+    public Integer getUserIdxFromToken(String token) {
+        String secretKey = "I6o9BlAPX1T2jTm4n62vwOqzH28kpHZLG4f+yVkTG+4=";
+        Claims claims = Jwts.parser()
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))  // 비밀 키 설정
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        // claims에서 useridx 값 추출
+        return (Integer) claims.get("useridx");
+    }
+
     // JWT 토큰에서 사용자 ID를 추출하는 메서드
     public String getUserIdFromToken(String token) {
         Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출

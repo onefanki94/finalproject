@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface MasterService {
-    int createNotice(MasterVO vo);
+    int createNotice(MasterVO masterNotice);
     public List<MasterVO> getStoreList();
      int getTotalStore();
     Map<String, Object> getCategoryCountByCode(@Param("categoryCode") int categoryCode);
