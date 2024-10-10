@@ -79,18 +79,25 @@
            <div class="list_section">
                <c:if test="${previousPost != null}"></c:if>
                     <a href="/cmView/${go.idx}">
-                        <div class="list_pre">
-                            <i class="bi bi-chevron-up"></i>이전페이지
-                        </div>
-                    </a>
+
+                    <div class="list_pre">
+                        <i class="bi bi-chevron-up"></i>이전페이지
+
+                    </div></a>
+
+
+
                <c:if test="${previousPost == null}"></c:if>
 
                <c:if test="${nextPost != null}"></c:if>
                <a href="/cmView/${tun.idx}">
-                   <div class="list_next">
-                       <i class="bi bi-chevron-down"></i>다음페이지
-                   </div>
-               </a>
+
+                <div class="list_next">
+                    <i class="bi bi-chevron-down"></i>다음페이지
+                </div></a>
+
+
+
 
                <c:if test="${nextPost == null}"></c:if>
            </div>

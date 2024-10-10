@@ -36,10 +36,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:9911")  // 클라이언트 도메인 설정
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("Authorization", "Content-Type")
-                .exposedHeaders("Authorization")  // 클라이언트가 읽을 수 있도록 허용
-                .allowCredentials(true);
+                .allowedOrigins("http://localhost:9911") // 허용할 출처(도메인) 지정
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization")
+                .allowCredentials(true)  // 쿠키와 인증 정보를 허용
+                .maxAge(3600);
     }
 }

@@ -6,83 +6,71 @@
 <!-- CKEditor 5 스크립트만 포함 -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/super-build/ckeditor.js"></script>
 <script>
-    // CKEditor 옵션 객체 정의
-    const option = {
-        toolbar: {
-            items: [
-                'heading', '|',
-                'bold', 'italic', 'link', '|',
-                'bulletedList', 'numberedList', 'blockQuote', '|',
-                'undo', 'redo'
-            ]
-        },
-        language: 'ko',  // 언어 설정
-        licenseKey: ''   // 필요 시 라이선스 키 입력
-    };
+ window.onload = function() {
+     // CKEditor 5 초기화
+     ClassicEditor.create(document.getElementById('content'))
+         .then(editor => {
+             window.editor = editor;  // 전역에 editor 객체 저장
+             console.log('CKEditor 초기화 완료:', editor);
+         })
+         .catch(error => {
+             console.error('CKEditor 초기화 오류:', error);
+         });
+ }
 
-    // 페이지가 로드될 때 CKEditor 초기화
-    window.onload = function() {
-        // CKEditor 5 초기화
-        ClassicEditor.create(document.getElementById('content'), option)
-            .then(editor => {
-                window.editor = editor;  // 전역에 editor 객체 저장
-                console.log('CKEditor 초기화 완료:', editor);
-            })
-            .catch(error => {
-                console.error('CKEditor 초기화 오류:', error);
-            });
-    }
+ function submitNoticeForm(event) {
+     event.preventDefault();  // 기본 폼 제출 동작 방지
 
-    // 폼 제출 시 Ajax로 데이터 전송
-    function submitNoticeForm(event) {
-        event.preventDefault();  // 기본 폼 제출 동작 방지
+     // 제목 값 가져오기
+     var title = document.getElementById('title').value.trim();
+     if (title === '') {
+         alert('제목을 입력하세요.');
+         return false;
+     }
 
-        // 제목 값 가져오기
-        var title = document.getElementById('title').value.trim();
+     // CKEditor의 내용 가져오기
+     const content = window.editor.getData();
+     console.log('CKEditor Content:', content);
 
-        if (title === '') {
-            alert('제목을 입력하세요.');
-            return false;
-        }
+     // 로컬 스토리지에서 토큰 값 가져오기
+     const token = localStorage.getItem('token'); // 'token'이 저장된 로컬 스토리지 키 확인
+     console.log('토큰 값:', token);
 
-        // CKEditor 초기화 확인
-        if (!window.editor) {
-            alert('CKEditor 초기화 중입니다. 잠시 후 다시 시도해 주세요.');
-            return false;
-        }
+     if (!token) {
+         alert('로그인 토큰을 찾을 수 없습니다. 로그인 후 다시 시도해 주세요.');
+         return false;
+     }
 
-        // CKEditor의 내용 가져오기
-        const content = window.editor.getData();
-        console.log('CKEditor Content:', content);
-
-        // 로컬 스토리지에서 토큰 값 가져오기
-        const token = localStorage.getItem('token');
-        console.log('토큰 값:', token);
-
-        if (!token) {
-            alert('로그인 토큰을 찾을 수 없습니다. 로그인 후 다시 시도해 주세요.');
-            return false;
-        }
-
-        // Ajax 요청
-        $.ajax({
-            url: '/master/noticeAddMasterOk?token=' + localStorage.getItem('token'),
-            type: 'POST',
-            data: {
-                title: $('#title').val(),
-                content: window.editor.getData()
-            },
-            success: function(response) {
-                $('body').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Ajax 요청 오류 발생:', error);
-                alert('공지사항 등록 중 오류가 발생했습니다.');
-            }
-        });
-
-        return false;
-    }
+     // Ajax 요청
+  $.ajax({
+      url: '/master/noticeAddMasterOk',
+      type: 'POST',
+      contentType: 'application/json; charset=UTF-8',  // JSON 형식으로 설정
+      data: JSON.stringify({
+          title: $('#title').val(),  // 공지사항 제목
+          content: window.editor.getData()  // CKEditor의 내용
+      }),
+      beforeSend: function(xhr) {
+          const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 값 가져오기
+          if (token) {
+              xhr.setRequestHeader('Authorization', 'Bearer ' + token);  // Authorization 헤더에 토큰 설정
+              console.log('Authorization 헤더 설정:', 'Bearer ' + token);
+          } else {
+              console.error('로컬 스토리지에 토큰 값이 없습니다.');
+              alert('로그인 후 다시 시도해 주세요.');
+          }
+      },
+      success: function(response) {
+          console.log('Response:', response);
+          alert('공지사항이 성공적으로 등록되었습니다!');
+          window.location.href = '/master/noticeMasterList';  // 공지사항 목록 페이지로 이동
+      },
+      error: function(xhr, status, error) {
+          console.error('Error:', error);
+          alert('공지사항 등록 중 오류가 발생했습니다.');
+      }
+  });
+   }
 </script>
 <div class="noticeAdd">
 <h2>공지사항 등록</h2>

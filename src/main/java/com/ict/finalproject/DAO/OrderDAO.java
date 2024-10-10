@@ -5,10 +5,12 @@ import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.OrderVO;
 import com.ict.finalproject.vo.PaymentVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface OrderDAO {
     void insertOrder(OrderVO order);
     void insertOrderList(OrderListVO orderList);
