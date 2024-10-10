@@ -19,4 +19,6 @@ public interface StoreService {
     public List<ProductFilterVO> getStoreListByFilterCriteria(ProductFilterVO filterCriteria);
 
     public StoreVO getStoreDetail(int idx);
+
+    
 }
