@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -155,9 +156,23 @@ public class masterController {
         public ModelAndView storeMasterList(){
             System.out.println("관리자페이지 굿즈 상품 테이블 불러오기");
             List<MasterVO> storeList = masterService.getStoreList();
+
+            // 총 상품 수 구하기
+            int totalStore = masterService.getTotalStore();
+
+            Map<String, Object> categoryCode1Count = masterService.getCategoryCountByCode(1); // 의류
+            Map<String, Object> categoryCode2Count = masterService.getCategoryCountByCode(2); // 완구/취미
+            Map<String, Object> categoryCode3Count = masterService.getCategoryCountByCode(3); // 문구/오피스
+            Map<String, Object> categoryCode4Count = masterService.getCategoryCountByCode(4); // 생활용품
+
             System.out.println(storeList);
             mav = new ModelAndView();
             mav.addObject("storeList", storeList);
+            mav.addObject("totalStore", totalStore);
+            mav.addObject("categoryCode1Count", categoryCode1Count.get("product_category"));
+            mav.addObject("categoryCode2Count", categoryCode2Count.get("product_category"));
+            mav.addObject("categoryCode3Count", categoryCode3Count.get("product_category"));
+            mav.addObject("categoryCode4Count", categoryCode4Count.get("product_category"));
             mav.setViewName("master/storeMasterList");
             return mav;
         }
@@ -181,7 +196,11 @@ public class masterController {
         //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
         @GetMapping("/boardMasterAll")
         public ModelAndView boardMasterAll(){
+            // 커뮤니티 전체 글 목록 불러오기
+            System.out.println("관리자페이지에서 커뮤니티 테이블 전체 글 목록 불러오기");
+            List<MasterVO> boardList = masterService.getBoardList();
             mav = new ModelAndView();
+            mav.addObject("boardList", boardList);
             mav.setViewName("master/boardMasterAll");
             return mav;
         }

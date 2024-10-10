@@ -16,6 +16,8 @@ public class MasterVO {
     private String title;
     private String regDT;
     private String content;
+    private int useridx;
+    private String author;
 
     // 상품 테이블에서 사용 하는 것들
     private int price;
@@ -26,5 +28,11 @@ public class MasterVO {
     private String pro_detail;
     private int stock;
     private int fee;
-    private int category;
+    private String category;
+    private String type;
+    private int code;
+
+    // 커뮤니티 테이블에서 사용 하는 것들
+    private String commtype;
+    private int hit;
 }

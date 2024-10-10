@@ -8,16 +8,15 @@
 
  <div class="store-list-container">
         <h2>굿즈 전체 목록</h2>
-
         <!-- 굿즈 요약 정보 -->
         <div class="summary">
             <div>
                 <strong>총 상품 수</strong>
-                <p id="totalGoods">4 개</p>
+                <p id="getTotalStore"> ${totalStore} 개</p>
             </div>
             <div>
                 <strong>카테고리별</strong>
-                <p id="categorySummary">피규어: 1, 티셔츠: 1, 악세사리: 1, 포스터: 1</p>
+                <p id="categorySummary">의류 : ${categoryCode1Count} 개, 완구/취미 : ${categoryCode2Count} 개, 문구/오피스 : ${categoryCode3Count} 개, 생활용품 : ${categoryCode4Count} 개</p>
             </div>
         </div>
 

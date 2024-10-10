@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MasterServiceImpl implements MasterService {
@@ -27,5 +28,20 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public List<MasterVO> getStoreList() {
         return dao.getStoreList();
+    }
+
+    @Override
+    public int getTotalStore() {
+        return dao.getTotalStore();
+    }
+
+    @Override
+    public Map<String, Object> getCategoryCountByCode(int categoryCode) {
+        return dao.getCategoryCountByCode(categoryCode);
+    }
+
+    @Override
+    public List<MasterVO> getBoardList() {
+        return dao.getBoardList();
     }
 }

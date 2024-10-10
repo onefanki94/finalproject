@@ -4,6 +4,7 @@ import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.CommuService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.CommuVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -49,24 +50,29 @@ public class communityController {
     }
 
     //상세페이지
-    @GetMapping("/cmView")
-    public String cmView(@RequestParam("idx") int idx, Model model) {
+    @GetMapping("/cmView/{idx}")
+    public String cmView(@PathVariable("idx") int idx, Model model) {
         System.out.println("Received idx: " + idx); // idx 값 확인
 
+        // idx 값을 통해 게시글 상세 정보 조회
         CommuVO Detail = commuService.Detail(idx);
         if (Detail == null) {
-            return "redirect:/error";
+            return "redirect:/error"; // 게시글이 존재하지 않으면 에러 페이지로 이동
         }
 
+        // 조회수 증가 로직 실행
         commuService.HitCount(idx);
 
+        // 이전 게시글 및 다음 게시글 조회
         CommuVO previousPost = commuService.PreviousPost(idx);
         CommuVO nextPost = commuService.NextPost(idx);
 
-        model.addAttribute("vo", Detail);
-        model.addAttribute("go", previousPost);
-        model.addAttribute("tun", nextPost);
+        // 모델에 게시글 세부 정보 및 이전/다음 게시글 정보 추가
+        model.addAttribute("vo", Detail);         // 현재 게시글 세부 정보
+        model.addAttribute("go", previousPost);   // 이전 게시글
+        model.addAttribute("tun", nextPost);      // 다음 게시글
 
+        // cmView.jsp 페이지로 이동
         return "community/cmView";
     }
 
