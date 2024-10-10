@@ -26,18 +26,39 @@
         JOIN t_communitytype ct ON c.commtype = ct.code
         WHERE c.delState = 0
         <if test="commtype != null and commtype != 'all'">
-            AND c.commtype = #{commtype}
+            AND c.commtype = #{commtype} <!-- 커뮤니티 타입 필터링 -->
         </if>
+
+        <!-- 검색어 조건 설정 -->
         <if test="searchKeyword != null and searchKeyword != ''">
-            AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%')
-            OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
+            <choose>
+                <when test="searchCategory == 'TITLE_AND_CONTENT'">
+                    AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                    OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
+                </when>
+                <when test="searchCategory == 'TITLE'">
+                    AND c.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <when test="searchCategory == 'CONTENT'">
+                    AND c.content LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+            </choose>
         </if>
-        ORDER BY
+
+        <!-- 정렬 조건 -->
         <choose>
-            <when test="orderBy == 'NEW_REPLY'">c.replyCount DESC, c.regDT DESC</when>
-            <when test="orderBy == 'REPLY'">c.replyCount DESC</when>
-            <when test="orderBy == 'LIKE'">c.hit DESC</when>
-            <otherwise>c.regDT DESC</otherwise>
+            <when test="orderBy == 'DEFAULT'">
+                ORDER BY c.regDT DESC
+            </when>
+            <when test="orderBy == 'NEW_REPLY'">
+                ORDER BY c.lastReplyDT DESC
+            </when>
+            <when test="orderBy == 'REPLY'">
+                ORDER BY c.replyCount DESC
+            </when>
+            <when test="orderBy == 'LIKE'">
+                ORDER BY c.hit DESC
+            </when>
         </choose>
     </select>
 

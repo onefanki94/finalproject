@@ -57,6 +57,9 @@ public class communityController {
             list = commuService.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
         }
 
+        // 검색어 입력 후 검색어를 초기화하여 JSP로 전달
+        searchKeyword = "";  // 검색 후 검색어 초기화
+
         // JSP에 전달할 데이터 설정
         model.addAttribute("list", list);
         model.addAttribute("commtype", commtype);

@@ -114,6 +114,7 @@
         <ul  class="paging">
 
             <!-- 이전페이지 -->
+            <!-- 첫번째 페이지이면 -->
                 <%-- <c:if test="${pVO.nowPage==1}"> </c:if>--%>
                 <li  class="pre"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
 
@@ -121,12 +122,17 @@
                 <%-- <c:if test="${pVO.nowPage>1}"> </c:if>--%>
                    <li class="pre"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage-1});"'><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
 
+
+            <!-- 페이지 번호 -->
+            	    <!-- 시작페이지 (1~5)에서 한번에 표시할 페이지 수 만큼 < =총페이지수 -->
+            	    <!--                               1                                  1+5-1   =5-->
+            	    <!--                               6                                  6+5-1   =10 -->
             <%--<c:forEach var="p" begin="${pVO.startPageNum}" end="${pVO.startPageNum+pVO.onePageNum-1 }"> </c:forEach>--%>
                 <%-- c:if test="${p<=pVO.totalPage}"> </c:if>--%>
                     <li class="page" <c:if test="${p==pVO.nowPage}">active</c:if>'><a class="page-link"  href="javascript:reloadPage(${pVO.searchKey},${p});">${p}</a></li>
 
 
-
+            <!-- 다음페이지 -->
             <!-- 다음페이가 없을때 -->
                 <%-- <c:if test="${pVO.nowPage==pVO.totalPage}"></c:if>--%>
                     <li class="next"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/right-chevron.png" style=" width:20px; height:18px; "/></a></li>
@@ -167,9 +173,12 @@
     }
 
 
-        // 검색 폼 제출 함수
+        // 검색 폼 제출 후 검색어 입력 필드를 초기화하는 함수
             function submitSearchForm() {
                 document.getElementById("searchForm").submit();
+
+                // 폼 제출 후 검색어 필드 초기화
+                document.getElementById("searchKeyword").value = '';
             }
 
 window.onload = function(){
