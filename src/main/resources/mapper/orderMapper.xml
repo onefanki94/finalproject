@@ -23,7 +23,7 @@
     </select>
 
     <!-- T_Payment insert -> 결제요청정보를 저장해놓기 위함 why? 데이터 무결성! -->
-    <insert id="insertPaymentRequest" parameterType="PaymentReqDTO">
+    <insert id="insertPaymentRequest" parameterType="com.ict.finalproject.DTO.PaymentReqDTO">
         INSERT INTO T_payment (orderId, amount, customerName, order_idx)
         VALUES (#{orderId}, #{amount}, #{customerName}, #{order_idx})
     </insert>

@@ -102,7 +102,12 @@ public ModelAndView getStoreDetail(@PathVariable("idx") int idx) {
     return mav;
 }
 
-
+    @GetMapping("/shoppingBag")
+    public ModelAndView shoppingBag(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("store/shopping_bag");
+        return mav;
+    }
 
    
 }
