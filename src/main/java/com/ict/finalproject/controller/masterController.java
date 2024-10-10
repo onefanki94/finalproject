@@ -10,6 +10,7 @@ import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.StoreVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -238,44 +239,37 @@ public class masterController {
 
     @PostMapping("/noticeAddMasterOk")
     public ResponseEntity<String> noticeAddMasterOk(
-            MasterVO vo,
-            @RequestParam("token") String token  // token을 @RequestParam으로 받기
-    ) {
-        String bodyTag = "";
+            @RequestBody MasterVO vo,  // @RequestBody로 JSON 데이터 받기
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
 
-        String adminid;
-        Integer adminidx;
+        String bodyTag = "";  // 응답으로 보낼 HTML 태그 변수
 
-        // 토큰 확인
-        if (token == null || token.isEmpty()) {
-            log.info("토큰 값이 존재하지 않거나 잘못된 토큰.");
-            bodyTag += "<script>alert('토큰이 존재하지 않거나 잘못되었습니다. 다시 로그인해 주세요.');history.back();</script>";
+        // Authorization 헤더 확인 및 토큰 추출
+        String token = null;
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);  // 'Bearer ' 이후의 토큰 값만 추출
+            log.info("Authorization 헤더에서 추출한 토큰 값: " + token);
+        } else {
+            log.info("Authorization 헤더가 없거나 잘못된 형식입니다.");
+            bodyTag += "<script>alert('인증 정보가 없습니다. 다시 로그인해 주세요.');history.back();</script>";
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
             return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
         }
 
         try {
-            // 토큰에서 adminid 추출
-            adminid = jwtUtil.getAdminIdFromToken(token);
-            log.info("추출한 adminid 값: " + adminid);
-
-            // adminid를 통해 t_admin 테이블의 idx 값 조회
-            adminidx = tAdminService.getAdminIdxByAdminId(adminid);
-            log.info("조회한 adminidx 값: " + adminidx);
-
+            // 토큰에서 adminid 추출 및 관리자 idx 조회 로직 수행
+            String adminid = jwtUtil.getAdminIdFromToken(token);
+            Integer adminidx = tAdminService.getAdminIdxByAdminId(adminid);
             if (adminidx == null) {
-                log.info("해당 adminid에 해당하는 idx 값이 없음");
                 bodyTag += "<script>alert('해당 관리자 정보가 존재하지 않습니다.');history.back();</script>";
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
                 return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
             }
 
-            // MasterVO 객체에 adminidx 값 설정
+            // MasterVO 객체에 adminidx 값 설정 및 공지사항 등록
             vo.setAdminidx(adminidx);
-
-            // 공지사항 등록 로직 수행
             int result = masterService.createNotice(vo);
             if (result > 0) {
                 bodyTag += "<script>alert('공지사항이 성공적으로 등록되었습니다.'); location.href='/master/noticeMasterList';</script>";
@@ -294,6 +288,8 @@ public class masterController {
         // 응답을 HTML로 반환
         return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
     }
+
+
 
 
 

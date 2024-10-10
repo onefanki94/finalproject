@@ -96,7 +96,7 @@
                         <div class="row">
                             <div class="col-sm-1 p-2">${vo.idx}</div>
                             <div class="col-sm-1 p-2">${vo.commtype}</div>
-                            <div class="col-sm-7 p-2"><a href="/cmView?idx=${vo.idx}">${vo.title}</a></div>
+                            <div class="col-sm-7 p-2"><a href="/cmView/${vo.idx}">${vo.title}</a></div>
                             <div class="col-sm-2 p-2">${vo.regDT}</div>
                             <div class="col-sm-1 p-2">${vo.hit}</div>
                         </div>
