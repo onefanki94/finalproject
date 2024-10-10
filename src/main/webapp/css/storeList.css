@@ -245,6 +245,31 @@ input:checked + .slider::before {
     border-bottom: 1px solid #ccc;
 }
 
+/* 기본 filter-item 스타일 */
+.filter-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 선택된 항목 스타일 */
+.filter-item.active {
+    background-color: #e0e0e0;
+    color: white;
+    border-color: #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 박스 그림자 추가 */
+
+}
+
+/* 마우스 오버 시 효과 */
+.filter-item:hover {
+    background-color: #e0e0e0;
+}
+
+
 /* 검색창 */
 .search-section {
     display: flex; /* Flexbox로 자식 요소들을 가로로 배치 */
