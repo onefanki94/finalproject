@@ -35,15 +35,22 @@
 
      <!-- 필터링된 상품 목록 -->
     <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.ProductFilterVO">
-        SELECT ani_title, brand, stock FROM t_product
+        SELECT idx, ani_title, category, stock, detail_img, price
+        FROM t_product
         WHERE 1 = 1
-        <if test="ani_title != null and ani_title != ''">
-            AND ani_title = #{ani_title}
+        <if test="ani_title != null and ani_title.size() > 0">
+            AND ani_title IN
+            <foreach item="title" collection="ani_title" open="(" separator="," close=")">
+                #{title}
+            </foreach>
         </if>
-        <if test="brand != null and brand != ''">
-            AND brand = #{brand}
+        <if test="category != null and category.size() > 0">
+            AND category IN
+            <foreach item="cat" collection="category" open="(" separator="," close=")">
+                #{cat}
+            </foreach>
         </if>
-        <if test="stock == 0">
+        <if test="stock != null and stock == 0">
             AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
         </if>
     </select>
