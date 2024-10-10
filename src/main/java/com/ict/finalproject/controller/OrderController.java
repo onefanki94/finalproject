@@ -134,7 +134,7 @@ public class OrderController {
     }
 
     @GetMapping("/success")
-    public String paymentSuccess(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam int amount) {
+    public ModelAndView paymentSuccess(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam int amount) {
         PaymentApprovalDTO approvalDTO = new PaymentApprovalDTO();
         approvalDTO.setPaymentKey(paymentKey);
         approvalDTO.setOrderId(orderId);
@@ -143,7 +143,10 @@ public class OrderController {
         // Toss 결제 승인 처리
         service.approvePayment(approvalDTO);
 
-        return "결제가 성공적으로 완료되었습니다.";
+        mav = new ModelAndView();
+        mav.setViewName("store/orderOk");
+
+        return mav;
     }
 
     @GetMapping("/fail")

@@ -1,0 +1,121 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--e-font), var(--k-font);
+  overflow: hidden;
+}
+body {
+  background: #121212;
+  background-image: url("/img/join_img/admbody_img.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+:root {
+  --primary: #359c95;
+  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
+  --k-font: "Pretendard";
+  --e-font: "Outfit";
+}
+
+.adm_login_container {
+  position: relative;
+  width: 100%;
+  padding: 80px 15px;
+  margin-top: 200px;
+  font-size: 13px;
+  letter-spacing: -0.15px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #222;
+  background-color: #000000d1;
+}
+
+.adm_login_container h3 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  font-weight: 800;
+  background-color: #e3e3e3;
+}
+
+.adm_login_container .bar {
+  width: 12px;
+  height: 2px;
+  margin: 19px auto;
+  background-color: #c7c7c7;
+  transform: rotate(-45deg);
+}
+
+.logo_img_div {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.logo_img_div img {
+  width: 160px;
+  height: 35px;
+}
+
+.adm_login_container form {
+  overflow: hidden;
+  max-width: 410px;
+  width: 100%;
+  margin: 28px auto 0;
+}
+
+.adm_login_container form > div {
+  float: left;
+  width: 74%;
+}
+
+.adm_login_container form > div input {
+  width: 95%;
+  height: 45px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  border: none;
+  border-radius: 3px;
+  background-color: #fff;
+  font-family: var(--e-font), var(--k-font);
+}
+
+.admlogin_btn {
+  float: right;
+  width: 24%;
+  height: 100px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  transition: all 0.3s;
+  cursor: pointer;
+  font-family: var(--e-font), var(--k-font);
+}
+
+.bottom_txtarea {
+  margin-top: 25px;
+  color: #afafaf;
+}
+
+.bottom_txtarea p:nth-of-type(2) {
+  position: relative;
+  left: -6px;
+}
+
+.bottom_txtarea span {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 19px;
+  font-weight: bold;
+  color: var(--primary);
+}

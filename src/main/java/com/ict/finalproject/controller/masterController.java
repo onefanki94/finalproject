@@ -401,4 +401,13 @@ public class masterController {
         mav.setViewName("master/orderEditMaster");
         return mav;
     }
+
+    //관리자 로그인 페이지 view
+    @GetMapping("/masterLogin")
+    public ModelAndView masterLogin(){
+        mav = new ModelAndView();
+        mav.setViewName("join/admin_login");
+
+        return mav;
+    }
 }
