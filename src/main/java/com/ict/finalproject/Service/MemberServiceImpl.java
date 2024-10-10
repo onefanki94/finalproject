@@ -1,6 +1,7 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MemberDAO;
+import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int getNewSignups() {
         return dao.getNewSignups();
+    }
+
+    //리뷰작성전 리스트 SELECT
+    @Override
+    public List<ReviewBeforeDTO> getReviewBefore(int useridx) {
+        return dao.getReviewBefore(useridx);
     }
 }

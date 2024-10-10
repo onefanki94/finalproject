@@ -12,7 +12,16 @@ function reviewTab(tabId) {
 
 var tag = ``;
 
-function review_write(){
+function review_write_exit(){
+    $(".review_modal_body").remove();
+}
+
+var reviewbeforeData;
+
+//리뷰 작성 버튼 누르면 나오는 모달
+function review_writeModal(index){
+    tag = ``;
+    const reviewbefore = reviewbeforeData[index];
     tag += `<div class="review_modal_body">
               <div class="review_modal_div">
                 <button class="exit_btn" type="button" onclick="review_write_exit()">
@@ -27,14 +36,11 @@ function review_write(){
                       <div class="modal_write_ele_top">
                         <div class="review_modal_proinfo">
                           <img
-                            src="https://img.29cm.co.kr/item/202404/11ef00748710b484bb6a7fea540fd7e9.jpg?width=100"
+                            src=""
                           />
                           <div class="review_modal_protitle">
-                            <p>overdue flair</p>
-                            <p>SWEET SOUNDS T-SHIRT_BABY PINK</p>
                           </div>
                         </div>
-
                         <div class="review_modal_grade">
                           <span>상품은 어떠셨나요? </span>
                           <div class="review_modal_grade_check">
@@ -47,14 +53,14 @@ function review_write(){
                         </div>
                         <div class="review_modal_file">
                           <div>
+                            <p>이미지는 최대 2개까지 첨부가 가능합니다.</p>
+                            <div id="fileimg_preview" class="fileimg_preview"></div>
+                            <label for="fileInput" class="review_modal_file_btn">이미지 업로드</label>
                             <input
                               type="file"
-                              multiple=""
-                              class="review_imgfile_input"
-                            /><button
-                              class="review_modal_file_btn"
-                              type="button"
-                            ></button>
+                              id="fileInput"
+                              style="display:none;"
+                            />
                           </div>
                         </div>
                         <div class="review_modal_txt_div">
@@ -82,18 +88,70 @@ function review_write(){
               </div>
             </div>`;
     $("body").append(tag);
-}
 
-function review_write_exit(){
-    $(".review_modal_body").remove();
-}
+    $(".review_modal_proinfo img").attr("src","/" + reviewbefore.detail_img);
+    console.log(reviewbefore.detail_img);
+    $(".review_modal_protitle").html(`
+            <p>${reviewbefore.title}</p>
+            <p>${reviewbefore.price}원 / 수량 ${reviewbefore.amount}개</p>
+    `);
+};
 
 $(function(){
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    // 리뷰 작성전, 작성완료 데이터 리스트 불러오기
+    $.ajax({
+        url: '/user/reviewList',
+        type: 'POST',
+        contentType: 'application/json',
+        headers: {
+            "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+        },
+        success: function(response) {
+            console.log(response.reviewBefore);
+
+            reviewbeforeData = response.reviewBefore;
+
+            // 리뷰 작성 전 for문
+            response.reviewBefore.forEach(function(reviewbefore, index){
+                $("#review_list_ul").append(`
+                    <li class="review_list_li">
+                        <input type="hidden" name="order_idx" id="order_idx" value="${reviewbefore.orderList_idx}">
+                       <div class="review_list_li_one">
+                         <div class="review_list_li_one_detail">
+                           <div class="review_product">
+                             <a href="">
+                               <img src="/${reviewbefore.detail_img}" class="review_product_img" />
+                             </a>
+                             <div class="review_product_inform">
+                               <a href="">
+                                 <strong>${reviewbefore.title}</strong>
+                                 <p>${reviewbefore.price}원 / 수량 ${reviewbefore.amount}개</p>
+                               </a>
+                             </div>
+                           </div>
+                           <span class="order_state_date"><span>구매확정</span></span>
+                           <div><button class="review_write_btn" type="button" onclick="review_writeModal(${index})">리뷰쓰기</button></div>
+                         </div>
+                       </div>
+                     </li>
+                `)
+            })
+
+
+
+        },
+        error: function(xhr, status, error) {
+            console.log('오류 발생: ' + error);  // 에러 메시지 자체 출력
+        }
+    });
+
+
+
     // reviewTab 함수에 tabId 전달
     reviewTab("tab1");  // tab1을 기본값으로 설정하여 호출
-
-    // 리뷰 작성 모달 띄우기
-    review_write();
 
     // 리뷰 작성 모달 닫기
     review_write_exit();
@@ -111,6 +169,37 @@ $(function(){
         console.log("fa-solid 클래스를 가진 i 태그의 개수: ", gradeCount);
 
         /*$("#grade").val(gradeCount);*/
+    });
+
+    $(document).on('change', '#fileInput', function(event) {
+        var files = event.target.files;
+        var preview = $('#fileimg_preview');
+        var fileCount = preview.find('img').length; // 현재 추가된 이미지 개수 확인
+        /*preview.empty(); // 미리보기 초기화*/
+
+        $.each(files, function(i, file) {
+            if (file.type.startsWith('image/') && fileCount < 2) {  // 이미지 파일만 처리하고, 2개까지만 추가
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = $('<img>').attr('src', e.target.result).css({
+                        width: '76px',
+                        height: '76px',
+                        marginRight:'10px'
+                    });
+                    preview.append(img);
+                    fileCount++;
+
+                    // 파일이 2개 추가되면 파일 선택 버튼 숨김
+                    if (fileCount >= 2) {
+                        $('#fileInput').hide();
+                        $('.review_modal_file_btn').hide();
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        // 파일 선택 초기화하여 추가 선택 가능하게 설정
+        $(this).val('');
     });
 });
 

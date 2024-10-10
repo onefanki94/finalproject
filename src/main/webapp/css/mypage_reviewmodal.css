@@ -184,17 +184,20 @@
 .review_modal_file {
   display: flex;
   flex-direction: column;
-  padding: 24px 0px 20px;
+  padding: 15px 0px 20px;
   border-bottom: 1px solid rgb(212, 212, 212);
 }
 
-.review_modal_file div {
+.review_modal_file>div {
   display: flex;
+  flex-direction: column;
 }
 
-/* .review_imgfile_input {
-  display: none;
-} */
+.review_modal_file>div p{
+    margin-bottom:10px;
+    font-size:12px;
+    color:#A0A0A0;
+}
 
 .review_modal_file_btn {
   -webkit-box-align: center;
@@ -208,6 +211,7 @@
   height: 76px;
   line-height: 100em;
   background: rgb(48, 48, 51);
+  cursor:pointer;
 }
 
 .review_modal_file_btn::before {
@@ -294,4 +298,8 @@
   font-weight: 600;
   color: #fff;
   background-color: rgb(48, 48, 51);
+}
+
+.fileimg_preview{
+    position:relative;
 }

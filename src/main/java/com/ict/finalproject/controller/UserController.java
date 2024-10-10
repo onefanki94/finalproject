@@ -1,6 +1,7 @@
 package com.ict.finalproject.controller;
 
 import com.ict.finalproject.DTO.LoginRequestDTO;
+import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.MemberVO;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -204,6 +208,63 @@ public class UserController {
         mav.setViewName("mypage/mypage_review");
 
         return mav;
+    }
+
+    @PostMapping("/reviewList")
+    public ResponseEntity<Map<String, Object>> getReviewList(@RequestHeader("Authorization") String Headertoken){
+        System.out.println(Headertoken);
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }  // 303 또는 302 응답
+
+
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        // 리뷰 작성 해야되는 데이터 SELECT
+        List<ReviewBeforeDTO> reviewBefore = service.getReviewBefore(useridx);
+        response.put("reviewBefore",reviewBefore);
+
+        // 작성된 리뷰 데이터 SELECT
+
+        // 성공적으로 조회된 데이터를 반환
+        return ResponseEntity.ok(response);
     }
 
     //마이페이지-문의리스트 view

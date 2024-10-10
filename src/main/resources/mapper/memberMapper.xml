@@ -39,4 +39,15 @@
         SELECT COUNT(*) FROM t_user WHERE regDT >= CURDATE() - INTERVAL 7 DAY
     </select>
 
+    <!-- 리뷰 작성전 리스트 구하기-->
+    <select id="getReviewBefore" resultType="com.ict.finalproject.DTO.ReviewBeforeDTO">
+        SELECT ol.idx AS orderList_idx, p.detail_img,p.title, p.price, ol.amount, ol.orderState, p.idx
+        FROM T_orderList ol
+        JOIN T_order o ON ol.order_idx = o.idx
+        JOIN T_product p ON ol.pro_idx = p.idx
+        LEFT JOIN T_review r ON ol.idx = r.orderList_idx
+        WHERE ol.orderState = 6
+        AND o.useridx = ${param1}  -- 토큰에서 가져온 useridx
+        AND r.orderList_idx IS NULL
+    </select>
 </mapper>

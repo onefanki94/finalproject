@@ -1,5 +1,6 @@
 package com.ict.finalproject.Service;
 
+import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.vo.MemberVO;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface MemberService {
     int getTotalUser();
     int getNewUsers();
     int getNewSignups();
+
+    //리뷰작성전 리스트 SELECT
+    List<ReviewBeforeDTO> getReviewBefore(int useridx);
 }

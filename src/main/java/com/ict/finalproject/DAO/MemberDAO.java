@@ -1,6 +1,7 @@
 package com.ict.finalproject.DAO;
 
 
+import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.vo.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,7 @@ public interface MemberDAO {
 
         // 최근 7일간 가입자 수 구하기
         int getNewSignups();
+
+        //리뷰작성전 리스트 SELECT
+        List<ReviewBeforeDTO> getReviewBefore(int useridx);
 }

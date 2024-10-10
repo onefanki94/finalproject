@@ -88,26 +88,8 @@
           </ul>
           <div class="review_list_all">
             <div>
-              <ul class="review_list_ul">
-                <li class="review_list_li">
-                  <div class="review_list_li_one">
-                    <div class="review_list_li_one_detail">
-                      <div class="review_product">
-                        <a href="">
-                          <img src="https://img.29cm.co.kr/next-product/2023/05/21/316fdd4c0e7d435eb7da6203446089f9_20230521232826.jpg?width=300" class="review_product_img" />
-                        </a>
-                        <div class="review_product_inform">
-                          <a href="">
-                            <strong>안티버그 쿨링 끈나시(스트라이프 레드)</strong>
-                            <p>40,000원 / 수량 1개</p>
-                          </a>
-                        </div>
-                      </div>
-                      <span class="order_state_date"><span>구매확정</span><br />2024.07.04</span>
-                      <div><button class="review_write_btn" type="button" onclick="review_write()">리뷰쓰기</button></div>
-                    </div>
-                  </div>
-                </li>
+              <ul class="review_list_ul" id="review_list_ul">
+
               </ul>
             </div>
           </div>
