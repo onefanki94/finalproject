@@ -76,8 +76,7 @@
                         <div class="pop-carousel-images">
                             <div class="product">
                                 <a href="/storeList">
-                                    <img src="img/store/f1.png" alt="Product 1">
-                                    <span class="cnt">2</span>                
+                                    <img src="img/store/f1.png" alt="Product 1">               
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -92,7 +91,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f2.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -107,7 +105,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f3.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -122,7 +119,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f4.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -137,7 +133,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f5.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -152,7 +147,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f6.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -167,7 +161,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f7.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -182,7 +175,6 @@
                         <div class="product">
                             <a href="/storeList">
                                 <img src="img/store/f8.png" alt="Product 1">
-                                <span class="cnt">2</span>
                                 <span class="rcont"></span>
                                 <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                 <span class="price">
@@ -232,7 +224,7 @@
                                     <img src="img/store/origingoods3.png" alt="Product 3">                             
                                 </a>
                                 </div>
-                                
+                  
                                 <a href="/storeList">
                                     <div class="origin-tag">블루아카이브 2주년</div>
                                 </a>                        
@@ -255,8 +247,7 @@
                         <div class="new-carousel-images">
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f1.png" alt="Product 1">
-                                    <span class="cnt">2</span>                
+                                    <img src="img/store/f1.png" alt="Product 1">     
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -270,8 +261,7 @@
                             </div>
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f2.png" alt="Product 1">
-                                    <span class="cnt">2</span>
+                                    <img src="img/store/f2.png" alt="Product 1">           
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -285,8 +275,7 @@
                             </div>
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f3.png" alt="Product 1">
-                                    <span class="cnt">2</span>
+                                    <img src="img/store/f3.png" alt="Product 1">       
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -300,8 +289,7 @@
                             </div>
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f4.png" alt="Product 1">
-                                    <span class="cnt">2</span>
+                                    <img src="img/store/f4.png" alt="Product 1">  
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -315,8 +303,7 @@
                             </div>
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f5.png" alt="Product 1">
-                                    <span class="cnt">2</span>
+                                    <img src="img/store/f5.png" alt="Product 1">                         
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -330,8 +317,7 @@
                             </div>
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f6.png" alt="Product 1">
-                                    <span class="cnt">2</span>
+                                    <img src="img/store/f6.png" alt="Product 1">                  
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -345,8 +331,7 @@
                             </div>      
                             <div class="new-product">
                                 <a href="/storeList">
-                                    <img src="img/store/f7.png" alt="Product 1">
-                                    <span class="cnt">2</span>
+                                    <img src="img/store/f7.png" alt="Product 1">                  
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">
@@ -361,7 +346,6 @@
                             <div class="new-product">
                                 <a href="/storeList">
                                     <img src="img/store/f8.png" alt="Product 1">
-                                    <span class="cnt">2</span>
                                     <span class="rcont"></span>
                                     <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
                                     <span class="price">

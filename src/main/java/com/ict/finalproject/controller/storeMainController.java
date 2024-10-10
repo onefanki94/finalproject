@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import java.util.Map;
 
 import java.util.List;
 
@@ -64,25 +67,18 @@ public class storeMainController {
     }
 
     @PostMapping("/filterStoreList")
-    public ModelAndView filterStoreList(
-        @RequestParam(value = "ani_title", required = false) String ani_title,
-        @RequestParam(value = "brand", required = false) String brand,
-        @RequestParam(value = "stock", required = false, defaultValue = "0") int stock) {
-
-    // 필터 정보를 담는 VO 객체 생성
-    ProductFilterVO filterCriteria = new ProductFilterVO();
-    filterCriteria.setAni_title(ani_title);
-    filterCriteria.setBrand(brand);
-    filterCriteria.setStock(stock);
-
+@ResponseBody
+public List<ProductFilterVO> filterStoreList(@RequestBody ProductFilterVO filterCriteria) {
+    
+    // 로그 출력으로 전달된 데이터 확인
+    System.out.println("Received ani_title: " + filterCriteria.getAni_title());
+    System.out.println("Received category: " + filterCriteria.getCategory());
+    System.out.println("Received stock: " + filterCriteria.getStock());
+    
     // 필터링된 상품 리스트 가져오기
     List<ProductFilterVO> filteredStoreList = storeService.getStoreListByFilterCriteria(filterCriteria);
 
-    // 필터링된 상품 리스트를 ModelAndView에 추가
-    ModelAndView mav = new ModelAndView();
-    mav.addObject("storeList", filteredStoreList);
-    mav.setViewName("store/storeList"); // storeList.jsp 파일로 이동
-    return mav;
+    return filteredStoreList;
 }
 
 
