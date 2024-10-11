@@ -23,4 +23,10 @@ public interface MemberService {
     int saveReview(ReviewVO review);
     //리뷰 작성완료 리스트
     List<ReviewCompletedDTO> getReviewCompleted(int useridx);
+    //리뷰 원글 저장
+    ReviewVO getReviewEditbefore(int orderList_Idx);
+    //리뷰 수정
+    int updateReview(ReviewVO reviewEditbefore);
+    //리뷰 삭제
+    void reviewDelete(int orderList_idx);
 }

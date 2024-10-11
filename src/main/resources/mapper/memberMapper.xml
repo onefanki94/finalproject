@@ -62,6 +62,24 @@
         FROM T_review r
         JOIN T_orderList o ON r.orderList_idx = o.idx
         JOIN T_product p ON o.pro_idx = p.idx
-        WHERE r.delState = 0 and r.useridx=${param1} and r.orderList_idx IS not NULL;
+        WHERE r.delState = 0 and r.useridx=${param1} and r.orderList_idx IS not NULL AND r.delState=0;
     </select>
+
+    <select id="getReviewEditbefore" resultType="com.ict.finalproject.vo.ReviewVO">
+        SELECT *
+        FROM T_review
+        WHERE orderList_idx=${param1}
+    </select>
+
+    <update id="updateReview" parameterType="com.ict.finalproject.vo.ReviewVO">
+        UPDATE T_review
+        SET content=#{content}, grade=#{grade}, imgfile1=#{imgfile1}, imgfile2=#{imgfile2}, modifyState=1, modifyDT=now()
+        WHERE orderList_idx=#{orderList_idx}
+    </update>
+    
+    <update id="reviewDelete">
+        UPDATE T_review
+        SET delState=1, delDT=now()
+        WHERE orderList_idx=${param1}
+    </update>
 </mapper>

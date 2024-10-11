@@ -66,4 +66,19 @@ public class MemberServiceImpl implements MemberService {
     public List<ReviewCompletedDTO> getReviewCompleted(int useridx) {
         return dao.getReviewCompleted(useridx);
     }
+
+    @Override
+    public ReviewVO getReviewEditbefore(int orderList_Idx) {
+        return dao.getReviewEditbefore(orderList_Idx);
+    }
+
+    @Override
+    public int updateReview(ReviewVO reviewEditbefore) {
+        return dao.updateReview(reviewEditbefore);
+    }
+
+    @Override
+    public void reviewDelete(int orderList_idx) {
+        dao.reviewDelete(orderList_idx);
+    }
 }

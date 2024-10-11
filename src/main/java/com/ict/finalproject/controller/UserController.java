@@ -275,7 +275,7 @@ public class UserController {
 
     // 리뷰 Create
     @PostMapping("/reviewWriteOK")
-    public ResponseEntity<String> uploadReview(@RequestParam("grade") int grade,
+    public ResponseEntity<String> reviewWriteOK(@RequestParam("grade") int grade,
                                                @RequestParam("orderList_idx") int orderList_Idx,
                                                @RequestParam("content") String content,
                                                @RequestParam(value = "file", required = false) List<MultipartFile> files,
@@ -386,6 +386,178 @@ public class UserController {
             f.delete();
         }
     }
+
+    // 리뷰 수정
+    @PostMapping("/reviewEditOK")
+    public ResponseEntity<String> reviewEditOK(@RequestParam("grade") int grade,
+                                               @RequestParam("orderList_idx") int orderList_Idx,
+                                               @RequestParam("content") String content,
+                                               @RequestParam(value = "file", required = false) List<MultipartFile> files,
+                                               @RequestHeader("Authorization") String Headertoken,
+                                               HttpSession session){
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
+        }
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 업데이트 전 데이터 저장
+        ReviewVO reviewEditbefore = service.getReviewEditbefore(orderList_Idx);
+        reviewEditbefore.setGrade(grade);
+        reviewEditbefore.setContent(content);
+
+        // 리뷰 이미지파일 업로드 위치 정하기
+        String path = session.getServletContext().getRealPath("/reviewFileUpload");
+        log.info("파일 저장 경로: {}", path);
+
+        String imgfile1 = null;
+        String imgfile2 = null;
+        String originalFilename="";
+
+        try {
+            // 파일이 있는 경우에만 처리
+            if (files != null && !files.isEmpty()) {
+                // 파일 업로드 처리
+                for (int i = 0; i < files.size(); i++) {
+                    MultipartFile file = files.get(i);
+                    if (!file.isEmpty()) {
+                        originalFilename = file.getOriginalFilename();
+                        File f = new File(path, originalFilename);
+                        file.transferTo(f); // 파일 저장
+
+                        if (i == 0) {
+                            imgfile1 = originalFilename;
+                        } else if (i == 1) {
+                            imgfile2 = originalFilename;
+                        }
+                    }
+                }
+            }
+
+            reviewEditbefore.setImgfile1(imgfile1);
+            reviewEditbefore.setImgfile2(imgfile2);
+
+            int result = service.updateReview(reviewEditbefore); // 리뷰 저장 서비스 호출
+
+            if (result > 0) {
+                return ResponseEntity.ok("리뷰가 성공적으로 수정되었습니다.");
+            } else {
+                fileDel(path, imgfile1);
+                fileDel(path, imgfile2);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정 실패");
+            }
+
+        } catch (Exception e) {
+            fileDel(path, imgfile1);
+            fileDel(path, imgfile2);
+            log.error("리뷰 등록 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정 중 오류 발생");
+        }
+    }
+
+    //리뷰삭제
+    @PostMapping("/reviewDelOK")
+    public ResponseEntity<String> reviewDelOK(@RequestParam("orderList_idx") int orderList_Idx,
+                                               @RequestHeader("Authorization") String Headertoken,
+                                               HttpSession session){
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
+        }
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 삭제 전 데이터 저장
+        ReviewVO reviewDelbefore = service.getReviewEditbefore(orderList_Idx);
+
+        // 리뷰 이미지파일 업로드 위치 정하기
+        String path = session.getServletContext().getRealPath("/reviewFileUpload");
+        log.info("파일 저장 경로: {}", path);
+
+        try {
+            // 리뷰 삭제
+            service.reviewDelete(reviewDelbefore.getOrderList_idx());
+            //파일 삭제 -> 안하기
+//            fileDel(path,reviewDelbefore.getImgfile1());
+//            fileDel(path,reviewDelbefore.getImgfile2());
+            return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            log.error("리뷰 삭제 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제 중 오류 발생");
+        }
+    }
+
 
     //마이페이지-문의리스트 view
     @GetMapping("/mypage_qna")
