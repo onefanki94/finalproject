@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.ProlikeDAO">
+
+
+    <!-- 좋아요 추가 -->
+    <insert id="insertLike">
+        INSERT INTO t_prolike (pro_idx, useridx, regDT)
+        VALUES (#{pro_idx}, #{userIdx}, NOW())
+    </insert>
+
+    <!-- 좋아요 취소 -->
+    <delete id="deleteLike">
+        DELETE FROM t_prolike
+        WHERE pro_idx = #{pro_idx} AND useridx = #{userIdx}
+    </delete>
+
+    <!-- 특정 상품에 대해 사용자가 좋아요를 눌렀는지 확인 -->
+    <select id="selectLikeStatus" resultType="com.ict.finalproject.vo.ProLikeVO">
+        SELECT * FROM t_prolike
+        WHERE pro_idx = #{pro_idx} AND useridx = #{userIdx}
+    </select>
+
+
+
+</mapper>
