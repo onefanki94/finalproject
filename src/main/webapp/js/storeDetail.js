@@ -1,4 +1,6 @@
 
+
+
 // 탭 전환 및 필터링 상태를 관리하는 전역 변수
 let activeTab = 'text';  // 기본값: 텍스트 리뷰
 let activeFilter = 'latest';  // 기본값: 최신순
@@ -148,3 +150,39 @@ function scrollToShippingSection() {
 //     let price = ${storeDetail.price};
 //     document.getElementById('totalPrice').textContent = price * quantity;
 // }
+
+
+document.getElementById('likeIcon').addEventListener('click', function() {
+    const likeIcon = document.getElementById('likeHeart');
+    const likeCountElement = document.getElementById('likeCount');
+    const currentCount = parseInt(likeCountElement.textContent);
+    const isLiked = likeIcon.classList.contains('fa-solid'); // 채워진 하트 상태인지 확인
+    const productId = document.getElementById('likeIcon').getAttribute('data-product-id'); // 상품 ID 가져오기
+
+    // AJAX 요청으로 서버에 좋아요 상태 전달
+    fetch('/like/toggle', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pro_idx: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 좋아요 상태에 따라 UI 업데이트
+            if (isLiked) {
+                likeIcon.classList.remove('fa-solid');  // 채워진 하트 제거
+                likeIcon.classList.add('fa-regular');   // 빈 하트로 변경
+                likeCountElement.textContent = currentCount - 1;  // 카운트 감소
+            } else {
+                likeIcon.classList.remove('fa-regular');  // 빈 하트 제거
+                likeIcon.classList.add('fa-solid');       // 채워진 하트로 변경
+                likeCountElement.textContent = currentCount + 1;  // 카운트 증가
+            }
+        } else {
+            console.error('좋아요 상태 변경 실패');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});

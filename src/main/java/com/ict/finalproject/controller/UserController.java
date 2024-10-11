@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,14 +49,33 @@ public class UserController {
         return mav;
     }
 
+    @GetMapping("/checkAuthentication")
+    public ResponseEntity<String> checkAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getName())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증되지 않은 사용자입니다.");
+        } else {
+            return ResponseEntity.ok("인증된 사용자 ID: " + authentication.getName());
+        }
+    }
+
     @GetMapping("/userinfo")
     public String getUserInfo(){
-        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(userid.equals("anonymousUser")) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            System.out.println("인증되지 않은 사용자.");
+            return null;
+        }
+
+        String userid = authentication.getName();
+        System.out.println("인증된 사용자 ID: " + userid);
+
+        if ("anonymousUser".equals(userid)) {
             System.out.println("등록된 사용자 없음");
             return null;
-        }else{
-            System.out.println(userid);
+        } else {
+            System.out.println("사용자 ID: " + userid);
             return userid;
         }
     }

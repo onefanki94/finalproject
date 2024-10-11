@@ -13,7 +13,7 @@ import java.util.Map;
 @Repository
 public interface MasterDAO {
     // 공지사항 추가 DAO
-    int createNotice(MasterVO vo);
+    int  insertNotice(MasterVO masterNotice);
 
     // 굿즈 상품테이블 리스트 전체 출력
     public List<MasterVO> getStoreList();
@@ -26,4 +26,10 @@ public interface MasterDAO {
 
     // 커뮤니티 작성된 모든 게시글 불러오기
     List<MasterVO> getBoardList();
+
+    // adminid를 통해 adminidx 가져오기
+    Integer getAdminIdxByAdminid(String adminid);
+
+    // 공지사항 삽입
+    void addNotice(MasterVO notice);
 }
