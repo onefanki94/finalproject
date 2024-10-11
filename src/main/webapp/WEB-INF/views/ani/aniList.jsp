@@ -4,7 +4,6 @@
         <%@include file="/WEB-INF/inc/main_header.jspf" %>
             <!DOCTYPE html>
             <html lang="ko">
-
             <head>
                 <meta charset="UTF-8">
                 <title>JSP Template</title>
@@ -15,440 +14,162 @@
                 <link href="/css/aniList.css" rel="stylesheet" type="text/css">
                 <script src="/js/aniList.js"></script>
                 </link>
-            </head>
-
-            <body>
-                <input id="check-btn" type="checkbox" />
-                <label for="check-btn">
-                    <img class="customImage"  src="../../../img/main_img/2.png"/>
-                </label>
-
-                    <ul class="menubars">
-                        <li>
-                            <input class="menu-item" id="genre-check" type="checkbox" />
-                            <label for="genre-check">장르</label>
-                            <ul class="submenu">
-                                <li>
-                                    <input type="checkbox" id="genre1" />
-                                    <label for="genre1">판타지</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre2" />
-                                    <label for="genre2">SF</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre3" />
-                                    <label for="genre3">코미디</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre4" />
-                                    <label for="genre4">스포츠</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre5" />
-                                    <label for="genre5">미스테리</label>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <input class="menu-item" id="tag-check" type="checkbox" />
-                            <label for="tag-check">태그</label>
-                            <ul class="submenu">
-                                <li>
-                                    <input type="checkbox" id="genre11" />
-                                    <label for="genre11">이세계</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre21" />
-                                    <label for="genre21">극장판</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre31" />
-                                    <label for="genre31">순정/로맨스</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre41" />
-                                    <label for="genre41">아이돌</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre51" />
-                                    <label for="genre51">먼치킨</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre61" />
-                                    <label for="genre61">이능력</label>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <input class="menu-item" id="rating-check" type="checkbox" />
-                            <label for="rating-check">관람가</label>
-                            <ul class="submenu">
-                                <li>
-                                    <input type="checkbox" id="genre12" />
-                                    <label for="genre12">전체 관람가</label>
-                                </li>
-                                <li><input type="checkbox" id="genre22" />
-                                    <label for="genre22">12세 관람가</label>
-
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre32" />
-                                    <label for="genre32">15세 관람가</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="genre42" />
-                                    <label for="genre42">19세 관람가</label>
-                                </li>
-                            </ul>
-                        </li>
+<bady>
+    <div class="aniList">
+        <nav class="aniList navbar-dark bg-dark">
+            <div class="aniList category-title">카테고리</div>
+            <div>
+                <hr />
+                <div class="manage_menu">
+                    <ul>
+                        <li class="menu-item">장르</li>
+                        <li class="submenu"><label><input type="checkbox"> 미스터리</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 오리지널</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 드라마</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 로맨스</label></li>
+                        <li class="submenu"><label><input type="checkbox"> SF</label></li>
                     </ul>
-                    <!-- ======================================================================= -->
+                    <hr />
+                    <ul>
+                        <li class="menu-item">태그</li>
+                        <li class="submenu"><label><input type="checkbox"> 이세계</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 극장판</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 이능력</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 순정/로맨스</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 스릴러</label></li>
+                    </ul>
+                    <hr />
+                    <ul>
+                        <li class="menu-item">전체관람가</li>
+                        <li class="submenu"><label><input type="checkbox"> 12세 이상</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 15세 이상</label></li>
+                        <li class="submenu"><label><input type="checkbox"> 19세 이상</label></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-                </body>
-                </body>
-                <div class="container">
+
+<!--===============================================================================-->
+<div class="ani_view">
+    <div class="ani_View">
+
+        <div class="vod_list_select">
+            <select name="select_input vod_select" class="select_input vod_select" style="background-color: white;">
+                <option value="0" style="font-weight: 600; font-size: 14px;">최신순</option>
+                <option value="1" style="font-weight: 600; font-size: 14px;">제목순</option>
+                <option value="2" style="font-weight: 600; font-size: 14px;">인기순</option>
+            </select>
+        </div>
 
 
-                    <div class="one_line" style="transition: 0.7s; padding-left: 0px;">
-                        <div class="div_ul" style="transition: 0.7s; padding-left: 0px;">
-                            <div style="display: inline-block;">
-                                <div>
-                                    <div class="div_li"
-                                        style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                        <div class="list_img_bg" style="cursor: pointer;"><img
-                                                src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240905151009.png"></div>
-                                        <p
-                                            style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                            채운국
-                                            이야기 2기</p>
-                                        <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display: inline-block;">
-                                <div>
-                                    <div class="div_li"
-                                        style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                        <div class="list_img_bg" style="cursor: pointer;"><img
-                                                src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240823163331.png"></div>
-                                        <p
-                                            style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                            장송의
-                                            프리렌(한국어더빙)</p>
-                                        <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display: inline-block;">
-                                <div>
-                                    <div class="div_li"
-                                        style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                        <div class="list_img_bg" style="cursor: pointer;"><img
-                                                src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240731170432.png"></div>
-                                        <p
-                                            style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                            [극장판] 시티헌터 엔젤 더스트
-                                        </p>
-                                        <p class="genre"><span>SF/판타지</span><span>19세 관람</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display: inline-block;">
-                                <div>
-                                    <div class="div_li"
-                                        style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                        <div class="list_img_bg" style="cursor: pointer;"><img
-                                                src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240912180655.png"></div>
-                                        <p
-                                            style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                            마왕의
-                                            딸로 태어났습니다</p>
-                                        <p class="genre"><span>코미디</span><span>15세 관람</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display: inline-block;">
-                                <div>
-                                    <div class="div_li"
-                                        style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                        <div class="list_img_bg" style="cursor: pointer;"><img
-                                                src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240724113021.png"></div>
-                                        <p
-                                            style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                            키즈모노가타리 -코요미 뱀프-
-                                        </p>
-                                        <p class="genre"><span>판타지</span><span>19세 관람</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display: inline-block;">
-                                <div>
-                                    <div class="div_li"
-                                        style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                        <div class="list_img_bg" style="cursor: pointer;"><img
-                                                src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240806172406.jpg"></div>
-                                        <p
-                                            style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                            신의
-                                            탑</p>
-                                        <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="ani_viewList">
+            <div class="div_li">
+                <div class="list_img_bg" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-title="바람의 검심 -메이지 검객 낭만기- 교토 동란"
+                    data-img="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg">
+                    <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg"
+                        alt="바람의 검심 -메이지 검객 낭만기- 교토 동란">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>바람의 검심 -메이지 검객 낭만기- 교토 동란</p>
+                <p class="genre"><span>판타지</span><span>15세 관람</span></p>
+            </div>
+            <div class="div_li">
+                <div class="list_img_bg">
+                    <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240926170927.png"
+                        alt="흔해빠진 직업으로 세계최강 3기">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>흔해빠진 직업으로 세계최강 3기</p>
+                <p class="genre"><span>판타지</span><span>19세 관람</span></p>
+            </div>
+            <div class="div_li">
+                <div class="list_img_bg">
+                    <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240927174027.jpg"
+                        alt="빅 오더 OVA">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>빅 오더 OVA</p>
+                <p class="genre"><span>코미디</span><span>15세 관람</span></p>
+            </div>
+            <div class="div_li">
+                <div class="list_img_bg">
+                    <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240926113151.png"
+                        alt="러브 라이브! 슈퍼스타!! 3기">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>러브 라이브! 슈퍼스타!! 3기</p>
+                <p class="genre"><span>드라마</span><span>15세 관람</span></p>
+            </div>
+            <div class="div_li">
+                <div class="list_img_bg">
+                    <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240925112028.png"
+                        alt="아내, 초등학생이 되다.">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>아내, 초등학생이 되다.</p>
+                <p class="genre"><span>드라마</span><span>15세 관람</span></p>
+            </div>
+            <div class="div_li">
+                <div class="list_img_bg">
+                    <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240925103336.png"
+                        alt="내세에는 남남이 좋겠어">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>내세에는 남남이 좋겠어</p>
+                <p class="genre"><span>판타지</span><span>19세 관람</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--==========================MODAL=======================================-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="image-container">
+                    <img id="modalImage" src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg"
+                        alt="" class="img-fluid">
+                    <div class="overlay-text">
+                        <h1 id="modalGenre">바람의 검심</h1>
                     </div>
-                    <!-- ======================================================================================================================================= -->
-                    <div class="one_line" style="transition: 0.7s; padding-left: 0px;"></div>
-                    <div class="div_ul" style="transition: 0.7s; padding-left: 0px;">
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240905151009.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">채운국
-                                        이야기
-                                        2기</p>
-                                    <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240823163331.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">장송의
-                                        프리렌(한국어더빙)</p>
-                                    <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240731170432.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                        [극장판]
-                                        시티헌터 엔젤 더스트
-                                    </p>
-                                    <p class="genre"><span>SF/판타지</span><span>19세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240912180655.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">마왕의
-                                        딸로
-                                        태어났습니다</p>
-                                    <p class="genre"><span>코미디</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240724113021.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                        키즈모노가타리
-                                        -코요미 뱀프-
-                                    </p>
-                                    <p class="genre"><span>판타지</span><span>19세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240806172406.jpg"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">신의
-                                        탑
-                                    </p>
-                                    <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="description-text">
+                        <p id="modalDescription">《바람의 검심 -메이지 검객 낭만기-》의 교토 동란은 주요 인물들이 교토에서 벌어지는 갈등과 싸움을 중심으로 전개됩니다. 주인공인 켄신 히무라는
+                            과거의 죄를 씻기 위해 무사의 길을 걷고 있으며, 친구들과 함께 교토에서 평화를 지키기 위해 노력합니다.</p>
                     </div>
-
-                    <!-- ======================================================================================================================================= -->
-                    <div class="one_line" style="transition: 0.7s; padding-left: 0px;"></div>
-                    <div class="div_ul" style="transition: 0.7s; padding-left: 0px;">
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240905151009.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">채운국
-                                        이야기 2기
-                                    </p>
-                                    <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240823163331.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">장송의
-                                        프리렌(한국어더빙)</p>
-                                    <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240731170432.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                        [극장판] 시티헌터
-                                        엔젤 더스트
-                                    </p>
-                                    <p class="genre"><span>SF/판타지</span><span>19세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240912180655.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">마왕의
-                                        딸로
-                                        태어났습니다</p>
-                                    <p class="genre"><span>코미디</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240724113021.png"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">
-                                        키즈모노가타리
-                                        -코요미 뱀프-
-                                    </p>
-                                    <p class="genre"><span>판타지</span><span>19세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: inline-block;">
-                            <div>
-                                <div class="div_li"
-                                    style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                    <div class="list_img_bg" style="cursor: pointer;"><img
-                                            src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240806172406.jpg"></div>
-                                    <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">신의
-                                        탑</p>
-                                    <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="star">
+                        <p>내 평가</p>
+                        <span class="star-icon" data-value="1">☆</span>
+                        <span class="star-icon" data-value="2">☆</span>
+                        <span class="star-icon" data-value="3">☆</span>
+                        <span class="star-icon" data-value="4">☆</span>
+                        <span class="star-icon" data-value="5">☆</span>
+                    </div>
+                    <div class="tp">
+                        <p>감독 : 김 정</p>
+                    </div>
+                    <div class="bp">
+                        <p>출연 : 김 정, 김정, 김이저엉, 김저엉,김정일껄?, ㅇ하기싫다,
+                            어렵디, 김정, 집가고싶다, 김정, 김정, 김정
+                        </p>
+                    </div>
+                    <div class="ta">
+                        <p>태그 : 판타지아, 아르헨티나, 러시아, 우루과이, 지구</p>
+                    </div>
+                    <div class="new-image-container">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지1" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지2" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
                     </div>
                 </div>
-                <!-- ======================================================================================================================================= -->
-                <div class="one_line" style="transition: 0.7s; padding-left: 0px;"></div>
-                <div class="div_ul" style="transition: 0.7s; padding-left: 0px;">
-                    <div style="display: inline-block;">
-                        <div>
-                            <div class="div_li"
-                                style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                <div class="list_img_bg" style="cursor: pointer;"><img
-                                        src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240905151009.png"></div>
-                                <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">채운국 이야기
-                                    2기
-                                </p>
-                                <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: inline-block;">
-                        <div>
-                            <div class="div_li"
-                                style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                <div class="list_img_bg" style="cursor: pointer;"><img
-                                        src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240823163331.png"></div>
-                                <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">장송의
-                                    프리렌(한국어더빙)</p>
-                                <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: inline-block;">
-                        <div>
-                            <div class="div_li"
-                                style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                <div class="list_img_bg" style="cursor: pointer;"><img
-                                        src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240731170432.png"></div>
-                                <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">[극장판]
-                                    시티헌터
-                                    엔젤 더스트
-                                </p>
-                                <p class="genre"><span>SF/판타지</span><span>19세 관람</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: inline-block;">
-                        <div>
-                            <div class="div_li"
-                                style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                <div class="list_img_bg" style="cursor: pointer;"><img
-                                        src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240912180655.png"></div>
-                                <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">마왕의 딸로
-                                    태어났습니다</p>
-                                <p class="genre"><span>코미디</span><span>15세 관람</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: inline-block;">
-                        <div>
-                            <div class="div_li"
-                                style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                <div class="list_img_bg" style="cursor: pointer;"><img
-                                        src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240724113021.png"></div>
-                                <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">키즈모노가타리
-                                    -코요미 뱀프-
-                                </p>
-                                <p class="genre"><span>판타지</span><span>19세 관람</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: inline-block;">
-                        <div>
-                            <div class="div_li"
-                                style="transition: 0.4s; text-align: center; transform-origin: center center; display: inline-block; width: 274.267px;">
-                                <div class="list_img_bg" style="cursor: pointer;"><img
-                                        src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240806172406.jpg"></div>
-                                <p style="padding-bottom: 15px; white-space: normal; overflow-wrap: break-word;">신의 탑
-                                </p>
-                                <p class="genre"><span>판타지</span><span>15세 관람</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                </div>
-                </div>
-            </body>
-
-            </html>
-
+            </div>
+        </div>
+    </div>
+</div>
+</bady>

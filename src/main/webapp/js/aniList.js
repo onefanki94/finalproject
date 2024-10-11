@@ -40,3 +40,87 @@ window.addEventListener('scroll', () => {
 // 초기 이벤트 로드
 loadEvents();
 
+function toggleSubMenu(submenuId) {
+	const submenu = document.getElementById(submenuId);
+	submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectGenre(genre) {
+	console.log('Selected genre:', genre);
+}
+
+function selectTag(tag) {
+	console.log('Selected tag:', tag);
+}
+
+function selectRating(rating) {
+	console.log('Selected rating:', rating);
+}
+
+
+function toggleSubMenu(submenuId) {
+	const submenu = document.getElementById(submenuId);
+	submenu.style.display = submenu.style.display === 'none' || submenu.style.display === '' ? 'block' : 'none';
+}
+
+function selectCategory(category) {
+	alert(`선택한 카테고리: ${category}`);
+	// 카테고리에 따라 리스트 필터링 기능을 구현할 수 있습니다.
+}
+
+function selectGenre(genre) {
+	alert(`선택한 장르: ${genre}`);
+}
+
+function selectTag(tag) {
+	alert(`선택한 태그: ${tag}`);
+}
+
+function selectRating(rating) {
+	alert(`선택한 관람가: ${rating}`);
+}
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget);  // 클릭된 이미지
+	var title = button.data('title');     // data-title 속성에서 타이틀 가져오기
+	var imageUrl = button.data('img');    // data-img 속성에서 이미지 URL 가져오기
+	var genre = button.data('genre');     // data-genre 속성에서 장르 정보 가져오기
+
+	var modal = $(this);
+	modal.find('.modal-title').text(title);       // 모달 타이틀 변경
+	modal.find('#modalImage').attr('src', imageUrl);  // 모달 이미지 변경
+	modal.find('#modalGenre').text(genre);        // 모달 장르 정보 변경
+});
+
+/*======별점====== */
+document.querySelectorAll('.star-icon').forEach(star => {
+	star.addEventListener('click', function () {
+		// 클릭된 별점의 값을 가져옴
+		const value = this.getAttribute('data-value');
+
+		// 모든 별점의 선택 상태를 초기화
+		document.querySelectorAll('.star-icon').forEach(s => {
+			s.classList.remove('selected');
+		});
+
+		// 클릭된 별점까지의 별점을 선택 상태로 변경
+		for (let i = 1; i <= value; i++) {
+			document.querySelector(`.star-icon[data-value="${i}"]`).classList.add('selected');
+		}
+	});
+});
+
+/* =============슬라이더============= */
+const sliderWrapper = document.querySelector('.slider-wrapper');
+const slides = document.querySelectorAll('.slider-wrapper img');
+let currentSlide = 0;
+
+document.querySelector('.slider-btn-prev').addEventListener('click', () => {
+	currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+	sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+});
+
+document.querySelector('.slider-btn-next').addEventListener('click', () => {
+	currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+	sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+});
