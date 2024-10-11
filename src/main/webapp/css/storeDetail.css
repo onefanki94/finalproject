@@ -53,20 +53,15 @@
 
 /* 좋아요 아이콘 */
 /* 기본 하트 아이콘 (빈 하트) */
-#likeIcon {
-    font-size: 24px;
-    cursor: pointer;
+
+#likeIcon{
     display: inline-block;
 }
 
-/* 하트가 활성화되었을 때 (채워진 하트) */
-#likeIcon.liked {
-    color: #ff6666;  /* 채워진 하트 색상 */
+#likeHeart {
+    font-size: 20px;
+    cursor: pointer;
 }
-
-
-
-
 
 
 /* 상품 선택 옵션 */

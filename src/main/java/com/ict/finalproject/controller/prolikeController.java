@@ -23,6 +23,7 @@ ProlikeService ProlikeService;
 
  @PostMapping("/toggle")
     public String toggleLike(@RequestBody ProLikeVO proLikeVO, HttpSession session) {
+        System.out.println("hi");
         Integer userIdx = (Integer) session.getAttribute("userIdx");  // 세션에서 사용자 ID 가져오기
         if (userIdx == null) {
             return "로그인이 필요합니다.";
