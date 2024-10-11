@@ -45,4 +45,14 @@ public class MasterServiceImpl implements MasterService {
     public List<MasterVO> getBoardList() {
         return dao.getBoardList();
     }
+
+    @Override
+    public Integer getAdminIdxByAdminid(String adminid) {
+        return dao.getAdminIdxByAdminid(adminid);
+    }
+
+    @Override
+    public void addNotice(MasterVO notice) {
+        dao.insertNotice(notice);
+    }
 }

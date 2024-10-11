@@ -146,7 +146,7 @@ public class JWTUtil {
         return authorities;
     }
 
-    private String
+
     public Integer getAdminidFromToken(String token) {
         String secretKey = "I6o9BlAPX1T2jTm4n62vwOqzH28kpHZLG4f+yVkTG+4=";
         Claims claims = Jwts.parser()

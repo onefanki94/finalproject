@@ -16,4 +16,6 @@ public interface MasterService {
      int getTotalStore();
     Map<String, Object> getCategoryCountByCode(@Param("categoryCode") int categoryCode);
     List<MasterVO> getBoardList();
+    Integer getAdminIdxByAdminid(String adminid);
+    void addNotice(MasterVO notice);
 }

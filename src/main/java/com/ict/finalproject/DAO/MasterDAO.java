@@ -26,4 +26,10 @@ public interface MasterDAO {
 
     // 커뮤니티 작성된 모든 게시글 불러오기
     List<MasterVO> getBoardList();
+
+    // adminid를 통해 adminidx 가져오기
+    Integer getAdminIdxByAdminid(String adminid);
+
+    // 공지사항 삽입
+    void addNotice(MasterVO notice);
 }

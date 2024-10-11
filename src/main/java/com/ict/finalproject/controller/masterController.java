@@ -277,7 +277,7 @@ public class masterController {
         log.info("JWT 토큰에서 추출한 adminid 값: " + adminid);
 
         // adminid를 통해 adminidx 가져오기
-        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        Integer adminidx = masterService.getAdminIdxByAdminid(String.valueOf(adminid));
         if (adminidx == null) {
             bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
             HttpHeaders headers = new HttpHeaders();
