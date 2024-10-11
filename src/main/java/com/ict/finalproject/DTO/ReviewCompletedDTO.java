@@ -23,5 +23,7 @@ public class ReviewCompletedDTO {
     private String pro_title;
     private int pro_idx;
     private String pro_thumImg;
+    private int pro_price;
+    private int order_amount;
     private String formatted_regDT;
 }

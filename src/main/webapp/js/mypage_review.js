@@ -88,7 +88,7 @@ function review_writeModal(index){
                         </ul>
                       </div>
                       <div class="modal_write_ele_bottom">
-                        <button class="review_modal_btn" type="button">등록하기</button>
+                        <button class="review_write_btn" type="button">등록하기</button>
                       </div>
                     </div>
                   </div>
@@ -103,6 +103,116 @@ function review_writeModal(index){
             <p>${reviewbefore.title}</p>
             <p>${reviewbefore.price}원 / 수량 ${reviewbefore.amount}개</p>
     `);
+};
+
+//리뷰 수정 버튼 누르면 나오는 모달
+function review_EditModal(index){
+    tag = ``;
+    const reviewCompleted = reviewCompletedData[index];
+    let starHtml = '';
+    let fileCount = 0; // 서버에서 받아온 파일 갯수를 카운트하기 위한 변수
+
+    // grade 값만큼 채워진 별 추가
+    for (let i = 0; i < reviewCompleted.grade; i++) {
+        starHtml += '<i class="fa-solid fa-star"></i>';
+    }
+    // 나머지 빈 별 추가 (5 - grade)
+    for (let i = reviewCompleted.grade; i < 5; i++) {
+        starHtml += '<i class="fa-regular fa-star"></i>';
+    }
+
+    // File previews if images exist
+    let filePreviewHtml = '';
+    if (reviewCompleted.imgfile1) {
+        filePreviewHtml += `<div class="image-container"><img src="/reviewFileUpload/${reviewCompleted.imgfile1}" style="width: 76px; height: 76px; margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
+        fileCount++;
+    }
+    if (reviewCompleted.imgfile2) {
+        filePreviewHtml += `<div class="image-container"><img src="/reviewFileUpload/${reviewCompleted.imgfile2}" style="width: 76px; height: 76px;  margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
+        fileCount++;
+    }
+
+    tag += `<div class="review_modal_body">
+              <div class="review_modal_div">
+                <button class="exit_btn" type="button" onclick="review_write_exit()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="modal_div_size">
+                  <div class="review_write_modal">
+                    <header class="review_modal_header">
+                      <h3>리뷰 수정</h3>
+                    </header>
+                    <div class="modal_write_ele">
+                      <div class="modal_write_ele_top">
+                        <div class="review_modal_proinfo">
+                          <img
+                            src=""
+                          />
+                          <div class="review_modal_protitle">
+                          </div>
+                        </div>
+                        <div class="review_modal_grade">
+                          <span>상품은 어떠셨나요? </span>
+                          <div class="review_modal_grade_check">
+                            ${starHtml}
+                          </div>
+                          <input type="hidden" name="grade" id="grade"/>
+                          <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewCompleted.orderList_idx}"/>
+                        </div>
+                        <div class="review_modal_file">
+                          <div>
+                            <p>이미지는 최대 2개까지 첨부가 가능합니다.</p>
+                            <div>
+                                <div id="fileimg_preview" class="fileimg_preview">
+                                    ${filePreviewHtml}
+                                </div>
+                                <label for="fileInput" class="review_modal_file_btn">이미지 업로드</label>
+                                <input
+                                  type="file"
+                                  id="fileInput"
+                                  style="display:none;"
+                                />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="review_modal_txt_div">
+                          <div class="review_modal_txt">
+                            <textarea name="content" id="content"
+                              placeholder="최소 15자 이상 작성해주세요."
+                            ></textarea>
+                          </div>
+                        </div>
+                        <ul class="review_modal_notice">
+                          <li>
+                            상품과 무관하거나 비속어가 포함된 리뷰, 그 외 리뷰
+                            운영정책에 위배되는 리뷰는 고지 없이 블라인드 후 경고
+                            조치됩니다.
+                          </li>
+                          <li>경고 누적 시 리뷰 작성이 제한될 수 있습니다.</li>
+                        </ul>
+                      </div>
+                      <div class="modal_write_ele_bottom">
+                        <button class="review_edit_btn" type="button">수정하기</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+    $("body").append(tag);
+
+    $(".review_modal_proinfo img").attr("src","/" + reviewCompleted.pro_thumImg);
+    $(".review_modal_protitle").html(`
+            <p>${reviewCompleted.pro_title}</p>
+            <p>${reviewCompleted.pro_price}원 / 수량 ${reviewCompleted.order_amount}개</p>
+    `);
+    $("#content").val(reviewCompleted.content);
+
+    // 서버에서 받아온 파일 갯수가 2개 이상이면 파일 입력 버튼 숨김 처리
+    if (fileCount >= 2) {
+        $('#fileInput').hide();
+        $('.review_modal_file_btn').hide();
+    }
 };
 
 // jquery 시작 -> 제일 먼저 실행됨
@@ -193,7 +303,7 @@ $(function(){
                       </div>
                       <div class="review_modi_del_btn">
                         <div>
-                          <button type="button">수정</button>
+                          <button type="button" onclick="review_EditModal(${index})">수정</button>
                           <button type="button">삭제</button>
                         </div>
                       </div>
@@ -249,17 +359,7 @@ $(function(){
                         marginRight: '10px',
                         position: 'relative'
                     });
-                    var deleteBtn = $('<button class="delete-btn">X</button>').css({
-                        position: 'absolute',
-                        top: '0',
-                        left: '54px',
-                        background: '#333333b8',
-                        color: 'white',
-                        border: 'none',
-                        cursor: 'pointer',
-                        width:'22px'
-                    });
-
+                    var deleteBtn = $('<button class="file-delete-btn">X</button>');
                     // 이미지와 삭제 버튼을 컨테이너에 추가
                     imgContainer.append(img).append(deleteBtn);
                     preview.append(imgContainer);
@@ -282,7 +382,7 @@ $(function(){
     });
 
     // 이미지 삭제 기능
-    $(document).on('click', '.delete-btn', function() {
+    $(document).on('click', '.file-delete-btn', function() {
         $(this).parent().remove();  // 이미지 컨테이너 삭제
         var fileCount = $('#fileimg_preview .image-container').length;
 
@@ -294,7 +394,7 @@ $(function(){
     });
 
     // 리뷰 등록
-    $(document).on('click', '.review_modal_btn', function() {
+    $(document).on('click', '.review_write_btn', function() {
         var grade = $('#grade').val();
         var orderListIdx = $('#orderList_idx').val();
         var content = $('#content').val();

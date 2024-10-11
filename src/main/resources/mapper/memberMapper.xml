@@ -58,7 +58,7 @@
     </insert>
 
     <select id="getReviewCompleted" resultType="com.ict.finalproject.DTO.ReviewCompletedDTO">
-        SELECT r.*, p.idx AS pro_idx, p.title AS pro_title, p.thumImg As pro_thumImg, DATE_FORMAT(r.regDT, '%Y.%m.%d') AS formatted_regDT
+        SELECT r.*, p.idx AS pro_idx, p.title AS pro_title, p.thumImg As pro_thumImg, p.price As pro_price, o.amount As order_amount, DATE_FORMAT(r.regDT, '%Y.%m.%d') AS formatted_regDT
         FROM T_review r
         JOIN T_orderList o ON r.orderList_idx = o.idx
         JOIN T_product p ON o.pro_idx = p.idx

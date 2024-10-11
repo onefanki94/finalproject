@@ -288,7 +288,7 @@
   font-size: 11px;
 }
 
-.review_modal_btn {
+.review_write_btn, .review_edit_btn {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -311,4 +311,15 @@
 
 .image-container{
     position:relative;
+}
+
+.file-delete-btn{
+    position: absolute;
+    top: 0;
+    left: 54px;
+    background: #333333b8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width:22px;
 }
