@@ -27,6 +27,11 @@
                 <p>발매일: ${storeDetail.relDT}</p>
                 <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
                 <p>배송비: ${storeDetail.fee}</p>
+                
+                <div class="like-section">
+                    <div id="likeIcon" class="${storeDetail.liked ? 'liked' : ''}"></div>
+                    <span id="likeCount">${storeDetail.likeCount}</span>
+                </div>
             </div>
     
             <!-- 상품 선택 옵션 -->

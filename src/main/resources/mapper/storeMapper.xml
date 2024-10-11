@@ -24,6 +24,10 @@
             <when test="'low-price'.equals(filterType)">
                 ORDER BY price ASC
             </when>
+             <otherwise>
+            <!-- 기본정령--> 
+            ORDER BY created_date DESC
+        </otherwise>
         </choose>
     </select>
 
@@ -34,20 +38,20 @@
     </select>
 
      <!-- 필터링된 상품 목록 -->
-    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.ProductFilterVO">
-        SELECT idx, ani_title, category, stock, detail_img, price
+    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT idx, title, ani_title, category, stock, detail_img, price
         FROM t_product
         WHERE 1 = 1
         <if test="ani_title != null and ani_title.size() > 0">
             AND ani_title IN
-            <foreach item="title" collection="ani_title" open="(" separator="," close=")">
-                #{title}
+            <foreach item="ani_title" collection="ani_title" open="(" separator="," close=")">
+                #{ani_title}
             </foreach>
         </if>
         <if test="category != null and category.size() > 0">
             AND category IN
-            <foreach item="cat" collection="category" open="(" separator="," close=")">
-                #{cat}
+            <foreach item="category" collection="category" open="(" separator="," close=")">
+                #{category}         
             </foreach>
         </if>
         <if test="stock != null and stock == 0">

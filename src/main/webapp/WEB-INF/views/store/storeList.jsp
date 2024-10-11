@@ -39,7 +39,7 @@
                             </ul>
                         </div>
                         <hr>
-                        <div class="filter-">
+                        <div class="filter-category">
                             <h3>카테고리</h3>
                             <ul class="filter-list">
                                 <c:forEach var="product" items="${storeList}">

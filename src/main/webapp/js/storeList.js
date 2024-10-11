@@ -53,13 +53,11 @@
         const aniTitleElement = document.querySelector('.filter-ani-title .active .filter-text');
         const categoryElement = document.querySelector('.filter-category .active .filter-text');
 
-        // null 체크 추가
-        const aniTitle = aniTitleElement ? aniTitleElement.innerText : null;
-        const category = categoryElement ? categoryElement.innerText : null;
+
 
         const stockChecked = document.querySelector('.filter-header input[type="checkbox"]').checked ? 1 : 0;
 
-        if (ani_title && brand) {
+        if (ani_title && category) {
             const filterCriteria = {
                 ani_title: aniTitle,
                 category: category,
@@ -152,6 +150,8 @@
                 console.error('Error:', error);
                 alert('상품을 불러오는 중 문제가 발생했습니다. 다시 시도해주세요.');
             }
+
+            
         });
     }
 

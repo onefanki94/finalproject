@@ -18,11 +18,14 @@ import java.util.List;
 
 
 @Controller
+
 public class storeMainController {
 
     @Autowired
     StoreService storeService;
-     @GetMapping("/storeMain")
+    
+    
+    @GetMapping("/storeMain")
  public String storeMain() {
      return "store/storeMain";
  }
