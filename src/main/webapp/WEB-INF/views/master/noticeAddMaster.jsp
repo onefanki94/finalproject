@@ -8,34 +8,27 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
       <script src="/ckeditor/ckeditor.js"></script>
 <script>
-window.onload =()=>{
+window.onload = () => {
     // CKEditor 5 초기화
     CKEDITOR.ClassicEditor.create(document.getElementById('content'), option)
         .then(editor => {
-            window.editorInstance = editor; // 전역에 editor 객체 저장
+            window.editorInstance = editor;  // 전역에 editor 객체 저장
             console.log('CKEditor 초기화 완료:', editor);
         })
         .catch(error => {
             console.error('CKEditor 초기화 오류:', error);
         });
 
-        var token  = localStorage.getItem('token');  // 로컬스토리지 에서 토큰값 가져오기
-        document.getElementById('token').value = token;
+    // 로컬스토리지에서 토큰값 가져오기
+    var token = localStorage.getItem('token');
+    document.getElementById('token').value = token;
 };
 
-// 폼 제출 시 Ajax로 데이터 전송
 // 공지사항 등록 함수
 function submitNoticeForm() {
-    if(!window.editorInstance || window.editorInstance.getData().trim() === '') {
-    alert("content에 내용을 넣어주세요.");
-    return false;
-    }
-
-// 필드에 입력 된 값 불러오기
-const title = document.getElementById('title').value;
-const content = window.editorInstance.getData().trim();  // CKEditor에서의 content 가져오기
-
-const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 값 가져오기
+    const title = document.getElementById('title').value;
+    const content = window.editorInstance.getData().trim();  // CKEditor에서 content 가져오기
+    const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 값 가져오기
 
     if (!token) {
         alert('로그인 후 다시 시도해 주세요.');
@@ -43,30 +36,22 @@ const token = localStorage.getItem('token');  // 로컬 스토리지에서 토�
         return false;
     }
 
-const postData = new URLSearchParams();
-postData.append('title', title);
-postData.append('content', content);
-postData.append('token', token);
+    // URL 인코딩 형식으로 데이터 설정
+    const postData = new URLSearchParams();
+    postData.append('title', title);
+    postData.append('content', content);
 
     // 아작스 요청
     $.ajax({
         url: '/master/noticeAddMasterOk',
         type: 'POST',
-        contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify({
-            title: $('#title').val(),  // 공지사항 제목
-            content: window.editor.getData()  // CKEditor의 내용
-        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',  // Content-Type을 URL 인코딩 형식으로 설정
+        data: postData.toString(),  // URLSearchParams를 문자열로 변환하여 전송
         beforeSend: function(xhr) {
-            const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 값 가져오기
-            if (token) {
-                const authHeader = 'Bearer ' + token;
-                xhr.setRequestHeader('Authorization', authHeader);  // Authorization 헤더에 토큰 설정
-                console.log('Authorization 헤더 설정:', authHeader);
-            } else {
-                console.error('로컬 스토리지에 토큰 값이 없습니다.');
-                alert('로그인 후 다시 시도해 주세요.');
-            }
+            // Authorization 헤더에 JWT 토큰 설정
+            const authHeader = 'Bearer ' + token;
+            xhr.setRequestHeader('Authorization', authHeader);
+            console.log('Authorization 헤더 설정:', authHeader);
         },
         success: function(response) {
             console.log('Response:', response);
@@ -78,7 +63,9 @@ postData.append('token', token);
             alert('공지사항 등록 중 오류가 발생했습니다.');
         }
     });
-    }
+
+    return false;  // 폼 제출 중지
+}
 </script>
 <div class="noticeAdd">
 <h2>공지사항 등록</h2>
@@ -86,6 +73,7 @@ postData.append('token', token);
     <div>
         <label for="title">제목:</label>
         <input type="hidden" name="idx" />
+        <input type="hidden" id="token" name="token" />
         <input type="text" id="title" name="title" placeholder="공지사항 제목을 입력하세요." required>
     </div>
 

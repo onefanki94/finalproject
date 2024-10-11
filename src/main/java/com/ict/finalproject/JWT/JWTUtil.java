@@ -146,5 +146,18 @@ public class JWTUtil {
         return authorities;
     }
 
+    private String
+    public Integer getAdminidFromToken(String token) {
+        String secretKey = "I6o9BlAPX1T2jTm4n62vwOqzH28kpHZLG4f+yVkTG+4=";
+        Claims claims = Jwts.parser()
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))  // 비밀 키 설정
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        // claims에서 useridx 값 추출
+        return (Integer) claims.get("adminid");
+    }
+
 
 }
