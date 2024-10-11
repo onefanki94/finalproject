@@ -137,7 +137,7 @@
 
 .review_write_list a {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   -webkit-box-align: center;
   align-items: center;
   margin-bottom: 15px;
@@ -167,7 +167,7 @@
 }
 
 .review_txt {
-  margin-bottom: 10px;
+  margin: 5px 0 10px 0;
 }
 
 .review_txt p {

@@ -101,7 +101,7 @@
           </ul>
           <div class="review_list_all">
             <div>
-              <ul class="review_list_ul">
+              <ul class="review_list_ul" id="review_list_ul2">
                 <li class="user_review_list_li">
                   <div class="review_write_list">
                     <a href="">

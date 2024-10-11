@@ -41,7 +41,7 @@
 
     <!-- 리뷰 작성전 리스트 구하기-->
     <select id="getReviewBefore" resultType="com.ict.finalproject.DTO.ReviewBeforeDTO">
-        SELECT ol.idx AS orderList_idx, p.detail_img,p.title, p.price, ol.amount, ol.orderState, p.idx
+        SELECT ol.idx AS orderList_idx, p.thumImg, p.title, p.price, ol.amount, ol.orderState, p.idx
         FROM T_orderList ol
         JOIN T_order o ON ol.order_idx = o.idx
         JOIN T_product p ON ol.pro_idx = p.idx
@@ -49,5 +49,19 @@
         WHERE ol.orderState = 6
         AND o.useridx = ${param1}  -- 토큰에서 가져온 useridx
         AND r.orderList_idx IS NULL
+    </select>
+
+    <!-- 리뷰 작성 -->
+    <insert id="saveReview" parameterType="com.ict.finalproject.vo.ReviewVO">
+        INSERT INTO T_review (useridx, orderList_idx, content, grade, imgfile1, imgfile2)
+        VALUES (#{useridx}, #{orderList_idx}, #{content}, #{grade}, #{imgfile1}, #{imgfile2});
+    </insert>
+
+    <select id="getReviewCompleted" resultType="com.ict.finalproject.DTO.ReviewCompletedDTO">
+        SELECT r.*, p.idx AS pro_idx, p.title AS pro_title, p.thumImg As pro_thumImg, DATE_FORMAT(r.regDT, '%Y.%m.%d') AS formatted_regDT
+        FROM T_review r
+        JOIN T_orderList o ON r.orderList_idx = o.idx
+        JOIN T_product p ON o.pro_idx = p.idx
+        WHERE r.delState = 0 and r.useridx=${param1} and r.orderList_idx IS not NULL;
     </select>
 </mapper>

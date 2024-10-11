@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReviewBeforeDTO {
     private int orderList_idx;
-    private String detail_img;
+    private String thumImg;
     private String title;
     private int price;
     private int amount;

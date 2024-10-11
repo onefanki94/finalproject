@@ -2,7 +2,9 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MemberDAO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
+import com.ict.finalproject.DTO.ReviewCompletedDTO;
 import com.ict.finalproject.vo.MemberVO;
+import com.ict.finalproject.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +55,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<ReviewBeforeDTO> getReviewBefore(int useridx) {
         return dao.getReviewBefore(useridx);
+    }
+
+    @Override
+    public int saveReview(ReviewVO review) {
+        return dao.saveReview(review);
+    }
+
+    @Override
+    public List<ReviewCompletedDTO> getReviewCompleted(int useridx) {
+        return dao.getReviewCompleted(useridx);
     }
 }

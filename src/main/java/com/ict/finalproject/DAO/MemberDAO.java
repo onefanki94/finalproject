@@ -2,7 +2,9 @@ package com.ict.finalproject.DAO;
 
 
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
+import com.ict.finalproject.DTO.ReviewCompletedDTO;
 import com.ict.finalproject.vo.MemberVO;
+import com.ict.finalproject.vo.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -34,4 +36,10 @@ public interface MemberDAO {
 
         //리뷰작성전 리스트 SELECT
         List<ReviewBeforeDTO> getReviewBefore(int useridx);
+
+        //리뷰 등록
+        int saveReview(ReviewVO review);
+
+        //리뷰 작성완료 리스트
+        List<ReviewCompletedDTO> getReviewCompleted(int useridx);
 }
