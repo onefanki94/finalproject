@@ -7,17 +7,103 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/css/style.css" rel="stylesheet" type="text/css"></link>
-<div class="mastermain">
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="management"><a href="/master/masterMain">관리자 Management</a></div>
-        <div>
-            <div class="manage_menu">
-                <ul>
-                    <a href="" class="menu-item">회원관리</a>
-                    <li class="submenu"><a href="/master/userMasterList">회원목록</a></li>
-                    <li class="submenu"><a href="/master/reporinguserMasterList">신고계정목록</a></li>
+<script src="/js/MasterPage.js"></script>
+<link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <!-- 부트스트랩 JavaScript와 Popper.js -->
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+     <!-- Bootstrap CSS 추가 -->
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+         <!-- FontAwesome 추가 (아이콘 사용) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="sidebar">
+            <a class="navbar-brand" href="/master/masterMain">관리자 Management</a>
+            <div class="loginInfo">
+                        <!-- [ ${logId} ] 님 어서오세요. -->
+                        [ 관리자 ] 님 어서오세요 <span>( 새 문의 : <a href="/master/QNAMasterList"> 0 </a> 개 )</span>
+            </div>
+                 <div class="logout">
+                                <a href="/">로그아웃</a>
+                            </div>
+            <nav class="navbar navbar-dark">
+                <ul class="navbar-nav">
+                    <!-- 회원 목록 드롭다운 메뉴 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            회원 목록
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                            <li><a class="dropdown-item" href="/master/userMasterList">회원 목록</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- 애니 관리 드롭다운 메뉴 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            애니 관리
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                            <li><a class="dropdown-item" href="/master/aniMasterList">애니 목록</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- 굿즈 관리 드롭다운 메뉴 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            굿즈 관리
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="goodsDropdown">
+                            <li><a class="dropdown-item" href="/master/storeMasterList">굿즈 목록</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- 주문 관리 드롭다운 메뉴 -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                주문 관리
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                                                <li><a class="dropdown-item" href="/master/orderMasterList">주문 내역 리스트</a></li>
+                                                <li><a class="dropdown-item" href="/master/orderSalesMaster">일/월별 매출내역</a></li>
+                                            </ul>
+                                        </li>
+                    <!-- 신고 관리 드롭다운 메뉴 -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                신고 관리
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                                                <li><a class="dropdown-item" href="/master/reportinguserListMaster">회원별 신고 신청</a></li>
+                                                <li><a class="dropdown-item" href="/master/reportinguserMasterList">회원별 신고 내역</a></li>
+                                            </ul>
+                                        </li>
+                    <!-- 게시물 관리 드롭다운 메뉴 -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                게시물 관리
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                                                <li><a class="dropdown-item" href="/master/boardMasterAll">게시판</a></li>
+                                                <li><a class="dropdown-item" href="/master/boardMasterReplyAll">댓글</a></li>
+                                                <li><a class="dropdown-item" href="/master/boardMasterReviewAll">리뷰</a></li>
+                                            </ul>
+                                        </li>
+                    <!-- 기타 관리 드롭다운 메뉴 -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                기타 관리
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                                                <li><a class="dropdown-item" href="/master/noticeMasterList">공지 사항</a></li>
+                                                <li><a class="dropdown-item" href="/master/QNAMasterList">문의 사항</a></li>
+                                                <li><a class="dropdown-item" href="/master/FAQMasterList">자주 묻는 질문</a></li>
+                                                <li><a class="dropdown-item" href="/master/EventMasterList">이벤트</a></li>
+                                            </ul>
+                                        </li>
                 </ul>
+<<<<<<< HEAD
                 <ul>
                     <a href="#" class="menu-item">애니관리</a>
                     <li class="submenu"><a href="/master/aniMasterList">애니목록</a></li>
@@ -56,3 +142,7 @@
         </div>
     </nav>
 </div>
+=======
+            </nav>
+        </div>
+>>>>>>> 81a26425e4844e4633455beb1ce5d43815b37526

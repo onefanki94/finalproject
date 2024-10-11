@@ -5,10 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class noticeController {
-    @GetMapping("/notice")
+    @GetMapping("/notice2")
 
     public String notice() {
-        return "notice/notice";
+        return "notice/notice2";
     }
 
+    //상세페이지
+//    @GetMapping("/noticeView")
+//    public String cmView(){
+//        return "notice/noticeView";
+//    }
 }

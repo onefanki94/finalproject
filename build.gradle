@@ -24,23 +24,60 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Spring Boot Web Starter
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// MyBatis Spring Boot Starter
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Development tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// MySQL JDBC Driver
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// Tomcat 및 JSTL 의존성
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	compileOnly 'jakarta.servlet:jakarta.servlet-api' // 최신 Jakarta Servlet API
-	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' // JSTL API
-	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' // JSTL 구현체
+	// JSP support with Tomcat 10.x
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.28'
 
+	// Jakarta Servlet API and JSTL
+	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+
+	implementation 'javax.servlet:jstl:1.2'
+
+	// JDBC
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.3.3'
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+/*	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'*/
+
+
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.3.4'
+
+
+	// https://mvnrepository.com/artifact/javax.inject/javax.inject
 	implementation 'javax.inject:javax.inject:1'
-	implementation 'org.json:json:20240303'
+
+	//Jsoup
+	 implementation 'org.jsoup:jsoup:1.15.3'
+
 }
 
 tasks.named('test') {

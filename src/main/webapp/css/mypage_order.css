@@ -1,0 +1,242 @@
+.mypage_order_list_all .my_tit {
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 30px;
+  position: relative;
+  border-bottom: 4px solid rgb(48, 48, 51);
+  color: rgb(48, 48, 51);
+  margin: 0;
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_top {
+  display: flex;
+  border-bottom: 1px solid rgb(48, 48, 51);
+}
+
+.mypage_order_list_all .mypage_order_list {
+  color: rgb(48, 48, 51);
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_top .pro_inform {
+  flex: 1;
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_top .delivery_fee {
+  width: min(20%, 140px);
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_top .progress_status {
+  width: min(28%, 300px);
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_bottom {
+  border-bottom: 1px solid rgb(48, 48, 51);
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li {
+  border-bottom: 2px solid #d4d4d4;
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num {
+  display: flex;
+  padding: 16px 0px;
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num a {
+  position: relative;
+  margin-right: 20px;
+  font-weight: bold;
+  color: rgb(48, 48, 51);
+  font-size: 14px;
+}
+
+.mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num a span {
+  font-weight: normal;
+}
+
+.order_list_bottom ul {
+  padding: 10px 0;
+}
+
+.order_list_bottom .order_data_list_one {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.order_list_bottom .order_data_list_one > a {
+  flex: 1;
+}
+
+.order_list_bottom .order_data_list_one .order_data_inform {
+  display: flex;
+  color: rgb(48, 48, 51);
+}
+
+.order_list_bottom .order_data_list_one .order_data_inform .order_data_img {
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+.order_list_bottom .order_data_list_one .order_data_inform .order_data_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.order_list_bottom .order_data_list_one .order_data_inform .order_pro_name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.order_list_bottom .order_data_list_one .order_data_inform .order_pro_option {
+  margin-top: 13px;
+  font-size: 12px;
+}
+
+.order_delivery_fee_data {
+  width: min(23%, 235px);
+  padding: 20px;
+  font-size: 15px;
+}
+
+.order_state_all .order_state_data {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.order_state_all .order_state_okdate {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.order_package {
+  font-size: 12px;
+  color: rgb(93, 93, 93);
+  background: transparent;
+  border: 0;
+  margin-top: 10px;
+}
+
+.order_package span {
+  color: rgb(55, 95, 255);
+  text-decoration: underline;
+}
+
+.order_state_div {
+  width: min(20%, 180px);
+}
+
+.order_notification {
+  display: flex;
+  margin-top: 45px;
+  text-align: center;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+.order_notification .order_notification_li {
+  position: relative;
+  flex: 1;
+  width: 13%;
+  margin-right: 4.4%;
+}
+
+.order_notification .order_notification_strong {
+  position: relative;
+  display: block;
+  padding-top: 100%;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1;
+  color: #ffffff;
+  background-color: rgb(48, 48, 51);
+  border-radius: 50%;
+}
+
+.order_notification .order_notification_strong span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.order_notification .order_notification_strong svg {
+  position: absolute;
+  top: 50%;
+  right: -20%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 20px;
+}
+
+.order_notification .order_notification_li p {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.order_notification_li:last-of-type {
+  margin-right: 0;
+}
+
+.order_delCheck {
+  display: flex;
+  margin-top: 20px;
+}
+
+.del_possible,
+.del_impossible {
+  position: relative;
+  flex: 1;
+  box-sizing: border-box;
+  padding-top: 25px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-top: 1px solid #303033;
+}
+
+.del_possible {
+  margin-right: 4.4%;
+}
+
+.del_possible::before,
+.del_impossible::before {
+  left: 0;
+}
+
+.del_possible::before,
+.del_possible::after,
+.del_impossible::before,
+.del_impossible::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 8px;
+  background-color: #303033;
+}
+
+.del_possible::after,
+.del_impossible::after {
+  right: 0;
+}

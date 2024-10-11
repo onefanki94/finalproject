@@ -1,120 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <title>DashBoard - 회원 유저리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
-<div class="mastermain">
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="management"><a href="/master/masterMain">관리자 Management</a></div>
-        <div>
-            <div class="manage_menu">
-                <ul>
-                    <a href="" class="menu-item">회원관리</a>
-                    <li class="submenu"><a href="/master/userMasterList">회원목록</a></li>
-                    <li class="submenu"><a href="/master/reporinguserMasterList">신고계정목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">애니관리</a>
-                    <li class="submenu"><a href="/master/aniMasterList">애니목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">굿즈관리</a>
-                    <li class="submenu"><a href="/master/storeMasterList">굿즈목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">주문관리</a>
-                    <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
-                    <li class="submenu"><a href="#">일/월별 매출내역</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">신고관리</a>
-                    <li class="submenu"><a href="/master/reportinguserListMaster">신고목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>
-                    <li class="submenu"><a href="/master/boardMasterAll">게시판</a></li>
-                    <li class="submenu"><a href="/master/boardMasterReplyAll">댓글</a></li>
-                    <li class="submenu"><a href="/master/boardMasterReviewAll">리뷰</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">기타관리</a>
-                    <li class="submenu"><a href="/master/noticeMasterList">공지사항</a></li>
-                    <li class="submenu"><a href="#">문의사항</a></li>
-                    <li class="submenu"><a href="#">FAQ</a></li>
-                    <li class="submenu"><a href="#">이벤트</a></li>
-                </ul>
+ <div class="user-list-container">
+        <h2>사용자(회원) 정보 목록</h2>
+
+        <!-- 사용자 요약 정보 -->
+        <div class="summary">
+            <div>
+                <strong>총 유저 수</strong>
+                <p id="totalUsers">${totalUser} 명</p>
+            </div>
+            <div>
+                <strong>오늘 가입한 사용자 </strong>
+                <p id="newUsers">${newUsers}  명</p>
+            </div>
+            <div>
+                <strong>7일간 가입한 사용자 수</strong>
+                <p id="newSignups">${newSignups}  명</p>
+            </div>
         </div>
+
+        <!-- 검색 및 필터 기능 -->
+        <div class="search-bar">
+            <div class="d-flex">
+                <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력 (아이디, 이름, 이메일)">
+                <button class="btn btn-primary ms-2" onclick="searchTable()">검색</button>
+            </div>
+            <div>
+                <select class="form-select w-auto" id="filterSelect">
+                    <option value="">모든 사용자</option>
+                    <option value="newUsers">오늘 가입한 사용자</option>
+                    <option value="newSignups">7일간 가입한 사용자 수</option>
+                </select>
+            </div>
         </div>
-    </nav>
-</div>
-<div class="user-list-container">
-    <h2>회원 전체 목록</h2>
-    <table class="user-list">
-        <thead>
-            <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>연락처</th>
-                <th>이메일</th>
-                <th>가입일</th>
-                <th>비밀번호 수정일</th>
-                <th>포인트내역</th>
-                <th>작업</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>
-                    <button class="delete-btn">삭제</button>
-                </td>
-            </tr>
-            <tr>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>데이터 바인딩</td>
-                <td>
-                    <button class="delete-btn">삭제</button>
-                </td>
-            </tr>
-            <tr>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>
-                                <button class="delete-btn">삭제</button>
-                            </td>
-            </tr>
-            <tr>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>데이터 바인딩</td>
-                            <td>
-                                <button class="delete-btn">삭제</button>
-                            </td>
-            </tr>
-        </tbody>
-    </table>
-         <div class="userPageing">페이징 영역</div>
-</div>
-</body>
-</html>
+
+        <!-- 사용자 정보 테이블 -->
+        <table class="user-list table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
+                    <th style="width:7%" class="sortable" onclick="sortTable(1)">유저번호</th>
+                    <th style="width:8%" class="sortable" onclick="sortTable(2)">아이디</th>
+                    <th style="width:8%" class="sortable" onclick="sortTable(3)">이름</th>
+                    <th style="width:15%" class="sortable" onclick="sortTable(4)">이메일</th>
+                    <th style="width:20%" class="sortable" onclick="sortTable(5)">가입일</th>
+                    <th style="width:9%" class="sortable" onclick="sortTable(6)">포인트내역</th>
+                    <th style="width:8%">관리</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+            <c:forEach var="member" items="${memberList}">
+                <tr>
+                    <td><input type="checkbox" name="select" id="select"/></td>
+
+                    <td>${member.idx}</td>
+                    <td>${member.userid}</td>
+                    <td>${member.username}</td>
+                    <td>${member.email}</td>
+                    <td>${member.regDT}</td>
+                    <td>${member.point}<span> point</span></td>
+                    <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
+                    </c:forEach>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 페이지네이션 -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">다음</a></li>
+            </ul>
+        </nav>
+    </div>

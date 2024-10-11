@@ -13,7 +13,7 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
    <link rel="stylesheet" href="/css/store_header.css" type="text/css" />
-    <script src="js/store_header.js"></script>
+    <script src="/js/store_header.js"></script>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
   </head>
   <body>
@@ -38,10 +38,15 @@
             <nav>
               <ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <li class="check"><a class="active" href="/master/masterMain">홈</a></li>
 =======
                 <li class="check"><a class="active" href="/storeMain">홈</a></li>
 >>>>>>> 092ba056d8016eef326035bfa6b6c9a93fe908e6
+=======
+
+                <li class="check"><a class="active" href="/storeMain">홈</a></li>
+>>>>>>> 81a26425e4844e4633455beb1ce5d43815b37526
                 <li class=""><a href="#">의류</a></li>
                 <li class=""><a href="#">완구/취미</a></li>
                 <li class=""><a href="#">문구/오피스</a></li>
@@ -55,7 +60,7 @@
 
         <ul class="mymenu">
           <li class="order"><i class="fa-solid fa-basket-shopping"></i><a>장바구니</a></li>
-          <li class="my"><i class="fa-solid fa-user-check"></i><a>마이쇼핑</a></li>
+          <li class="my"><i class="fa-solid fa-user-check"></i><a>마이페이지</a></li>
         </ul>
       </div>
     </header>

@@ -1,0 +1,89 @@
+.mypage_right_element {
+  color: rgb(48, 48, 51);
+}
+
+.userEdit_form {
+  width: 100%;
+  margin-top: 30px;
+  padding: 0 10px;
+}
+
+.useredit_input_group {
+  margin-bottom: 25px;
+  width: 100%;
+  position: relative;
+}
+
+.useredit_input_group label {
+  display: inline-block;
+  width: 13%;
+}
+
+.useredit_input_group .input_readonly {
+  border: 0;
+  padding: 0 !important;
+  margin-bottom: 13px !important;
+}
+
+.useredit_input_group input,
+#tel1 {
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  border-radius: 5px;
+  width: 17%;
+}
+
+.userEdit_form div:nth-of-type(5) {
+  padding-top: 10px;
+}
+
+#tel1 {
+  padding: 10px 5px !important;
+  width: 5% !important;
+}
+
+#tel2,
+#tel3 {
+  width: 4.7%;
+}
+
+#zipcode {
+  width: 7.5%;
+  margin-right: 0.2%;
+}
+
+.zipcode_search_btn {
+  width: 9% !important;
+  padding: 9px 10px !important;
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#addrDetail {
+  width: 25%;
+}
+
+/* .inputBtn_div {
+  text-align: center;
+} */
+
+.userEdit_button,
+.userDel_button {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 10px 0 10px;
+  cursor: pointer;
+}
+
+.userDel_button {
+  color: #aaaaaa;
+  background-color: #fff;
+  border: 1px solid #aaaaaa;
+  margin-left: 0;
+}

@@ -17,7 +17,11 @@
 <bady>
     <div class="aniList">
         <nav class="aniList navbar-dark bg-dark">
+
             <div class="aniList category-title">카테고리</div>
+
+                <div class="aniList category-title">카테고리</div>
+
             <div>
                 <hr />
                 <div class="manage_menu">
@@ -55,6 +59,7 @@
 <div class="ani_view">
     <div class="ani_View">
 
+
         <div class="vod_list_select">
             <select name="select_input vod_select" class="select_input vod_select" style="background-color: white;">
                 <option value="0" style="font-weight: 600; font-size: 14px;">최신순</option>
@@ -69,6 +74,26 @@
                 <div class="list_img_bg" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     data-title="바람의 검심 -메이지 검객 낭만기- 교토 동란"
                     data-img="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg">
+
+
+        <div class="vod_list_select"></div>
+            <select name="select_input vod_select" class="select_input vod_select" style="background-color: white;">
+                <option value="0" style="font-weight: 600; font-size: 14px;">최신순</option>
+                <option value="1" style="font-weight: 600; font-size: 14px;">제목순</option>
+                <option value="2" style="font-weight: 600; font-size: 14px;">인기순</option>
+            </select>
+
+            <div class="search-container">
+                <input type="search" id="user-search" name="query" aria-label="사이트 내용을 통해 검색">
+                <button type="submit">검색</button>
+            </div>
+        </div>
+
+        <div class="ani_viewList">
+            <div class="div_li">
+                <div class="list_img_bg" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-title="바람의 검심 -메이지 검객 낭만기- 교토 동란">
+
                     <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg"
                         alt="바람의 검심 -메이지 검객 낭만기- 교토 동란">
                     <div class="overlay">상세 보기</div>
@@ -132,10 +157,12 @@
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
                 <div class="image-container">
                     <img id="modalImage" src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg"
                         alt="" class="img-fluid">
+
                     <div class="overlay-text">
                         <h1 id="modalGenre">바람의 검심</h1>
                     </div>
@@ -144,6 +171,11 @@
                             과거의 죄를 씻기 위해 무사의 길을 걷고 있으며, 친구들과 함께 교토에서 평화를 지키기 위해 노력합니다.</p>
                     </div>
                     <div class="star">
+
+                </div>
+                    <div class="overlay-text">
+                        <h1 id="modalGenre">바람의 검심</h1>
+
                         <p>내 평가</p>
                         <span class="star-icon" data-value="1">☆</span>
                         <span class="star-icon" data-value="2">☆</span>
@@ -151,6 +183,7 @@
                         <span class="star-icon" data-value="4">☆</span>
                         <span class="star-icon" data-value="5">☆</span>
                     </div>
+
                     <div class="tp">
                         <p>감독 : 김 정</p>
                     </div>
@@ -168,6 +201,34 @@
                         <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
                     </div>
                 </div>
+
+
+                    <div class="description-text">
+                        <p>감독 : 김 정</p>
+                        <p>출연 : 김 정, 김정, 김이저엉, 김저엉,김정일껄?, ㅇ하기싫다,
+                        어렵디, 김정, 집가고싶다, 김정, 김정, 김정</p>
+                        <p>태그 : 판타지아, 아르헨티나, 러시아, 우루과이, 지구</p>
+                        <p id="modalDescription">《바람의 검심 -메이지 검객 낭만기-》의 교토 동란은 주요 인물들이 교토에서 벌어지는 갈등과 싸움을 중심으로 전개됩니다. 주인공인 켄신 히무라는
+                            과거의 죄를 씻기 위해 무사의 길을 걷고 있으며, 친구들과 함께 교토에서 평화를 지키기 위해 노력합니다.</p>
+                    </div>
+
+
+
+                    <div class="new-image-container">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지2" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
+                        <img src="../../../img/main_img/img1.png" alt="새로운 이미지3" class="img-fluid">
+                    </div>
+
+
+                                    <div class="side_img">
+                                        <img src="https://ah9szoaj9w.ecn.cdn.ofs.kr/images/tvee-admin/content/CS_20240923164753.jpeg" alt=""
+                                            class="side_ma">
+                                    </div>
+
             </div>
         </div>
     </div>

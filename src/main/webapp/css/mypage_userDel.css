@@ -1,0 +1,73 @@
+.mypage_right_element {
+  color: rgb(48, 48, 51);
+}
+
+.my_tit_userdel {
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 30px;
+  position: relative;
+  color: rgb(48, 48, 51);
+  margin: 0;
+}
+
+.userdel_top {
+  border-bottom: 4px solid rgb(48, 48, 51);
+  padding-bottom: 10px;
+}
+
+.userdel_top span:first-of-type {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#delreason {
+  padding: 10px 5px;
+  width: 30%;
+  border: 1px solid #aaaaaa;
+  border-radius: 5px;
+  color: rgb(48, 48, 51);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.userDel_form textarea {
+  resize: none;
+  width: 100%;
+  padding: 10px;
+  height: 120px;
+  border: 1px solid #aaaaaa;
+}
+
+.mypage_right_element > div:nth-of-type(2) h4 {
+  margin-top: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.userDel_form > div {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.userDel_form > div > input:nth-of-type(1),
+.userDel_form > div > input:nth-of-type(2) {
+  color: #aaaaaa;
+  background-color: #fff;
+  border: 1px solid #aaaaaa;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.userDel_form > div > input:nth-of-type(2) {
+  color: rgb(255, 255, 255);
+  background-color: rgb(48, 48, 51);
+  border-radius: 5px;
+  border: 0;
+  margin: 0;
+}

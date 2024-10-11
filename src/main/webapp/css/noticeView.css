@@ -1,0 +1,172 @@
+body {
+    margin: 80px 0 0 0;
+
+}
+
+.notice_info{
+    padding: 50px 70px 0;
+    box-sizing: border-box;
+    font-size: 36px;
+
+    text-align: center;
+    font-weight: 700;
+    font-family: GmarketSansBold;
+    height: 185px;
+    width: 100%;
+
+}
+
+.notice_top:{
+    width:100%;
+}
+
+.notice_tab {
+
+    height: 55px;
+    width:100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.notice_tab .list {
+    color:#9fa1a7;
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    float: left;
+    margin: 0 15px;
+    color:#9FAAC6;
+}
+
+
+
+.noticeView{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+
+.noticeView h1{
+    height: 145px;
+    padding-top: 82px;
+    font: 700 28px NEXON Gothic;
+    color: #17191d;
+}
+
+
+
+
+
+.viewInfo{
+    margin:10px 0px 10px 0px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+.row{
+    display:flex;
+    align-items: center;
+    margin:0px 0px 0px 10px;
+}
+
+.row h3{
+    color: #17191d;
+    font: 700 22px NEXON Gothic;
+}
+
+.custom-col{
+    color: #737881;
+    font-size:14px;
+}
+
+.row img{
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+    align-items: center;
+    color: #737881;
+
+}
+
+
+.cmContent {
+    height:20%;
+    font-family: "맑은 고딕";
+    font-size: 12pt;
+    text-align: left;
+    line-height: normal;
+    margin: 0 20px;
+
+}
+
+
+.list_section {
+    margin: 60px 0 100px 0;
+
+}
+
+.list_section a{
+    color:#8E8081;
+    text-decoration: none;
+}
+
+.list_section a:hover{
+    color:black;
+}
+
+
+
+.list_pre,
+.list_next {
+    border-collapse: separate;
+    padding: 20px;/*수정*/
+    border-top: 1px solid #dde1e5;
+    border-bottom: 1px solid #dde1e5;
+    font-size:17px;
+    cursor: pointer;
+}
+
+
+
+.list_pre i,
+.list_next i {
+    font-size: 1em;
+    margin-right: 50px;
+    color:#8E8081;
+}
+
+.listBt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:20px;
+}
+
+.listBt a{
+    display: inline-block;
+    width: 146px;
+    height: 52px;
+    padding-top: 15px;
+    color: #9fa1a7;
+    border: 2px solid #9fa1a7;
+    text-decoration: none;
+    background-color:#fff;
+    border-radius:0;
+}
+
+@media all and (max-width:680px) {
+    html{
+        font-size: 80%
+    }
+}
+
+
+
+

@@ -1,122 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <title>DashBoard - 주문 내역 리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
-<div class="mastermain">
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="management"><a href="/master/masterMain">관리자 Management</a></div>
-        <div>
-            <div class="manage_menu">
-                <ul>
-                    <a href="" class="menu-item">회원관리</a>
-                    <li class="submenu"><a href="/master/userMasterList">회원목록</a></li>
-                    <li class="submenu"><a href="/master/reporinguserMasterList">신고계정목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">애니관리</a>
-                    <li class="submenu"><a href="/master/aniMasterList">애니목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">굿즈관리</a>
-                    <li class="submenu"><a href="/master/storeMasterList">굿즈목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">주문관리</a>
-                    <li class="submenu"><a href="/master/orderMasterList">주문내역리스트</a></li>
-                    <li class="submenu"><a href="#">일/월별 매출내역</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">신고관리</a>
-                    <li class="submenu"><a href="/master/reportinguserListMaster">신고목록</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">게시판,댓글, 리뷰관리</a>
-                    <li class="submenu"><a href="/master/boardMasterAll">게시판</a></li>
-                    <li class="submenu"><a href="/master/boardMasterReplyAll">댓글</a></li>
-                    <li class="submenu"><a href="/master/boardMasterReviewAll">리뷰</a></li>
-                </ul>
-                <ul>
-                    <a href="#" class="menu-item">기타관리</a>
-                    <li class="submenu"><a href="/master/noticeMasterList">공지사항</a></li>
-                    <li class="submenu"><a href="#">문의사항</a></li>
-                    <li class="submenu"><a href="#">FAQ</a></li>
-                    <li class="submenu"><a href="#">이벤트</a></li>
-                </ul>
+
+<div class="fileterh2">
+            <h2>주문 관리</h2>
         </div>
+        <div class="filterAll">
+            <!-- 주문 상태 필터 -->
+            <div class="order-status-summary d-flex justify-content-center mb-3">
+                <span>신규주문 : &nbsp;<strong id="new-count">0</strong> 건</span>
+                <span>배송준비 : &nbsp;<strong id="preparing-count">0</strong> 건</span>
+                <span>배송중 : &nbsp;<strong id="shipping-count">0</strong> 건</span>
+                <span>배송완료 : &nbsp;<strong id="completed-count">0</strong> 건</span>
+            </div>
+
+            <!-- 주문 조건 및 검색어 필터 -->
+            <div class="filter-section row">
+                <!-- 주문 조건 필터 -->
+                <div class="order-date-filter col-md-6 d-flex align-items-center">
+                    <label for="order-type" class="me-2">주문 조건 :</label>
+                    <button class="btn btn-outline-secondary date-btn me-2" data-date="today">당일</button>
+                    <button class="btn btn-outline-secondary date-btn me-2" data-date="week">일주일</button>
+                    <button class="btn btn-outline-secondary date-btn me-2" data-date="month1">1개월</button>
+                    <button class="btn btn-outline-secondary date-btn me-2" data-date="month3">3개월</button>
+                    <button class="btn btn-outline-secondary date-btn" data-date="month6">6개월</button>
+                </div>
+
+                <!-- 검색어 필터 -->
+                <div class="order-search col-md-6 d-flex align-items-center justify-content-end">
+                    <label for="search-type" class="me-2">검색어 :</label>
+                    <select class="form-select" id="search-type" style="width: 150px; display: inline-block;">
+                        <option value="orderNumber">주문 번호</option>
+                        <option value="customerName">고객 이름</option>
+                        <option value="productName">상품명</option>
+                    </select>
+                    <input type="text" class="form-control" id="search-keyword" placeholder="검색어 입력" style="width: 200px; display: inline-block;">
+                    <button class="btn btn-outline-success" id="search-btn">검색</button>
+                </div>
+            </div>
         </div>
-    </nav>
-</div>
-<div class="orderManagement">
-    <h2>주문 내역 리스트</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>주문 번호</th>
-                <th>사용자 이름</th>
-                <th>상품 이름</th>
-                <th>수량</th>
-                <th>가격</th>
-                <th>상태</th>
-                <th>주문 일자</th>
-                <th>작업</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>
-                        <a href="#" class="btn btn-info">상세보기</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>
-                        <a href="#" class="btn btn-info">상세보기</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>
-                        <a href="#" class="btn btn-info">상세보기</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>데이터 바인딩</td>
-                    <td>
-                        <a href="#" class="btn btn-info">상세보기</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-        </tbody>
-    </table>
-</div>
-  <div class="orderPageing">페이징 영역</div>
+
+        <!-- 주문 관리 리스트 -->
+        <div class="order-list-container">
+            <h2>주문 관리 리스트</h2>
+            <table class="order-list table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
+                        <th style="width:7%">주문일시</th>
+                        <th style="width:8%">주문번호</th>
+                        <th style="width:7%">주문상태</th>
+                        <th style="width:7%">주문자명</th>
+                        <th style="width:10%">주문자연락처</th>
+                        <th style="width:7%">수령자명</th>
+                        <th style="width:10%">수령자연락처</th>
+                        <th style="width:33%">배송지</th>
+                        <th style="width:13%">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="select" id="select"/></td>
+                        <td>2023-09-25 14:35</td>
+                        <td>20230925001</td>
+                        <td>배송중</td>
+                        <td>홍길동</td>
+                        <td>010-1234-5678</td>
+                        <td>김영희</td>
+                        <td>010-9876-5432</td>
+                        <td>서울특별시 강남구 테헤란로 123</td>
+                        <td>
+                            <button class="btn btn-outline-secondary">수정</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="select" id="select"/></td>
+                        <td>2023-09-25 14:35</td>
+                        <td>20230925002</td>
+                        <td>배송준비</td>
+                        <td>김철수</td>
+                        <td>010-8765-4321</td>
+                        <td>박민수</td>
+                        <td>010-5678-1234</td>
+                        <td>부산광역시 해운대구 해운대로 456</td>
+                        <td>
+                            <button class="btn btn-outline-secondary">수정</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="select" id="select"/></td>
+                        <td>2023-09-25 14:35</td>
+                        <td>20230925003</td>
+                        <td>배송완료</td>
+                        <td>이영희</td>
+                        <td>010-5432-6789</td>
+                        <td>박철수</td>
+                        <td>010-1234-5678</td>
+                        <td>대구광역시 중구 동성로 123</td>
+                        <td>
+                            <button class="btn btn-outline-secondary">수정</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="select" id="select"/></td>
+                        <td>2023-09-25 14:35</td>
+                        <td>20230925004</td>
+                        <td>배송중</td>
+                        <td>장영미</td>
+                        <td>010-6789-1234</td>
+                        <td>손흥민</td>
+                        <td>010-4321-8765</td>
+                        <td>인천광역시 남동구 예술로 456</td>
+                        <td>
+                            <button class="btn btn-outline-secondary">수정</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="orderPageing">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                </ul>
+            </nav>
+        </div>
