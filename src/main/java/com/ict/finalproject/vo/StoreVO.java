@@ -19,4 +19,6 @@ public class StoreVO {
     private int stock;
     private String pro_detail;
     private int category;
+    private int liked;
+    private int likeCount;
 }

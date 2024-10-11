@@ -54,17 +54,14 @@
 /* 좋아요 아이콘 */
 /* 기본 하트 아이콘 (빈 하트) */
 #likeIcon {
-    width: 24px;
-    height: 24px;
-    background-image: url('/path/to/heart-line.png'); /* 빈 하트 이미지 경로 */
-    background-size: cover;
+    font-size: 24px;
     cursor: pointer;
     display: inline-block;
 }
 
 /* 하트가 활성화되었을 때 (채워진 하트) */
 #likeIcon.liked {
-    background-image: url('/path/to/heart-fill.png'); /* 채워진 하트 이미지 경로 */
+    color: #ff6666;  /* 채워진 하트 색상 */
 }
 
 

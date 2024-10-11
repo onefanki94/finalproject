@@ -7,6 +7,8 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<script src="https://example.com/fontawesome/vVERSION/js/all.js"data-auto-a11y="true"></script>
+
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -27,9 +29,10 @@
                 <p>발매일: ${storeDetail.relDT}</p>
                 <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
                 <p>배송비: ${storeDetail.fee}</p>
-                
+
                 <div class="like-section">
-                    <div id="likeIcon" class="${storeDetail.liked ? 'liked' : ''}"></div>
+                    <div id="likeIcon" class="${storeDetail.liked == 1 ? 'liked' : ''}"></div>
+                            <i class="fa-regular fa-heart"></i> 
                     <span id="likeCount">${storeDetail.likeCount}</span>
                 </div>
             </div>
@@ -246,3 +249,4 @@
         </div>
     </div>
 </div>
+

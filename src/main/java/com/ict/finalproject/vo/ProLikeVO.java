@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class ProLikeVO {
     
-    private int proidx;   // 좋아요를 누른 상품 ID
+    private int pro_idx;   // 좋아요를 누른 상품 ID
     private int userIdx;   // 좋아요를 누른 사용자 ID
    
     
