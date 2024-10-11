@@ -86,7 +86,7 @@
                                     <li class="list-product">
                                         <!-- idx 값을 사용하여 링크 생성 -->
                                         <a href="/storeDetail/${product.idx}"> 
-                                            <img src="${pageContext.request.contextPath}/${product.detail_img}" alt="${product.title}">
+                                            <img src="${pageContext.request.contextPath}/${product.thumImg}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>
                                         <p>${product.price} 원</p>

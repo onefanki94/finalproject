@@ -17,7 +17,7 @@
     <div class="product-wrapper">
         <!-- 상품 이미지 섹션 -->
         <div class="product-image-section">
-            <img src="${pageContext.request.contextPath}/${storeDetail.detail_img}" alt="${storeDetail.title}" class="main-image">
+            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="${storeDetail.title}" class="main-image">
         </div>
     
         <!-- 상품 정보 섹션 -->
@@ -114,7 +114,7 @@
             <div class="product-details-wrapper">
                 <!-- 이미지 섹션 -->
                 <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/${storeDetail.detail_img}" alt="상품 상세 이미지" />
+                    <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="상품 상세 이미지" />
                 </div>
 
 
@@ -128,7 +128,7 @@
         <!-- 숨겨진 상품 설명 -->
          <!--DB확인 후 재 작업-->
         <div id="hidden-description" class="hidden-description">
-            <img src="${pageContext.request.contextPath}/${storeDetail.detail_img}">
+            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}">
         </div>
     </div>
    

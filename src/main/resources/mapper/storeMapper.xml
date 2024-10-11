@@ -5,7 +5,7 @@
 
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT 
-            idx, title, price, detail_img, ani_title, relDT, brand, fee, stock, pro_detail, category 
+            idx, title, price, thumImg, ani_title, relDT, brand, fee, stock, pro_detail, category 
         FROM t_product
     </select>
 
@@ -39,7 +39,7 @@
 
      <!-- 필터링된 상품 목록 -->
     <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.StoreVO">
-        SELECT idx, title, ani_title, category, stock, detail_img, price
+        SELECT idx, title, ani_title, category, stock, thumImg, price
         FROM t_product
         WHERE 1 = 1
         <if test="ani_title != null and ani_title.size() > 0">
