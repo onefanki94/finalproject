@@ -15,14 +15,15 @@ public class MasterServiceImpl implements MasterService {
 
     @Override
     // 관리자페이지 공지사항 추가
-    public int createNotice(MasterVO vo) {
+    public int createNotice(MasterVO masterNotice) {
         /**
          * 관리자 페이지에서 공지사항을 추가하는 메서드입니다.
          *
          * @param vo 공지사항의 정보를 담고 있는 MasterVO 객체 (제목, 내용, 작성자 정보 포함)
          * @return 데이터베이스에 공지사항을 성공적으로 추가한 경우 1, 실패한 경우 0 반환
          */
-        return dao.createNotice(vo);
+        int result = dao.insertNotice(masterNotice);
+        return result;
     }
 
     @Override
@@ -43,5 +44,15 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public List<MasterVO> getBoardList() {
         return dao.getBoardList();
+    }
+
+    @Override
+    public Integer getAdminIdxByAdminid(String adminid) {
+        return dao.getAdminIdxByAdminid(adminid);
+    }
+
+    @Override
+    public void addNotice(MasterVO notice) {
+        dao.insertNotice(notice);
     }
 }

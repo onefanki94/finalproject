@@ -9,7 +9,7 @@
         }
 
         let products = Array.from(document.querySelectorAll('.list-product'));
-    }
+    
         // 상품 정렬 로직 추가
         if (filterType === 'latest') {
             // 최신순: data-date 값으로 정렬
@@ -34,7 +34,7 @@
             console.error('Product container not found');
         }
    
-
+    }
     function searchProducts() {
         const input = document.getElementById('productSearch').value.toLowerCase();
         const productItems = document.querySelectorAll('.list-product'); // 상품 리스트
@@ -50,19 +50,17 @@
     }
 
     function filterProductsByServer() {
-        const aniTitleElement = document.querySelector('.filter-category .active .filter-text');
-        const brandElement = document.querySelector('.filter-brand .active .filter-text');
+        const aniTitleElement = document.querySelector('.filter-ani-title .active .filter-text');
+        const categoryElement = document.querySelector('.filter-category .active .filter-text');
 
-        // null 체크 추가
-        const aniTitle = aniTitleElement ? aniTitleElement.innerText : null;
-        const brand = brandElement ? brandElement.innerText : null;
+
 
         const stockChecked = document.querySelector('.filter-header input[type="checkbox"]').checked ? 1 : 0;
 
-        if (ani_title && brand) {
+        if (ani_title && category) {
             const filterCriteria = {
                 ani_title: aniTitle,
-                brand: brand,
+                category: category,
                 stock: stockChecked
             };
 
@@ -95,33 +93,65 @@
     // 필터를 적용하는 함수 (실제 필터링 로직은 필요에 따라 수정 가능)
     function applyFilters() {
         // 선택된 작품 필터 리스트 가져오기
-        const activeCategories = Array.from(document.querySelectorAll('.filter-category .filter-item.active .filter-text'))
+        const ani_title = Array.from(document.querySelectorAll('.filter-ani-title .filter-item.active .filter-text'))
             .map(item => item.innerText);
-
+        
         // 선택된 카테고리 필터 리스트 가져오기
-        const activeBrands = Array.from(document.querySelectorAll('.filter-brand .filter-item.active .filter-text'))
-            .map(item => item.innerText);
-
+        const category = Array.from(document.querySelectorAll('.filter-category .filter-item.active .filter-text'))
+            .map(item => parseInt(item.innerText));  // 정수로 변환
+    
         // 판매종료 포함 여부 체크
-        const includeOutOfStock = document.getElementById('stockFilter').checked;
-
+        const stock = document.getElementById('stockFilter').checked ? 1 : 0;  // boolean을 정수로 변환
+    
         // 필터링된 상품 리스트 출력 (여기서는 콘솔에 출력하지만 실제로는 AJAX로 서버에 필터 요청을 보낼 수 있습니다)
-        console.log('선택된 작품:', activeCategories);
-        console.log('선택된 카테고리:', activeBrands);
-        console.log('판매종료 포함:', includeOutOfStock);
+        console.log('선택된 작품:', ani_title);
+        console.log('선택된 카테고리 (숫자형):', category);
+        console.log('판매종료 포함:', stock);
+    
+        // JSON 데이터를 확인하기 위해 콘솔에 출력
+        console.log("전송 데이터:", JSON.stringify({
+            ani_title: ani_title,  // 배열인지 확인
+            category: category,    // 배열인지 확인
+            stock: stock           // Boolean 값을 정수로 변환
+        }));
+    
+        // 실제 필터링 작업을 위한 로직 (AJAX로 서버에 요청 보내기)
+        $.ajax({
+            type: 'POST',
+            url: '/filterStoreList',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                ani_title: ani_title,
+                category: category,
+                stock: stock
+            }),
+            dataType: 'json',
+            success: function (data) {
+                console.log(data); // 받은 데이터를 콘솔에 출력하여 확인
+    
+                const productContainer = document.querySelector('.list-carousel-images');
+                productContainer.innerHTML = ''; // 기존 상품 제거
+    
+                // 받은 데이터를 바탕으로 UI 업데이트
+                data.forEach(product => {
+                    const productElement = document.createElement('li');
+                    productElement.className = 'list-product';
+                    productElement.innerHTML = `
+                        <a href="/storeDetail/${product.idx}">
+                            <img src="${product.detail_img}" alt="${product.ani_title}">
+                        </a>
+                        <p>${product.title}</p>
+                        <p>${product.price} 원</p>
+                    `;
+                    productContainer.appendChild(productElement);
+                });
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                alert('상품을 불러오는 중 문제가 발생했습니다. 다시 시도해주세요.');
+            }
 
-        //실제 필터링 작업을 위한 로직 (예: 서버에 요청 보내기, DOM 업데이트 등)
-    // 예시: 서버에 필터 데이터를 보내는 코드 (AJAX)
-        fetch('/filterStoreList', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                ani_title: activeCategories,
-                category: activeBrands,
-                stock: includeOutOfStock ? 1 : 0
-            })
-        }).then(response => response.json())
-        .then(data => {
-            // 필터링된 데이터를 기반으로 UI 업데이트
+            
         });
     }
+

@@ -22,12 +22,12 @@
                         <div class="filter-header">
                             <span>판매종료 포함</span>
                             <label class="switch">
-                                <input type="checkbox" id="stockFilter" onclick="applyFilters()">
+                                <input type="checkbox" id="stockFilter" onclick="applyFilters(this)">
                                 <span class="slider round"></span>
                             </label>
                         </div>
                         <hr>
-                        <div class="filter-category">
+                        <div class="filter-ani-title">
                             <h3>작품별</h3>
                             <ul class="filter-list">
                                     <!-- 데이터베이스에서 가져온 작품별 리스트를 출력 -->
@@ -39,7 +39,7 @@
                             </ul>
                         </div>
                         <hr>
-                        <div class="filter-brand">
+                        <div class="filter-category">
                             <h3>카테고리</h3>
                             <ul class="filter-list">
                                 <c:forEach var="product" items="${storeList}">
@@ -86,7 +86,7 @@
                                     <li class="list-product">
                                         <!-- idx 값을 사용하여 링크 생성 -->
                                         <a href="/storeDetail/${product.idx}"> 
-                                            <img src="${pageContext.request.contextPath}/${product.detail_img}" alt="${product.title}">
+                                            <img src="${pageContext.request.contextPath}/${product.thumImg}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>
                                         <p>${product.price} 원</p>
