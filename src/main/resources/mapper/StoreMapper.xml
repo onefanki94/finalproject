@@ -5,7 +5,7 @@
 
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT 
-            idx, title, price, detail_img, ani_title, relDT, brand, fee, stock, pro_detail, category 
+            idx, title, price, thumImg, ani_title, relDT, brand, fee, stock, pro_detail, category 
         FROM t_product
     </select>
 
@@ -24,6 +24,10 @@
             <when test="'low-price'.equals(filterType)">
                 ORDER BY price ASC
             </when>
+             <otherwise>
+            <!-- 기본정령--> 
+            ORDER BY created_date DESC
+        </otherwise>
         </choose>
     </select>
 
@@ -34,16 +38,23 @@
     </select>
 
      <!-- 필터링된 상품 목록 -->
-    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.ProductFilterVO">
-        SELECT ani_title, brand, stock FROM t_product
+    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT idx, title, ani_title, category, stock, thumImg, price
+        FROM t_product
         WHERE 1 = 1
-        <if test="ani_title != null and ani_title != ''">
-            AND ani_title = #{ani_title}
+        <if test="ani_title != null and ani_title.size() > 0">
+            AND ani_title IN
+            <foreach item="ani_title" collection="ani_title" open="(" separator="," close=")">
+                #{ani_title}
+            </foreach>
         </if>
-        <if test="brand != null and brand != ''">
-            AND brand = #{brand}
+        <if test="category != null and category.size() > 0">
+            AND category IN
+            <foreach item="category" collection="category" open="(" separator="," close=")">
+                #{category}         
+            </foreach>
         </if>
-        <if test="stock == 0">
+        <if test="stock != null and stock == 0">
             AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
         </if>
     </select>

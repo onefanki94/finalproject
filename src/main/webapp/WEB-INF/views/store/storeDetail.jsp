@@ -7,6 +7,8 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<script src="https://example.com/fontawesome/vVERSION/js/all.js"data-auto-a11y="true"></script>
+
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -15,7 +17,7 @@
     <div class="product-wrapper">
         <!-- 상품 이미지 섹션 -->
         <div class="product-image-section">
-            <img src="${pageContext.request.contextPath}/${storeDetail.detail_img}" alt="${storeDetail.title}" class="main-image">
+            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="${storeDetail.title}" class="main-image">
         </div>
     
         <!-- 상품 정보 섹션 -->
@@ -27,6 +29,12 @@
                 <p>발매일: ${storeDetail.relDT}</p>
                 <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
                 <p>배송비: ${storeDetail.fee}</p>
+
+                <div class="like-section">
+                    <div id="likeIcon" class="${storeDetail.liked == 1 ? 'liked' : ''}"></div>
+                            <i class="fa-regular fa-heart"></i> 
+                    <span id="likeCount">${storeDetail.likeCount}</span>
+                </div>
             </div>
     
             <!-- 상품 선택 옵션 -->
@@ -106,7 +114,7 @@
             <div class="product-details-wrapper">
                 <!-- 이미지 섹션 -->
                 <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/${storeDetail.detail_img}" alt="상품 상세 이미지" />
+                    <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="상품 상세 이미지" />
                 </div>
 
 
@@ -120,7 +128,7 @@
         <!-- 숨겨진 상품 설명 -->
          <!--DB확인 후 재 작업-->
         <div id="hidden-description" class="hidden-description">
-            <img src="${pageContext.request.contextPath}/${storeDetail.detail_img}">
+            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}">
         </div>
     </div>
    
@@ -241,3 +249,4 @@
         </div>
     </div>
 </div>
+
