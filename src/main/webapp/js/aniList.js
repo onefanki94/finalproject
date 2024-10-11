@@ -124,3 +124,15 @@ document.querySelector('.slider-btn-next').addEventListener('click', () => {
 	currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
 	sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
 });
+
+/*@@@@@@@@@@@@@장르@@@@@@@@@@*/
+$('.list_img_bg').click(function() {
+    var title = $(this).data('title');
+    var genre = $(this).find('.genre span:first').text(); // 첫 번째 span이 장르라고 가정
+
+    $('#modalTitle').text(title);
+    $('#modalAnitype').text(genre); // 모달의 장르 업데이트
+
+    var imageUrl = $(this).find('img').attr('src');
+    $('#modalImage').attr('src', imageUrl);
+})

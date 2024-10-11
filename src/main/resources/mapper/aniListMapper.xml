@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.AniListDAO">
+    <select id="aniList">
+        select * from t_animation
+    </select>
+
+    <select id="aniListSelect" resultType="com.ict.finalproject.vo.AniListVO">
+    SELECT post_img, title, anitype, director, agetype
+    FROM t_animation
+    ORDER BY title ASC
+    </select>
+
+    <select id="aniDetailView" resultType="com.ict.finalproject.vo.AniListVO">
+    SELECT post_img, title, anitype, director, agetype
+    FROM t_animation
+    WHERE title = #{title}
+</select>
+    <update id="updateAniHit">
+    UPDATE t_animation
+    SET hit = hit + 1
+    WHERE title = #{title}
+</update>
+</mapper>
