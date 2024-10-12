@@ -7,50 +7,50 @@
     <form action="/master/storeAddMasterOk" method="post" enctype="multipart/form-data">
         <!-- 상품명 추가 -->
         <div>
-            <label for="product_name">상품명:</label>
-            <input type="text" id="product_name" name="product_name" required>
+            <label for="title">상품명:</label>
+            <input type="text" id="title" name="title">
         </div>
 
         <!-- 애니 타이틀 추가 -->
         <div>
             <label for="ani_title">애니 타이틀:</label>
-            <input type="text" id="ani_title" name="ani_title" required>
+            <input type="text" id="ani_title" name="ani_title">
         </div>
 
         <!-- 상품 섬네일 추가 -->
         <div>
-            <label for="detail_img"> 상품 섬네일 :</label>
-            <input type="file" id="detail_img" name="detail_img" accept="image/*" required>
+            <label for="thumimg"> 상품 섬네일 :</label>
+            <input type="file" id="thumimg" name="thumimg" accept="image/*">
         </div>
 
         <!-- 출시일 추가 -->
         <div>
             <label for="rel_DT">출시일:</label>
-            <input type="date" id="rel_DT" name="rel_DT" required>
+            <input type="date" id="rel_DT" name="rel_DT">
         </div>
 
         <!-- 브랜드 추가 -->
         <div>
             <label for="brand">브랜드:</label>
-            <input type="text" id="brand" name="brand" required>
+            <input type="text" id="brand" name="brand">
         </div>
 
         <!-- 배송비 추가 -->
         <div>
             <label for="fee">배송비:</label>
-            <input type="text" id="fee" name="fee" required>
+            <input type="text" id="fee" name="fee">
         </div>
 
         <!-- 재고 추가 -->
         <div>
             <label for="stock">재고:</label>
-            <input type="number" id="stock" name="stock" required>
+            <input type="number" id="stock" name="stock">
         </div>
 
         <!-- 가격 추가 -->
         <div>
             <label for="price">가격:</label>
-            <input type="text" id="price" name="price" required>
+            <input type="text" id="price" name="price">
         </div>
 
         <!-- 카테고리 ( 대분류 중분류 )추가 -->
@@ -76,7 +76,7 @@
         <!-- 상세 내용 이미지 추가 -->
         <div>
             <label for="product_img">상세 내용 이미지:</label>
-            <input type="file" id="product_img" name="product_img" accept="image/*" required>
+            <input type="file" id="product_img" name="product_img" accept="image/*">
         </div>
 
         <!-- 폼 제출 버튼 -->

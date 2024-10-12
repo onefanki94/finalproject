@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class noticeController {
     @GetMapping("/notice2")
-
     public String notice() {
         return "notice/notice2";
     }
