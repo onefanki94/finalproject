@@ -55,8 +55,6 @@
 
         <!-- 댓 글 -->
            <div id="replyArea" style="margin-top:30px;" >
-              <!-- 로그인이 된 경우 댓글 폼 표시하기 -->
-
                 <form method="post" id="replyForm">
                  <div class="review-writer">
                      <div class="reply_input">
@@ -180,7 +178,7 @@
                          console.log(comment.content);
                          // 댓글 HTML 구조를 만들어서 추가
                          const comm = ' <div class="comment"> ' +
-                                      '<p><strong> ' + comment.useridx + '</strong> : '+ comment.content + '</p>' +
+                                      '<p><strong> ' + comment.userid + '</strong> : '+ comment.content + '</p>' +
                                       '  <p>' + comment.regDT + '</p>'+
                                     '</div>';
                          replyList.append(comm);
