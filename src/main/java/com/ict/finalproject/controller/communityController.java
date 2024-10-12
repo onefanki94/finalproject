@@ -217,4 +217,10 @@ public class communityController {
     public String allnotice(){
         return "notice/notice2";
     }
+
+
+/*    @PostMapping("/qnaOK")
+    public ResponseEntity<String> qnaOK(){
+
+    }*/
 }

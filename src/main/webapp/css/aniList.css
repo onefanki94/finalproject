@@ -1,6 +1,8 @@
+/*
 body {
     background-color: black;
 }
+*/
 
 .aniList {
     display: flex;
@@ -16,9 +18,9 @@ body {
     color: white;
 }
 
-nav {
+.manage_menu {
     width: 200px;
-    background-color: #2ba1db;
+    background-color: black;
     position: fixed;
     top: 100px;
     left: 0;
@@ -121,13 +123,15 @@ input[type="checkbox"] {
 
 /* 애니메이션 리스트 컨테이너 */
 .ani_viewList {
-margin-left: 220px;
+    margin-left: 220px;
     margin-top: 28px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
+
+
 
 /* 개별 애니메이션 아이템 */
 .div_li {
@@ -287,8 +291,8 @@ margin-left: 220px;
     }
 
     .div_li {
-        width: 45%;
-        /* 2개씩 나열 */
+margin-top: 2%;
+    width: 44%;
     }
 
     .list_img_bg img {
@@ -296,6 +300,7 @@ margin-left: 220px;
         height: auto;
         /* 이미지 높이를 자동으로 조정 */
     }
+
 }
 
 @media (max-width: 767px) and (min-width: 576px) {
@@ -371,162 +376,6 @@ margin-left: 220px;
 }
 
 /*====modal=========*/
-.modal-dialog {
-    width: 75%;
-    /* 모달 대화 상자의 너비를 75%로 설정 */
-    max-width: none;
-    /* 최대 너비 제한을 없애서 화면 전체를 차지하도록 설정 */
-    height: 89%;
-    /* 모달 대화 상자의 높이를 화면의 100%로 설정 */
-    margin: auto;
-    /* 모달 대화 상자를 중앙 정렬 */
-    padding: 0;
-    /* 모달 대화 상자의 안쪽 여백을 0으로 설정 */
-}
-
-.modal-content {
-margin: 100px;
-    width: 95%;
-    background-color: black;
-    height: 80%;
-    border: none;
-    border-radius: 0;
-
-}
-
-.modal-body {
-    border: 1px solid white;
-    display: flex;
-    /* 플렉스 박스를 사용하여 자식 요소를 배치 */
-    justify-content: center;
-    /* 자식 요소를 수평 중앙 정렬 */
-    align-items: center;
-    /* 자식 요소를 수직 중앙 정렬 */
-    height: 100%;
-    /* 모달 바디의 높이를 모달 콘텐츠와 동일하게 설정 */
-    overflow: hidden;
-    /* 넘치는 내용 숨기기 */
-}
-
-.modal-body img {
-    height: auto;
-    /* 세로 비율 유지 */
-    width: 100%;
-    /* 가로를 100%로 설정 */
-    max-height: 100%;
-    /* 이미지의 최대 높이를 모달 바디의 100%로 설정 */
-    /* object-fit: contain; */
-    /* 이미지 비율 유지하며 모달 바디에 맞춤 */
-    opacity: 0.3;
-    /* 이미지의 투명도를 70%로 설정 (0.0 ~ 1.0 범위) */
-}
-
-
-.image-container {
-    position: absolute;
-    /* 자식 요소를 상대적으로 배치할 수 있도록 설정 */
-}
-
-.image-container img {
-    width: 100%;
-    /* 이미지를 100% 너비로 설정 */
-    height: auto;
-    /* 비율을 유지하여 높이를 자동으로 설정 */
-}
-
-
-/*============큰 글*/
-.overlay-text {
-    width: 100%;
-        margin-top: -35%;
-        color: white;
-        text-align: center;
-        z-index: 10;
-}
-
-
-/* 조그만한 글==================*/
-.description-text {
-margin: 20%;
-    font-size: 0.9em;
-    margin-top: 57%;
-    margin-left: 7%;
-    transform: translate(-95%, -100%);
-    color: white;
-    z-index: 10;
-}
-
-.new-image-container {
-    margin-right: -16%;
-        margin-top: 35%;
-        height: 205px;
-        width: 150px;
-        display: flex;
-        /* position: absolute; */
-        top: 99%;
-        left: 15%;
-        /* transform: translate(-95%, -100%); */
-        color: white;
-        text-align: center;
-        z-index: 10;
-        gap: 15px;
-        flex-direction: row-reverse;
-}
-
-.new-image-container img {
-
-    width: 100%;
-    /* 이미지 너비를 100%로 설정 */
-    height: auto;
-    /* 비율을 유지하면서 자동으로 높이 조정 */
-    opacity: 1;
-    /* 불투명도를 100%로 설정 */
-    filter: brightness(120%);
-    /* 이미지 밝기를 20% 더 밝게 */
-    margin-right: 20px;
-    /* 이미지 사이에 간격 추가 (gap과 병행) */
-}
-
-.new-image-container img:hover {
-    opacity: 0.8;
-    /* 호버 시 이미지 불투명도를 낮춤 */
-}
-
-/*==========별점===========*/
-.star {
-    transform: translate(-50%, 0);
-    /* 중앙에 오도록 이동 */
-    color: white;
-    /* 텍스트 색상을 흰색으로 설정 */
-    text-align: center;
-    /* 텍스트를 중앙 정렬 */
-    z-index: 10;
-    /* 이미지 위에 텍스트가 오도록 설정 */
-}
-
-.star-icon {
-    font-size: 30px;
-    /* 별의 크기 설정 */
-    cursor: pointer;
-    /* 마우스 커서를 포인터로 변경 */
-    color: white;
-    /* 기본 색상 */
-}
-
-.star-icon.selected {
-    color: white;
-    /* 선택된 별의 색상 */
-}
-
-.slider-btn-prev {
-
-    transform: translate(-50%, 0);
-    /* 중앙에 오도록 이동 */
-    text-align: center;
-    /* 텍스트를 중앙 정렬 */
-    z-index: 10;
-    /* 이미지 위에 텍스트가 오도록 설정 */
-}
 
 /*======필터=========*/
 .vod_list_select {
@@ -538,9 +387,118 @@ margin: 20%;
                 align-items: center;
                 /* 수직 중앙 정렬 */
 }
+@media (max-width: 1920px) {
+    .vod_list_select {
+        margin-bottom: 1%;
+            margin-left: 91%;
+            margin-top: 5%
+    }
+}
+@media (max-width: 1919px) and (min-width: 1820px) {
+    .vod_list_select
+        {
+margin-left: 71%;
+    margin-top: 3%;
+    width: 26%;
+    }
+}
+@media (max-width: 1819px) and (min-width: 1635px) {
+    .vod_list_select {
+    width: 31%;
+        margin-left: 67%;
+        margin-top: 3.1%;
+    }
+}
+
+@media (max-width: 1634px) and (min-width: 1440px) {
+    .vod_list_select {
+        margin-left: -11%;
+            margin-top: 0%;
+            width: 110%;
+    }
+}
+@media (max-width: 1439px) and (min-width: 1325px) {
+    .vod_list_select {
+        margin-bottom: -2%;
+            /* width: 105%; */
+            margin-left: 2%;
+            margin-top: 2%;
+    }
+}
+@media (max-width: 1324px) and (min-width: 1225px) {
+    .vod_list_select {
+        margin-bottom: -2%;
+            width: 99%;
+            margin-left: -1%;
+            margin-top: 3%;
+    }
+}
+@media (max-width: 1224px) and (min-width: 1125px) {
+    .vod_list_select {
+        margin-bottom: 4%;
+            margin-top: -1%;
+            margin-left: -22%;
+    }
+}
+@media (max-width: 1124px) and (min-width: 1024px) {
+    .vod_list_select {
+margin-bottom: -2%;
+    margin-left: -6%;
+    margin-top: 2%;
+    }
+}
+@media (max-width: 1023px) and (min-width: 768px) {
+    .vod_list_select {
+        margin-left: -204%;
+            margin-bottom: 15%;
+            margin-top: -5%;
+    }
+}
+@media (max-width: 992px) and (min-width: 768px) {
+    .vod_list_select {
+    margin-bottom: 0%;
+        margin-left: 24%;
+        margin-top: 6%;
+        width: 59%;
+    }
+}
+
+@media (max-width: 767px) and (min-width: 721px) {
+    .vod_list_select {
+margin-left: -71%;
+    margin-top: 3%;
+    width: 170%;
+    }
+}
+
+@media (max-width: 720px) and (min-width: 621px) {
+    .vod_list_select{
+margin-right: 23%;
+    margin-top: 3%;
+        width: 170%;
+    }
+}
+
+@media (max-width: 620px) and (min-width: 576px) {
+    .vod_list_select{
+margin-right: 23%;
+    margin-top: 3%;
+        width: 170%;
+    }
+}
+
+@media (max-width: 575px) and (min-width: 492px) {
+    .vod_list_select{
+margin-right: 23%;
+    margin-top: 3%;
+        width: 170%;
+    }
+}
 
 .select_input {
-        margin-left: 90%;
+            margin-bottom: -6%;
+                margin-top: 5%;
+                margin-left: 93%;
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -553,51 +511,750 @@ margin: 20%;
         transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-
-/* .search-form {
-    position: absolute;
-
-    top: 13%;
-
-    left: 20.4%;
-
-    transform: translate(-50%, -50%);
-
-    z-index: 10;
-
-}  */
-
-
 #modalImage{
     object-fit: contain;
 }
 
 
-.side_img {
-    margin-right: 5%;
-    margin-top: -11%;
-    width: 80%;
-    transform: translateY(0);
-    z-index: 2;
-    padding: 1px;
-    border-radius: 15px;
-}
 
-.side_img img {
-    opacity: 1;
-    /* 이미지의 투명도를 조정 */
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
 /*========10.02수정============*/
 .search-container {
-    margin-top: -1%;
-    margin-left: 12%;
+    /* margin-top: -1.6%;
+    margin-left: 13.5%; */
+        display: flex;
+            align-items: center;
+}
+
+.vod_list_select,
+.search-container {
+    display: flex;
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    gap: 10px;
+    /* 두 요소 사이 간격 */
 }
 
 .search-container input[type="search"] {
-    margin-right: 5px;
-    /* 검색 입력과 버튼 사이 간격 */
+    margin-right: 5px; /* 검색 입력과 버튼 사이 간격 */
+
+    transition: width 0.3s ease; /* 너비 변화 시 애니메이션 효과 */
+}
+/*=========검색 반응형============*/
+@media (min-width: 1920px) {
+    .search-container {
+            max-width: 1370px;
+                margin-top: -57px;
+                margin-left: 13%;
+    }
 }
 
+@media (max-width: 1919px) and (min-width: 1635px) {
+    .search-container {
+        margin-left: 13%;
+        margin-top: -0.9%;
+    }
+}
+
+@media (max-width: 1634px) and (min-width: 1440px) {
+    .search-container {
+            margin-left: 21%;
+                margin-top: 5%;
+    }
+}
+
+@media (max-width: 1439px) and (min-width: 1325px) {
+    .search-container {
+                margin-left: 20%;
+                    margin-top: 5%;
+    }
+}
+@media (max-width: 1324px) and (min-width: 1225px) {
+    .search-container {
+                margin-top: 5%;
+                    margin-left: 27%;
+                    margin-bottom: 2%;
+                    max-width: 560px;
+    }
+}
+@media (max-width: 1224px) and (min-width: 1125px) {
+    .search-container {
+        max-width: 560px;
+        margin-left: 224px;
+    }
+}
+@media (max-width: 1124px) and (min-width: 1024px) {
+    .search-container {
+margin-left: 23%;
+    margin-top: 5%;
+    }
+}
+@media (max-width: 1023px) and (min-width: 768px) {
+    .search-container {
+            margin-left: 26%;
+                margin-top: 4%;
+    }
+}
+
+
+@media (max-width: 767px) and (min-width: 576px) {
+    .search-container {
+        margin-left: 31%;
+            margin-top: 6%;
+            width: 48%;
+    }
+}
+
+@media (max-width: 575px) and (min-width: 492px){
+    .search-container {
+        margin-left: 48%;
+            margin-top: 9%;
+            width: 60%;
+    }
+}
+/*================.select_input===================*/
+@media (min-width: 1920px) {
+    .select_input {
+        max-width: 1370px;
+        margin: 0 auto;
+        /* 중앙 정렬을 위해 자동 여백 설정 */
+    }
+}
+
+@media (max-width: 1634px) and (min-width: 1440px) {
+    .select_input {
+                margin-left: 89%;
+    }
+}
+
+@media (max-width: 1439px) and (min-width: 1325px) {
+    .select_input {
+        max-width: 830px;
+                margin-left: 87%;
+    }
+}
+
+@media (max-width: 1324px) and (min-width: 1225px) {
+    .select_input {
+        max-width: 560px;
+        margin-left: 85%;
+    }
+}
+
+@media (max-width: 1224px) and (min-width: 1125px) {
+    .select_input {
+margin-top: 7%;
+    max-width: 560px;
+    margin-left: 88%;
+
+    }
+}
+
+@media (max-width: 1124px) and (min-width: 1024px) {
+    .select_input {
+        margin-left: 90%;
+            margin-top: 7%;
+
+    }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+    .search-container {
+        max-width: 470px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 767px) and (min-width: 576px) {
+    .search-container {
+        width: 48%;
+        /* 2개씩 나열, 간격 조정 */
+    }
+}
+
+@media (max-width: 575px) {
+    .search-container {
+        width: 100%;
+        /* 한 줄에 하나씩 나열 */
+    }
+}
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--e-font), var(--k-font);
+}
+body {
+  background: black;
+/*  overflow: hidden;*/
+
+}
+
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+span {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+
+:root {
+  --primary: #359c95;
+  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
+  --k-font: "Pretendard";
+  --e-font: "Outfit";
+}
+
+.animodal_body {
+  position: fixed;
+  inset: 0px;
+  z-index: 20;
+  display: none;/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.animodal_background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(0, 0, 0, 0.7);
+  height: calc(100% + 0vh);
+  width: 100vw;
+  z-index: -1;
+  opacity: 1;
+}
+
+.animodal_container {
+  opacity: 1;
+  transform: translate3d(0px, 0vh, 0px);
+  height: calc(100% + 0vh);
+  position: relative;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.animodal_item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 67.5rem;
+  max-width: calc(-2rem + 100vw);
+
+  max-height: calc(-2rem + 100vh);
+  border-radius: 0.25rem;
+  background: #121212;
+  overflow: auto scroll;
+  scrollbar-width: none;
+}
+
+.animodal_item_top {
+  position: relative;
+  background-color: rgb(25, 27, 42);
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.animodal_item_bottom {
+  padding: 2rem 3rem 1rem;
+}
+
+.animodal_item_imgDiv {
+  position: absolute;
+  inset: 0px 0px auto auto;
+  width: 48.75rem;
+  max-width: 100%;
+  aspect-ratio: 780 / 440;
+}
+
+.animodal_item_imgBack {
+  position: absolute;
+  inset: 0px;
+}
+
+.animodal_item_imgBack img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.animodal_item_imgBack::after {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  background: linear-gradient(to top, rgb(25, 27, 42) 0px, rgba(25, 27, 42, 0) 11.25rem), linear-gradient(to right, rgb(25, 27, 42) 0px, rgba(25, 27, 42, 0) 15rem);
+}
+
+.animodal_item_imgDiv > img {
+  position: absolute;
+  object-fit: cover;
+  border: none;
+  right: 3.5rem;
+  bottom: 2.3125rem;
+  height: 16.6875rem;
+  width: 12.5rem;
+  border-radius: 0.37625rem;
+}
+
+.animodal_item_infoDiv {
+  z-index: 1;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+}
+
+.animodal_item_infoDiv > nav {
+  position: relative;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+
+.animodal_item_infoDiv > div {
+  flex: 1 1 0%;
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  user-select: none;
+  padding: 3rem 3rem 2rem;
+}
+
+.animodal_item_infoDiv > nav > button {
+  outline: none;
+  background: none;
+  border: 0px;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: rgb(0, 0, 0, 0.3);
+}
+
+.animodal_item_infoDiv > nav > button:nth-of-type(2) {
+  margin-left: 0.5rem;
+}
+
+.animodal_item_infoDiv .fa-heart {
+  color: rgb(190, 31, 17);
+  font-size: 1.5em;
+}
+
+.animodal_item_infoDiv .fa-x {
+  color: rgb(255, 255, 255, 0.8);
+  font-size: 1.5em;
+}
+
+.animodal_infoHead {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 37.5rem;
+  min-height: 11.4375rem;
+}
+
+.animodal_infoHead .ani_ageGrade {
+  position: relative;
+  display: flex;
+  padding: 0px;
+  margin: 0px 0px 0.5rem;
+}
+
+.animodal_infoHead .ani_ageGrade > div > label {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 1.6875rem;
+  padding: 0px 0.5rem;
+  border-radius: 0.25rem;
+  background-color: rgb(50, 51, 74);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  gap: 3px;
+}
+
+.animodal_infoHead .ani_ageGrade > div > label .fa-star {
+  font-size: 0.75rem;
+  color: rgb(255, 255, 255);
+  margin-right: 0.125rem;
+}
+
+.animodal_infoHead h1 {
+  margin: 0px 0px 0.5rem;
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: rgb(255, 255, 255, 0.9);
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+
+.animodal_infoHead .ani_typeinfo {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.animodal_infoHead .ani_typeinfo span {
+  font-size: 0.875rem;
+  color: rgb(208, 208, 208);
+}
+
+.animodal_infoHead .ani_typeinfo div {
+  height: 0.75rem;
+  width: 0.0625rem;
+  background: rgb(138, 138, 138);
+  margin: 0px 0.5rem;
+}
+
+.animodal_infoBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.animodal_usergrade {
+  display: flex;
+  flex-direction: row;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  width: 25.5rem;
+  max-width: 100%;
+}
+
+.animodal_usergrade span {
+  font-size: 1.5em;
+  color: rgb(255, 255, 255, 0.8);
+  font-weight: bold;
+}
+
+.animodal_usergrade div {
+  margin-left: 10px;
+}
+
+.animodal_usergrade div i {
+  font-size: 1.5em;
+  color: rgb(255, 255, 255, 0.8);
+  margin-right: 5px;
+}
+
+.ani_outline {
+  max-width: 41rem;
+}
+
+.ani_outline > div {
+  position: relative;
+  width: 100%;
+  height: 2.4rem;
+  overflow: hidden;
+  font-size: 0.875rem;
+  color: rgb(208, 208, 208);
+}
+
+.ouline_more {
+  cursor: pointer;
+  text-align: right;
+  font-weight: 700;
+  padding-left: 2rem;
+  margin-left: -5.25rem;
+  background: linear-gradient(270deg, rgb(25, 27, 42) 63.5%, rgba(25, 27, 42, 0) 100%);
+  position: absolute;
+  bottom: 3px;
+  right: 0px;
+}
+
+.animodal_item_bottom_nav {
+  position: relative;
+  overflow: hidden;
+}
+
+.animodal_item_bottom_nav > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  padding-bottom: 0.125rem;
+}
+
+.animodal_item_bottom_nav > div > div {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.animodal_item_bottom_nav > div > div > div:nth-of-type(1) {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.animodal_item_bottom_nav > div > div > div:nth-of-type(1) span {
+  color: var(--primary);
+  box-sizing: border-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.125rem;
+  padding-bottom: 0.625rem;
+}
+
+.animodal_item_bottom_nav > div > div > div:nth-of-type(2) {
+  width: 85.9375px;
+  position: absolute;
+  bottom: 0px;
+  height: 0.25rem;
+  background-color: var(--primary);
+  transition: left 300ms ease-in-out, width 300ms ease-in-out;
+}
+
+.bottom_ani_content > div {
+  width: 100%;
+  margin: 1.5rem 0px 1rem;
+}
+
+.bottom_ani_content > div > ul {
+  display: grid;
+  gap: 0.8rem;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.bottom_ani_content > div > ul > li {
+  width: 100%;
+  overflow: hidden;
+}
+
+.bottom_ani_content > div > ul > li > .similar_ani_img {
+  width: 100%;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0.25em;
+}
+
+.bottom_ani_content > div > ul > li > .similar_ani_img img {
+  width: 100%;
+  height: 100%;
+}
+
+.bottom_ani_content > div > ul > li > .similar_ani_title {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  opacity: 1;
+  padding-right: 0.5rem;
+  min-height: 3em;
+}
+
+.bottom_ani_content > div > ul > li > .similar_ani_title p {
+  margin: unset;
+  color: #f7f7f7;
+  font-weight: 400;
+  font-size: 0.9em;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 1024px) {
+  .animodal_item_imgDiv > img {
+    display: none;
+  }
+}
+
+.aniInfo_modal_body {
+  position: fixed;
+  inset: 0px;
+  z-index: 20;
+  display: none;/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.aniInfo_modal_body > div:nth-of-type(1) {
+  opacity: 1;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(0, 0, 0, 0.7);
+  height: calc(100% + 0vh);
+  width: 100vw;
+  z-index: -1;
+}
+
+.aniInfo_modal_container {
+  opacity: 1;
+  transform: translate3d(0px, 0vh, 0px);
+  height: calc(100% + 0vh);
+  position: relative;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.aniInfo_modal_container_flex {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 28.75rem;
+  height: auto;
+  max-height: calc(-2rem + 100vh);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  color: #f7f7f7;
+  background: #121212;
+  box-shadow: 0 0 1rem rgb(0, 0, 0, 0.5);
+}
+
+.aniInfo_modal_container_flex > div:nth-of-type(1) {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  /* height: 4.5rem; */
+  padding: 1.5rem 1.5rem 0.625rem;
+}
+
+.aniInfo_modal_container_flex > div:nth-of-type(1) > span {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.aniInfo_modal_container_flex > div:nth-of-type(1) > i {
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #f7f7f7;
+}
+
+.item-detail-info-modal {
+  height: 100%;
+  overflow-y: auto;
+  max-height: calc(calc(var(--safe-vh, 1vh) * 100) - 6.5rem);
+}
+
+.item-detail-info-modal > div {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 1.5rem;
+  row-gap: 1.5rem;
+}
+
+.item-detail-info-modal > div > section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  color: #f7f7f7;
+}
+
+.item-detail-info-modal > div > section > span:nth-of-type(1) {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f7f7f7;
+}
+
+.item-detail-info-modal > div > section > span:nth-of-type(2) {
+  flex: 1 1 0%;
+  line-height: 1.5;
+  word-break: break-all;
+  white-space: pre-line;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #f7f7f7;
+}
+
+.item-detail-info-modal > div > section > ul {
+  row-gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  color: #f7f7f7;
+}
+
+.item-detail-info-modal > div > section > ul > li {
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 0rem 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.item-detail-info-modal > div > section > ul > li > span {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #f7f7f7;
+}
+
+.item-detail-info-modal > div > section > ul > li > span > span {
+  margin-left: 0.5rem;
+  word-break: break-all;
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #f7f7f7;
+}
+
+.grade_inputBtn {
+  margin-left: 5px;
+  margin-top: 6px;
+  font-size: 0.9em;
+  color: rgb(255, 255, 255, 0.8);
+  font-weight: bold;
+  background: none;
+  border: 1px solid rgb(255, 255, 255, 0.8);
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}

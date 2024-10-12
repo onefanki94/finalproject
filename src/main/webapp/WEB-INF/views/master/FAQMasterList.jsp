@@ -18,46 +18,18 @@
                      </tr>
                  </thead>
                  <tbody>
+                 <c:forEach var="faq" items="${faqList}">
                      <tr>
-                         <td>1</td>
-                         <td>계정</td>
-                         <td>FAQ 1번 질문 내용</td>
-                         <td>2023-09-25</td>
+                         <td>${faq.idx}</td>
+                         <td>${faq.faqtype}</td>
+                         <td>${faq.question}</td>
+                         <td>${faq.regDT}</td>
                          <td>
                              <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
                              <button class="btn btn-outline-danger btn-sm">삭제</button>
                          </td>
                      </tr>
-                     <tr>
-                         <td>2</td>
-                         <td>쇼핑</td>
-                         <td>FAQ 2번 질문 내용</td>
-                         <td>2023-09-24</td>
-                         <td>
-                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
-                             <button class="btn btn-outline-danger btn-sm">삭제</button>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td>3</td>
-                         <td>로그인</td>
-                         <td>FAQ 3번 질문 내용</td>
-                         <td>2023-09-23</td>
-                         <td>
-                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
-                             <button class="btn btn-outline-danger btn-sm">삭제</button>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td>4</td>
-                         <td>포인트</td>
-                         <td>FAQ 4번 질문 내용</td>
-                         <td>2023-09-22</td>
-                         <td>
-                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
-                             <button class="btn btn-outline-danger btn-sm">삭제</button>
-                         </td>
-                     </tr>
+                     </c:forEach>
                  </tbody>
              </table>
          </div>

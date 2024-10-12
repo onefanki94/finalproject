@@ -197,7 +197,7 @@
                         </div>
 
                         <!-- 제목 입력 영역 -->
-                        <form class="inquiry-write-tbl" method="post" action="" onsubmit="return commuFormCheck()">
+                        <form class="inquiry-write-tbl" method="post" action="/qnaOK" onsubmit="return qnaFormCheck()">
                             <table class="inquiry-cm-write">
                                 <tr>
                                     <th>제목</th>
