@@ -174,10 +174,10 @@
                  console.log(comments);
                      // 댓글 목록 갱신
                      let replyList = $('#replyList');
-                     replyList.empty(); // 기존 댓글 목록 비우기 왜 안나오자
+                     replyList.empty(); // 기존 댓글 목록 비우기
 
                      comments.forEach(comment => {
-                         console.log(comment.content); //그늬까 값은 넘어오는데 뷰단에 안보여서..그니까 음 잠만,,
+                         console.log(comment.content);
                          // 댓글 HTML 구조를 만들어서 추가
                          const comm = ' <div class="comment"> ' +
                                       '<p><strong> ' + comment.useridx + '</strong> : '+ comment.content + '</p>' +
