@@ -152,9 +152,16 @@ function updateTotalPrice() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // 로컬스토리지에서 토큰 가져오기
+    const token = localStorage.getItem('token'); // 'token'은 로컬스토리지에 저장된 토큰의 키값
+
+    if (!token) {
+        console.error('로그인 토큰이 없습니다.');
+        return;
+    }
+
     // 좋아요 아이콘 클릭 시 이벤트 발생
     document.getElementById('likeHeart').addEventListener('click', function() {
-        alert("hi");
         const likeIcon = document.getElementById('likeHeart');
         const likeCountElement = document.getElementById('likeCount');
         const currentCount = parseInt(likeCountElement.textContent);
@@ -165,12 +172,12 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/like/toggle', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
             },
             body: JSON.stringify({
-                pro_idx: productId,
-                useridx: userId  // 서버로 useridx와 함께 전송
-             })
+                pro_idx: productId
+            })
         })
         .then(response => {
             if (!response.ok) {
@@ -191,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     likeIcon.classList.add('fa-solid');       // 채워진 하트로 변경
                     likeCountElement.textContent = currentCount + 1;  // 카운트 증가
                 }
-                
             } else {
                 console.error('좋아요 상태 변경 실패');
             }
