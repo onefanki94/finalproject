@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
@@ -194,14 +195,18 @@
     <div class="review-summary">
         <div class="average-rating">
             <h3>사용자 총 평점</h3>
-            <div class="stars">★★★★★</div>
+            <div class="stars">
+                <c:forEach var="i" begin="1" end="5">
+                    <span class="${i <= averageRating ? 'filled-star' : 'empty-star'}">★</span>
+                </c:forEach>
+            </div>
             <div class="rating-number">
-                4.71 <small>/5</small>
+                ${averageRating} <small>/5</small>
             </div>
         </div>
         <div class="total-reviews">
             <h3>전체 리뷰수</h3>
-            <div class="review-count">97</div>
+            <div class="review-count">${reviews.size()}</div>
         </div>
     </div>
 
@@ -217,24 +222,35 @@
             <span onclick="filterReviews('lowest')">평점 낮은순</span>
         </div>
     </div>
-    <!-- 리뷰 리스트 -->
-    <div id="review-list">
-        
-        <div class="review-item" data-rating="5" data-date="2024-09-06">    
-        
-            <div class="review-nickname">
-                <span class="review-rating">★★★★☆</span>
-                <span class="reviewer-name">naeb*****</span>
-                <span class="review-date">2024.09.06</span>         
+            <!-- 리뷰 리스트 -->
+            <div id="review-list">
+                <c:forEach var="review" items="${reviews}">
+                    <div class="review-item" data-rating="${review.grade}" data-date="${review.regDT}">
+                        <div class="review-nickname">
+                            <span class="review-rating">
+                                <!-- 별점 출력 -->
+                                <c:forEach var="i" begin="1" end="5">
+                                    <span class="${i <= review.grade ? 'filled-star' : 'empty-star'}">★</span>
+                                </c:forEach>
+                            </span>
+                            <span class="reviewer-name">
+                                <!-- 아이디 중간에 마스킹 처리 -->
+                                <c:out value="${fn:substring(review.useridx, 0, 3)}"/>*****
+                            </span>
+                            <span class="review-date">${review.regDT}</span>         
+                        </div>
+                        
+                        <div class="review-content">${review.content}</div>
+                        
+                        <c:if test="${not empty review.imgfile1}">
+                            <div class="review-image">
+                                <img src="${review.imgfile1}" alt="리뷰 이미지">
+                            </div>
+                        </c:if>
+                    </div>
+                </c:forEach>
             </div>
-            
-            <div class="review-content">착용감 아주 편해요. 잘 맞아요!</div>
-            <div class="review-image">
-                <img src="/img/store/review1.png" alt="리뷰 이미지">
-            </div>
-        </div>
-        
-    </div>
+
     
         <!-- 페이지 네이션 -->
         <div class="pagination">
