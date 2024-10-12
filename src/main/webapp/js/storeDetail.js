@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
             },
             body: JSON.stringify({
-                pro_idx: productId
+                pro_idx: productId      
             })
         })
         .then(response => {

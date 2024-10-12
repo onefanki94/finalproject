@@ -1,7 +1,6 @@
 /* 메인 상품 컨테이너 */
 .product-container {
     max-width: 1400px;
-    height: auto;
     margin: 0 auto;
     padding: 20px;
     background-color: white;

@@ -62,8 +62,8 @@ public class storeMainController {
         ModelAndView mav = new ModelAndView();
     
         // 모델에 데이터를 추가
+        mav.addObject("uniqueCategories", uniqueCategories);
         mav.addObject("storeList", storeList);
-        mav.addObject("uniqueCategories", uniqueCategories); // 중복 제거된 카테고리 추가
     
         // 반환할 JSP 경로 설정
         mav.setViewName("store/storeList");  // JSP 파일 경로
