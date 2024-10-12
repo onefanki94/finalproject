@@ -43,12 +43,12 @@
                 <tr>
                     <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
                     <th style="width:7%" class="sortable" onclick="sortTable(1)">상품번호</th>
-                    <th style="width:7%" class="sortable" onclick="sortTable(2)">카테고리</th>
+                    <th style="width:10%" class="sortable" onclick="sortTable(2)">카테고리</th>
                     <th style="width:35%" class="sortable" onclick="sortTable(3)">상품명</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(4)">판매가</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(5)">재고</th>
                     <th style="width:10%" class="sortable" onclick="sortTable(6)">등록일</th>
-                    <th style="width:15%">관리<a href="/master/storeAddMaster"class="btn btn-outline-success btn-sm" >추가</a></th>
+                    <th style="width:12%">관리<a href="/master/storeAddMaster"class="btn btn-outline-success btn-sm" >추가</a></th>
                 </tr>
             </thead>
             <tbody id="storeTableBody">

@@ -19,8 +19,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
@@ -469,6 +472,110 @@ public class masterController {
         mav = new ModelAndView();
         mav.setViewName("master/storeAddMaster");
         return mav;
+    }
+
+    // 굿즈 상품 데이터베이스 등록
+    @PostMapping("/storeAddMasterOk")
+    public ResponseEntity<String> storeAddMasterOK(
+            @RequestParam("code") String code,
+            @RequestParam("title") String title,
+            @RequestParam("price") Integer price,
+            @RequestParam("thumimg") MultipartFile thumimg,
+            @RequestParam("ani_title") String ani_title,
+            @RequestParam("relDT") String relDT,
+            @RequestParam("brand") String brand,
+            @RequestParam("pro_detail") MultipartFile pro_detail,
+            @RequestParam("fee") int fee,
+            @RequestParam("stock") int stock,
+            @RequestParam("token") String token) {
+
+        String bodyTag = "";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+
+        try {
+            // JWT 토큰에서 adminid 추출
+            String adminid = jwtUtil.getUserIdFromToken(token);
+
+            // adminid로 adminidx 변환
+            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+            if (adminidx == null) {
+                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            }
+
+            // 파일 저장 경로 설정
+            String thumimgPath = saveFile(thumimg, "img/store/");
+            String proDetailPath = saveFile(pro_detail, "img/store/");
+
+            // 파일 저장 실패 시 처리
+            if (thumimgPath == null || proDetailPath == null) {
+                bodyTag += "<script>alert('파일 업로드에 실패했습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            // 상품 등록 로직
+            MasterVO storeAdd = new MasterVO();
+            storeAdd.setCategory(code);
+            storeAdd.setTitle(title);
+            storeAdd.setPrice(price);
+            storeAdd.setThumimg(thumimgPath);  // 저장된 썸네일 이미지 경로
+            storeAdd.setAni_title(ani_title);
+            storeAdd.setRelDT(relDT);
+            storeAdd.setBrand(brand);
+            storeAdd.setPro_detail(proDetailPath);  // 저장된 상세 정보 파일 경로
+            storeAdd.setFee(fee);
+            storeAdd.setStock(stock);
+            storeAdd.setAdminidx(adminidx);
+
+            // 서비스 호출하여 저장
+            MasterVO resultStore = masterService.createStore(storeAdd);
+            if (resultStore == null) {
+                bodyTag += "<script>alert('굿즈 상품 등록 실패. 다시 시도해 주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                bodyTag += "<script>alert('굿즈 상품이 성공적으로 등록되었습니다.');location.href='/master/storeMasterList';</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            }
+        } catch (IOException e) {
+            log.error("파일 처리 중 오류 발생", e);
+            bodyTag += "<script>alert('파일 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            log.error("굿즈 등록 중 오류 발생", e);
+            bodyTag += "<script>alert('굿즈 상품 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 파일을 저장하는 메서드
+    private String saveFile(MultipartFile file, String relativePath) throws IOException {
+        if (file.isEmpty()) {
+            return null;
+        }
+
+        // 절대 경로로 파일을 저장
+        String absolutePath = new File("src/main/webapp/" + relativePath).getAbsolutePath();
+
+        try {
+            String originalFilename = file.getOriginalFilename();
+            String filePath = absolutePath + "/" + originalFilename;
+            File dest = new File(filePath);
+
+            // 디렉터리가 없으면 생성
+            if (!dest.exists()) {
+                dest.mkdirs();
+            }
+
+            // 파일 저장
+            file.transferTo(dest);
+
+            // 서버에서 접근 가능한 경로 반환
+            return "img/store/" + originalFilename;
+        } catch (IOException e) {
+            log.error("파일 저장 중 오류 발생", e);
+            throw e;
+        }
     }
 
     // Dashboard - 굿즈관리 - 상품 수정

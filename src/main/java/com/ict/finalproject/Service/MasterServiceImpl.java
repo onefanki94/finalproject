@@ -2,6 +2,7 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MasterDAO;
 import com.ict.finalproject.vo.MasterVO;
+import com.ict.finalproject.vo.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,12 @@ public class MasterServiceImpl implements MasterService {
     public MasterVO createFAQ(MasterVO faq) {
         int result = dao.insertFAQ(faq);
         return result > 0 ? faq : null;
+    }
+
+    @Override
+    public MasterVO createStore(MasterVO store) {
+        int result = dao.insertStore(store);
+        return result > 0 ? store : null;
     }
 
     @Override

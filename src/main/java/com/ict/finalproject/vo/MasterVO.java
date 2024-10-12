@@ -24,7 +24,7 @@ public class MasterVO {
 
     // 상품 테이블에서 사용 하는 것들
     private int price;
-    private String detail_img;
+    private String thumimg;
     private String ani_title;
     private String relDT;
     private String brand;

@@ -33,7 +33,7 @@
              // DOM이 완전히 로드된 후 실행되도록 설정
 
              // 대분류 select 요소
-             const mainCategorySelect = document.getElementById('main-category');
+             const mainCategorySelect = document.getElementById('code');
 
              // 중분류 select 요소
              const subCategorySelect = document.getElementById('sub-category');

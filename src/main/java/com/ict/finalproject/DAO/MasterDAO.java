@@ -16,6 +16,7 @@ public interface MasterDAO {
     int  insertNotice(MasterVO notice);
     // 자주묻는 질문 추가
     int insertFAQ(MasterVO faq);
+    int insertStore(MasterVO store);
     // 자주 묻는 질문 리스트 전체 출력
     public List<MasterVO> getFAQList();
     // 굿즈 상품테이블 리스트 전체 출력
