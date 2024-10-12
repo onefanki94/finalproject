@@ -2,6 +2,7 @@
     max-width: 1600px;
     margin: 0 auto;
     padding: 0;
+    margin-bottom: 200px;
 }
 
 /* 부모 컨테이너에 flex 적용 */
@@ -14,12 +15,15 @@
     flex-direction: column;
 }
 
+
+
 /* left-con 스타일 */
 .left-con {
     flex: 0 0 20%; /* 20% 너비 */
     max-width: 20%; /* 왼쪽 컨텐츠의 최대 너비 설정 */
     min-width: 250px; /* 최소 너비 설정 */
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    position: relative;
 }
 
 /* right-con 스타일 */
@@ -27,6 +31,7 @@
     flex-grow: 1; /* 나머지 공간 차지 */
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
     line-height: 140%;
+    position: relative;
 }
 
 /* 필터 섹션 스타일 */
@@ -35,7 +40,6 @@
     border-radius: 10px;
     padding: 15px;
     width: 20%; /* left-con 안에서 전체 너비 차지 */
-    box-sizing: border-box;
     float: left;
 }
 
@@ -313,3 +317,10 @@ input:checked + .slider::before {
     color: #007BFF; /* 마우스 오버 시 파란색 */
 }
 
+
+.store_footer {
+    position: relative;  /* 다른 요소들과 자연스럽게 위치 */
+    z-index: 1;  /* 필요 시 우선순위 조정 */
+    margin-top: 20px;  /* 콘텐츠와 푸터 사이의 간격 추가 */
+    clear: both;  /* 이전 요소들과의 충돌 방지 */
+}
