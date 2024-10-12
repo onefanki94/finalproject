@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.CommentDAO">
+
+
+    <insert id="insertComment" parameterType="com.ict.finalproject.vo.CommentVO">
+        INSERT into t_comment (comm_idx, useridx, content, regDT) values(#{comm_idx}, #{user_idx}, #{content}, NOW())
+    </insert>
+
+
+
+
+</mapper>
