@@ -5,7 +5,7 @@
     <!-- 관리자 페이지 공지사항 등록 -->
     <insert id="insertNotice" parameterType="com.ict.finalproject.vo.MasterVO">
         INSERT INTO t_notice (title, content, adminidx)
-        VALUES (#{title}, #{content}, (SELECT idx FROM t_admin WHERE adminid = #{adminid}));
+        VALUES (#{title}, #{content}, 2)
     </insert>
 
     <!-- 관리자 페이지 굿즈 상품 테이블 전체 목록 조회 -->
