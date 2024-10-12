@@ -61,7 +61,7 @@
                  <div class="review-writer">
                      <div class="reply_input">
                      <input type="text" id="textSearch" placeholder="정책위반 댓글은 삭제될 수 있습니다." />
-                     <button type="button" id="btnSearch">등록</button>
+                     <button type="button" id="btnSearch" onclick="regiComm()">등록</button>
                     </div>
 
                    <!-- 원글 글번호 -->
@@ -123,6 +123,92 @@
                 location.href = '/cmDelete/' + idx;
             }
         }
+
+     function regiComm() {
+         // CKEditor 내용 유효성 검사
+
+         let comm_idx = $('[name=no]').val();
+         let content =  $('[id=textSearch]').val();
+         // 로컬 스토리지에서 JWT 토큰 가져오기
+         const token = localStorage.getItem("token");
+         if (!token) {
+             alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
+             location.href = "/user/login";  // 로그인 페이지로 이동
+             return false;
+         }
+
+         // 서버로 전송할 데이터를 FormData 객체에 추가
+         const postData = new URLSearchParams();
+         postData.append("content", content);
+         postData.append("token", token);  // token 추가
+         postData.append("comm_idx", comm_idx);
+
+         // AJAX 요청 보내기
+         $.ajax({
+             url: "/regiComm",
+             type: "POST",
+             data: postData.toString(),
+             contentType: "application/x-www-form-urlencoded",
+             headers: {
+                 "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+             },
+             success: function(data) {
+                 alert('댓글이 등록되었습니다.');  // 성공 메시지
+                 //location.href = "/cmList";  // 글 목록 페이지로 이동
+             },
+             error: function(xhr, status, error) {
+                 if (xhr.status === 401) {
+                     alert('인증에 실패했습니다. 다시 로그인하세요.');
+                     location.href = "/user/login";  // 로그인 페이지로 이동
+                 } else {
+                     alert("요청 처리 중 오류가 발생했습니다.");
+                 }
+                 console.error("Error:", error);  // 오류 출력
+             }
+         });
+
+         return false;  // 기본 폼 제출 방지
+     }
+
+     // 댓글 목록 로드 함수
+         function loadComments(comm_idx) {
+             $.ajax({
+                 url: "/getComment",  // 댓글을 가져오는 URL
+                 type: "GET",
+                 data: { comm_idx: comm_idx },
+                 success: function(comments) {
+
+                 console.log(comments);
+                     // 댓글 목록 갱신
+                     let replyList = $('#replyList');
+                     replyList.empty(); // 기존 댓글 목록 비우기
+
+                     comments.forEach(comment => {
+                         // 댓글 HTML 구조를 만들어서 추가
+                         replyList.append(`
+                             <div class="comment">
+                                 <p><strong>${comment.useridx}</strong>: ${comment.content}</p>
+                                 <p>${comment.regDT}</p>
+                             </div>
+                         `);
+                     });
+
+                     console.log("Reply List HTML: ", replyList.html()); // 최종 HTML 출력
+                 },
+                 error: function(xhr, status, error) {
+                     console.error("댓글 로드 오류:", error);
+                 }
+             });
+
+
+         }
+
+         // 페이지 로드 시 댓글 목록 가져오기
+         $(document).ready(function() {
+             let comm_idx = $('[name=no]').val();
+             loadComments(comm_idx); // 댓글 목록 로드
+         });
+
     </script>
 
 

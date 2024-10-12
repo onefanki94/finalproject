@@ -1,8 +1,10 @@
 package com.ict.finalproject.controller;
 
 import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.CommentService;
 import com.ict.finalproject.Service.CommuService;
 import com.ict.finalproject.Service.MemberService;
+import com.ict.finalproject.vo.CommentVO;
 import com.ict.finalproject.vo.CommuVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.stream.events.Comment;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -31,6 +34,8 @@ public class communityController {
     @Autowired
     private CommuService commuService;
 
+    @Autowired
+    private CommentService commentService;
 
 //    ModelAndView mav = null;
 
@@ -88,8 +93,14 @@ public class communityController {
         CommuVO previousPost = commuService.PreviousPost(idx);
         CommuVO nextPost = commuService.NextPost(idx);
 
+        // 댓글 목록 조회
+        //List<CommentVO> comments = commentService.getComment(idx);
+        // 댓글 목록 조회 (comm_idx 사용)
+        List<CommentVO> comments = commentService.getComment(Detail.getComm_idx()); // comm_idx를 사용하여 댓글 목록 가져오기
+
         // 모델에 게시글 세부 정보 및 이전/다음 게시글 정보 추가
         model.addAttribute("vo", Detail);         // 현재 게시글 세부 정보
+        model.addAttribute("comments", comments);   // 댓글 목록
         model.addAttribute("go", previousPost);   // 이전 게시글
         model.addAttribute("tun", nextPost);      // 다음 게시글
 
@@ -195,6 +206,7 @@ public class communityController {
 
         return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
     }
+
 
 
 
