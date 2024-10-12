@@ -13,6 +13,7 @@ import java.util.Map;
 public interface MasterService {
     MasterVO createNotice(MasterVO notice);
     MasterVO createFAQ(MasterVO faq);
+    public List<MasterVO> getFAQList();
     public List<MasterVO> getStoreList();
      int getTotalStore();
     Map<String, Object> getCategoryCountByCode(@Param("categoryCode") int categoryCode);

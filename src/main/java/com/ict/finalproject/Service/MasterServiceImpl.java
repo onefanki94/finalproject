@@ -33,6 +33,11 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public List<MasterVO> getFAQList() {
+        return dao.getFAQList();
+    }
+
+    @Override
     public List<MasterVO> getStoreList() {
         return dao.getStoreList();
     }

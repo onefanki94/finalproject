@@ -179,7 +179,6 @@ public class masterController {
             Map<String, Object> categoryCode3Count = masterService.getCategoryCountByCode(3); // 문구/오피스
             Map<String, Object> categoryCode4Count = masterService.getCategoryCountByCode(4); // 생활용품
 
-            System.out.println(storeList);
             mav = new ModelAndView();
             mav.addObject("storeList", storeList);
             mav.addObject("totalStore", totalStore);
@@ -353,7 +352,11 @@ public class masterController {
     // Dashboard - 기타관리 - 자주묻는질문
     @GetMapping("/FAQMasterList")
     public ModelAndView FAQMasterList(){
+            // 자주묻는 질문 목록 불러오기
+        System.out.println("자주묻는질문 목록 불러오기");
+        List<MasterVO> faqList = masterService.getFAQList();
         mav = new ModelAndView();
+        mav.addObject("faqList", faqList);
         mav.setViewName("master/FAQMasterList");
         return mav;
     }
