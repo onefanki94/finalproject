@@ -55,8 +55,6 @@
 
         <!-- 댓 글 -->
            <div id="replyArea" style="margin-top:30px;" >
-              <!-- 로그인이 된 경우 댓글 폼 표시하기 -->
-
                 <form method="post" id="replyForm">
                  <div class="review-writer">
                      <div class="reply_input">
@@ -184,13 +182,13 @@
                      replyList.empty(); // 기존 댓글 목록 비우기
 
                      comments.forEach(comment => {
+                         console.log(comment.content);
                          // 댓글 HTML 구조를 만들어서 추가
-                         replyList.append(`
-                             <div class="comment">
-                                 <p><strong>${comment.useridx}</strong>: ${comment.content}</p>
-                                 <p>${comment.regDT}</p>
-                             </div>
-                         `);
+                         const comm = ' <div class="comment"> ' +
+                                      '<p><strong> ' + comment.userid + '</strong> : '+ comment.content + '</p>' +
+                                      '  <p>' + comment.regDT + '</p>'+
+                                    '</div>';
+                         replyList.append(comm);
                      });
 
                      console.log("Reply List HTML: ", replyList.html()); // 최종 HTML 출력

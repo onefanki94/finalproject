@@ -12,6 +12,7 @@ import java.util.Date;
 public class CommentVO {
     private int idx;
     private int comm_idx;
+    private String userid; // 사용자 ID 추가
     private int useridx;
     private String content;
     private String regDT;

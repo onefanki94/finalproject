@@ -9,7 +9,11 @@
     </insert>
 
     <select id="getComment" parameterType="int" resultType="com.ict.finalproject.vo.CommentVO">
-        SELECT * FROM t_comment WHERE comm_idx = #{comm_idx} AND delState = 0 ORDER BY regDT DESC
+        SELECT c.*, u.userid
+        FROM t_comment c
+        JOIN t_user u ON c.useridx = u.idx  -- t_user 테이블과 조인하여 userid 가져오기
+        WHERE c.comm_idx = #{comm_idx} AND c.delState = 0
+        ORDER BY c.regDT DESC
     </select>
 
 

@@ -50,6 +50,7 @@ public class CommentController {
         // comment VO 객체 생성 및 설정
         CommentVO comment = new CommentVO();
         comment.setUseridx(useridx);
+        comment.setUserid(userid);
         comment.setContent(content);
         comment.setComm_idx(comm_idx);
 
