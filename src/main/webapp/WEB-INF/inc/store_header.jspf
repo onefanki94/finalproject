@@ -15,21 +15,70 @@
    <link rel="stylesheet" href="/css/store_header.css" type="text/css" />
     <script src="/js/store_header.js"></script>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <script>
+        function checkLoginStatus() {
+            // 로컬 스토리지에서 토큰을 가져옴
+            const token = localStorage.getItem("token");
+
+            // .nav_util 클래스 요소
+            const loginUL = document.querySelector(".nav_util");
+            // .mymenu 클래스 요소
+            const mymenuUL = document.querySelector(".mymenu");
+
+            if(!loginUL || !mymenuUL){
+                console.error("로그인된 요소를 표시할 ul를 찾을 수 없습니다.");
+                return;
+            }
+
+            if (!token) {
+                // 토큰이 없는 경우 (로그아웃 상태)
+                loginUL.innerHTML = `
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="/user/login">로그인/가입</a></li>
+                `;
+
+                mymenuUL.innerHTML = `
+                    <li class="order"><i class="fa-solid fa-basket-shopping"></i><a href="/user/login">장바구니</a></li>
+                    <li class="my"><i class="fa-solid fa-user-check"></i><a href="/user/login">마이페이지</a></li>
+                `;
+            } else {
+                // 토큰이 있는 경우 (로그인 상태)
+                loginUL.innerHTML = `
+                    <li><a href="#">고객센터</a></li>
+                    <li><a class="logout" style="cursor:pointer">로그아웃</a></li>
+                `;
+
+                mymenuUL.innerHTML = `
+                    <li class="order"><i class="fa-solid fa-basket-shopping"></i><a href="/shoppingBag">장바구니</a></li>
+                    <li class="my"><i class="fa-solid fa-user-check"></i><a href="/user/mypage">마이페이지</a></li>
+                `;
+                const logoutButton = document.querySelector('.logout');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        localStorage.removeItem("token");
+                        alert("로그아웃 성공");
+                        location.href = '/storeMain';
+                    });
+                }
+            }
+        }
+        // 페이지가 로드된 후 checkLoginStatus 함수 호출
+        window.onload = checkLoginStatus;
+    </script>
   </head>
   <body>
     <header id="header" style="padding-bottom: 3px">
       <div class="col01">
         <div class="sh_logo">
-          <a href="/"><img id="logo_img" src="/img/main_img/store_ex_logo.png" /></a>
+          <a href="/storeMain"><img id="logo_img" src="/img/main_img/store_ex_logo.png" /></a>
         </div>
         <ul class="nav" style="display: block">
-          <li><a href="#" target="_blank">애니</a></li>
-          <li><a class="active" href="#">쇼핑</a></li>
-          <li><a href="#" target="_blank">이벤트</a></li>
+          <li><a href="/aniList">애니</a></li>
+          <li><a class="active">쇼핑</a></li>
+          <li><a href="#">이벤트</a></li>
         </ul>
         <ul class="nav_util">
-          <li><a href="#" target="_blank">고객센터</a></li>
-          <li><a href="#">로그인/가입</a></li>
         </ul>
       </div>
       <div class="col02">
@@ -51,8 +100,7 @@
         </div>
 
         <ul class="mymenu">
-          <li class="order"><i class="fa-solid fa-basket-shopping"></i><a>장바구니</a></li>
-          <li class="my"><i class="fa-solid fa-user-check"></i><a>마이페이지</a></li>
+
         </ul>
       </div>
     </header>

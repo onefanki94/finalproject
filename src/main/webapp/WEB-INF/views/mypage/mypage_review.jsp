@@ -74,7 +74,7 @@
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_review"
-              ><strong class="">작성한 리뷰</strong><span class="">1</span></a
+              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan">1</span></a
             >
           </li>
         </ul>
@@ -83,43 +83,25 @@
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
         <div class="on" id="tab1">
           <ul class="review_tabmenu">
-            <li class="tab_activate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (0)</li>
-            <li class="tab_deactivate" onclick="reviewTab('tab2')">내 리뷰 (0)</li>
+            <li class="tab_activate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (<span class="beforeCountSpan">0</span>)</li>
+            <li class="tab_deactivate" onclick="reviewTab('tab2')">내 리뷰 (<span class="afterCountSpan"></span>)</li>
           </ul>
           <div class="review_list_all">
             <div>
-              <ul class="review_list_ul">
-                <li class="review_list_li">
-                  <div class="review_list_li_one">
-                    <div class="review_list_li_one_detail">
-                      <div class="review_product">
-                        <a href="">
-                          <img src="https://img.29cm.co.kr/next-product/2023/05/21/316fdd4c0e7d435eb7da6203446089f9_20230521232826.jpg?width=300" class="review_product_img" />
-                        </a>
-                        <div class="review_product_inform">
-                          <a href="">
-                            <strong>안티버그 쿨링 끈나시(스트라이프 레드)</strong>
-                            <p>40,000원 / 수량 1개</p>
-                          </a>
-                        </div>
-                      </div>
-                      <span class="order_state_date"><span>구매확정</span><br />2024.07.04</span>
-                      <div><button class="review_write_btn" type="button" onclick="review_write()">리뷰쓰기</button></div>
-                    </div>
-                  </div>
-                </li>
+              <ul class="review_list_ul" id="review_list_ul">
+
               </ul>
             </div>
           </div>
         </div>
         <div class="off" id="tab2">
           <ul class="review_tabmenu">
-            <li class="tab_deactivate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (0)</li>
-            <li class="tab_activate" onclick="reviewTab('tab2')">내 리뷰 (0)</li>
+            <li class="tab_deactivate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (<span class="beforeCountSpan">0</span>)</li>
+            <li class="tab_activate" onclick="reviewTab('tab2')">내 리뷰 (<span class="afterCountSpan"></span>)</li>
           </ul>
           <div class="review_list_all">
             <div>
-              <ul class="review_list_ul">
+              <ul class="review_list_ul" id="review_list_ul2">
                 <li class="user_review_list_li">
                   <div class="review_write_list">
                     <a href="">
