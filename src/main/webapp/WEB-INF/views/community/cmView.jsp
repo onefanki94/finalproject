@@ -145,7 +145,7 @@
              },
              success: function(data) {
                  alert('댓글이 등록되었습니다.');  // 성공 메시지
-                 //location.href = "/cmList";  // 글 목록 페이지로 이동
+                 loadComments(comm_idx);// 댓글 추가 후 댓글 목록 다시 불러오기
              },
              error: function(xhr, status, error) {
                  if (xhr.status === 401) {
