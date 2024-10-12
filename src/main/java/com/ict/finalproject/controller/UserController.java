@@ -66,17 +66,23 @@ public class UserController {
     public String getUserInfo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null || !authentication.isAuthenticated()) {
+        if (authentication == null) {
             System.out.println("인증되지 않은 사용자.");
-            return null;
+            return "인증되지 않은 사용자입니다.";
+        }
+
+        if (!authentication.isAuthenticated()) {
+            System.out.println("사용자가 인증되지 않았습니다.");
+            return "사용자가 인증되지 않았습니다.";
         }
 
         String userid = authentication.getName();
         System.out.println("인증된 사용자 ID: " + userid);
 
+        // 인증된 사용자 ID가 "anonymousUser"인지 확인
         if ("anonymousUser".equals(userid)) {
             System.out.println("등록된 사용자 없음");
-            return null;
+            return "등록된 사용자 없음";
         } else {
             System.out.println("사용자 ID: " + userid);
             return userid;

@@ -12,7 +12,7 @@
     <select id="memberLogin" parameterType="map" resultType="MemberVO">
         select userid, userpwd, username
         from t_user
-        where userid = #{userid}
+        where userid = #{param1}
     </select>
 
     <select id="getUseridx" parameterType="String" resultType="Integer">

@@ -122,10 +122,16 @@ public class masterController {
         // Dashboard - 애니관리 -  애니목록 리스트
         @GetMapping("/aniMasterList")
         public ModelAndView masterAniList(){
+            System.out.println("관리자페이지 애니 리스트 불러오기");
+
+            List<MasterVO> aniList = masterService.getAniAllList();
+
             mav = new ModelAndView();
+            mav.addObject("aniList", aniList);
             mav.setViewName("master/aniMasterList");
             return mav;
         }
+
 
         // Dashboard - 회원관리 - 신고계정목록 리스트
         @GetMapping("/reporinguserMasterList")
@@ -232,7 +238,12 @@ public class masterController {
     //  Dashboard - 기타관리 - 공지사항 목록
     @GetMapping("/noticeMasterList")
     public ModelAndView noticeMasterList(){
+            // 관리자페이지 공지사항 글 목록 불러오기
+        System.out.println("관리자페이지 공지사항 목록 불러오기");
+
+        List<MasterVO> noticeList = masterService.getNoticeList();
         mav = new ModelAndView();
+        mav.addObject("noticeList", noticeList);
         mav.setViewName("master/noticeMasterList");
         return mav;
     }
@@ -244,65 +255,50 @@ public class masterController {
         return mav;
     }
 
-    @PostMapping(value = "/noticeAddMasterOk", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping("/noticeAddMasterOk")
     public ResponseEntity<String> noticeAddMasterOk(
             @RequestParam("title") String title,
             @RequestParam("content") String content,
-            @RequestHeader(value = "Authorization", required = false) String authorization) {
+            @RequestParam("token") String token) {
 
         String bodyTag = "";
-        String token = null;
-
-        // Authorization 헤더에서 JWT 토큰 추출
-        if (authorization != null && authorization.startsWith("Bearer ")) {
-            token = authorization.substring(7);
-            log.info("Authorization 헤더에서 추출한 토큰 값: " + token);
-        } else {
-            log.info("Authorization 헤더가 없거나 잘못된 형식입니다.");
-            bodyTag += "<script>alert('인증 정보가 없습니다. 다시 로그인해 주세요.');history.back();</script>";
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-        }
-
-        // JWT 토큰에서 adminid 추출 (JWT 파싱 로직 필요)
-        Integer adminid = jwtUtil.getAdminidFromToken(token);  // 토큰에서 adminid 추출
-        if (adminid == null) {
-            bodyTag += "<script>alert('잘못된 인증 정보입니다. 다시 로그인해 주세요.');history.back();</script>";
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-        }
-
-        log.info("JWT 토큰에서 추출한 adminid 값: " + adminid);
-
-        // adminid를 통해 adminidx 가져오기
-        Integer adminidx = masterService.getAdminIdxByAdminid(String.valueOf(adminid));
-        if (adminidx == null) {
-            bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-        }
-
-        log.info("관리자 idx(adminidx): " + adminidx);
-
-        // 공지사항 등록 로직 (예: 데이터베이스에 공지사항 저장)
-        MasterVO notice = new MasterVO();
-        notice.setTitle(title);
-        notice.setContent(content);
-        notice.setAdminidx(adminidx);  // adminidx 설정
-
-        // 공지사항을 데이터베이스에 삽입
-        masterService.addNotice(notice);
-        log.info("공지사항 등록 제목: " + title);
-        log.info("공지사항 내용: " + content);
-
-        bodyTag += "<script>alert('공지사항이 성공적으로 등록되었습니다.');location.href='/master/noticeMasterList';</script>";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
 
-        return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+        try {
+            // JWT 토큰에서 adminid 추출
+            String adminid = jwtUtil.getUserIdFromToken(token);
+
+            // adminid를 통해 adminidx 조회
+            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+
+            if (adminidx == null) {
+                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            }
+
+            // 공지사항 등록 로직 (예: 데이터베이스에 공지사항 저장)
+            MasterVO notice = new MasterVO();
+            notice.setTitle(title);
+            notice.setContent(content);
+            notice.setAdminidx(adminidx);  // adminidx 설정
+
+            // 공지사항 데이터베이스에 삽입
+            MasterVO resultNotice = masterService.createNotice(notice);
+
+            if (resultNotice == null) {
+                bodyTag += "<script>alert('공지사항 등록에 실패했습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                bodyTag += "<script>alert('공지사항이 성공적으로 등록되었습니다.');location.href='/master/noticeMasterList';</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            }
+
+        } catch (Exception e) {
+            log.error("공지사항 등록 중 오류 발생", e);
+            bodyTag += "<script>alert('공지사항 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
@@ -368,6 +364,52 @@ public class masterController {
         mav = new ModelAndView();
         mav.setViewName("master/FAQAddMaster");
         return mav;
+    }
+
+    @PostMapping("/FAQAddMasterOk")
+    public ResponseEntity<String> FAQAddMasterOK(
+            @RequestParam("code") String code,
+            @RequestParam("question") String question,
+            @RequestParam("answer") String answer,
+            @RequestParam("token") String token){
+
+            String bodyTag ="";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+
+            try{
+                // 토큰으로 adminid 추출
+                String adminid = jwtUtil.getUserIdFromToken(token);
+
+                // adminid를 adminidx로 변환
+                Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+
+                if(adminidx == null){
+                    bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+                }
+
+                // 자주묻는 질문 등록 로직 (데이터베이스 저장)
+                MasterVO faq = new MasterVO();
+                faq.setFaqtype(code);
+                faq.setQuestion(question);
+                faq.setAnswer(answer);
+                faq.setAdminidx(adminidx);
+
+                MasterVO resultFaq = masterService.createFAQ(faq);
+
+                if(resultFaq == null){
+                    bodyTag += "<script>alert('FAQ 등록 실패. 다시 시도해 주세요.');history.back();</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+                }else{
+                    bodyTag += "<script>alert('FAQ가 성공적으로 등록되었습니다.');location.href='/master/FAQMasterList';</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+                }
+            }catch (Exception e){
+                log.error("FAQ 등록 중 오류 발생", e);
+                bodyTag += "<script>alert('FAQ 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
     // Dashboard - 기타관리 - 자주묻는질문 - 수정

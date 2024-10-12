@@ -3,6 +3,7 @@ package com.ict.finalproject.JWT;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
+@Slf4j
 public class JWTUtil {
 
     private final SecretKey secretKey;
@@ -58,12 +60,6 @@ public class JWTUtil {
     public String getUserIdFromToken(String token) {
         Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
         return claims != null ? claims.get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
-    }
-
-    // JWT 토큰에서 t_Admin에 있는 사용자 ID를 추출하는 메서드
-    public String getAdminIdFromToken(String token) {
-        Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
-        return claims != null ? claims.get("adminid", String.class) : null;  // Claims에서 "userid" 키 값 추출
     }
 
     // JWT 토큰이 만료되었는지 확인하는 메서드
@@ -147,17 +143,26 @@ public class JWTUtil {
     }
 
 
-    public Integer getAdminidFromToken(String token) {
+    public String getAdminIdFromToken(String token) {
         String secretKey = "I6o9BlAPX1T2jTm4n62vwOqzH28kpHZLG4f+yVkTG+4=";
+
+        // JWT 토큰에서 클레임 추출
         Claims claims = Jwts.parser()
                 .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))  // 비밀 키 설정
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
 
-        // claims에서 useridx 값 추출
-        return (Integer) claims.get("adminid");
-    }
+        // claims에서 adminid 값을 String 타입으로 변환하여 반환
+        log.info("JWT Claims: " + claims);  // claims에 어떤 데이터가 있는지 확인
+        Object adminIdObject = claims.get("adminid");
+        if (adminIdObject == null) {
+            log.error("JWT 토큰에서 adminid를 찾을 수 없습니다.");
+            return null;
+        }
 
+        log.info("JWT 토큰에서 추출한 adminid: " + adminIdObject.toString());
+        return adminIdObject.toString();
+    }
 
 }

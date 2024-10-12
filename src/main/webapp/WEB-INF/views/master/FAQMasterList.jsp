@@ -11,6 +11,7 @@
                  <thead class="table-light">
                      <tr>
                          <th style="width:5%">No.</th>
+                         <th style="width:6%">카테고리</th>
                          <th style="width:60%">제목</th>
                          <th style="width:15%">작성일</th>
                          <th style="width:20%">관리<a href="/master/FAQAddMaster" class="btn btn-outline-success btn-sm">추가</a></th>
@@ -19,6 +20,7 @@
                  <tbody>
                      <tr>
                          <td>1</td>
+                         <td>계정</td>
                          <td>FAQ 1번 질문 내용</td>
                          <td>2023-09-25</td>
                          <td>
@@ -28,6 +30,7 @@
                      </tr>
                      <tr>
                          <td>2</td>
+                         <td>쇼핑</td>
                          <td>FAQ 2번 질문 내용</td>
                          <td>2023-09-24</td>
                          <td>
@@ -37,6 +40,7 @@
                      </tr>
                      <tr>
                          <td>3</td>
+                         <td>로그인</td>
                          <td>FAQ 3번 질문 내용</td>
                          <td>2023-09-23</td>
                          <td>
@@ -46,6 +50,7 @@
                      </tr>
                      <tr>
                          <td>4</td>
+                         <td>포인트</td>
                          <td>FAQ 4번 질문 내용</td>
                          <td>2023-09-22</td>
                          <td>

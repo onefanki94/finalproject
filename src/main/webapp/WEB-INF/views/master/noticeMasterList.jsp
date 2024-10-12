@@ -19,50 +19,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="notice" items="${noticeList}">
                     <tr>
-                        <td>1</td>
-                        <td>공지사항 1번 제목</td>
-                        <td>관리자</td>
-                        <td>2023-09-25</td>
-                        <td>2023-09-26</td>
+                        <td>${notice.idx}</td>
+                        <td>${notice.title}</td>
+                        <td>${notice.admin_name}</td>
+                        <td>${notice.regDT}</td>
+                        <td>${notice.modifyDT}</td>
                         <td>
                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/noticeEditMaster">수정</a></button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>공지사항 2번 제목</td>
-                        <td>관리자</td>
-                        <td>2023-09-24</td>
-                        <td>2023-09-25</td>
-                        <td>
-                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/noticeEditMaster">수정</a></button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>공지사항 3번 제목</td>
-                        <td>관리자</td>
-                        <td>2023-09-23</td>
-                        <td>2023-09-24</td>
-                        <td>
-                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/noticeEditMaster">수정</a></button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>공지사항 4번 제목</td>
-                        <td>관리자</td>
-                        <td>2023-09-22</td>
-                        <td>2023-09-23</td>
-                        <td>
-                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/noticeEditMaster">수정</a></button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

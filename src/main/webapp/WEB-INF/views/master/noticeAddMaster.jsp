@@ -26,6 +26,12 @@ window.onload = () => {
 
 // 공지사항 등록 함수
 function submitNoticeForm() {
+
+    if(!window.editorInstance || window.editorInstance.getData().trim() === '') {
+        alert("content에 내용을 입력해주세요.");
+        return false;
+    }
+
     const title = document.getElementById('title').value;
     const content = window.editorInstance.getData().trim();  // CKEditor에서 content 가져오기
     const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 값 가져오기
@@ -40,32 +46,35 @@ function submitNoticeForm() {
     const postData = new URLSearchParams();
     postData.append('title', title);
     postData.append('content', content);
+    postData.append('token', token);  // token 추가
 
-    // 아작스 요청
-    $.ajax({
-        url: '/master/noticeAddMasterOk',
-        type: 'POST',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',  // Content-Type을 URL 인코딩 형식으로 설정
-        data: postData.toString(),  // URLSearchParams를 문자열로 변환하여 전송
-        beforeSend: function(xhr) {
-            // Authorization 헤더에 JWT 토큰 설정
-            const authHeader = 'Bearer ' + token;
-            xhr.setRequestHeader('Authorization', authHeader);
-            console.log('Authorization 헤더 설정:', authHeader);
-        },
-        success: function(response) {
-            console.log('Response:', response);
-            alert('공지사항이 성공적으로 등록되었습니다!');
-            window.location.href = '/master/noticeMasterList';  // 공지사항 목록 페이지로 이동
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            alert('공지사항 등록 중 오류가 발생했습니다.');
-        }
-    });
+    // AJAX 요청 보내기
+             $.ajax({
+                 url: "/master/noticeAddMasterOk",
+                 type: "POST",
+                 data: postData.toString(),
+                 contentType: "application/x-www-form-urlencoded",
+                 headers: {
+                     "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+                 },
+                 success: function(data) {
+                     alert('글 작성이 완료되었습니다.');  // 성공 메시지
+                     location.href = "/master/noticeMasterList";  // 글 목록 페이지로 이동
+                 },
+                 error: function(xhr, status, error) {
+                     if (xhr.status === 401) {
+                         alert('인증에 실패했습니다. 다시 로그인하세요.');
+                         location.href = "/user/login";  // 로그인 페이지로 이동
+                     } else {
+                         alert("요청 처리 중 오류가 발생했습니다.");
+                     }
+                     console.error("Error:", error);  // 오류 출력
+                 }
+             });
 
-    return false;  // 폼 제출 중지
-}
+             return false;  // 기본 폼 제출 방지
+         }
+
 </script>
 <div class="noticeAdd">
 <h2>공지사항 등록</h2>
