@@ -8,6 +8,38 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 	<link href="/css/cmView.css" rel="stylesheet" type="text/css">
+<script>
+var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
+var userid;
+
+window.onload = function(){
+    console.log("호출");
+
+    var token = localStorage.getItem("token"); //토근 값 가져오기
+    if(token != "" && token != null){
+        $.ajax({
+            url:"/getuser",
+            type:"get",
+            data:{Authorization:token},
+            success: function(vo){
+                console.log("로그인된 사용자 ID:" + userid);
+
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+
+                },
+                error: function(){
+                    console.error("로그인 여부 확인 실패");
+                    document.querySelector(".new_write").style.display = "none"
+                }
+        });
+        }
+        };
+
+</script>
 
 
     <section class="top_info">
@@ -115,9 +147,10 @@
             }
         }
 
+    <!-- 댓글 등록 -->
      function regiComm() {
-         // CKEditor 내용 유효성 검사
 
+        alert(useridx);
          let comm_idx = $('[name=no]').val();
          let content =  $('[id=textSearch]').val();
          // 로컬 스토리지에서 JWT 토큰 가져오기
@@ -146,6 +179,7 @@
              success: function(data) {
                  alert('댓글이 등록되었습니다.');  // 성공 메시지
                  loadComments(comm_idx);// 댓글 추가 후 댓글 목록 다시 불러오기
+                 $('#textSearch').val('');// 댓글 입력창 비우기
              },
              error: function(xhr, status, error) {
                  if (xhr.status === 401) {
@@ -176,11 +210,24 @@
 
                      comments.forEach(comment => {
                          console.log(comment.content);
+                         console.log("Comment User ID: " + comment.useridx);
+                             console.log("Logged In User ID: " + useridx);
+
+
                          // 댓글 HTML 구조를 만들어서 추가
-                         const comm = ' <div class="comment"> ' +
+                         let comm = ' <div class="comment"> ' +
                                       '<p><strong> ' + comment.userid + '</strong> : '+ comment.content + '</p>' +
-                                      '  <p>' + comment.regDT + '</p>'+
-                                    '</div>';
+                                      '  <p>' + comment.regDT + '</p>';
+
+
+                         // 댓글 작성자와 로그인한 사용자 ID가 같은지 확인
+                         if (comment.useridx === useridx) { // 여기서 userid 사용
+                             // 수정 및 삭제 버튼 추가
+                             comm += `<input type='button' value='수정' onclick='editComment(${comment.idx})'/>
+                                      <input type='button' value='삭제' alt='${comment.idx}' onclick='deleteComment(${comment.idx})'/>`;
+                         }
+
+                                         comm += '</div>'; // 여기를 추가해서 HTML 구조를 완성
                          replyList.append(comm);
                      });
 

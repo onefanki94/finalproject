@@ -6,6 +6,7 @@ import com.ict.finalproject.Service.CommuService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.CommentVO;
 import com.ict.finalproject.vo.CommuVO;
+import com.ict.finalproject.vo.MemberVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -150,11 +151,18 @@ public class communityController {
     //로그인 여부
     @ResponseBody
     @GetMapping("/getuser")
-    public String getuser(@RequestParam("Authorization")String token){
-        System.out.println("hi2");
+    public MemberVO getuser(@RequestParam("Authorization")String token){
+        MemberVO vo = new MemberVO();
+
         String userid = jwtUtil.getUserIdFromToken(token); //토큰에서 사용자 아이디 추출
+        int useridx = mservice.getUseridx(userid);//유저에서 사용자 아이디 추출
+        vo.setUserid(userid);
+        vo.setIdx(useridx);
+
+
+        System.out.println("useridx" + useridx);
         System.out.println("userid : " + userid);
-        return userid;
+        return vo;
     }
 
     //글등록폼
