@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -40,5 +42,23 @@ public class aniListController {
         aniListService.incrementAniHit(title); // 조회수 증가
         model.addAttribute("aniDetail", aniDetail);
         return "aniDetail"; // JSP 파일 이름
+    }
+
+    @GetMapping("/aniList1")
+    public String getAniListWithPagination(@RequestParam(defaultValue = "1") int page, Model model) {
+        int pageSize = 10; // 한 페이지에 보여줄 데이터 수
+        int offset = (page - 1) * pageSize; // 오프셋 계산
+
+        List<AniListVO> aniList = aniListService.getAniListWithPagination(offset, pageSize);
+        model.addAttribute("aniList", aniList);
+        model.addAttribute("currentPage", page);
+        return "aniList"; // JSP 파일 이름
+    }
+    @GetMapping("/your-api-endpoint")
+    @ResponseBody // JSON 형식으로 반환
+    public List<AniListVO> getAnimeList(@RequestParam int page) {
+        int pageSize = 2; // 페이지당 데이터 수
+        int offset = (page - 1) * pageSize; // 오프셋 계산
+        return aniListService.getAniListWithPagination(offset, pageSize); // 페이지네이션으로 애니메이션 목록 반환
     }
 }

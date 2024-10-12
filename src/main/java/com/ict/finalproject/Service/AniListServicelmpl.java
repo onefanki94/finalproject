@@ -18,21 +18,26 @@ public class AniListServicelmpl implements AniListService{
 
     @Override
     public List<AniListVO> getAniList() {
-        return aniListDAO.aniList();
+        return aniListDAO.getAniList();
     }
 
     @Override
     public List<AniListVO> getAniListSelect() {
-        return aniListDAO.aniListSelect();
+        return aniListDAO.getAniListSelect();
     }
 
     @Override
     public AniListVO getAniDetailView(String title) {
-        return aniListDAO.aniDetailView(title);
+        return aniListDAO.getAniDetailView(title);
     }
 
     @Override
     public void incrementAniHit(String title) {
-        aniListDAO.updateAniHit(title);
+        aniListDAO.incrementAniHit(title);
+    }
+
+    @Override
+    public List<AniListVO> getAniListWithPagination(int offset, int limit) {
+        return aniListDAO.findAniListWithPagination(offset, limit);
     }
 }
