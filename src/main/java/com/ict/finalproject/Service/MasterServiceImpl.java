@@ -27,6 +27,12 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public MasterVO createFAQ(MasterVO faq) {
+        int result = dao.insertFAQ(faq);
+        return result > 0 ? faq : null;
+    }
+
+    @Override
     public List<MasterVO> getStoreList() {
         return dao.getStoreList();
     }
@@ -54,5 +60,10 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public List<MasterVO> getAniAllList() {
         return dao.getAniAllList();
+    }
+
+    @Override
+    public List<MasterVO> getNoticeList() {
+        return dao.getNoticeList();
     }
 }

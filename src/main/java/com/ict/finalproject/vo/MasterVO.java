@@ -48,4 +48,11 @@ public class MasterVO {
     private String age_type;
 
     // 관리자페이지에서 공지사항 사용하는것들
+    private String modifyDT;
+    private String admin_name;
+
+    // 관리자페이지에서 자주묻는 질문 사용하는 것들
+    private String question;
+    private String answer;
+    private String faqtype;
 }

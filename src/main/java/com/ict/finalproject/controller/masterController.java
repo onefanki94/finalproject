@@ -238,7 +238,12 @@ public class masterController {
     //  Dashboard - 기타관리 - 공지사항 목록
     @GetMapping("/noticeMasterList")
     public ModelAndView noticeMasterList(){
+            // 관리자페이지 공지사항 글 목록 불러오기
+        System.out.println("관리자페이지 공지사항 목록 불러오기");
+
+        List<MasterVO> noticeList = masterService.getNoticeList();
         mav = new ModelAndView();
+        mav.addObject("noticeList", noticeList);
         mav.setViewName("master/noticeMasterList");
         return mav;
     }
@@ -359,6 +364,52 @@ public class masterController {
         mav = new ModelAndView();
         mav.setViewName("master/FAQAddMaster");
         return mav;
+    }
+
+    @PostMapping("/FAQAddMasterOk")
+    public ResponseEntity<String> FAQAddMasterOK(
+            @RequestParam("code") String code,
+            @RequestParam("question") String question,
+            @RequestParam("answer") String answer,
+            @RequestParam("token") String token){
+
+            String bodyTag ="";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+
+            try{
+                // 토큰으로 adminid 추출
+                String adminid = jwtUtil.getUserIdFromToken(token);
+
+                // adminid를 adminidx로 변환
+                Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+
+                if(adminidx == null){
+                    bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+                }
+
+                // 자주묻는 질문 등록 로직 (데이터베이스 저장)
+                MasterVO faq = new MasterVO();
+                faq.setFaqtype(code);
+                faq.setQuestion(question);
+                faq.setAnswer(answer);
+                faq.setAdminidx(adminidx);
+
+                MasterVO resultFaq = masterService.createFAQ(faq);
+
+                if(resultFaq == null){
+                    bodyTag += "<script>alert('FAQ 등록 실패. 다시 시도해 주세요.');history.back();</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+                }else{
+                    bodyTag += "<script>alert('FAQ가 성공적으로 등록되었습니다.');location.href='/master/FAQMasterList';</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+                }
+            }catch (Exception e){
+                log.error("FAQ 등록 중 오류 발생", e);
+                bodyTag += "<script>alert('FAQ 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
     // Dashboard - 기타관리 - 자주묻는질문 - 수정
