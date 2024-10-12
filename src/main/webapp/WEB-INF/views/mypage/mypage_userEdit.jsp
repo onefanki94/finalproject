@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="/css/mypage_userEdit.css" type="text/css" />
+<script src="/js/mypage_userEdit.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -71,7 +72,7 @@
         </li>
         <li class="user_retention_details">
           <a class="atag_css" href="/user/mypage_review"
-            ><strong class="">작성한 리뷰</strong><span class="">1</span></a
+            ><strong class="">작성한 리뷰</strong><span class="afterCountSpan"></span></a
           >
         </li>
       </ul>
@@ -79,7 +80,7 @@
       <div class="mypage_right_element">
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
         <h4 class="my_tit">회원정보 수정</h4>
-        <form class="userEdit_form">
+        <div class="userEdit_form">
           <div class="useredit_input_group">
             <label for="login_type">로그인 정보</label>
             <input
@@ -102,14 +103,7 @@
               class="input_readonly"
             />
           </div>
-          <div class="useredit_input_group">
-            <label for="userpwd">비밀번호 *</label>
-            <input type="password" id="userpwd" name="userpwd" />
-          </div>
-          <div class="useredit_input_group">
-            <label for="userpwd2">비밀번호 확인</label>
-            <input type="password" id="userpwd2" name="userpwd2" />
-          </div>
+
           <div class="useredit_input_group">
             <label for="username">이름</label>
             <input
@@ -172,10 +166,10 @@
             />
           </div>
           <div class="inputBtn_div">
-            <input type="submit" class="userEdit_button" value="수정하기" />
-            <input type="button" class="userDel_button" value="회원 탈퇴" />
+            <button class="userEdit_button">수정하기</button>
+            <button class="userDel_button" onclick="location.href='/user/mypage_userDel'">회원탈퇴</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

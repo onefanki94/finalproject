@@ -74,7 +74,7 @@
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_review"
-              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan">1</span></a
+              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan"></span></a
             >
           </li>
         </ul>

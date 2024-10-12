@@ -295,16 +295,14 @@ public class UserController {
         // 갯수
         int reviewBeforeAmount = service.getReviewBeforeAmount(useridx);
         response.put("reviewBeforeAmount",reviewBeforeAmount);
-        log.info("*********************reviewBeforeAmount : {}",reviewBeforeAmount);
 
         // 작성된 리뷰 데이터 SELECT
         List<ReviewCompletedDTO> reviewCompleted = service.getReviewCompleted(useridx);
         response.put("reviewCompleted",reviewCompleted);
-        log.info(reviewCompleted.toString());
+
         // 갯수
         int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
         response.put("reviewCompletedAmount",reviewCompletedAmount);
-        log.info("*********************reviewCompletedAmount : {}",reviewCompletedAmount);
 
         // 성공적으로 조회된 데이터를 반환
         return ResponseEntity.ok(response);
@@ -637,6 +635,64 @@ public class UserController {
         mav.setViewName("mypage/mypage_userEdit");
 
         return mav;
+    }
+
+    //마이페이지-리뷰리스트 Data(작성전, 작성완료)
+    @PostMapping("/userInfo")
+    public ResponseEntity<Map<String, Object>> getuserInfo(@RequestHeader("Authorization") String Headertoken){
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }  // 303 또는 302 응답
+
+
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        // 회원정보 select
+        MemberVO userinfo = service.getUserinfo(useridx);
+        response.put("userinfo",userinfo);
+        // 리뷰 갯수 select
+        int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
+        response.put("reviewCompletedAmount",reviewCompletedAmount);
+
+        // 성공적으로 조회된 데이터를 반환
+        return ResponseEntity.ok(response);
     }
 
     //마이페이지-회원탈퇴 view

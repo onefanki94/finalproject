@@ -33,4 +33,6 @@ public interface MemberService {
     int getReviewBeforeAmount(int useridx);
     //작성완료한 리뷰갯수
     int getReviewCompletedAmount(int useridx);
+    //회원 수정을 위해 정보 select
+    MemberVO getUserinfo(int useridx);
 }

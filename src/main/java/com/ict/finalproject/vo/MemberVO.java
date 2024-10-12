@@ -19,4 +19,5 @@ public class MemberVO {
     private String birth;
     private String point;
     private String regDT;
+    private int adult_state;
 }

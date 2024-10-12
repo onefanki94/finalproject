@@ -108,5 +108,12 @@
         AND r.orderList_idx IS NOT NULL
         AND r.delState = 0;
     </select>
+
+    <!-- 회원정보 데이터 가져오기 -->
+    <select id="getUserinfo" resultType="com.ict.finalproject.vo.MemberVO">
+        SELECT idx, userid, userpwd, username, email, zipcode, addr, adult_state
+        FROM T_user
+        WHERE idx=${param1}
+    </select>
     <!-- 채원 끝-->
 </mapper>

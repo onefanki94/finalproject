@@ -91,4 +91,9 @@ public class MemberServiceImpl implements MemberService {
     public int getReviewCompletedAmount(int useridx) {
         return dao.getReviewCompletedAmount(useridx);
     }
+
+    @Override
+    public MemberVO getUserinfo(int useridx) {
+        return dao.getUserinfo(useridx);
+    }
 }
