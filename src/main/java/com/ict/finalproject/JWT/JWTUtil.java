@@ -60,12 +60,6 @@ public class JWTUtil {
         return claims != null ? claims.get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
     }
 
-    // JWT 토큰에서 t_Admin에 있는 사용자 ID를 추출하는 메서드
-    public String getAdminIdFromToken(String token) {
-        Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
-        return claims != null ? claims.get("adminid", String.class) : null;  // Claims에서 "userid" 키 값 추출
-    }
-
     // JWT 토큰이 만료되었는지 확인하는 메서드
     public Boolean isExpired(String token) {
         Claims claims = getClaims(token);
@@ -147,17 +141,24 @@ public class JWTUtil {
     }
 
 
-    public Integer getAdminidFromToken(String token) {
+    public String getAdminIdFromToken(String token) {
         String secretKey = "I6o9BlAPX1T2jTm4n62vwOqzH28kpHZLG4f+yVkTG+4=";
+
+        // JWT 토큰에서 클레임 추출
         Claims claims = Jwts.parser()
                 .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))  // 비밀 키 설정
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
 
-        // claims에서 useridx 값 추출
-        return (Integer) claims.get("adminid");
-    }
+        // claims에서 adminid 값을 String 타입으로 변환하여 반환
+        Object adminIdObject = claims.get("adminid");
+        if (adminIdObject == null) {
+            return null;  // adminid가 없는 경우 null 반환
+        }
 
+        // adminid가 Integer일 경우 String으로 변환하여 반환
+        return adminIdObject.toString();  // adminIdObject를 String으로 변환하여 반환
+    }
 
 }

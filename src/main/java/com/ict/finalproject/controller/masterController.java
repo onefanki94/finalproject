@@ -122,10 +122,16 @@ public class masterController {
         // Dashboard - 애니관리 -  애니목록 리스트
         @GetMapping("/aniMasterList")
         public ModelAndView masterAniList(){
+            System.out.println("관리자페이지 애니 리스트 불러오기");
+
+            List<MasterVO> aniList = masterService.getAniAllList();
+
             mav = new ModelAndView();
+            mav.addObject("aniList", aniList);
             mav.setViewName("master/aniMasterList");
             return mav;
         }
+
 
         // Dashboard - 회원관리 - 신고계정목록 리스트
         @GetMapping("/reporinguserMasterList")
@@ -244,11 +250,11 @@ public class masterController {
         return mav;
     }
 
-    @PostMapping(value = "/noticeAddMasterOk", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping("/noticeAddMasterOk")
     public ResponseEntity<String> noticeAddMasterOk(
             @RequestParam("title") String title,
             @RequestParam("content") String content,
-            @RequestHeader(value = "Authorization", required = false) String authorization) {
+            @RequestParam(value = "Authorization", required = false) String authorization) {
 
         String bodyTag = "";
         String token = null;
@@ -266,7 +272,7 @@ public class masterController {
         }
 
         // JWT 토큰에서 adminid 추출 (JWT 파싱 로직 필요)
-        Integer adminid = jwtUtil.getAdminidFromToken(token);  // 토큰에서 adminid 추출
+        Integer adminid = Integer.valueOf(jwtUtil.getAdminIdFromToken(token));  // 토큰에서 adminid 추출
         if (adminid == null) {
             bodyTag += "<script>alert('잘못된 인증 정보입니다. 다시 로그인해 주세요.');history.back();</script>";
             HttpHeaders headers = new HttpHeaders();

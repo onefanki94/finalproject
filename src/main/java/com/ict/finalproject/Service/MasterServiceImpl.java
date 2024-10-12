@@ -52,6 +52,11 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public List<MasterVO> getAniAllList() {
+        return dao.getAniAllList();
+    }
+
+    @Override
     public void addNotice(MasterVO notice) {
         dao.insertNotice(notice);
     }

@@ -30,6 +30,9 @@ public interface MasterDAO {
     // adminid를 통해 adminidx 가져오기
     Integer getAdminIdxByAdminid(String adminid);
 
+    // 애니 리스트 불러오기
+    public List<MasterVO> getAniAllList();
+
     // 공지사항 삽입
     void addNotice(MasterVO notice);
 }
