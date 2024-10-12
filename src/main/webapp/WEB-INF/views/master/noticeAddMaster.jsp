@@ -26,6 +26,12 @@ window.onload = () => {
 
 // 공지사항 등록 함수
 function submitNoticeForm() {
+
+    if(!window.editorInstance || window.editorInstance.getData().trim() === '') {
+        alert("content에 내용을 입력해주세요.");
+        return false;
+    }
+
     const title = document.getElementById('title').value;
     const content = window.editorInstance.getData().trim();  // CKEditor에서 content 가져오기
     const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 값 가져오기
@@ -40,6 +46,7 @@ function submitNoticeForm() {
     const postData = new URLSearchParams();
     postData.append('title', title);
     postData.append('content', content);
+    postData.append('token', token);  // token 추가
 
     // AJAX 요청 보내기
              $.ajax({

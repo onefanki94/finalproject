@@ -3,6 +3,7 @@ package com.ict.finalproject.JWT;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
+@Slf4j
 public class JWTUtil {
 
     private final SecretKey secretKey;
@@ -152,13 +154,15 @@ public class JWTUtil {
                 .getBody();
 
         // claims에서 adminid 값을 String 타입으로 변환하여 반환
+        log.info("JWT Claims: " + claims);  // claims에 어떤 데이터가 있는지 확인
         Object adminIdObject = claims.get("adminid");
         if (adminIdObject == null) {
-            return null;  // adminid가 없는 경우 null 반환
+            log.error("JWT 토큰에서 adminid를 찾을 수 없습니다.");
+            return null;
         }
 
-        // adminid가 Integer일 경우 String으로 변환하여 반환
-        return adminIdObject.toString();  // adminIdObject를 String으로 변환하여 반환
+        log.info("JWT 토큰에서 추출한 adminid: " + adminIdObject.toString());
+        return adminIdObject.toString();
     }
 
 }

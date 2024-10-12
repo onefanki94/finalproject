@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.MasterDAO">
     <!-- 관리자 페이지 공지사항 등록 -->
-    <insert id="createNotice" parameterType="com.ict.finalproject.vo.MasterVO">
+    <insert id="insertNotice" parameterType="com.ict.finalproject.vo.MasterVO">
         INSERT INTO t_notice (title, content, adminidx)
         VALUES (#{title}, #{content}, (SELECT idx FROM t_admin WHERE adminid = #{adminid}));
     </insert>
@@ -51,4 +51,9 @@
         left join t_agetype ag on a.agetype = ag.code;
     </select>
 
+    <select id="getAdminIdxByAdminid" resultType="int">
+        SELECT idx
+        FROM t_admin
+        WHERE adminid = #{adminid}
+    </select>
 </mapper>
