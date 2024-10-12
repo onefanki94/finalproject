@@ -11,11 +11,13 @@ import java.util.Map;
 @Service
 @Transactional
 public interface MasterService {
-    int createNotice(MasterVO masterNotice);
+    MasterVO createNotice(MasterVO notice);
+    MasterVO createFAQ(MasterVO faq);
     public List<MasterVO> getStoreList();
      int getTotalStore();
     Map<String, Object> getCategoryCountByCode(@Param("categoryCode") int categoryCode);
     List<MasterVO> getBoardList();
     Integer getAdminIdxByAdminid(String adminid);
-    void addNotice(MasterVO notice);
+    public List<MasterVO> getAniAllList();
+    List<MasterVO> getNoticeList();
 }

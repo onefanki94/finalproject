@@ -19,6 +19,7 @@ public class MasterVO {
     private int useridx;
     private String author;
     private String userid;
+    private String token;
 
     // 상품 테이블에서 사용 하는 것들
     private int price;
@@ -37,5 +38,21 @@ public class MasterVO {
     private String commtype;
     private int hit;
 
+    // 관리자 페이지에서 애니 테이블 관리
+    private String post_img;
+    private int anitype;
+    private String director;
+    private int agetype;
+    private String outline;
+    private String anitype_type;
+    private String age_type;
+
     // 관리자페이지에서 공지사항 사용하는것들
+    private String modifyDT;
+    private String admin_name;
+
+    // 관리자페이지에서 자주묻는 질문 사용하는 것들
+    private String question;
+    private String answer;
+    private String faqtype;
 }

@@ -6,8 +6,8 @@
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<script src="https://example.com/fontawesome/vVERSION/js/all.js"data-auto-a11y="true"></script>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,8 +31,10 @@
                 <p>배송비: ${storeDetail.fee}</p>
 
                 <div class="like-section">
-                    <div id="likeIcon" class="${storeDetail.liked == 1 ? 'liked' : ''}"></div>
-                            <i class="fa-regular fa-heart"></i> 
+                    <div id="likeIcon" data-product-id="${storeDetail.idx}">
+                        <!-- 좋아요 상태에 따라 아이콘이 빈 하트 또는 채워진 하트로 보임 -->
+                        <i id="likeHeart" class="${storeDetail.liked == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}"></i> 
+                    </div>
                     <span id="likeCount">${storeDetail.likeCount}</span>
                 </div>
             </div>
@@ -249,4 +251,3 @@
         </div>
     </div>
 </div>
-
