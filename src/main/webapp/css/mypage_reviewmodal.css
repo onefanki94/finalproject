@@ -288,7 +288,7 @@
   font-size: 11px;
 }
 
-.review_write_btn, .review_edit_btn {
+.review_write_btn, .review_edit_btn,.review_write_modal_btn {
   display: flex;
   -webkit-box-align: center;
   align-items: center;

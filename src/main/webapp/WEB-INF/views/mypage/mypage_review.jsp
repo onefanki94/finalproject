@@ -74,7 +74,7 @@
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_review"
-              ><strong class="">작성한 리뷰</strong><span class="">1</span></a
+              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan">1</span></a
             >
           </li>
         </ul>
@@ -83,8 +83,8 @@
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
         <div class="on" id="tab1">
           <ul class="review_tabmenu">
-            <li class="tab_activate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (0)</li>
-            <li class="tab_deactivate" onclick="reviewTab('tab2')">내 리뷰 (0)</li>
+            <li class="tab_activate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (<span class="beforeCountSpan">0</span>)</li>
+            <li class="tab_deactivate" onclick="reviewTab('tab2')">내 리뷰 (<span class="afterCountSpan"></span>)</li>
           </ul>
           <div class="review_list_all">
             <div>
@@ -96,8 +96,8 @@
         </div>
         <div class="off" id="tab2">
           <ul class="review_tabmenu">
-            <li class="tab_deactivate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (0)</li>
-            <li class="tab_activate" onclick="reviewTab('tab2')">내 리뷰 (0)</li>
+            <li class="tab_deactivate" onclick="reviewTab('tab1')">작성 가능한 리뷰 (<span class="beforeCountSpan">0</span>)</li>
+            <li class="tab_activate" onclick="reviewTab('tab2')">내 리뷰 (<span class="afterCountSpan"></span>)</li>
           </ul>
           <div class="review_list_all">
             <div>

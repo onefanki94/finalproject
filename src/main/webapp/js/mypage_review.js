@@ -21,6 +21,7 @@ function review_write_exit(){
 // 리뷰 작성 전 데이터 전역변수 선언
 var reviewbeforeData;
 var reviewCompletedData;
+var allFiles = [];
 
 //리뷰 작성 버튼 누르면 나오는 모달
 function review_writeModal(index){
@@ -111,25 +112,36 @@ function review_EditModal(index){
     const reviewCompleted = reviewCompletedData[index];
     let starHtml = '';
     let fileCount = 0; // 서버에서 받아온 파일 갯수를 카운트하기 위한 변수
+    allFiles = []; // 배열 초기화
 
     // grade 값만큼 채워진 별 추가
-    for (let i = 0; i < reviewCompleted.grade; i++) {
-        starHtml += '<i class="fa-solid fa-star"></i>';
+    for (let i = 1; i <= reviewCompleted.grade; i++) {
+        starHtml += '<span><i class="fa-solid fa-star"></i></span>';
     }
     // 나머지 빈 별 추가 (5 - grade)
-    for (let i = reviewCompleted.grade; i < 5; i++) {
-        starHtml += '<i class="fa-regular fa-star"></i>';
+    for (let i = 1; i <= 5-reviewCompleted.grade; i++) {
+        starHtml += '<span><i class="fa-regular fa-star"></i></span>';
     }
 
-    // File previews if images exist
+    // 서버에서 받아온 파일 처리
+        if (reviewCompleted.imgfile1) {
+            allFiles.push(new File([], reviewCompleted.imgfile1));
+            fileCount++;
+        }
+        if (reviewCompleted.imgfile2) {
+            allFiles.push(new File([], reviewCompleted.imgfile2));
+            fileCount++;
+        }
+
+        console.log("fileCount",fileCount);
+
+    // 이미지 파일 있으면 보여주기
     let filePreviewHtml = '';
     if (reviewCompleted.imgfile1) {
         filePreviewHtml += `<div class="image-container"><img src="/reviewFileUpload/${reviewCompleted.imgfile1}" style="width: 76px; height: 76px; margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
-        fileCount++;
     }
     if (reviewCompleted.imgfile2) {
         filePreviewHtml += `<div class="image-container"><img src="/reviewFileUpload/${reviewCompleted.imgfile2}" style="width: 76px; height: 76px;  margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
-        fileCount++;
     }
 
     tag += `<div class="review_modal_body">
@@ -156,7 +168,7 @@ function review_EditModal(index){
                           <div class="review_modal_grade_check">
                             ${starHtml}
                           </div>
-                          <input type="hidden" name="grade" id="grade"/>
+                          <input type="hidden" name="grade" id="grade" value="${reviewCompleted.grade}"/>
                           <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewCompleted.orderList_idx}"/>
                         </div>
                         <div class="review_modal_file">
@@ -208,9 +220,8 @@ function review_EditModal(index){
     `);
     $("#content").val(reviewCompleted.content);
 
-    // 서버에서 받아온 파일 갯수가 2개 이상이면 파일 입력 버튼 숨김 처리
+    // 이미지가 2개면 + 버튼 숨김
     if (fileCount >= 2) {
-        $('#fileInput').hide();
         $('.review_modal_file_btn').hide();
     }
 };
@@ -233,16 +244,25 @@ $(function(){
             },
             success: function(response) {
                 console.log(response.reviewBefore);
+                console.log(response.reviewBeforeAmount);
                 console.log(response.reviewCompleted);
+                console.log(response.reviewCompletedAmount);
 
                 reviewbeforeData = response.reviewBefore;
                 reviewCompletedData = response.reviewCompleted;
+                const reviewBeforeAmount = response.reviewBeforeAmount;
+                const reviewCompletedAmount = response.reviewCompletedAmount;
+
+                // 작성 가능한 리뷰 수 업데이트
+                $('.beforeCountSpan').text(reviewBeforeAmount);
+                // 내 리뷰 수 업데이트
+                $('.afterCountSpan').text(reviewCompletedAmount);
 
                 // 리뷰 작성 전 for문
                 response.reviewBefore.forEach(function(reviewbefore, index){
                     $("#review_list_ul").append(`
                         <li class="review_list_li">
-                           <input type="hidden" name="order_idx" id="order_idx" value="${reviewbefore.orderList_idx}">
+                           <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewbefore.orderList_idx}">
                            <div class="review_list_li_one">
                              <div class="review_list_li_one_detail">
                                <div class="review_product">
@@ -257,7 +277,7 @@ $(function(){
                                  </div>
                                </div>
                                <span class="order_state_date"><span>구매확정</span></span>
-                               <div><button class="review_write_btn" type="button" onclick="review_writeModal(${index})">리뷰쓰기</button></div>
+                               <div><button class="review_write_modal_btn" type="button" onclick="review_writeModal(${index})">리뷰쓰기</button></div>
                              </div>
                            </div>
                          </li>
@@ -278,7 +298,7 @@ $(function(){
 
                     $("#review_list_ul2").append(`
                     <li class="user_review_list_li">
-                      <input type="hidden" name="order_idx" id="order_idx" value="${reviewCompleted.orderList_idx}">
+                      <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewCompleted.orderList_idx}">
                       <div class="review_write_list">
                         <a href="">
                           <img src="/${reviewCompleted.pro_thumImg}" class="css-1d5qj71 egc1z4c3" />
@@ -290,7 +310,7 @@ $(function(){
                           </div>
                         </a>
                         <div class="review_txt">
-                          <p class="css-x6fpam e1g90c62" font-size="14">${reviewCompleted.content}</p>
+                          <p><span>${reviewCompleted.content}</span></p>
                         </div>
                         ${reviewCompleted.imgfile1 || reviewCompleted.imgfile2 ? `
                         <div class="review_img">
@@ -304,7 +324,7 @@ $(function(){
                       <div class="review_modi_del_btn">
                         <div>
                           <button type="button" onclick="review_EditModal(${index})">수정</button>
-                          <button type="button">삭제</button>
+                          <button type="button" id="review_detBtn">삭제</button>
                         </div>
                       </div>
                     </li>
@@ -340,19 +360,17 @@ $(function(){
         $("#grade").val(gradeCount);
     });
 
-
-    var allFiles = [];
-    // 파일 이미지 미리보기 + 삭제버튼 구현
+    // 파일 추가 시
     $(document).on('change', '#fileInput', function(event) {
         var files = event.target.files;
         var preview = $('#fileimg_preview');
-        var fileCount = allFiles.length; // 현재 추가된 이미지 개수 확인
+        var fileCount = $('#fileimg_preview .image-container').length; // DOM에서 이미지 개수 확인
 
         $.each(files, function(i, file) {
-            if (file.type.startsWith('image/') && fileCount < 2) {  // 이미지 파일만 처리하고, 2개까지만 추가
+            if (file.type.startsWith('image/') && fileCount < 2) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    var imgContainer = $('<div class="image-container"></div>'); // 이미지 컨테이너 생성
+                    var imgContainer = $('<div class="image-container"></div>');
                     var img = $('<img>').attr('src', e.target.result).css({
                         width: '76px',
                         height: '76px',
@@ -360,15 +378,11 @@ $(function(){
                         position: 'relative'
                     });
                     var deleteBtn = $('<button class="file-delete-btn">X</button>');
-                    // 이미지와 삭제 버튼을 컨테이너에 추가
                     imgContainer.append(img).append(deleteBtn);
                     preview.append(imgContainer);
                     fileCount++;
-
-                    // 선택한 파일을 allFiles 배열에 추가
                     allFiles.push(file);
 
-                    // 파일이 2개 추가되면 파일 선택 버튼 숨김
                     if (fileCount >= 2) {
                         $('#fileInput').hide();
                         $('.review_modal_file_btn').hide();
@@ -377,18 +391,25 @@ $(function(){
                 reader.readAsDataURL(file);
             }
         });
-        // 파일 선택 초기화하여 추가 선택 가능하게 설정
+
         $(this).val('');
     });
 
-    // 이미지 삭제 기능
+    // 삭제된 파일을 담을 배열 선언
+    let deletedFiles = [];
+
+    // 이미지 삭제 시
     $(document).on('click', '.file-delete-btn', function() {
-        $(this).parent().remove();  // 이미지 컨테이너 삭제
+        const index = $(this).parent().index();
+        const deletedFile = allFiles[index].name; // 삭제된 파일 이름 추출
+        deletedFiles.push(deletedFile); // 삭제된 파일 이름 저장
+        allFiles.splice(index, 1); // allFiles 배열에서 파일 제거
+        $(this).parent().remove(); // DOM에서 파일 삭제
         var fileCount = $('#fileimg_preview .image-container').length;
 
-        // 이미지가 2개 미만이면 파일 선택 버튼을 다시 보이게 함
+        // 이미지가 2개 미만이면 + 버튼 다시 보이게 하기
         if (fileCount < 2) {
-            /*$('#fileInput').show();*/
+//            $('#fileInput').show();
             $('.review_modal_file_btn').show();
         }
     });
@@ -396,7 +417,7 @@ $(function(){
     // 리뷰 등록
     $(document).on('click', '.review_write_btn', function() {
         var grade = $('#grade').val();
-        var orderListIdx = $('#orderList_idx').val();
+        var orderListIdx = $(this).closest(".review_modal_body").find('#orderList_idx').val();
         var content = $('#content').val();
         const minLength = 15;
         const currentLength = $("#content").val().length;
@@ -433,7 +454,7 @@ $(function(){
 
 
         $.ajax({
-            url: '/user/reviewWriteOK',  // 실제 API 경로로 변경하세요.
+            url: '/user/reviewWriteOK',
             type: 'POST',
             data: formData,
             processData: false,
@@ -450,7 +471,88 @@ $(function(){
                 console.log('리뷰 등록 중 오류 발생:', error);
             }
         });
+    });//리뷰등록 끝
+
+    //리뷰 수정
+    $(document).on('click', '.review_edit_btn', function() {
+        var grade = $('#grade').val();
+        var orderListIdx = $(this).closest(".review_modal_body").find('#orderList_idx').val();
+        var content = $('#content').val();
+        const minLength = 15;
+        const currentLength = $("#content").val().length;
+
+        console.log("grade : ", grade);
+        console.log("orderListIdx : ", orderListIdx);
+        console.log("content : ", content);
+        console.log("alldata : ", allFiles);
+
+        // textarea 글자수 제한
+        if (currentLength < minLength) {
+            alert("최소 15자 이상 입력해주세요.");
+            return false;
+        }
+
+        var formData = new FormData();
+        formData.append('grade', grade);
+        formData.append('orderList_idx', orderListIdx);
+        formData.append('content', content);
+
+        for (var i = 0; i < allFiles.length; i++) {
+        formData.append('file', allFiles[i]);
+        }
+
+        // 삭제된 파일 정보 추가
+        formData.append('deletedFiles', JSON.stringify(deletedFiles));
+
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+
+        $.ajax({
+            url: '/user/reviewEditOK',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                        "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+            },
+            success: function(response) {
+                alert("리뷰가 성공적으로 수정되었습니다.");
+                review_write_exit();
+                reviewList();
+            },
+            error: function(error) {
+                console.log('리뷰 수정 중 오류 발생:', error);
+            }
+        });
     });
+
+    //리뷰삭제
+    $(document).on('click', '#review_detBtn', function() {
+        if(confirm('이 리뷰를 삭제하시겠습니까?')){
+            var orderListIdx = $(this).closest("li").find('#orderList_idx').val();
+            console.log(orderListIdx);
+//            return false;
+            $.ajax({
+                url: '/user/reviewDelOK',
+                type: 'POST',
+                data: { orderList_idx: orderListIdx },
+                headers: {
+                            "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+                },
+                success: function(response) {
+                    alert("리뷰가 성공적으로 삭제되었습니다.");
+                    reviewList();
+                },
+                error: function(error) {
+                    console.log('리뷰 삭제 중 오류 발생:', error);
+                }
+            });
+        }
+    })
+
 
 
 }); // ajax 끝

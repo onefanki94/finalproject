@@ -42,4 +42,19 @@ public interface MemberDAO {
 
         //리뷰 작성완료 리스트
         List<ReviewCompletedDTO> getReviewCompleted(int useridx);
+
+        //리뷰 원글 저장
+        ReviewVO getReviewEditbefore(int orderList_Idx);
+
+        //리뷰 수정
+        int updateReview(ReviewVO reviewEditbefore);
+
+        //리뷰 삭제
+        void reviewDelete(int orderList_idx);
+
+        //작성 할 수 있는 리뷰갯수
+        int getReviewBeforeAmount(int useridx);
+
+        //작성완료한 리뷰갯수
+        int getReviewCompletedAmount(int useridx);
 }

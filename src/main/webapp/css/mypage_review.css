@@ -167,14 +167,23 @@
 }
 
 .review_txt {
-  margin: 5px 0 10px 0;
+    margin: 5px 0 10px 0;
+    max-height: 2.7em;
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    position:relative;
 }
 
 .review_txt p {
+  display:inline-block;
   font-size: 14px;
   line-height: 22px;
   color: rgb(48, 48, 51);
   white-space: pre-wrap;
+  position:relative;
+}
+
+.review_txt p span{
+  position:relative;
 }
 
 .review_img {
@@ -243,4 +252,16 @@
 
 .off {
   display: none;
+}
+
+.review_content_more{
+  cursor: pointer;
+  text-align: right;
+  font-weight: 700;
+  padding-left: 2rem;
+  margin-left: -5.25rem;
+  background: linear-gradient(270deg, rgb(25, 27, 42) 63.5%, rgba(25, 27, 42, 0) 100%);
+  position: absolute;
+  bottom: 3px;
+  right: 0px;
 }
