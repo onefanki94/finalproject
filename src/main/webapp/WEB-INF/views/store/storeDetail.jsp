@@ -12,6 +12,14 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+<script type="text/javascript">
+    var storeDetail = {
+        price: "${storeDetail.price}",  // 서버에서 전달된 상품 가격
+        stock: "${storeDetail.stock}"   // 서버에서 전달된 재고 수량
+    };
+</script>
+
+
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
     <div class="product-wrapper">
@@ -46,13 +54,13 @@
                          <p>${storeDetail.title}</p>
                     <span class="product-quantity-control">
                         <button class="quantity-button" onclick="decreaseQuantity()">-</button>
-                        <input type="number" value="1" min="1" max="${storeDetail.stock}" class="quantity-input">
+                        <input type="number" value="1" min="1" max="5000" class="quantity-input">
                         <button class="quantity-button" onclick="increaseQuantity()">+</button>
                     </span>
                     <span class="product-price-info">${storeDetail.price}원</span>
                 </div>
     
-                <div class="total-price">총 결제금액: <span id="totalPrice">${storeDetail.price}</span>원</div>
+                <div class="total-price">총 결제금액: <span id="total-price">${storeDetail.price}</span>원</div>
                     
             </div>
                     <!-- 구매 버튼 -->
@@ -250,4 +258,8 @@
             </div>
         </div>
     </div>
+
+  
 </div>
+
+ <%@include file="/WEB-INF/inc/store_footer.jspf"%> 

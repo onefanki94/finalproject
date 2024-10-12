@@ -59,6 +59,9 @@
         </if>
     </select>
 
+ 
+
+
     <!-- 제품 제목을 기준으로 제품 세부 정보를 가져오는 쿼리 -->
     <select id="getStoreDetail" parameterType="int" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product

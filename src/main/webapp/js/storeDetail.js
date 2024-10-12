@@ -128,7 +128,7 @@ function scrollToShippingSection() {
     });
   }
 
-
+//상품정보 입력칸
   function decreaseQuantity() {
     let quantityInput = document.querySelector('.quantity-input');
     if (quantityInput.value > 1) {
@@ -139,17 +139,36 @@ function scrollToShippingSection() {
 
 function increaseQuantity() {
     let quantityInput = document.querySelector('.quantity-input');
-    if (quantityInput.value < `${storeDetail.stock}`) {
+    let maxQuantity = parseInt(quantityInput.max); // 최대 수량 (HTML max 속성에서 가져옴)
+
+    if (parseInt(quantityInput.value) < maxQuantity) {
         quantityInput.value = parseInt(quantityInput.value) + 1;
-        updateTotalPrice();
+        updateTotalPrice();  // 수량이 변경될 때 총 가격을 업데이트
+    }
+}
+function updateTotalPrice() {
+    // storeDetail이 정의되어 있는지 확인
+    if (typeof storeDetail === 'undefined') {
+        console.error('storeDetail is not defined.');
+        return;
+    }
+
+    let quantityInput = document.querySelector('.quantity-input');
+    let quantity = parseInt(quantityInput.value);
+    let totalPrice = storeDetail.price * quantity;
+
+    // 총 가격을 화면에 업데이트하는 로직 추가 (예: 특정 요소에 총 가격 표시)
+    document.getElementById('total-price').textContent = totalPrice;
+
+    // Sticky Footer의 가격도 업데이트
+    let stickyPriceElement = document.querySelector('.sticky-footer .price');
+    if (stickyPriceElement) {
+        stickyPriceElement.textContent = totalPrice + ' 원';
+    } else {
+        console.error('Sticky footer price element not found.');
     }
 }
 
-function updateTotalPrice() {
-    let quantity = document.querySelector('.quantity-input').value;
-    let price = `${storeDetail.price}`;
-    document.getElementById('totalPrice').textContent = price * quantity;
-}
 
 document.addEventListener('DOMContentLoaded', function () {
     // 로컬스토리지에서 토큰 가져오기
@@ -176,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
             },
             body: JSON.stringify({
-                pro_idx: productId
+                pro_idx: productId      
             })
         })
         .then(response => {

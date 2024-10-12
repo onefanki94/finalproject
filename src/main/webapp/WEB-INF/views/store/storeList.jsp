@@ -15,7 +15,6 @@
                     </div>
                 </div>
                 </section>
-            
                 <section class="filter-section">  
                     <div class="left-con">
                         <h3>필터</h3>
@@ -42,11 +41,11 @@
                         <div class="filter-category">
                             <h3>카테고리</h3>
                             <ul class="filter-list">
-                                <c:forEach var="product" items="${storeList}">
+                                <c:forEach var="category" items="${uniqueCategories}">
                                     <li class="filter-item" onclick="toggleFilter(this)">
-                                        <span class="filter-text">${product.category}</span>
+                                        <span class="filter-text">${category}</span>
                                     </li>
-                                </c:forEach>  
+                                </c:forEach>
                             </ul>
                         </div>    
                     </div>
@@ -97,10 +96,10 @@
                         </ul>
                     </div>
                 </section>
-
+      
 
 
 </div>
 
 
-
+<%@include file="/WEB-INF/inc/store_footer.jspf"%>
