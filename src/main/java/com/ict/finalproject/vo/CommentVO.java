@@ -12,7 +12,7 @@ import java.util.Date;
 public class CommentVO {
     private int idx;
     private int comm_idx;
-    private int user_idx;
+    private int useridx;
     private String content;
     private String regDT;
     private int depth;

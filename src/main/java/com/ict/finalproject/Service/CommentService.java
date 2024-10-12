@@ -11,6 +11,9 @@ public interface CommentService {
     // 글 작성 메서드
     int insertComment(CommentVO comment);
 
+    //댓글 목록
+    List<CommentVO> getComment(int comm_idx);
+
     // 게시글 수정 메서드
     int updateCommnet(CommentVO comment);
 

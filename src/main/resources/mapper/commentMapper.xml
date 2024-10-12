@@ -5,8 +5,13 @@
 
 
     <insert id="insertComment" parameterType="com.ict.finalproject.vo.CommentVO">
-        INSERT into t_comment (comm_idx, useridx, content, regDT) values(#{comm_idx}, #{user_idx}, #{content}, NOW())
+        INSERT into t_comment (comm_idx, useridx, content, regDT) values(#{comm_idx}, #{useridx}, #{content}, NOW())
     </insert>
+
+    <select id="getComment" parameterType="int" resultType="com.ict.finalproject.vo.CommentVO">
+        SELECT * FROM t_comment WHERE comm_idx = #{comm_idx} AND delState = 0 ORDER BY regDT DESC
+    </select>
+
 
 
 

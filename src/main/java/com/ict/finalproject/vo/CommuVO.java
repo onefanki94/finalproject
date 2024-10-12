@@ -21,6 +21,8 @@ public class CommuVO {
     private int delState;
     private Date delDT;
     private int hit;
+
+    private int comm_idx;
 //얘도 같은건듯? nowSearchKey 라는 프로퍼티 없음
 
 

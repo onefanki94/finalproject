@@ -166,10 +166,12 @@
      // 댓글 목록 로드 함수
          function loadComments(comm_idx) {
              $.ajax({
-                 url: "/getComments",  // 댓글을 가져오는 URL
+                 url: "/getComment",  // 댓글을 가져오는 URL
                  type: "GET",
                  data: { comm_idx: comm_idx },
                  success: function(comments) {
+
+                 console.log(comments);
                      // 댓글 목록 갱신
                      let replyList = $('#replyList');
                      replyList.empty(); // 기존 댓글 목록 비우기
@@ -183,11 +185,15 @@
                              </div>
                          `);
                      });
+
+                     console.log("Reply List HTML: ", replyList.html()); // 최종 HTML 출력
                  },
                  error: function(xhr, status, error) {
                      console.error("댓글 로드 오류:", error);
                  }
              });
+
+
          }
 
          // 페이지 로드 시 댓글 목록 가져오기
@@ -195,6 +201,7 @@
              let comm_idx = $('[name=no]').val();
              loadComments(comm_idx); // 댓글 목록 로드
          });
+
     </script>
 
 

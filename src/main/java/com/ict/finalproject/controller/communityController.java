@@ -34,6 +34,9 @@ public class communityController {
     @Autowired
     private CommuService commuService;
 
+    @Autowired
+    private CommentService commentService;
+
 //    ModelAndView mav = null;
 
     // 커뮤니티 리스트 페이지
@@ -90,8 +93,14 @@ public class communityController {
         CommuVO previousPost = commuService.PreviousPost(idx);
         CommuVO nextPost = commuService.NextPost(idx);
 
+        // 댓글 목록 조회
+        //List<CommentVO> comments = commentService.getComment(idx);
+        // 댓글 목록 조회 (comm_idx 사용)
+        List<CommentVO> comments = commentService.getComment(Detail.getComm_idx()); // comm_idx를 사용하여 댓글 목록 가져오기
+
         // 모델에 게시글 세부 정보 및 이전/다음 게시글 정보 추가
         model.addAttribute("vo", Detail);         // 현재 게시글 세부 정보
+        model.addAttribute("comments", comments);   // 댓글 목록
         model.addAttribute("go", previousPost);   // 이전 게시글
         model.addAttribute("tun", nextPost);      // 다음 게시글
 

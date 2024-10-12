@@ -22,6 +22,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<CommentVO> getComment(int comm_idx) {
+        return commentDAO.getComment(comm_idx);
+    }
+
+    @Override
     public int updateCommnet(CommentVO comment) {
         return commentDAO.updateCommnet(comment);
     }

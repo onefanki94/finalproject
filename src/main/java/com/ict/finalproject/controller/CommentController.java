@@ -10,13 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 @Controller
-public class CommentControllre {
+public class CommentController {
 
     @Autowired
     MemberService mservice;
@@ -45,7 +49,7 @@ public class CommentControllre {
 
         // comment VO 객체 생성 및 설정
         CommentVO comment = new CommentVO();
-        comment.setUser_idx(useridx);
+        comment.setUseridx(useridx);
         comment.setContent(content);
         comment.setComm_idx(comm_idx);
 
@@ -70,6 +74,15 @@ public class CommentControllre {
         headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
 
         return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+    }
+
+
+
+    // 댓글 목록 조회
+    @GetMapping("/getComment")
+    public ResponseEntity<List<CommentVO>> getComment(@RequestParam("comm_idx") int comm_idx) {
+        List<CommentVO> comments = commentService.getComment(comm_idx);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
 }
