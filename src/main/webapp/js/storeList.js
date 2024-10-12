@@ -138,7 +138,7 @@
                     productElement.className = 'list-product';
                     productElement.innerHTML = `
                         <a href="/storeDetail/${product.idx}">
-                            <img src="${product.detail_img}" alt="${product.ani_title}">
+                            <img src="${product.thumImg}" alt="${product.ani_title}">
                         </a>
                         <p>${product.title}</p>
                         <p>${product.price} 원</p>

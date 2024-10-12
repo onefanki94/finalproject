@@ -408,3 +408,5 @@
             
      
 </div>
+
+<%@include file="/WEB-INF/inc/store_footer.jspf"%>

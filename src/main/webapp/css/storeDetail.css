@@ -5,7 +5,6 @@
     margin: 0 auto;
     padding: 20px;
     background-color: white;
-    border-radius: 10px;
 }
 
 /* 상품 이미지와 정보 섹션 */
@@ -121,7 +120,6 @@
     width: 100%;
     gap:30px;
     display: flex;
- 
 }
 
 .add-to-cart, .buy-now {
@@ -139,12 +137,30 @@
 }
 
 .buy-now {
-    background-color: #000;
+    background-color: #202020;
     color: white;
 }
 
+
+/* Hover 시 효과: 배경색 변화 */
 .add-to-cart:hover, .buy-now:hover {
-    opacity: 0.9;
+    background-color: #cacaca; /* hover 시  어두운 회색 */
+}
+
+/* Active 시 효과: 클릭 시 약간 작아지는 효과 */
+.add-to-cart:active, .buy-now:active {
+    background-color: #6e6e6e; /* 클릭 시 더 어두운 색 */
+    transform: scale(0.95); /* 클릭 시 약간 축소 */
+}
+
+/* 구매 버튼에 그림자 효과 추가 */
+.add-to-cart, .buy-now {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
+}
+
+/* Hover 시 그림자 변화 */
+.add-to-cart:hover, .buy-now:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Hover 시 더 강한 그림자 */
 }
 
 /* 상품 설명 섹션 */
@@ -158,6 +174,7 @@
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
+    border-radius: 10px;
 }
 
 .tab {
@@ -170,8 +187,9 @@
     cursor: pointer;
 }
 
-.tab.active {
-    border-bottom: 2px solid black;
+.tab:active {
+    transform: scale(0.95); /* 클릭 시 약간 축소 */
+
 }
 
 /* 주의 사항 섹션 */
@@ -305,7 +323,7 @@
 .inquiry-button {
     padding: 12px 30px;
     font-size: 16px;
-    background-color: #000;
+    background-color: #3a3a3a;
     color: white;
     border: none;
     border-radius: 5px;
@@ -314,7 +332,7 @@
 }
 
 .inquiry-button:hover {
-    background-color: #333;
+    background-color: #8d8d8d;
 }
 
 /* 사용자 총 평점과 전체 리뷰수 정렬 */
@@ -527,7 +545,7 @@
 
 .pagination button.active {
     font-weight: bold;
-    color: #000000;
+    color: #3a3a3a;
 }
 
 .pagination button:hover {
@@ -607,4 +625,5 @@
 .sticky-footer.show {
     display: block; /* 보일 때만 display:block */
 }
+
 
