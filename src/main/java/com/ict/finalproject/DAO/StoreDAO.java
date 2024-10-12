@@ -17,7 +17,7 @@ public interface StoreDAO {
 
     public List<ProductFilterVO> getStoreListByFilterCriteria(ProductFilterVO filterCriteria);
 
-    public StoreVO getStoreDetail(int idx);
+    public StoreVO getStoreDetail(int storeId);
 
     
     
