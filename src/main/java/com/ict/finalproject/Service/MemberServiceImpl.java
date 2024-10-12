@@ -81,4 +81,14 @@ public class MemberServiceImpl implements MemberService {
     public void reviewDelete(int orderList_idx) {
         dao.reviewDelete(orderList_idx);
     }
+
+    @Override
+    public int getReviewBeforeAmount(int useridx) {
+        return dao.getReviewBeforeAmount(useridx);
+    }
+
+    @Override
+    public int getReviewCompletedAmount(int useridx) {
+        return dao.getReviewCompletedAmount(useridx);
+    }
 }

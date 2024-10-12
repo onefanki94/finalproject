@@ -125,11 +125,11 @@ function review_EditModal(index){
 
     // 서버에서 받아온 파일 처리
         if (reviewCompleted.imgfile1) {
-            allFiles.push(reviewCompleted.imgfile1);
+            allFiles.push(new File([], reviewCompleted.imgfile1));
             fileCount++;
         }
         if (reviewCompleted.imgfile2) {
-            allFiles.push(reviewCompleted.imgfile2);
+            allFiles.push(new File([], reviewCompleted.imgfile2));
             fileCount++;
         }
 
@@ -244,16 +244,25 @@ $(function(){
             },
             success: function(response) {
                 console.log(response.reviewBefore);
+                console.log(response.reviewBeforeAmount);
                 console.log(response.reviewCompleted);
+                console.log(response.reviewCompletedAmount);
 
                 reviewbeforeData = response.reviewBefore;
                 reviewCompletedData = response.reviewCompleted;
+                const reviewBeforeAmount = response.reviewBeforeAmount;
+                const reviewCompletedAmount = response.reviewCompletedAmount;
+
+                // 작성 가능한 리뷰 수 업데이트
+                $('.beforeCountSpan').text(reviewBeforeAmount);
+                // 내 리뷰 수 업데이트
+                $('.afterCountSpan').text(reviewCompletedAmount);
 
                 // 리뷰 작성 전 for문
                 response.reviewBefore.forEach(function(reviewbefore, index){
                     $("#review_list_ul").append(`
                         <li class="review_list_li">
-                           <input type="hidden" name="order_idx" id="order_idx" value="${reviewbefore.orderList_idx}">
+                           <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewbefore.orderList_idx}">
                            <div class="review_list_li_one">
                              <div class="review_list_li_one_detail">
                                <div class="review_product">
@@ -268,7 +277,7 @@ $(function(){
                                  </div>
                                </div>
                                <span class="order_state_date"><span>구매확정</span></span>
-                               <div><button class="review_write_btn" type="button" onclick="review_writeModal(${index})">리뷰쓰기</button></div>
+                               <div><button class="review_write_modal_btn" type="button" onclick="review_writeModal(${index})">리뷰쓰기</button></div>
                              </div>
                            </div>
                          </li>
@@ -301,7 +310,7 @@ $(function(){
                           </div>
                         </a>
                         <div class="review_txt">
-                          <p class="css-x6fpam e1g90c62" font-size="14">${reviewCompleted.content}</p>
+                          <p><span>${reviewCompleted.content}</span></p>
                         </div>
                         ${reviewCompleted.imgfile1 || reviewCompleted.imgfile2 ? `
                         <div class="review_img">
@@ -386,11 +395,16 @@ $(function(){
         $(this).val('');
     });
 
+    // 삭제된 파일을 담을 배열 선언
+    let deletedFiles = [];
+
     // 이미지 삭제 시
     $(document).on('click', '.file-delete-btn', function() {
         const index = $(this).parent().index();
-        allFiles.splice(index, 1);
-        $(this).parent().remove();
+        const deletedFile = allFiles[index].name; // 삭제된 파일 이름 추출
+        deletedFiles.push(deletedFile); // 삭제된 파일 이름 저장
+        allFiles.splice(index, 1); // allFiles 배열에서 파일 제거
+        $(this).parent().remove(); // DOM에서 파일 삭제
         var fileCount = $('#fileimg_preview .image-container').length;
 
         // 이미지가 2개 미만이면 + 버튼 다시 보이게 하기
@@ -403,7 +417,7 @@ $(function(){
     // 리뷰 등록
     $(document).on('click', '.review_write_btn', function() {
         var grade = $('#grade').val();
-        var orderListIdx = $('#orderList_idx').val();
+        var orderListIdx = $(this).closest(".review_modal_body").find('#orderList_idx').val();
         var content = $('#content').val();
         const minLength = 15;
         const currentLength = $("#content").val().length;
@@ -462,7 +476,7 @@ $(function(){
     //리뷰 수정
     $(document).on('click', '.review_edit_btn', function() {
         var grade = $('#grade').val();
-        var orderListIdx = $('#orderList_idx').val();
+        var orderListIdx = $(this).closest(".review_modal_body").find('#orderList_idx').val();
         var content = $('#content').val();
         const minLength = 15;
         const currentLength = $("#content").val().length;
@@ -470,7 +484,7 @@ $(function(){
         console.log("grade : ", grade);
         console.log("orderListIdx : ", orderListIdx);
         console.log("content : ", content);
-        console.log("alldata", allFiles);
+        console.log("alldata : ", allFiles);
 
         // textarea 글자수 제한
         if (currentLength < minLength) {
@@ -486,6 +500,9 @@ $(function(){
         for (var i = 0; i < allFiles.length; i++) {
         formData.append('file', allFiles[i]);
         }
+
+        // 삭제된 파일 정보 추가
+        formData.append('deletedFiles', JSON.stringify(deletedFiles));
 
         for (var pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
@@ -515,9 +532,9 @@ $(function(){
     //리뷰삭제
     $(document).on('click', '#review_detBtn', function() {
         if(confirm('이 리뷰를 삭제하시겠습니까?')){
-            var orderListIdx = $('#orderList_idx').val();
+            var orderListIdx = $(this).closest("li").find('#orderList_idx').val();
             console.log(orderListIdx);
-
+//            return false;
             $.ajax({
                 url: '/user/reviewDelOK',
                 type: 'POST',

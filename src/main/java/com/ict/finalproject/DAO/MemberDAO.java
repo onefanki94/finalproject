@@ -51,4 +51,10 @@ public interface MemberDAO {
 
         //리뷰 삭제
         void reviewDelete(int orderList_idx);
+
+        //작성 할 수 있는 리뷰갯수
+        int getReviewBeforeAmount(int useridx);
+
+        //작성완료한 리뷰갯수
+        int getReviewCompletedAmount(int useridx);
 }

@@ -39,6 +39,7 @@
         SELECT COUNT(*) FROM t_user WHERE regDT >= CURDATE() - INTERVAL 7 DAY
     </select>
 
+    <!-- 채원 시작-->
     <!-- 리뷰 작성전 리스트 구하기-->
     <select id="getReviewBefore" resultType="com.ict.finalproject.DTO.ReviewBeforeDTO">
         SELECT ol.idx AS orderList_idx, p.thumImg, p.title, p.price, ol.amount, ol.orderState, p.idx
@@ -54,7 +55,7 @@
     <!-- 리뷰 작성 -->
     <insert id="saveReview" parameterType="com.ict.finalproject.vo.ReviewVO">
         INSERT INTO T_review (useridx, orderList_idx, content, grade, imgfile1, imgfile2)
-        VALUES (#{useridx}, #{orderList_idx}, #{content}, #{grade}, #{imgfile1}, #{imgfile2});
+        VALUES (#{useridx}, #{orderList_idx}, #{content}, #{grade}, #{imgfile1}, #{imgfile2})
     </insert>
 
     <select id="getReviewCompleted" resultType="com.ict.finalproject.DTO.ReviewCompletedDTO">
@@ -62,7 +63,8 @@
         FROM T_review r
         JOIN T_orderList o ON r.orderList_idx = o.idx
         JOIN T_product p ON o.pro_idx = p.idx
-        WHERE r.delState = 0 and r.useridx=${param1} and r.orderList_idx IS not NULL AND r.delState=0;
+        WHERE r.delState = 0 and r.useridx=${param1} and r.orderList_idx IS not NULL AND r.delState=0
+        ORDER BY r.idx desc
     </select>
 
     <select id="getReviewEditbefore" resultType="com.ict.finalproject.vo.ReviewVO">
@@ -82,4 +84,29 @@
         SET delState=1, delDT=now()
         WHERE orderList_idx=${param1}
     </update>
+
+    <!-- 리뷰 작성전 리스트의 갯수 구하기 -->
+    <select id="getReviewBeforeAmount" resultType="int">
+        SELECT COUNT(ol.idx)
+        FROM T_orderList ol
+        JOIN T_order o ON ol.order_idx = o.idx
+        JOIN T_product p ON ol.pro_idx = p.idx
+        LEFT JOIN T_review r ON ol.idx = r.orderList_idx
+        WHERE ol.orderState = 6
+        AND o.useridx = ${param1}  -- 토큰에서 가져온 useridx
+        AND r.orderList_idx IS NULL
+    </select>
+
+    <!-- 리뷰 작성 완료 리스트의 갯수 구하기 -->
+    <select id="getReviewCompletedAmount" resultType="int">
+        SELECT COUNT(*)
+        FROM T_review r
+        JOIN T_orderList o ON r.orderList_idx = o.idx
+        JOIN T_product p ON o.pro_idx = p.idx
+        WHERE r.delState = 0
+        AND r.useridx = ${param1}
+        AND r.orderList_idx IS NOT NULL
+        AND r.delState = 0;
+    </select>
+    <!-- 채원 끝-->
 </mapper>

@@ -1,5 +1,8 @@
 package com.ict.finalproject.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ict.finalproject.DTO.LoginRequestDTO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
@@ -263,11 +266,19 @@ public class UserController {
         // 리뷰 작성 해야되는 데이터 SELECT
         List<ReviewBeforeDTO> reviewBefore = service.getReviewBefore(useridx);
         response.put("reviewBefore",reviewBefore);
+        // 갯수
+        int reviewBeforeAmount = service.getReviewBeforeAmount(useridx);
+        response.put("reviewBeforeAmount",reviewBeforeAmount);
+        log.info("*********************reviewBeforeAmount : {}",reviewBeforeAmount);
 
         // 작성된 리뷰 데이터 SELECT
         List<ReviewCompletedDTO> reviewCompleted = service.getReviewCompleted(useridx);
         response.put("reviewCompleted",reviewCompleted);
         log.info(reviewCompleted.toString());
+        // 갯수
+        int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
+        response.put("reviewCompletedAmount",reviewCompletedAmount);
+        log.info("*********************reviewCompletedAmount : {}",reviewCompletedAmount);
 
         // 성공적으로 조회된 데이터를 반환
         return ResponseEntity.ok(response);
@@ -329,7 +340,7 @@ public class UserController {
 
         String imgfile1 = null;
         String imgfile2 = null;
-        String originalFilename="";
+        String uniqueFilename="";
 
         try {
             // 파일이 있는 경우에만 처리
@@ -338,14 +349,14 @@ public class UserController {
                 for (int i = 0; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
                     if (!file.isEmpty()) {
-                        originalFilename = file.getOriginalFilename();
-                        File f = new File(path, originalFilename);
+                        uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+                        File f = new File(path, uniqueFilename);
                         file.transferTo(f); // 파일 저장
 
                         if (i == 0) {
-                            imgfile1 = originalFilename;
+                            imgfile1 = uniqueFilename;
                         } else if (i == 1) {
-                            imgfile2 = originalFilename;
+                            imgfile2 = uniqueFilename;
                         }
                     }
                 }
@@ -393,6 +404,7 @@ public class UserController {
                                                @RequestParam("orderList_idx") int orderList_Idx,
                                                @RequestParam("content") String content,
                                                @RequestParam(value = "file", required = false) List<MultipartFile> files,
+                                               @RequestParam(value = "deletedFiles", required = false) String deletedFilesJson,
                                                @RequestHeader("Authorization") String Headertoken,
                                                HttpSession session){
         Map<String, Object> response = new HashMap<>();
@@ -446,28 +458,53 @@ public class UserController {
         String path = session.getServletContext().getRealPath("/reviewFileUpload");
         log.info("파일 저장 경로: {}", path);
 
+        // JSON 형식의 삭제된 파일 목록을 배열로 변환
+        List<String> deletedFiles = new ArrayList<>();
+        if (deletedFilesJson != null && !deletedFilesJson.isEmpty()) {//삭제된 파일이 존재하면
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                deletedFiles = objectMapper.readValue(deletedFilesJson, new TypeReference<List<String>>(){});
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+
         String imgfile1 = null;
         String imgfile2 = null;
-        String originalFilename="";
+        String uniqueFilename="";
 
         try {
+            // 삭제된 파일 처리
+            for (String deletedFile : deletedFiles) {
+                fileDel(path, deletedFile);
+            }
+
             // 파일이 있는 경우에만 처리
             if (files != null && !files.isEmpty()) {
                 // 파일 업로드 처리
                 for (int i = 0; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
                     if (!file.isEmpty()) {
-                        originalFilename = file.getOriginalFilename();
-                        File f = new File(path, originalFilename);
+                        uniqueFilename = UUID.randomUUID().toString() + "_" +  file.getOriginalFilename();
+                        File f = new File(path, uniqueFilename);
                         file.transferTo(f); // 파일 저장
 
                         if (i == 0) {
-                            imgfile1 = originalFilename;
+                            imgfile1 = uniqueFilename;
                         } else if (i == 1) {
-                            imgfile2 = originalFilename;
+                            imgfile2 = uniqueFilename;
                         }
                     }
                 }
+            }
+
+            // 기존 파일이 있으면 유지
+            // 받아온 파일이 존재하지 않는데 기존이미지파일이 존재하고 삭제된 파일도 아니다 -> 기존 파일이 존재한다!
+            if (imgfile1 == null && reviewEditbefore.getImgfile1() != null && !deletedFiles.contains(reviewEditbefore.getImgfile1())) {
+                imgfile1 = reviewEditbefore.getImgfile1();
+            }
+            if (imgfile2 == null && reviewEditbefore.getImgfile2() != null && !deletedFiles.contains(reviewEditbefore.getImgfile2())) {
+                imgfile2 = reviewEditbefore.getImgfile2();
             }
 
             reviewEditbefore.setImgfile1(imgfile1);
@@ -548,9 +585,8 @@ public class UserController {
         try {
             // 리뷰 삭제
             service.reviewDelete(reviewDelbefore.getOrderList_idx());
-            //파일 삭제 -> 안하기
-//            fileDel(path,reviewDelbefore.getImgfile1());
-//            fileDel(path,reviewDelbefore.getImgfile2());
+            fileDel(path,reviewDelbefore.getImgfile1());
+            fileDel(path,reviewDelbefore.getImgfile2());
             return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
         } catch (Exception e) {
             log.error("리뷰 삭제 중 오류 발생", e);
