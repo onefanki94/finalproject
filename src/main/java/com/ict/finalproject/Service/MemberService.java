@@ -35,4 +35,6 @@ public interface MemberService {
     int getReviewCompletedAmount(int useridx);
     //회원 수정을 위해 정보 select
     MemberVO getUserinfo(int useridx);
+    //회원 수정
+    int updateUser(MemberVO member);
 }

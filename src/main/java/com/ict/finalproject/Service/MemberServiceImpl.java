@@ -96,4 +96,9 @@ public class MemberServiceImpl implements MemberService {
     public MemberVO getUserinfo(int useridx) {
         return dao.getUserinfo(useridx);
     }
+
+    @Override
+    public int updateUser(MemberVO member) {
+        return dao.updateUser(member);
+    }
 }

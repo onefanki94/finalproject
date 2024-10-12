@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="/css/mypage_userEdit.css" type="text/css" />
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/daum_api.js"></script>
 <script src="/js/mypage_userEdit.js"></script>
 
 <div class="mypage_wrap">
@@ -80,95 +82,8 @@
       <div class="mypage_right_element">
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
         <h4 class="my_tit">회원정보 수정</h4>
-        <div class="userEdit_form">
-          <div class="useredit_input_group">
-            <label for="login_type">로그인 정보</label>
-            <input
-              type="text"
-              id="login_type"
-              name="login_type"
-              value="로컬"
-              readonly
-              class="input_readonly"
-            />
-          </div>
-          <div class="useredit_input_group">
-            <label for="userid">아이디</label>
-            <input
-              type="text"
-              name="userid"
-              id="userid"
-              value="sing2727"
-              readonly
-              class="input_readonly"
-            />
-          </div>
+        <div class="userEdit_form" id="userEdit_form">
 
-          <div class="useredit_input_group">
-            <label for="username">이름</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value="김채원"
-              readonly
-              class="input_readonly"
-            />
-          </div>
-          <div class="useredit_input_group">
-            <label for="adult_state">본인인증</label>
-            <input
-              type="text"
-              id="adult_state"
-              name="adult_state"
-              value="완료"
-              readonly
-              class="input_readonly"
-            />
-          </div>
-          <div class="useredit_input_group">
-            <label for="useremail">이메일</label>
-            <input type="text" id="emailtext" name="emailtext" />
-          </div>
-          <div class="useredit_input_group">
-            <label for="tel">전화번호</label>
-            <select name="tel1" id="tel1">
-              <option value="010">010</option>
-              <option value="010">02</option>
-              <option value="010">070</option>
-            </select>
-            -
-            <input type="text" id="tel2" name="tel2" />
-            -
-            <input type="text" id="tel3" name="tel3" />
-            <input type="hidden" id="tel" name="tel" />
-          </div>
-          <div class="useredit_input_group">
-            <label for="zipcode">주소</label>
-            <input type="text" id="zipcode" name="zipcode" />
-            <input
-              type="button"
-              class="zipcode_search_btn"
-              value="우편번호 찾기"
-            />
-          </div>
-          <div class="useredit_input_group">
-            <label></label>
-            <input type="text" id="addr" name="addr" />
-          </div>
-          <div class="useredit_input_group">
-            <label></label>
-            <input
-              type="text"
-              id="addrDetail"
-              name="addrDetail"
-              placeholder="상세주소를 입력하세요."
-            />
-          </div>
-          <div class="inputBtn_div">
-            <button class="userEdit_button">수정하기</button>
-            <button class="userDel_button" onclick="location.href='/user/mypage_userDel'">회원탈퇴</button>
-          </div>
         </div>
       </div>
     </div>
