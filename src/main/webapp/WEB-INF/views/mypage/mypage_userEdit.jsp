@@ -36,9 +36,6 @@
             <li>
               <a href="/user/mypage_heart">좋아요</a>
             </li>
-            <li>
-              <a href="/user/mypage_userDel">회원탈퇴</a>
-            </li>
           </ul>
           <h3>고객센터</h3>
           <ul>

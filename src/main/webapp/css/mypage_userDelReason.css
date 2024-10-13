@@ -22,7 +22,7 @@
   margin-bottom: 5px;
 }
 
-#delreason {
+#delReason {
   padding: 10px 5px;
   width: 30%;
   border: 1px solid #aaaaaa;
@@ -30,6 +30,7 @@
   color: rgb(48, 48, 51);
   display: block;
   margin-bottom: 20px;
+  outline: none;
 }
 
 .userDel_form textarea {
@@ -41,7 +42,7 @@
 }
 
 .mypage_right_element > div:nth-of-type(2) h4 {
-  margin-top: 20px;
+  margin: 20px 0;
   padding-bottom: 15px;
   border-bottom: 1px solid #d4d4d4;
 }

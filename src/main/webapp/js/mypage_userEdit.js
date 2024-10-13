@@ -160,7 +160,7 @@ $(function(){
                     </div>
                     <div class="inputBtn_div">
                         <button class="userEdit_button">수정하기</button>
-                        <button class="userDel_button" onclick="location.href='/user/mypage_userDel'">회원탈퇴</button>
+                        <button class="userDel_button" onclick="location.href='/user/mypage_userDelReason'">회원탈퇴</button>
                     </div>
                 `)
                 // 본인인증 버튼 추가

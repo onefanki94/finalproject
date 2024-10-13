@@ -122,5 +122,16 @@
         SET email=#{email}, tel=#{tel}, zipcode=#{zipcode}, addr=#{addr}, addrdetail=#{addrdetail}, adult_state=#{adult_state}, modifyState=1, modifyDT=now()
         WHERE idx=#{idx}
     </update>
+
+    <!-- 회원탈퇴 -->
+    <update id="userDelOk">
+        UPDATE T_user
+        SET delState=1, delDT=now()
+        WHERE idx=${param1}
+    </update>
+    <insert id="userDelInsert" parameterType="com.ict.finalproject.DTO.UserDelReasonDTO">
+        INSERT INTO T_userDel(useridx, delReason, delReasonDetail)
+        VALUES (#{useridx}, #{delReason}, #{delReasonDetail})
+    </insert>
     <!-- 채원 끝-->
 </mapper>

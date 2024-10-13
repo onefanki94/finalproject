@@ -2,6 +2,7 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
+import com.ict.finalproject.DTO.UserDelReasonDTO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
 
@@ -37,4 +38,7 @@ public interface MemberService {
     MemberVO getUserinfo(int useridx);
     //회원 수정
     int updateUser(MemberVO member);
+    //회원 탈퇴
+    int userDelOk(int useridx);
+    void userDelInsert(UserDelReasonDTO userDelReasonDTO);
 }

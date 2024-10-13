@@ -3,7 +3,8 @@
 <%@include file="/WEB-INF/inc/page_header.jspf"%>
 
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
-<link rel="stylesheet" href="/css/mypage_userDel.css" type="text/css" />
+<link rel="stylesheet" href="/css/mypage_userDelReason.css" type="text/css" />
+<script src="/js/mypage_userDelReason.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -22,7 +23,7 @@
           <h3>나의 계정설정</h3>
           <ul>
             <li>
-              <a href="/user/mypage_userEdit">회원정보수정</a>
+              <a href="/user/mypage_userEdit" class="option_active">회원정보수정</a>
             </li>
             <li>
               <a href="">내가 쓴 글</a>
@@ -32,9 +33,6 @@
             </li>
             <li>
               <a href="/user/mypage_heart">좋아요</a>
-            </li>
-            <li>
-              <a href="/user/mypage_userDel" class="option_active">회원탈퇴</a>
             </li>
           </ul>
           <h3>고객센터</h3>
@@ -94,29 +92,29 @@
         <div>
           <h4>탈퇴 사유 선택</h4>
           <form class="userDel_form">
-            <select name="delreason" id="delreason">
-              <option value="탈퇴 후 재가입을 위해서">
+            <select name="delReason" id="delReason">
+              <option value="1">
                 탈퇴 후 재가입을 위해서
               </option>
-              <option value="사고 싶은 상품이 없어서">
+              <option value="2">
                 사고 싶은 상품이 없어서
               </option>
-              <option value="자주 이용하지 않아서">
+              <option value="3">
                 자주 이용하지 않아서
               </option>
-              <option value="원하는 애니가 없어서">
+              <option value="4">
                 원하는 애니가 없어서
               </option>
-              <option value="서비스 및 고객지원이 만족스럽지 않아서">
+              <option value="4">
                 서비스 및 고객지원이 만족스럽지 않아서
               </option>
             </select>
-            <textarea
+            <textarea id="delReasonDetail"
               placeholder="이 외에 불편하셨던 점을 알려주세요(선택)"
             ></textarea>
             <div>
-              <input type="button" value="취소하기" />
-              <input type="submit" value="탈퇴하기" />
+              <input type="button" value="취소하기" onclick="location.href='/user/mypage_userEdit'"/>
+              <input type="button" value="다음으로" id="userDel_next"/>
             </div>
           </form>
         </div>

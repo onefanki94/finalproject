@@ -7,6 +7,8 @@ import com.ict.finalproject.DTO.PaymentResDTO;
 import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.OrderVO;
 import com.ict.finalproject.vo.PaymentVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -21,6 +23,7 @@ import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService{
+    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
     @Autowired
     OrderDAO dao;
 
@@ -89,9 +92,9 @@ public class OrderServiceImpl implements OrderService{
 
         // 승인 요청 데이터
         Map<String, Object> requestData = new HashMap<>();
-        requestData.put("paymentKey", approvalDTO.getPaymentKey());
-        requestData.put("orderId", approvalDTO.getOrderId());
-        requestData.put("amount", approvalDTO.getAmount());
+        requestData.put("paymentKey", paymentKey);
+        requestData.put("orderId",orderId);
+        requestData.put("amount", amount);
 
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -100,7 +103,7 @@ public class OrderServiceImpl implements OrderService{
         if (response.getStatusCode() == HttpStatus.OK) {
             // Toss API에서 받은 결제 정보
             PaymentResDTO responseData = response.getBody();
-
+            log.info("%%%%%%%%%%%%%%%%%%%%%%%%responseData : {}",responseData);
             payment.setPaytype(responseData.getMethod());
             payment.setOrdername(responseData.getOrderName());
             payment.setPaymentKey(approvalDTO.getPaymentKey());
