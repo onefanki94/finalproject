@@ -14,6 +14,7 @@
 
 
 
+
 <section class="top_info">
     <div class="cm_tab">
         <h1>커뮤니티</h1>
@@ -181,6 +182,9 @@
                 document.getElementById("searchKeyword").value = '';
             }
 
+var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
+var userid;
+
 window.onload = function(){
     console.log("호출");
 
@@ -190,9 +194,16 @@ window.onload = function(){
             url:"/getuser",
             type:"get",
             data:{Authorization:token},
-            success: function(userid){
+            success: function(vo){
                 console.log("로그인된 사용자 ID:" + userid);
 
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+
+                userid = userid;
                     if(userid && userid.trim() !== ""){
                         //로그인 상태일 때 글쓰기 버튼을 표시
                         document.querySelector(".new_write").style.display ="block";

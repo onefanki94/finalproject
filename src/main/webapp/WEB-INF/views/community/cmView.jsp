@@ -8,6 +8,38 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 	<link href="/css/cmView.css" rel="stylesheet" type="text/css">
+<script>
+var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
+var userid;
+
+window.onload = function(){
+    console.log("호출");
+
+    var token = localStorage.getItem("token"); //토근 값 가져오기
+    if(token != "" && token != null){
+        $.ajax({
+            url:"/getuser",
+            type:"get",
+            data:{Authorization:token},
+            success: function(vo){
+                console.log("로그인된 사용자 ID:" + userid);
+
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+
+                },
+                error: function(){
+                    console.error("로그인 여부 확인 실패");
+                    document.querySelector(".new_write").style.display = "none"
+                }
+        });
+        }
+        };
+
+</script>
 
 
     <section class="top_info">
@@ -122,9 +154,10 @@
             }
         }
 
+    <!-- 댓글 등록 -->
      function regiComm() {
-         // CKEditor 내용 유효성 검사
 
+        alert(useridx);
          let comm_idx = $('[name=no]').val();
          let content =  $('[id=textSearch]').val();
          // 로컬 스토리지에서 JWT 토큰 가져오기
@@ -152,7 +185,8 @@
              },
              success: function(data) {
                  alert('댓글이 등록되었습니다.');  // 성공 메시지
-                 //location.href = "/cmList";  // 글 목록 페이지로 이동
+                 loadComments(comm_idx);// 댓글 추가 후 댓글 목록 다시 불러오기
+                 $('#textSearch').val('');// 댓글 입력창 비우기
              },
              error: function(xhr, status, error) {
                  if (xhr.status === 401) {
@@ -169,43 +203,200 @@
      }
 
      // 댓글 목록 로드 함수
-         function loadComments(comm_idx) {
-             $.ajax({
-                 url: "/getComment",  // 댓글을 가져오는 URL
-                 type: "GET",
-                 data: { comm_idx: comm_idx },
-                 success: function(comments) {
+     function loadComments(comm_idx) {
+         $.ajax({
+             url: "/getComment",
+             type: "GET",
+             data: { comm_idx: comm_idx },
+             success: function(comments) {
+                 let replyList = $('#replyList');
+                 replyList.empty();
 
-                 console.log(comments);
-                     // 댓글 목록 갱신
-                     let replyList = $('#replyList');
-                     replyList.empty(); // 기존 댓글 목록 비우기
+                 comments.forEach( comment => {
+                     let comm = '<div class="comment-'+comment.idx+'">' +
+                                           '<p><strong>' + comment.userid + '</strong><br/>'+ '<p>' + comment.content + '</p>' +
+                                           '<p>' + comment.regDT + '</p>';
+                        //comm+="<button type='button' onclick='test("+comment.idx+")'>test</button>";
+                     if (comment.useridx === useridx) {
+                         console.log(comment);
+                         comm += '<input type="button" value="수정" onclick="editComment('+comment.idx+')"/>'+
+                                  '<input type="button" value="삭제" onclick="deleteComment('+comment.idx+')"/>';
 
-                     comments.forEach(comment => {
-                         console.log(comment.content);
-                         // 댓글 HTML 구조를 만들어서 추가
-                         const comm = ' <div class="comment"> ' +
-                                      '<p><strong> ' + comment.userid + '</strong> : '+ comment.content + '</p>' +
-                                      '  <p>' + comment.regDT + '</p>'+
-                                    '</div>';
-                         replyList.append(comm);
-                     });
-
-                     console.log("Reply List HTML: ", replyList.html()); // 최종 HTML 출력
-                 },
-                 error: function(xhr, status, error) {
-                     console.error("댓글 로드 오류:", error);
-                 }
-             });
+                         comm += '<div id="edit-form-' + comment.idx+'" style="display:none;">' +
+                              '<textarea id="edit-textarea-'+comment.idx+'">${comment.content}</textarea>' +
+                              '<button onclick="updateComment('+comment.idx+','+comment.comm_idx+')">수정하기</button>' +
+                           '</div>';
 
 
+                        }
+
+                    if(useridx != null && useridx != ""){
+                         comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
+
+                         comm += '<div id="replyInput-'+comment.idx+'" style="display:none;">' +
+                                     '<input type="text" id="replyContent-'+comment.idx+'" placeholder="댓글을 남겨보세요." />' +
+                                     '<button onclick="regiReply('+comment.idx+','+comment.comm_idx+')">등록</button>' +
+                                  '</div>';
+                    }
+
+                     comm += '</div>';
+                     replyList.append(comm);
+                 });
+             },
+             error: function(xhr, status, error) {
+                 console.error("댓글 로드 오류:", error);
+             }
+         });
+     }
+    function test(testidx){
+    alert(testidx);
+    }
+
+     function regiReply(commentIdx, comm_idx) {//원댓글의 idx + 게시물의 idx
+              //let contents =  $('[id=replyContent-${comment.idx}]').val();
+              const content = document.querySelector("#replyContent-"+commentIdx).value;
+
+              alert(content);
+
+              // 로컬 스토리지에서 JWT 토큰 가져오기
+              const token = localStorage.getItem("token");
+              if (!token) {
+                  alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
+                  location.href = "/user/login";  // 로그인 페이지로 이동
+                  return false;
+              }
+
+              // 서버로 전송할 데이터를 FormData 객체에 추가
+              const postData = new URLSearchParams();
+              postData.append("content", content);
+              postData.append("token", token);  // token 추가
+              postData.append("commentIdx", commentIdx);
+              postData.append("comm_idx", comm_idx);
+
+
+              // AJAX 요청 보내기
+              $.ajax({
+                  url: "/regiReply",
+                  type: "POST",
+                  data: postData.toString(),
+                  contentType: "application/x-www-form-urlencoded",
+                  headers: {
+                      "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+                  },
+                  success: function(data) {
+                      alert('답글이 등록되었습니다.');  // 성공 메시지
+                      loadComments(comm_idx);// 댓글 추가 후 댓글 목록 다시 불러오기
+                      document.querySelector(`#replyContent-${parentidx}`).value = '';
+                      //$('#textSearch').val('');// 댓글 입력창 비우기
+                  },
+                  error: function(xhr, status, error) {
+                      if (xhr.status === 401) {
+                          alert('인증에 실패했습니다. 다시 로그인하세요.');
+                          location.href = "/user/login";  // 로그인 페이지로 이동
+                      } else {
+                          alert("요청 처리 중 오류가 발생했습니다.");
+                      }
+                      console.error("Error:", error);  // 오류 출력
+                  }
+              });
+
+              return false;  // 기본 폼 제출 방지
+          }
+
+        //댓글입력폼
+       function toggleReplyInput(commentIdx) { //뭘쓰든 상관이 없어요! 본인만 알아부보세요!
+        alert(commentIdx);
+           const replyInput = document.getElementById("replyInput-"+commentIdx);
+           if (replyInput.style.display === 'none') {
+               replyInput.style.display = 'block'; // 보여주기
+           } else {
+               replyInput.style.display = 'none'; // 숨기기
+           }
+       }
+
+     // 댓글 수정
+     function editComment(commentIdx) {//원댓글의 인덱스값
+          const className = ".comment-"+commentIdx;
+          console.log("a" + className);
+         // 댓글 내용을 가져오기 위해 댓글의 텍스트를 담고 있는 요소를 찾습니다.
+         const commentDiv = document.querySelector(".comment-"+commentIdx);
+         console.log("b", commentDiv, commentIdx);
+
+         if (commentDiv) {
+            console.log("check", commentDiv);
+             // 댓글 내용 가져오기
+             const commentContent = commentDiv.querySelectorAll('p')[1].textContent;
+             //const commentContent = commentDiv.querySelector('p').textContent;
+
+             // 수정 폼의 textarea에 댓글 내용을 설정합니다.
+             const editTextarea = document.querySelector("#edit-textarea-"+commentIdx);
+             if (editTextarea) {
+                 editTextarea.value = commentContent; // 댓글 내용을 textarea에 설정
+             }
+
+             // 수정 폼 보이기
+             const editForm = document.querySelector("#edit-form-"+commentIdx);
+             if (editForm.style.display === 'none') {
+                 editForm.style.display = 'block'; // 수정 폼을 보여줍니다.
+             } else {
+                 editForm.style.display = 'none'; // 숨기기
+             }
          }
+     }
+
+     // 댓글 수정 처리
+     function updateComment(commentIdx, comm_idx) {
+         const editTextarea = document.querySelector("#edit-textarea-"+commentIdx);
+         const updatedContent = editTextarea.value;
+
+         // AJAX 요청으로 서버에 수정된 내용을 보냅니다.
+         $.ajax({
+             url: '/updateComment',
+             type: 'POST',
+             data: {
+                 idx: commentIdx,
+                 content: updatedContent,
+                 comm_idx : comm_idx
+             },
+             success: function(response) {
+                if (response.message === "댓글 수정 성공") {
+                        alert('댓글이 수정되었습니다.');
+                        loadComments(response.comm_idx); // 서버가 반환한 comm_idx로 댓글 목록을 다시 불러옵니다.
+                 } else {
+                        alert('댓글 수정에 실패했습니다.');
+                  }
+             },
+             error: function(xhr, status, error) {
+                 console.error("댓글 수정 오류:", error);
+             }
+         });
+     }
+
+
+     function deleteComment(idx) {
+         console.log("삭제할 댓글의 idx: ", idx); // 여기서 idx 값을 로그로 확인
+         $.ajax({
+             url: '/deleteComment',
+             type: 'POST',
+             data: { idx: idx },
+             success: function() {
+                 alert('댓글이 삭제되었습니다.');
+                 loadComments(comm_idx); // 댓글 목록 다시 불러오기
+             },
+             error: function(xhr, status, error) {
+                 console.error("댓글 삭제 오류:", error);
+             }
+         });
+     }
 
          // 페이지 로드 시 댓글 목록 가져오기
          $(document).ready(function() {
              let comm_idx = $('[name=no]').val();
              loadComments(comm_idx); // 댓글 목록 로드
          });
+
+
+
 
     </script>
 
