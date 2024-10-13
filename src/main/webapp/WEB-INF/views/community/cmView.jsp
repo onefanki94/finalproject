@@ -196,56 +196,181 @@ window.onload = function(){
      }
 
      // 댓글 목록 로드 함수
-         function loadComments(comm_idx) {
-             $.ajax({
-                 url: "/getComment",  // 댓글을 가져오는 URL
-                 type: "GET",
-                 data: { comm_idx: comm_idx },
-                 success: function(comments) {
+     function loadComments(comm_idx) {
+         $.ajax({
+             url: "/getComment",
+             type: "GET",
+             data: { comm_idx: comm_idx },
+             success: function(comments) {
+                 let replyList = $('#replyList');
+                 replyList.empty();
 
-                 console.log(comments);
-                     // 댓글 목록 갱신
-                     let replyList = $('#replyList');
-                     replyList.empty(); // 기존 댓글 목록 비우기
+                 comments.forEach( comment => {
+                     let comm = '<div class="comment">' +
+                                           '<p><strong>' + comment.userid + '</strong><br/>'+ '<p>' + comment.content + '</p>' +
+                                           '<p>' + comment.regDT + '</p>';
 
-                     comments.forEach(comment => {
-                         console.log(comment.content);
-                         console.log("Comment User ID: " + comment.useridx);
-                             console.log("Logged In User ID: " + useridx);
+                     if (comment.useridx === useridx) {
+                         console.log(comment);
+                         comm += '<input type="button" value="수정" onclick="editComment('+comment.idx+')"/>'+
+                                  '<input type="button" value="삭제" onclick="deleteComment('+comment.idx+')"/>';
 
+                         comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
 
-                         // 댓글 HTML 구조를 만들어서 추가
-                         let comm = ' <div class="comment"> ' +
-                                      '<p><strong> ' + comment.userid + '</strong> : '+ comment.content + '</p>' +
-                                      '  <p>' + comment.regDT + '</p>';
+                         comm += '<div id="replyInput-${comment.idx}" style="display:none;">' +
+                                     '<input type="text" id="replyContent-${comment.idx}" placeholder="댓글을 남겨보세요." />' +
+                                     '<button onclick="regiReply('+comment.idx+')">등록</button>' +
+                                  '</div>';
 
+                         comm += '<div id="edit-form-${comment.idx}" style="display:none;">' +
+                                     '<textarea id="edit-textarea-${comment.idx}">${comment.content}</textarea>' +
+                                     '<button onclick="updateComment('+comment.idx+')">수정하기</button>' +
+                                  '</div>';
 
-                         // 댓글 작성자와 로그인한 사용자 ID가 같은지 확인
-                         if (comment.useridx === useridx) { // 여기서 userid 사용
-                             // 수정 및 삭제 버튼 추가
-                             comm += `<input type='button' value='수정' onclick='editComment(${comment.idx})'/>
-                                      <input type='button' value='삭제' alt='${comment.idx}' onclick='deleteComment(${comment.idx})'/>`;
-                         }
-
-                                         comm += '</div>'; // 여기를 추가해서 HTML 구조를 완성
-                         replyList.append(comm);
-                     });
-
-                     console.log("Reply List HTML: ", replyList.html()); // 최종 HTML 출력
-                 },
-                 error: function(xhr, status, error) {
-                     console.error("댓글 로드 오류:", error);
-                 }
-             });
+                        }
+                     comm += '</div>';
+                     replyList.append(comm);
+                 });
+             },
+             error: function(xhr, status, error) {
+                 console.error("댓글 로드 오류:", error);
+             }
+         });
+     }
 
 
+     function regiReply() {
+              let content =  $('[id=replyContent-${comment.idx}]').val();
+              //const content = document.querySelector(`#replyContent-${parentidx}`).value;
+              cons
+
+
+              // 로컬 스토리지에서 JWT 토큰 가져오기
+              const token = localStorage.getItem("token");
+              if (!token) {
+                  alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
+                  location.href = "/user/login";  // 로그인 페이지로 이동
+                  return false;
+              }
+
+              // 서버로 전송할 데이터를 FormData 객체에 추가
+              const postData = new URLSearchParams();
+              postData.append("content", content);
+              postData.append("token", token);  // token 추가
+              postData.append("parentidx", parentidx);
+
+              // AJAX 요청 보내기
+              $.ajax({
+                  url: "/regiComm",
+                  type: "POST",
+                  data: postData.toString(),
+                  contentType: "application/x-www-form-urlencoded",
+                  headers: {
+                      "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+                  },
+                  success: function(data) {
+                      alert('답글이 등록되었습니다.');  // 성공 메시지
+                      loadComments(comm_idx);// 댓글 추가 후 댓글 목록 다시 불러오기
+                      document.querySelector(`#replyContent-${parentidx}`).value = '';
+                      //$('#textSearch').val('');// 댓글 입력창 비우기
+                  },
+                  error: function(xhr, status, error) {
+                      if (xhr.status === 401) {
+                          alert('인증에 실패했습니다. 다시 로그인하세요.');
+                          location.href = "/user/login";  // 로그인 페이지로 이동
+                      } else {
+                          alert("요청 처리 중 오류가 발생했습니다.");
+                      }
+                      console.error("Error:", error);  // 오류 출력
+                  }
+              });
+
+              return false;  // 기본 폼 제출 방지
+          }
+
+        //댓글입력폼
+       function toggleReplyInput(commentIdx) {
+           const replyInput = document.getElementById(`replyInput-${commentIdx}`);
+           if (replyInput.style.display === 'none') {
+               replyInput.style.display = 'block'; // 보여주기
+           } else {
+               replyInput.style.display = 'none'; // 숨기기
+           }
+       }
+
+     // 댓글 수정
+     function editComment(commentIdx) {
+         // 댓글 내용을 가져오기 위해 댓글의 텍스트를 담고 있는 요소를 찾습니다.
+         const commentDiv = document.querySelector(`#comment-${commentIdx}`);
+
+         if (commentDiv) {
+             // 댓글 내용 가져오기
+             const commentContent = commentDiv.querySelector('p').textContent;
+
+             // 수정 폼의 textarea에 댓글 내용을 설정합니다.
+             const editTextarea = document.querySelector(`#edit-textarea-${commentIdx}`);
+             if (editTextarea) {
+                 editTextarea.value = commentContent; // 댓글 내용을 textarea에 설정
+             }
+
+             // 수정 폼 보이기
+             const editForm = document.querySelector(`#edit-form-${commentIdx}`);
+             if (editForm.style.display === 'none') {
+                 editForm.style.display = 'block'; // 수정 폼을 보여줍니다.
+             } else {
+                 editForm.style.display = 'none'; // 숨기기
+             }
          }
+     }
+
+     // 댓글 수정 처리
+     function updateComment(commentIdx) {
+         const editTextarea = document.querySelector(`#edit-textarea-${commentIdx}`);
+         const updatedContent = editTextarea.value;
+
+         // AJAX 요청으로 서버에 수정된 내용을 보냅니다.
+         $.ajax({
+             url: '/updateComment',
+             type: 'POST',
+             data: {
+                 idx: commentIdx,
+                 content: updatedContent
+             },
+             success: function() {
+                 alert('댓글이 수정되었습니다.');
+                 loadComments(comm_idx); // 댓글 목록을 다시 불러옵니다.
+             },
+             error: function(xhr, status, error) {
+                 console.error("댓글 수정 오류:", error);
+             }
+         });
+     }
+
+
+     function deleteComment(idx) {
+         console.log("삭제할 댓글의 idx: ", idx); // 여기서 idx 값을 로그로 확인
+         $.ajax({
+             url: '/deleteComment',
+             type: 'POST',
+             data: { idx: idx },
+             success: function() {
+                 alert('댓글이 삭제되었습니다.');
+                 loadComments(comm_idx); // 댓글 목록 다시 불러오기
+             },
+             error: function(xhr, status, error) {
+                 console.error("댓글 삭제 오류:", error);
+             }
+         });
+     }
 
          // 페이지 로드 시 댓글 목록 가져오기
          $(document).ready(function() {
              let comm_idx = $('[name=no]').val();
              loadComments(comm_idx); // 댓글 목록 로드
          });
+
+
+
 
     </script>
 

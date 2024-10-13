@@ -37,6 +37,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public int insertReply(CommentVO comment) {
+        return commentDAO.insertReply(comment);
+    }
+
+    @Override
+    public List<CommentVO> getReplies(int parentIdx) {
+        return commentDAO.getReplies(parentIdx);
+    }
+
+    @Override
     public int updeteReport() {
         return 0;
     }
