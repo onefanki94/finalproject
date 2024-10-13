@@ -15,17 +15,19 @@
 <!--    </insert>-->
 
     <insert id="insertReply" parameterType="com.ict.finalproject.vo.CommentVO">
-        INSERT INTO t_comment (comm_idx, useridx, content, regDT, parentidx, depth)
-        VALUES (
+        INSERT INTO t_comment (comm_idx, useridx, content
+        <if test="parentidx != null">
+            ,parentidx, depth
+        </if>
+        ) VALUES (
         #{comm_idx},
         #{useridx},
-        #{content},
-        NOW(),
+        #{content}
 
         <!-- 대댓글(답글)의 경우 -->
-        <if test="parentidx != null and depth == 1">
-            #{parentidx},  <!-- 대댓글일 경우 parentidx는 원댓글의 idx -->
-            2   <!-- 대댓글의 depth는 2 -->
+        <if test="parentidx != null">
+            ,#{parentidx},2  <!-- 대댓글일 경우 parentidx는 원댓글의 idx -->
+            <!-- 대댓글의 depth는 2 -->
         </if>
         )
     </insert>

@@ -206,28 +206,32 @@ window.onload = function(){
                  replyList.empty();
 
                  comments.forEach( comment => {
-                     let comm = '<div class="comment">' +
+                     let comm = '<div class="comment-'+comment.idx+'">' +
                                            '<p><strong>' + comment.userid + '</strong><br/>'+ '<p>' + comment.content + '</p>' +
                                            '<p>' + comment.regDT + '</p>';
-
+                        //comm+="<button type='button' onclick='test("+comment.idx+")'>test</button>";
                      if (comment.useridx === useridx) {
                          console.log(comment);
                          comm += '<input type="button" value="수정" onclick="editComment('+comment.idx+')"/>'+
                                   '<input type="button" value="삭제" onclick="deleteComment('+comment.idx+')"/>';
 
-                         comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
+                         comm += '<div id="edit-form-' + comment.idx+'" style="display:none;">' +
+                              '<textarea id="edit-textarea-'+comment.idx+'">${comment.content}</textarea>' +
+                              '<button onclick="updateComment('+comment.idx+','+comment.comm_idx+')">수정하기</button>' +
+                           '</div>';
 
-                         comm += '<div id="replyInput-${comment.idx}" style="display:none;">' +
-                                     '<input type="text" id="replyContent-${comment.idx}" placeholder="댓글을 남겨보세요." />' +
-                                     '<button onclick="regiReply('+comment.idx+')">등록</button>' +
-                                  '</div>';
-
-                         comm += '<div id="edit-form-${comment.idx}" style="display:none;">' +
-                                     '<textarea id="edit-textarea-${comment.idx}">${comment.content}</textarea>' +
-                                     '<button onclick="updateComment('+comment.idx+')">수정하기</button>' +
-                                  '</div>';
 
                         }
+
+                    if(useridx != null && useridx != ""){
+                         comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
+
+                         comm += '<div id="replyInput-'+comment.idx+'" style="display:none;">' +
+                                     '<input type="text" id="replyContent-'+comment.idx+'" placeholder="댓글을 남겨보세요." />' +
+                                     '<button onclick="regiReply('+comment.idx+','+comment.comm_idx+')">등록</button>' +
+                                  '</div>';
+                    }
+
                      comm += '</div>';
                      replyList.append(comm);
                  });
@@ -237,13 +241,15 @@ window.onload = function(){
              }
          });
      }
+    function test(testidx){
+    alert(testidx);
+    }
 
+     function regiReply(commentIdx, comm_idx) {//원댓글의 idx + 게시물의 idx
+              //let contents =  $('[id=replyContent-${comment.idx}]').val();
+              const content = document.querySelector("#replyContent-"+commentIdx).value;
 
-     function regiReply() {
-              let content =  $('[id=replyContent-${comment.idx}]').val();
-              //const content = document.querySelector(`#replyContent-${parentidx}`).value;
-              cons
-
+              alert(content);
 
               // 로컬 스토리지에서 JWT 토큰 가져오기
               const token = localStorage.getItem("token");
@@ -257,11 +263,13 @@ window.onload = function(){
               const postData = new URLSearchParams();
               postData.append("content", content);
               postData.append("token", token);  // token 추가
-              postData.append("parentidx", parentidx);
+              postData.append("commentIdx", commentIdx);
+              postData.append("comm_idx", comm_idx);
+
 
               // AJAX 요청 보내기
               $.ajax({
-                  url: "/regiComm",
+                  url: "/regiReply",
                   type: "POST",
                   data: postData.toString(),
                   contentType: "application/x-www-form-urlencoded",
@@ -289,8 +297,9 @@ window.onload = function(){
           }
 
         //댓글입력폼
-       function toggleReplyInput(commentIdx) {
-           const replyInput = document.getElementById(`replyInput-${commentIdx}`);
+       function toggleReplyInput(commentIdx) { //뭘쓰든 상관이 없어요! 본인만 알아부보세요!
+        alert(commentIdx);
+           const replyInput = document.getElementById("replyInput-"+commentIdx);
            if (replyInput.style.display === 'none') {
                replyInput.style.display = 'block'; // 보여주기
            } else {
@@ -299,22 +308,27 @@ window.onload = function(){
        }
 
      // 댓글 수정
-     function editComment(commentIdx) {
+     function editComment(commentIdx) {//원댓글의 인덱스값
+          const className = ".comment-"+commentIdx;
+          console.log("a" + className);
          // 댓글 내용을 가져오기 위해 댓글의 텍스트를 담고 있는 요소를 찾습니다.
-         const commentDiv = document.querySelector(`#comment-${commentIdx}`);
+         const commentDiv = document.querySelector(".comment-"+commentIdx);
+         console.log("b", commentDiv, commentIdx);
 
          if (commentDiv) {
+            console.log("check", commentDiv);
              // 댓글 내용 가져오기
-             const commentContent = commentDiv.querySelector('p').textContent;
+             const commentContent = commentDiv.querySelectorAll('p')[1].textContent;
+             //const commentContent = commentDiv.querySelector('p').textContent;
 
              // 수정 폼의 textarea에 댓글 내용을 설정합니다.
-             const editTextarea = document.querySelector(`#edit-textarea-${commentIdx}`);
+             const editTextarea = document.querySelector("#edit-textarea-"+commentIdx);
              if (editTextarea) {
                  editTextarea.value = commentContent; // 댓글 내용을 textarea에 설정
              }
 
              // 수정 폼 보이기
-             const editForm = document.querySelector(`#edit-form-${commentIdx}`);
+             const editForm = document.querySelector("#edit-form-"+commentIdx);
              if (editForm.style.display === 'none') {
                  editForm.style.display = 'block'; // 수정 폼을 보여줍니다.
              } else {
@@ -324,8 +338,8 @@ window.onload = function(){
      }
 
      // 댓글 수정 처리
-     function updateComment(commentIdx) {
-         const editTextarea = document.querySelector(`#edit-textarea-${commentIdx}`);
+     function updateComment(commentIdx, comm_idx) {
+         const editTextarea = document.querySelector("#edit-textarea-"+commentIdx);
          const updatedContent = editTextarea.value;
 
          // AJAX 요청으로 서버에 수정된 내용을 보냅니다.
@@ -334,11 +348,16 @@ window.onload = function(){
              type: 'POST',
              data: {
                  idx: commentIdx,
-                 content: updatedContent
+                 content: updatedContent,
+                 comm_idx : comm_idx
              },
-             success: function() {
-                 alert('댓글이 수정되었습니다.');
-                 loadComments(comm_idx); // 댓글 목록을 다시 불러옵니다.
+             success: function(response) {
+                if (response.message === "댓글 수정 성공") {
+                        alert('댓글이 수정되었습니다.');
+                        loadComments(response.comm_idx); // 서버가 반환한 comm_idx로 댓글 목록을 다시 불러옵니다.
+                 } else {
+                        alert('댓글 수정에 실패했습니다.');
+                  }
              },
              error: function(xhr, status, error) {
                  console.error("댓글 수정 오류:", error);

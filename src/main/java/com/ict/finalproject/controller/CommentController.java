@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CommentController {
@@ -87,10 +89,13 @@ public class CommentController {
     //대댓글 등록(DB)
     @PostMapping("/regiReply")
     public ResponseEntity<String> regiReply(
-            @RequestParam("parentidx") int parentidx,
+            @RequestParam("commentIdx") int idx,
             @RequestParam("content") String content,
-            @RequestParam("token") String token
+            @RequestParam("token") String token,
+            @RequestParam("comm_idx") int comm_idx
+
     ) {
+        System.out.println("tt"+idx);
         //토큰에서 사용자 아이디 추출
         String userid = jwtUtil.getUserIdFromToken(token);
         if (userid == null) {
@@ -103,8 +108,10 @@ public class CommentController {
         // comment VO 객체 생성 및 설정
         CommentVO reply = new CommentVO();
         reply.setContent(content);
-        reply.setUserid(userid); // 댓글 작성자 ID
-        reply.setParentidx(parentidx); // 부모 댓글 idx 설정
+        reply.setUseridx(useridx); // 댓글 작성자 ID
+        reply.setParentidx(idx); // 부모 댓글 idx 설정 원글idx를 부모로 넣어라! 제발!
+        reply.setComm_idx(comm_idx); // 게시물idx도 넣어야지!!!
+
 
 
         String bodyTag = "";
@@ -134,17 +141,25 @@ public class CommentController {
 
 
     @PostMapping("/updateComment")
-    public ResponseEntity<String> updateComment(@RequestParam("idx") int idx,
-                                                @RequestParam("content") String content) {
+    public ResponseEntity<Map<String, Object>> updateComment(@RequestParam("idx") int idx,
+                                                             @RequestParam("content") String content,
+                                                             @RequestParam("comm_idx") int comm_idx)
+    {
         CommentVO comment = new CommentVO();
         comment.setIdx(idx);
         comment.setContent(content);
+        comment.setComm_idx(comm_idx);
+
 
         int result = commentService.updateCommnet(comment);
+        Map<String, Object> response = new HashMap<>();
         if (result > 0) {
-            return new ResponseEntity<>("댓글 수정 성공", HttpStatus.OK);
+            response.put("message", "댓글 수정 성공");
+            response.put("comm_idx", comm_idx);  // comm_idx 값을 JSON에 포함
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("댓글 수정 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+            response.put("message", "댓글 수정 실패");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
