@@ -1,74 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
-<title>DashBoard - 게시판 리뷰 전체 목록</title>
+<title>DashBoard - 게시판 댓글 전체 목록</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
-<div class="boardReviewManagement">
-            <h2>게시판 리뷰 목록</h2>
+<script>
+$(document).on('click', '.btn-outline-success', function() {
+                   // 댓글 상세 정보를 로드하는 로직
+                   $('#commentContent').text('여기에 댓글 내용');
+                   $('#commentAuthor').text('여기에 작성자');
+                   $('#commentDate').text('여기에 작성일');
+
+                   // 모달 열기
+                   $('#commentModal').modal('show');
+               });
+</script>
+<div class="boardReplyManagement">
+            <h2>게시판 댓글 목록</h2>
             <table class="table table-hover table-bordered">
                 <thead class="table-light">
                     <tr>
                         <th style="width:2%;">No.</th>
-                        <th style="width:8%;">카테고리</th>
-                        <th style="width:40%;">리뷰제목</th>
+                        <th style="width:6%;">카테고리</th>
+                        <th style="width:30%;">댓글내용</th>
                         <th style="width:8%;">작성자</th>
                         <th style="width:8%;">작성일</th>
                         <th style="width:15%;">관리</th>
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach items="${reviewList}" var="review">
                     <tr>
-                        <td>1</td>
-                        <td>애니리뷰</td>
-                        <td>원피스 리뷰: 최고의 해적 이야기</td>
-                        <td>관리자</td>
-                        <td>2023-09-25</td>
+                        <td>${review.idx}</td>
+                        <td>${review.comm_idx}</td>
+                        <td>${review.content}</td>
+                        <td>${review.useridx}</td>
+                        <td>${review.regDT}</td>
                         <td>
                             <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
                             <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>애니리뷰</td>
-                        <td>나루토 리뷰: 닌자의 성장 이야기</td>
-                        <td>홍길동</td>
-                        <td>2023-09-24</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>드라마리뷰</td>
-                        <td>겨울연가 리뷰: 사랑과 이별</td>
-                        <td>이영희</td>
-                        <td>2023-09-23</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>웹툰리뷰</td>
-                        <td>신의탑 리뷰: 액션과 전략의 조화</td>
-                        <td>박철수</td>
-                        <td>2023-09-22</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
 
         <!-- 페이징 영역 -->
-        <div class="boardReviewPageing">
+        <div class="boardReplyPageing">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
@@ -82,4 +61,24 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">댓글 상세 정보</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- 여기에서 댓글 상세 정보를 로드 -->
+                <p>댓글 내용: <span id="commentContent"></span></p>
+                <p>작성자: <span id="commentAuthor"></span></p>
+                <p>작성일: <span id="commentDate"></span></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              </div>
+            </div>
+          </div>
         </div>

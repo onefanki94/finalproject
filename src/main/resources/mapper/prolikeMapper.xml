@@ -2,17 +2,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.ProlikeDAO">
-
-
     <!-- 좋아요 추가 -->
-    <insert id="insertLike">
-        insert into t_prolike (pro_idx, useridx, regDT)
-        values (#{pro_idx}, #{useridx}, NOW())
+    <insert id="addLike" parameterType="map">
+        INSERT INTO t_prolike (pro_idx, useridx, regDT)
+        VALUES (#{pro_idx}, #{useridx}, NOW())
     </insert>
 
     <!-- 좋아요 취소 -->
     <delete id="deleteLike">
-        deleteS from t_prolike
+        delete from t_prolike
         where pro_idx = #{pro_idx} AND useridx = #{useridx}
     </delete>
 

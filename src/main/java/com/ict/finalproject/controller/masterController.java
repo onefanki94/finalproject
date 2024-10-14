@@ -235,7 +235,7 @@ public class masterController {
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("reviewList", reviewList);
-        mav.setViewName("master/boardMasterReplyAll");
+        mav.setViewName("master/boardMasterReviewAll");
         return mav;
     }
 
@@ -243,7 +243,7 @@ public class masterController {
     @GetMapping("/boardMasterReplyAll")
     public ModelAndView boardMasterReplyAll(){
         mav = new ModelAndView();
-        mav.setViewName("master/boardMasterReviewAll");
+        mav.setViewName("master/boardMasterReplyAll");
         return mav;
     }
 
