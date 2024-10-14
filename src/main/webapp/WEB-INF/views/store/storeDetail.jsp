@@ -125,7 +125,7 @@
             <div class="product-details-wrapper">
                 <!-- 이미지 섹션 -->
                 <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="상품 상세 이미지" />
+                    <img src="http://192.168.1.92:8000/${product.thumImg}" alt="상품 상세 이미지" />
                 </div>
 
 
@@ -139,7 +139,7 @@
         <!-- 숨겨진 상품 설명 -->
          <!--DB확인 후 재 작업-->
         <div id="hidden-description" class="hidden-description">
-            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}">
+            <img src="http://192.168.1.92:8000/${product.thumImg}">
         </div>
     </div>
    
