@@ -9,17 +9,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
     <script src="/js/JWTLogin.js"></script>
-    <c:if test="${not empty errorMessage}">
-        <script>
-            alert("${errorMessage}");
-        </script>
-    </c:if>
+<script>
+    // 서버에서 전달된 값들을 JavaScript 변수로 저장
+    var errorMessage = "${errorMessage}";
+    var isBanned = "${isBanned}";
 
-    <c:if test="${isBanned == true}">
-        <script>
-            alert("로그인이 정지된 사용자입니다.");
-        </script>
-    </c:if>
+    // errorMessage가 존재할 경우 경고 메시지 표시
+    if (errorMessage) {
+        alert(errorMessage);
+    }
+
+    // 사용자가 정지된 상태일 경우 경고 메시지 표시
+    if (isBanned === 'true') {
+        alert("로그인이 정지된 사용자입니다.");
+    }
+</script>
   </head>
   <body>
     <div class="join_div">

@@ -104,7 +104,7 @@ public class UserController {
         MemberVO member = service.memberLogin(userid, userpwd);
         if (member == null) {
             mav.addObject("errorMessage", "잘못된 사용자명 또는 비밀번호입니다.");
-            mav.setViewName("user/login");
+            mav.setViewName("join/login");
             return mav;
         }
 
@@ -112,7 +112,7 @@ public class UserController {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(userpwd, member.getUserpwd())) {
             mav.addObject("errorMessage", "잘못된 비밀번호입니다.");
-            mav.setViewName("user/login");
+            mav.setViewName("join/login");
             return mav;
         }
 
@@ -120,8 +120,7 @@ public class UserController {
         boolean isBanned = masterService.checkUserBanStatus(userid);
         if (isBanned) {
             mav.addObject("isBanned", true);
-            mav.addObject("errorMessage", "로그인이 정지된 사용자입니다.");
-            mav.setViewName("user/login");  // 로그인 페이지로 리다이렉트
+            mav.setViewName("join/login");  // 로그인 페이지로 리다이렉트
             return mav;
         }
 
