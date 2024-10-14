@@ -44,33 +44,7 @@ public class storeMainController {
         return mav;
     }
 
-    @GetMapping("/storeListAndView")
-    public ModelAndView getStoreList() {
-        // 데이터베이스에서 StoreVO 리스트를 가져오기
-        List<StoreVO> storeList = storeService.getStoreList();
-    
-        // 중복된 카테고리 제거 (int 타입으로 처리)
-        Set<Integer> uniqueCategories = new HashSet<>();
-        for (StoreVO store : storeList) {
-            uniqueCategories.add(store.getCategory());
-        }
-
-        System.out.println("Store List: " + storeList);
-        System.out.println("Unique Categories: " + uniqueCategories);
-    
-        // ModelAndView 객체 생성
-        ModelAndView mav = new ModelAndView();
-    
-        // 모델에 데이터를 추가
-        mav.addObject("uniqueCategories", uniqueCategories);
-        mav.addObject("storeList", storeList);
-    
-        // 반환할 JSP 경로 설정
-        mav.setViewName("store/storeList");  // JSP 파일 경로
-    
-        return mav;
-    }
-
+ 
 
     // 검색된 상품 목록 가져오기
     @GetMapping("/searchStoreList")
@@ -88,7 +62,6 @@ public class storeMainController {
     
     // 로그 출력으로 전달된 데이터 확인
     System.out.println("Received ani_title: " + filterCriteria.getAni_title());
-    System.out.println("Received category: " + filterCriteria.getCategory());
     System.out.println("Received stock: " + filterCriteria.getStock());
     
     // 필터링된 상품 리스트 가져오기

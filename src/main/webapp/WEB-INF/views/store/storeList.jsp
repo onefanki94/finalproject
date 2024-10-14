@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
 
@@ -15,7 +16,7 @@
                     </div>
                 </div>
                 </section>
-                <section class="filter-section">  
+                 <section class="filter-section">  
                     <div class="left-con">
                         <h3>필터</h3>
                         <div class="filter-header">
@@ -29,27 +30,28 @@
                         <div class="filter-ani-title">
                             <h3>작품별</h3>
                             <ul class="filter-list">
-                                    <!-- 데이터베이스에서 가져온 작품별 리스트를 출력 -->
-                                    <c:forEach var="product" items="${storeList}">
+                                <!-- 중복된 ani_title을 저장할 빈 문자열 생성 -->
+                                <c:set var="uniqueAniTitles" value=""/>
+                
+                                <!-- storeList를 순회하면서 중복된 ani_title이 있는지 확인 -->
+                                <c:forEach var="product" items="${storeList}">
+                                    <!-- 이미 출력한 ani_title이 아니면 출력 -->
+                                    <c:if test="${not fn:contains(uniqueAniTitles, product.ani_title)}">
+                                        <!-- uniqueAniTitles에 현재 ani_title 추가 (콤마로 구분된 문자열) -->
+                                        <c:set var="uniqueAniTitles" value="${uniqueAniTitles},${product.ani_title}" />
+                                        
+                                        <!-- 필터 아이템 출력 -->
                                         <li class="filter-item" onclick="toggleFilter(this)">
                                             <span class="filter-text">${product.ani_title}</span>
                                         </li>
-                                    </c:forEach>
+                                    </c:if>
+                                </c:forEach>
                             </ul>
                         </div>
                         <hr>
-                        <div class="filter-category">
-                            <h3>카테고리</h3>
-                            <ul class="filter-list">
-                                <c:forEach var="category" items="${uniqueCategories}">
-                                    <li class="filter-item" onclick="toggleFilter(this)">
-                                        <span class="filter-text">${category}</span>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>    
                     </div>
                 </section>
+                
 
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">

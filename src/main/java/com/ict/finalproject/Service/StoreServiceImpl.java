@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -20,6 +21,7 @@ public class StoreServiceImpl implements StoreService {
     }
     public List<StoreVO> getStoreListByFilter(String filterType){
         return dao.getStoreListByFilter(filterType);
+    
     }
 
     public List<StoreVO> searchStoreList(String keyword){
