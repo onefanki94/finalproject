@@ -94,6 +94,10 @@
     </delete>
 
 
+    <insert id="insertComment" parameterType="com.ict.finalproject.vo.CommentVO">
+        INSERT into t_commnet (comm_idx, useridx, content, regDT) values(#{comm_idx}, #{user_idx}, #{content}, NOW())
+    </insert>
+
 
 
 

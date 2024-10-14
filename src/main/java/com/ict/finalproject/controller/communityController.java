@@ -1,9 +1,12 @@
 package com.ict.finalproject.controller;
 
 import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.CommentService;
 import com.ict.finalproject.Service.CommuService;
 import com.ict.finalproject.Service.MemberService;
+import com.ict.finalproject.vo.CommentVO;
 import com.ict.finalproject.vo.CommuVO;
+import com.ict.finalproject.vo.MemberVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.stream.events.Comment;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -31,6 +35,8 @@ public class communityController {
     @Autowired
     private CommuService commuService;
 
+    @Autowired
+    private CommentService commentService;
 
 //    ModelAndView mav = null;
 
@@ -88,8 +94,14 @@ public class communityController {
         CommuVO previousPost = commuService.PreviousPost(idx);
         CommuVO nextPost = commuService.NextPost(idx);
 
+        // 댓글 목록 조회
+        //List<CommentVO> comments = commentService.getComment(idx);
+        // 댓글 목록 조회 (comm_idx 사용)
+        List<CommentVO> comments = commentService.getComment(Detail.getComm_idx()); // comm_idx를 사용하여 댓글 목록 가져오기
+
         // 모델에 게시글 세부 정보 및 이전/다음 게시글 정보 추가
         model.addAttribute("vo", Detail);         // 현재 게시글 세부 정보
+        model.addAttribute("comments", comments);   // 댓글 목록
         model.addAttribute("go", previousPost);   // 이전 게시글
         model.addAttribute("tun", nextPost);      // 다음 게시글
 
@@ -139,11 +151,18 @@ public class communityController {
     //로그인 여부
     @ResponseBody
     @GetMapping("/getuser")
-    public String getuser(@RequestParam("Authorization")String token){
-        System.out.println("hi2");
+    public MemberVO getuser(@RequestParam("Authorization")String token){
+        MemberVO vo = new MemberVO();
+
         String userid = jwtUtil.getUserIdFromToken(token); //토큰에서 사용자 아이디 추출
+        int useridx = mservice.getUseridx(userid);//유저에서 사용자 아이디 추출
+        vo.setUserid(userid);
+        vo.setIdx(useridx);
+
+
+        System.out.println("useridx" + useridx);
         System.out.println("userid : " + userid);
-        return userid;
+        return vo;
     }
 
     //글등록폼
@@ -200,9 +219,16 @@ public class communityController {
 
 
 
+
     //커뮤니티-공지사항 이동
     @GetMapping("/allnotice")
     public String allnotice(){
         return "notice/notice2";
     }
+
+
+/*    @PostMapping("/qnaOK")
+    public ResponseEntity<String> qnaOK(){
+
+    }*/
 }

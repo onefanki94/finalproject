@@ -98,11 +98,9 @@ public class storeMainController {
 }
 
 
-@GetMapping("/storeDetail/{idx}")
-public ModelAndView getStoreDetail(@PathVariable("idx") int idx) {
-    System.out.println("Received idx: " + idx); // idx 값 출력
-    StoreVO storeDetail = storeService.getStoreDetail(idx); // idx로 상품 조회
-    System.out.println("Store Detail: " + storeDetail); // StoreVO 내용 출력
+@GetMapping("/storeDetail/{storeId}")
+public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
+    StoreVO storeDetail = storeService.getStoreDetail(storeId); // idx로 상품 조회
     ModelAndView mav = new ModelAndView();
     mav.addObject("storeDetail", storeDetail);
     mav.setViewName("store/storeDetail");

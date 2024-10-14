@@ -1,0 +1,60 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.CommentDAO">
+
+
+    <insert id="insertComment" parameterType="com.ict.finalproject.vo.CommentVO">
+        INSERT into t_comment (comm_idx, useridx, content, regDT) values(#{comm_idx}, #{useridx}, #{content}, NOW())
+    </insert>
+
+<!--    &lt;!&ndash; 대댓글 작성 &ndash;&gt;-->
+<!--    <insert id="insertReply" parameterType="com.ict.finalproject.vo.CommentVO">-->
+<!--        INSERT into t_comment (comm_idx, useridx, content, regDT, parentidx, depth)-->
+<!--        values(#{comm_idx}, #{useridx}, #{content}, NOW(), #{parentidx})-->
+<!--    </insert>-->
+
+    <insert id="insertReply" parameterType="com.ict.finalproject.vo.CommentVO">
+        INSERT INTO t_comment (comm_idx, useridx, content
+        <if test="parentidx != null">
+            ,parentidx, depth
+        </if>
+        ) VALUES (
+        #{comm_idx},
+        #{useridx},
+        #{content}
+
+        <!-- 대댓글(답글)의 경우 -->
+        <if test="parentidx != null">
+            ,#{parentidx},2  <!-- 대댓글일 경우 parentidx는 원댓글의 idx -->
+            <!-- 대댓글의 depth는 2 -->
+        </if>
+        )
+    </insert>
+
+    <select id="getComment" parameterType="int" resultType="com.ict.finalproject.vo.CommentVO">
+        SELECT c.*, u.userid
+        FROM t_comment c
+        JOIN t_user u ON c.useridx = u.idx  -- t_user 테이블과 조인하여 userid 가져오기
+        WHERE c.comm_idx = #{comm_idx} AND c.delState = 0
+        ORDER BY c.regDT DESC
+    </select>
+
+
+    <!-- 댓글 수정 -->
+    <update id="updateCommnet" parameterType="com.ict.finalproject.vo.CommentVO">
+        UPDATE t_comment
+        SET content = #{content}, regDT = NOW()
+        WHERE idx = #{idx}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <delete id="deleteComment" parameterType="int">
+        UPDATE t_comment SET delState = 1, delDT = NOW() WHERE idx = #{idx}
+    </delete>
+
+
+
+
+
+</mapper>

@@ -13,6 +13,19 @@
         insert into t_faq (question,answer,faqtype,adminidx) values(#{question}, #{answer}, #{faqtype} , 2)
     </insert>
 
+    <!-- 관리자 페이지 굿즈 상품 등록 -->
+    <insert id="insertStore" parameterType="com.ict.finalproject.vo.MasterVO">
+        INSERT INTO t_product
+        (title, price, thumimg, relDT, brand, fee, stock, category, pro_detail)
+        VALUES
+        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail});
+    </insert>
+
+    <!-- 관리자페이지 자주묻는 질문 리스트 -->
+    <select id="getFAQList" resultType="com.ict.finalproject.vo.MasterVO">
+        select f.idx, f.question, ft.type as faqtype , regDT from t_faq f join t_faqtype ft ON f.faqtype = ft.code
+    </select>
+
     <!-- 관리자 페이지 굿즈 상품 테이블 전체 목록 조회 -->
     <select id="getStoreList" resultType="com.ict.finalproject.vo.MasterVO">
         SELECT

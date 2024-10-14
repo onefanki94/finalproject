@@ -224,3 +224,23 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error:', error));
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const averageRating = parseFloat(document.querySelector('.rating-number').textContent);
+    const starsContainer = document.getElementById('stars-container');
+    
+    function generateStars(rating) {
+        let stars = '';
+        for (let i = 0; i < 5; i++) {
+            if (i < Math.floor(rating)) {
+                stars += '★';  // 채워진 별
+            } else {
+                stars += '☆';  // 빈 별
+            }
+        }
+        return stars;
+    }
+
+    // 별점을 생성해서 DOM에 반영
+    starsContainer.innerHTML = generateStars(averageRating);
+});
