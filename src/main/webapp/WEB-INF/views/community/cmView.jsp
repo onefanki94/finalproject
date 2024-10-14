@@ -206,9 +206,18 @@ window.onload = function(){
                  replyList.empty();
 
                  comments.forEach( comment => {
-                     let comm = '<div class="comment-'+comment.idx+'">' +
-                                           '<p><strong>' + comment.userid + '</strong><br/>'+ '<p>' + comment.content + '</p>' +
-                                           '<p>' + comment.regDT + '</p>';
+                     let comm = '<div class="comment-' + comment.idx;
+
+                                     // 자식 댓글이면 클래스 추가
+                                     if (comment.parentidx) {
+                                         comm += ' reply-child';  // 자식 댓글일 경우 .reply-child 클래스 추가
+                                     }
+
+                                     comm += '">' +
+                                         '<p><strong>' + comment.userid + '</strong><br/><p>' + comment.content + '</p>' +
+                                         '<p>' + comment.regDT + '</p>';
+
+
                         //comm+="<button type='button' onclick='test("+comment.idx+")'>test</button>";
                      if (comment.useridx === useridx) {
                          console.log(comment);
