@@ -12,7 +12,6 @@ public class ProductFilterVO {
     private int idx;
     private String title;
     private List<String> ani_title;  // 작품명 목록
-    private List<Integer> category;  // 카테고리 목록 (숫자형)
     private int stock;
     private String thumImg;
     private int price;
