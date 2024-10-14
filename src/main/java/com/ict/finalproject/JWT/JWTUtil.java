@@ -75,12 +75,12 @@ public class JWTUtil {
     }
 
     // JWT 토큰 생성 메서드 예시
-    public String createJwt(String userid, Long expiredMs) {
+    public String createJwt(String userid, long expirationTime) {
         return Jwts.builder()
-                .claim("userid", userid)  // 사용자 ID 정보를 Claim으로 추가
-                .setIssuedAt(new Date(System.currentTimeMillis()))  // 발행 시간 설정
-                .setExpiration(new Date(System.currentTimeMillis() + expiredMs))  // 만료 시간 설정
-                .signWith(secretKey)  // 서명 설정
+                .setSubject(userid) // Subject에 userid 설정
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 비밀키로 서명
                 .compact();
     }
 

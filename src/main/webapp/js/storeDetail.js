@@ -172,7 +172,8 @@ function updateTotalPrice() {
 
 document.addEventListener('DOMContentLoaded', function () {
     // 로컬스토리지에서 토큰 가져오기
-    const token = localStorage.getItem('token'); // 'token'은 로컬스토리지에 저장된 토큰의 키값
+    const token = localStorage.getItem('token');
+    console.log("로컬스토리지 토큰 " +token);
     if (!token) {
         console.error('로그인 토큰이 없습니다.');
         return;
@@ -197,7 +198,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const likeCountElement = likeHeart.closest('.like-icon').nextElementSibling; // 하트 아이콘 옆의 카운트 요소
         const currentCount = parseInt(likeCountElement.textContent);
         const isLiked = likeHeart.classList.contains('fa-solid'); // 채워진 하트 상태인지 확인
-        const productId = likeHeart.closest('.like-icon').getAttribute('data-product-id'); // 상품 ID 가져오기
+
+        // 상품 ID 가져오기
+        const productId = likeHeart.closest('.like-icon').getAttribute('data-product-id');
+        if (!productId) {
+            console.error("상품 ID를 찾을 수 없습니다.");
+            return;
+        }
 
         console.log("상품 ID:", productId, "좋아요 상태:", isLiked, "현재 좋아요 수:", currentCount);
 
@@ -209,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
             },
             body: JSON.stringify({
-                pro_idx: productId
+                pro_idx: productId  // productId를 전송
             })
         })
         .then(response => {
@@ -262,4 +269,40 @@ document.addEventListener('DOMContentLoaded', function () {
     // 별점을 생성해서 DOM에 반영
     starsContainer.innerHTML = generateStars(averageRating);
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const token = localStorage.getItem('token');
+    const productId = document.querySelector('.like-icon').getAttribute('data-product-id');
+
+    if (!token || !productId) {
+        console.error('로그인 토큰이 없거나 상품 ID가 없습니다.');
+        return;
+    }
+
+    // 좋아요 상태 요청
+    fetch(`/like/status?pro_idx=${productId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const likeHeart = document.querySelector('.like-heart');
+            if (data.liked) {
+                likeHeart.classList.add('fa-solid');
+                likeHeart.classList.remove('fa-regular');
+            } else {
+                likeHeart.classList.add('fa-regular');
+                likeHeart.classList.remove('fa-solid');
+            }
+        } else {
+            console.error('좋아요 상태를 가져오는 데 실패했습니다.');
+        }
+    })
+    .catch(error => console.error('좋아요 상태 요청 중 오류 발생:', error));
 });
+});
+
+
