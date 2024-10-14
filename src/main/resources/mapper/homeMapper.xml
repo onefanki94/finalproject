@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.HomeDAO">
+    <select id="getGoodsList" resultType="com.ict.finalproject.vo.StoreVO">
+        select idx, title, thumImg
+        from T_product
+        order by regDT desc limit 5;
+    </select>
+</mapper>
