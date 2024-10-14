@@ -26,7 +26,7 @@
     <div class="product-wrapper">
         <!-- 상품 이미지 섹션 -->
         <div class="product-image-section">
-            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="${storeDetail.title}" class="main-image">
+            <img src="${storeDetail.thumImg}" alt="${storeDetail.title}" class="main-image">
         </div>
     
         <!-- 상품 정보 섹션 -->
@@ -111,6 +111,10 @@
                 <th>카테고리</th>
                 <td colspan="3"><a href="#">#${storeDetail.category}</a></td>
             </tr>
+            <tr>
+                <th>상품설명</th>
+                <td colspan="3"><a href="#">#${storeDetail.pro_detail}</a></td>
+            </tr>
         </table>
     </div>
             <!-- 주의 사항 섹션 -->
@@ -125,7 +129,7 @@
             <div class="product-details-wrapper">
                 <!-- 이미지 섹션 -->
                 <div class="product-image">
-                    <img src="http://192.168.1.92:8000/${product.thumImg}" alt="상품 상세 이미지" />
+                    <img src="${storeDetail.thumImg}" alt="상품 상세 이미지" />
                 </div>
 
 
@@ -137,9 +141,10 @@
             
                     
         <!-- 숨겨진 상품 설명 -->
-         <!--DB확인 후 재 작업-->
         <div id="hidden-description" class="hidden-description">
-            <img src="http://192.168.1.92:8000/${product.thumImg}">
+            <img src="${storeDetail.detailImg}">
+        
+        
         </div>
     </div>
    

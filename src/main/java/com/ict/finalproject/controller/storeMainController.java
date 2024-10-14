@@ -104,6 +104,7 @@ public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
     ModelAndView mav = new ModelAndView();
     mav.addObject("storeDetail", storeDetail);
     mav.setViewName("store/storeDetail");
+    System.out.println(storeDetail);  // 데이터가 잘 전달되는지 확인
     return mav;
 }
 

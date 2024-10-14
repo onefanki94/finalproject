@@ -4,7 +4,22 @@
 <mapper namespace="com.ict.finalproject.DAO.StoreDAO">
 
     <select id="getStoreDetail" parameterType="int" resultType="com.ict.finalproject.vo.StoreVO">
-    select * from t_product where idx = #{storeId} <!-- idx 대신 storeId -->
+     SELECT 
+        p.idx, 
+        p.title, 
+        p.price, 
+        CONCAT('http://192.168.1.92:8000/', p.thumImg) AS thumImg,  -- 외부 서버 주소를 경로에 붙임
+        p.ani_title, 
+        p.relDT, 
+        p.brand, 
+        p.fee, 
+        p.stock, 
+        p.pro_detail, 
+        p.category,
+        CONCAT('http://192.168.1.92:8000/', i.detailImg) AS detailImg  -- 조인된 이미지 추가
+    FROM t_product p
+    LEFT JOIN t_productimg i ON p.idx = i.pro_idx  -- 조인 조건
+    WHERE p.idx = #{storeId}
     </select>
 
 

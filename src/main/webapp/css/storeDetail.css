@@ -554,6 +554,8 @@
 
 /* 상품 더보기 기본적으로 상품 설명은 숨김 처리 */
 .hidden-description {
+    margin: 0 auto;
+    padding: 0 auto;
     display: none;
     margin-top: 20px;
 
@@ -565,6 +567,7 @@
     height: 600px;
 
 }
+
 
 
 
