@@ -22,15 +22,14 @@
     WHERE p.idx = #{storeId}
     </select>
 
-
-
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT 
             idx, title, price, thumImg , ani_title, relDT, brand, fee, stock, pro_detail, category 
         FROM t_product
     </select>
 
-    <select id="getStoreListByFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
+    <!-- 정렬을 위한 필터 (sort 기반 필터) -->
+    <select id="getStoreListBySortFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product
         <choose>
             <when test="'latest'.equals(filterType)">
@@ -46,7 +45,7 @@
                 ORDER BY price ASC
             </when>
              <otherwise>
-            <!-- 기본정령--> 
+            <!-- 기본 정렬 --> 
             ORDER BY created_date DESC
         </otherwise>
         </choose>
@@ -58,26 +57,27 @@
            OR description LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
-    <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.StoreVO">
-    SELECT idx, title, ani_title, category, stock, thumImg, price
-    FROM t_product
-    WHERE 1 = 1
-    
-    <!-- ani_title 필터링 -->
-    <if test="ani_title != null and ani_title.size() > 0">
-        AND ani_title IN
-        <foreach item="title" collection="ani_title" open="(" separator="," close=")">
-            #{title}
-        </foreach>
-    </if>
-    
-    <!-- 재고 필터링 -->
-    <if test="stock == 1">
-        AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
-    </if>
-    </select>
+    <!-- 카테고리와 재고 기반 필터링 -->
+    <select id="getFirstCategoryList" resultType="com.ict.finalproject.vo.ProductFilterVO">
+    SELECT f.type
+    FROM t_firstcategory f
+    JOIN t_product p ON p.category = f.code
+</select>
 
-        
-  
+
+
+<select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
+SELECT s.type 
+FROM t_secondcategory s
+JOIN t_firstcategory f ON s.first_code = f.code
+WHERE f.code = #{category}
+</select>
+
+<select id="getSubcategoriesByFirstCategory1">
+SELECT s.type 
+FROM t_secondcategory s
+JOIN t_firstcategory f ON s.first_code = f.code
+WHERE f.code = #{category}
+</select>
 
 </mapper>
