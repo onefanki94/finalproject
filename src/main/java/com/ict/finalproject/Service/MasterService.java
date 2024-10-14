@@ -24,6 +24,7 @@ public interface MasterService {
     Integer getAdminIdxByAdminid(String adminid);
     public List<MasterVO> getAniAllList();
     List<MasterVO> getNoticeList();
+    List<MasterVO> getReviewList();
     void addReport(String userid, String reason, LocalDateTime stopDT, LocalDateTime endDT);
     boolean checkUserBanStatus(String userid);
     boolean checkUserDelected(int idx);

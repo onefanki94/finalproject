@@ -112,4 +112,9 @@
         FROM t_user
         WHERE userid = #{userid}
     </select>
+
+    <!-- 모든 리뷰 불러오기 -->
+    <select id="getReviewList" resultType="MasterVO">
+        select idx, comm_idx, content, useridx, regDT from t_comment;
+    </select>
 </mapper>
