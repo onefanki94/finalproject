@@ -23,6 +23,7 @@
     </select>
 
 
+
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT 
             idx, title, price, thumImg , ani_title, relDT, brand, fee, stock, pro_detail, category 
@@ -57,26 +58,23 @@
            OR description LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
-     <!-- 필터링된 상품 목록 -->
     <select id="getStoreListByFilterCriteria" parameterType="com.ict.finalproject.vo.ProductFilterVO" resultType="com.ict.finalproject.vo.StoreVO">
-        SELECT idx, title, ani_title, category, stock, thumImg, price
-        FROM t_product
-        WHERE 1 = 1
-        <if test="ani_title != null and ani_title.size() > 0">
-            AND ani_title IN
-            <foreach item="ani_title" collection="ani_title" open="(" separator="," close=")">
-                #{ani_title}
-            </foreach>
-        </if>
-        <if test="category != null and category.size() > 0">
-            AND category IN
-            <foreach item="category" collection="category" open="(" separator="," close=")">
-                #{category}         
-            </foreach>
-        </if>
-        <if test="stock != null and stock == 0">
-            AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
-        </if>
+    SELECT idx, title, ani_title, category, stock, thumImg, price
+    FROM t_product
+    WHERE 1 = 1
+    
+    <!-- ani_title 필터링 -->
+    <if test="ani_title != null and ani_title.size() > 0">
+        AND ani_title IN
+        <foreach item="title" collection="ani_title" open="(" separator="," close=")">
+            #{title}
+        </foreach>
+    </if>
+    
+    <!-- 재고 필터링 -->
+    <if test="stock == 1">
+        AND stock > 0  <!-- 재고가 0보다 큰 경우만 표시 -->
+    </if>
     </select>
 
         
