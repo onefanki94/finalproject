@@ -15,4 +15,7 @@ public class ProductFilterVO {
     private int stock;
     private String thumImg;
     private int price;
+    private List<String> type;  // 카테고리 필터를 위한 type 목록 추가
+    private int first_code;   // 첫번째 카테고리 
+    private int code;
 }
