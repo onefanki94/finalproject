@@ -88,4 +88,14 @@ public class MasterServiceImpl implements MasterService {
     public boolean checkUserBanStatus(String userid) {
         return dao.isUserBanned(userid);
     }
+
+    @Override
+    public boolean checkUserDelected(int idx) {
+        return dao.isUserDeleted(idx);
+    }
+
+    @Override
+    public Integer findUserIdxByUserid(String userid) {
+        return dao.findUserIdxByUserid(userid);
+    }
 }
