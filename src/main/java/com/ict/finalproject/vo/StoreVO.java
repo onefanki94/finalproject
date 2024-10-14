@@ -21,4 +21,5 @@ public class StoreVO {
     private int category;
     private int liked;
     private int likeCount;
+    private String detailImg;
 }

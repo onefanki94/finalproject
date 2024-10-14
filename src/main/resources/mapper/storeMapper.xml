@@ -10,7 +10,7 @@
 
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT 
-            idx, title, price, thumImg, ani_title, relDT, brand, fee, stock, pro_detail, category 
+            idx, title, price, thumImg , ani_title, relDT, brand, fee, stock, pro_detail, category 
         FROM t_product
     </select>
 
