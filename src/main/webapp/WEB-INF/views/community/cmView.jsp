@@ -206,16 +206,12 @@ window.onload = function(){
                  replyList.empty();
 
                  comments.forEach( comment => {
-                     let comm = '<div class="comment-' + comment.idx;
+                     let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 정도 설정 (30px씩)
 
-                                     // 자식 댓글이면 클래스 추가
-                                     if (comment.parentidx) {
-                                         comm += ' reply-child';  // 자식 댓글일 경우 .reply-child 클래스 추가
-                                     }
-
-                                     comm += '">' +
-                                         '<p><strong>' + comment.userid + '</strong><br/><p>' + comment.content + '</p>' +
-                                         '<p>' + comment.regDT + '</p>';
+                     // 댓글 HTML 생성
+                     let comm = '<div class="comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">' +
+                                                '<p><strong>' + comment.userid + '</strong><br/>' + '<p>' + comment.content + '</p>' +
+                                                '<p>' + comment.regDT + '</p>';
 
 
                         //comm+="<button type='button' onclick='test("+comment.idx+")'>test</button>";
@@ -278,29 +274,37 @@ window.onload = function(){
 
               // AJAX 요청 보내기
               $.ajax({
-                  url: "/regiReply",
-                  type: "POST",
-                  data: postData.toString(),
-                  contentType: "application/x-www-form-urlencoded",
-                  headers: {
-                      "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
-                  },
-                  success: function(data) {
-                      alert('답글이 등록되었습니다.');  // 성공 메시지
-                      loadComments(comm_idx);// 댓글 추가 후 댓글 목록 다시 불러오기
-                      document.querySelector(`#replyContent-${parentidx}`).value = '';
-                      //$('#textSearch').val('');// 댓글 입력창 비우기
-                  },
-                  error: function(xhr, status, error) {
-                      if (xhr.status === 401) {
-                          alert('인증에 실패했습니다. 다시 로그인하세요.');
-                          location.href = "/user/login";  // 로그인 페이지로 이동
-                      } else {
-                          alert("요청 처리 중 오류가 발생했습니다.");
+                      url: "/regiReply",
+                      type: "POST",
+                      data: postData.toString(),
+                      contentType: "application/x-www-form-urlencoded",
+                      headers: {
+                          "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+                      },
+                      success: function(data) {
+                          alert('답글이 등록되었습니다.');  // 성공 메시지
+
+                          // comm_idx를 success 콜백 함수 내에서 사용 가능하게 함
+                          loadComments(comm_idx);  // 댓글 추가 후 댓글 목록 다시 불러오기
+
+                          // 입력 폼을 비웁니다.
+                          const replyContentElement = document.querySelector("#replyContent-" + commentIdx);
+                          if (replyContentElement) {
+                              replyContentElement.value = '';  // 요소가 존재하는 경우에만 값을 비웁니다.
+                          } else {
+                              console.error("Element #replyContent-" + commentIdx + " not found.");
+                          }
+                      },
+                      error: function(xhr, status, error) {
+                          if (xhr.status === 401) {
+                              alert('인증에 실패했습니다. 다시 로그인하세요.');
+                              location.href = "/user/login";  // 로그인 페이지로 이동
+                          } else {
+                              alert("요청 처리 중 오류가 발생했습니다.");
+                          }
+                          console.error("Error:", error);  // 오류 출력
                       }
-                      console.error("Error:", error);  // 오류 출력
-                  }
-              });
+                  });
 
               return false;  // 기본 폼 제출 방지
           }

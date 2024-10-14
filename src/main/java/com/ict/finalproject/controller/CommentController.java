@@ -113,6 +113,9 @@ public class CommentController {
         reply.setComm_idx(comm_idx); // 게시물idx도 넣어야지!!!
 
 
+        // 부모 댓글의 depth를 조회하고, 대댓글의 depth는 부모 댓글의 depth + 1로 설정
+        int parentDepth = commentService.getParentDepth(reply.getParentidx());
+        reply.setDepth(parentDepth); // 대댓글의 depth 설정
 
         String bodyTag = "";
         try {

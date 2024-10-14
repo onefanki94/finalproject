@@ -42,6 +42,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public int getParentDepth(int parentidx) {
+        return commentDAO.getParentDepth(parentidx);
+    }
+
+    @Override
     public List<CommentVO> getReplies(int parentIdx) {
         return commentDAO.getReplies(parentIdx);
     }
