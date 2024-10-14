@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -601,5 +605,40 @@ public class masterController {
         mav.setViewName("join/admin_login");
 
         return mav;
+    }
+
+    // 신고 테이블 신청
+    @PostMapping("/reportinguserOK")
+    public String reportinguserOK(@RequestParam("userid") String userid,
+                                  @RequestParam("reason") String reason,
+                                  @RequestParam("endDT") String endDT, Model model) {
+        LocalDateTime stopDT = LocalDateTime.now(); // 신고 시작 시간
+
+        // EndDT를 String에서 LocalDateTime으로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime parsedEndDT;
+
+        try {
+            parsedEndDT = LocalDateTime.parse(endDT, formatter);
+        } catch (DateTimeParseException e) {
+            log.info("에러 발생: " + e.getMessage());
+            e.printStackTrace();
+            return "redirect:/user/login";
+        }
+
+        // 사용자가 이미 정지된 상태인지 확인
+        boolean isBanned = masterService.checkUserBanStatus(userid);
+
+        if (isBanned) {
+            // 정지된 사용자임을 JSP로 전달
+            model.addAttribute("isBanned", true);
+            log.info("사용자 " + userid + " 는 이미 정지된 상태입니다.");
+            return "user/login";  // 로그인 페이지로 다시 렌더링 (리다이렉트하지 않음)
+        }
+
+        // 신고 내역 추가 처리
+        masterService.addReport(userid, reason, stopDT, parsedEndDT);
+
+        return "redirect:/master/reportinguserListMaster";
     }
 }

@@ -7,6 +7,7 @@ import com.ict.finalproject.DTO.LoginRequestDTO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
 import com.ict.finalproject.JWT.JWTUtil;
+import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
@@ -40,6 +41,8 @@ import java.util.*;
 public class UserController {
     @Inject
     MemberService service;
+    @Autowired
+    MasterService masterService;
     ModelAndView mav = null;
     @Autowired
     JWTUtil jwtUtil;
@@ -91,48 +94,45 @@ public class UserController {
 
 
     @PostMapping("/loginOk")
-    public ModelAndView loginOk(@ModelAttribute LoginRequestDTO loginRequest, HttpServletRequest request, HttpServletResponse response) {
-        // ModelAndView 객체 초기화
+    public ModelAndView loginOk(@ModelAttribute LoginRequestDTO loginRequest) {
         ModelAndView mav = new ModelAndView();
 
-        // 클라이언트에서 전달받은 로그인 정보
         String userid = loginRequest.getUserid();
         String userpwd = loginRequest.getUserpwd();
 
-        // 회원 정보 검증: 데이터베이스에서 사용자 정보 조회
+        // 회원 정보 검증
         MemberVO member = service.memberLogin(userid, userpwd);
         if (member == null) {
-            // 사용자 정보가 없으면 로그인 실패로 간주하고 로그인 페이지로 리다이렉트
-            mav.setViewName("redirect:/user/login");
+            mav.addObject("errorMessage", "잘못된 사용자명 또는 비밀번호입니다.");
+            mav.setViewName("user/login");
             return mav;
         }
 
         // 비밀번호 검증
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(userpwd, member.getUserpwd())) {
-            // 비밀번호가 일치하지 않을 경우 로그인 페이지로 리다이렉트
-            mav.setViewName("redirect:/user/login");
+            mav.addObject("errorMessage", "잘못된 비밀번호입니다.");
+            mav.setViewName("user/login");
             return mav;
         }
 
-        // JWT 토큰 생성 (7일 동안 유효)
-        String token = jwtUtil.createJwt(userid, 604800000L);  // role 대신 userid만 사용하여 토큰 생성
+        // 사용자가 신고되어 정지된 상태인지 확인
+        boolean isBanned = masterService.checkUserBanStatus(userid);
+        if (isBanned) {
+            mav.addObject("isBanned", true);
+            mav.addObject("errorMessage", "로그인이 정지된 사용자입니다.");
+            mav.setViewName("user/login");  // 로그인 페이지로 리다이렉트
+            return mav;
+        }
 
-        // JWT 토큰을 HTTP 응답 헤더에 추가
-        response.setHeader("Authorization", "Bearer " + token);
-
-        // 로그 출력
-        log.info("로그인 성공: " + userid);
-        log.info("응답 헤더에 설정된 토큰 값: " + response.getHeader("Authorization"));
-
-        // JWT 토큰을 ModelAndView 객체에 추가
+        // 로그인 성공 시: JWT 토큰 생성
+        String token = jwtUtil.createJwt(userid, 604800000L);  // 7일 동안 유효
         mav.addObject("token", token);
-        mav.addObject("userid", userid);
-
-        // 메인 페이지로 리다이렉트
-        mav.setViewName("redirect:/");
+        mav.setViewName("redirect:/");  // 메인 페이지로 리다이렉트
         return mav;
     }
+
+
 
 
     //회원가입 페이지 view

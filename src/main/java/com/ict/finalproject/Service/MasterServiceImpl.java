@@ -6,6 +6,7 @@ import com.ict.finalproject.vo.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -77,5 +78,14 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public List<MasterVO> getNoticeList() {
         return dao.getNoticeList();
+    }
+
+    @Override
+    public void addReport(String userid, String reason, LocalDateTime stopDT, LocalDateTime endDT) {
+        dao.insertReport(userid, reason, stopDT, endDT);
+    }
+    @Override
+    public boolean checkUserBanStatus(String userid) {
+        return dao.isUserBanned(userid);
     }
 }

@@ -83,5 +83,17 @@
         JOIN t_user u ON n.adminidx = u.idx;
     </select>
 
+    <!-- 신고 추가 -->
+    <insert id="insertReport">
+        INSERT INTO t_ban (useridx, reason, stopDT, endDT)
+        VALUES ((SELECT idx FROM t_user WHERE userid = #{userid}), #{reason}, #{stopDT}, #{endDT})
+    </insert>
 
+    <select id="isUserBanned" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
+        FROM t_ban b
+        JOIN t_user u ON u.idx = b.useridx
+        WHERE u.userid = #{userid}
+        AND NOW() BETWEEN b.stopDT AND b.endDT
+    </select>
 </mapper>

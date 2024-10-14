@@ -5,6 +5,7 @@
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
+<script src="/js/Master.js"></script>
 
 <div class="reportinguserList-list-container">
 <!-- 사용자 요약 정보 -->
@@ -36,7 +37,6 @@
                         <th style="width:15%">신고상태</th>
                         <th style="width:10%">관리자아이디</th>
                         <th style="width:10%">처리현황</th>
-                        <th style="width:15%">증거자료</th>
                         <th style="width:20%">관리</th>
                     </tr>
                 </thead>
@@ -48,7 +48,6 @@
                         <td>접수 완료</td>
                         <td>admin1</td>
                         <td>처리중</td>
-                        <td><a href="#" class="btn btn-outline-info btn-sm">보기</a></td>
                         <td>
                             <button class="btn btn-outline-success btn-sm">신고내역추가</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
@@ -61,7 +60,6 @@
                         <td>처리 대기</td>
                         <td>admin2</td>
                         <td>대기중</td>
-                        <td><a href="#" class="btn btn-outline-info btn-sm">보기</a></td>
                         <td>
                             <button class="btn btn-outline-success btn-sm">신고내역추가</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
@@ -74,7 +72,6 @@
                         <td>처리 완료</td>
                         <td>admin3</td>
                         <td>완료</td>
-                        <td><a href="#" class="btn btn-outline-info btn-sm">보기</a></td>
                         <td>
                             <button class="btn btn-outline-success btn-sm">신고내역추가</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
@@ -100,3 +97,39 @@
                 </nav>
             </div>
         </div>
+
+        <!-- 신고 내역 추가 모달창 -->
+        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">신고 내역 추가/해제</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form id="reportForm" action="/master/reportinguserOK" method="post">
+                <div class="modal-body">
+                  <input type="hidden" id="userid" name="userid" value="">
+                  <!-- 신고 내용 입력 -->
+                  <div class="form-group">
+                    <label for="reason">신고 사유</label>
+                    <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                  </div>
+                  <!-- 제재 기간 입력 (일 단위) -->
+                  <div class="form-group">
+                    <label for="banPeriod">제재 기간 (일)</label>
+                    <input type="number" class="form-control" id="banPeriod" name="banPeriod" min="1" value="7" required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">닫기</button>
+                  <button type="submit" class="btn btn-outline-success btn-sm">신고 제출</button>
+                  <!-- 잘못된 신고를 해제할 수 있는 버튼 -->
+                  <button type="button" class="btn btn-outline-success btn-sm" id="removeReportBtn">신고 해제</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+

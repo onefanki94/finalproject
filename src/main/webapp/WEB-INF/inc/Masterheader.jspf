@@ -75,6 +75,7 @@
                                                 신고 관리
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                                                <li><a class="dropdown-item" href="/master/reportinguserListMaster">회원 정지 기능</a></li>
                                                 <li><a class="dropdown-item" href="/master/reportinguserListMaster">회원별 신고 신청</a></li>
                                                 <li><a class="dropdown-item" href="/master/reportinguserMasterList">회원별 신고 내역</a></li>
                                             </ul>

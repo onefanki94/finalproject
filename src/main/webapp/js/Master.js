@@ -67,3 +67,30 @@
          });
 
        // ---------------------------------------------------------
+           $(document).ready(function() {
+                   // 신고내역 추가 버튼 클릭 시
+                   $('.btn-outline-success').click(function() {
+                       var userId = $(this).closest('tr').find('td:eq(2)').text();
+                       $('#userid').val(userId); // 유저 아이디를 모달에 전달
+                       $('#reportModal').modal('show');
+                   });
+
+                   // 신고 해제 버튼 클릭 시
+                   $('#removeReportBtn').click(function() {
+                       var userId = $('#userid').val(); // 모달창에서 선택된 유저 아이디 가져오기
+                       if (confirm('해당 신고를 해제하시겠습니까?')) {
+                           $.ajax({
+                               type: 'POST',
+                               url: 'removeReport.jsp', // 신고 해제 처리를 담당하는 페이지로 이동
+                               data: { userid: userId },
+                               success: function(response) {
+                                   alert('신고가 해제되었습니다.');
+                                   location.reload(); // 페이지를 새로고침하여 변경 사항 반영
+                               },
+                               error: function() {
+                                   alert('신고 해제 중 오류가 발생했습니다.');
+                               }
+                           });
+                       }
+                   });
+               });

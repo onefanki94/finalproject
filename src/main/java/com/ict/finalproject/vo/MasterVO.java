@@ -55,4 +55,9 @@ public class MasterVO {
     private String question;
     private String answer;
     private String faqtype;
+
+    // 관리자페이지에서 신고 기능 사용하는 것들
+    private String reason;
+    private String stopDT;
+    private String endDT;
 }

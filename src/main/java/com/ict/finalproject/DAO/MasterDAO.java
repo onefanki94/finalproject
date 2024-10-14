@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -41,4 +42,10 @@ public interface MasterDAO {
 
     // 공지사항 글 불러오기
     List<MasterVO> getNoticeList();
+
+    // 신고 추가
+    void insertReport(@Param("userid") String userid, @Param("reason") String reason, @Param("stopDT") LocalDateTime stopDT, @Param("endDT") LocalDateTime endDT);
+
+    // 유저가 정지 상태인지 확인
+    boolean isUserBanned(@Param("userid") String userid);
 }

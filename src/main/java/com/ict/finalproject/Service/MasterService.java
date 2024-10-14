@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -23,4 +24,6 @@ public interface MasterService {
     Integer getAdminIdxByAdminid(String adminid);
     public List<MasterVO> getAniAllList();
     List<MasterVO> getNoticeList();
+    void addReport(String userid, String reason, LocalDateTime stopDT, LocalDateTime endDT);
+    boolean checkUserBanStatus(String userid);
 }

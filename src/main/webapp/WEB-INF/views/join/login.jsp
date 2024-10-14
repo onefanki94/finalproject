@@ -9,6 +9,17 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
     <script src="/js/JWTLogin.js"></script>
+    <c:if test="${not empty errorMessage}">
+        <script>
+            alert("${errorMessage}");
+        </script>
+    </c:if>
+
+    <c:if test="${isBanned == true}">
+        <script>
+            alert("로그인이 정지된 사용자입니다.");
+        </script>
+    </c:if>
   </head>
   <body>
     <div class="join_div">
