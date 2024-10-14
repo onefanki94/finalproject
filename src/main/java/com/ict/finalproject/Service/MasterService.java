@@ -26,4 +26,6 @@ public interface MasterService {
     List<MasterVO> getNoticeList();
     void addReport(String userid, String reason, LocalDateTime stopDT, LocalDateTime endDT);
     boolean checkUserBanStatus(String userid);
+    boolean checkUserDelected(int idx);
+    Integer findUserIdxByUserid(String userid);
 }

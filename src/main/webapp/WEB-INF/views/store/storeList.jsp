@@ -1,11 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
 
 <link href="/css/storeList.css" rel="stylesheet" type="text/css">
 <script src="../../../js/storeList.js"></script>
+<script>
+       function loadSubcategories(category) {
+    $.ajax({
+        type: 'GET',
+        url: '/subcategories',  // 서버에서 하위 카테고리를 반환하는 엔드포인트
+        data: { category: category },  // 선택된 카테고리의 ID를 파라미터로 전송
+        success: function(subcategories) {
+            // 하위 카테고리 리스트를 업데이트할 HTML 요소를 선택
+            const filterList = document.querySelector('.filter-list');
+            filterList.innerHTML = '';  // 기존의 카테고리 항목을 초기화
 
+            // 서버에서 받아온 하위 카테고리들을 순회하며 UI에 추가
+            subcategories.forEach(function(subcategory) {
+                const li = document.createElement('li');
+                li.className = 'filter-item';
+                li.innerHTML = `<span class="filter-text">${subcategory.type}</span>`;
+                filterList.appendChild(li);
+            });
+        },
+        error: function(error) {
+            console.error('Error fetching subcategories:', error);
+        }
+    });
+}
+</script>
 <div class="storeList_container">
         <h2>#hololive GAMERS 콜라보 굿즈 예약 판매 (~12.15)</h2>
             <section class="list-banners" id="banner">
@@ -15,41 +40,34 @@
                     </div>
                 </div>
                 </section>
-                <section class="filter-section">  
-                    <div class="left-con">
-                        <h3>필터</h3>
-                        <div class="filter-header">
-                            <span>판매종료 포함</span>
-                            <label class="switch">
-                                <input type="checkbox" id="stockFilter" onclick="applyFilters(this)">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <hr>
-                        <div class="filter-ani-title">
-                            <h3>작품별</h3>
-                            <ul class="filter-list">
-                                    <!-- 데이터베이스에서 가져온 작품별 리스트를 출력 -->
-                                    <c:forEach var="product" items="${storeList}">
-                                        <li class="filter-item" onclick="toggleFilter(this)">
-                                            <span class="filter-text">${product.ani_title}</span>
+
+                    <!-- 좌측 필터 -->
+                    <section class="filter-section">  
+                        <div class="left-con">
+                            <h3>필터</h3>
+                            <div class="filter-header">
+                                <span>판매종료 포함</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="stockFilter" onclick="applyFilters(this)">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <hr>
+                            <div class="filter-type-title">
+                                <h3>카테고리별</h3>
+                                <ul class="filter-list">
+                                    <!-- firstCategoryList를 순회하면서 카테고리 목록을 출력 -->
+                                    <c:forEach var="category" items="${firstCategoryList}">
+                                        <li class="filter-item" onclick="loadSubcategories('${category.category}')">
+                                            <span class="filter-text">${category.type}</span>
                                         </li>
                                     </c:forEach>
-                            </ul>
+                                </ul>
+                            </div>
+                            <hr>
                         </div>
-                        <hr>
-                        <div class="filter-category">
-                            <h3>카테고리</h3>
-                            <ul class="filter-list">
-                                <c:forEach var="category" items="${uniqueCategories}">
-                                    <li class="filter-item" onclick="toggleFilter(this)">
-                                        <span class="filter-text">${category}</span>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>    
-                    </div>
-                </section>
+                    </section>
+                
 
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">

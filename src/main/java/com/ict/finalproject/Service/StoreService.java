@@ -7,6 +7,7 @@ import com.ict.finalproject.vo.StoreVO;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,14 +15,13 @@ import java.util.List;
 public interface StoreService {
     public List<StoreVO> getStoreList();
 
-    public List<StoreVO> getStoreListByFilter(String filterType);
-
     public List<StoreVO> searchStoreList(String keyword);
-
-    public List<ProductFilterVO> getStoreListByFilterCriteria(ProductFilterVO filterCriteria);
 
     public StoreVO getStoreDetail(int storeId);
 
+    public List<ProductFilterVO> getFirstCategoryList();
+    public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category);
+    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
     //채원
     //장바구니에 상품 있는지 체크
     int checkProductInBasket(BasketVO basketvo);
@@ -29,5 +29,5 @@ public interface StoreService {
     int basketInput(BasketVO basketvo);
     //장바구니 리스트
     List<BasketDTO> basketList(int useridx);
-    
+
 }

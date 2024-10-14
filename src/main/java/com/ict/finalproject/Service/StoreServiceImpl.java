@@ -5,10 +5,13 @@ import com.ict.finalproject.DTO.BasketDTO;
 import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -20,22 +23,30 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreVO> getStoreList(){
         return  dao.getStoreList();
     }
-    public List<StoreVO> getStoreListByFilter(String filterType){
-        return dao.getStoreListByFilter(filterType);
-    }
 
+    @Override
     public List<StoreVO> searchStoreList(String keyword){
         return dao.searchStoreList(keyword);
     }
 
-    public List<ProductFilterVO> getStoreListByFilterCriteria(ProductFilterVO filterCriteria) {
-        return dao.getStoreListByFilterCriteria(filterCriteria);
-    }
-
+    @Override
     public StoreVO getStoreDetail(int storeId){
         return dao.getStoreDetail(storeId);
     }
 
+    @Override
+    public List<ProductFilterVO> getFirstCategoryList() {
+        return dao.getFirstCategoryList();  // DAO에서 카테고리 필터 리스트 가져오기
+    }
+
+    @Override
+    public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category) {
+        return dao.getSubcategoriesByFirstCategory(category);
+    }
+    @Override
+    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category){
+        return dao.getSubcategoriesByFirstCategory1(category);
+    }
 
 
     //채원

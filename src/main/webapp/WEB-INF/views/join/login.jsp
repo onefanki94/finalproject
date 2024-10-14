@@ -11,18 +11,24 @@
     <script src="/js/JWTLogin.js"></script>
 <script>
     // 서버에서 전달된 값들을 JavaScript 변수로 저장
-    var errorMessage = "${errorMessage}";
-    var isBanned = "${isBanned}";
+     var errorMessage = "${errorMessage}" || null;
+        var isBanned = "${isBanned}" || null;
+        var isDeleted = "${isDeleted}" || null;
 
-    // errorMessage가 존재할 경우 경고 메시지 표시
-    if (errorMessage) {
-        alert(errorMessage);
-    }
+        // errorMessage가 존재할 경우 경고 메시지 표시
+        if (errorMessage) {
+            alert(errorMessage);
+        }
 
-    // 사용자가 정지된 상태일 경우 경고 메시지 표시
-    if (isBanned === 'true') {
-        alert("로그인이 정지된 사용자입니다.");
-    }
+        // 사용자가 정지된 상태일 경우 경고 메시지 표시
+        if (isBanned === 'true') {
+            alert("로그인이 정지된 사용자입니다.");
+        }
+
+        // 사용자가 탈퇴된 상태일 경우 경고 메시지 표시
+        if (isDeleted === 'true') {
+            alert("회원 탈퇴된 사용자입니다.");
+        }
 </script>
   </head>
   <body>

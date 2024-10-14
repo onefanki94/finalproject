@@ -112,7 +112,7 @@
             </tr>
             <tr>
                 <th>상품설명</th>
-                <td colspan="3"><a href="#">#${storeDetail.pro_detail}</a></td>
+                <td colspan="3">${storeDetail.pro_detail}</td>
             </tr>
         </table>
     </div>

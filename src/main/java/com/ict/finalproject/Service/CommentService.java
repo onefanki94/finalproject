@@ -20,6 +20,7 @@ public interface CommentService {
 
     // 대댓글 작성 메서드
     int insertReply(CommentVO comment);
+    int getParentDepth(int parentidx);
 
     // 대댓글 목록 조회 메서드 (부모 댓글 idx로)
     List<CommentVO> getReplies(int parentidx);

@@ -99,6 +99,23 @@ public class UserController {
         String userid = loginRequest.getUserid();
         String userpwd = loginRequest.getUserpwd();
 
+        // useridx를 얻기 위해 userid로 먼저 조회
+        Integer idx = masterService.findUserIdxByUserid(userid);
+
+        if (idx != null) {
+            // 탈퇴된 회원인지 확인
+            boolean isDeleted = masterService.checkUserDelected(idx);
+            if (isDeleted) {
+                mav.addObject("errorMessage", "탈퇴된 회원 아이디입니다. 다시 확인해주세요.");
+                mav.setViewName("join/login");
+                return mav;  // 탈퇴된 회원이므로 로그인 실패 처리
+            }
+        } else {
+            mav.addObject("errorMessage", "잘못된 사용자명 또는 비밀번호입니다.");
+            mav.setViewName("join/login");
+            return mav;  // 회원이 없는 경우
+        }
+
         // 회원 정보 검증
         MemberVO member = service.memberLogin(userid, userpwd);
         if (member == null) {
@@ -119,7 +136,8 @@ public class UserController {
         boolean isBanned = masterService.checkUserBanStatus(userid);
         if (isBanned) {
             mav.addObject("isBanned", true);
-            mav.setViewName("join/login");  // 로그인 페이지로 리다이렉트
+            mav.addObject("errorMessage", "로그인이 정지된 사용자입니다.");
+            mav.setViewName("join/login");
             return mav;
         }
 
@@ -129,6 +147,8 @@ public class UserController {
         mav.setViewName("redirect:/");  // 메인 페이지로 리다이렉트
         return mav;
     }
+
+
 
 
 

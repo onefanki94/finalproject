@@ -89,11 +89,27 @@
         VALUES ((SELECT idx FROM t_user WHERE userid = #{userid}), #{reason}, #{stopDT}, #{endDT})
     </insert>
 
+    <!-- 신고 테이블에 아이디 있는지 체크 -->
     <select id="isUserBanned" resultType="boolean">
         SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
         FROM t_ban b
         JOIN t_user u ON u.idx = b.useridx
         WHERE u.userid = #{userid}
         AND NOW() BETWEEN b.stopDT AND b.endDT
+    </select>
+
+    <!-- 탈퇴 테이블에 아이디 있는지 체크 -->
+    <select id="isUserDeleted" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
+        FROM t_user u
+        JOIN t_userDel ud ON u.idx = ud.useridx
+        WHERE u.idx = #{idx}
+    </select>
+
+    <!-- 유저테이블에서 실제로 회원인지 아닌지 조회 -->
+    <select id="findUserIdxByUserid" resultType="int">
+        SELECT idx
+        FROM t_user
+        WHERE userid = #{userid}
     </select>
 </mapper>

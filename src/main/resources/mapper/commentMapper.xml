@@ -15,36 +15,58 @@
 <!--    </insert>-->
 
     <insert id="insertReply" parameterType="com.ict.finalproject.vo.CommentVO">
-        INSERT INTO t_comment (comm_idx, useridx, content
-        <if test="parentidx != null">
-            ,parentidx, depth
-        </if>
-        ) VALUES (
+        INSERT INTO t_comment (comm_idx, useridx, content, parentidx, depth)
+        VALUES (
         #{comm_idx},
         #{useridx},
-        #{content}
-
-        <!-- 대댓글(답글)의 경우 -->
-        <if test="parentidx != null">
-            ,#{parentidx},2  <!-- 대댓글일 경우 parentidx는 원댓글의 idx -->
-            <!-- 대댓글의 depth는 2 -->
-        </if>
+        #{content},
+        #{parentidx},  <!-- 부모 댓글의 idx -->
+        #{depth}      <!-- 부모 댓글의 depth + 1 -->
         )
     </insert>
 
+    <select id="getParentDepth" parameterType="int" resultType="int">
+        SELECT depth + 1
+        FROM t_comment
+        WHERE idx = #{parentidx}
+    </select>
+
     <select id="getComment" parameterType="int" resultType="com.ict.finalproject.vo.CommentVO">
-        SELECT c.*, u.userid
-        FROM t_comment c
-        JOIN t_user u ON c.useridx = u.idx  -- t_user 테이블과 조인하여 userid 가져오기
-        WHERE c.comm_idx = #{comm_idx} AND c.delState = 0
-        ORDER BY c.regDT DESC
+        WITH RECURSIVE comment_hierarchy AS (
+        -- 부모 댓글 (parentidx가 NULL인 댓글을 부모로 간주)
+        SELECT
+        c.idx, c.comm_idx, c.content, c.useridx, c.regDT, c.depth, c.parentidx, c.modifyState, c.modifyDT, c.delState, c.delDT, u.userid
+        FROM
+        t_comment c
+        JOIN
+        t_user u ON c.useridx = u.idx  -- t_user 테이블과 조인하여 userid 가져오기
+        WHERE
+        c.comm_idx = #{comm_idx} AND c.delState = 0 AND c.parentidx IS NULL  -- 부모 댓글
+
+        UNION ALL
+
+        -- 자식 댓글 (부모 댓글의 idx가 parentidx로 있는 댓글)
+        SELECT
+        child.idx, child.comm_idx, child.content, child.useridx, child.regDT, child.depth, child.parentidx, child.modifyState, child.modifyDT, child.delState, child.delDT, u.userid
+        FROM
+        t_comment child
+        JOIN
+        t_user u ON child.useridx = u.idx  -- 자식 댓글도 동일하게 t_user 테이블과 조인
+        JOIN
+        comment_hierarchy parent ON child.parentidx = parent.idx  -- parent는 comment_hierarchy의 별칭
+        WHERE
+        child.comm_idx = #{comm_idx} AND child.delState = 0
+        )
+        -- 댓글을 부모 댓글 아래로, 최신순으로 정렬
+        SELECT * FROM comment_hierarchy
+        ORDER BY COALESCE(parentidx, idx) ASC, CASE WHEN parentidx IS NULL THEN regDT END DESC, parentidx ASC, regDT ASC;
     </select>
 
 
     <!-- 댓글 수정 -->
     <update id="updateCommnet" parameterType="com.ict.finalproject.vo.CommentVO">
         UPDATE t_comment
-        SET content = #{content}, regDT = NOW()
+        SET content = #{content}, modifyDT = NOW()
         WHERE idx = #{idx}
     </update>
 

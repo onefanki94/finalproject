@@ -17,40 +17,44 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.net.URI;
 import java.util.*;
 
-
 @Controller
-
 public class storeMainController {
 
     private static final Logger log = LoggerFactory.getLogger(storeMainController.class);
     @Autowired
     StoreService storeService;
 
+    // 메인 페이지 이동
+
     @Autowired
     JWTUtil jwtUtil;
 
     @Autowired
     MemberService memberService;
-    
-    
+
+
     @GetMapping("/storeMain")
- public String storeMain() {
-     return "store/storeMain";
- }
+    public String storeMain() {
+        return "store/storeMain";
+    }
 
-
+    // 상품 목록 및 카테고리 가져오기
     @GetMapping("/storeList")
-    public ModelAndView getStoreListAndView(){
+    public ModelAndView getStoreListAndView() {
         List<StoreVO> storeList = storeService.getStoreList();
-        System.out.println(storeList);
+        List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();  // 카테고리 목록 추가
+        System.out.println("First Category List: " + firstCategoryList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", storeList);
+        mav.addObject("firstCategoryList", firstCategoryList);  // 카테고리 필터 전달
         mav.setViewName("store/storeList");
+
         return mav;
     }
 
@@ -86,38 +90,40 @@ public class storeMainController {
     @GetMapping("/searchStoreList")
     public ModelAndView searchStoreList(@RequestParam("keyword") String keyword) {
         List<StoreVO> searchResults = storeService.searchStoreList(keyword);
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", searchResults);
         mav.setViewName("store/storeList");
+
         return mav;
     }
 
+    // 필터링된 상품 목록 가져오기 (AJAX 요청 처리)
     @PostMapping("/filterStoreList")
     @ResponseBody
     public List<ProductFilterVO> filterStoreList(@RequestBody ProductFilterVO filterCriteria) {
-    
-    // 로그 출력으로 전달된 데이터 확인
-    System.out.println("Received ani_title: " + filterCriteria.getAni_title());
-    System.out.println("Received category: " + filterCriteria.getCategory());
-    System.out.println("Received stock: " + filterCriteria.getStock());
-    
-    // 필터링된 상품 리스트 가져오기
-    List<ProductFilterVO> filteredStoreList = storeService.getStoreListByFilterCriteria(filterCriteria);
+        // 필터 로그 출력
+        System.out.println("Received type: " + filterCriteria.getType());
+        System.out.println("Received stock: " + filterCriteria.getStock());
 
-    return filteredStoreList;
-}
+        // 필터링된 상품 리스트 가져오기
+        List<ProductFilterVO> filteredStoreList = storeService.getFirstCategoryList();
 
+        return filteredStoreList;
+    }
 
-@GetMapping("/storeDetail/{storeId}")
-public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
-    StoreVO storeDetail = storeService.getStoreDetail(storeId); // idx로 상품 조회
-    ModelAndView mav = new ModelAndView();
-    mav.addObject("storeDetail", storeDetail);
-    mav.setViewName("store/storeDetail");
-    System.out.println(storeDetail);  // 데이터가 잘 전달되는지 확인
-    return mav;
-}
+    // 상품 상세 정보 가져오기
+    @GetMapping("/storeDetail/{storeId}")
+    public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
+        StoreVO storeDetail = storeService.getStoreDetail(storeId);  // 상품 상세 조회
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("storeDetail", storeDetail);
+        mav.setViewName("store/storeDetail");
 
+        return mav;
+    }
+
+    // 쇼핑백 페이지 이동
     // 채원 시작
     // 헤더에서 토큰을 추출하고, 토큰의 유효성을 검증한 후 사용자 ID와 useridx를 반환 함수(코드가 너무 중복돼서 따로 뺌)
     private ResponseEntity<Map<String, Object>> extractUserIdFromToken(String Headertoken) {
@@ -210,6 +216,18 @@ public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
         return mav;
     }
 
+    @GetMapping("/subcategories")
+    @ResponseBody
+    //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
+    public List<String> getSubcategories(@RequestParam("category") int category) {
+        List<String> hi =  storeService.getSubcategoriesByFirstCategory1(category);
+        List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
+        System.out.println("hi : "+ hi);
+        System.out.println("hi2 : " + hi2);
+        return storeService.getSubcategoriesByFirstCategory1(category);
+    }
+}
+
     @PostMapping("/basketList")
     public ResponseEntity<Map<String, Object>> basketList(@RequestHeader("Authorization") String Headertoken){
         // JWT 토큰 검증 및 useridx 추출
@@ -230,5 +248,5 @@ public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
         return ResponseEntity.ok(response);
     }
 
-   
+
 }
