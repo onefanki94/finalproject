@@ -1,6 +1,8 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.StoreDAO;
+import com.ict.finalproject.DTO.BasketDTO;
+import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +35,24 @@ public class StoreServiceImpl implements StoreService {
     public StoreVO getStoreDetail(int storeId){
         return dao.getStoreDetail(storeId);
     }
+
+
+
+    //채원
+    @Override
+    public int checkProductInBasket(BasketVO basketvo) {
+        return dao.checkProductInBasket(basketvo);
+    }
+
+    @Override
+    public int basketInput(BasketVO basketvo) {
+        return dao.basketInput(basketvo);
+    }
+
+    @Override
+    public List<BasketDTO> basketList(int useridx) {
+        return dao.basketList(useridx);
+    }
+
 
 }

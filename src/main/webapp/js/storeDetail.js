@@ -144,6 +144,7 @@ function increaseQuantity() {
     if (parseInt(quantityInput.value) < maxQuantity) {
         quantityInput.value = parseInt(quantityInput.value) + 1;
         updateTotalPrice();  // 수량이 변경될 때 총 가격을 업데이트
+        console.log(quantityInput.value);
     }
 }
 function updateTotalPrice() {
@@ -225,22 +226,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const averageRating = parseFloat(document.querySelector('.rating-number').textContent);
-    const starsContainer = document.getElementById('stars-container');
-    
-    function generateStars(rating) {
-        let stars = '';
-        for (let i = 0; i < 5; i++) {
-            if (i < Math.floor(rating)) {
-                stars += '★';  // 채워진 별
-            } else {
-                stars += '☆';  // 빈 별
-            }
-        }
-        return stars;
-    }
-
-    // 별점을 생성해서 DOM에 반영
-    starsContainer.innerHTML = generateStars(averageRating);
-});
+//document.addEventListener('DOMContentLoaded', function () {
+//    const averageRating = parseFloat(document.querySelector('.rating-number').textContent);
+//    const starsContainer = document.getElementById('stars-container');
+//
+//    function generateStars(rating) {
+//        let stars = '';
+//        for (let i = 0; i < 5; i++) {
+//            if (i < Math.floor(rating)) {
+//                stars += '★';  // 채워진 별
+//            } else {
+//                stars += '☆';  // 빈 별
+//            }
+//        }
+//        return stars;
+//    }
+//
+//    // 별점을 생성해서 DOM에 반영
+//    starsContainer.innerHTML = generateStars(averageRating);
+//});

@@ -15,7 +15,7 @@ public class StoreVO {
     private String ani_title;
     private String relDT;
     private String brand;
-    private String fee;
+    private int fee;
     private int stock;
     private String pro_detail;
     private int category;

@@ -64,7 +64,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/userinfo")
+    /*@GetMapping("/userinfo")
     public String getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -89,7 +89,7 @@ public class UserController {
             System.out.println("사용자 ID: " + userid);
             return userid;
         }
-    }
+    }*/
 
 
     @PostMapping("/loginOk")

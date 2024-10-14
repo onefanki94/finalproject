@@ -13,9 +13,12 @@
         stock: "${storeDetail.stock}"   // 서버에서 전달된 재고 수량
     };
 </script>
+<link rel="stylesheet" href="/css/basketmodal.css" type="text/css" />
+<script src="/js/storeDetail_input.js"></script>
 
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
+    <input type="hidden" name="pro_idx" id="pro_idx" value="${storeDetail.idx}">
     <div class="product-wrapper">
         <!-- 상품 이미지 섹션 -->
         <div class="product-image-section">
@@ -28,9 +31,9 @@
             <p class="product-price">${storeDetail.price}원</p>
     
             <div class="product-meta-info">
-                <p>발매일: ${storeDetail.relDT}</p>
-                <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
-                <p>배송비: ${storeDetail.fee}</p>
+                <p>출시일 : ${storeDetail.relDT}</p>
+                <p>적립포인트 : ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
+                <p>배송비 : ${storeDetail.fee}</p>
 
                 <div class="like-section">
                     <div id="likeIcon" data-product-id="${storeDetail.idx}">
@@ -48,19 +51,22 @@
                          <p>${storeDetail.title}</p>
                     <span class="product-quantity-control">
                         <button class="quantity-button" onclick="decreaseQuantity()">-</button>
-                        <input type="number" value="1" min="1" max="5000" class="quantity-input">
+                        <input type="number" name="amount" id="amount" value="1" min="1" max="5000" class="quantity-input">
                         <button class="quantity-button" onclick="increaseQuantity()">+</button>
                     </span>
                     <span class="product-price-info">${storeDetail.price}원</span>
                 </div>
     
-                <div class="total-price">총 결제금액: <span id="total-price">${storeDetail.price}</span>원</div>
-                    
+                <div class="total-price">
+                    총 결제금액: <span id="total-price">${storeDetail.price}</span>원
+                    <input type="hidden" id="total" name="total" value="">
+                </div>
+
             </div>
                     <!-- 구매 버튼 -->
                 <div class="buy-buttons">
-                    <button class="add-to-cart">장바구니</button>
-                    <button class="buy-now">바로 구매</button>
+                    <button class="add-to-cart" id="basket_in_btn">장바구니</button>
+                    <button class="buy-now" id="order_buy_btn">바로 구매</button>
                 </div>
         </div>
         
@@ -269,12 +275,11 @@
             </div>
             <div class="sticky-right">
                 <div class="price">총 ${storeDetail.price} 원</div>
-                <button class="sticky_basket_btn">장바구니</button>
-                <button class="sticky_buy_btn">바로구매</button>
+                <button class="sticky_basket_btn" id="basket_in_btn">장바구니</button>
+                <button class="sticky_buy_btn" id="order_buy_btn">바로구매</button>
             </div>
         </div>
     </div>
-
   </div>
 </div>
 
