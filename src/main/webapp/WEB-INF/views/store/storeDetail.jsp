@@ -5,21 +5,14 @@
 
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script type="text/javascript">
     var storeDetail = {
         price: "${storeDetail.price}",  // 서버에서 전달된 상품 가격
         stock: "${storeDetail.stock}"   // 서버에서 전달된 재고 수량
     };
 </script>
-
 
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
@@ -262,20 +255,22 @@
 
     <!-- Sticky Footer -->
     <div class="sticky-footer">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between sticky-footer_div">
             <div class="sticky-left">
-                <div class="fw-bold">${storeDetail.title}</div>
+                <div class="fw-bold">${storeDetail.title}
+                    <p>${storeDetail.price}원</p>
+                </div>
                 
             </div>
             <div class="sticky-right">
-                <div class="price">${storeDetail.price} 원</div>
-                <button class="btn btn-secondary">장바구니</button>
-                <button class="btn btn-dark">바로구매</button>
+                <div class="price">총 ${storeDetail.price} 원</div>
+                <button class="sticky_basket_btn">장바구니</button>
+                <button class="sticky_buy_btn">바로구매</button>
             </div>
         </div>
     </div>
 
-  
+  </div>
 </div>
 
  <%@include file="/WEB-INF/inc/store_footer.jspf"%> 
