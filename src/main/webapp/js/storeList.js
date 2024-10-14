@@ -128,18 +128,18 @@
             dataType: 'json',
             success: function (data) {
                 console.log(data); // 받은 데이터를 콘솔에 출력하여 확인
-    
+        
                 const productContainer = document.querySelector('.list-carousel-images');
                 productContainer.innerHTML = ''; // 기존 상품 제거
-    
+        
                 // 받은 데이터를 바탕으로 UI 업데이트
                 data.forEach(product => {
                     const productElement = document.createElement('li');
                     productElement.className = 'list-product';
                     productElement.innerHTML = `
-                        <a href="/storeDetail/${product.idx}">
-                            <img src="${product.thumImg}" alt="${product.ani_title}">
-                        </a>
+                    <a href="/storeDetail/${product.idx}"> 
+                    <img src="${product.thumImg}" alt="${product.ani_title}">
+                    </a>
                         <p>${product.title}</p>
                         <p>${product.price} 원</p>
                     `;
@@ -150,8 +150,7 @@
                 console.error('Error:', error);
                 alert('상품을 불러오는 중 문제가 발생했습니다. 다시 시도해주세요.');
             }
-
-            
+         
         });
     }
 

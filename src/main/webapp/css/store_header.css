@@ -12,8 +12,8 @@ html {
 }
 
 body {
-  background: rgba(244, 244, 244, 0.8);
-  font-family:var(--e-font),var(--k-font);
+  background: white;
+  font-family:var(--e-font),var(--k-font) !important;
   animation: fadeIn 1s ease-out;
 }
 
@@ -38,7 +38,7 @@ span {
   padding: 0;
 }
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 li {
   list-style: none;

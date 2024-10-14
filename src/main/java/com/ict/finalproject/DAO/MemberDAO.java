@@ -3,6 +3,7 @@ package com.ict.finalproject.DAO;
 
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
+import com.ict.finalproject.DTO.UserDelReasonDTO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -57,4 +58,14 @@ public interface MemberDAO {
 
         //작성완료한 리뷰갯수
         int getReviewCompletedAmount(int useridx);
+
+        //회원 수정을 위해 정보 select
+        MemberVO getUserinfo(int useridx);
+
+        //회원 수정
+        int updateUser(MemberVO member);
+
+        //회원 탈퇴
+        int userDelOk(int useridx);
+        void userDelInsert(UserDelReasonDTO userDelReasonDTO);
 }

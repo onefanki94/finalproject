@@ -36,9 +36,6 @@
             <li>
               <a href="/user/mypage_heart">좋아요</a>
             </li>
-            <li>
-              <a href="/user/mypage_userDel">회원탈퇴</a>
-            </li>
           </ul>
           <h3>고객센터</h3>
           <ul>
@@ -74,7 +71,7 @@
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_review"
-              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan">1</span></a
+              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan"></span></a
             >
           </li>
         </ul>

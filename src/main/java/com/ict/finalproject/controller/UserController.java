@@ -6,13 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ict.finalproject.DTO.LoginRequestDTO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
+import com.ict.finalproject.DTO.UserDelReasonDTO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
-import io.jsonwebtoken.ExpiredJwtException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +48,7 @@ public class UserController {
 
     //로그인 페이지 view
     @GetMapping("/login")
-    public ModelAndView loginPage(){
+    public ModelAndView loginPage() {
         mav = new ModelAndView();
         mav.setViewName("join/login");
         return mav;
@@ -66,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping("/userinfo")
-    public String getUserInfo(){
+    public String getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null) {
@@ -136,7 +135,7 @@ public class UserController {
 
     //회원가입 페이지 view
     @GetMapping("/join")
-    public ModelAndView joinPage(){
+    public ModelAndView joinPage() {
         mav = new ModelAndView();
         mav.setViewName("join/join");
         return mav;
@@ -185,10 +184,60 @@ public class UserController {
         return mav;
     }
 
+    // 헤더에서 토큰을 추출하고, 토큰의 유효성을 검증한 후 사용자 ID와 useridx를 반환 함수(코드가 너무 중복돼서 따로 뺌)
+    private ResponseEntity<Map<String, Object>> extractUserIdFromToken(String Headertoken) {
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 정상 처리된 경우 사용자 ID와 useridx를 반환
+        response.put("userid", userid);
+        response.put("useridx", useridx);
+        return ResponseEntity.ok(response);
+    }
+
 
     //마이페이지 view
     @GetMapping("/mypage")
-    public ModelAndView mypage(){
+    public ModelAndView mypage() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_main");
 
@@ -197,7 +246,7 @@ public class UserController {
 
     //마이페이지-좋아요 view
     @GetMapping("/mypage_heart")
-    public ModelAndView mypageHeart(){
+    public ModelAndView mypageHeart() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_heart");
 
@@ -206,7 +255,7 @@ public class UserController {
 
     //마이페이지-주문리스트 view
     @GetMapping("/mypage_order")
-    public ModelAndView mypageOrder(){
+    public ModelAndView mypageOrder() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_order");
 
@@ -215,7 +264,7 @@ public class UserController {
 
     //마이페이지-주문상세 view
     @GetMapping("/mypage_order_detail")
-    public ModelAndView mypageOrderDetail(){
+    public ModelAndView mypageOrderDetail() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_order_detail");
 
@@ -224,7 +273,7 @@ public class UserController {
 
     //마이페이지-적립금리스트 view
     @GetMapping("/mypage_point")
-    public ModelAndView mypagePoint(){
+    public ModelAndView mypagePoint() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_point");
 
@@ -233,7 +282,7 @@ public class UserController {
 
     //마이페이지-리뷰리스트 view
     @GetMapping("/mypage_review")
-    public ModelAndView mypageReview(){
+    public ModelAndView mypageReview() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_review");
 
@@ -242,7 +291,7 @@ public class UserController {
 
     //마이페이지-리뷰리스트 Data(작성전, 작성완료)
     @PostMapping("/reviewList")
-    public ResponseEntity<Map<String, Object>> getReviewList(@RequestHeader("Authorization") String Headertoken){
+    public ResponseEntity<Map<String, Object>> getReviewList(@RequestHeader("Authorization") String Headertoken) {
         System.out.println(Headertoken);
         Map<String, Object> response = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();
@@ -290,20 +339,18 @@ public class UserController {
 
         // 리뷰 작성 해야되는 데이터 SELECT
         List<ReviewBeforeDTO> reviewBefore = service.getReviewBefore(useridx);
-        response.put("reviewBefore",reviewBefore);
+        response.put("reviewBefore", reviewBefore);
         // 갯수
         int reviewBeforeAmount = service.getReviewBeforeAmount(useridx);
-        response.put("reviewBeforeAmount",reviewBeforeAmount);
-        log.info("*********************reviewBeforeAmount : {}",reviewBeforeAmount);
+        response.put("reviewBeforeAmount", reviewBeforeAmount);
 
         // 작성된 리뷰 데이터 SELECT
         List<ReviewCompletedDTO> reviewCompleted = service.getReviewCompleted(useridx);
-        response.put("reviewCompleted",reviewCompleted);
-        log.info(reviewCompleted.toString());
+        response.put("reviewCompleted", reviewCompleted);
+
         // 갯수
         int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
-        response.put("reviewCompletedAmount",reviewCompletedAmount);
-        log.info("*********************reviewCompletedAmount : {}",reviewCompletedAmount);
+        response.put("reviewCompletedAmount", reviewCompletedAmount);
 
         // 성공적으로 조회된 데이터를 반환
         return ResponseEntity.ok(response);
@@ -312,11 +359,11 @@ public class UserController {
     // 리뷰 Create
     @PostMapping("/reviewWriteOK")
     public ResponseEntity<String> reviewWriteOK(@RequestParam("grade") int grade,
-                                               @RequestParam("orderList_idx") int orderList_Idx,
-                                               @RequestParam("content") String content,
-                                               @RequestParam(value = "file", required = false) List<MultipartFile> files,
-                                               @RequestHeader("Authorization") String Headertoken,
-                                               HttpSession session){
+                                                @RequestParam("orderList_idx") int orderList_Idx,
+                                                @RequestParam("content") String content,
+                                                @RequestParam(value = "file", required = false) List<MultipartFile> files,
+                                                @RequestHeader("Authorization") String Headertoken,
+                                                HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();
 
@@ -365,7 +412,7 @@ public class UserController {
 
         String imgfile1 = null;
         String imgfile2 = null;
-        String uniqueFilename="";
+        String uniqueFilename = "";
 
         try {
             // 파일이 있는 경우에만 처리
@@ -415,9 +462,9 @@ public class UserController {
     }
 
     // 파일 삭제
-    public void fileDel(String path, String filename){
+    public void fileDel(String path, String filename) {
         File f = new File(path, filename);
-        if(f.exists()){
+        if (f.exists()) {
             //파일이 있는 경우 -> 삭제
             f.delete();
         }
@@ -431,7 +478,7 @@ public class UserController {
                                                @RequestParam(value = "file", required = false) List<MultipartFile> files,
                                                @RequestParam(value = "deletedFiles", required = false) String deletedFilesJson,
                                                @RequestHeader("Authorization") String Headertoken,
-                                               HttpSession session){
+                                               HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();
 
@@ -488,7 +535,8 @@ public class UserController {
         if (deletedFilesJson != null && !deletedFilesJson.isEmpty()) {//삭제된 파일이 존재하면
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                deletedFiles = objectMapper.readValue(deletedFilesJson, new TypeReference<List<String>>(){});
+                deletedFiles = objectMapper.readValue(deletedFilesJson, new TypeReference<List<String>>() {
+                });
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -496,7 +544,7 @@ public class UserController {
 
         String imgfile1 = null;
         String imgfile2 = null;
-        String uniqueFilename="";
+        String uniqueFilename = "";
 
         try {
             // 삭제된 파일 처리
@@ -510,7 +558,7 @@ public class UserController {
                 for (int i = 0; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
                     if (!file.isEmpty()) {
-                        uniqueFilename = UUID.randomUUID().toString() + "_" +  file.getOriginalFilename();
+                        uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
                         File f = new File(path, uniqueFilename);
                         file.transferTo(f); // 파일 저장
 
@@ -548,7 +596,7 @@ public class UserController {
         } catch (Exception e) {
             fileDel(path, imgfile1);
             fileDel(path, imgfile2);
-            log.error("리뷰 등록 중 오류 발생", e);
+            log.error("리뷰 수정 중 오류 발생", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정 중 오류 발생");
         }
     }
@@ -556,8 +604,8 @@ public class UserController {
     //리뷰삭제
     @PostMapping("/reviewDelOK")
     public ResponseEntity<String> reviewDelOK(@RequestParam("orderList_idx") int orderList_Idx,
-                                               @RequestHeader("Authorization") String Headertoken,
-                                               HttpSession session){
+                                              @RequestHeader("Authorization") String Headertoken,
+                                              HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();
 
@@ -610,8 +658,8 @@ public class UserController {
         try {
             // 리뷰 삭제
             service.reviewDelete(reviewDelbefore.getOrderList_idx());
-            fileDel(path,reviewDelbefore.getImgfile1());
-            fileDel(path,reviewDelbefore.getImgfile2());
+            fileDel(path, reviewDelbefore.getImgfile1());
+            fileDel(path, reviewDelbefore.getImgfile2());
             return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
         } catch (Exception e) {
             log.error("리뷰 삭제 중 오류 발생", e);
@@ -622,7 +670,7 @@ public class UserController {
 
     //마이페이지-문의리스트 view
     @GetMapping("/mypage_qna")
-    public ModelAndView mypageQna(){
+    public ModelAndView mypageQna() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_qna");
 
@@ -631,19 +679,254 @@ public class UserController {
 
     //마이페이지-회원정보수정 view
     @GetMapping("/mypage_userEdit")
-    public ModelAndView mypageEdit(){
+    public ModelAndView mypageEdit() {
         mav = new ModelAndView();
         mav.setViewName("mypage/mypage_userEdit");
 
         return mav;
     }
 
-    //마이페이지-회원탈퇴 view
-    @GetMapping("/mypage_userDel")
-    public ModelAndView mypageDel(){
+    //마이페이지-수정 전 유저 정보
+    @PostMapping("/userInfo")
+    public ResponseEntity<Map<String, Object>> getuserInfo(@RequestHeader("Authorization") String Headertoken) {
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }  // 303 또는 302 응답
+
+
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        }
+
+        // 회원정보 select
+        MemberVO userinfo = service.getUserinfo(useridx);
+        response.put("userinfo", userinfo);
+        // 리뷰 갯수 select
+        int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
+        response.put("reviewCompletedAmount", reviewCompletedAmount);
+
+        // 성공적으로 조회된 데이터를 반환
+        return ResponseEntity.ok(response);
+    }
+
+    //회원수정
+    @PostMapping("/userEditOK")
+    public ResponseEntity<String> userEditOK(@RequestBody MemberVO member,
+                                             @RequestHeader("Authorization") String Headertoken) {
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
+        }
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+
+        try {
+            member.setIdx(useridx);
+            int result = service.updateUser(member);
+            if(result>0){
+                return ResponseEntity.ok("회원 정보가 성공적으로 수정되었습니다.");
+            }
+            else{
+                log.error("회원 수정 중 오류 발생");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 수정 중 오류 발생");
+            }
+        } catch (Exception e) {
+            log.error("회원 수정 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 수정 중 오류 발생");
+        }
+    }
+
+
+
+    //마이페이지-회원탈퇴 이유 view
+    @GetMapping("/mypage_userDelReason")
+    public ModelAndView mypageDelReason(){
         mav = new ModelAndView();
-        mav.setViewName("mypage/mypage_userDel");
+        mav.setViewName("mypage/mypage_userDelReason");
 
         return mav;
+    }
+
+    @PostMapping("/userDelReasonOK")
+    public void userDelReasonOk(@RequestBody UserDelReasonDTO userDelReasonDTO, HttpSession session){
+        log.info("******userDelReasonDTO : {}",userDelReasonDTO.toString());
+
+        // 세션에 값 저장 -> checkPwd에서 사용하기 위함
+        session.setAttribute("userDelReason", userDelReasonDTO);
+    }
+
+    //마이페이지-회원탈퇴 약관동의 view
+    @GetMapping("/mypage_userDelAgree")
+    public ModelAndView mypageDelAgree(){
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_userDelAgree");
+
+        return mav;
+    }
+
+    //회원탈퇴 전 비밀번호 확인
+    @PostMapping("/checkPwd")
+    public ResponseEntity<String> checkPwd(@RequestParam String userpwd,
+                         @RequestHeader("Authorization") String Headertoken){
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        String userid = (String) responseBody.get("userid");
+
+        // 회원 정보 검증: 데이터베이스에서 사용자 정보 조회
+        MemberVO member = service.memberLogin(userid, userpwd);
+        if (member == null) {
+            // 사용자 정보가 없으면 로그인 실패로 간주하고 로그인 페이지로 리다이렉트
+            tokenResponse.getHeaders().setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(tokenResponse.getHeaders(), HttpStatus.SEE_OTHER);
+        }
+
+        // 비밀번호 검증
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(userpwd, member.getUserpwd())) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), HttpStatus.SEE_OTHER);
+        }
+
+        return ResponseEntity.ok("비밀번호가 일치합니다.");
+    }
+
+    //회원 탈퇴
+    @PostMapping("/userDelOk")
+    public ResponseEntity<String> checkPwd(@RequestHeader("Authorization") String Headertoken, HttpSession session){
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
+            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+
+        if (token.isEmpty()) {
+            response.put("error", "JWT 토큰이 비어 있습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            response.put("error", "유효하지 않은 JWT 토큰입니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
+            headers.setLocation(URI.create("/user/login"));
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 회원 탈퇴
+        // 세션에서 userDelReasonDTO 값 가져오기
+        UserDelReasonDTO userDelReasonDTO = (UserDelReasonDTO) session.getAttribute("userDelReason");
+        if (userDelReasonDTO == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("탈퇴 이유가 없습니다.");
+        }
+
+        log.info("탈퇴 이유: {}", userDelReasonDTO.toString());
+        userDelReasonDTO.setUseridx(useridx);
+        int result = service.userDelOk(useridx);
+        service.userDelInsert(userDelReasonDTO);
+
+        if(result>0){
+            return ResponseEntity.ok("회원 탈퇴 완료");
+        }else{
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        }
     }
 }

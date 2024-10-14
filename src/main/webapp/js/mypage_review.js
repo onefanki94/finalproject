@@ -534,7 +534,7 @@ $(function(){
         if(confirm('이 리뷰를 삭제하시겠습니까?')){
             var orderListIdx = $(this).closest("li").find('#orderList_idx').val();
             console.log(orderListIdx);
-//            return false;
+
             $.ajax({
                 url: '/user/reviewDelOK',
                 type: 'POST',

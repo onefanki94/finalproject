@@ -225,106 +225,29 @@
         >
           <div class="swiper-container gall_list">
             <ul class="swiper-wrapper">
-              <li class="swiper-slide">
-                <a href="">
-                  <div class="img_wrap">
-                    <div class="mask"></div>
-                    <div class="txt">
-                      <p>정적인 공간, 나만의 아늑한 안식처</p>
-                      <span
-                        >View more<i class="on fa fa-long-arrow-right"></i
-                      ></span>
-                    </div>
-                    <div
-                      class="thum_img"
-                      style="
-                        background: url('/img/main_img/goods1.png')
-                          no-repeat center / cover;
-                      "
-                    ></div>
-                  </div>
-                </a>
-              </li>
-              <li class="swiper-slide">
-                <a href="">
-                  <div class="img_wrap">
-                    <div class="mask"></div>
-                    <div class="txt">
-                      <p>정적인 공간, 나만의 아늑한 안식처</p>
-                      <span
-                        >View more<i class="on fa fa-long-arrow-right"></i
-                      ></span>
-                    </div>
-                    <div
-                      class="thum_img"
-                      style="
-                        background: url('/img/main_img/goods2.png')
-                          no-repeat center / cover;
-                      "
-                    ></div>
-                  </div>
-                </a>
-              </li>
-              <li class="swiper-slide">
-                <a href="">
-                  <div class="img_wrap">
-                    <div class="mask"></div>
-                    <div class="txt">
-                      <p>정적인 공간, 나만의 아늑한 안식처</p>
-                      <span
-                        >View more<i class="on fa fa-long-arrow-right"></i
-                      ></span>
-                    </div>
-                    <div
-                      class="thum_img"
-                      style="
-                        background: url('/img/main_img/goods3.png')
-                          no-repeat center / cover;
-                      "
-                    ></div>
-                  </div>
-                </a>
-              </li>
-              <li class="swiper-slide">
-                <a href="">
-                  <div class="img_wrap">
-                    <div class="mask"></div>
-                    <div class="txt">
-                      <p>정적인 공간, 나만의 아늑한 안식처</p>
-                      <span
-                        >View more<i class="on fa fa-long-arrow-right"></i
-                      ></span>
-                    </div>
-                    <div
-                      class="thum_img"
-                      style="
-                        background: url('/img/main_img/goods4.png')
-                          no-repeat center / cover;
-                      "
-                    ></div>
-                  </div>
-                </a>
-              </li>
-              <li class="swiper-slide">
-                <a href="">
-                  <div class="img_wrap">
-                    <div class="mask"></div>
-                    <div class="txt">
-                      <p>정적인 공간, 나만의 아늑한 안식처</p>
-                      <span
-                        >View more<i class="on fa fa-long-arrow-right"></i
-                      ></span>
-                    </div>
-                    <div
-                      class="thum_img"
-                      style="
-                        background: url('/img/main_img/goods5.png')
-                          no-repeat center / cover;
-                      "
-                    ></div>
-                  </div>
-                </a>
-              </li>
+              <c:forEach var="goods" items="${goods_list}">
+                <li class="swiper-slide">
+                    <a href="/storeDetail/${goods.idx}">
+                      <div class="img_wrap">
+                        <div class="mask"></div>
+                        <div class="txt">
+                          <p>${goods.title}</p>
+                          <span
+                            >View more<i class="on fa fa-long-arrow-right"></i
+                          ></span>
+                        </div>
+                        <div
+                          class="thum_img"
+                          style="
+                            background: url('http://192.168.1.92:8000/${goods.thumImg}')
+                              no-repeat center / cover;
+                          "
+                        ></div>
+                      </div>
+                    </a>
+                </li>
+              </c:forEach>
+
             </ul>
           </div>
           <div class="pager_wrap">

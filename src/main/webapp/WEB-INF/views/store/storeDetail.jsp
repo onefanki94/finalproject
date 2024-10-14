@@ -1,17 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
 <link href="/css/storeDetail.css" rel="stylesheet" type="text/css">
 <link href="https://getbootstrap.com/docs/5.3/components/buttons/" rel="stylesheet">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script type="text/javascript">
     var storeDetail = {
         price: "${storeDetail.price}",  // 서버에서 전달된 상품 가격
@@ -19,13 +14,12 @@
     };
 </script>
 
-
 <!-- 상품 상세 페이지 컨테이너 -->
 <div class="product-container">
     <div class="product-wrapper">
         <!-- 상품 이미지 섹션 -->
         <div class="product-image-section">
-            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="${storeDetail.title}" class="main-image">
+            <img src="${storeDetail.thumImg}" alt="${storeDetail.title}" class="main-image">
         </div>
     
         <!-- 상품 정보 섹션 -->
@@ -110,6 +104,10 @@
                 <th>카테고리</th>
                 <td colspan="3"><a href="#">#${storeDetail.category}</a></td>
             </tr>
+            <tr>
+                <th>상품설명</th>
+                <td colspan="3"><a href="#">#${storeDetail.pro_detail}</a></td>
+            </tr>
         </table>
     </div>
             <!-- 주의 사항 섹션 -->
@@ -124,7 +122,7 @@
             <div class="product-details-wrapper">
                 <!-- 이미지 섹션 -->
                 <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}" alt="상품 상세 이미지" />
+                    <img src="${storeDetail.thumImg}" alt="상품 상세 이미지" />
                 </div>
 
 
@@ -136,9 +134,10 @@
             
                     
         <!-- 숨겨진 상품 설명 -->
-         <!--DB확인 후 재 작업-->
         <div id="hidden-description" class="hidden-description">
-            <img src="${pageContext.request.contextPath}/${storeDetail.thumImg}">
+            <img src="${storeDetail.detailImg}">
+        
+        
         </div>
     </div>
    
@@ -194,14 +193,18 @@
     <div class="review-summary">
         <div class="average-rating">
             <h3>사용자 총 평점</h3>
-            <div class="stars">★★★★★</div>
+            <div class="stars">
+                <c:forEach var="i" begin="1" end="5">
+                    <span class="${i <= averageRating ? 'filled-star' : 'empty-star'}">★</span>
+                </c:forEach>
+            </div>
             <div class="rating-number">
-                4.71 <small>/5</small>
+                ${averageRating} <small>/5</small>
             </div>
         </div>
         <div class="total-reviews">
             <h3>전체 리뷰수</h3>
-            <div class="review-count">97</div>
+            <div class="review-count">${reviews.size()}</div>
         </div>
     </div>
 
@@ -217,24 +220,35 @@
             <span onclick="filterReviews('lowest')">평점 낮은순</span>
         </div>
     </div>
-    <!-- 리뷰 리스트 -->
-    <div id="review-list">
-        
-        <div class="review-item" data-rating="5" data-date="2024-09-06">    
-        
-            <div class="review-nickname">
-                <span class="review-rating">★★★★☆</span>
-                <span class="reviewer-name">naeb*****</span>
-                <span class="review-date">2024.09.06</span>         
+            <!-- 리뷰 리스트 -->
+            <div id="review-list">
+                <c:forEach var="review" items="${reviews}">
+                    <div class="review-item" data-rating="${review.grade}" data-date="${review.regDT}">
+                        <div class="review-nickname">
+                            <span class="review-rating">
+                                <!-- 별점 출력 -->
+                                <c:forEach var="i" begin="1" end="5">
+                                    <span class="${i <= review.grade ? 'filled-star' : 'empty-star'}">★</span>
+                                </c:forEach>
+                            </span>
+                            <span class="reviewer-name">
+                                <!-- 아이디 중간에 마스킹 처리 -->
+                                <c:out value="${fn:substring(review.useridx, 0, 3)}"/>*****
+                            </span>
+                            <span class="review-date">${review.regDT}</span>         
+                        </div>
+                        
+                        <div class="review-content">${review.content}</div>
+                        
+                        <c:if test="${not empty review.imgfile1}">
+                            <div class="review-image">
+                                <img src="${review.imgfile1}" alt="리뷰 이미지">
+                            </div>
+                        </c:if>
+                    </div>
+                </c:forEach>
             </div>
-            
-            <div class="review-content">착용감 아주 편해요. 잘 맞아요!</div>
-            <div class="review-image">
-                <img src="/img/store/review1.png" alt="리뷰 이미지">
-            </div>
-        </div>
-        
-    </div>
+
     
         <!-- 페이지 네이션 -->
         <div class="pagination">
@@ -246,20 +260,22 @@
 
     <!-- Sticky Footer -->
     <div class="sticky-footer">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between sticky-footer_div">
             <div class="sticky-left">
-                <div class="fw-bold">${storeDetail.title}</div>
+                <div class="fw-bold">${storeDetail.title}
+                    <p>${storeDetail.price}원</p>
+                </div>
                 
             </div>
             <div class="sticky-right">
-                <div class="price">${storeDetail.price} 원</div>
-                <button class="btn btn-secondary">장바구니</button>
-                <button class="btn btn-dark">바로구매</button>
+                <div class="price">총 ${storeDetail.price} 원</div>
+                <button class="sticky_basket_btn">장바구니</button>
+                <button class="sticky_buy_btn">바로구매</button>
             </div>
         </div>
     </div>
 
-  
+  </div>
 </div>
 
  <%@include file="/WEB-INF/inc/store_footer.jspf"%> 

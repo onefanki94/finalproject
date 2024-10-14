@@ -3,6 +3,7 @@ package com.ict.finalproject.Service;
 import com.ict.finalproject.DAO.MemberDAO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
+import com.ict.finalproject.DTO.UserDelReasonDTO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,25 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int getReviewCompletedAmount(int useridx) {
         return dao.getReviewCompletedAmount(useridx);
+    }
+
+    @Override
+    public MemberVO getUserinfo(int useridx) {
+        return dao.getUserinfo(useridx);
+    }
+
+    @Override
+    public int updateUser(MemberVO member) {
+        return dao.updateUser(member);
+    }
+
+    @Override
+    public int userDelOk(int useridx) {
+        return dao.userDelOk(useridx);
+    }
+
+    @Override
+    public void userDelInsert(UserDelReasonDTO userDelReasonDTO) {
+        dao.userDelInsert(userDelReasonDTO);
     }
 }

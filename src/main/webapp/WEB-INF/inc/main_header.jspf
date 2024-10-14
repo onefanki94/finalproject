@@ -49,8 +49,8 @@
             } else {
                 // 토큰이 있는 경우 (로그인 상태)
                 loginDiv.innerHTML = `
-                    <button id="login_btn" onclick="location.href='/user/mypage'">MyPage</button>
-                    <button id="login_btn" onclick="logout()">Logout</button>
+                    <button id="login_btn" onclick="location.href='/user/mypage'">마이페이지</button>
+                    <button id="login_btn" onclick="logout()">로그아웃</button>
                 `;
             }
         }
