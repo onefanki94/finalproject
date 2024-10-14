@@ -119,6 +119,17 @@ public class storeMainController {
         return mav;
     }
 
+    @GetMapping("/subcategories")
+    @ResponseBody
+    //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
+    public List<String> getSubcategories(@RequestParam("category") int category) {
+        List<String> hi =  storeService.getSubcategoriesByFirstCategory1(category);
+        List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
+        System.out.println("hi : "+ hi);
+        System.out.println("hi2 : " + hi2);
+        return storeService.getSubcategoriesByFirstCategory1(category);
+    }
+
     // 쇼핑백 페이지 이동
     // 채원 시작
     // 헤더에서 토큰을 추출하고, 토큰의 유효성을 검증한 후 사용자 ID와 useridx를 반환 함수(코드가 너무 중복돼서 따로 뺌)
@@ -206,23 +217,11 @@ public class storeMainController {
 
     //장바구니 페이지로 이동
     @GetMapping("/shoppingBag")
-    public ModelAndView joinPage(){
+    public ModelAndView shoppingBag(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("store/shopping_bag");
         return mav;
     }
-
-    @GetMapping("/subcategories")
-    @ResponseBody
-    //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
-    public List<String> getSubcategories(@RequestParam("category") int category) {
-        List<String> hi =  storeService.getSubcategoriesByFirstCategory1(category);
-        List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
-        System.out.println("hi : "+ hi);
-        System.out.println("hi2 : " + hi2);
-        return storeService.getSubcategoriesByFirstCategory1(category);
-    }
-
 
     @PostMapping("/basketList")
     public ResponseEntity<Map<String, Object>> basketList(@RequestHeader("Authorization") String Headertoken){
@@ -242,6 +241,59 @@ public class storeMainController {
         response.put("basketList", basketList);  // 장바구니 리스트를 맵에 저장
 
         return ResponseEntity.ok(response);
+    }
+
+    //장바구니 상품 삭제(x버튼)
+    @PostMapping("/basketDelOk")
+    public ResponseEntity<String> basketDelOk(@RequestParam int idx,
+                                           @RequestHeader("Authorization") String Headertoken){
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        // 장바구니에서 상품 삭제 update
+        int result = storeService.basketDelete(idx,useridx);
+
+        if(result>0){
+            return ResponseEntity.ok("장바구니 상품 삭제 완료");
+        }else{
+            return new ResponseEntity<>(tokenResponse.getHeaders(), HttpStatus.SEE_OTHER);
+        }
+    }
+
+    // 장바구니 상품 선택 삭제
+    @PostMapping("/basketChoiceDelOk")
+    public ResponseEntity<String> basketChoiceDelOk(@RequestBody Map<String, List<Integer>> request,
+                                              @RequestHeader("Authorization") String Headertoken){
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        //받아온 값
+        List<Integer> idxList = request.get("idxList");
+
+        if (idxList == null || idxList.isEmpty()) {
+            return ResponseEntity.badRequest().body("삭제할 상품을 선택해주세요.");
+        }
+
+        // 장바구니에서 상품 삭제 update
+        for (int idx : idxList) {
+            storeService.basketChoiceAndAllDelOk(idx, useridx);
+        }
+
+        return ResponseEntity.ok("장바구니 상품 삭제 완료");
     }
 
 }

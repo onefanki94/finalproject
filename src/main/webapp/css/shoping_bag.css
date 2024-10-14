@@ -1,59 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
-body,
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: var(--e-font), var(--k-font);
-}
-body {
-  background: white;
-  /* animation: fadeIn 2s ease-out; */
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-ul,
-li,
-dl,
-dt,
-dd,
-p,
-span,
-ol,
-button {
-  margin: 0;
-  padding: 0;
-}
-a {
-  text-decoration: none;
-}
-li {
-  list-style: none;
-}
-
-*,
-:after,
-:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-:root {
-  --primary: #359c95;
-  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
-  --k-font: "Pretendard";
-  --e-font: "Outfit";
-}
 
 button {
   cursor: pointer;
@@ -311,7 +256,7 @@ button {
   min-width: initial;
   height: 24px;
   line-height: 100em;
-  background: url("/img/icon-remove.png") 0px 0px / 24px 24px no-repeat;
+  background: url("/img/store/icon-remove.png") 0px 0px / 24px 24px no-repeat;
   border: 0px;
 }
 
@@ -464,6 +409,7 @@ button {
   vertical-align: middle;
   border-top: 1px solid rgb(228, 228, 228);
   width: 15%;
+  border-left: 1px solid rgb(228, 228, 228);
 }
 
 .basket_list_li_fee_div p {
@@ -614,7 +560,7 @@ button {
   display: block;
   width: 30px;
   height: 30px;
-  background: url("/img/icon_cout.png") 0px 0px / 60px 30px no-repeat;
+  background: url("/img/store/icon_cout.png") 0px 0px / 60px 30px no-repeat;
 }
 
 .basket_price_all_div_bottom div:nth-of-type(3) {
@@ -635,7 +581,7 @@ button {
   display: block;
   width: 30px;
   height: 30px;
-  background: url(https://img.29cm.co.kr/next29cm/order/icon_cout.gif) -30px 0px / 60px 30px no-repeat;
+  background: url("/img/store/icon_cout.png") -30px 0px / 60px 30px no-repeat;
 }
 
 .basket_btn_div {
@@ -680,4 +626,11 @@ button {
   background-color: rgb(48, 48, 51);
   border: 1px solid rgb(48, 48, 51);
   border-radius: 0px;
+}
+
+.ani_title_p{
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
 }

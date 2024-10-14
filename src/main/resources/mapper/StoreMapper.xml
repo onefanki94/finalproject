@@ -101,5 +101,17 @@ WHERE f.code = #{category}
         WHERE b.useridx=${param1} AND b.delState=0
         ORDER BY b.regDT desc
     </select>
+    <!-- 장바구니 상품 삭제-->
+    <update id="basketDelete">
+        UPDATE T_basket
+        SET delState=1, delDT=now()
+        WHERE idx=${param1} AND useridx=${param2}
+    </update>
 
+    <!-- 장바구니 상품 삭제-->
+    <update id="basketChoiceAndAllDelOk">
+        UPDATE T_basket
+        SET delState=1, delDT=now()
+        WHERE idx=${param1} AND useridx=${param2}
+    </update>
 </mapper>

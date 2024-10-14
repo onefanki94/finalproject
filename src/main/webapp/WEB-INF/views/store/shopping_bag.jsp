@@ -23,8 +23,8 @@
     <div class="basket_product_list_div">
       <div class="basket_list_top">
         <div class="basket_list_all_chkbx">
-          <input type="checkbox" id="all_chk_product" name="all_chk_product" />
-          <label for="all_chk_product"></label>
+          <input type="checkbox" id="all_chk_product" name="all_chk_product" checked/>
+          <label for="all_chk_product" class="checkedLabel"></label>
         </div>
         <div class="bascket_menu_proinfo">상품 정보</div>
         <div class="bascket_menu_amount">수량</div>
@@ -32,53 +32,14 @@
         <div class="bascket_menu_fee">배송비</div>
       </div>
       <ul id="bascket_product_ul">
-        <li class="bascket_product_li">
-          <div class="basket_list_li_chkbx">
-            <input type="checkbox" id="chk_product" name="chk_product" />
-            <label for="chk_product"></label>
-          </div>
-          <div class="basket_list_li_proinfo_div">
-            <div class="basket_list_li_proinfo">
-              <a href=""><img src="https://img.29cm.co.kr/next-product/2024/08/12/3974e484d3d64d2a9c8c9317cb0fed47_20240812153631.jpg?width=150" /></a>
-              <div class="basket_list_proinfo_detail">
-                <a class="basket_list_protitle" href="#">[예약배송]Cotton stripe base collar polo t-shirt_Navy</a>
-                <div class="basket_list_proprice">
-                  <span>89,000원</span>
-                </div>
-              </div>
-            </div>
-            <button class="bascket_del_btn" type="button"></button>
-          </div>
-          <div class="basket_list_li_amount_div">
-            <div>
-              <div>
-                <button id="del_product_btn" class="basket_list_amount_del" type="button">-</button><input class="basket_list_amount" autocapitalize="none" id="number_of_products" type="text" inputmode="numeric" value="1" /><button
-                  id="add_product_btn"
-                  class="basket_list_amount_add"
-                  type="button"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="basket_list_li_price_div">
-            <div><span>84,550</span>원</div>
-            <div class="basket_list_buy_btn_div">
-              <button class="edes2n119 css-1z3id8 ejv90e57" type="button">
-                <span class="ruler-button-text css-mfi8cj ejv90e50" color="onColor">구매하기</span>
-              </button>
-            </div>
-          </div>
-          <div class="basket_list_li_fee_div">
-            3,000원
-            <p>150,000원 이상 구매시 무료배송됩니다.</p>
-          </div>
-        </li>
+
       </ul>
     </div>
     <div class="product_del_btn_div">
-      <div><button class="product_del_btn" type="button">선택상품 삭제</button><button class="product_del_btn" type="button">품절상품 삭제</button></div>
+      <div>
+          <button class="product_del_btn" type="button" id="choice_delBtn">선택상품 삭제</button>
+          <button class="product_del_btn" type="button" id="all_delBtn">전체상품 삭제</button>
+      </div>
     </div>
   </div>
   <div class="basket_price_all_div">

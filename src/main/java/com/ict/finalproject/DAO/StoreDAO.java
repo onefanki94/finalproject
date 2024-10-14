@@ -34,5 +34,8 @@ public interface StoreDAO {
     int basketInput(BasketVO basketvo);
     //장바구니 리스트
     List<BasketDTO> basketList(int useridx);
-
+    //장바구니 상품 삭제(x버튼)
+    int basketDelete(int idx,int useridx);
+    //장바구니 상품 삭제(선택,전체상품삭제)
+    void basketChoiceAndAllDelOk(int idx, int useridx);
 }

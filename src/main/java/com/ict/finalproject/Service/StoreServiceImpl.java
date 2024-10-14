@@ -65,5 +65,15 @@ public class StoreServiceImpl implements StoreService {
         return dao.basketList(useridx);
     }
 
+    @Override
+    public int basketDelete(int idx, int useridx) {
+        return dao.basketDelete(idx, useridx);
+    }
+
+    @Override
+    public void basketChoiceAndAllDelOk(int idx, int useridx) {
+        dao.basketChoiceAndAllDelOk(idx,useridx);
+    }
+
 
 }
