@@ -37,4 +37,5 @@ public interface MasterService {
     boolean updateAnimation(MasterVO vo);
     MasterVO aniSelect(int idx);
     String getCurrentImgFile(int idx);
+    List<MasterVO> getQNAList();
 }

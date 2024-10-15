@@ -20,46 +20,18 @@
                      </tr>
                  </thead>
                  <tbody>
+                 <c:forEach items="${qnaList}" var="qna">
                      <tr>
-                         <td>1</td>
-                         <td>계정 문의</td>
-                         <td>계정 비밀번호 관련 문의</td>
-                         <td>홍길동</td>
-                         <td>2023-09-25</td>
+                         <td>${qna.idx}</td>
+                         <td>${qna.qnatype}</td>
+                         <td>${qna.title}</td>
+                         <td>${qna.useridx}</td>
+                         <td>${qna.regDT}</td>
                          <td>
                              <a href="/master/QNAnswerDetailMaster" class="btn btn-outline-secondary btn-sm">답변</a>
                          </td>
                      </tr>
-                     <tr>
-                         <td>2</td>
-                         <td>상품 문의</td>
-                         <td>상품 재입고 관련 문의</td>
-                         <td>김철수</td>
-                         <td>2023-09-24</td>
-                         <td>
-                             <a href="/master/QNAnswerDetailMaster" class="btn btn-outline-secondary btn-sm">답변</a>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td>3</td>
-                         <td>배송 문의</td>
-                         <td>배송이 지연되고 있습니다.</td>
-                         <td>이영희</td>
-                         <td>2023-09-23</td>
-                         <td>
-                             <a href="/master/QNAnswerDetailMaster" class="btn btn-outline-secondary btn-sm">답변</a>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td>4</td>
-                         <td>환불 문의</td>
-                         <td>환불 요청 관련 문의</td>
-                         <td>박민수</td>
-                         <td>2023-09-22</td>
-                         <td>
-                             <a href="/master/QNAnswerDetailMaster" class="btn btn-outline-secondary btn-sm">답변</a>
-                         </td>
-                     </tr>
+                     </c:forEach>
                  </tbody>
              </table>
          </div>

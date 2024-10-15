@@ -424,7 +424,9 @@ public class masterController {
     // Dashboard - 기타관리 - 문의사항 리스트
     @GetMapping("/QNAMasterList")
     public ModelAndView QNAMasterList(){
+            List<MasterVO> qnaList = masterService.getQNAList();
         mav = new ModelAndView();
+        mav.addObject("qnaList", qnaList);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }

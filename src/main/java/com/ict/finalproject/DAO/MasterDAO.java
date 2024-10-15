@@ -78,4 +78,7 @@ public interface MasterDAO {
 
     // 애니 정보 수정
     int updateAnimation(MasterVO vo);
+
+    // 문의 내용 목록 불러오기
+    List<MasterVO> getQNAList();
 }

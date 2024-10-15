@@ -145,4 +145,9 @@ public class MasterServiceImpl implements MasterService {
     public String getCurrentImgFile(int idx) {
         return dao.getCurrentImgFile(idx);
     }
+
+    @Override
+    public List<MasterVO> getQNAList() {
+        return dao.getQNAList();
+    }
 }

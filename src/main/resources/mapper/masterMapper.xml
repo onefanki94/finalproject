@@ -59,14 +59,14 @@
     <select id="getBoardList" resultType="MasterVO">
         SELECT c.idx, tc.type AS category, c.title, u.userid AS author, c.regDT, c.hit, c.commtype
         FROM t_community c LEFT JOIN t_communitytype tc ON c.commtype = tc.code
-        LEFT JOIN t_user u ON c.useridx = u.idx ORDER BY c.idx;
+        LEFT JOIN t_user u ON c.useridx = u.idx ORDER BY c.idx
     </select>
 
     <!-- 애니 전체 리스트 불러오기 -->
     <select id="getAniAllList" resultType="MasterVO">
         select a.idx, a.title, a.anitype, at.type as anitype_type ,a.agetype, ag.type as age_type , a.director, a.outline, a.regDT
         from t_animation a left join t_anitype at on a.anitype = at.code
-        left join t_agetype ag on a.agetype = ag.code;
+        left join t_agetype ag on a.agetype = ag.code
     </select>
 
 
@@ -80,13 +80,13 @@
     <select id="getNoticeList">
         SELECT n.idx, n.title, n.content, n.regDT, u.username AS admin_name
         FROM t_notice n
-        JOIN t_user u ON n.adminidx = u.idx;
+        JOIN t_user u ON n.adminidx = u.idx
     </select>
 
     <!-- 모든 리뷰 불러오기 -->
     <select id="getReplyList">
         SELECT r.idx, u.userid, r.content, r.grade, r.regDT
-        FROM t_review r JOIN t_user u ON r.useridx = u.idx;
+        FROM t_review r JOIN t_user u ON r.useridx = u.idx
     </select>
 
     <!-- idx에 대한 리뷰 상세보기  -->
@@ -166,5 +166,9 @@
         SET handleState = #{handleState}, handleDT = #{handleDT}
         WHERE idx = #{idx}
     </update>
+
+    <select id="getQNAList">
+        select idx, qnatype,title, useridx,regDT from t_qna
+    </select>
 
 </mapper>
