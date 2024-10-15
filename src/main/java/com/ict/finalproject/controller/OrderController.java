@@ -151,8 +151,20 @@ public class OrderController {
     
     // 결제요청정보 DB에 저장
     @PostMapping("/request")
-    public ResponseEntity<?> requestPayment(@RequestBody PaymentReqDTO paymentRequest) {
+    public ResponseEntity<?> requestPayment(@RequestBody PaymentReqDTO paymentRequest,@RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+        paymentRequest.setUseridx(useridx);
+
         service.savePaymentRequest(paymentRequest); // 결제 요청 정보 DB에 저장
+        service.saveOrderRequest(paymentRequest);
         return ResponseEntity.ok("Payment requested");
     }
 

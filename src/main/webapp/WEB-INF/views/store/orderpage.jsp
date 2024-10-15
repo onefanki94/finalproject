@@ -4,6 +4,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://js.tosspayments.com/v2/standard"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/daum_api.js"></script>
 <script src="/js/orderpage.js"></script>
 <link rel="stylesheet" href="/css/order.css" type="text/css" />
 
@@ -28,48 +30,30 @@
           <h2>주문 상품 정보</h2>
         </div>
         <ul>
-          <li>
-            <div class="order_product_li">
-              <div class="order_product_img">
-                <img src="https://img.29cm.co.kr/item/202409/11ef6a6bfe7c7a14a980adf1df7d5bb0.jpg?width=300" />
-              </div>
-              <div class="order_product_info">
-                <div class="order_product_info_detail">
-                  <div class="order_product_info_tit">
-                    <a href="#">Plan L/S Tee (4 Colors)</a>
+        <c:forEach var="orderProduct" items="${orderList}">
+            <li>
+                <div class="order_product_li">
+                  <div class="order_product_img">
+                    <img src="http://192.168.1.92:8000/${orderProduct.thumImg}" />
                   </div>
-                  <div class="order_product_info_price">
-                    <span>65,000원</span>
+                  <div class="order_product_info">
+                    <div class="order_product_info_detail">
+                      <div class="order_product_info_tit">
+                        <p class="ani_title_p">${orderProduct.ani_title}</p>
+                        <a href="#">${orderProduct.title}</a>
+                      </div>
+                      <div class="order_product_info_price">
+                        <span class="order_product_price" data-price="${orderProduct.price}"></span>원
+                      </div>
+                      <div class="order_product_info_amount">수량 : <span class="order_product_amount" data-amount="${orderProduct.amount}">${orderProduct.amount}</span></div>
+                    </div>
+                    <div class="order_product_info_total">
+                      <span class="order_product_totalPrice"></span>원
+                    </div>
                   </div>
-                  <div class="order_product_info_amount">수량 : <span>1</span></div>
                 </div>
-                <div class="order_product_info_total">
-                  <span>주문 금액 : 65,000원</span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="order_product_li">
-              <div class="order_product_img">
-                <img src="https://img.29cm.co.kr/item/202409/11ef6a6bfe7c7a14a980adf1df7d5bb0.jpg?width=300" />
-              </div>
-              <div class="order_product_info">
-                <div class="order_product_info_detail">
-                  <div class="order_product_info_tit">
-                    <a href="#">Plan L/S Tee (4 Colors)</a>
-                  </div>
-                  <div class="order_product_info_price">
-                    <span>65,000원</span>
-                  </div>
-                  <div class="order_product_info_amount">수량 : <span>1</span></div>
-                </div>
-                <div class="order_product_info_total">
-                  <span>주문 금액 : 65,000원</span>
-                </div>
-              </div>
-            </div>
-          </li>
+            </li>
+        </c:forEach>
         </ul>
       </div>
       <div class="order_addr">
@@ -78,24 +62,24 @@
         </div>
         <div class="order_addr_info">
           <div class="order_div">
-            <h2>수령인</h2>
+            <h2>수령인 *</h2>
             <div class="order_recipient">
               <input type="text" name="recipient" id="recipient" />
             </div>
           </div>
           <div class="order_div">
-            <h2>배송지</h2>
+            <h2>배송지 *</h2>
             <div class="order_addr_div">
               <div>
                 <input type="text" name="zipcode" id="zipcode" />
-                <button>우편번호 찾기</button>
+                <button onclick="daumPostcode()">우편번호 찾기</button>
               </div>
-              <input type="text" name="addr1" id="addr1" />
-              <input type="text" name="addr2" id="addr2" placeholder="상세주소를 입력해주세요." />
+              <input type="text" name="addr1" id="addr" />
+              <input type="text" name="addr2" id="addrdetail" placeholder="상세주소를 입력해주세요." />
             </div>
           </div>
           <div class="order_div">
-            <h2>전화번호</h2>
+            <h2>전화번호 *</h2>
             <div class="order_tel_div">
               <select name="tel1" id="tel1">
                 <option value="010">010</option>
@@ -110,7 +94,7 @@
           </div>
           <div class="order_div">
             <h2>배송 요청사항</h2>
-            <textarea class="delivery_requestmemo"></textarea>
+            <textarea class="delivery_requestmemo" id="request_memo"></textarea>
           </div>
         </div>
       </div>
@@ -124,7 +108,7 @@
             <div>
               <div class="order_point_usediv">
                 <div>
-                  <label><input type="numeric" value="0" /></label>
+                  <label><input id="order_use_point" type="text" value="0" /></label>
                 </div>
                 <button type="button">
                   <span>모두 사용</span>
@@ -132,11 +116,11 @@
               </div>
               <span class="use_point">
                 사용 가능
-                <em>360P</em>
+                <em>${order.user_point}P</em>
                 /
                 <span>
                   보유
-                  <em>360P</em>
+                  <em>${order.user_point}</em>
                 </span>
               </span>
             </div>
@@ -157,23 +141,24 @@
       <h3>결제 정보</h3>
       <dl>
         <dt>주문상품금액</dt>
-        <dd>${order.total_price}</dd>
+        <dd class="order_proAll_price"></dd>
       </dl>
       <dl>
         <dt>배송비</dt>
-        <dd>0원</dd>
+        <dd class="order_fee"></dd>
       </dl>
       <dl class="point">
-        <dt>포인트 사용</dt>
+        <dt>적립금 사용</dt>
         <dd>-0P</dd>
       </dl>
       <dl class="total_price">
         <dt>총 결제 예정 금액</dt>
-        <dd>${order.total_price}</dd>
+        <dd class="total_payPrice"></dd>
+        <input type="hidden" id="total_payPrice" name="total_payPrice">
       </dl>
       <dl class="spoint">
-        <dt>적립 예정 포인트</dt>
-        <dd>660 P</dd>
+        <dt>적립 예정 금액</dt>
+        <dd class="point_accumulated"></dd>
       </dl>
       <dl class="agree">
         <dt>주문동의</dt>
@@ -187,8 +172,8 @@
 
 <script>
     // JSP에서 서버 변수를 자바스크립트 전역 변수로 설정
-    var amount = ${order.total_price};
-    var order_idx = ${order.idx};
+    var order_idx = ${order_idx};
+    var orderList = ${orderList};
 </script>
 <script src="/js/tosspayments.js"></script>
 

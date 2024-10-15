@@ -56,6 +56,11 @@ public class OrderServiceImpl implements OrderService{
         dao.insertPaymentRequest(paymentRequest);
     }
 
+    @Override
+    public void saveOrderRequest(PaymentReqDTO paymentRequest) {
+        dao.updateOrderRequest(paymentRequest);
+    }
+
     @Value("${toss.secretKey}")  // application.properties의 secretKey 값을 주입
     private String secretKey;
 

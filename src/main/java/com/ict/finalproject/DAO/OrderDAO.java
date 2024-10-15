@@ -19,6 +19,7 @@ public interface OrderDAO {
     List<OrderListVO> selectOrderListByOrderIdx(int order_idx);
 
     void insertPaymentRequest(PaymentReqDTO paymentRequest);
+    void updateOrderRequest(PaymentReqDTO paymentRequest);
 
     // orderId로 결제 정보 조회
     PaymentVO getPaymentByOrderId(String orderId);

@@ -14,12 +14,20 @@
 
     <!-- T_order select -> orderpage에 보여주기 위함 -->
     <select id="selectOrderById"  resultType="com.ict.finalproject.vo.OrderVO">
-        SELECT * FROM T_order WHERE idx = #{order_idx}
+        SELECT o.idx, o.total_price, u.point AS user_point
+        FROM T_order o
+        JOIN T_user u
+        ON o.useridx = u.idx
+        WHERE o.idx = #{order_idx}
     </select>
 
     <!-- T_orderlist select -> orderpage에 보여주기 위함 -->
     <select id="selectOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
-        SELECT * FROM T_orderlist WHERE order_idx = #{order_idx}
+        SELECT ol.idx, ol.pro_idx, ol.amount, p.title, p.ani_title, p.thumImg, p.price
+        FROM T_orderlist ol
+        JOIN T_product p
+        ON ol.pro_idx = p.idx
+        WHERE order_idx = #{order_idx}
     </select>
 
     <!-- T_Payment insert -> 결제요청정보를 저장해놓기 위함 why? 데이터 무결성! -->
@@ -27,6 +35,12 @@
         INSERT INTO T_payment (orderId, amount, customerName, order_idx)
         VALUES (#{orderId}, #{amount}, #{customerName}, #{order_idx})
     </insert>
+    <!-- T_order insert -->
+    <update id="updateOrderRequest" parameterType="com.ict.finalproject.DTO.PaymentReqDTO">
+        UPDATE T_order
+        SET recipient=#{recipient}, zipcode=#{zipcode}, addr=#{addr}, addrdetail=#{addrdetail}, request_memo=#{request_memo}, use_point=#{use_point}, tel=#{tel}
+        WHERE useridx= #{useridx} AND idx=#{order_idx}
+    </update>
 
     <!-- orderId로 결제 정보 조회 -->
     <select id="getPaymentByOrderId" parameterType="String" resultType="com.ict.finalproject.vo.PaymentVO">

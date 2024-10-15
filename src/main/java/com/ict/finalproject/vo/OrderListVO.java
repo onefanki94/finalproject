@@ -13,6 +13,10 @@ public class OrderListVO {
     private int pro_idx;
     private int amount;
     private int orderState;
+    private String title;
+    private String ani_title;
+    private String thumImg;
+    private int price;
 
     // 매개변수가 있는 생성자
     public OrderListVO(int order_idx, int pro_idx, int amount) {

@@ -18,6 +18,7 @@ public interface OrderService {
 
     // 결제 요청정보 DB에 저장 service
     void savePaymentRequest(PaymentReqDTO paymentRequest);
+    void saveOrderRequest(PaymentReqDTO paymentRequest);
 
     // 결제 승인요청
     void approvePayment(PaymentApprovalDTO approvalDTO);
