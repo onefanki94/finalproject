@@ -58,7 +58,7 @@
                                 <ul class="filter-list">
                                     <!-- firstCategoryList를 순회하면서 카테고리 목록을 출력 -->
                                     <c:forEach var="category" items="${firstCategoryList}">
-                                        <li class="filter-item" onclick="loadSubcategories('${category.category}')">
+                                        <li class="filter-item" onclick="loadSubcategories('${category.type}')">
                                             <span class="filter-text">${category.type}</span>
                                         </li>
                                     </c:forEach>

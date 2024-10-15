@@ -84,11 +84,17 @@ public class storeMainController {
     @GetMapping("/subcategories")
     @ResponseBody
     //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
-    public List<String> getSubcategories(@RequestParam("category") int category) {
-        List<String> hi =  storeService.getSubcategoriesByFirstCategory1(category);
-        List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
-        System.out.println("hi : "+ hi);
-        System.out.println("hi2 : " + hi2);
+    public List<String> getSubcategories(@RequestParam(value = "category", required = false) Integer category) {
+        if (category == null) {
+            category = 0;  // 기본값 설정
+        }
+        List<String> subcategory = storeService.getSubcategoriesByFirstCategory1(category);
+
+        //List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
+        System.out.println("subcategory : "+ subcategory);
+
+        //System.out.println("hi2 : " + hi2);
+        
         return storeService.getSubcategoriesByFirstCategory1(category);
     }
 }
