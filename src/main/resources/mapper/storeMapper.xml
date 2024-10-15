@@ -69,18 +69,35 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
 
 
 
-<!-- <select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
-SELECT s.type 
-FROM t_secondcategory s
-JOIN t_firstcategory f ON s.first_code = f.code
-WHERE f.code = #{category}
-</select> -->
+     <select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
+        SELECT s.type
+        FROM t_secondcategory s
+        JOIN t_firstcategory f ON s.first_code = f.code
+        WHERE f.code = #{category}
+     </select>
 
-<select id="getSubcategoriesByFirstCategory1">
-SELECT s.type 
-FROM t_secondcategory s
-JOIN t_firstcategory f ON s.first_code = f.code
-WHERE f.code = #{category}
-</select>
+    <select id="getFirstCategories" resultType="ProductFilterVO">
+        SELECT code, type
+        FROM t_firstcategory
+    </select>
+
+
+<!--&lt;!&ndash;첫번째 카테고리&ndash;&gt;-->
+<!--<select id="getSubcategoriesByFirstCategory1">-->
+<!--SELECT s.type-->
+<!--FROM t_secondcategory s-->
+<!--JOIN t_firstcategory f ON s.first_code = f.code-->
+<!--WHERE f.code = #{category}-->
+<!--</select>-->
+
+<!--두번째 카테고리-->
+
+    <select id="getSubcategoriesByFirstCategory1" parameterType="int" resultType="String">
+        SELECT s.type
+        FROM t_secondcategory s
+        JOIN t_firstcategory f ON s.first_code = f.code
+        WHERE f.code = #{code}
+    </select>
+
 
 </mapper>

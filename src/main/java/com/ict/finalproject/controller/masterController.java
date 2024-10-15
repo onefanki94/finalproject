@@ -208,7 +208,7 @@ public class masterController {
         // 데이터베이스 업데이트
         masterService.updateAnimation(vo);
 
-        mav.setViewName("redirect:/aniList");
+        mav.setViewName("redirect:/master/aniMasterList");
         return mav;
     }
 
@@ -664,7 +664,7 @@ public class masterController {
     }
 
     // Dashboard - 굿즈관리 - 상품 수정
-    @GetMapping("/storeEditMaster")
+    @GetMapping("/storeEditMaster/{idx}")
     public ModelAndView storeEditMaster(){
         mav = new ModelAndView();
         mav.setViewName("master/storeEditMaster");

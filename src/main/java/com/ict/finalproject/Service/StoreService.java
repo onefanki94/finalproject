@@ -18,6 +18,9 @@ public interface StoreService {
     public StoreVO getStoreDetail(int storeId);
 
     public List<ProductFilterVO> getFirstCategoryList();
+
    // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category);
-    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
+    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code);
+
+
 }

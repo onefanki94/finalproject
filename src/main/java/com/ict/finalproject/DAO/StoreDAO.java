@@ -20,10 +20,11 @@ public interface StoreDAO {
 
     public StoreVO getStoreDetail(int storeId);
 
-    //public List<ProductFilterVO> getSubcategoriesByFirstCategory(@Param("category") int category);
-    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
 
-    
+    //public List<ProductFilterVO> getSubcategoriesByFirstCategory(@Param("category") int category);
+    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code);
+
+
     
   
 }

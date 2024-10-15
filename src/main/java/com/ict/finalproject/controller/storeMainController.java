@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -27,7 +29,6 @@ public class storeMainController {
     public ModelAndView getStoreListAndView() {
         List<StoreVO> storeList = storeService.getStoreList();
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();  // 카테고리 목록 추가
-        System.out.println("First Category List: " + firstCategoryList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", storeList);
         mav.addObject("firstCategoryList", firstCategoryList);  // 카테고리 필터 전달
@@ -81,20 +82,13 @@ public class storeMainController {
         return mav;
     }
 
+
     @GetMapping("/subcategories")
     @ResponseBody
-    //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
-    public List<String> getSubcategories(@RequestParam(value = "category", required = false) Integer category) {
-        if (category == null) {
-            category = 0;  // 기본값 설정
-        }
-        List<String> subcategory = storeService.getSubcategoriesByFirstCategory1(category);
-
-        //List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
-        System.out.println("subcategory : "+ subcategory);
-
-        //System.out.println("hi2 : " + hi2);
-        
-        return storeService.getSubcategoriesByFirstCategory1(category);
+    public List<String> subcategoriesByFirstCategory(@RequestParam("code") int categoryCode) {
+        System.out.println("Received category code: " + categoryCode);  // 서버 로그에 코드 값 출력
+        List<String> subcategories = storeService.getSubcategoriesByFirstCategory1(categoryCode);
+        System.out.println("subcategories: " + subcategories);  // 하위 카테고리 출력
+        return subcategories;
     }
 }
