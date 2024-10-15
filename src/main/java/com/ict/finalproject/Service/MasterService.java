@@ -30,4 +30,5 @@ public interface MasterService {
     boolean checkUserDelected(int idx);
     Integer findUserIdxByUserid(String userid);
     List<MasterVO> getMemberDelList(MasterVO vo);
+    List<MasterVO> getReportUserList(MasterVO vo);
 }

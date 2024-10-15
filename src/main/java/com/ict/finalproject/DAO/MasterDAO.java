@@ -57,4 +57,7 @@ public interface MasterDAO {
 
     // 탈퇴 회원 조회 하기
     List<MasterVO> getMemberDelList(MasterVO vo);
+
+    // 회원이 신고 한 유저 목록 구하기
+    List<MasterVO> getReportUserList(MasterVO vo);
 }

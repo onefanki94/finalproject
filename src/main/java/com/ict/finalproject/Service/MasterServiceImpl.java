@@ -108,4 +108,9 @@ public class MasterServiceImpl implements MasterService {
     public List<MasterVO> getMemberDelList(MasterVO vo) {
         return dao.getMemberDelList(vo);
     }
+
+    @Override
+    public List<MasterVO> getReportUserList(MasterVO vo) {
+        return dao.getReportUserList(vo);
+    }
 }
