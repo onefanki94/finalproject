@@ -22,9 +22,9 @@ public interface StoreDAO {
 
 
     //public List<ProductFilterVO> getSubcategoriesByFirstCategory(@Param("category") int category);
-    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
+    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code);
 
-    public List<String> getSubcategoriesByFirstCategory(int firstCategoryCode);
+    //public List<String> getSubcategoriesByFirstCategory(String firstCategoryCode);
     
   
 }

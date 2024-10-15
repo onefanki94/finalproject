@@ -28,14 +28,14 @@
 
     //필터리스트
     function loadCategories(firstCategoryList) {
-        console.log(firstCategoryList); // 서버에서 전달된 카테고리 데이터 확인
+        console.log("firstCategoryList:::::" + firstCategoryList); // 서버에서 전달된 카테고리 데이터 확인
         const filterList = document.querySelector('.filter-list');
         filterList.innerHTML = ''; // 기존의 리스트 초기화
     
         firstCategoryList.forEach(category => {
             const listItem = document.createElement('li');
             listItem.className = 'filter-item';
-            listItem.setAttribute('onclick', `loadSubcategories('${category.code}')`);
+            listItem.setAttribute('onclick', `loadSubcategories(${category.code})`);
             listItem.innerHTML = `<span class="filter-text">${category.name}</span>`;
             filterList.appendChild(listItem);
         });
@@ -56,6 +56,32 @@
             }
         });
     }
+
+ function loadSubcategories(categoryCode) {
+     console.log("Sending categoryCode (code):", categoryCode);  // 보내는 code 확인
+
+     $.ajax({
+         url: '/subcategories1',
+         method: 'GET',
+         data: { code: categoryCode },  // code 값을 서버로 전송
+         success: function(subcategories) {
+             const subcategoryList = document.getElementById('subcategory-list');
+             subcategoryList.innerHTML = '';  // 기존 하위 카테고리 초기화
+
+
+             // 하위 카테고리 리스트 렌더링
+             subcategories.forEach(subcategory => {
+                 const listItem = document.createElement('li');
+                 listItem.className = 'filter-item';
+                 listItem.innerHTML = `<span class="filter-text">${subcategory}</span>`;
+                 subcategoryList.appendChild(listItem);
+             });
+         },
+         error: function(error) {
+             console.error('Error loading subcategories:', error);
+         }
+     });
+ }
 
       //세컨드 카테고리에 따른 상품 정렬
     function filterProductsByServer() {

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -80,21 +82,31 @@ public class storeMainController {
         mav.setViewName("store/shopping_bag");
         return mav;
     }
+//    @GetMapping("/subcategories")
+//    @ResponseBody
+//    public List<String> getSubcategories(@RequestParam("category") String category) {
+//        try {
+//            // category가 String으로 처리되는지 확인
+//            System.out.println("Received category: " + category);
+//
+//            // 카테고리에 해당하는 하위 카테고리 가져오기
+//            return storeService.getSubcategoriesByFirstCategory(category);
+//        } catch (Exception e) {
+//            // 서버 오류 발생 시 로그로 출력
+//            e.printStackTrace();
+//            return Collections.emptyList();  // 빈 리스트 반환
+//        }
+//    }
 
-    @GetMapping("/subcategories")
+    @GetMapping("/subcategories1")
     @ResponseBody
-    //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
-    public List<String> getSubcategories(@RequestParam(value = "category", required = false) Integer category) {
-        if (category == null) {
-            category = 0;  // 기본값 설정
+    public List<String> subcategoriesByFirstCategory(@RequestParam(value = "code", required = false) Integer code) {
+        System.out.println("Received code: " + code);  // 코드 값을 출력
+        if (code == null) {
+            return Collections.emptyList();
         }
-        List<String> subcategory = storeService.getSubcategoriesByFirstCategory1(category);
-
-        //List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
-        System.out.println("subcategory : "+ subcategory);
-
-        //System.out.println("hi2 : " + hi2);
-        
-        return storeService.getSubcategoriesByFirstCategory1(category);
+        List<String> subcategories = storeService.getSubcategoriesByFirstCategory1(code);
+        System.out.println("Subcategories: " + subcategories);  // 하위 카테고리 출력
+        return subcategories;
     }
 }

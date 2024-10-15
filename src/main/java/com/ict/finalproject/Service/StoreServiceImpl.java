@@ -42,12 +42,12 @@ public class StoreServiceImpl implements StoreService {
     //     return dao.getSubcategoriesByFirstCategory(category);
     // }
     @Override
-    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category){
-        return dao.getSubcategoriesByFirstCategory1(category);
+    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code){
+        return dao.getSubcategoriesByFirstCategory1(code);
     }
 
-    @Override
-    public List<String> getSubcategoriesByFirstCategory(int firstCategoryCode) {
-        return dao.getSubcategoriesByFirstCategory(firstCategoryCode);
-    }
+//    @Override
+//    public List<String> getSubcategoriesByFirstCategory(String firstCategoryCode) {
+//        return dao.getSubcategoriesByFirstCategory(firstCategoryCode);
+//    }
 }
