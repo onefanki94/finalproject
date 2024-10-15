@@ -1,15 +1,15 @@
-    // 좌측 필터 클릭 시 활성화 
+    // 좌측 필터 클릭 시 활성화
     function filterProductsByType(filterType) {
         const allFilters = document.querySelectorAll('.filter-option');
         allFilters.forEach(filter => filter.classList.remove('active'));
-    
+
         const activeFilter = document.querySelector(`.filter-option[onclick="filterProductsByType('${filterType}')"]`);
         if (activeFilter) {
             activeFilter.classList.add('active');
         }
-    
+
         let products = Array.from(document.querySelectorAll('.list-product'));
-    
+
     
         if (filterType === 'latest') {
             products.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
@@ -28,7 +28,7 @@
 
     //필터리스트
     function loadCategories(firstCategoryList) {
-        console.log("firstCategoryList:::::" + firstCategoryList); // 서버에서 전달된 카테고리 데이터 확인
+
         const filterList = document.querySelector('.filter-list');
         filterList.innerHTML = ''; // 기존의 리스트 초기화
     
@@ -56,44 +56,49 @@
             }
         });
     }
+    function loadSubcategories(categoryCode) {
+        $.ajax({
+            url: '/subcategories',
+            method: 'GET',
+            data: { code: categoryCode },
+            success: function(subcategories) {
+                const subcategoryList = document.getElementById('subcategory-list');
+                subcategoryList.innerHTML = '';  // 기존 하위 카테고리 목록 초기화
 
- function loadSubcategories(categoryCode) {
-     console.log("Sending categoryCode (code):", categoryCode);  // 보내는 code 확인
+                // 하위 카테고리 목록 생성 및 이벤트 리스너 추가
+                subcategories.forEach(subcategory => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'filter-item';
+                    listItem.innerHTML = `<span class="filter-text">${subcategory}</span>`;
+                    listItem.addEventListener('click', function() {
+                        // 다른 모든 아이템에서 active 제거
+                        document.querySelectorAll('.filter-item').forEach(item => item.classList.remove('active'));
+                        // 클릭한 아이템에 active 클래스 추가
+                        listItem.classList.add('active');
+                        // 필터 적용
+                        filterProductsByServer();
+                    });
+                    subcategoryList.appendChild(listItem);
+                });
+            },
+            error: function(error) {
+                console.error('Error loading subcategories:', error);
+            }
+        });
+    }
 
-     $.ajax({
-         url: '/subcategories1',
-         method: 'GET',
-         data: { code: categoryCode },  // code 값을 서버로 전송
-         success: function(subcategories) {
-             const subcategoryList = document.getElementById('subcategory-list');
-             subcategoryList.innerHTML = '';  // 기존 하위 카테고리 초기화
-
-
-             // 하위 카테고리 리스트 렌더링
-             subcategories.forEach(subcategory => {
-                 const listItem = document.createElement('li');
-                 listItem.className = 'filter-item';
-                 listItem.innerHTML = `<span class="filter-text">${subcategory}</span>`;
-                 subcategoryList.appendChild(listItem);
-             });
-         },
-         error: function(error) {
-             console.error('Error loading subcategories:', error);
-         }
-     });
- }
 
       //세컨드 카테고리에 따른 상품 정렬
     function filterProductsByServer() {
         // 세컨드 카테고리를 가져오기 (필터 요소에서 활성화된 텍스트 선택)
         const secondCategoryElement = document.querySelector('.filter-second-category .active .filter-text');
-    
+         console.log('Second Category Element:', secondCategoryElement); // 확인용 로그
         // 세컨드 카테고리가 선택되었는지 확인
         const secondCategory = secondCategoryElement ? secondCategoryElement.textContent : null;
-    
+    console.log('Selected Second Category:', secondCategory); // 확인용 로그
         // 재고 필터 확인 (체크박스 상태)
         const stockChecked = document.querySelector('.filter-header input[type="checkbox"]').checked ? 1 : 0;
-    
+       console.log('Stock Checked:', stockChecked); // 확인용 로그
         // 세컨드 카테고리가 유효한 경우에만 서버로 필터 요청
         if (secondCategory) {
             const filterCriteria = {
@@ -138,13 +143,22 @@
     
 
 
-    // 필터 클릭 시 active 클래스를 토글하는 함수
-    function toggleFilter(element) {
-        // active 클래스 토글
-        element.classList.toggle('active');
+//    // 필터 클릭 시 active 클래스를 토글하는 함수
+//    function toggleFilter(element) {
+//        // active 클래스 토글
+//        element.classList.toggle('active');
+//
+//        // 필터 적용 함수 호출
+//        applyFilters();
+//    }
 
-        // 필터 적용 함수 호출
-        applyFilters();
-    }
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded and parsed");
+
+});
+
+
+
 
   

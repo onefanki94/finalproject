@@ -29,7 +29,6 @@ public class storeMainController {
     public ModelAndView getStoreListAndView() {
         List<StoreVO> storeList = storeService.getStoreList();
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();  // 카테고리 목록 추가
-        System.out.println("First Category List: " + firstCategoryList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", storeList);
         mav.addObject("firstCategoryList", firstCategoryList);  // 카테고리 필터 전달
@@ -82,31 +81,14 @@ public class storeMainController {
         mav.setViewName("store/shopping_bag");
         return mav;
     }
-//    @GetMapping("/subcategories")
-//    @ResponseBody
-//    public List<String> getSubcategories(@RequestParam("category") String category) {
-//        try {
-//            // category가 String으로 처리되는지 확인
-//            System.out.println("Received category: " + category);
-//
-//            // 카테고리에 해당하는 하위 카테고리 가져오기
-//            return storeService.getSubcategoriesByFirstCategory(category);
-//        } catch (Exception e) {
-//            // 서버 오류 발생 시 로그로 출력
-//            e.printStackTrace();
-//            return Collections.emptyList();  // 빈 리스트 반환
-//        }
-//    }
 
-    @GetMapping("/subcategories1")
+
+    @GetMapping("/subcategories")
     @ResponseBody
-    public List<String> subcategoriesByFirstCategory(@RequestParam(value = "code", required = false) Integer code) {
-        System.out.println("Received code: " + code);  // 코드 값을 출력
-        if (code == null) {
-            return Collections.emptyList();
-        }
-        List<String> subcategories = storeService.getSubcategoriesByFirstCategory1(code);
-        System.out.println("Subcategories: " + subcategories);  // 하위 카테고리 출력
+    public List<String> subcategoriesByFirstCategory(@RequestParam("code") int categoryCode) {
+        System.out.println("Received category code: " + categoryCode);  // 서버 로그에 코드 값 출력
+        List<String> subcategories = storeService.getSubcategoriesByFirstCategory1(categoryCode);
+        System.out.println("subcategories: " + subcategories);  // 하위 카테고리 출력
         return subcategories;
     }
 }

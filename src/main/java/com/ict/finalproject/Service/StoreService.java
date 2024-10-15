@@ -22,5 +22,5 @@ public interface StoreService {
    // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category);
     public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code);
 
-    //public List<String> getSubcategoriesByFirstCategory(String firstCategoryCode);
+
 }

@@ -46,8 +46,5 @@ public class StoreServiceImpl implements StoreService {
         return dao.getSubcategoriesByFirstCategory1(code);
     }
 
-//    @Override
-//    public List<String> getSubcategoriesByFirstCategory(String firstCategoryCode) {
-//        return dao.getSubcategoriesByFirstCategory(firstCategoryCode);
-//    }
+
 }
