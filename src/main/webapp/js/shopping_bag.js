@@ -63,8 +63,8 @@ $(function () {
                                 <span id="total_product_price_span">${formatNumber(basketList.total)}</span>원
                             </div>
                             <div class="basket_list_buy_btn_div">
-                              <button class="edes2n119 css-1z3id8 ejv90e57" type="button">
-                                <span class="ruler-button-text css-mfi8cj ejv90e50" color="onColor">구매하기</span>
+                              <button type="button" id="buy_btn_one">
+                                <span>구매하기</span>
                               </button>
                             </div>
                           </div>
@@ -298,24 +298,37 @@ $(function () {
     });
 
 
+    // 구매하기 버튼 클릭시(선택상품 전체)
+    $('#buy_btn_all').click(function() {
+        // 체크된 상품의 idx 값을 배열에 저장
+        var selectedProducts = [];
+        // 체크된 상품의 주문 갯수
+        var selectedProductsCounts = [];
+        $('.chk_product:checked').each(function() {
+            var pro_idx = $(this).val(); // 체크된 상품의 idx 값을 가져옴
+            var amount = $(this).closest(".bascket_product_li").find('#number_of_products').val();
+            selectedProducts.push(pro_idx); // 선택된 상품의 idx 값을 배열에 추가
+            selectedProductsCounts.push(amount);
+        });
+        // 총 주문 금액
+        var totalAmount = $("#total_payAmount").val();
 
-
-
-
-
-
-
-    // 주문하기 버튼 클릭시 ex
-    $('#buy_btn').click(function() {
-        var selectedProducts = [13, 14];
         if (!token) {
             alert('로그인이 필요합니다.');
             return;
         }
+        if (selectedProducts.length === 0) {
+            alert("구매할 상품을 선택해주세요.");
+            return;
+        }
+
+        console.log("주문 상품 pro_idx :", selectedProducts);
+        console.log("주문 상품 갯수 :", selectedProductsCounts);
+        console.log("주문 총 금액 :", totalAmount);
 
         // Ajax로 주문 데이터 전송
         $.ajax({
-            url: '/order/submit',  // 주문 처리 엔드포인트
+            url: '/order/submit',
             type: 'POST',
             contentType: 'application/json',
             headers: {
@@ -323,7 +336,8 @@ $(function () {
             },
             data: JSON.stringify({
                 products: selectedProducts,
-                total_price: 50000  // 임시로 총 가격을 50000으로 지정
+                productsCounts : selectedProductsCounts,
+                total_price: totalAmount  // 임시로 총 가격을 50000으로 지정
             }),
             success: function(response) {
                 // 주문 완료 후 주문 페이지로 이동
@@ -332,6 +346,7 @@ $(function () {
                 if (response.order_idx) {
                     window.location.href = '/order/orderpage/' + response.order_idx;
                 } else {
+                    alert("구매 실패!");
                     console.log('order_idx가 없습니다.');
                 }
             },

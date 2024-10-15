@@ -35,8 +35,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void addProductToOrderList(int order_idx, int pro_idx) {
-        OrderListVO orderList = new OrderListVO(order_idx, pro_idx);
+    public void addProductToOrderList(int order_idx, int pro_idx, int amount) {
+        OrderListVO orderList = new OrderListVO(order_idx, pro_idx,amount);
         dao.insertOrderList(orderList);
     }
 

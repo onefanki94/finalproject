@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderService {
     // 주문정보 저장 service
     int createOrder(int useridx, int total_price);
-    void addProductToOrderList(int order_idx, int pro_idx);
+    void addProductToOrderList(int order_idx, int pro_idx, int amount);
 
     // 주문정보 뿌려주는 service -> 주문서에서 사용
     OrderVO getOrderById(int order_idx);

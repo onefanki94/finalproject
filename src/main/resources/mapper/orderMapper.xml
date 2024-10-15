@@ -9,7 +9,7 @@
 
     <!-- T_orderlist에 데이터 삽입 -->
     <insert id="insertOrderList" parameterType="com.ict.finalproject.vo.OrderListVO">
-        INSERT INTO T_orderlist (order_idx, pro_idx) VALUES (#{order_idx}, #{pro_idx})
+        INSERT INTO T_orderlist (order_idx, pro_idx, amount) VALUES (#{order_idx}, #{pro_idx}, #{amount})
     </insert>
 
     <!-- T_order select -> orderpage에 보여주기 위함 -->
