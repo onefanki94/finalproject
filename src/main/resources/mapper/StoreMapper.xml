@@ -69,15 +69,15 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
 
 
 
-<!-- <select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
-SELECT s.type 
-FROM t_secondcategory s
-JOIN t_firstcategory f ON s.first_code = f.code
-WHERE f.code = #{category}
-</select> -->
+     <select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
+        SELECT s.type
+        FROM t_secondcategory s
+        JOIN t_firstcategory f ON s.first_code = f.code
+        WHERE f.code = #{category}
+     </select>
 
     <select id="getFirstCategories" resultType="ProductFilterVO">
-        SELECT code, type  -- 'code' 필드를 정확히 선택하는지 확인
+        SELECT code, type
         FROM t_firstcategory
     </select>
 
