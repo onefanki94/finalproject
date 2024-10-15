@@ -34,32 +34,26 @@
     <select id="getComment" parameterType="int" resultType="com.ict.finalproject.vo.CommentVO">
         WITH RECURSIVE comment_hierarchy AS (
         -- 부모 댓글 (parentidx가 NULL인 댓글을 부모로 간주)
-        SELECT
-        c.idx, c.comm_idx, c.content, c.useridx, c.regDT, c.depth, c.parentidx, c.modifyState, c.modifyDT, c.delState, c.delDT, u.userid
-        FROM
-        t_comment c
-        JOIN
-        t_user u ON c.useridx = u.idx  -- t_user 테이블과 조인하여 userid 가져오기
-        WHERE
-        c.comm_idx = #{comm_idx} AND c.delState = 0 AND c.parentidx IS NULL  -- 부모 댓글
-
+        SELECT c.idx, c.comm_idx, c.content, c.useridx, c.regDT, c.depth, c.parentidx, c.idx AS rootIdx, u.userid -- 부모 댓글의 idx를 root로 설정
+        FROM t_comment c
+        JOIN t_user u ON c.useridx = u.idx
+        WHERE c.comm_idx = #{comm_idx} AND c.delState = 0 AND c.parentidx IS NULL  -- 부모 댓글
         UNION ALL
 
         -- 자식 댓글 (부모 댓글의 idx가 parentidx로 있는 댓글)
-        SELECT
-        child.idx, child.comm_idx, child.content, child.useridx, child.regDT, child.depth, child.parentidx, child.modifyState, child.modifyDT, child.delState, child.delDT, u.userid
-        FROM
-        t_comment child
-        JOIN
-        t_user u ON child.useridx = u.idx  -- 자식 댓글도 동일하게 t_user 테이블과 조인
-        JOIN
-        comment_hierarchy parent ON child.parentidx = parent.idx  -- parent는 comment_hierarchy의 별칭
-        WHERE
-        child.comm_idx = #{comm_idx} AND child.delState = 0
+        SELECT child.idx, child.comm_idx, child.content, child.useridx, child.regDT, child.depth, child.parentidx, parent.rootIdx, u.userid -- 부모의 rootIdx를 자식 댓글로 전달
+        FROM t_comment child
+        JOIN t_user u ON child.useridx = u.idx
+        JOIN comment_hierarchy parent ON child.parentidx = parent.idx  -- 부모 댓글과 자식 댓글 연결
+        WHERE child.comm_idx = #{comm_idx} AND child.delState = 0
         )
-        -- 댓글을 부모 댓글 아래로, 최신순으로 정렬
-        SELECT * FROM comment_hierarchy
-        ORDER BY COALESCE(parentidx, idx) ASC, CASE WHEN parentidx IS NULL THEN regDT END DESC, parentidx ASC, regDT ASC;
+        -- rootIdx(부모 댓글을 기준으로)와 depth(댓글의 깊이), regDT(작성 시간)를 기준으로 정렬
+        SELECT *
+        FROM comment_hierarchy
+        ORDER BY
+        rootIdx ASC,          -- 부모 댓글을 기준으로 정렬
+        depth ASC,            -- 깊이에 따른 오름차순 정렬
+        regDT ASC;            -- 동일한 depth 내에서 시간 순으로 정렬
     </select>
 
 
