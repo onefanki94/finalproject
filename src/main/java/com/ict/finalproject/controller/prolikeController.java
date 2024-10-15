@@ -102,7 +102,7 @@ ProlikeService ProlikeService;
     @ResponseBody
     public Map<String, Object> getLikeStatusAndCount(@RequestParam("pro_idx") int pro_idx, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
-
+        System.out.println("pro_idx ::::::::: "+ pro_idx);
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             response.put("success", false);
@@ -137,8 +137,9 @@ ProlikeService ProlikeService;
             response.put("message", "유효한 사용자 정보가 없습니다.");
             return response;
         }
-
+        System.out.println("test print here 140 line");
         boolean liked = ProlikeService.isLiked(pro_idx, useridx);
+        System.out.println("test print 142 line");
         int likeCount = ProlikeService.getLikeCount(pro_idx);
 
         // 반환할 데이터 로그로 출력
