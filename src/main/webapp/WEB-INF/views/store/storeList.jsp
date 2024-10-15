@@ -64,6 +64,8 @@
                                     </c:forEach>
                                 </ul>
                             </div>
+                            
+                            </ul>
                             <hr>
                         </div>
                     </section>

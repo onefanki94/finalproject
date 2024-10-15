@@ -76,11 +76,23 @@ JOIN t_firstcategory f ON s.first_code = f.code
 WHERE f.code = #{category}
 </select> -->
 
+
+<!--첫번째 카테고리-->
 <select id="getSubcategoriesByFirstCategory1">
 SELECT s.type 
 FROM t_secondcategory s
 JOIN t_firstcategory f ON s.first_code = f.code
 WHERE f.code = #{category}
 </select>
+
+<!--두번째 카테고리-->
+
+<select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="String">
+    SELECT s.type 
+    FROM t_secondcategory s
+    JOIN t_firstcategory f ON s.first_code = f.code
+    WHERE f.code = #{firstCategoryCode}
+</select>
+
 
 </mapper>

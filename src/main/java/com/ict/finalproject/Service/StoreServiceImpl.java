@@ -45,4 +45,9 @@ public class StoreServiceImpl implements StoreService {
     public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category){
         return dao.getSubcategoriesByFirstCategory1(category);
     }
+
+    @Override
+    public List<String> getSubcategoriesByFirstCategory(int firstCategoryCode) {
+        return dao.getSubcategoriesByFirstCategory(firstCategoryCode);
+    }
 }

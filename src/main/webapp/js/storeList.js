@@ -107,6 +107,9 @@
             console.warn('세컨드 카테고리에 대한 유효한 데이터를 찾을 수 없습니다.');
         }
     }
+
+
+    //세컨드 카테고리에 따른 상품 정렬렬
     function filterProductsByServer() {
         // 세컨드 카테고리를 가져오기 (필터 요소에서 활성화된 텍스트 선택)
         const secondCategoryElement = document.querySelector('.filter-second-category .active .filter-text');
@@ -170,53 +173,4 @@
         applyFilters();
     }
 
-    // 필터를 적용하는 함수 (실제 필터링 로직은 필요에 따라 수정 가능)
-    function applyFilters() {
-        const ani_title = Array.from(document.querySelectorAll('.filter-item.active .filter-text'))
-            .map(item => item.innerText);
-        
-        const stock = document.getElementById('stockFilter').checked ? 1 : 0;
-    
-        console.log("전송 데이터:", JSON.stringify({
-            ani_title: ani_title,
-            stock: stock
-        }));
-    
-        $.ajax({
-            type: 'POST',
-            url: '/filterStoreList',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                ani_title: ani_title,
-                stock: stock
-            }),
-            dataType: 'json',
-            success: function (data) {
-                const productContainer = document.querySelector('.list-carousel-images');
-                productContainer.innerHTML = '';  // 기존 상품 제거
-    
-                if (data && data.length > 0) {
-                    data.forEach(product => {
-                        const productElement = document.createElement('li');
-                        productElement.className = 'list-product';
-                        productElement.innerHTML = `
-                            <a href="/storeDetail/${product.idx}">
-                                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-                            </a>
-                            <p>${product.title}</p>
-                            <p>${product.price} 원</p>
-                        `;
-                        productContainer.appendChild(productElement);
-                    });
-                } else {
-                    productContainer.innerHTML = '<p>필터링된 결과가 없습니다.</p>';
-                }
-            },
-            error: function (error) {
-                console.error('Error:', error);
-                alert('상품을 불러오는 중 문제가 발생했습니다.');
-            }
-        });
-    }
-
-
+  
