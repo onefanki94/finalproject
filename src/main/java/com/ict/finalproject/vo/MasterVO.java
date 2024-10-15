@@ -3,6 +3,7 @@ package com.ict.finalproject.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -43,13 +44,15 @@ public class MasterVO {
     private int hit;
 
     // 관리자 페이지에서 애니 테이블 관리
-    private String post_img;
+    private MultipartFile post_img;
     private int anitype;
     private String director;
     private int agetype;
     private String outline;
     private String anitype_type;
     private String age_type;
+    private String post_img_filename;
+    private int modifyState;
 
     // 관리자페이지에서 공지사항 사용하는것들
     private String admin_name;

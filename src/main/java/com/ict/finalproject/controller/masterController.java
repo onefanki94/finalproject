@@ -175,10 +175,40 @@ public class masterController {
         }
 
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
-    @GetMapping("/aniEditMaster")
-    public ModelAndView aniEditMaster(){
+    @GetMapping("/aniEditMaster/{idx}")
+    public ModelAndView aniEditMaster(@PathVariable("idx") int idx){
         mav = new ModelAndView();
+        mav.addObject("ani", masterService.aniSelect(idx));
         mav.setViewName("master/aniEditMaster");
+        return mav;
+    }
+
+    @PostMapping("/aniEditMasterOk")
+    public ModelAndView aniEditMasterOk(MasterVO vo,
+                                        @RequestParam("idx") int idx,
+                                        @RequestParam("post_img") MultipartFile post_img) throws IOException {
+        mav = new ModelAndView();
+
+        // 기존 post_img 값 가져오기 (DB에서 조회)
+        String currentImg = masterService.getCurrentImgFile(idx);  // 기존 이미지 파일명 가져오기
+
+
+
+        // 파일 처리 로직
+        if (!post_img.isEmpty()) {
+            String uploadPath = "http://192.168.1.92:8000/";
+            String fileName = post_img.getOriginalFilename();
+            File destination = new File(uploadPath + File.separator + fileName);
+            post_img.transferTo(destination);  // 파일 저장
+            vo.setPost_img_filename(fileName);
+        } else {
+            vo.setPost_img_filename(currentImg);  // 업로드된 파일이 없으면 기존 파일명 유지
+        }
+
+        // 데이터베이스 업데이트
+        masterService.updateAnimation(vo);
+
+        mav.setViewName("redirect:/aniList");
         return mav;
     }
 

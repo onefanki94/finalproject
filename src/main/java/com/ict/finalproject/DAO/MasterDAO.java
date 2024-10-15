@@ -69,4 +69,13 @@ public interface MasterDAO {
 
     // idx에 대한 리뷰 디테일 불러오기
     MasterVO getReviewDetail(int idx);
+
+    // 애니 정보 선택
+    MasterVO aniSelect(int idx);
+
+    // 애니 idx의 기존 이미지 값 불러오기
+    String getCurrentImgFile(int idx);
+
+    // 애니 정보 수정
+    int updateAnimation(MasterVO vo);
 }

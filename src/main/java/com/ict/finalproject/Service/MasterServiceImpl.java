@@ -129,4 +129,20 @@ public class MasterServiceImpl implements MasterService {
     public MasterVO getReviewDetail(int idx) {
         return dao.getReviewDetail(idx);
     }
+
+    @Override
+    public boolean updateAnimation(MasterVO vo) {
+        int result = dao.updateAnimation(vo);
+        return result > 0;
+    }
+
+    @Override
+    public MasterVO aniSelect(int idx) {
+        return dao.aniSelect(idx);
+    }
+
+    @Override
+    public String getCurrentImgFile(int idx) {
+        return dao.getCurrentImgFile(idx);
+    }
 }

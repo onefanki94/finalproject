@@ -58,7 +58,7 @@
                                       <td>${ani.director}</td>
                                       <td>${ani.age_type}</td>
                      <td>
-                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster">수정</a></button>
+                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster/${ani.idx}">수정</a></button>
                          <button class="btn btn-outline-danger btn-sm">삭제</button>
                      </td>
                  </tr>

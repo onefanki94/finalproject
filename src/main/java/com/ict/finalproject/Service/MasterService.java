@@ -34,4 +34,7 @@ public interface MasterService {
     void updateReportAndBan(int idx,String userid, String reason, LocalDateTime stopDT, LocalDateTime handleDT, LocalDateTime endDT, int handleState);
     List<MasterVO> getReplyList(MasterVO vo);
     MasterVO getReviewDetail(int idx);
+    boolean updateAnimation(MasterVO vo);
+    MasterVO aniSelect(int idx);
+    String getCurrentImgFile(int idx);
 }

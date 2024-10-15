@@ -143,7 +143,23 @@
         FROM t_userDel d JOIN t_user t ON d.useridx = t.idx
     </select>
 
+    <!-- idx의 해당하는 ani  값 불러오기 -->
+    <select id="aniSelect" resultType="com.ict.finalproject.vo.MasterVO">
+        select idx, title, director, outline from t_animation where idx = #{idx}
+    </select>
 
+    <!-- 애니 수정 -->
+    <update id="updateAnimation" parameterType="MasterVO">
+        update t_animation set post_img = #{post_img_filename}, title = #{title}, anitype = #{anitype}, director = #{director},
+        agetype = #{agetype}, outline = #{outline}, modifyState = 1, modifyDT = now() , adminidx = 2 where idx= #{idx}
+    </update>
+
+    <!-- 애니 idx 값에 기존에 잇던 이미지 파일 불러오기 -->
+    <select id="getCurrentImgFile" resultType="String">
+        SELECT post_img
+        FROM t_animation
+        WHERE idx = #{idx}
+    </select>
 
     <update id="updateReport">
         UPDATE t_report
