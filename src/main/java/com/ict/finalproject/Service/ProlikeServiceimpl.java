@@ -1,10 +1,13 @@
 package com.ict.finalproject.Service;
 
+import com.ict.finalproject.vo.MasterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.finalproject.DAO.ProlikeDAO;
 import com.ict.finalproject.vo.ProLikeVO;
+
+import java.util.List;
 
 @Service
 public class ProlikeServiceimpl implements ProlikeService{

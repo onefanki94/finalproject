@@ -21,6 +21,10 @@ public class MasterVO {
     private String userid;
     private String token;
     private String modifyDT;
+    private String delDT;
+    private String inDate;
+    private String delReasonDetail;
+
 
     // 상품 테이블에서 사용 하는 것들
     private int price;
@@ -64,4 +68,14 @@ public class MasterVO {
     // 관리자 페이지에서 모든 리뷰
     private int comm_idx;
     private int parentidx;
+
+    // 관리자페이지에서 사용하는 신고 기능 사용하는것들
+    private int commment_idx;
+    private int review_idx;
+    private int report_type;
+    private String reportDT;
+    private String handleState;
+    private String handleDT;
+    private int comunity_idx;
+
 }

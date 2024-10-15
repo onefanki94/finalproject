@@ -103,4 +103,9 @@ public class MasterServiceImpl implements MasterService {
     public Integer findUserIdxByUserid(String userid) {
         return dao.findUserIdxByUserid(userid);
     }
+
+    @Override
+    public List<MasterVO> getMemberDelList(MasterVO vo) {
+        return dao.getMemberDelList(vo);
+    }
 }

@@ -117,4 +117,10 @@
     <select id="getReviewList" resultType="MasterVO">
         select idx, comm_idx, content, useridx, regDT from t_comment;
     </select>
+
+    <!-- 탈퇴 회원 목록 보여주기 -->
+    <select id="getMemberDelList" resultType="MasterVO">
+        SELECT d.idx, t.userid, d.delReasonDetail, d.inDate
+        FROM t_userDel d JOIN t_user t ON d.useridx = t.idx;
+    </select>
 </mapper>

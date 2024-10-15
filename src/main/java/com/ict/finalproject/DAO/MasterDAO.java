@@ -54,4 +54,7 @@ public interface MasterDAO {
     // 유저가 탈퇴 상태인지 확인
     boolean isUserDeleted(@Param("idx") int idx);
     Integer findUserIdxByUserid(String userid);
+
+    // 탈퇴 회원 조회 하기
+    List<MasterVO> getMemberDelList(MasterVO vo);
 }

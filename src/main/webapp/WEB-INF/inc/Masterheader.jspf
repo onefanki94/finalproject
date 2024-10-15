@@ -36,7 +36,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Dropdown">
                             <li><a class="dropdown-item" href="/master/userMasterList">회원 목록</a></li>
-                            <li><a class="dropdown-item" href="/master/userMasterList">탈퇴 회원 목록</a></li>
+                            <li><a class="dropdown-item" href="/master/userDelMasterList">탈퇴 회원 목록</a></li>
                         </ul>
                     </li>
 

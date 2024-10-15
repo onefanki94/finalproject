@@ -126,6 +126,15 @@ public class masterController {
             return mav;
         }
 
+    @GetMapping("/userDelMasterList")
+    public ModelAndView masterUserDelList(MasterVO vo){
+        List<MasterVO> memberDelList = masterService.getMemberDelList(vo);
+        mav = new ModelAndView();
+        mav.addObject("memberDelList", memberDelList);
+        mav.setViewName("master/userDelMasterList");
+        return mav;
+    }
+
         // Dashboard - 애니관리 -  애니목록 리스트
         @GetMapping("/aniMasterList")
         public ModelAndView masterAniList(){
@@ -142,19 +151,14 @@ public class masterController {
 
         // Dashboard - 회원관리 - 신고계정목록 리스트
         @GetMapping("/reporinguserMasterList")
-        public ModelAndView masterReportList(){
+        public ModelAndView masterReportList(MasterVO vo){
+            List<MasterVO> reportinguserList = masterService.getReportinguserList(vo);
             mav = new ModelAndView();
+            mav.addObject("reportinguserList", reportinguserList);
             mav.setViewName("master/reportinguserMasterList");
             return mav;
         }
 
-    // Dashboard - 회원관리 - 신고계정목록 리스트
-    @GetMapping("/reportinguserMasterList")
-    public ModelAndView masterListReport(){
-        mav = new ModelAndView();
-        mav.setViewName("master/reportinguserMasterList");
-        return mav;
-    }
 
         // Dashboard - 애니관리 - 애니 목록 - 애니 추가
         @GetMapping("/aniAddMaster")

@@ -29,4 +29,9 @@
         WHERE pro_idx = #{pro_idx}
     </select>
 
+    <select id="isLiked" parameterType="map" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM t_prolike
+        WHERE pro_idx = #{pro_idx} AND user_idx = #{useridx}
+    </select>
 </mapper>

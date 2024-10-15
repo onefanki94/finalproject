@@ -29,4 +29,5 @@ public interface MasterService {
     boolean checkUserBanStatus(String userid);
     boolean checkUserDelected(int idx);
     Integer findUserIdxByUserid(String userid);
+    List<MasterVO> getMemberDelList(MasterVO vo);
 }

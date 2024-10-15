@@ -32,18 +32,20 @@
                 <thead class="table-light">
                     <tr>
                         <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
-                        <th style="width:5%">No.</th>
+                        <th style="width:5%">No</th>
                         <th style="width:10%">아이디</th>
-                        <th style="width:15%">신고상태</th>
+                        <th style="width:25%">내용</th>
                         <th style="width:10%">관리자아이디</th>
                         <th style="width:10%">처리현황</th>
-                        <th style="width:20%">관리</th>
+                        <th style="width:10%">처리날짜</th>
+                        <th style="width:12%">관리</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><input type="checkbox" /></td>
                         <td>1</td>
+                        <td>user1</td>
                         <td>user1</td>
                         <td>접수 완료</td>
                         <td>admin1</td>
@@ -53,30 +55,7 @@
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>2</td>
-                        <td>user2</td>
-                        <td>처리 대기</td>
-                        <td>admin2</td>
-                        <td>대기중</td>
-                        <td>
-                            <button class="btn btn-outline-success btn-sm">신고내역추가</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>3</td>
-                        <td>user3</td>
-                        <td>처리 완료</td>
-                        <td>admin3</td>
-                        <td>완료</td>
-                        <td>
-                            <button class="btn btn-outline-success btn-sm">신고내역추가</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
 
