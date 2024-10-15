@@ -110,7 +110,23 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public List<MasterVO> getReportUserList(MasterVO vo) {
-        return dao.getReportUserList(vo);
+    public List<MasterVO> getReportinguserList(MasterVO vo) {
+        return dao.getReportinguserList(vo);
+    }
+
+    @Override
+    public void updateReportAndBan(int idx,String userid, String reason, LocalDateTime stopDT, LocalDateTime handleDT, LocalDateTime endDT, int handleState) {
+        dao.updateReport(idx,userid, reason, LocalDateTime.now(),handleDT, handleState);
+        dao.insertReport(userid, reason, stopDT, endDT);
+    }
+
+    @Override
+    public List<MasterVO> getReplyList(MasterVO vo) {
+        return dao.getReplyList(vo);
+    }
+
+    @Override
+    public MasterVO getReviewDetail(int idx) {
+        return dao.getReviewDetail(idx);
     }
 }

@@ -67,41 +67,7 @@ async function makeAuthenticatedRequest(url, options = {}) {
     }
 }
 
-async function reportUser(userid, reason, endDT) {
-    // 로컬 스토리지에서 JWT 토큰 가져오기
-    const token = localStorage.getItem("token");
 
-    if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
-    }
-
-    try {
-        const response = await fetch('/reportinguserOK', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // JWT 토큰을 Authorization 헤더에 추가
-            },
-            body: JSON.stringify({
-                userid: userid,
-                reason: reason,
-                endDT: endDT
-            })
-        });
-
-        if (response.ok) {
-            alert("신고가 성공적으로 접수되었습니다.");
-            // 필요한 후속 처리
-        } else {
-            const errorData = await response.json();
-            alert(`신고 실패: ${errorData.message || "알 수 없는 오류"}`);
-        }
-    } catch (error) {
-        console.error("신고 처리 중 오류 발생:", error);
-        alert("신고 처리 중 오류가 발생했습니다.");
-    }
-}
 
 
 

@@ -25,7 +25,6 @@ public class MasterVO {
     private String inDate;
     private String delReasonDetail;
 
-
     // 상품 테이블에서 사용 하는 것들
     private int price;
     private String thumimg;
@@ -78,4 +77,9 @@ public class MasterVO {
     private String handleDT;
     private int comunity_idx;
 
+    // 관리자페이지에서 사용하는 리뷰 기능 사용하는 것들
+    private int grade;
+    private int orderList_idx;
+    private String imgfile1;
+    private String imgfile2;
 }

@@ -10,17 +10,17 @@
  <form action="/master/aniEditMasterOk" method="post" enctype="multipart/form-data">
      <div>
          <label for="post_img">포스터 이미지:</label>
-         <input type="file" id="post_img" name="post_img" accept="image/*" required>
+         <input type="file" id="post_img" name="post_img" accept="image/*">
      </div>
 
      <div>
          <label for="title">제목:</label>
-         <input type="text" id="title" name="title" required>
+         <input type="text" id="title" name="title">
      </div>
 
      <div>
          <label for="anitype">장르:</label>
-         <select id="anitype" name="anitype" required>
+         <select id="anitype" name="anitype">
              <option value="액션">액션</option>
              <option value="모험">모험</option>
              <option value="로맨스">로맨스</option>
@@ -31,17 +31,17 @@
 
      <div>
          <label for="director">감독:</label>
-         <input type="text" id="director" name="director" required>
+         <input type="text" id="director" name="director">
      </div>
 
      <div>
          <label for="country">국가:</label>
-         <input type="text" id="country" name="country" required>
+         <input type="text" id="country" name="country">
      </div>
 
      <div>
          <label for="agetype">연령 등급:</label>
-         <select id="agetype" name="agetype" required>
+         <select id="agetype" name="agetype">
              <option value="전체">전체</option>
              <option value="12세 이상">12세 이상</option>
              <option value="15세 이상">15세 이상</option>
@@ -51,13 +51,13 @@
 
      <div>
          <label for="outline">줄거리:</label>
-         <textarea id="outline" name="outline" rows="4" required></textarea>
+         <textarea id="outline" name="outline" rows="4"></textarea>
      </div>
 
 
      <div class="contentdiv">
          <label for="내용">내용:</label>
-         <textarea id="content" name="content" rows="10" required></textarea>
+         <textarea id="content" name="content" rows="10"></textarea>
      </div>
      <div>
          <input type="submit" value="애니 수정">

@@ -34,12 +34,11 @@
         <table class="user-list table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
+                    <th style="width:2%"></th>
                     <th style="width:5%" class="sortable" onclick="sortTable(1)">NO</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(2)">아이디</th>
                     <th style="width:30%" class="sortable" onclick="sortTable(3)">탈퇴사유</th>
                     <th style="width:10%" class="sortable" onclick="sortTable(5)">탈퇴일</th>
-                    <th style="width:8%">관리</th>
                 </tr>
             </thead>
             <tbody id="userTableBody">
@@ -50,7 +49,6 @@
                     <td>${memberdel.userid}</td>
                     <td>${memberdel.delReasonDetail}</td>
                     <td>${memberdel.inDate}</td>
-                    <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
                     </c:forEach>
                 </tr>
             </tbody>

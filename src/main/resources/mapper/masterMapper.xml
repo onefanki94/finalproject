@@ -83,11 +83,30 @@
         JOIN t_user u ON n.adminidx = u.idx;
     </select>
 
+    <!-- 모든 리뷰 불러오기 -->
+    <select id="getReplyList">
+        SELECT r.idx, u.userid, r.content, r.grade, r.regDT
+        FROM t_review r JOIN t_user u ON r.useridx = u.idx;
+    </select>
+
+    <!-- idx에 대한 리뷰 상세보기  -->
+    <select id="getReviewDetail" resultType="MasterVO" parameterType="int">
+        select r.idx, r.content, r.grade,r.useridx,r.regDT, r.imgfile1,r.imgfile2, ol.order_idx
+        from t_review r left join t_orderlist ol ON r.orderList_idx = ol.idx
+        where r.idx = #{idx}
+    </select>
+
     <!-- 신고 추가 -->
     <insert id="insertReport">
-        INSERT INTO t_ban (useridx, reason, stopDT, endDT)
-        VALUES ((SELECT idx FROM t_user WHERE userid = #{userid}), #{reason}, #{stopDT}, #{endDT})
+        INSERT INTO t_ban (useridx, stopDT, endDT, reason)
+        VALUES ((SELECT u.idx FROM t_user u WHERE u.userid = #{userid}), NOW(), #{endDT}, #{reason})
     </insert>
+
+    <!-- 신고 기능 목록 보여주기 -->
+    <select id="getReportinguserList" resultType="MasterVO">
+        SELECT r.idx, r.reason, r.reportDT, u.userid, r.handleState, r.handleDT
+        FROM t_report r JOIN t_user u ON r.useridx = u.idx
+    </select>
 
     <!-- 신고 테이블에 아이디 있는지 체크 -->
     <select id="isUserBanned" resultType="boolean">
@@ -115,12 +134,21 @@
 
     <!-- 모든 리뷰 불러오기 -->
     <select id="getReviewList" resultType="MasterVO">
-        select idx, comm_idx, content, useridx, regDT from t_comment;
+        select idx, comm_idx, content, useridx, regDT from t_comment
     </select>
 
     <!-- 탈퇴 회원 목록 보여주기 -->
     <select id="getMemberDelList" resultType="MasterVO">
         SELECT d.idx, t.userid, d.delReasonDetail, d.inDate
-        FROM t_userDel d JOIN t_user t ON d.useridx = t.idx;
+        FROM t_userDel d JOIN t_user t ON d.useridx = t.idx
     </select>
+
+
+
+    <update id="updateReport">
+        UPDATE t_report
+        SET handleState = #{handleState}, handleDT = #{handleDT}
+        WHERE idx = #{idx}
+    </update>
+
 </mapper>

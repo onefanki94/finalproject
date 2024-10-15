@@ -67,31 +67,94 @@
          });
 
        // ---------------------------------------------------------
-           $(document).ready(function() {
-                   // 신고내역 추가 버튼 클릭 시
-                   $('.btn-outline-success').click(function() {
-                       var userId = $(this).closest('tr').find('td:eq(2)').text();
-                       $('#userid').val(userId); // 유저 아이디를 모달에 전달
-                       $('#reportModal').modal('show');
-                   });
+       $(document).ready(function() {
+           // 신고내역추가 버튼 클릭 시 이벤트
+           $('.addReportBtn').click(function() {
+               // 버튼에서 data-userid와 해당 행의 idx 가져오기
+               const userid = $(this).data('userid');
+               const idx = $(this).closest('tr').find('td:eq(1)').text();  // No 컬럼에서 idx 가져오기
 
-                   // 신고 해제 버튼 클릭 시
-                   $('#removeReportBtn').click(function() {
-                       var userId = $('#userid').val(); // 모달창에서 선택된 유저 아이디 가져오기
-                       if (confirm('해당 신고를 해제하시겠습니까?')) {
-                           $.ajax({
-                               type: 'POST',
-                               url: 'removeReport.jsp', // 신고 해제 처리를 담당하는 페이지로 이동
-                               data: { userid: userId },
-                               success: function(response) {
-                                   alert('신고가 해제되었습니다.');
-                                   location.reload(); // 페이지를 새로고침하여 변경 사항 반영
-                               },
-                               error: function() {
-                                   alert('신고 해제 중 오류가 발생했습니다.');
-                               }
-                           });
-                       }
-                   });
+               // 모달의 hidden input에 값 설정
+               $('#userid').val(userid);
+               $('#idx').val(idx);
+
+               // 모달창 띄우기
+               $('#reportModal').modal('show');
+           });
+
+           // 폼 제출 이벤트
+           $('#reportForm').submit(function(event) {
+               event.preventDefault(); // 폼의 기본 제출 동작 막기
+
+               const token = localStorage.getItem('token'); // 로컬스토리지에서 토큰 가져오기
+               if (!token) {
+                   alert("로그인 토큰이 없습니다.");
+                   return;
+               }
+
+               const formData = $(this).serialize(); // 폼 데이터 직렬화
+
+               $.ajax({
+                   type: 'POST',
+                   url: '/master/reportinguserOK',
+                   headers: {
+                       'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
+                   },
+                   data: formData,
+                   success: function(response) {
+                       alert('신고가 성공적으로 처리되었습니다.');
+                       location.reload(); // 페이지 새로고침
+                   },
+                   error: function() {
+                       alert('신고 처리 중 오류가 발생했습니다.');
+                   }
                });
+           });
+       });
+
+       $(document).ready(function() {
+           // 상세보기 버튼 클릭 시
+           $('.detailBtn').on('click', function() {
+               var reviewIdx = $(this).data('idx');  // 버튼에서 idx 값 가져오기
+
+               // Ajax 요청으로 서버에서 리뷰 상세 정보를 가져옴
+               $.ajax({
+                   type: 'GET',
+                   url: '/master/getReviewDetail',  // 리뷰 상세정보를 가져오는 URL
+                   data: { idx: reviewIdx },
+                   success: function(response) {
+                       if (response) {
+                           // 이미지 파일이 존재할 경우만 이미지 경로 설정
+                           if (response.imgfile1) {
+                               // 이미지 경로 설정 (한글 및 공백 인코딩 처리)
+                               const imgPath1 = "reviewFileUpload/" + encodeURIComponent(response.imgfile1);
+                               $('#imgFile1').attr('src', imgPath1);
+                               console.log("이미지 1 경로: " + imgPath1);  // 디버깅용 로그
+                           } else {
+                               $('#imgFile1').attr('src', '/path/to/default-image.png');  // 기본 이미지 경로
+                           }
+
+                           if (response.imgfile2) {
+                               const imgPath2 = "reviewFileUpload/" + encodeURIComponent(response.imgfile2);
+                               $('#imgFile2').attr('src', imgPath2);
+                               console.log("이미지 2 경로: " + imgPath2);  // 디버깅용 로그
+                           } else {
+                               $('#imgFile2').attr('src', '/path/to/default-image.png');  // 기본 이미지 경로
+                           }
+
+                           // 서버로부터 받은 데이터를 모달에 표시
+                           $('#orderListIdx').text(response.order_idx);
+
+                           // 모달 창 띄우기
+                           $('#detailModal').modal('show');
+                       } else {
+                           alert('리뷰 상세 정보를 불러오지 못했습니다.');
+                       }
+                   },
+                   error: function() {
+                       alert('리뷰 상세 정보를 가져오는 데 실패했습니다.');
+                   }
+               });
+           });
+       });
 

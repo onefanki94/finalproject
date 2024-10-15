@@ -59,5 +59,14 @@ public interface MasterDAO {
     List<MasterVO> getMemberDelList(MasterVO vo);
 
     // 회원이 신고 한 유저 목록 구하기
-    List<MasterVO> getReportUserList(MasterVO vo);
+    List<MasterVO> getReportinguserList(MasterVO vo);
+
+    // 신고 내역을 t_report 테이블에 삽입
+    void updateReport(int idx, String userid, String reason, LocalDateTime reportDT, LocalDateTime handleDT, int handleState);
+
+    // 모든 리뷰 불러오기
+    List<MasterVO> getReplyList(MasterVO vo);
+
+    // idx에 대한 리뷰 디테일 불러오기
+    MasterVO getReviewDetail(int idx);
 }

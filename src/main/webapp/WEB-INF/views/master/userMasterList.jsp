@@ -43,14 +43,13 @@
         <table class="user-list table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th style="width:2%"><input type="checkbox" name="selectAll" id="selectAll"/></th>
+                    <th style="width:2%"></th>
                     <th style="width:7%" class="sortable" onclick="sortTable(1)">유저번호</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(2)">아이디</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(3)">이름</th>
                     <th style="width:15%" class="sortable" onclick="sortTable(4)">이메일</th>
                     <th style="width:20%" class="sortable" onclick="sortTable(5)">가입일</th>
                     <th style="width:9%" class="sortable" onclick="sortTable(6)">포인트내역</th>
-                    <th style="width:8%">관리</th>
                 </tr>
             </thead>
             <tbody id="userTableBody">
@@ -64,7 +63,6 @@
                     <td>${member.email}</td>
                     <td>${member.regDT}</td>
                     <td>${member.point}<span> point</span></td>
-                    <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
                     </c:forEach>
                 </tr>
             </tbody>

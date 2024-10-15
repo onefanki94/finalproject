@@ -30,5 +30,8 @@ public interface MasterService {
     boolean checkUserDelected(int idx);
     Integer findUserIdxByUserid(String userid);
     List<MasterVO> getMemberDelList(MasterVO vo);
-    List<MasterVO> getReportUserList(MasterVO vo);
+    List<MasterVO> getReportinguserList(MasterVO vo);
+    void updateReportAndBan(int idx,String userid, String reason, LocalDateTime stopDT, LocalDateTime handleDT, LocalDateTime endDT, int handleState);
+    List<MasterVO> getReplyList(MasterVO vo);
+    MasterVO getReviewDetail(int idx);
 }

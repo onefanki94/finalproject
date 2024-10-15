@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
-    <script src="/js/JWTLogin.js"></script>
 <script>
     // 서버에서 전달된 값들을 JavaScript 변수로 저장
      var errorMessage = "${errorMessage}" || null;
