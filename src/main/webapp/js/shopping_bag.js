@@ -36,7 +36,7 @@ $(function () {
                                 <p class="ani_title_p">${basketList.ani_title}</p>
                                 <a class="basket_list_protitle" href="">${basketList.title}</a>
                                 <div class="basket_list_proprice">
-                                  <span>${formatNumber(basketList.price)}</span>
+                                  <span>${formatNumber(basketList.price)}원</span>
                                 </div>
                               </div>
                             </div>
@@ -75,6 +75,7 @@ $(function () {
                         </li>
                     `);
                 })//장바구니 리스트 for문 종료
+                calculateTotal();
             },
             error: function(e) {
                 console.log("에러에러",e);
@@ -90,6 +91,7 @@ $(function () {
 
         // 전체 체크박스 상태에 따라 개별 체크박스 상태 변경
         $('.chk_product').prop('checked', isChecked);
+        calculateTotal();
 
         // 개별 체크박스 라벨 스타일도 변경
         if (isChecked) {
@@ -103,6 +105,7 @@ $(function () {
 
     //idx 값으로 선택 체크박스 -> 동적으로 생성되고 있기 때문
     $(document).on('change', '.chk_product', function () {
+         calculateTotal();
         // 선택된 체크박스 개수와 전체 체크박스 개수가 같지 않으면 전체 선택 체크박스를 해제
         if ($('.chk_product:checked').length !== $('.chk_product').length) {
             $('#all_chk_product').prop('checked', false);
@@ -185,24 +188,23 @@ $(function () {
 
     //전체 상품 삭제
     $(document).on('click', '#all_delBtn', function () {
-        // 체크된 상품의 idx 값을 배열에 저장
-        var allDelProducts = [];
+        var allDelProducts = [];//장바구니에 존재하는 모든 idx값을 담을 배열
         $('.chk_product').each(function() {
-            var idx = $(this).closest(".bascket_product_li").find('#idx').val(); // 체크된 상품의 idx 값을 가져옴
-            allDelProducts.push(idx); // 선택된 상품의 idx 값을 배열에 추가
+            var idx = $(this).closest(".bascket_product_li").find('#idx').val();
+            allDelProducts.push(idx);
         });
-        // 전체 체크박스와 라벨 스타일 업데이트 (모든 상품 선택 UI 반영)
+
+        //모든 상품 선택 ui
         $('#all_chk_product').prop('checked', true);
         $("label[for='all_chk_product']").addClass("checkedLabel");
-        // 개별 체크박스와 라벨 스타일 업데이트
         $('.chk_product').each(function() {
-            $(this).prop('checked', true); // 체크박스를 선택 상태로
-            $(this).next('label').addClass('checkedLabel'); // 해당 라벨에 스타일 적용
+            $(this).prop('checked', true);
+            $(this).next('label').addClass('checkedLabel');
         });
 
         console.log(allDelProducts);
 
-        requestAnimationFrame(function() {
+        setTimeout(function() {//ui업데이트가 먼저 일어나야하기 때문
             if(confirm("전체 상품을 삭제하시겠습니까?")){
                 $.ajax({
                     url: '/basketAllDelOk',
@@ -223,47 +225,79 @@ $(function () {
                     }
                 });
             }
-        });
+        },100);
     });
 
     // 상품 갯수 count
     // - (감소)
     $(document).on('click', '.basket_list_amount_del', function() {
         var inputAmount = $(this).closest('.basket_list_li_amount_div').find('.basket_list_amount'); // 수량 input
-        var price = parseInt($(this).closest('.bascket_product_li').find('.basket_list_proprice span').text().replace(/[^0-9]/g, '')); // 상품 단가
+        var price = parseInt($(this).closest('.bascket_product_li').find('.basket_list_proprice span').text().replace(/[^0-9]/g, '')); // 상품 가격
         var totalSpan = $(this).closest('.bascket_product_li').find('#total_product_price_span'); // 총 가격을 보여줄 span
-        var totalInput = $(this).closest('.bascket_product_li').find('#total_product_price'); // 숨겨진 input에서 총 가격 저장
+        var totalInput = $(this).closest('.bascket_product_li').find('#total_product_price'); // 숨겨진 input에 총 가격 저장
 
         var currentAmount = parseInt(inputAmount.val());
 
         if (currentAmount > 1) { // 수량이 1 이상일 때만 감소
             var newAmount = currentAmount - 1;
             inputAmount.val(newAmount); // 수량 업데이트
-            var newTotal = price * newAmount; // 새 총 가격 계산
-            totalSpan.text(formatNumber(newTotal)); // span의 총 가격 업데이트
-            totalInput.val(newTotal); // 숨겨진 input의 총 가격 업데이트
+            var newTotal = price * newAmount; // 새로운 총 가격 계산
+            totalSpan.text(formatNumber(newTotal)); // span 총 가격 업데이트
+            totalInput.val(newTotal); // 숨겨진 input 총 가격 업데이트
         } else {
-            alert("수량은 1 이상이어야 합니다."); // 수량이 1 이하로 내려갈 수 없음을 알림
+            alert("수량은 1개 이상이어야 합니다.");
         }
-        console.log("수량:", inputAmount.val(), "단가:", price, "총 가격:", newTotal);
+        console.log("수량:", inputAmount.val(), "상품가격:", price, "총 가격:", newTotal);
     });
 
     // + (증가)
     $(document).on('click', '.basket_list_amount_add', function() {
         var inputAmount = $(this).closest('.basket_list_li_amount_div').find('.basket_list_amount'); // 수량 input
-        var price = parseInt($(this).closest('.bascket_product_li').find('.basket_list_proprice span').text().replace(/[^0-9]/g, '')); // 상품 단가
+        var price = parseInt($(this).closest('.bascket_product_li').find('.basket_list_proprice span').text().replace(/[^0-9]/g, '')); // 상품 가격
         var totalSpan = $(this).closest('.bascket_product_li').find('#total_product_price_span'); // 총 가격을 보여줄 span
-        var totalInput = $(this).closest('.bascket_product_li').find('#total_product_price'); // 숨겨진 input에서 총 가격 저장
+        var totalInput = $(this).closest('.bascket_product_li').find('#total_product_price'); // 숨겨진 input에 총 가격 저장
 
         var currentAmount = parseInt(inputAmount.val());
 
         var newAmount = currentAmount + 1;
         inputAmount.val(newAmount); // 수량 업데이트
-        var newTotal = price * newAmount; // 새 총 가격 계산
-        totalSpan.text(formatNumber(newTotal)); // span의 총 가격 업데이트
-        totalInput.val(newTotal); // 숨겨진 input의 총 가격 업데이트
-        console.log("수량:", inputAmount.val(), "단가:", price, "총 가격:", newTotal);
+        var newTotal = price * newAmount; // 새로운 총 가격 계산
+        totalSpan.text(formatNumber(newTotal)); // span 총 가격 업데이트
+        totalInput.val(newTotal); // 숨겨진 input 총 가격 업데이트
+        console.log("수량:", inputAmount.val(), "상품가격:", price, "총 가격:", newTotal);
     });
+
+    // 하단에 총 가격 + 배송비 = 총 결제금액 구현
+    function calculateTotal() {
+        let totalOrderAmount = 0; //총 주문금액
+
+        // 장바구니에 있는 각 상품의 총 가격을 합산해야하니까 for문
+        $('.chk_product:checked').each(function() {
+            let productTotal = parseInt($(this).closest('.bascket_product_li').find('#total_product_price').val());//상품별 총가격
+            totalOrderAmount += productTotal;
+        });
+
+        // 배송비
+        let fee = totalOrderAmount >= 150000 ? 0 : 2500; // 15만원 이상이면 배송비 0원
+
+        // 총 결제 금액
+        let totalPaymentAmount = totalOrderAmount + fee;
+
+        // 화면에 값 업데이트
+        $('#total_order_amount').text(formatNumber(totalOrderAmount));
+        $('#fee_order_amount').text(formatNumber(fee));
+        $('#total_payment_amount').text(formatNumber(totalPaymentAmount));
+
+        // hidden input에 총 결제 금액 저장
+        $('#total_payAmount').val(totalPaymentAmount);
+    }
+
+    // 상품 수량이 변경될 때마다 호출
+    $(document).on('click', '.basket_list_amount_del, .basket_list_amount_add', function() {
+        calculateTotal(); // 상품 수량이 변경되면 다시 계산
+    });
+
+
 
 
 

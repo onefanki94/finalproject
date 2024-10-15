@@ -223,6 +223,7 @@ public class storeMainController {
         return mav;
     }
 
+    //장바구니 데이터 select
     @PostMapping("/basketList")
     public ResponseEntity<Map<String, Object>> basketList(@RequestHeader("Authorization") String Headertoken){
         // JWT 토큰 검증 및 useridx 추출
@@ -261,7 +262,7 @@ public class storeMainController {
         int result = storeService.basketDelete(idx,useridx);
 
         if(result>0){
-            return ResponseEntity.ok("장바구니 상품 삭제 완료");
+            return ResponseEntity.ok("장바구니 선택 상품 삭제 완료");
         }else{
             return new ResponseEntity<>(tokenResponse.getHeaders(), HttpStatus.SEE_OTHER);
         }
@@ -270,7 +271,7 @@ public class storeMainController {
     // 장바구니 상품 선택 삭제
     @PostMapping("/basketChoiceDelOk")
     public ResponseEntity<String> basketChoiceDelOk(@RequestBody Map<String, List<Integer>> request,
-                                              @RequestHeader("Authorization") String Headertoken){
+                                                    @RequestHeader("Authorization") String Headertoken){
         // JWT 토큰 검증 및 useridx 추출
         ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
         if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
@@ -293,7 +294,36 @@ public class storeMainController {
             storeService.basketChoiceAndAllDelOk(idx, useridx);
         }
 
-        return ResponseEntity.ok("장바구니 상품 삭제 완료");
+        return ResponseEntity.ok("장바구니 선택 상품 삭제 완료");
+    }
+
+    //장바구니 전체삭제
+    @PostMapping("/basketAllDelOk")
+    public ResponseEntity<String> basketAllDelOk(@RequestBody Map<String, List<Integer>> request,
+                                                 @RequestHeader("Authorization") String Headertoken){
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        //받아온 값
+        List<Integer> idxList = request.get("idxList");
+
+        if (idxList == null || idxList.isEmpty()) {
+            return ResponseEntity.badRequest().body("삭제할 상품을 선택해주세요.");
+        }
+
+        // 장바구니에서 상품 삭제 update
+        for (int idx : idxList) {
+            storeService.basketChoiceAndAllDelOk(idx, useridx);
+        }
+
+        return ResponseEntity.ok("장바구니 전체 상품 삭제 완료");
     }
 
 }

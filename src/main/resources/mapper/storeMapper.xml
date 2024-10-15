@@ -86,7 +86,7 @@ WHERE f.code = #{category}
     <select id="checkProductInBasket" parameterType="com.ict.finalproject.vo.BasketVO" resultType="int">
         SELECT COUNT(*)
         FROM T_basket
-        WHERE useridx = #{useridx} AND pro_idx = #{pro_idx}
+        WHERE useridx = #{useridx} AND pro_idx = #{pro_idx} AND delState=0
     </select>
     <!-- 장바구니에 상품데이터 저장 -->
     <insert id="basketInput" parameterType="com.ict.finalproject.vo.BasketVO">

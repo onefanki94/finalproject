@@ -51,13 +51,16 @@
       </div>
       <div class="basket_price_all_div_bottom">
         <div>
-          <span><strong id="total_order_amount">84,550</strong>원</span><span id="number_of_order_products">총 1개</span>
+          <span>
+            <strong id="total_order_amount"></strong>원
+          </span>
         </div>
         <div>
-          <i></i><span><strong>3,300</strong>원</span>
+          <i></i><span><strong id="fee_order_amount"></strong>원</span>
         </div>
         <div>
-          <i></i><span><strong>87,850</strong>원</span>
+          <i></i><span><strong id="total_payment_amount"></strong>원</span>
+          <input type="hidden" id="total_payAmount" name="total_payAmount">
         </div>
       </div>
     </div>
