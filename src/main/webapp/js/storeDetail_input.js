@@ -85,5 +85,67 @@ $(function(){
     })//장바구니 클릭 끝
 
     // 2. 바로구매 클릭
+    $('#order_buy_btn').click(function() {
+        // 체크된 상품의 idx 값을 배열에 저장
+        var selectedProducts = [];
+        // 체크된 상품의 주문 갯수
+        var selectedProductsCounts = [];
+
+        var pro_idx=$("#pro_idx").val();
+        var amount = $("#amount").val();
+        selectedProducts.push(pro_idx); // 선택된 상품의 idx 값을 배열에 추가
+        selectedProductsCounts.push(amount);
+
+        var totalPrice = document.getElementById("total-price").textContent;
+        $("#total").val(totalPrice);
+        var totalAmount = $("#total").val();
+        var fee = totalAmount >= 150000 ? 0 : 2500; // 15만원 이상이면 배송비 0원
+        totalAmount = parseInt(totalAmount)+parseInt(fee);
+
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+        if (selectedProducts.length === 0) {
+            alert("구매할 상품을 선택해주세요.");
+            return;
+        }
+
+        console.log("주문 상품 pro_idx :", selectedProducts);
+        console.log("주문 상품 갯수 :", selectedProductsCounts);
+        console.log("주문 총 금액 :", totalAmount);
+        // Ajax로 주문 데이터 전송
+        $.ajax({
+            url: '/order/submit',
+            type: 'POST',
+            contentType: 'application/json',
+            headers: {
+                "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+            },
+            data: JSON.stringify({
+                products: selectedProducts,
+                productsCounts : selectedProductsCounts,
+                total_price: totalAmount
+            }),
+            success: function(response) {
+                // 주문 완료 후 주문 페이지로 이동
+                console.log(response);
+                // 주문 완료 후 order_idx를 받아 페이지로 이동
+                if (response.order_idx) {
+                    window.location.href = '/order/orderpage/' + response.order_idx;
+                } else {
+                    alert("구매 실패!");
+                    console.log('order_idx가 없습니다.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('오류 발생: ' + error);  // 에러 메시지 자체 출력
+                console.log('상태: ' + status);  // HTTP 상태 코드 출력
+                console.log('응답 텍스트: ' + xhr.responseText);  // 서버에서 반환한 오류 내용 출력
+            }
+        });
+    })
+
+
 
 })//jquery 끝
