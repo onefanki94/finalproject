@@ -24,7 +24,13 @@ public class ProlikeServiceimpl implements ProlikeService{
     }
 
   
-    public boolean isLiked(int pro_idx, int userIdx) {
-       return dao.selectLikeStatus(pro_idx, userIdx) != null;  // 좋아요 상태 확인
+    public boolean isLiked(int pro_idx, int useridx) {
+        ProLikeVO likeStatus = dao.selectLikeStatus(pro_idx, useridx);
+       return likeStatus != null && likeStatus.isLiked();// 좋아요 상태 확인
+    }
+
+    @Override
+    public int getLikeCount(int pro_idx) {
+        return dao.getLikeCount(pro_idx);
     }
 }

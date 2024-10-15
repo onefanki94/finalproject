@@ -81,6 +81,11 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public List<MasterVO> getReviewList() {
+        return dao.getReviewList();
+    }
+
+    @Override
     public void addReport(String userid, String reason, LocalDateTime stopDT, LocalDateTime endDT) {
         dao.insertReport(userid, reason, stopDT, endDT);
     }

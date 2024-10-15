@@ -228,7 +228,13 @@ public class masterController {
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
     @GetMapping("/boardMasterReviewAll")
     public ModelAndView boardMasterReviewAll(){
-        mav = new ModelAndView();
+        List<MasterVO> reviewList = masterService.getReviewList();
+
+        // 로그로 데이터 크기 확인
+        System.out.println("불러온 댓글 개수: " + reviewList.size());
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("reviewList", reviewList);
         mav.setViewName("master/boardMasterReviewAll");
         return mav;
     }

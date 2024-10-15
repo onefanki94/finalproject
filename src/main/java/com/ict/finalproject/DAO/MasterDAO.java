@@ -43,6 +43,8 @@ public interface MasterDAO {
     // 공지사항 글 불러오기
     List<MasterVO> getNoticeList();
 
+    List<MasterVO> getReviewList();
+
     // 신고 추가
     void insertReport(@Param("userid") String userid, @Param("reason") String reason, @Param("stopDT") LocalDateTime stopDT, @Param("endDT") LocalDateTime endDT);
 

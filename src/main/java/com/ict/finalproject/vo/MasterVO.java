@@ -60,4 +60,8 @@ public class MasterVO {
     private String reason;
     private String stopDT;
     private String endDT;
+
+    // 관리자 페이지에서 모든 리뷰
+    private int comm_idx;
+    private int parentidx;
 }

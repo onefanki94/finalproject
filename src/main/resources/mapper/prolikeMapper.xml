@@ -5,23 +5,28 @@
 
 
     <!-- 좋아요 추가 -->
-    <insert id="insertLike">
-        insert into t_prolike (pro_idx, useridx, regDT)
-        values (#{pro_idx}, #{useridx}, NOW())
+    <insert id="insertLike" parameterType="map">
+        INSERT INTO t_prolike (pro_idx, useridx, regDT)
+        VALUES (#{pro_idx}, #{useridx}, NOW())
     </insert>
 
     <!-- 좋아요 취소 -->
     <delete id="deleteLike">
-        deleteS from t_prolike
+        delete from t_prolike
         where pro_idx = #{pro_idx} AND useridx = #{useridx}
     </delete>
 
     <!-- 특정 상품에 대해 사용자가 좋아요를 눌렀는지 확인 -->
-    <select id="selectLikeStatus" resultType="com.ict.finalproject.vo.ProLikeVO">
-        select * from t_prolike
-        where pro_idx = #{pro_idx} AND useridx = #{useridx}
+    <select id="selectLikeStatus" parameterType="map" resultType="ProLikeVO">
+        SELECT pro_idx, useridx, (CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END) AS liked
+        FROM t_prolike
+        WHERE pro_idx = #{pro_idx} AND useridx = #{useridx}
     </select>
 
-
+    <select id="getLikeCount" resultType="int">
+        SELECT COUNT(*)
+        FROM t_prolike
+        WHERE pro_idx = #{pro_idx}
+    </select>
 
 </mapper>

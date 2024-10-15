@@ -20,7 +20,7 @@ public interface StoreService {
     public StoreVO getStoreDetail(int storeId);
 
     public List<ProductFilterVO> getFirstCategoryList();
-    public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category);
+   // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category);
     public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
     //채원
     //장바구니에 상품 있는지 체크

@@ -35,13 +35,12 @@
                 <p>적립포인트 : ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
                 <p>배송비 : ${storeDetail.fee}</p>
 
-                <div class="like-section">
-                    <div id="likeIcon" data-product-id="${storeDetail.idx}">
-                        <!-- 좋아요 상태에 따라 아이콘이 빈 하트 또는 채워진 하트로 보임 -->
-                        <i id="likeHeart" class="${storeDetail.liked == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}"></i> 
-                    </div>
-                    <span id="likeCount">${storeDetail.likeCount}</span>
-                </div>
+               <div class="like-section">
+                   <div class="like-icon" data-product-id="${storeDetail.idx}">
+                       <i class="like-heart ${storeDetail.liked != null && storeDetail.liked == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}"></i>
+                   </div>
+                   <span class="like-count">${storeDetail.likeCount}</span>
+               </div>
             </div>
     
             <!-- 상품 선택 옵션 -->
