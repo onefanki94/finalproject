@@ -59,7 +59,9 @@ public class JWTUtil {
     // JWT 토큰에서 사용자 ID를 추출하는 메서드
     public String getUserIdFromToken(String token) {
         Claims claims = getClaims(token);  // JWT 토큰에서 Claims 추출
+        log.info("claims :{}",claims);
         return claims != null ? claims.get("userid", String.class) : null;  // Claims에서 "userid" 키 값 추출
+
     }
 
     // JWT 토큰이 만료되었는지 확인하는 메서드
@@ -78,6 +80,7 @@ public class JWTUtil {
     public String createJwt(String userid, long expirationTime) {
         return Jwts.builder()
                 .setSubject(userid) // Subject에 userid 설정
+                .claim("userid", userid)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey) // 비밀키로 서명
