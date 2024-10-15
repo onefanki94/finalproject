@@ -64,7 +64,7 @@ $(function () {
                             </div>
                             <div class="basket_list_buy_btn_div">
                               <button type="button" id="buy_btn_one">
-                                <span>구매하기</span>
+                                구매하기
                               </button>
                             </div>
                           </div>
@@ -337,7 +337,69 @@ $(function () {
             data: JSON.stringify({
                 products: selectedProducts,
                 productsCounts : selectedProductsCounts,
-                total_price: totalAmount  // 임시로 총 가격을 50000으로 지정
+                total_price: totalAmount
+            }),
+            success: function(response) {
+                // 주문 완료 후 주문 페이지로 이동
+                console.log(response);
+                // 주문 완료 후 order_idx를 받아 페이지로 이동
+                if (response.order_idx) {
+                    window.location.href = '/order/orderpage/' + response.order_idx;
+                } else {
+                    alert("구매 실패!");
+                    console.log('order_idx가 없습니다.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('오류 발생: ' + error);  // 에러 메시지 자체 출력
+                console.log('상태: ' + status);  // HTTP 상태 코드 출력
+                console.log('응답 텍스트: ' + xhr.responseText);  // 서버에서 반환한 오류 내용 출력
+            }
+        });
+    });
+
+    // 구매하기 버튼 클릭시(선택상품 주문)
+    $(document).on('click', '#buy_btn_one', function() {
+        // 체크된 상품의 idx 값을 배열에 저장
+        var selectedProducts = [];
+        // 체크된 상품의 주문 갯수
+        var selectedProductsCounts = [];
+
+        var pro_idx = $(this).closest(".bascket_product_li").find('.chk_product').val();
+        var amount = $(this).closest(".bascket_product_li").find('#number_of_products').val();
+        selectedProducts.push(pro_idx);
+        selectedProductsCounts.push(amount);
+
+        // 주문 금액
+        var totalAmount = $(this).closest(".bascket_product_li").find("#total_product_price").val();
+        var fee = totalAmount >= 150000 ? 0 : 2500; // 15만원 이상이면 배송비 0원
+        totalAmount = parseInt(totalAmount)+parseInt(fee);
+
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+        if (selectedProducts.length === 0) {
+            alert("구매할 상품을 선택해주세요.");
+            return;
+        }
+
+        console.log("주문 상품 pro_idx :", selectedProducts);
+        console.log("주문 상품 갯수 :", selectedProductsCounts);
+        console.log("주문 총 금액 :", totalAmount);
+
+        // Ajax로 주문 데이터 전송
+        $.ajax({
+            url: '/order/submit',
+            type: 'POST',
+            contentType: 'application/json',
+            headers: {
+                "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+            },
+            data: JSON.stringify({
+                products: selectedProducts,
+                productsCounts : selectedProductsCounts,
+                total_price: totalAmount
             }),
             success: function(response) {
                 // 주문 완료 후 주문 페이지로 이동
