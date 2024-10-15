@@ -28,6 +28,7 @@ public class prolikeController {
     @Autowired
 ProlikeService ProlikeService;
 
+
     @PostMapping("/toggle")
     @ResponseBody
     public Map<String, Object> toggleLike(@RequestBody ProLikeVO proLikeVO, HttpServletRequest request) {
@@ -41,31 +42,29 @@ ProlikeService ProlikeService;
             return response;
         }
 
-        // JWT 토큰에서 userid 추출
         String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거한 JWT 토큰
         Claims claims;
         try {
-            // JWTUtil을 사용하여 토큰에서 Claims를 추출
             claims = jwtUtil.getClaims(token);
-            System.out.println("Extracted Claims from token: " + claims);
+            System.out.println("JWT Claims: " + claims);
         } catch (Exception e) {
+            System.err.println("JWT 토큰 오류: " + e.getMessage());
             response.put("success", false);
             response.put("message", "유효하지 않은 토큰입니다.");
             return response;
         }
 
-        // claims에서 userid를 추출하는 로직 (userid는 claims 내에 별도의 필드로 저장됨)
-        String userid = claims.get("userid", String.class);  // "userid"라는 키로 값을 가져옴
-        System.out.println("Extracted userid from token: " + userid);
-
+        String userid = claims.getSubject();
+        System.out.println("JWT에서 추출한 userid: " + userid);
         if (userid == null) {
             response.put("success", false);
             response.put("message", "유효한 사용자 정보가 없습니다.");
             return response;
         }
 
-        // useridx 조회 (userid를 통해 useridx를 찾음)
+        // useridx 조회
         Integer useridx = masterService.findUserIdxByUserid(userid);
+        System.out.println("데이터베이스에서 조회한 useridx: " + useridx);
         if (useridx == null) {
             response.put("success", false);
             response.put("message", "유효한 사용자 정보가 없습니다.");
@@ -73,29 +72,37 @@ ProlikeService ProlikeService;
         }
 
         // 좋아요 상태 확인 및 토글
+        proLikeVO.setUseridx(useridx);  // JWT에서 추출한 useridx를 ProLikeVO에 설정
         boolean liked = ProlikeService.isLiked(proLikeVO.getPro_idx(), useridx);
+
         if (liked) {
-            // 이미 좋아요한 상태라면 좋아요 취소
-            ProlikeService.removeLike(new ProLikeVO(proLikeVO.getPro_idx(), useridx));
+            ProlikeService.removeLike(proLikeVO);  // 좋아요 취소
             response.put("success", true);
             response.put("message", "좋아요 취소됨");
+            response.put("liked", false);  // 현재 상태 반환
+            response.put("currentLikeCount", ProlikeService.getLikeCount(proLikeVO.getPro_idx()));  // 좋아요 수 반환
         } else {
-            // 좋아요 추가
-            ProlikeService.addLike(new ProLikeVO(proLikeVO.getPro_idx(), useridx));
+            ProlikeService.addLike(proLikeVO);  // 좋아요 추가
             response.put("success", true);
             response.put("message", "좋아요 추가됨");
+            response.put("liked", true);  // 현재 상태 반환
+            response.put("currentLikeCount", ProlikeService.getLikeCount(proLikeVO.getPro_idx()));  // 좋아요 수 반환
         }
 
         return response;
     }
 
 
-    @GetMapping("/status")
+
+
+
+
+
+    @GetMapping("/statusAndCount")
     @ResponseBody
-    public Map<String, Object> checkLikeStatus(@RequestParam("pro_idx") int pro_idx, HttpServletRequest request) {
+    public Map<String, Object> getLikeStatusAndCount(@RequestParam("pro_idx") int pro_idx, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
 
-        // 헤더에서 Authorization 토큰 추출
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             response.put("success", false);
@@ -103,42 +110,45 @@ ProlikeService ProlikeService;
             return response;
         }
 
-        // JWT 토큰에서 userid 추출
-        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거한 JWT 토큰
+        String token = authorizationHeader.substring(7);
         Claims claims;
         try {
-            claims = jwtUtil.getClaims(token);  // JWTUtil을 사용하여 토큰에서 Claims를 추출
+            claims = jwtUtil.getClaims(token);
+            System.out.println("JWT Claims: " + claims);
         } catch (Exception e) {
+            System.err.println("JWT 토큰 오류: " + e.getMessage());
             response.put("success", false);
             response.put("message", "유효하지 않은 토큰입니다.");
             return response;
         }
 
-        // JWT에서 userid 추출
         String userid = claims.getSubject();
-
-        // 1. useridx 조회
-        Integer useridx = masterService.findUserIdxByUserid(userid);
-        if (useridx == null) {
+        System.out.println("JWT에서 추출한 userid: " + userid);
+        if (userid == null) {
             response.put("success", false);
             response.put("message", "유효한 사용자 정보가 없습니다.");
             return response;
         }
 
-        // 2. 좋아요 상태 확인
+        Integer useridx = masterService.findUserIdxByUserid(userid);
+        if (useridx == null) {
+            System.err.println("해당 userid로 사용자를 찾을 수 없습니다: " + userid);
+            response.put("success", false);
+            response.put("message", "유효한 사용자 정보가 없습니다.");
+            return response;
+        }
+
         boolean liked = ProlikeService.isLiked(pro_idx, useridx);
+        int likeCount = ProlikeService.getLikeCount(pro_idx);
+
+        // 반환할 데이터 로그로 출력
+        System.out.println("좋아요 상태: " + liked);
+        System.out.println("좋아요 수: " + likeCount);
 
         response.put("success", true);
         response.put("liked", liked);
+        response.put("likeCount", likeCount);
+
         return response;
     }
-
-
-
-
-
-
-
-
-
 }

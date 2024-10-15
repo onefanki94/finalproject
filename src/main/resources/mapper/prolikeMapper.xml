@@ -18,9 +18,15 @@
 
     <!-- 특정 상품에 대해 사용자가 좋아요를 눌렀는지 확인 -->
     <select id="selectLikeStatus" parameterType="map" resultType="ProLikeVO">
-        SELECT p.*, u.userid
-        FROM t_prolike p
-        JOIN t_user u ON p.useridx = u.idx
-        WHERE p.pro_idx = #{pro_idx} AND p.useridx = #{useridx}
+        SELECT pro_idx, useridx, (CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END) AS liked
+        FROM t_prolike
+        WHERE pro_idx = #{pro_idx} AND useridx = #{useridx}
     </select>
+
+    <select id="getLikeCount" resultType="int">
+        SELECT COUNT(*)
+        FROM t_prolike
+        WHERE pro_idx = #{pro_idx}
+    </select>
+
 </mapper>

@@ -175,4 +175,16 @@ public class JWTUtil {
 
         return claims.getSubject(); // 토큰의 subject에 userid가 있다고 가정
     }
+
+    public String generateToken(String userid) {
+        String jwtToken = Jwts.builder()
+                .setSubject(userid) // `sub` 필드 대신 `userid`를 명시적으로 설정
+                .claim("userid", userid) // `userid` 필드 추가
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))  // 토큰 유효 기간 설정 (예: 24시간)
+                .signWith(SignatureAlgorithm.HS256, "비밀키")  // 비밀키로 서명
+                .compact();
+
+        return jwtToken;
+    }
 }
