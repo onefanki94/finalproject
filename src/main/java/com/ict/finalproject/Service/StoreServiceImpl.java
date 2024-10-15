@@ -37,10 +37,10 @@ public class StoreServiceImpl implements StoreService {
         return dao.getFirstCategoryList();  // DAO에서 카테고리 필터 리스트 가져오기
     }
 
-    @Override
-    public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category) {
-        return dao.getSubcategoriesByFirstCategory(category);
-    }
+    // @Override
+    // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category) {
+    //     return dao.getSubcategoriesByFirstCategory(category);
+    // }
     @Override
     public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category){
         return dao.getSubcategoriesByFirstCategory1(category);
