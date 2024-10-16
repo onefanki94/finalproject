@@ -83,13 +83,13 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public int basketPlusAmount(int idx, int useridx) {
-        return dao.basketPlusAmount(idx, useridx);
+    public int basketPlusAmount(int idx, int useridx, int newTotal) {
+        return dao.basketPlusAmount(idx, useridx,newTotal);
     }
 
     @Override
-    public int basketMinusAmount(int idx, int useridx) {
-        return dao.basketMinusAmount(idx, useridx);
+    public int basketMinusAmount(int idx, int useridx, int newTotal) {
+        return dao.basketMinusAmount(idx, useridx,newTotal);
     }
 
 

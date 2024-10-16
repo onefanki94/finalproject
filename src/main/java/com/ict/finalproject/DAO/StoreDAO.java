@@ -43,7 +43,7 @@ public interface StoreDAO {
     //장바구니 상품 삭제(선택,전체상품삭제)
     void basketChoiceAndAllDelOk(int idx, int useridx);
     //장바구니 상품갯수 +
-    int basketPlusAmount(int idx,int useridx);
+    int basketPlusAmount(int idx,int useridx, int newTotal);
     //장바구니 상품갯수 -
-    int basketMinusAmount(int idx,int useridx);
+    int basketMinusAmount(int idx,int useridx, int newTotal);
 }

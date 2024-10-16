@@ -147,12 +147,12 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
 
     <update id="basketPlusAmount">
         update T_basket
-        set amount=amount+1
+        set amount=amount+1, total=${param3}
         where idx=${param1} and useridx=${param2}
     </update>
     <update id="basketMinusAmount">
         update T_basket
-        set amount=amount-1
+        set amount=amount-1, total=${param3}
         where idx=${param1} and useridx=${param2}
     </update>
 </mapper>

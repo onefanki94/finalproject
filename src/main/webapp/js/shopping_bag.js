@@ -258,7 +258,8 @@ $(function () {
                 "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
             },
             data: {
-                idx: idx
+                idx: idx,
+                newTotal : newTotal
             },
             success: function(response) {
 
@@ -298,7 +299,8 @@ $(function () {
                 "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
             },
             data: {
-                idx: idx
+                idx: idx,
+                newTotal : newTotal
             },
             success: function(response) {
 

@@ -140,7 +140,7 @@
   </div>
   <div class="btn_div">
     <a href="/storeMain">계속 쇼핑하기</a>
-    <button href="/user/mypage_order_detail">주문/배송조회</button>
+    <button onclick="window.location.href='/user/mypage_order_detail'">주문/배송조회</button>
   </div>
 </div>
 

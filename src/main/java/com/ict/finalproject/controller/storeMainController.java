@@ -128,14 +128,6 @@ public class storeMainController {
         return mav;
     }
 
-    // 쇼핑백 페이지 이동
-    @GetMapping("/shoppingBag")
-    public ModelAndView joinPage() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("store/shopping_bag");
-        return mav;
-    }
-
 
     @GetMapping("/subcategories")
     @ResponseBody
@@ -349,7 +341,7 @@ public class storeMainController {
 
     // 장바구니 plus amount
     @PostMapping("/basket_plusCount")
-    public ResponseEntity<String> basket_plusCount(@RequestParam int idx,
+    public ResponseEntity<String> basket_plusCount(@RequestParam int idx, @RequestParam int newTotal,
                                               @RequestHeader("Authorization") String Headertoken){
         // JWT 토큰 검증 및 useridx 추출
         ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
@@ -362,7 +354,7 @@ public class storeMainController {
         Integer useridx = (Integer) responseBody.get("useridx");
 
         // 장바구니에서 상품 삭제 update
-        int result = storeService.basketPlusAmount(idx,useridx);
+        int result = storeService.basketPlusAmount(idx,useridx,newTotal);
 
         if(result>0){
             return ResponseEntity.ok("장바구니 상품 갯수 증가 완료");
@@ -373,7 +365,7 @@ public class storeMainController {
 
     // 장바구니 minus amount
     @PostMapping("/basket_minusCount")
-    public ResponseEntity<String> basket_minusCount(@RequestParam int idx,
+    public ResponseEntity<String> basket_minusCount(@RequestParam int idx, @RequestParam int newTotal,
                                                    @RequestHeader("Authorization") String Headertoken){
         // JWT 토큰 검증 및 useridx 추출
         ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
@@ -386,7 +378,7 @@ public class storeMainController {
         Integer useridx = (Integer) responseBody.get("useridx");
 
         // 장바구니에서 상품 삭제 update
-        int result = storeService.basketMinusAmount(idx,useridx);
+        int result = storeService.basketMinusAmount(idx,useridx,newTotal);
 
         if(result>0){
             return ResponseEntity.ok("장바구니 상품 갯수 감소 완료");

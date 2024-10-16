@@ -8,7 +8,7 @@ $(function(){
     $('.order_product_price').each(function() {
         var price = $(this).data('price');
         $(this).text(formatNumber(price)+"원");
-        var amount = $(this).closest(".pay_product_table_data").find(".pay_product_table_data_info").data('amount');
+        var amount = $(this).closest(".pay_product_table_data").find(".order_product_amount").data('amount');
         var proTotal = price * amount;
         console.log(proTotal);
         order_total_price += proTotal;
