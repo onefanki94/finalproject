@@ -2,20 +2,23 @@ package com.ict.finalproject;
 
 import com.ict.finalproject.Service.HomeService;
 import com.ict.finalproject.Service.OrderService;
+import com.ict.finalproject.vo.AniListVO;
 import com.ict.finalproject.vo.StoreVO;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-
+@Slf4j
 @RestController
 public class HomeController {
     @Autowired
@@ -50,8 +53,24 @@ public class HomeController {
     }
 
     @GetMapping("/search")
-    public ModelAndView search() {
+    public ModelAndView search(@RequestParam("search_key") String searchKey) {
+        //애니 리스트
+        List<AniListVO> aniSearch = service.aniSearchAll(searchKey);
+        //굿즈 리스트
+        List<StoreVO> goodsSearch = service.goodsSearchAll(searchKey);
+
+        int aniSearchCount = aniSearch.size();
+        int goodsSearchCount = goodsSearch.size();
+        int totalSearchCount = aniSearchCount + goodsSearchCount;
+        log.info("totalSearchCount : {}",totalSearchCount);
+
         mav = new ModelAndView();
+        mav.addObject("aniSearch",aniSearch);
+        mav.addObject("goodsSearch",goodsSearch);
+        mav.addObject("aniSearchCount", aniSearchCount); // 애니 리스트의 갯수
+        mav.addObject("goodsSearchCount", goodsSearchCount);
+        mav.addObject("totalSearchCount", totalSearchCount);// 굿즈 리스트의 갯수
+        mav.addObject("searchKey", searchKey);
         mav.setViewName("search_all");
 
         return mav;

@@ -4,91 +4,47 @@
 
 
 <link href="/css/search_all.css" rel="stylesheet" type="text/css" />
+<script src="/js/search_all.js"></script>
 
 <div class="search_all_container">
-  <h1><span>"검색어"</span> 에 대한 검색 결과 (3)</h1>
+  <h1><span>"${searchKey}"</span> 에 대한 검색 결과 (${totalSearchCount})</h1>
   <div class="search_all_tabmenu">
     <ul>
-      <li onclick="reviewTab('tab1')">ANIMATION<span> (0)</span></li>
-      <li class="tab_on" onclick="reviewTab('tab2')">GOODS<span> (930)</span></li>
+      <li onclick="reviewTab('tab1')" class="tab_on">ANIMATION<span> (${aniSearchCount})</span></li>
+      <li onclick="reviewTab('tab2')">GOODS<span> (${goodsSearchCount})</span></li>
     </ul>
   </div>
-  <div class="search_all_animation on">
+  <div class="search_all_animation on" id="tab1">
     <ul class="search_all_animation_grid">
-      <li>
-        <a>
-          <div class="search_ani_img">
-            <img src="/img/main_img/anipost1.png" />
-          </div>
-          <div class="search_ani_title">
-            <p>혈계전선</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a>
-          <div class="search_ani_img">
-            <img src="/img/main_img/anipost1.png" />
-          </div>
-          <div class="search_ani_title">
-            <p>혈계전선</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a>
-          <div class="search_ani_img">
-            <img src="/img/main_img/anipost1.png" />
-          </div>
-          <div class="search_ani_title">
-            <p>혈계전선</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a>
-          <div class="search_ani_img">
-            <img src="/img/main_img/anipost1.png" />
-          </div>
-          <div class="search_ani_title">
-            <p>혈계전선</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a>
-          <div class="search_ani_img">
-            <img src="/img/main_img/anipost1.png" />
-          </div>
-          <div class="search_ani_title">
-            <p>혈계전선</p>
-          </div>
-        </a>
-      </li>
-      <li>
-          <a>
-            <div class="search_ani_img">
-              <img src="/img/main_img/anipost1.png" />
-            </div>
-            <div class="search_ani_title">
-              <p>혈계전선</p>
-            </div>
-          </a>
-        </li>
+      <c:forEach var="aniSearch" items="${aniSearch}">
         <li>
-        <a>
-          <div class="search_ani_img">
-            <img src="/img/main_img/anipost1.png" />
-          </div>
-          <div class="search_ani_title">
-            <p>혈계전선</p>
-          </div>
-        </a>
-      </li>
+            <a>
+              <div class="search_ani_img">
+                <img src="http://192.168.1.92:8000/${aniSearch.post_img}" />
+              </div>
+              <div class="search_ani_title">
+                <p>${aniSearch.title}</p>
+              </div>
+            </a>
+        </li>
+      </c:forEach>
     </ul>
   </div>
-  <div class="search_all_goods off">
-    <ul class="search_all_goods_grid"></ul>
+  <div class="search_all_goods off" id="tab2">
+    <ul class="search_all_goods_grid">
+        <c:forEach var="goodsSearch" items="${goodsSearch}">
+            <li>
+                <a>
+                  <div class="search_ani_img">
+                    <img src="http://192.168.1.92:8000/${goodsSearch.thumImg}" />
+                  </div>
+                  <div class="search_ani_title">
+                    <p>${goodsSearch.title}</p>
+                  </div>
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
   </div>
 </div>
 
