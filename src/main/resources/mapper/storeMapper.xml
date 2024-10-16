@@ -3,6 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.StoreDAO">
 
+
+    <!-- 3개월 내 등록된 상품을 가져오는 SQL -->
+    <select id="getRecentProducts" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT idx, title, price, thumImg, ani_title, relDT, brand, fee, stock, pro_detail, category, regDT
+        FROM t_product
+        WHERE regDT >= DATE_SUB(NOW(), INTERVAL 3 MONTH);
+    </select>
+
+
+
+
     <select id="getStoreDetail" parameterType="int" resultType="com.ict.finalproject.vo.StoreVO">
      SELECT 
     p.idx, 

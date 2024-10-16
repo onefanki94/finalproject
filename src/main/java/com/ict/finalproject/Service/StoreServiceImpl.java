@@ -18,6 +18,11 @@ public class StoreServiceImpl implements StoreService {
     StoreDAO dao;
 
     @Override
+    public List<StoreVO> getRecentProducts(){
+        return dao.getRecentProducts();
+    }
+
+    @Override
     public List<StoreVO> getStoreList(){
         return  dao.getStoreList();
     }

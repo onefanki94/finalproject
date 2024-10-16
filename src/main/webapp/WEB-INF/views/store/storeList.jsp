@@ -30,15 +30,14 @@
                             </div>
                             <hr>
                             <div class="filter-type-title">
-                                <h3>카테고리별</h3>
                                   <ul class="filter-list">
                                     <!-- firstCategoryList를 순회하면서 카테고리 목록을 출력 -->
-                                  <!--  <c:forEach var="category" items="${firstCategoryList}">
+                                  <!-- <c:forEach var="category" items="${firstCategoryList}">
                                         <li class="filter-item" onclick="loadSubcategories(${category.code})">
-                                       <span class="filter-text">${category.type} (Code: ${category.code})</span>
+                                       <span class="filter-text">${category.type}</span>
                                         </li>
-                                    </c:forEach>
-                                </ul> -->
+                                    </c:forEach> -->
+                                </ul>
 
                                   <!-- 하위 카테고리를 표시할 영역 -->
                                     <h3>하위 카테고리</h3>
