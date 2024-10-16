@@ -110,6 +110,20 @@ public class storeMainController {
 
         return mav;
     }
+    //API구현
+    @GetMapping("/pagedProducts")
+    @ResponseBody  // JSON으로 데이터를 반환하기 위해 추가
+    public List<StoreVO> getPagedProducts(
+            @RequestParam int pageNum,
+            @RequestParam int pageSize) {
+
+        int offset = (pageNum - 1) * pageSize;
+        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset);
+        return pagedProducts; // JSON으로 반환
+    }
+
+
+
     // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
     /*@GetMapping("/recentProducts")
     public ModelAndView getRecentProducts() {

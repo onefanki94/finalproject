@@ -152,6 +152,30 @@
 //        applyFilters();
 //    }
 
+// URL에서 특정 파라미터의 값을 가져오는 함수
+function getParameterByName(name) {
+    let url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+let pageNum = getParameterByName('pageNum') || 1; // URL에서 pageNum 추출, 기본값 1
+let pageSize = getParameterByName('pageSize') || 10; // URL에서 pageSize 추출, 기본값 10
+
+fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);  // 데이터가 제대로 오는지 확인
+        // 데이터 처리 로직 추가
+    })
+    .catch(error => console.error('Error:', error));
+
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded and parsed");

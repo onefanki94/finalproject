@@ -87,9 +87,12 @@
                                   <c:forEach var="product" items="${storeList}">
                                     <li class="list-product">
                                         <!-- idx 값을 사용하여 링크 생성 -->
-                                        <a href="/storeDetail/${product.idx}"> 
-                                            <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-                                        </a>
+                                      <a href="<c:url value='/storeDetail'>
+                                          <c:param name='idx' value='${product.idx}' />
+                                      </c:url>">
+                                          <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                                      </a>
+
                                         <p>${product.title}</p>
                                         <p>    <fmt:formatNumber value="${product.price}" type="number" pattern="#,###"/> 원</p>
                                     </li>
@@ -108,7 +111,7 @@
                </c:if>
 
                <!-- 페이지 번호 링크 -->
-               <c:forEach var="i" begin="1" end="${totalPages}">
+               <c:forEach var="i" begin="${currentPage - 2 > 0 ? currentPage - 2 : 1}" end="${currentPage + 2 < totalPages ? currentPage + 2 : totalPages}">
                    <c:choose>
                        <c:when test="${i == currentPage}">
                            <span class="current">${i}</span> <!-- 현재 페이지 -->

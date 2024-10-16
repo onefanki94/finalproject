@@ -99,45 +99,57 @@
 .list-product {
     display: flex;
     flex-direction: column;
-    padding: 0 auto;
+    align-items: center; /* 가운데 정렬 */
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     box-sizing: border-box;
-    display:inline-flex;  
     overflow: hidden;
+    width: 250px; /* 개별 상품의 너비를 고정 */
+    height: auto;
+    margin: 10px; /* 각 상품 사이의 간격 추가 */
 }
-
-
 
 /* 상품 이미지 스타일 */
 .list-product img {
-    width: 250px;
+    width: 100%; /* 부모의 너비에 맞춰서 */
     height: 200px;
     border-radius: 8px;
     transition: transform 0.8s ease-in-out;
-  
 }
 
-.list-product p{
-    margin: 0 auto;
-    width: 200px;
+/* 상품 텍스트 스타일 */
+.list-product p {
+    margin: 10px 0; /* 상하로 여백 추가 */
+    width: 100%;
     color: #888;
     font-size: 0.9em;
-   
+    text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-.list-product :first-child{
+/* 첫 번째 자식 요소 스타일 (이미지) */
+.list-product :first-child {
     overflow: hidden;
 }
 
-.list-product :last-child{
+/* 마지막 자식 요소 (가격 등 강조 표시) */
+.list-product :last-child {
     font-weight: bold;
 }
 
-
 /* Hover 효과 */
 .list-product img:hover {
-    transform: scale(1.2); 
+    transform: scale(1.2);
+}
+
+/* 부모 컨테이너 스타일 (list-carousel-images) */
+.list-carousel-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center; /* 가운데 정렬 */
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 
@@ -168,19 +180,7 @@
     border-radius: 10px;
 }
 
-.list-carousel-images {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    overflow: hidden;
-    gap:30px;
-    margin-left: 100px;
 
-}
-
-.list-carousel-images img {
-    border-radius: 10px;
-}
 
 
 /* 커스텀 체크박스 (토글 스위치 스타일) */
@@ -319,25 +319,43 @@ input:checked + .slider::before {
 }
 
 .pagination a, .pagination span {
-    display: inline-block;
     margin: 0 5px;
-    padding: 10px 15px;
-    background-color: #f1f1f1;
+    padding: 10px;
+    background-color: transparent; /* 배경색 제거 */
     color: #333;
     text-decoration: none;
-    border-radius: 5px;
+    font-weight: normal; /* 기본 폰트 무게 */
 }
 
 .pagination a:hover {
-    background-color: #ddd;
+    font-weight: bold; /* 호버 시 진하게 */
+    color: #000; /* 호버 시 색상 진하게 */
 }
 
 .pagination .current {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
+    font-weight: bold; /* 선택된 페이지는 bold */
+    color: #000; /* 선택된 페이지는 진한 색상 */
 }
 
+/* 선택 시 파란색 highlight 제거 */
+.pagination a:focus,
+.pagination a:active {
+    outline: none; /* 파란색 outline 제거 */
+    color: #000; /* 선택 시 진한 색상 유지 */
+}
+/* 선택 시 파란색 highlight 제거 */
+.pagination a:focus,
+.pagination a:active {
+    outline: none; /* 파란색 outline 제거 */
+    color: #000; /* 선택 시 진한 색상 유지 */
+}
+
+/* 중앙 정렬을 위한 inline-block 설정 */
+.pagination {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
 
 
 
