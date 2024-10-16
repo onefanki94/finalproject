@@ -81,4 +81,21 @@ public interface MasterDAO {
 
     // 문의 내용 목록 불러오기
     List<MasterVO> getQNAList();
+
+    // 문의 들어온 내용 중 답변 처리 안된 갯수 파악하기
+    int getUnansweredQnaCount();
+
+    // t_ban에 들어와 있는 데이터 목록 불러오기
+    List<MasterVO>getReportingUser();
+
+    // 전체 신고 누적 횟수 카운트
+    int getTotalReportCount();
+
+    // 특정 아이디의 신고 횟수 카운트
+    int getTotalUserReport(int useridx);
+
+    void insertReply(@Param("idx") int idx, @Param("reply") String reply, @Param("adminIdx") int adminIdx, @Param("regDT") LocalDateTime regDT);
+
+    void updateHandleState(int idx);
+    Integer findAdminIdxByUserid(String adminId);
 }

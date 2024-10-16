@@ -91,6 +91,11 @@ public class masterController {
             return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
         }*/
 
+    @ModelAttribute("unansweredCount")
+    public int unansweredQnaCount() {
+        return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
+    }
+
         // 관리자페이지 로그인 매핑
         @GetMapping("/admin_login")
         public String adminLogin(){
@@ -101,8 +106,11 @@ public class masterController {
         // Dashboard 매핑
         @GetMapping("/masterMain")
         public ModelAndView masterMain() {
+            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+            int unanswerCount = masterService.getUnansweredQnaCount();
             System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
             mav = new ModelAndView();
+            mav.addObject("unanswerCount", unanswerCount);
             mav.setViewName("master/masterMain");  // 뷰 이름 설정
             return mav;  // 중복 리다이렉트 발생 여부 확인
         }
@@ -247,13 +255,28 @@ public class masterController {
 
         // Dashboard - 신고관리 - 신고목록 리스트
         @GetMapping("/reportinguserMasterList")
-        public ModelAndView reportinguserListMaster(){
-            mav = new ModelAndView();
+        public ModelAndView reportinguserListMaster() {
+            List<MasterVO> reportingUser = masterService.getReportingUser();  // 모든 신고된 유저 리스트를 가져옴
+
+            // 각 유저별로 개별 신고 횟수를 계산
+            for (MasterVO user : reportingUser) {
+                int totalUserReport = masterService.getTotalUserReport(user.getUseridx());
+                user.setTotalUserReport(totalUserReport);  // VO에 각 유저의 신고 횟수 저장
+            }
+
+            // 전체 신고 누적 횟수 계산
+            int totalReportUser = masterService.getTotalReportCount();
+
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("reportingUser", reportingUser);
+            mav.addObject("totalReportUser", totalReportUser);
             mav.setViewName("master/reportinguserMasterList");
             return mav;
         }
 
-        //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
+
+
+    //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
         @GetMapping("/boardMasterAll")
         public ModelAndView boardMasterAll(){
             // 커뮤니티 전체 글 목록 불러오기
@@ -425,19 +448,50 @@ public class masterController {
     @GetMapping("/QNAMasterList")
     public ModelAndView QNAMasterList(){
             List<MasterVO> qnaList = masterService.getQNAList();
+
+            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+            int unanswerCount = masterService.getUnansweredQnaCount();
         mav = new ModelAndView();
         mav.addObject("qnaList", qnaList);
+        mav.addObject("unanswerCount",unanswerCount);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }
 
-    // Dashboard - 기타관리 - 문의사항 - 답변
-    @GetMapping("/QNAnswerDetailMaster")
-    public ModelAndView QNAnserDetailMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/QNAnswerDetailMaster");
-        return mav;
+    @PostMapping("/QNAanswerOK")
+    public String QNAanswerOK(@RequestParam("reply") String reply,
+                              @RequestParam("idx") int idx,
+                              HttpServletRequest request) {
+
+        // 요청에서 Authorization 헤더를 확인
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new RuntimeException("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 사용자 정보 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        Claims claims;
+        try {
+            claims = jwtUtil.getClaims(token);  // JWT 파싱하여 Claims 객체로 변환
+        } catch (Exception e) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
+        }
+
+        // 관리자 ID 확인 (토큰에 담긴 정보)
+        String adminId = claims.getSubject();  // 토큰에서 관리자 ID 추출
+        Integer adminIdx = masterService.findAdminIdxByUserid(adminId);
+        if (adminIdx == null) {
+            throw new RuntimeException("유효하지 않은 관리자입니다.");
+        }
+
+        // QNA 답변 처리 로직
+        masterService.updateQnaAndReply(idx, reply, adminIdx);
+
+        return "redirect:/master/QNAMasterList";
     }
+
+
 
     // Dashboard - 기타관리 - 자주묻는질문
     @GetMapping("/FAQMasterList")

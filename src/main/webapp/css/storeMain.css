@@ -140,11 +140,6 @@ a {
     margin-bottom: 40px;
 }   
 
-.pop-carousel-images{
-    display: flex;
-    align-items: center;
-    gap:15px;
-}
 
 
 @keyframes shake {
@@ -155,13 +150,40 @@ a {
     100% { transform: translateX(0); }
 }
 
-.product img:hover {
+.pop-product img:hover {
     animation: shake 0.5s ease-in-out; 
 }
 
-.product img{
+.pop-product img{
     border-radius: 10px;
+    width:100%;
+    height: auto;
 }
+
+
+/* '입고'와 '오리지널' 태그를 회색 박스로 만들기 */
+.pop-product .tag {
+    display: flex;
+    flex-direction: column; /* 태그를 위아래로 배치 */
+    display: inline-block; /* 박스 형태로 만들기 */
+}
+
+.pop-product .tag span {
+    padding: 5px; /* 내부 여백 */
+    border-radius: 5px; /* 모서리를 둥글게 */
+
+    margin-right: 5px; /* 태그 사이 간격 */
+    font-size: 12px; /* 글자 크기 조정 (필요시) */
+    color: #ffffff; /* 글자 색상 */
+    background-color: #bdbdbd; /* 회색 배경 */
+
+}
+
+.pop-product .price .discount {
+    color: #858585;
+    font-weight: bolder; /* 글씨를 굵게 만듦 */
+}
+
 
 /*공지사항*/
 
@@ -320,8 +342,7 @@ a {
 .slick-list draggable{
 
     align-items: center;
-    margin-top: 20px;    
-    gap:20px;
+    margin-top: 20px;
 }
 
 .new-carousel-images img{
@@ -343,13 +364,19 @@ a {
     font-weight: bolder; /* 글씨를 굵게 만듦 */
 }
 
+.new-product .tag {
+    display: flex;
+    flex-direction: column; /* 위아래로 나란히 정렬 */
+     display: inline-block; /* 박스 형태로 만들기 */
+}
+
 /* '입고'와 '오리지널' 태그를 회색 박스로 만들기 */
 .new-product .tag span {
     background-color: #bdbdbd; /* 회색 배경 */
     padding: 5px; /* 내부 여백 */
     border-radius: 5px; /* 모서리를 둥글게 */
-    display: inline-box; /* 박스 형태로 만들기 */
-    margin-right: 5px; /* 태그 사이 간격 */
+    justify-content: center;
+    margin-bottom: 5px; /* 태그 사이 간격 */
     font-size: 12px; /* 글자 크기 조정 (필요시) */
     color: #ffffff; /* 글자 색상 */
 }

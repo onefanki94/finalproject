@@ -38,4 +38,10 @@ public interface MasterService {
     MasterVO aniSelect(int idx);
     String getCurrentImgFile(int idx);
     List<MasterVO> getQNAList();
+    int getUnansweredQnaCount();
+    List<MasterVO>getReportingUser();
+    int getTotalReportCount();
+    int getTotalUserReport(int useridx);
+    void updateQnaAndReply(int idx, String reply, int adminIdx);
+    Integer findAdminIdxByUserid(String adminId);
 }

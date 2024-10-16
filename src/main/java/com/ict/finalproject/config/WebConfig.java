@@ -20,12 +20,14 @@ import java.util.Arrays;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    private GlobalModelInterceptor globalModelInterceptor;
     private final JWTInterceptor jwtInterceptor;
 
     // JwtInterceptor를 생성자 주입 방식으로 주입받음
     @Autowired
-    public WebConfig(JWTInterceptor jwtInterceptor) {
+    public WebConfig(JWTInterceptor jwtInterceptor, GlobalModelInterceptor globalModelInterceptor) {
         this.jwtInterceptor = jwtInterceptor;
+        this.globalModelInterceptor = globalModelInterceptor;
     }
 
   /*  @Override
@@ -52,5 +54,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:src/main/webapp/img/store/");
         registry.addResourceHandler("/reviewFileUpload/**")
                 .addResourceLocations("file:src/main/webapp/reviewFileUpload/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // "/master/**"로 시작하는 URL에만 인터셉터 적용
+        registry.addInterceptor(globalModelInterceptor)
+                .addPathPatterns("/master/**");
     }
 }

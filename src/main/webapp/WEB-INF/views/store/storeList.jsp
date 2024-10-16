@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
@@ -90,7 +91,7 @@
                                             <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>
-                                        <p>${product.price} 원</p>
+                                        <p>    <fmt:formatNumber value="${product.price}" type="number" pattern="#,###"/> 원</p>
                                     </li>
                                 </c:forEach>
                                 </ul>
