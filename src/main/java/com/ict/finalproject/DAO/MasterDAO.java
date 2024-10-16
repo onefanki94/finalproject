@@ -81,4 +81,7 @@ public interface MasterDAO {
 
     // 문의 내용 목록 불러오기
     List<MasterVO> getQNAList();
+
+    // 문의 들어온 내용 중 답변 처리 안된 갯수 파악하기
+    int getUnansweredQnaCount();
 }

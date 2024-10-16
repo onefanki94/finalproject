@@ -87,5 +87,5 @@ public class MasterVO {
     private String imgfile2;
     
     // 관리자 페이지에서 문의 기능 사용하는 것들
-    private int qnatype;
+    private String qnatype;
 }

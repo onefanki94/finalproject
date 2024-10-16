@@ -38,4 +38,5 @@ public interface MasterService {
     MasterVO aniSelect(int idx);
     String getCurrentImgFile(int idx);
     List<MasterVO> getQNAList();
+    int getUnansweredQnaCount();
 }

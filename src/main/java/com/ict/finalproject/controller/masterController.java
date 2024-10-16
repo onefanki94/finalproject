@@ -91,6 +91,11 @@ public class masterController {
             return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
         }*/
 
+    @ModelAttribute("unansweredCount")
+    public int unansweredQnaCount() {
+        return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
+    }
+
         // 관리자페이지 로그인 매핑
         @GetMapping("/admin_login")
         public String adminLogin(){
@@ -101,8 +106,11 @@ public class masterController {
         // Dashboard 매핑
         @GetMapping("/masterMain")
         public ModelAndView masterMain() {
+            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+            int unanswerCount = masterService.getUnansweredQnaCount();
             System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
             mav = new ModelAndView();
+            mav.addObject("unanswerCount", unanswerCount);
             mav.setViewName("master/masterMain");  // 뷰 이름 설정
             return mav;  // 중복 리다이렉트 발생 여부 확인
         }
@@ -425,19 +433,16 @@ public class masterController {
     @GetMapping("/QNAMasterList")
     public ModelAndView QNAMasterList(){
             List<MasterVO> qnaList = masterService.getQNAList();
+
+            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+            int unanswerCount = masterService.getUnansweredQnaCount();
         mav = new ModelAndView();
         mav.addObject("qnaList", qnaList);
+        mav.addObject("unanswerCount",unanswerCount);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }
 
-    // Dashboard - 기타관리 - 문의사항 - 답변
-    @GetMapping("/QNAnswerDetailMaster")
-    public ModelAndView QNAnserDetailMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/QNAnswerDetailMaster");
-        return mav;
-    }
 
     // Dashboard - 기타관리 - 자주묻는질문
     @GetMapping("/FAQMasterList")

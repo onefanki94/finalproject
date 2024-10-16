@@ -150,4 +150,9 @@ public class MasterServiceImpl implements MasterService {
     public List<MasterVO> getQNAList() {
         return dao.getQNAList();
     }
+
+    @Override
+    public int getUnansweredQnaCount() {
+        return dao.getUnansweredQnaCount();
+    }
 }

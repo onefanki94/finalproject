@@ -161,14 +161,23 @@
         WHERE idx = #{idx}
     </select>
 
+    <!-- 신고 테이블에서 신고가 완료 되었을 때 처리 상태 및 처리날짜 업데이트  -->
     <update id="updateReport">
         UPDATE t_report
         SET handleState = #{handleState}, handleDT = #{handleDT}
         WHERE idx = #{idx}
     </update>
 
+    <!-- 문의사항 전체 목록 보여주기 -->
     <select id="getQNAList">
-        select idx, qnatype,title, useridx,regDT from t_qna
+        SELECT q.idx, qt.type AS qnatype, q.title, q.content, u.userid, q.regDT, q.handleState
+        FROM t_qna q
+        JOIN t_qnatype qt ON q.qnatype = qt.code
+        JOIN t_user u ON q.useridx = u.idx;
+    </select>
+
+    <select id="getUnansweredQnaCount">
+        select count(*) from t_qna where handleState = 0;
     </select>
 
 </mapper>

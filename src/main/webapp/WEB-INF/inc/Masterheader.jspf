@@ -22,7 +22,7 @@
             <a class="navbar-brand" href="/master/masterMain">관리자 Management</a>
             <div class="loginInfo">
                         <!-- [ ${logId} ] 님 어서오세요. -->
-                        [ 관리자 ] 님 어서오세요 <span>( 새 문의 : <a href="/master/QNAMasterList"> 0 </a> 개 )</span>
+                        [ 관리자 ] 님 어서오세요 <span>( 새 문의 : <a href="/master/QNAMasterList"> ${unanswerCount} </a> 개 )</span>
             </div>
                  <div class="logout">
                                 <a href="/">로그아웃</a>
