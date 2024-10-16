@@ -48,4 +48,12 @@ public class HomeController {
 
         return ResponseEntity.ok("Authorization 헤더가 정상적으로 전달되었습니다.");
     }
+
+    @GetMapping("/search")
+    public ModelAndView search() {
+        mav = new ModelAndView();
+        mav.setViewName("search_all");
+
+        return mav;
+    }
 }

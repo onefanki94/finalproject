@@ -1,0 +1,173 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body,
+html {
+  height:auto;
+  margin: 0;
+  padding: 0;
+  font-family: var(--e-font), var(--k-font);
+}
+body {
+  background: linear-gradient(180deg, rgb(35 35 36), #000 50%) !important;
+  /* animation: fadeIn 2.5s ease-out; */
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+span {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+li {
+  list-style: none;
+}
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #359c95;
+  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
+  --k-font: "Pretendard";
+  --e-font: "Outfit";
+  --eng-font: "Kanit";
+}
+
+.search_all_container {
+  padding: 3vw;
+  overflow: hidden;
+  color: #fff;
+  margin-top: 150px;
+}
+
+.search_all_container h1 {
+  font-weight: bold;
+  text-align: center;
+}
+
+.search_all_container h1 span {
+  color: var(--primary);
+}
+
+.search_all_tabmenu {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+}
+
+.search_all_tabmenu li {
+  float: left;
+  padding: 0 10px;
+  padding: 0 20px;
+  font-size: 24px;
+  line-height: 30px;
+  color: #ffffff6b;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.search_all_tabmenu li.tab_on {
+  color: #ffffffb0;
+  font-weight: bold;
+}
+
+.search_all_animation,
+.search_all_goods {
+  width: 100%;
+  margin: 1.5rem 0px 1rem;
+  padding: 0 6em;
+}
+
+.search_all_animation_grid {
+  display: grid;
+  gap: 1.3rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.search_all_animation_grid li,
+.search_all_goods_grid li {
+  width: 100%;
+  overflow: hidden;
+}
+
+.search_ani_img {
+  width: 100%;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0.25em;
+}
+
+.search_ani_img img,
+.search_goods_img img {
+  width: 100%;
+  height: 100%;
+}
+
+.search_ani_title,
+.search_goods_title {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  opacity: 1;
+  padding-right: 0.5rem;
+  min-height: 3em;
+}
+
+.search_ani_title p,
+.search_goods_title p {
+  margin: unset;
+  color: #f7f7f7;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.search_all_goods_grid {
+  display: grid;
+  gap: 1.3rem;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 300px); /* 3개의 행을 각 200px 높이로 설정 */
+}
+.search_goods_img {
+  width: 100%;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0.25em;
+  height: 83%;
+}
+
+.on {
+  display: block;
+}
+
+.off {
+  display: none;
+}

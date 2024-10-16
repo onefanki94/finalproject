@@ -10,6 +10,10 @@ $(function(){
     // 1. 장바구니 클릭
     // 로직 : ajax로 장바구니테이블에 데이터 저장 -> 계속 쇼핑? 장바구니 이동? 모달
     $(document).on('click', '#basket_in_btn', function() {
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
         var pro_idx=$("#pro_idx").val();
         var amount = $("#amount").val();
         var totalPrice = document.getElementById("total-price").textContent;
