@@ -10,6 +10,9 @@ import java.util.List;
 
 @Mapper
 public interface StoreDAO {
+
+    public List<StoreVO> getRecentProducts();
+
     public List<StoreVO> getStoreList();
 
     public List<StoreVO> getStoreListByFilter(@Param("filterType")String filterType);

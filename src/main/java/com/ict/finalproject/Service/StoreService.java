@@ -11,6 +11,8 @@ import java.util.List;
 
 @Service
 public interface StoreService {
+    public List<StoreVO> getRecentProducts();
+
     public List<StoreVO> getStoreList();
 
     public List<StoreVO> searchStoreList(String keyword);

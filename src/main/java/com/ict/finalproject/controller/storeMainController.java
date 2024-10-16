@@ -3,6 +3,7 @@ package com.ict.finalproject.controller;
 import com.ict.finalproject.Service.StoreService;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class storeMainController {
 
@@ -20,8 +22,19 @@ public class storeMainController {
 
     // 메인 페이지 이동
     @GetMapping("/storeMain")
-    public String storeMain() {
-        return "store/storeMain";
+    public ModelAndView storeMain() {
+        List<StoreVO> recentProducts = storeService.getRecentProducts();  // 3개월 내의 데이터 호출
+
+        // 데이터가 제대로 가져와졌는지 확인
+        if (recentProducts == null || recentProducts.isEmpty()) {
+            System.out.println("storeMain에서 데이터가 없습니다.");
+        } else {
+            System.out.println("storeMain에서 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
+        }
+
+        ModelAndView mav = new ModelAndView("store/storeMain");  // storeMain.jsp로 이동
+        mav.addObject("recentProducts", recentProducts);  // recentProducts 데이터를 JSP로 전달
+        return mav;
     }
 
     // 상품 목록 및 카테고리 가져오기
@@ -36,6 +49,29 @@ public class storeMainController {
 
         return mav;
     }
+
+    // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
+    /*@GetMapping("/recentProducts")
+    public ModelAndView getRecentProducts() {
+        List<StoreVO> recentProducts = storeService.getRecentProducts();
+        log.info("호출 " + recentProducts );
+        // 데이터를 출력하여 확인
+        if (recentProducts == null || recentProducts.isEmpty()) {
+            System.out.println("신규 굿즈 데이터가 없습니다.");
+        } else {
+            System.out.println("신규 굿즈 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
+            for (StoreVO product : recentProducts) {
+                System.out.println("상품 ID: " + product.getIdx() + ", 상품명: " + product.getTitle());
+            }
+        }
+
+        ModelAndView mav = new ModelAndView("store/storeMain");
+        mav.addObject("recentProducts", recentProducts);
+        return mav;
+    }*/
+
+
+
 
     // 검색된 상품 목록 가져오기
     @GetMapping("/searchStoreList")
