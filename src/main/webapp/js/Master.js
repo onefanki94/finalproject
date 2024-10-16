@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
 // DOM이 완전히 로드된 후 실행되도록 설정
 
 // 대분류 select 요소
-const mainCategorySelect = document.getElementById('code');
+const mainCategorySelect = document.getElementById('category');
 
 // 중분류 select 요소
-const subCategorySelect = document.getElementById('sub-category');
+const subCategorySelect = document.getElementById('second_category');
 
 // 요소가 존재하는지 확인
 if (mainCategorySelect && subCategorySelect) {
@@ -263,6 +263,69 @@ success: function(response) {
                      alert('삭제 중 오류가 발생했습니다.');
                  }
              });
+         }
+     });
+ });
+
+ $(document).ready(function() {
+     var token = localStorage.getItem('token');
+
+     // 토큰이 없으면 경고 표시
+     if (!token) {
+         alert("토큰이 없습니다. 다시 로그인 해주세요.");
+         return;
+     }
+
+     $('#storeEditForm').submit(function(event) {
+         event.preventDefault(); // 기본 폼 제출 동작 중지
+
+         var formData = new FormData(this);
+
+         $.ajax({
+             url: '/master/storeEditMasterOK',
+             type: 'POST',
+             headers: {
+                 'Authorization': 'Bearer ' + token // Authorization 헤더로 토큰 전달
+             },
+             data: formData,
+             contentType: false,
+             processData: false,
+             success: function(response) {
+                 alert('굿즈 상품 수정 성공');
+                 window.location.href = '/master/storeMasterList';
+             },
+             error: function(xhr, status, error) {
+                 alert('굿즈 상품 수정 중 오류가 발생했습니다.');
+             }
+         });
+     });
+ });
+
+ $(document).ready(function() {
+     $('#category').change(function() {
+         var categoryId = $(this).val(); // 선택된 대분류 ID
+
+         if (categoryId) {
+             $.ajax({
+                 url: '/getSubCategories/' + categoryId,
+                 type: 'GET',
+                 success: function(data) {
+                     var subCategorySelect = $('#second_category');
+                     subCategorySelect.empty().append('<option value="">중분류 선택</option>');
+
+                     // 중분류 목록을 동적으로 추가
+                     $.each(data, function(index, item) {
+                         subCategorySelect.append('<option value="' + item.second_category + '">' + item.name + '</option>');
+                     });
+
+                     subCategorySelect.prop('disabled', false); // 중분류 선택 활성화
+                 },
+                 error: function() {
+
+                 }
+             });
+         } else {
+             $('#second_category').empty().append('<option value="">중분류 선택</option>').prop('disabled', true);
          }
      });
  });

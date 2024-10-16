@@ -46,4 +46,8 @@ public interface MasterService {
     Integer findAdminIdxByUserid(String adminId);
     void addAnimation(MasterVO aniVO);
     void deletePostByIdx(int idx);
+    MasterVO getStoreByIdx(int idx);
+    boolean updateStore(MasterVO store);
+    List<MasterVO> getSubCategoriesByCategory(int category);
+    boolean insertProductImg(MasterVO productImg);
 }

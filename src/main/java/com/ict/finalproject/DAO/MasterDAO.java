@@ -104,4 +104,13 @@ public interface MasterDAO {
 
     // 애니 삭제 하기
     void deletePostByIdx(int idx);
+
+    // 해당 굿즈의 idx 구하기
+    MasterVO getStoreByIdx(int idx);
+
+    // 굿즈 상품 수정
+    int updateStore(MasterVO store);
+
+    List<MasterVO> findSubCategoriesByCategory(@Param("category") int category);
+    int insertProductImg(MasterVO productImg);
 }

@@ -191,4 +191,25 @@ public class MasterServiceImpl implements MasterService {
     public void deletePostByIdx(int idx) {
         dao.deletePostByIdx(idx);
     }
+
+    @Override
+    public MasterVO getStoreByIdx(int idx) {
+        return dao.getStoreByIdx(idx);
+    }
+
+    @Override
+    public boolean updateStore(MasterVO store) {
+        int result = dao.updateStore(store);
+        return result > 0;
+    }
+
+    @Override
+    public List<MasterVO> getSubCategoriesByCategory(int category) {
+        return dao.findSubCategoriesByCategory(category);
+    }
+
+    @Override
+    public boolean insertProductImg(MasterVO productImg) {
+        return dao.insertProductImg(productImg) > 0;
+    }
 }

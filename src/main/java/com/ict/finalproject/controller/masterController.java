@@ -782,11 +782,129 @@ public class masterController {
 
     // Dashboard - 굿즈관리 - 상품 수정
     @GetMapping("/storeEditMaster/{idx}")
-    public ModelAndView storeEditMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/storeEditMaster");
-        return mav;
+    public String showStoreEditForm(@PathVariable("idx") int idx, Model model) {
+        MasterVO Editstore = masterService.getStoreByIdx(idx); // idx를 이용해 store 데이터를 가져옴
+        model.addAttribute("Editstore", Editstore); // JSP로 store 데이터를 전달
+        return "master/storeEditMaster"; // storeEdit.jsp를 반환
     }
+
+    @PostMapping("/storeEditMasterOK")
+    public ResponseEntity<String> storeEditMasterOK(
+            @RequestParam("idx") int idx,
+            @RequestParam("category") String category,
+            @RequestParam("second_category") int secondCategory,
+            @RequestParam("title") String title,
+            @RequestParam("price") Integer price,
+            @RequestParam(value = "thumimg", required = false) MultipartFile thumimg,
+            @RequestParam("ani_title") String ani_title,
+            @RequestParam("relDT") String relDT,
+            @RequestParam("brand") String brand,
+            @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
+            @RequestParam("fee") int fee,
+            @RequestParam("stock") int stock,
+            @RequestParam(value = "detaillmg", required = false) MultipartFile detaillmg, // 추가 이미지 파일
+            @RequestParam("token") String token) {
+
+        String bodyTag = "";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+
+        try {
+            // JWT 토큰 검증
+            if (token == null || token.trim().isEmpty()) {
+                bodyTag += "<script>alert('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            }
+
+            String adminid = jwtUtil.getUserIdFromToken(token);
+            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+            if (adminidx == null) {
+                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            }
+
+            // 기존 상품 정보 불러오기
+            MasterVO store = masterService.getStoreByIdx(idx);
+            if (store == null) {
+                bodyTag += "<script>alert('해당 상품을 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.NOT_FOUND);
+            }
+
+            // 썸네일 이미지 및 상세 이미지 경로 처리
+            String thumimgPath = null;
+            String proDetailPath = null;
+            String detailImgPath = null;
+
+            if (thumimg != null && !thumimg.isEmpty()) {
+                thumimgPath = saveFile(thumimg, "img/store/");
+            }
+
+            if (detailImg != null && !detailImg.isEmpty()) {
+                proDetailPath = saveFile(detailImg, "img/store/");
+            }
+
+            if (detaillmg != null && !detaillmg.isEmpty()) {
+                detailImgPath = saveFile(detaillmg, "img/store/");
+            }
+
+            // 상품 정보 수정
+            store.setCategory(category);
+            store.setSecond_category(secondCategory);
+            store.setTitle(title);
+            store.setPrice(price);
+            store.setAni_title(ani_title);
+            store.setRelDT(relDT);
+            store.setBrand(brand);
+            store.setFee(fee);
+            store.setStock(stock);
+            store.setAdminidx(adminidx);
+
+            if (thumimgPath != null) {
+                store.setThumimg(thumimgPath);
+            }
+            if (proDetailPath != null) {
+                store.setPro_detail(proDetailPath);
+            }
+
+            boolean updateResult = masterService.updateStore(store);
+            if (!updateResult) {
+                bodyTag += "<script>alert('굿즈 상품 수정 실패. 다시 시도해 주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            // 상세 이미지가 존재하면 t_productimg 테이블에 저장
+            if (detailImgPath != null) {
+                MasterVO productImg = new MasterVO();
+                productImg.setPro_idx(idx); // 상품의 idx를 참조
+                productImg.setDetailImg(detailImgPath); // 저장된 이미지 경로
+
+                boolean imgInsertResult = masterService.insertProductImg(productImg);
+                if (!imgInsertResult) {
+                    bodyTag += "<script>alert('이미지 저장 실패. 다시 시도해 주세요.');history.back();</script>";
+                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+
+            // 성공 시 리다이렉트
+            bodyTag += "<script>alert('굿즈 상품이 성공적으로 수정되었습니다.');location.href='/master/storeMasterList';</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.error("굿즈 상품 수정 중 오류 발생", e);
+            bodyTag += "<script>alert('굿즈 상품 수정 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/getSubCategories/{category}")
+    @ResponseBody
+    public List<MasterVO> getSubCategories(@PathVariable("category") int category) {
+        return masterService.getSubCategoriesByCategory(category);
+    }
+
+
+
 
     // Dashboard - 굿즈관리 - 상품 수정
     @GetMapping("/orderEditMaster")
