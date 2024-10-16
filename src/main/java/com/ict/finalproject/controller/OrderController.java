@@ -8,6 +8,7 @@ import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.OrderService;
 import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.OrderVO;
+import com.ict.finalproject.vo.PaymentVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -176,9 +177,22 @@ public class OrderController {
         approvalDTO.setAmount(amount);
 
         // Toss 결제 승인 처리
-        service.approvePayment(approvalDTO);
+        int order_idx = service.approvePayment(approvalDTO);
+
+        // 화면에 뿌릴 데이터
+        // 1. T_order : regDT(주문접수일시), 배송정보(수령인, 전화번호, 주소, 요청사항), 총 금액, 적립금 사용액
+        OrderVO orderData = service.orderSuccessData(order_idx);
+        log.info("***********orderData : {}",orderData.toString());
+        // 2. T_orderList : 애니명, 굿즈명, 굿즈가격, amount
+        List<OrderListVO> orderListData = service.orderListSuccessData(order_idx);
+        // 3. T_payment : paytype, 결제완료일시, (영수증 출력시 필요한 데이터? -> 생각)
+        PaymentVO paymentData = service.paymentSuccessData(order_idx);
 
         mav = new ModelAndView();
+        mav.addObject("orderData",orderData);
+        mav.addObject("orderListData",orderListData);
+        mav.addObject("paymentData",paymentData);
+
         mav.setViewName("store/orderOk");
 
         return mav;

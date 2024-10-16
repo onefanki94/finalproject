@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
-
+<script src="/js/orderOk.js"></script>
 <link rel="stylesheet" href="/css/orderOK.css" type="text/css" />
 
 <div class="payOk_container">
@@ -26,7 +26,7 @@
       </div>
       <p>
         주문번호
-        <strong>ORD20241010-0034117</strong>
+        <strong>${paymentData.orderId}</strong>
       </p>
       <p>A GOODS SHOP FOR YOR "ANIWAVE"</p>
       <p>ANIWAVE.COM</p>
@@ -45,23 +45,27 @@
       <ul>
         <li class="pay_product_table_head">
           <div>주문 상품</div>
-          <div>배송비</div>
+          <div>수량</div>
           <div>진행상태</div>
         </li>
-        <li class="pay_product_table_data">
-          <div class="pay_product_table_data_info">
-            <a>
-              <img src="/img/main_img/goods1.png" />
-              <div>
-                <p>나혼자만 레벨업</p>
-                <h3>[도망을 잘 치는 도련님] 인형 시즈쿠</h3>
-                <p>88,000원 / 수량 1개</p>
+        <c:forEach var="orderListData" items="${orderListData}">
+            <li class="pay_product_table_data">
+              <div class="pay_product_table_data_info">
+                <a>
+                  <img src="http://192.168.1.92:8000/${orderListData.thumImg}" />
+                  <div>
+                    <p>${orderListData.ani_title}</p>
+                    <h3>${orderListData.title}</h3>
+                    <p class="order_product_price" data-price="${orderListData.price}"></p>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-          <div class="pay_product_table_data_info">무료</div>
-          <div class="pay_product_table_data_info">결제 완료</div>
-        </li>
+              <div class="pay_product_table_data_info"><span class="order_product_amount" data-amount="${orderListData.amount}">${orderListData.amount}<span></div>
+              <div class="pay_product_table_data_info">
+                ${orderListData.orderState == 1 ? '결제완료' : '결제실패'}
+              </div>
+            </li>
+        </c:forEach>
       </ul>
     </div>
   </div>
@@ -72,31 +76,31 @@
         <tbody>
           <tr>
             <th>결제방법</th>
-            <td>신용/체크카드</td>
+            <td>${paymentData.paytype}</td>
           </tr>
           <tr>
             <th>주문상태</th>
-            <td>결제완료</td>
+            <td>${orderData.payState == 1 ? '결제완료' : '결제실패'}</td>
           </tr>
           <tr>
             <th>주문접수일시</th>
-            <td>2024-10-10 16:05</td>
+            <td>${orderData.regDT}</td>
           </tr>
           <tr>
             <th>결제완료일시</th>
-            <td>2024-10-10 16:05</td>
+            <td>${paymentData.createDT}</td>
           </tr>
           <tr>
             <th>배송비</th>
-            <td>무료배송</td>
+            <td class="order_fee"></td>
           </tr>
           <tr>
             <th>적립금 사용금액</th>
-            <td>2,400원</td>
+            <td class="order_usePoint" data-usePoint="${orderData.use_point}">${orderData.use_point}</td>
           </tr>
           <tr>
             <th>결제금액</th>
-            <td>88,000원</td>
+            <td class="order_totalPrice" data-totalPrice="${orderData.total_price}">${orderData.total_price}</td>
           </tr>
           <tr>
             <th>영수증</th>
@@ -113,19 +117,19 @@
         <tbody>
           <tr>
             <th>받으시는 분</th>
-            <td>김채원</td>
+            <td>${orderData.recipient}</td>
           </tr>
           <tr>
             <th>휴대폰번호</th>
-            <td>010-8991-9506</td>
+            <td>${orderData.tel}</td>
           </tr>
           <tr>
             <th>주소</th>
-            <td>03393 서울특별시 은평구 역말로 123-13 한빛월드빌 202호</td>
+            <td>[${orderData.zipcode}] ${orderData.addr} ${orderData.addrdetail}</td>
           </tr>
           <tr>
             <th>배송요청사항</th>
-            <td>부재시 문앞에 놓아주세요.</td>
+            <td>${orderData.request_memo}</td>
           </tr>
         </tbody>
       </table>
@@ -135,8 +139,8 @@
     <p>상세내역은 마이페이지에서 확인하실 수 있습니다.</p>
   </div>
   <div class="btn_div">
-    <a>계속 쇼핑하기</a>
-    <button>주문 상세보기</button>
+    <a href="/storeMain">계속 쇼핑하기</a>
+    <button href="/user/mypage_order_detail">주문/배송조회</button>
   </div>
 </div>
 

@@ -14,7 +14,6 @@ public class OrderVO {
     private String regDT;
     private int cancelState;
     private String cancelDT;
-    private int paycode;
     private int payState;
     private String recipient;
     private String zipcode;

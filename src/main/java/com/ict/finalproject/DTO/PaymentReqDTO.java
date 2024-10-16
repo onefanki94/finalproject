@@ -12,7 +12,6 @@ public class PaymentReqDTO {
     private int amount;
     private String customerName;
     private int order_idx;
-    private int idx;
     private String recipient;
     private String zipcode;
     private String addr;

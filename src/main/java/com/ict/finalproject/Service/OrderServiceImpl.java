@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService{
     private String secretKey;
 
     @Override
-    public void approvePayment(PaymentApprovalDTO approvalDTO) {
+    public int approvePayment(PaymentApprovalDTO approvalDTO) {
         // 1. DB에서 저장된 결제 요청 정보 조회 (orderId로 조회)
         PaymentVO payment = dao.getPaymentByOrderId(approvalDTO.getOrderId());
         System.out.println("************* payment : "+payment);
@@ -108,6 +108,7 @@ public class OrderServiceImpl implements OrderService{
         if (response.getStatusCode() == HttpStatus.OK) {
             // Toss API에서 받은 결제 정보
             PaymentResDTO responseData = response.getBody();
+            log.info("***************************response.getBody() : {}",response.getBody());
             log.info("%%%%%%%%%%%%%%%%%%%%%%%%responseData : {}",responseData);
             payment.setPaytype(responseData.getMethod());
             payment.setOrdername(responseData.getOrderName());
@@ -117,6 +118,39 @@ public class OrderServiceImpl implements OrderService{
         } else {
             throw new RuntimeException("결제 승인 실패: " + response.getBody());
         }
+
+        // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리 + 장바구니에 있으면 delState
+        // 1. T_order의 payState
+        dao.orderPayState(payment.getOrder_idx());
+        // 2. T_orderList의 orderState
+        dao.orderListState(payment.getOrder_idx());
+        // 3. 주문한 상품 갯수만큼 stock 빼기
+        List<OrderListVO> orderProducts = dao.getOrderListByOrderIdx(payment.getOrder_idx());
+        for (OrderListVO orderProduct : orderProducts) {
+            int order_proIdx = orderProduct.getPro_idx();
+            int order_amount = orderProduct.getAmount();
+
+            // 상품의 재고를 차감하는 메서드 호출
+            dao.decreaseProductStock(order_proIdx, order_amount);
+        }
+        //장바구니에서 결제한 경우 장바구니에서 삭제 -> 아직
+
+        return payment.getOrder_idx();
+    }
+
+    @Override
+    public OrderVO orderSuccessData(int order_idx) {
+        return dao.orderSuccessData(order_idx);
+    }
+
+    @Override
+    public List<OrderListVO> orderListSuccessData(int order_idx) {
+        return dao.orderListSuccessData(order_idx);
+    }
+
+    @Override
+    public PaymentVO paymentSuccessData(int order_idx) {
+        return dao.paymentSuccessData(order_idx);
     }
 
     @Override
@@ -126,6 +160,7 @@ public class OrderServiceImpl implements OrderService{
         payment.setSuccessYN(0);  // 실패로 처리
         dao.updatePaymentFailure(payment);
     }
+
 
 
 }

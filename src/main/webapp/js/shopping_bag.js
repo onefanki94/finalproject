@@ -246,8 +246,27 @@ $(function () {
             totalInput.val(newTotal); // 숨겨진 input 총 가격 업데이트
         } else {
             alert("수량은 1개 이상이어야 합니다.");
+            return false;
         }
-        console.log("수량:", inputAmount.val(), "상품가격:", price, "총 가격:", newTotal);
+        /*console.log("수량:", inputAmount.val(), "상품가격:", price, "총 가격:", newTotal);*/
+
+        var idx = $(this).closest(".bascket_product_li").find('#idx').val();
+        $.ajax({
+            url: '/basket_minusCount',
+            type: 'POST',
+            headers: {
+                "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+            },
+            data: {
+                idx: idx
+            },
+            success: function(response) {
+
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
     });
 
     // + (증가)
@@ -259,12 +278,35 @@ $(function () {
 
         var currentAmount = parseInt(inputAmount.val());
 
-        var newAmount = currentAmount + 1;
-        inputAmount.val(newAmount); // 수량 업데이트
-        var newTotal = price * newAmount; // 새로운 총 가격 계산
-        totalSpan.text(formatNumber(newTotal)); // span 총 가격 업데이트
-        totalInput.val(newTotal); // 숨겨진 input 총 가격 업데이트
-        console.log("수량:", inputAmount.val(), "상품가격:", price, "총 가격:", newTotal);
+        if(currentAmount <=100){
+            var newAmount = currentAmount + 1;
+            inputAmount.val(newAmount); // 수량 업데이트
+            var newTotal = price * newAmount; // 새로운 총 가격 계산
+            totalSpan.text(formatNumber(newTotal)); // span 총 가격 업데이트
+            totalInput.val(newTotal); // 숨겨진 input 총 가격 업데이트
+        }else {
+            alert("수량은 100개까지 선택 가능합니다.");
+            return false;
+        }
+        /*console.log("수량:", inputAmount.val(), "상품가격:", price, "총 가격:", newTotal);*/
+
+        var idx = $(this).closest(".bascket_product_li").find('#idx').val();
+        $.ajax({
+            url: '/basket_plusCount',
+            type: 'POST',
+            headers: {
+                "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+            },
+            data: {
+                idx: idx
+            },
+            success: function(response) {
+
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
     });
 
     // 하단에 총 가격 + 배송비 = 총 결제금액 구현

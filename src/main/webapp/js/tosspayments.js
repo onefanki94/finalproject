@@ -110,11 +110,16 @@ async function requestPayment(userid) {
     let firstProductTitle = orderList[0].title; // 첫 번째 상품의 title
     let totalItemsCount = orderList.length;     // orderList의 전체 갯수
 
-    // orderName 생성 ("상품명 외 n건" 형식)
-    let orderName = `${firstProductTitle} 외 ${totalItemsCount - 1}건`;  // 외 2건 등으로 표현
-    console.log("orderName : ",orderName);
+    console.log("First Product Title:", firstProductTitle);
+    console.log("Total Items Count:", totalItemsCount);
 
-    return false;
+    let orderName ="";
+    if(totalItemsCount==1){
+        orderName = `${firstProductTitle}`;
+    }else{
+        orderName = `${firstProductTitle} 외 ${totalItemsCount - 1}건`;
+    }
+    console.log("orderName : ",orderName);
 
 
     await payment.requestPayment({
@@ -124,7 +129,7 @@ async function requestPayment(userid) {
                 value: amount,
         },  // 결제 금액
         orderId: orderId,  // 생성된 UUID로 주문번호 설정
-        orderName: "토스 티셔츠 외 2건",  // 상품명
+        orderName: orderName,  // 상품명
         successUrl: window.location.origin + "/order/success",  // 결제 성공시 리다이렉트 URL
         failUrl: window.location.origin + "/order/fail",  // 결제 실패시 리다이렉트 URL
         customerName: customerKey,

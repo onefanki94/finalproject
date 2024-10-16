@@ -26,7 +26,17 @@ public interface OrderDAO {
 
     // 결제 성공 업데이트
     void updatePaymentSuccess(PaymentVO payment);
+    void orderPayState(int order_idx);
+    void orderListState(int order_idx);
+    List<OrderListVO> getOrderListByOrderIdx(int order_idx);
+    void decreaseProductStock(int order_proIdx, int order_amount);
+
+    // 성공시 success페이지에 뿌려줄 데이터들
+    OrderVO orderSuccessData(int order_idx);
+    List<OrderListVO> orderListSuccessData(int order_idx);
+    PaymentVO paymentSuccessData(int order_idx);
 
     // 결제 실패
     void updatePaymentFailure(PaymentVO payment);
+
 }

@@ -116,4 +116,15 @@ WHERE f.code = #{category}
         SET delState=1, delDT=now()
         WHERE idx=${param1} AND useridx=${param2}
     </update>
+
+    <update id="basketPlusAmount">
+        update T_basket
+        set amount=amount+1
+        where idx=${param1} and useridx=${param2}
+    </update>
+    <update id="basketMinusAmount">
+        update T_basket
+        set amount=amount-1
+        where idx=${param1} and useridx=${param2}
+    </update>
 </mapper>

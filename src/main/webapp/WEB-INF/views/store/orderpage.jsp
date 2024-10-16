@@ -173,7 +173,22 @@
 <script>
     // JSP에서 서버 변수를 자바스크립트 전역 변수로 설정
     var order_idx = ${order_idx};
-    var orderList = ${orderList};
+    // orderList를 직접 자바스크립트 배열 형식으로 변환
+    var orderList = [
+        <c:forEach var="orderProduct" items="${orderList}">
+            {
+                idx: '${orderProduct.idx}',
+                order_idx: '${orderProduct.order_idx}',
+                pro_idx: '${orderProduct.pro_idx}',
+                amount: '${orderProduct.amount}',
+                orderState: '${orderProduct.orderState}',
+                title: '${orderProduct.title}',
+                ani_title: '${orderProduct.ani_title}',
+                thumImg: '${orderProduct.thumImg}',
+                price: '${orderProduct.price}'
+            }<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
 </script>
 <script src="/js/tosspayments.js"></script>
 
