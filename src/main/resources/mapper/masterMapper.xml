@@ -132,9 +132,11 @@
         WHERE userid = #{userid}
     </select>
 
-    <!-- 모든 리뷰 불러오기 -->
+    <!-- 모든 댓글 불러오기 -->
     <select id="getReviewList" resultType="MasterVO">
-        select idx, comm_idx, content, useridx, regDT from t_comment
+        SELECT idx, comm_idx, content, useridx, regDT
+        FROM t_comment
+        WHERE parentidx IS NULL OR parentidx = 0
     </select>
 
     <!-- 탈퇴 회원 목록 보여주기 -->
@@ -176,8 +178,27 @@
         JOIN t_user u ON q.useridx = u.idx;
     </select>
 
+    <!-- 문의 안한  실시간 갯수 카운팅 -->
     <select id="getUnansweredQnaCount">
         select count(*) from t_qna where handleState = 0;
     </select>
 
+    <!-- 신고 목록 보여주기 -->
+    <select id="getReportingUser">
+        SELECT b.useridx, u.userid, r.report_type, b.stopDT, b.endDT, b.reason
+        FROM t_ban b
+        LEFT JOIN t_user u ON b.useridx = u.idx
+        LEFT JOIN t_report r ON b.useridx = r.useridx
+        GROUP BY b.useridx, u.userid, r.report_type, b.stopDT, b.endDT, b.reason;
+    </select>
+
+    <!-- 특정 유저의 신고 횟수를 구하는 쿼리 -->
+    <select id="getTotalUserReport" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM t_ban WHERE useridx = #{useridx}
+    </select>
+
+    <!-- 전체 신고 횟수를 구하는 쿼리 -->
+    <select id="getTotalReportCount" resultType="int">
+        SELECT COUNT(*) FROM t_ban
+    </select>
 </mapper>

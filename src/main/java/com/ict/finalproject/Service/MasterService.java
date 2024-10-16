@@ -39,4 +39,7 @@ public interface MasterService {
     String getCurrentImgFile(int idx);
     List<MasterVO> getQNAList();
     int getUnansweredQnaCount();
+    List<MasterVO>getReportingUser();
+    int getTotalReportCount();
+    int getTotalUserReport(int useridx);
 }

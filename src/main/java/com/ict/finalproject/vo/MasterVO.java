@@ -79,6 +79,7 @@ public class MasterVO {
     private String handleState;
     private String handleDT;
     private int comunity_idx;
+    private int totalUserReport;
 
     // 관리자페이지에서 사용하는 리뷰 기능 사용하는 것들
     private int grade;

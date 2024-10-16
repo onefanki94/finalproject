@@ -155,4 +155,19 @@ public class MasterServiceImpl implements MasterService {
     public int getUnansweredQnaCount() {
         return dao.getUnansweredQnaCount();
     }
+
+    @Override
+    public List<MasterVO> getReportingUser() {
+        return dao.getReportingUser();
+    }
+
+    @Override
+    public int getTotalReportCount() {
+        return dao.getTotalReportCount();
+    }
+
+    @Override
+    public int getTotalUserReport(int useridx) {
+        return dao.getTotalUserReport(useridx);
+    }
 }

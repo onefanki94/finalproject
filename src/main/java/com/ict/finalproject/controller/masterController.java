@@ -255,13 +255,28 @@ public class masterController {
 
         // Dashboard - 신고관리 - 신고목록 리스트
         @GetMapping("/reportinguserMasterList")
-        public ModelAndView reportinguserListMaster(){
-            mav = new ModelAndView();
+        public ModelAndView reportinguserListMaster() {
+            List<MasterVO> reportingUser = masterService.getReportingUser();  // 모든 신고된 유저 리스트를 가져옴
+
+            // 각 유저별로 개별 신고 횟수를 계산
+            for (MasterVO user : reportingUser) {
+                int totalUserReport = masterService.getTotalUserReport(user.getUseridx());
+                user.setTotalUserReport(totalUserReport);  // VO에 각 유저의 신고 횟수 저장
+            }
+
+            // 전체 신고 누적 횟수 계산
+            int totalReportUser = masterService.getTotalReportCount();
+
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("reportingUser", reportingUser);
+            mav.addObject("totalReportUser", totalReportUser);
             mav.setViewName("master/reportinguserMasterList");
             return mav;
         }
 
-        //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
+
+
+    //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
         @GetMapping("/boardMasterAll")
         public ModelAndView boardMasterAll(){
             // 커뮤니티 전체 글 목록 불러오기
