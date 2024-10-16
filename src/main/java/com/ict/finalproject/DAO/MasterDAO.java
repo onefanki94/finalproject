@@ -101,4 +101,7 @@ public interface MasterDAO {
 
     // 애니 데이터 베이스 추가
     void insertAnimation(MasterVO aniVO);
+
+    // 애니 삭제 하기
+    void deletePostByIdx(int idx);
 }

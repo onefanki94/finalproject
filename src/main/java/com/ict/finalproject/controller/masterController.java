@@ -279,6 +279,12 @@ public class masterController {
         return mav;
     }
 
+    @PostMapping("/aniDeleteMaster/{idx}")
+    public String aniDeleteMaster(@PathVariable("idx") int idx) {
+        masterService.deletePostByIdx(idx);
+        return "redirect:/master/aniMasterList";
+    }
+
         // Dashboard - 굿즈관리 - 굿즈목록 리스트
         @GetMapping("/storeMasterList")
         public ModelAndView storeMasterList(){

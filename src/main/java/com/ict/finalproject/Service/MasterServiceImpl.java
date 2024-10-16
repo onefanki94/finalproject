@@ -186,4 +186,9 @@ public class MasterServiceImpl implements MasterService {
     public void addAnimation(MasterVO aniVO) {
         dao.insertAnimation(aniVO);
     }
+
+    @Override
+    public void deletePostByIdx(int idx) {
+        dao.deletePostByIdx(idx);
+    }
 }

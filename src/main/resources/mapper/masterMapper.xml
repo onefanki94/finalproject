@@ -219,9 +219,15 @@
         VALUES (#{idx}, #{reply}, #{adminIdx}, #{regDT})
     </insert>
 
-
+    <!-- 애니 데이터 베이스 생성 -->
     <insert id="insertAnimation" parameterType="com.ict.finalproject.vo.MasterVO">
         INSERT INTO t_animation (post_img, title, anitype, director, agetype, outline, regDT, adminidx)
         VALUES (#{post_img_filename}, #{title}, #{anitype}, #{director}, #{agetype}, #{outline}, now(), #{adminidx})
     </insert>
+
+    <!-- 해당 idx의 값 의 데이터 삭제 -->
+    <delete id="deletePostByIdx" parameterType="int">
+        DELETE FROM t_animation WHERE idx = #{idx}
+    </delete>
+
 </mapper>
