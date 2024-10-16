@@ -98,7 +98,7 @@ function review_writeModal(index){
             </div>`;
     $("body").append(tag);
 
-    $(".review_modal_proinfo img").attr("src","/" + reviewbefore.thumImg);
+    $(".review_modal_proinfo img").attr("src","http://192.168.1.92:8000/" + reviewbefore.thumImg);
     console.log(reviewbefore.detail_img);
     $(".review_modal_protitle").html(`
             <p>${reviewbefore.title}</p>
@@ -213,7 +213,7 @@ function review_EditModal(index){
             </div>`;
     $("body").append(tag);
 
-    $(".review_modal_proinfo img").attr("src","/" + reviewCompleted.pro_thumImg);
+    $(".review_modal_proinfo img").attr("src","http://192.168.1.92:8000/" + reviewCompleted.pro_thumImg);
     $(".review_modal_protitle").html(`
             <p>${reviewCompleted.pro_title}</p>
             <p>${reviewCompleted.pro_price}원 / 수량 ${reviewCompleted.order_amount}개</p>
@@ -267,7 +267,7 @@ $(function(){
                              <div class="review_list_li_one_detail">
                                <div class="review_product">
                                  <a href="">
-                                   <img src="/${reviewbefore.thumImg}" class="review_product_img" />
+                                   <img src="http://192.168.1.92:8000/${reviewbefore.thumImg}" class="review_product_img" />
                                  </a>
                                  <div class="review_product_inform">
                                    <a href="">
@@ -301,7 +301,7 @@ $(function(){
                       <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewCompleted.orderList_idx}">
                       <div class="review_write_list">
                         <a href="">
-                          <img src="/${reviewCompleted.pro_thumImg}" class="css-1d5qj71 egc1z4c3" />
+                          <img src="http://192.168.1.92:8000/${reviewCompleted.pro_thumImg}" class="css-1d5qj71 egc1z4c3" />
                           <div class="review_write_list_inform">
                             <strong>${reviewCompleted.pro_title}</strong>
                             <div>

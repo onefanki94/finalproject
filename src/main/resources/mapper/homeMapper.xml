@@ -7,4 +7,17 @@
         from T_product
         order by regDT desc limit 5;
     </select>
+    
+    <select id="aniSearchAll" resultType="com.ict.finalproject.vo.AniListVO">
+        select *
+        from T_animation
+        where title like concat('%', #{param1}, '%')
+        or outline like concat('%', #{param1}, '%')
+    </select>
+    <select id="goodsSearchAll" resultType="com.ict.finalproject.vo.StoreVO">
+        select *
+        from T_product
+        where title like concat('%', #{param1}, '%')
+        or ani_title like concat('%', #{param1}, '%')
+    </select>
 </mapper>

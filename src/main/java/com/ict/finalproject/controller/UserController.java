@@ -948,4 +948,20 @@ public class UserController {
             return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
         }
     }
+
+    // 아이디/비번찾기 페이지
+    @GetMapping("/idSearch")
+    public ModelAndView idSearch(){
+        mav = new ModelAndView();
+        mav.setViewName("join/search_idpw");
+
+        return mav;
+    }
+    @GetMapping("/pwdSearch")
+    public ModelAndView pwdSearch(){
+        mav = new ModelAndView();
+        mav.setViewName("join/search_idpw");
+
+        return mav;
+    }
 }
