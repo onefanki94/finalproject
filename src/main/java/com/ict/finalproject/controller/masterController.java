@@ -458,6 +458,40 @@ public class masterController {
         return mav;
     }
 
+    @PostMapping("/QNAanswerOK")
+    public String QNAanswerOK(@RequestParam("reply") String reply,
+                              @RequestParam("idx") int idx,
+                              HttpServletRequest request) {
+
+        // 요청에서 Authorization 헤더를 확인
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new RuntimeException("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 사용자 정보 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        Claims claims;
+        try {
+            claims = jwtUtil.getClaims(token);  // JWT 파싱하여 Claims 객체로 변환
+        } catch (Exception e) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
+        }
+
+        // 관리자 ID 확인 (토큰에 담긴 정보)
+        String adminId = claims.getSubject();  // 토큰에서 관리자 ID 추출
+        Integer adminIdx = masterService.findAdminIdxByUserid(adminId);
+        if (adminIdx == null) {
+            throw new RuntimeException("유효하지 않은 관리자입니다.");
+        }
+
+        // QNA 답변 처리 로직
+        masterService.updateQnaAndReply(idx, reply, adminIdx);
+
+        return "redirect:/master/QNAMasterList";
+    }
+
+
 
     // Dashboard - 기타관리 - 자주묻는질문
     @GetMapping("/FAQMasterList")

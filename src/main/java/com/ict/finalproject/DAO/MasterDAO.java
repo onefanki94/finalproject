@@ -93,4 +93,9 @@ public interface MasterDAO {
 
     // 특정 아이디의 신고 횟수 카운트
     int getTotalUserReport(int useridx);
+
+    void insertReply(@Param("idx") int idx, @Param("reply") String reply, @Param("adminIdx") int adminIdx, @Param("regDT") LocalDateTime regDT);
+
+    void updateHandleState(int idx);
+    Integer findAdminIdxByUserid(String adminId);
 }

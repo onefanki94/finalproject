@@ -171,7 +171,7 @@
     </update>
 
     <!-- 문의사항 전체 목록 보여주기 -->
-    <select id="getQNAList">
+    <select id="getQNAList" resultType="MasterVO">
         SELECT q.idx, qt.type AS qnatype, q.title, q.content, u.userid, q.regDT, q.handleState
         FROM t_qna q
         JOIN t_qnatype qt ON q.qnatype = qt.code
@@ -194,11 +194,26 @@
 
     <!-- 특정 유저의 신고 횟수를 구하는 쿼리 -->
     <select id="getTotalUserReport" parameterType="int" resultType="int">
-        SELECT COUNT(*) FROM t_ban WHERE useridx = #{useridx}
+        SELECT COUNT(DISTINCT useridx) FROM t_ban WHERE useridx = #{useridx}
     </select>
 
     <!-- 전체 신고 횟수를 구하는 쿼리 -->
     <select id="getTotalReportCount" resultType="int">
         SELECT COUNT(*) FROM t_ban
+    </select>
+
+    <update id="updateHandleState">
+        UPDATE t_qna SET handleState = 1 WHERE idx = #{idx}
+    </update>
+
+    <!-- t_reply 테이블에 답변 추가 -->
+    <insert id="insertReply">
+        INSERT INTO t_reply (qna_idx, reply, adminidx, regDT)
+        VALUES (#{idx}, #{reply}, #{adminIdx}, #{regDT})
+    </insert>
+
+    <!-- 관리자 ID 가져오기 -->
+    <select id="findAdminIdxByUserid" resultType="int">
+        SELECT idx FROM t_admin WHERE adminid = #{adminId}
     </select>
 </mapper>

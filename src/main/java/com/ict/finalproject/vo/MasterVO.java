@@ -89,4 +89,6 @@ public class MasterVO {
     
     // 관리자 페이지에서 문의 기능 사용하는 것들
     private String qnatype;
+    private int qna_idx;
+    private String reply;
 }

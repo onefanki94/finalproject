@@ -170,4 +170,15 @@ public class MasterServiceImpl implements MasterService {
     public int getTotalUserReport(int useridx) {
         return dao.getTotalUserReport(useridx);
     }
+
+    @Override
+    public void updateQnaAndReply(int idx, String reply, int adminIdx) {
+        dao.updateHandleState(idx);
+        dao.insertReply(idx, reply, adminIdx, LocalDateTime.now());
+    }
+
+    @Override
+    public Integer findAdminIdxByUserid(String adminId) {
+        return dao.findAdminIdxByUserid(adminId);
+    }
 }

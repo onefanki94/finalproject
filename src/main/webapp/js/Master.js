@@ -159,40 +159,51 @@
        });
 
        $(document).ready(function() {
-           // 답변 버튼 클릭 시 모달 창 열기
-           $('.answerBtn').click(function() {
-               var qnaIdx = $(this).data('idx');
-               var qnaTitle = $(this).data('title');
-               var qnaContent = $(this).data('content');
+         // 답변 버튼 클릭 시
+         $('.answerBtn').on('click', function() {
+           const idx = $(this).data('idx');  // 문의 ID
+           const title = $(this).data('title');  // 문의 제목
+           const content = $(this).data('content');  // 문의 내용
 
-               // 모달창에 질문 정보 삽입
-               $('#qnaidx').val(qnaIdx);
-               $('#title').val(qnaTitle);
-               $('#content').val(qnaContent);
+           // 모달의 hidden input과 문의 제목, 내용 설정
+           $('#idx').val(idx);
+           $('#title').val(title);
+           $('#content').val(content);
 
-               // 모달창 띄우기
-               $('#answerModal').modal('show');
-           });
-
-           // 답변 폼 제출 시 처리 (선택사항: AJAX로 제출하려면 아래 코드 사용)
-           $('#answerForm').submit(function(event) {
-               event.preventDefault(); // 폼 제출 기본 동작 방지
-
-               var formData = $(this).serialize(); // 폼 데이터를 직렬화
-
-               $.ajax({
-                   type: 'POST',
-                   url: '/master/submitAnswer', // 실제 답변 제출 처리 URL
-                   data: formData,
-                   success: function(response) {
-                       alert('답변이 성공적으로 제출되었습니다.');
-                       $('#answerModal').modal('hide'); // 모달 창 닫기
-                       location.reload(); // 페이지 새로고침
-                   },
-                   error: function() {
-                       alert('답변 제출 중 오류가 발생했습니다.');
-                   }
-               });
-           });
+           // 모달 창 열기
+           $('#answerModal').modal('show');
+         });
        });
 
+           // 답변 폼 제출 시 처리 (선택사항: AJAX로 제출하려면 아래 코드 사용)
+             $(document).ready(function() {
+               $('#answerForm').submit(function(event) {
+                 event.preventDefault();  // 폼 자동 제출 방지
+
+                 // 로컬스토리지에서 토큰 가져오기
+                 const token = localStorage.getItem('token');
+                 if (!token) {
+                   alert("로그인 토큰이 없습니다.");
+                   return;
+                 }
+
+                 const formData = $(this).serialize();  // 폼 데이터를 직렬화
+
+                 $.ajax({
+                   type: 'POST',
+                   url: '/master/QNAanswerOK',
+                   headers: {
+                     'Authorization': `Bearer ${token}`  // Authorization 헤더에 토큰 추가
+                   },
+                   data: formData,
+                   success: function(response) {
+                     alert('답변이 성공적으로 처리되었습니다.');
+                     location.reload();  // 페이지 새로고침
+                   },
+                   error: function(xhr, status, error) {
+                     console.error('Error:', xhr.responseText);  // 에러 메시지를 콘솔에 출력
+                     alert('답변 처리 중 오류가 발생했습니다.');
+                   }
+                 });
+               });
+             });
