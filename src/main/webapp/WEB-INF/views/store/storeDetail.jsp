@@ -26,12 +26,12 @@
         <!-- 상품 정보 섹션 -->
         <div class="product-info-section">
             <h1 class="product-title">${storeDetail.title}</h1>
-            <p class="product-price">${storeDetail.price}원</p>
+            <p class="product-price"><fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</p>
     
             <div class="product-meta-info">
                 <p>발매일: ${storeDetail.relDT}</p>
                 <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
-                <p>배송비: ${storeDetail.fee}</p>
+                <p>배송비: <fmt:formatNumber value="${storeDetail.fee}" type="number" pattern="#,###"/> 원</p>
 
                <div class="like-section">
                    <div class="like-icon" data-product-id="${storeDetail.idx}">

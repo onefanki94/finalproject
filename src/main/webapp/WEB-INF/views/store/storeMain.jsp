@@ -70,15 +70,17 @@
 
             <!-- 인기굿즈 -->
         <section class="products">
-            <h2>Hot #인기굿즈</h2>
-            <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
+          <a href="/storeList">
+              <h2>Hot #인기굿즈</h2>
+          </a>
+            <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~10.29)</p>
                 <div class="pop-carousel">
                     <div class="pop-carousel-wrapper">
                         <div class="pop-carousel-images">
                             <!-- 서버에서 불러온 데이터를 사용한 이미지 리스트 -->
                             <c:forEach var="product" items="${recentProducts}">
                                 <div class="pop-product">
-                                    <a href="/storeList"> <!-- 이미지 클릭 시 storeList.jsp로 이동 -->
+                                      <a href="/storeDetail/${product.idx}">
                                         <!-- 서버에서 불러온 이미지 경로 사용 -->
                                         <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
                                         <!-- <span class="rcont"></span> -->
@@ -105,42 +107,19 @@
                 <div class="origin-carousel">
                     <div class="origin-carousel-wrapper">
                         <div class="origin-carousel-images">
-                            <div class="origin-item">
-                                <div class="origin-item-img">
-                                <a href="/storeList">
-                                    <img src="img/store/origingoods1.png" alt="Product 1">                             
-                                </a>
-                                </div>
-                                
-                                <div class="origin-tag">블루아카이브 2주년</div>
-                                                
-                            </div>
-                            <div class="origin-item">
-                                <div class="origin-item-img">
-                                <a href="/storeList">
-                                    <img src="img/store/origingoods2.png" alt="Product 2">                             
-                                </a>
-                                </div>
-                                
-                                <a href="/storeList">
-                                    <div class="origin-tag">블루아카이브 2주년</div>
-                                </a>                  
-                            </div>
-                            <div class="origin-item">
-                                <div class="origin-item-img">
-                                <a href="/storeList">
-                                    <img src="img/store/origingoods3.png" alt="Product 3">                             
-                                </a>
-                                </div>
-                  
-                                <a href="/storeList">
-                                    <div class="origin-tag">블루아카이브 2주년</div>
-                                </a>                        
-                            </div>
-                            <div>
-                    
-
-
+                            <!-- 서버에서 전달된 이미지 파일 리스트를 반복 -->
+                                    <c:forEach var="imageInfo" items="${imageInfoList}">
+                                        <div class="origin-item">
+                                            <div class="origin-item-img">
+                                                <a href="/storeList">
+                                                    <!-- 이미지 경로에서는 확장자가 포함된 이름을 사용 -->
+                                                    <img src="img/store/origin/${imageInfo.imageNameWithExt}" alt="${imageInfo.imageName}">
+                                                </a>
+                                            </div>
+                                            <!-- 확장자를 제거한 이름만 출력 -->
+                                            <div class="origin-tag">${imageInfo.imageName}</div>
+                                        </div>
+                                    </c:forEach>
                         </div>    
                     </div>
                 </div>
@@ -148,8 +127,10 @@
 
         <!-- 신규굿즈 -->
         <section class="new-products">
+            <a href="/storeList">
             <h2>Hot #신규굿즈</h2>
-            <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~09.29)</p>
+            </a>
+            <p>[25/1월 발매] hololive GAMERS 콜라보 굿즈 예약 판매(~10.29)</p>
                 <div class="new-carousel">
                     <div class="new-carousel-wrapper">
                         <div class="new-carousel-images">
