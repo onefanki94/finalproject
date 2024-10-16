@@ -224,5 +224,5 @@ public class communityController {
     @GetMapping("/allnotice")
     public String allnotice(){
         return "notice/notice2";
-    }
+    } //서비스가 없으니 당연히 리스트가 안나오지
 }

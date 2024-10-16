@@ -32,23 +32,14 @@
 
                 <div class="titarea">
                     <div class="tit">
-                        <span id="modalDate">2024.09.30</span>
-                        " 애니플러스 VOD 추가 없데이트 안내 건"
-                        <div id="modalTitle">" 애니플러스 VOD 추가 없데이트 안내 건"</div>
+                        <span id="modalDate"></span>
+                        <div id="modalTitle"></div>
                     </div>
                 </div>
 
                 <div class="detail_content">
                     <div class="sample_txt">
-                    <p id="modalContent">안녕하세요.애니플러스입니다.</p>
-                    <p><br></p>
-                    <p>VOD 작품 관련한 추가 업데이트 관련 안내 드립니다.</p>
-                    <p>- 빅 오더 OVA</p>
-                    <p>- 슈퍼 러버즈 OVA</p>
-                    <p>공개일: 2024.09.28(토) 오전 10시 이후</p>
-                    <p>※ 해당 작품은 멤버십 & 화별 과금 모두 이용 가능합니다.</p>
-                    <p>많은 시청 바랍니다.</p>
-                    <p>감사합니다.</p>
+                    <div id="modalContent"></div>
                     </div>
                 </div>
             </div>
@@ -91,25 +82,17 @@
                         <select>
                             <option>제목</option>
                         </select>
-                        <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
+                        <input type="text" id="textSearch" value="${keyword}" placeholder="검색어를 입력하세요." />
                         <button type="button" id="btnSearch">검색</button>
                     </div>
                 </div>
 
-                <h2 class="search-tags">
-                    <a class="on" style="cursor:pointer;">
-                    "#전체"
-                    </a>
-                    <a style="cursor:pointer;">
-                    "#VOD"
-                    </a>
-                    <a style="cursor:pointer;">
-                    "#멤버십"
-                    </a>
-                    <a style="cursor:pointer;">
-                    "#환불"
-                    </a>
-                </h2>
+                <!-- <h2 class="search-tags">
+                    <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
+                    <a class="${selectedTag == 'VOD' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('VOD')">#VOD</a>
+                    <a class="${selectedTag == '멤버십' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('멤버십')">#멤버십</a>
+                    <a class="${selectedTag == '환불' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('환불')">#환불</a>
+                </h2> -->
             </div>
 
             <!-- 공지사항 리스트 -->
@@ -122,14 +105,41 @@
                             <div class="col-sm-8 p-2">제목</div>
                             <div class="col-sm-1 p-2">등록일</div>
                         </div>
-                        <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                        <div class="row">
-                            <div class="col-sm-1 p-2">3</div>
-                            <div class="col-sm-2 p-2">[공지]</div>
-                            <div class="col-sm-8 p-2"><a href="#" class="noticeTitle" data-title="공지사항 1" data-content="공지사항 1의 내용입니다.">제목</a></div>
-                            <div class="col-sm-1 p-2">20024.01.01</div>
-                        </div>
+
+                        <!-- 공지사항 리스트 반복 출력 -->
+                            <c:forEach var="notice" items="${notices}">
+                                <div class="row">
+                                    <div class="col-sm-1 p-2">${notice.idx}</div>
+                                    <div class="col-sm-8 p-2">
+                                        <a href="#" class="noticeTitle" data-title="${notice.title}" data-content="${notice.content}">
+                                            ${notice.title}
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-1 p-2"></div>
+                                    <div class="col-sm-2 p-2">${notice.regDT}</div>
+                                </div>
+                            </c:forEach>
                     </div>
+
+                    <!-- 페이지네이션 -->
+                        <div class="pagination">
+                            <ul class="paging">
+                                <c:if test="${paging.hasPrevious}">
+                                    <li><a href="?page=${paging.nowPage - 1}&tag=${selectedTag}&keyword=${keyword}">&lt;</a></li>
+                                </c:if>
+
+                                <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+                                    <li class="<c:if test='${paging.nowPage == i}'>active</c:if>">
+                                        <a href="?page=${i}&tag=${selectedTag}&keyword=${keyword}">${i}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <c:if test="${paging.hasNext}">
+                                    <li><a href="?page=${paging.nowPage + 1}&tag=${selectedTag}&keyword=${keyword}">&gt;</a></li>
+                                </c:if>
+                            </ul>
+                        </div>
+
                 </div>
 
                 <div class="content" id="tap2">
@@ -239,32 +249,7 @@
                 </div>
             </div>
 
-            <div class="pagination">
-                <ul  class="paging">
 
-                    <!-- 이전페이지 -->
-                        <%-- <c:if test="${pVO.nowPage==1}"> </c:if>--%>
-                        <li  class="pre"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
-
-                    <!-- 첫번쨰 페이지가 아니면 -->
-                        <%-- <c:if test="${pVO.nowPage>1}"> </c:if>--%>
-                           <li class="pre"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage-1});"'><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
-
-                    <%--<c:forEach var="p" begin="${pVO.startPageNum}" end="${pVO.startPageNum+pVO.onePageNum-1 }"> </c:forEach>--%>
-                        <%-- c:if test="${p<=pVO.totalPage}"> </c:if>--%>
-                            <li class="page" <c:if test="${p==pVO.nowPage}">active</c:if>'><a class="page-link"  href="javascript:reloadPage(${pVO.searchKey},${p});">${p}</a></li>
-
-
-
-                    <!-- 다음페이가 없을때 -->
-                        <%-- <c:if test="${pVO.nowPage==pVO.totalPage}"></c:if>--%>
-                            <li class="next"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/right-chevron.png" style=" width:20px; height:18px; "/></a></li>
-
-                    <!-- 다음페이지가 있을때 -->
-                        <%-- <c:if test="${pVO.nowPage<pVO.totalPage}"></c:if>--%>
-                            <li  class="next"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage+1});"><img src="/img/cm/right-chevron.png" style=" width:20px;height:18px; " /></a></li>
-                </ul>
-            </div>
 
         </div>
 
@@ -273,6 +258,13 @@
 
 
 <script>
+<!-- 태그 필터링 함수 -->
+function filterByTag(tag) {
+    const keyword = document.getElementById("textSearch").value;
+    window.location.href = `/notice?page=1&tag=` + encodeURIComponent(tag) + `&keyword=` + encodeURIComponent(keyword);
+}
+
+
 //탭1_공지사항_모달
     document.querySelectorAll('.noticeTitle').forEach(item => {
         item.addEventListener('click', function (e) {
@@ -282,8 +274,8 @@
             const title = this.getAttribute('data-title');
             const content = this.getAttribute('data-content');
 
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalContent').textContent = content;
+            document.getElementById('modalTitle').innerHTML = title;
+            document.getElementById('modalContent').innerHTML = content;
             document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
         });
     });
