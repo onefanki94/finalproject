@@ -29,7 +29,14 @@
                      <td>${qna.title}</td>
                      <td>${qna.userid}</td>
                      <td>${qna.regDT}</td>
-                     <td>${qna.handleState}</td>
+                     <td><c:choose>
+                                 <c:when test="${qna.handleState == 1}">
+                                     처리 완료
+                                 </c:when>
+                                 <c:otherwise>
+                                     접수 중
+                                 </c:otherwise>
+                             </c:choose></td>
                      <td>
                          <!-- 답변 버튼 클릭 시 모달 오픈 -->
                          <button class="btn btn-outline-secondary btn-sm answerBtn"

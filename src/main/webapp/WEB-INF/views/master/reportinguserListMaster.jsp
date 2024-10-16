@@ -48,7 +48,17 @@
                         <td>${reportinguser.idx}</td>
                         <td>${reportinguser.reason}</td>
                         <td>${reportinguser.userid}</td>
-                        <td>${reportinguser.handleState}</td>
+                        <td><c:choose>
+                                    <c:when test="${reportinguser.handleState == 1}">
+                                        처리 완료
+                                    </c:when>
+                                    <c:when test="${reportinguser.handleState == 2}">
+                                        처리 불가
+                                    </c:when>
+                                    <c:otherwise>
+                                        처리 중
+                                    </c:otherwise>
+                                </c:choose></td>
                         <td>${reportinguser.handleDT}</td>
                         <td>
                             <!-- 신고내역추가 버튼 클릭 시 모달에 유저 ID 설정 -->
