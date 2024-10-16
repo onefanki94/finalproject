@@ -13,6 +13,8 @@ import java.util.List;
 
 @Service
 public interface StoreService {
+    public List<StoreVO> getRecentProducts();
+
     public List<StoreVO> getStoreList();
 
     public List<StoreVO> searchStoreList(String keyword);
@@ -20,6 +22,7 @@ public interface StoreService {
     public StoreVO getStoreDetail(int storeId);
 
     public List<ProductFilterVO> getFirstCategoryList();
+
    // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category);
     public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
     //채원

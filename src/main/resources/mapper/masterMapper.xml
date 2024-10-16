@@ -59,14 +59,14 @@
     <select id="getBoardList" resultType="MasterVO">
         SELECT c.idx, tc.type AS category, c.title, u.userid AS author, c.regDT, c.hit, c.commtype
         FROM t_community c LEFT JOIN t_communitytype tc ON c.commtype = tc.code
-        LEFT JOIN t_user u ON c.useridx = u.idx ORDER BY c.idx;
+        LEFT JOIN t_user u ON c.useridx = u.idx ORDER BY c.idx
     </select>
 
     <!-- 애니 전체 리스트 불러오기 -->
     <select id="getAniAllList" resultType="MasterVO">
         select a.idx, a.title, a.anitype, at.type as anitype_type ,a.agetype, ag.type as age_type , a.director, a.outline, a.regDT
         from t_animation a left join t_anitype at on a.anitype = at.code
-        left join t_agetype ag on a.agetype = ag.code;
+        left join t_agetype ag on a.agetype = ag.code
     </select>
 
 
@@ -80,14 +80,33 @@
     <select id="getNoticeList">
         SELECT n.idx, n.title, n.content, n.regDT, u.username AS admin_name
         FROM t_notice n
-        JOIN t_user u ON n.adminidx = u.idx;
+        JOIN t_user u ON n.adminidx = u.idx
+    </select>
+
+    <!-- 모든 리뷰 불러오기 -->
+    <select id="getReplyList">
+        SELECT r.idx, u.userid, r.content, r.grade, r.regDT
+        FROM t_review r JOIN t_user u ON r.useridx = u.idx
+    </select>
+
+    <!-- idx에 대한 리뷰 상세보기  -->
+    <select id="getReviewDetail" resultType="MasterVO" parameterType="int">
+        select r.idx, r.content, r.grade,r.useridx,r.regDT, r.imgfile1,r.imgfile2, ol.order_idx
+        from t_review r left join t_orderlist ol ON r.orderList_idx = ol.idx
+        where r.idx = #{idx}
     </select>
 
     <!-- 신고 추가 -->
     <insert id="insertReport">
-        INSERT INTO t_ban (useridx, reason, stopDT, endDT)
-        VALUES ((SELECT idx FROM t_user WHERE userid = #{userid}), #{reason}, #{stopDT}, #{endDT})
+        INSERT INTO t_ban (useridx, stopDT, endDT, reason)
+        VALUES ((SELECT u.idx FROM t_user u WHERE u.userid = #{userid}), NOW(), #{endDT}, #{reason})
     </insert>
+
+    <!-- 신고 기능 목록 보여주기 -->
+    <select id="getReportinguserList" resultType="MasterVO">
+        SELECT r.idx, r.reason, r.reportDT, u.userid, r.handleState, r.handleDT
+        FROM t_report r JOIN t_user u ON r.useridx = u.idx
+    </select>
 
     <!-- 신고 테이블에 아이디 있는지 체크 -->
     <select id="isUserBanned" resultType="boolean">
@@ -115,6 +134,41 @@
 
     <!-- 모든 리뷰 불러오기 -->
     <select id="getReviewList" resultType="MasterVO">
-        select idx, comm_idx, content, useridx, regDT from t_comment;
+        select idx, comm_idx, content, useridx, regDT from t_comment
     </select>
+
+    <!-- 탈퇴 회원 목록 보여주기 -->
+    <select id="getMemberDelList" resultType="MasterVO">
+        SELECT d.idx, t.userid, d.delReasonDetail, d.inDate
+        FROM t_userDel d JOIN t_user t ON d.useridx = t.idx
+    </select>
+
+    <!-- idx의 해당하는 ani  값 불러오기 -->
+    <select id="aniSelect" resultType="com.ict.finalproject.vo.MasterVO">
+        select idx, title, director, outline from t_animation where idx = #{idx}
+    </select>
+
+    <!-- 애니 수정 -->
+    <update id="updateAnimation" parameterType="MasterVO">
+        update t_animation set post_img = #{post_img_filename}, title = #{title}, anitype = #{anitype}, director = #{director},
+        agetype = #{agetype}, outline = #{outline}, modifyState = 1, modifyDT = now() , adminidx = 2 where idx= #{idx}
+    </update>
+
+    <!-- 애니 idx 값에 기존에 잇던 이미지 파일 불러오기 -->
+    <select id="getCurrentImgFile" resultType="String">
+        SELECT post_img
+        FROM t_animation
+        WHERE idx = #{idx}
+    </select>
+
+    <update id="updateReport">
+        UPDATE t_report
+        SET handleState = #{handleState}, handleDT = #{handleDT}
+        WHERE idx = #{idx}
+    </update>
+
+    <select id="getQNAList">
+        select idx, qnatype,title, useridx,regDT from t_qna
+    </select>
+
 </mapper>

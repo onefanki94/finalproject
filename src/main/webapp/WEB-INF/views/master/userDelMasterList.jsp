@@ -1,26 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
-<title>DashBoard - 회원 유저리스트</title>
+<title>DashBoard - 회원 탈퇴 유저리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/MasterPage.js"></script>
  <div class="user-list-container">
-        <h2>사용자(회원) 정보 목록</h2>
+        <h2>탈퇴(회원) 정보 목록</h2>
 
         <!-- 사용자 요약 정보 -->
         <div class="summary">
             <div>
-                <strong>총 유저 수</strong>
+                <strong>총 탈퇴 회원 수</strong>
                 <p id="totalUsers">${totalUser} 명</p>
-            </div>
-            <div>
-                <strong>오늘 가입한 사용자 </strong>
-                <p id="newUsers">${newUsers}  명</p>
-            </div>
-            <div>
-                <strong>7일간 가입한 사용자 수</strong>
-                <p id="newSignups">${newSignups}  명</p>
             </div>
         </div>
 
@@ -32,9 +24,8 @@
             </div>
             <div>
                 <select class="form-select w-auto" id="filterSelect">
-                    <option value="">모든 사용자</option>
-                    <option value="newUsers">오늘 가입한 사용자</option>
-                    <option value="newSignups">7일간 가입한 사용자 수</option>
+                    <option value="">선택</option>
+                    <option value="newUsers">탈퇴 회원</option>
                 </select>
             </div>
         </div>
@@ -44,25 +35,20 @@
             <thead>
                 <tr>
                     <th style="width:2%"></th>
-                    <th style="width:7%" class="sortable" onclick="sortTable(1)">유저번호</th>
+                    <th style="width:5%" class="sortable" onclick="sortTable(1)">NO</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(2)">아이디</th>
-                    <th style="width:8%" class="sortable" onclick="sortTable(3)">이름</th>
-                    <th style="width:15%" class="sortable" onclick="sortTable(4)">이메일</th>
-                    <th style="width:20%" class="sortable" onclick="sortTable(5)">가입일</th>
-                    <th style="width:9%" class="sortable" onclick="sortTable(6)">포인트내역</th>
+                    <th style="width:30%" class="sortable" onclick="sortTable(3)">탈퇴사유</th>
+                    <th style="width:10%" class="sortable" onclick="sortTable(5)">탈퇴일</th>
                 </tr>
             </thead>
             <tbody id="userTableBody">
-            <c:forEach var="member" items="${memberList}">
+            <c:forEach var="memberdel" items="${memberDelList}">
                 <tr>
                     <td><input type="checkbox" name="select" id="select"/></td>
-
-                    <td>${member.idx}</td>
-                    <td>${member.userid}</td>
-                    <td>${member.username}</td>
-                    <td>${member.email}</td>
-                    <td>${member.regDT}</td>
-                    <td>${member.point}<span> point</span></td>
+                    <td>${memberdel.idx}</td>
+                    <td>${memberdel.userid}</td>
+                    <td>${memberdel.delReasonDetail}</td>
+                    <td>${memberdel.inDate}</td>
                     </c:forEach>
                 </tr>
             </tbody>

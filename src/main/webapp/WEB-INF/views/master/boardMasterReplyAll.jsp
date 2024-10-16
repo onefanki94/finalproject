@@ -4,82 +4,87 @@
 <title>DashBoard - 게시판 리뷰 전체 목록</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
-<div class="boardReviewManagement">
-            <h2>게시판 리뷰 목록</h2>
-            <table class="table table-hover table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <th style="width:2%;">No.</th>
-                        <th style="width:8%;">카테고리</th>
-                        <th style="width:40%;">리뷰제목</th>
-                        <th style="width:8%;">작성자</th>
-                        <th style="width:8%;">작성일</th>
-                        <th style="width:15%;">관리</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>애니리뷰</td>
-                        <td>원피스 리뷰: 최고의 해적 이야기</td>
-                        <td>관리자</td>
-                        <td>2023-09-25</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>애니리뷰</td>
-                        <td>나루토 리뷰: 닌자의 성장 이야기</td>
-                        <td>홍길동</td>
-                        <td>2023-09-24</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>드라마리뷰</td>
-                        <td>겨울연가 리뷰: 사랑과 이별</td>
-                        <td>이영희</td>
-                        <td>2023-09-23</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>웹툰리뷰</td>
-                        <td>신의탑 리뷰: 액션과 전략의 조화</td>
-                        <td>박철수</td>
-                        <td>2023-09-22</td>
-                        <td>
-                            <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<script src="/js/Master.js"></script>
 
-        <!-- 페이징 영역 -->
-        <div class="boardReviewPageing">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">이전</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
-                    </li>
-                </ul>
-            </nav>
+<div class="boardReviewManagement">
+    <h2>게시판 리뷰 목록</h2>
+    <table class="table table-hover table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th style="width:2%;">NO</th>
+                <th style="width:40%;">리뷰제목</th>
+                <th style="width:8%;">별점</th>
+                <th style="width:8%;">작성자</th>
+                <th style="width:8%;">작성일</th>
+                <th style="width:15%;">관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${replyList}" var="reply">
+                <tr>
+                    <td>${reply.idx}</td>
+                    <td>${reply.content}</td>
+                    <td>
+                        <div class="grade">
+                            <c:forEach begin="1" end="5" var="i">
+                                <c:choose>
+                                    <c:when test="${i <= reply.grade}">★</c:when>
+                                    <c:otherwise>☆</c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                    </td>
+                    <td>${reply.userid}</td>
+                    <td>${reply.regDT}</td>
+                    <td>
+                        <button class="btn btn-outline-success btn-sm detailBtn" data-idx="${reply.idx}">상세보기</button>
+                        <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
+<!-- 페이징 영역 -->
+<div class="boardReviewPageing">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">이전</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">다음</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- 모달창 -->
+<!-- 모달창 -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailModalLabel">리뷰 상세보기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- 리뷰 상세 정보가 들어갈 영역 -->
+        <div id="reviewDetail">
+            <p><strong>OrderList_idx:</strong> <span id="orderListIdx"></span></p>
+            <p><strong>Image File 1:</strong> <img id="imgFile1" src="" alt="Image 1" style="width: 100px;" /></p>
+            <p><strong>Image File 2:</strong> <img id="imgFile2" src="" alt="Image 2" style="width: 100px;" /></p>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>

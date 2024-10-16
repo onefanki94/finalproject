@@ -136,13 +136,12 @@ public class UserController {
         boolean isBanned = masterService.checkUserBanStatus(userid);
         if (isBanned) {
             mav.addObject("isBanned", true);
-            mav.addObject("errorMessage", "로그인이 정지된 사용자입니다.");
             mav.setViewName("join/login");
             return mav;
         }
 
         // 로그인 성공 시: JWT 토큰 생성
-        String token = jwtUtil.createJwt(userid, 604800000L);  // 7일 동안 유효
+        String token = jwtUtil.createJwt(userid,604800000L);  // 7일 동안 유효
         mav.addObject("token", token);
         mav.setViewName("redirect:/");  // 메인 페이지로 리다이렉트
         return mav;

@@ -9,6 +9,9 @@ import com.ict.finalproject.Service.TAdminService;
 import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.StoreVO;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -126,6 +132,15 @@ public class masterController {
             return mav;
         }
 
+    @GetMapping("/userDelMasterList")
+    public ModelAndView masterUserDelList(MasterVO vo){
+        List<MasterVO> memberDelList = masterService.getMemberDelList(vo);
+        mav = new ModelAndView();
+        mav.addObject("memberDelList", memberDelList);
+        mav.setViewName("master/userDelMasterList");
+        return mav;
+    }
+
         // Dashboard - 애니관리 -  애니목록 리스트
         @GetMapping("/aniMasterList")
         public ModelAndView masterAniList(){
@@ -141,20 +156,15 @@ public class masterController {
 
 
         // Dashboard - 회원관리 - 신고계정목록 리스트
-        @GetMapping("/reporinguserMasterList")
-        public ModelAndView masterReportList(){
+        @GetMapping("/reportinguserListMaster")
+        public ModelAndView masterReportList(MasterVO vo){
+            List<MasterVO> reportinguserList = masterService.getReportinguserList(vo);
             mav = new ModelAndView();
-            mav.setViewName("master/reportinguserMasterList");
+            mav.addObject("reportinguserList", reportinguserList);
+            mav.setViewName("master/reportinguserListMaster");
             return mav;
         }
 
-    // Dashboard - 회원관리 - 신고계정목록 리스트
-    @GetMapping("/reportinguserMasterList")
-    public ModelAndView masterListReport(){
-        mav = new ModelAndView();
-        mav.setViewName("master/reportinguserMasterList");
-        return mav;
-    }
 
         // Dashboard - 애니관리 - 애니 목록 - 애니 추가
         @GetMapping("/aniAddMaster")
@@ -165,10 +175,40 @@ public class masterController {
         }
 
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
-    @GetMapping("/aniEditMaster")
-    public ModelAndView aniEditMaster(){
+    @GetMapping("/aniEditMaster/{idx}")
+    public ModelAndView aniEditMaster(@PathVariable("idx") int idx){
         mav = new ModelAndView();
+        mav.addObject("ani", masterService.aniSelect(idx));
         mav.setViewName("master/aniEditMaster");
+        return mav;
+    }
+
+    @PostMapping("/aniEditMasterOk")
+    public ModelAndView aniEditMasterOk(MasterVO vo,
+                                        @RequestParam("idx") int idx,
+                                        @RequestParam("post_img") MultipartFile post_img) throws IOException {
+        mav = new ModelAndView();
+
+        // 기존 post_img 값 가져오기 (DB에서 조회)
+        String currentImg = masterService.getCurrentImgFile(idx);  // 기존 이미지 파일명 가져오기
+
+
+
+        // 파일 처리 로직
+        if (!post_img.isEmpty()) {
+            String uploadPath = "http://192.168.1.92:8000/";
+            String fileName = post_img.getOriginalFilename();
+            File destination = new File(uploadPath + File.separator + fileName);
+            post_img.transferTo(destination);  // 파일 저장
+            vo.setPost_img_filename(fileName);
+        } else {
+            vo.setPost_img_filename(currentImg);  // 업로드된 파일이 없으면 기존 파일명 유지
+        }
+
+        // 데이터베이스 업데이트
+        masterService.updateAnimation(vo);
+
+        mav.setViewName("redirect:/master/aniMasterList");
         return mav;
     }
 
@@ -206,10 +246,10 @@ public class masterController {
         }
 
         // Dashboard - 신고관리 - 신고목록 리스트
-        @GetMapping("/reportinguserListMaster")
+        @GetMapping("/reportinguserMasterList")
         public ModelAndView reportinguserListMaster(){
             mav = new ModelAndView();
-            mav.setViewName("master/reportinguserListMaster");
+            mav.setViewName("master/reportinguserMasterList");
             return mav;
         }
 
@@ -225,7 +265,7 @@ public class masterController {
             return mav;
         }
 
-    //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
+    //  Dashboard - 게시판, 댓글, 리뷰 - 댓글 전체 목록
     @GetMapping("/boardMasterReviewAll")
     public ModelAndView boardMasterReviewAll(){
         List<MasterVO> reviewList = masterService.getReviewList();
@@ -241,11 +281,46 @@ public class masterController {
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
     @GetMapping("/boardMasterReplyAll")
-    public ModelAndView boardMasterReplyAll(){
+    public ModelAndView boardMasterReplyAll(MasterVO vo){
+            List<MasterVO> replyList = masterService.getReplyList(vo);
         mav = new ModelAndView();
+        mav.addObject("replyList", replyList);
         mav.setViewName("master/boardMasterReplyAll");
         return mav;
     }
+
+    @GetMapping("/getReviewDetail")
+    public ResponseEntity<MasterVO> getReviewDetail(@RequestParam("idx") int idx) {
+        // idx에 해당하는 리뷰 정보를 가져오기
+        MasterVO review = masterService.getReviewDetail(idx);
+        if (review != null) {
+            try {
+                // 이미지 파일이 있을 경우에만 URL 인코딩을 처리
+                if (review.getImgfile1() != null && !review.getImgfile1().isEmpty()) {
+                    String encodedImgFile1 = URLEncoder.encode(review.getImgfile1(), "UTF-8").replace("+", "%20");
+                    review.setImgfile1(encodedImgFile1);
+                } else {
+                    review.setImgfile1(null); // 이미지가 없는 경우 처리
+                }
+
+                if (review.getImgfile2() != null && !review.getImgfile2().isEmpty()) {
+                    String encodedImgFile2 = URLEncoder.encode(review.getImgfile2(), "UTF-8").replace("+", "%20");
+                    review.setImgfile2(encodedImgFile2);
+                } else {
+                    review.setImgfile2(null); // 이미지가 없는 경우 처리
+                }
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            return new ResponseEntity<>(review, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     //  Dashboard - 기타관리 - 공지사항 목록
     @GetMapping("/noticeMasterList")
@@ -349,7 +424,9 @@ public class masterController {
     // Dashboard - 기타관리 - 문의사항 리스트
     @GetMapping("/QNAMasterList")
     public ModelAndView QNAMasterList(){
+            List<MasterVO> qnaList = masterService.getQNAList();
         mav = new ModelAndView();
+        mav.addObject("qnaList", qnaList);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }
@@ -589,7 +666,7 @@ public class masterController {
     }
 
     // Dashboard - 굿즈관리 - 상품 수정
-    @GetMapping("/storeEditMaster")
+    @GetMapping("/storeEditMaster/{idx}")
     public ModelAndView storeEditMaster(){
         mav = new ModelAndView();
         mav.setViewName("master/storeEditMaster");
@@ -613,38 +690,52 @@ public class masterController {
         return mav;
     }
 
-    // 신고 테이블 신청
     @PostMapping("/reportinguserOK")
     public String reportinguserOK(@RequestParam("userid") String userid,
                                   @RequestParam("reason") String reason,
-                                  @RequestParam("endDT") String endDT, Model model) {
-        LocalDateTime stopDT = LocalDateTime.now(); // 신고 시작 시간
+                                  @RequestParam("handleDT") String handleDT,  // 처리 날짜
+                                  @RequestParam("endDT") String endDT,        // 제재 종료 날짜
+                                  @RequestParam("handleState") int handleState, // 처리 상태 코드
+                                  @RequestParam("idx") int idx,               // 신고 ID
+                                  HttpServletRequest request) {
+        System.out.println("Received idx: " + idx);  // idx 값 확인을 위해 콘솔에 출력
+        System.out.println("Received userid: " + userid);
 
-        // EndDT를 String에서 LocalDateTime으로 변환
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime parsedEndDT;
+        LocalDateTime stopDT = LocalDateTime.now();  // 신고 시작 시간
 
+        // handleDT 및 endDT를 LocalDateTime으로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime parsedHandleDT = LocalDate.parse(handleDT, formatter).atStartOfDay();
+        LocalDateTime parsedEndDT = LocalDate.parse(endDT, formatter).atStartOfDay();
+
+        // 헤더에서 Authorization 토큰 추출
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new RuntimeException("토큰이 없습니다.");
+        }
+
+        Integer useridx = masterService.findUserIdxByUserid(userid);
+        if (useridx == null) {
+            throw new RuntimeException("유효하지 않은 사용자입니다.");
+        }
+
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거한 JWT 토큰
+        Claims claims;
         try {
-            parsedEndDT = LocalDateTime.parse(endDT, formatter);
-        } catch (DateTimeParseException e) {
-            log.info("에러 발생: " + e.getMessage());
-            e.printStackTrace();
-            return "redirect:/user/login";
+            claims = jwtUtil.getClaims(token);  // JWT 파싱하여 Claims 객체로 변환
+        } catch (Exception e) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
         }
 
-        // 사용자가 이미 정지된 상태인지 확인
+        // 사용자 정지 여부 확인
         boolean isBanned = masterService.checkUserBanStatus(userid);
-
         if (isBanned) {
-            // 정지된 사용자임을 JSP로 전달
-            model.addAttribute("isBanned", true);
-            log.info("사용자 " + userid + " 는 이미 정지된 상태입니다.");
-            return "user/login";  // 로그인 페이지로 다시 렌더링 (리다이렉트하지 않음)
+            return "redirect:/master/reportinguserListMaster";  // 이미 정지된 사용자는 처리할 필요 없음
         }
 
-        // 신고 내역 추가 처리
-        masterService.addReport(userid, reason, stopDT, parsedEndDT);
+        // 서비스에 신고 내역 추가 요청
+        masterService.updateReportAndBan(idx, userid, reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
 
-        return "redirect:/master/reportinguserListMaster";
+        return "redirect:/master/reportinguserListMaster";  // 신고 목록 페이지로 리다이렉트
     }
 }

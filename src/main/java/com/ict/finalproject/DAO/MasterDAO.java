@@ -54,4 +54,31 @@ public interface MasterDAO {
     // 유저가 탈퇴 상태인지 확인
     boolean isUserDeleted(@Param("idx") int idx);
     Integer findUserIdxByUserid(String userid);
+
+    // 탈퇴 회원 조회 하기
+    List<MasterVO> getMemberDelList(MasterVO vo);
+
+    // 회원이 신고 한 유저 목록 구하기
+    List<MasterVO> getReportinguserList(MasterVO vo);
+
+    // 신고 내역을 t_report 테이블에 삽입
+    void updateReport(int idx, String userid, String reason, LocalDateTime reportDT, LocalDateTime handleDT, int handleState);
+
+    // 모든 리뷰 불러오기
+    List<MasterVO> getReplyList(MasterVO vo);
+
+    // idx에 대한 리뷰 디테일 불러오기
+    MasterVO getReviewDetail(int idx);
+
+    // 애니 정보 선택
+    MasterVO aniSelect(int idx);
+
+    // 애니 idx의 기존 이미지 값 불러오기
+    String getCurrentImgFile(int idx);
+
+    // 애니 정보 수정
+    int updateAnimation(MasterVO vo);
+
+    // 문의 내용 목록 불러오기
+    List<MasterVO> getQNAList();
 }

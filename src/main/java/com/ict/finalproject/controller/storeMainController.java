@@ -16,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.io.Console;
 import java.net.URI;
 import java.util.*;
@@ -37,8 +40,19 @@ public class storeMainController {
 
 
     @GetMapping("/storeMain")
-    public String storeMain() {
-        return "store/storeMain";
+    public ModelAndView storeMain() {
+        List<StoreVO> recentProducts = storeService.getRecentProducts();  // 3개월 내의 데이터 호출
+
+        // 데이터가 제대로 가져와졌는지 확인
+        if (recentProducts == null || recentProducts.isEmpty()) {
+            System.out.println("storeMain에서 데이터가 없습니다.");
+        } else {
+            System.out.println("storeMain에서 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
+        }
+
+        ModelAndView mav = new ModelAndView("store/storeMain");  // storeMain.jsp로 이동
+        mav.addObject("recentProducts", recentProducts);  // recentProducts 데이터를 JSP로 전달
+        return mav;
     }
 
     // 상품 목록 및 카테고리 가져오기
@@ -46,7 +60,6 @@ public class storeMainController {
     public ModelAndView getStoreListAndView() {
         List<StoreVO> storeList = storeService.getStoreList();
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();  // 카테고리 목록 추가
-        System.out.println("First Category List: " + firstCategoryList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", storeList);
         mav.addObject("firstCategoryList", firstCategoryList);  // 카테고리 필터 전달
@@ -55,32 +68,27 @@ public class storeMainController {
         return mav;
     }
 
-    @GetMapping("/storeListAndView")
-    public ModelAndView getStoreList() {
-        // 데이터베이스에서 StoreVO 리스트를 가져오기
-        List<StoreVO> storeList = storeService.getStoreList();
-
-        // 중복된 카테고리 제거 (int 타입으로 처리)
-        Set<Integer> uniqueCategories = new HashSet<>();
-        for (StoreVO store : storeList) {
-            uniqueCategories.add(store.getCategory());
+    // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
+    /*@GetMapping("/recentProducts")
+    public ModelAndView getRecentProducts() {
+        List<StoreVO> recentProducts = storeService.getRecentProducts();
+        log.info("호출 " + recentProducts );
+        // 데이터를 출력하여 확인
+        if (recentProducts == null || recentProducts.isEmpty()) {
+            System.out.println("신규 굿즈 데이터가 없습니다.");
+        } else {
+            System.out.println("신규 굿즈 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
+            for (StoreVO product : recentProducts) {
+                System.out.println("상품 ID: " + product.getIdx() + ", 상품명: " + product.getTitle());
+            }
         }
 
-        System.out.println("Store List: " + storeList);
-        System.out.println("Unique Categories: " + uniqueCategories);
-
-        // ModelAndView 객체 생성
-        ModelAndView mav = new ModelAndView();
-
-        // 모델에 데이터를 추가
-        mav.addObject("uniqueCategories", uniqueCategories);
-        mav.addObject("storeList", storeList);
-
-        // 반환할 JSP 경로 설정
-        mav.setViewName("store/storeList");  // JSP 파일 경로
-
+        ModelAndView mav = new ModelAndView("store/storeMain");
+        mav.addObject("recentProducts", recentProducts);
         return mav;
-    }
+    }*/
+
+
 
 
     // 검색된 상품 목록 가져오기
@@ -120,21 +128,22 @@ public class storeMainController {
         return mav;
     }
 
+    // 쇼핑백 페이지 이동
+    @GetMapping("/shoppingBag")
+    public ModelAndView joinPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("store/shopping_bag");
+        return mav;
+    }
+
+
     @GetMapping("/subcategories")
     @ResponseBody
-    //public List<ProductFilterVO> getSubcategories(@RequestParam("category") int category) {
-    public List<String> getSubcategories(@RequestParam(value = "category", required = false) Integer category) {
-        if (category == null) {
-            category = 0;  // 기본값 설정
-        }
-        List<String> subcategory = storeService.getSubcategoriesByFirstCategory1(category);
-
-        //List<ProductFilterVO> hi2 =  storeService.getSubcategoriesByFirstCategory(category);
-        System.out.println("subcategory : "+ subcategory);
-
-        //System.out.println("hi2 : " + hi2);
-        
-        return storeService.getSubcategoriesByFirstCategory1(category);
+    public List<String> subcategoriesByFirstCategory(@RequestParam("code") int categoryCode) {
+        System.out.println("Received category code: " + categoryCode);  // 서버 로그에 코드 값 출력
+        List<String> subcategories = storeService.getSubcategoriesByFirstCategory1(categoryCode);
+        System.out.println("subcategories: " + subcategories);  // 하위 카테고리 출력
+        return subcategories;
     }
 
     // 쇼핑백 페이지 이동

@@ -109,7 +109,7 @@ ProlikeService ProlikeService;
             response.put("message", "로그인이 필요합니다.");
             return response;
         }
-
+        System.out.println("test print line 112");
         String token = authorizationHeader.substring(7);
         Claims claims;
         try {
@@ -139,6 +139,7 @@ ProlikeService ProlikeService;
         }
 
         boolean liked = ProlikeService.isLiked(pro_idx, useridx);
+
         int likeCount = ProlikeService.getLikeCount(pro_idx);
 
         // 반환할 데이터 로그로 출력

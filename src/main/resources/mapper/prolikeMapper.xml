@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.ProlikeDAO">
 
-
     <!-- 좋아요 추가 -->
     <insert id="insertLike" parameterType="map">
         INSERT INTO t_prolike (pro_idx, useridx, regDT)
@@ -15,6 +14,12 @@
         delete from t_prolike
         where pro_idx = #{pro_idx} AND useridx = #{useridx}
     </delete>
+
+    <select id="isLiked" parameterType="map" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM likes
+        WHERE pro_idx = #{pro_idx} AND user_idx = #{useridx}
+    </select>
 
     <!-- 특정 상품에 대해 사용자가 좋아요를 눌렀는지 확인 -->
     <select id="selectLikeStatus" parameterType="map" resultType="ProLikeVO">
@@ -28,5 +33,4 @@
         FROM t_prolike
         WHERE pro_idx = #{pro_idx}
     </select>
-
 </mapper>

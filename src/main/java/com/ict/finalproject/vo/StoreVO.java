@@ -16,9 +16,10 @@ public class StoreVO {
     private String relDT;
     private String brand;
     private int fee;
+    private String regDT;
     private int stock;
     private String pro_detail;
-    private int category;
+    private String category;
     private int liked;
     private int likeCount;
     private String detailImg;

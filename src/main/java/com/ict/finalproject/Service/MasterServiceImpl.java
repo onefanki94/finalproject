@@ -103,4 +103,51 @@ public class MasterServiceImpl implements MasterService {
     public Integer findUserIdxByUserid(String userid) {
         return dao.findUserIdxByUserid(userid);
     }
+
+    @Override
+    public List<MasterVO> getMemberDelList(MasterVO vo) {
+        return dao.getMemberDelList(vo);
+    }
+
+    @Override
+    public List<MasterVO> getReportinguserList(MasterVO vo) {
+        return dao.getReportinguserList(vo);
+    }
+
+    @Override
+    public void updateReportAndBan(int idx,String userid, String reason, LocalDateTime stopDT, LocalDateTime handleDT, LocalDateTime endDT, int handleState) {
+        dao.updateReport(idx,userid, reason, LocalDateTime.now(),handleDT, handleState);
+        dao.insertReport(userid, reason, stopDT, endDT);
+    }
+
+    @Override
+    public List<MasterVO> getReplyList(MasterVO vo) {
+        return dao.getReplyList(vo);
+    }
+
+    @Override
+    public MasterVO getReviewDetail(int idx) {
+        return dao.getReviewDetail(idx);
+    }
+
+    @Override
+    public boolean updateAnimation(MasterVO vo) {
+        int result = dao.updateAnimation(vo);
+        return result > 0;
+    }
+
+    @Override
+    public MasterVO aniSelect(int idx) {
+        return dao.aniSelect(idx);
+    }
+
+    @Override
+    public String getCurrentImgFile(int idx) {
+        return dao.getCurrentImgFile(idx);
+    }
+
+    @Override
+    public List<MasterVO> getQNAList() {
+        return dao.getQNAList();
+    }
 }

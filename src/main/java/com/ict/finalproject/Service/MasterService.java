@@ -29,4 +29,13 @@ public interface MasterService {
     boolean checkUserBanStatus(String userid);
     boolean checkUserDelected(int idx);
     Integer findUserIdxByUserid(String userid);
+    List<MasterVO> getMemberDelList(MasterVO vo);
+    List<MasterVO> getReportinguserList(MasterVO vo);
+    void updateReportAndBan(int idx,String userid, String reason, LocalDateTime stopDT, LocalDateTime handleDT, LocalDateTime endDT, int handleState);
+    List<MasterVO> getReplyList(MasterVO vo);
+    MasterVO getReviewDetail(int idx);
+    boolean updateAnimation(MasterVO vo);
+    MasterVO aniSelect(int idx);
+    String getCurrentImgFile(int idx);
+    List<MasterVO> getQNAList();
 }

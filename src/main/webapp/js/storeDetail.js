@@ -52,30 +52,7 @@ function applyFilters() {
 }
 
 
-// 페이지 로드 후 각 리뷰 아이템에 별점 표시하기
-document.addEventListener('DOMContentLoaded', function() {
-    const reviews = document.querySelectorAll('.review-item');
 
-    reviews.forEach(function(review) {
-        const rating = review.getAttribute('data-rating');
-        const ratingContainer = review.querySelector('.review-rating');
-        ratingContainer.innerHTML = generateStars(rating); // 별점 생성 함수 사용
-    });
-});
-
-
-// 별점 생성 함수
-function generateStars(rating) {
-    let stars = '';
-    for (let i = 0; i < 5; i++) {
-        if (i < rating) {
-            stars += '★';  // 채워진 별
-        } else {
-            stars += '☆';  // 빈 별
-        }
-    }
-    return stars;
-}
 
 function toggleDescription() {
     var description = document.getElementById("hidden-description");

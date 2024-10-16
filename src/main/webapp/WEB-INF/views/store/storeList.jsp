@@ -6,31 +6,7 @@
 
 <link href="/css/storeList.css" rel="stylesheet" type="text/css">
 <script src="../../../js/storeList.js"></script>
-<script>
-       function loadSubcategories(category) {
-    $.ajax({
-        type: 'GET',
-        url: '/subcategories',  // 서버에서 하위 카테고리를 반환하는 엔드포인트
-        data: { category: category },  // 선택된 카테고리의 ID를 파라미터로 전송
-        success: function(subcategories) {
-            // 하위 카테고리 리스트를 업데이트할 HTML 요소를 선택
-            const filterList = document.querySelector('.filter-list');
-            filterList.innerHTML = '';  // 기존의 카테고리 항목을 초기화
 
-            // 서버에서 받아온 하위 카테고리들을 순회하며 UI에 추가
-            subcategories.forEach(function(subcategory) {
-                const li = document.createElement('li');
-                li.className = 'filter-item';
-                li.innerHTML = `<span class="filter-text">${subcategory.type}</span>`;
-                filterList.appendChild(li);
-            });
-        },
-        error: function(error) {
-            console.error('Error fetching subcategories:', error);
-        }
-    });
-}
-</script>
 <div class="storeList_container">
         <h2>#hololive GAMERS 콜라보 굿즈 예약 판매 (~12.15)</h2>
             <section class="list-banners" id="banner">
@@ -54,16 +30,24 @@
                             </div>
                             <hr>
                             <div class="filter-type-title">
-                                <h3>카테고리별</h3>
-                                <ul class="filter-list">
+                                  <ul class="filter-list">
                                     <!-- firstCategoryList를 순회하면서 카테고리 목록을 출력 -->
-                                    <c:forEach var="category" items="${firstCategoryList}">
-                                        <li class="filter-item" onclick="loadSubcategories('${category.type}')">
-                                            <span class="filter-text">${category.type}</span>
+                                  <!-- <c:forEach var="category" items="${firstCategoryList}">
+                                        <li class="filter-item" onclick="loadSubcategories(${category.code})">
+                                       <span class="filter-text">${category.type}</span>
                                         </li>
-                                    </c:forEach>
+                                    </c:forEach> -->
                                 </ul>
+
+                                  <!-- 하위 카테고리를 표시할 영역 -->
+                                    <h3>하위 카테고리</h3>
+                                    <ul id="subcategory-list" class="filter-list">
+                                        <!-- 하위 카테고리 목록이 여기에 표시됩니다 -->
+
+                                    </ul>
                             </div>
+                            
+                            </ul>
                             <hr>
                         </div>
                     </section>

@@ -12,6 +12,9 @@ import java.util.List;
 
 @Mapper
 public interface StoreDAO {
+
+    public List<StoreVO> getRecentProducts();
+
     public List<StoreVO> getStoreList();
 
     public List<StoreVO> getStoreListByFilter(@Param("filterType")String filterType);
@@ -22,8 +25,9 @@ public interface StoreDAO {
 
     public StoreVO getStoreDetail(int storeId);
 
+
     //public List<ProductFilterVO> getSubcategoriesByFirstCategory(@Param("category") int category);
-    public List<String> getSubcategoriesByFirstCategory1(@Param("category") int category);
+    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code);
 
 
     

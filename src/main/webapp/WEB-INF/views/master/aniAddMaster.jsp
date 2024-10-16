@@ -21,11 +21,12 @@
      <div>
          <label for="anitype">장르:</label>
          <select id="anitype" name="anitype" required>
-             <option value="액션">액션</option>
-             <option value="모험">모험</option>
-             <option value="로맨스">로맨스</option>
-             <option value="판타지">판타지</option>
-             <option value="공포">공포</option>
+                     <option value="1">드라마</option>
+                     <option value="2">미스터리</option>
+                     <option value="3">스포츠</option>
+                     <option value="4">코미디</option>
+                     <option value="5">판타지</option>
+                     <option value="6">SF</option>
          </select>
      </div>
 
@@ -35,17 +36,12 @@
      </div>
 
      <div>
-         <label for="country">국가:</label>
-         <input type="text" id="country" name="country" required>
-     </div>
-
-     <div>
          <label for="agetype">연령 등급:</label>
          <select id="agetype" name="agetype" required>
-             <option value="전체">전체</option>
-             <option value="12세 이상">12세 이상</option>
-             <option value="15세 이상">15세 이상</option>
-             <option value="19세 이상">19세 이상</option>
+                     <option value="1">전체</option>
+                     <option value="2">12세 이상</option>
+                     <option value="3">15세 이상</option>
+                     <option value="4">19세 이상</option>
          </select>
      </div>
 
@@ -54,11 +50,6 @@
          <textarea id="outline" name="outline" rows="4" required></textarea>
      </div>
 
-
-     <div class="contentdiv">
-         <label for="내용">내용:</label>
-         <textarea id="content" name="content" rows="10" required></textarea>
-     </div>
      <div>
          <input type="submit" value="애니 추가">
      </div>
