@@ -312,6 +312,34 @@ input:checked + .slider::before {
 .filter-option:hover {
     color: #007BFF; /* 마우스 오버 시 파란색 */
 }
+/*페이지 네이션*/
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+
+
 
 
 .store_footer {

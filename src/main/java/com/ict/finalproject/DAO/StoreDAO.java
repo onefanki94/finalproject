@@ -15,6 +15,12 @@ public interface StoreDAO {
 
     public List<StoreVO> getStoreList();
 
+    //public List<StoreVO> getPagedProducts(int pageNum, int pageSize);//페이지네이션
+
+    public int getTotalProductCount();
+
+    public List<StoreVO> getPagedProducts(@Param("pageSize") int pageSize, @Param("offset") int offset); //페이지네이션
+
     public List<StoreVO> getStoreListByFilter(@Param("filterType")String filterType);
 
     public List<StoreVO> searchStoreList(@Param("keyword") String keyword);

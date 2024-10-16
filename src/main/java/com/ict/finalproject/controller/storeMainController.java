@@ -73,19 +73,43 @@ public class storeMainController {
 
 
 
-    // 상품 목록 및 카테고리 가져오기
     @GetMapping("/storeList")
-    public ModelAndView getStoreListAndView() {
-        List<StoreVO> storeList = storeService.getStoreList();
-        List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();  // 카테고리 목록 추가
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("storeList", storeList);
-        mav.addObject("firstCategoryList", firstCategoryList);  // 카테고리 필터 전달
-        mav.setViewName("store/storeList");
+    public ModelAndView getStoreListAndView(
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize) {
+
+        // offset 계산
+        int offset = (pageNum - 1) * pageSize;
+
+        // pageSize와 offset을 매퍼로 전달하기 위한 파라미터 설정
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+
+        // 페이징 처리된 상품 목록을 가져옵니다.
+        //List<StoreVO> pagedProducts = storeMapper.getPagedProducts(params);
+
+        // 총 상품 개수를 가져옵니다.
+        int totalProducts = storeService.getTotalProductCount();
+
+        // 페이징 처리된 상품 목록을 가져옵니다.
+        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageNum, pageSize);
+
+        // 카테고리 목록을 가져옵니다.
+        List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
+
+        // 총 페이지 수 계산
+        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+        // ModelAndView 설정
+        ModelAndView mav = new ModelAndView("store/storeList");
+        mav.addObject("pagedProducts", pagedProducts); // 페이지별 상품 목록 전달
+        mav.addObject("firstCategoryList", firstCategoryList); // 카테고리 필터 전달
+        mav.addObject("currentPage", pageNum); // 현재 페이지 전달
+        mav.addObject("totalPages", totalPages); // 총 페이지 수 전달
 
         return mav;
     }
-
     // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
     /*@GetMapping("/recentProducts")
     public ModelAndView getRecentProducts() {

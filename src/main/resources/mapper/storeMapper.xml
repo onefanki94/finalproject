@@ -12,7 +12,17 @@
     </select>
 
 
+    <!-- 페이징 처리된 상품 목록 가져오기 -->
+    <select id="getPagedProducts" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT *
+        FROM t_product
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
 
+    <!-- 총 상품 개수 가져오기 -->
+    <select id="getTotalProductCount" resultType="int">
+        SELECT COUNT(*) FROM t_product
+    </select>
 
     <select id="getStoreDetail" parameterType="int" resultType="com.ict.finalproject.vo.StoreVO">
      SELECT 

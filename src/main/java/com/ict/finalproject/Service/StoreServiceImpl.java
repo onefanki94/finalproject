@@ -26,7 +26,18 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreVO> getStoreList(){
         return  dao.getStoreList();
     }
- 
+    // 기존 페이지네이션 삭제
+    public List<StoreVO> getPagedProducts(@Param("pageSize") int pageSize, @Param("offset") int offset){
+        return dao.getPagedProducts(pageSize, offset);
+    } //페이지네이션
+
+    @Override
+    public int getTotalProductCount() {
+        // 총 상품 개수를 DAO에서 가져옴
+        return dao.getTotalProductCount();
+    }
+
+
     @Override
     public List<StoreVO> searchStoreList(String keyword){
         return dao.searchStoreList(keyword);

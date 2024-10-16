@@ -99,10 +99,33 @@
                         </ul>
                     </div>
                 </section>
+
+
+           <div class="pagination">
+               <!-- 이전 페이지 링크 -->
+               <c:if test="${currentPage > 1}">
+                   <a href="/storeList?pageNum=${currentPage - 1}">&laquo; 이전</a>
+               </c:if>
+
+               <!-- 페이지 번호 링크 -->
+               <c:forEach var="i" begin="1" end="${totalPages}">
+                   <c:choose>
+                       <c:when test="${i == currentPage}">
+                           <span class="current">${i}</span> <!-- 현재 페이지 -->
+                       </c:when>
+                       <c:otherwise>
+                           <a href="/storeList?pageNum=${i}">${i}</a>
+                       </c:otherwise>
+                   </c:choose>
+               </c:forEach>
+
+               <!-- 다음 페이지 링크 -->
+               <c:if test="${currentPage < totalPages}">
+                   <a href="/storeList?pageNum=${currentPage + 1}">다음 &raquo;</a>
+               </c:if>
+           </div>
       
 
-
-</div>
 
 
 <%@include file="/WEB-INF/inc/store_footer.jspf"%>
