@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
 
@@ -74,118 +75,25 @@
                 <div class="pop-carousel">
                     <div class="pop-carousel-wrapper">
                         <div class="pop-carousel-images">
-                            <div class="product">
-                                <a href="/storeList">
-                                    <img src="img/store/f1.png" alt="Product 1">               
-                                    <span class="rcont"></span>
-                                    <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                    <span class="price">
-                                        <span class="discount">4,000원</span>
-                                    </span>
-                                    <span class="tag" style="cursor: default;">
-                                        <span>입고</span>
-                                        <span>오리지널</span>
-                                    </span>
-                                </a>
-                            </div>
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f2.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f3.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f4.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f5.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f6.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>  
-                        </div>      
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f7.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>  
-                        </div> 
-                        <div class="product">
-                            <a href="/storeList">
-                                <img src="img/store/f8.png" alt="Product 1">
-                                <span class="rcont"></span>
-                                <div class="tit">(OG) 내 마음의위험한 녀석 트레이딩 원형 캔뱃지 7종</div>
-                                <span class="price">
-                                    <span class="discount">4,000원</span>
-                                </span>
-                                <span class="tag" style="cursor: default;">
-                                    <span>입고</span>
-                                    <span>오리지널</span>
-                                </span>
-                            </a>  
-                        </div>                                                                                                                    
+                            <!-- 서버에서 불러온 데이터를 사용한 이미지 리스트 -->
+                            <c:forEach var="product" items="${recentProducts}">
+                                <div class="pop-product">
+                                    <a href="/storeList"> <!-- 이미지 클릭 시 storeList.jsp로 이동 -->
+                                        <!-- 서버에서 불러온 이미지 경로 사용 -->
+                                        <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                                        <!-- <span class="rcont"></span> -->
+                                        <div class="tit">${product.title}</div>
+                                        <span class="price">
+                                          <span class="discount"><fmt:formatNumber value="${product.price}" type="number" pattern="#,###"/> 원</span>
+                                        </span>
+                                        <span class="tag" style="cursor: default;">
+                                            <span>${product.brand}</span>
+                                            <span>${product.ani_title}</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </c:forEach>
+
                     </div>
                 </div>            
             </div>       
@@ -251,10 +159,10 @@
                                                     <div class="new-product">
                                                     <a href="/storeDetail/${product.idx}">
                                                         <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-                                                        <span class="rcont"></span>
+                                                        <!-- <span class="rcont"></span> -->
                                                         <div class="tit">${product.title}</div>
                                                         <span class="price">
-                                                            <span class="discount">${product.price} 원</span>
+                                                            <span class="discount"><fmt:formatNumber value="${product.price}" type="number" pattern="#,###"/> 원</span>
                                                         </span>
                                                         <span class="tag" style="cursor: default;" >
                                                             <span>${product.brand}</span>

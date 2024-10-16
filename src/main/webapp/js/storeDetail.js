@@ -134,13 +134,16 @@ function updateTotalPrice() {
     let quantity = parseInt(quantityInput.value);
     let totalPrice = storeDetail.price * quantity;
 
+    // 총 가격을 천 단위로 포맷
+    let formattedTotalPrice = totalPrice.toLocaleString();  // 숫자를 천 단위로 포맷
+
     // 총 가격을 화면에 업데이트하는 로직 추가 (예: 특정 요소에 총 가격 표시)
-    document.getElementById('total-price').textContent = totalPrice;
+    document.getElementById('total-price').textContent =  formattedTotalPrice + ' 원';
 
     // Sticky Footer의 가격도 업데이트
     let stickyPriceElement = document.querySelector('.sticky-footer .price');
     if (stickyPriceElement) {
-        stickyPriceElement.textContent = totalPrice + ' 원';
+        stickyPriceElement.textContent =  formattedTotalPrice + ' 원';
     } else {
         console.error('Sticky footer price element not found.');
     }
