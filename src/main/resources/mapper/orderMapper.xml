@@ -9,17 +9,25 @@
 
     <!-- T_orderlist에 데이터 삽입 -->
     <insert id="insertOrderList" parameterType="com.ict.finalproject.vo.OrderListVO">
-        INSERT INTO T_orderlist (order_idx, pro_idx) VALUES (#{order_idx}, #{pro_idx})
+        INSERT INTO T_orderlist (order_idx, pro_idx, amount) VALUES (#{order_idx}, #{pro_idx}, #{amount})
     </insert>
 
     <!-- T_order select -> orderpage에 보여주기 위함 -->
     <select id="selectOrderById"  resultType="com.ict.finalproject.vo.OrderVO">
-        SELECT * FROM T_order WHERE idx = #{order_idx}
+        SELECT o.idx, o.total_price, u.point AS user_point
+        FROM T_order o
+        JOIN T_user u
+        ON o.useridx = u.idx
+        WHERE o.idx = #{order_idx}
     </select>
 
     <!-- T_orderlist select -> orderpage에 보여주기 위함 -->
     <select id="selectOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
-        SELECT * FROM T_orderlist WHERE order_idx = #{order_idx}
+        SELECT ol.idx, ol.pro_idx, ol.amount, p.title, p.ani_title, p.thumImg, p.price
+        FROM T_orderlist ol
+        JOIN T_product p
+        ON ol.pro_idx = p.idx
+        WHERE ol.order_idx = #{order_idx}
     </select>
 
     <!-- T_Payment insert -> 결제요청정보를 저장해놓기 위함 why? 데이터 무결성! -->
@@ -27,6 +35,12 @@
         INSERT INTO T_payment (orderId, amount, customerName, order_idx)
         VALUES (#{orderId}, #{amount}, #{customerName}, #{order_idx})
     </insert>
+    <!-- T_order insert -->
+    <update id="updateOrderRequest" parameterType="com.ict.finalproject.DTO.PaymentReqDTO">
+        UPDATE T_order
+        SET recipient=#{recipient}, zipcode=#{zipcode}, addr=#{addr}, addrdetail=#{addrdetail}, request_memo=#{request_memo}, use_point=#{use_point}, tel=#{tel}
+        WHERE useridx= #{useridx} AND idx=#{order_idx}
+    </update>
 
     <!-- orderId로 결제 정보 조회 -->
     <select id="getPaymentByOrderId" parameterType="String" resultType="com.ict.finalproject.vo.PaymentVO">
@@ -42,6 +56,43 @@
         ordername = #{ordername}
         WHERE orderId = #{orderId}
     </update>
+    <update id="orderPayState">
+        UPDATE T_order
+        SET payState =1
+        WHERE idx=${param1}
+    </update>
+    <update id="orderListState">
+        UPDATE T_orderList
+        SET orderState =1
+        WHERE order_idx=${param1}
+    </update>
+    <select id="getOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
+        SELECT pro_idx, amount
+        FROM T_orderList
+        WHERE order_idx = ${param1}
+    </select>
+    <update id="decreaseProductStock">
+        UPDATE T_product
+        SET stock = stock - ${param2}
+        WHERE idx = ${param1}
+    </update>
+
+    <!-- success페이지에 뿌려줄 데이터 -->
+    <select id="orderSuccessData" resultType="com.ict.finalproject.vo.OrderVO">
+        select * from T_order where idx=${param1}
+    </select>
+    <select id="orderListSuccessData" resultType="com.ict.finalproject.vo.OrderListVO">
+        SELECT ol.idx, ol.pro_idx, ol.amount,ol.orderState, p.title, p.ani_title, p.thumImg, p.price
+        FROM T_orderlist ol
+        JOIN T_product p
+        ON ol.pro_idx = p.idx
+        WHERE ol.order_idx = ${param1}
+    </select>
+    <select id="paymentSuccessData" resultType="com.ict.finalproject.vo.PaymentVO">
+        select paytype, orderId, createDT
+        from T_payment
+        where order_idx = ${param1}
+    </select>
 
     <!-- 결제 실패 정보 업데이트 -->
     <update id="updatePaymentFailure" parameterType="com.ict.finalproject.vo.PaymentVO">
@@ -50,4 +101,5 @@
         failReason = #{failReason}
         WHERE orderId = #{orderId}
     </update>
+
 </mapper>

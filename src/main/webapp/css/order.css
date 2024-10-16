@@ -193,7 +193,6 @@ button {
 
 .order_product_info {
   margin-top: 5px;
-  gap: 24px;
   width: 100%;
   -webkit-box-align: stretch;
   align-items: stretch;
@@ -228,13 +227,10 @@ button {
 }
 
 .order_product_info_total {
-  margin-top: 10px;
-}
-
-.order_product_info_total span {
-  font-weight: bold;
-  font-size: 15px;
-  color: rgb(48, 48, 51);
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(48, 48, 51);
 }
 
 .order_addr_info {
@@ -668,4 +664,11 @@ button {
   border-radius: 6px;
   border: 0;
   background: rgb(48, 48, 51);
+}
+
+.ani_title_p{
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
 }

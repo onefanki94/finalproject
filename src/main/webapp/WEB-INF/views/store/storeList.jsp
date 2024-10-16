@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
@@ -30,15 +31,14 @@
                             </div>
                             <hr>
                             <div class="filter-type-title">
-                                <h3>카테고리별</h3>
                                   <ul class="filter-list">
                                     <!-- firstCategoryList를 순회하면서 카테고리 목록을 출력 -->
-                                  <!--  <c:forEach var="category" items="${firstCategoryList}">
+                                  <!-- <c:forEach var="category" items="${firstCategoryList}">
                                         <li class="filter-item" onclick="loadSubcategories(${category.code})">
-                                       <span class="filter-text">${category.type} (Code: ${category.code})</span>
+                                       <span class="filter-text">${category.type}</span>
                                         </li>
-                                    </c:forEach>
-                                </ul> -->
+                                    </c:forEach> -->
+                                </ul>
 
                                   <!-- 하위 카테고리를 표시할 영역 -->
                                     <h3>하위 카테고리</h3>
@@ -91,7 +91,7 @@
                                             <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
                                         </a>
                                         <p>${product.title}</p>
-                                        <p>${product.price} 원</p>
+                                        <p>    <fmt:formatNumber value="${product.price}" type="number" pattern="#,###"/> 원</p>
                                     </li>
                                 </c:forEach>
                                 </ul>

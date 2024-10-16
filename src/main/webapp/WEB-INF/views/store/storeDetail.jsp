@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
@@ -50,10 +51,10 @@
                         <input type="number" value="1" min="1" max="5000" class="quantity-input">
                         <button class="quantity-button" onclick="increaseQuantity()">+</button>
                     </span>
-                    <span class="product-price-info">${storeDetail.price}원</span>
+                    <span class="product-price-info">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</span>
                 </div>
     
-                <div class="total-price">총 결제금액: <span id="total-price">${storeDetail.price}</span>원</div>
+                <div class="total-price">총 결제금액: <span id="total-price">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</span></div>
                     
             </div>
                     <!-- 구매 버튼 -->
@@ -65,11 +66,7 @@
         
     </div>
 
-          
 
-   
-
-   
 
     <!-- 상품 정보 및 기타 탭 -->
     <div class="product-tabs">
@@ -87,7 +84,7 @@
                 <th>출시일</th>
                 <td>${storeDetail.relDT}</td>
                 <th>정가</th>
-                <td>${storeDetail.price} 원</td>
+                <td> <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</td>
             </tr>
             <tr>
                 <th>상품명</th>
@@ -262,12 +259,12 @@
         <div class="d-flex justify-content-between sticky-footer_div">
             <div class="sticky-left">
                 <div class="fw-bold">${storeDetail.title}
-                    <p>${storeDetail.price}원</p>
+                    <p><fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</p>
                 </div>
                 
             </div>
             <div class="sticky-right">
-                <div class="price">총 ${storeDetail.price} 원</div>
+                <div class="price">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</div>
                 <button class="sticky_basket_btn">장바구니</button>
                 <button class="sticky_buy_btn">바로구매</button>
             </div>

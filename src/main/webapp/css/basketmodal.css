@@ -1,0 +1,144 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--e-font), var(--k-font);
+}
+
+:root {
+  --primary: #359c95;
+  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
+  --k-font: "Pretendard";
+  --e-font: "Outfit";
+}
+
+.basketmodal_body {
+  position: fixed;
+  inset: 0px;
+  z-index: 2001;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+  font-family: var(--e-font), var(--k-font);
+}
+
+.basketmodal_background {
+  /* z-index: 20001; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+}
+
+.basketmodal_container {
+  position: fixed;
+  top: 35vh;
+  left: 50%;
+  transform: translate(-50%);
+  display: inline-flex;
+  padding: 28px 0;
+  justify-content: center;
+  align-items: center;
+  max-width: 380px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.05);
+  overflow: visible;
+}
+
+.basketmodal_layer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
+  align-self: stretch;
+}
+
+.basketmodal_content {
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.basketmodal_content img {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  vertical-align: top;
+}
+
+.basketmodal_content div {
+  white-space: pre-wrap;
+  color: rgb(48, 48, 51);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  text-align: center;
+  margin-top: 15px;
+  width: 100%;
+
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.basketmodal_btnDiv {
+  display: flex;
+  min-width: 380px;
+  padding: 0 50px;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.basketmodal_btnDiv a {
+  display: flex;
+  padding: 14px 30px;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  text-transform: capitalize;
+  cursor:pointer;
+}
+
+.basketmodal_btnDiv .basket_move {
+  gap: 10px;
+  border-radius: 6px;
+  border: 1px solid #e1e1e1;
+  background: #fff;
+  box-shadow: -2px -2px 6px 0 hsla(0, 0%, 100%, 0.6), 3px 4px 5px 0 hsla(0, 0%, 76%, 0.2);
+  color: #333;
+}
+
+.basketmodal_btnDiv .keep_shopping,
+.basketmodal_btnDiv .basketmodal_exit {
+  gap: 5px;
+  border-radius: 6px;
+  border: 1px solid #fff;
+  background: #333;
+  box-shadow: inset -2px -2px 2px 0 rgba(0, 0, 0, 0.25), inset 0 0 0 1px hsla(0, 0%, 100%, 0.2), -4.083px -4.083px 12.25px 0 #fff, 6.125px 6.125px 12.25px 0 rgba(174, 174, 192, 0.4);
+  color: #fff;
+}

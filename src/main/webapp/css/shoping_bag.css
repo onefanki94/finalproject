@@ -1,59 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
-body,
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: var(--e-font), var(--k-font);
-}
-body {
-  background: white;
-  /* animation: fadeIn 2s ease-out; */
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-ul,
-li,
-dl,
-dt,
-dd,
-p,
-span,
-ol,
-button {
-  margin: 0;
-  padding: 0;
-}
-a {
-  text-decoration: none;
-}
-li {
-  list-style: none;
-}
-
-*,
-:after,
-:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-:root {
-  --primary: #359c95;
-  --ani: cubic-bezier(0.26, 1.04, 0.54, 1);
-  --k-font: "Pretendard";
-  --e-font: "Outfit";
-}
 
 button {
   cursor: pointer;
@@ -125,53 +70,64 @@ button {
   vertical-align: middle;
   border: 0px;
   width: 4.3%;
+  position: relative;
 }
 
-.bascket_all_checkbox {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  gap: 8px;
+.basket_list_all_chkbx input[type="checkbox"],
+.basket_list_li_chkbx input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.basket_list_all_chkbx input[type="checkbox"] + label,
+.basket_list_li_chkbx input[type="checkbox"] + label {
+  vertical-align: top;
+  line-height: 24px !important;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 24px;
+  font-size: 16px;
   color: rgb(48, 48, 51);
-  text-align: center;
+  margin-left: 20px;
 }
 
-.bascket_all_checkbox_control {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-radius: 2px;
+.basket_list_all_chkbx input[type="checkbox"] + label::before,
+.basket_list_li_chkbx input[type="checkbox"] + label::before {
   width: 24px;
   height: 24px;
-  min-width: 24px;
-  min-height: 24px;
-  max-width: 24px;
-  max-height: 24px;
+  text-align: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 2px;
+  transition: background-color 0.2s;
+  background-size: 24px;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: top;
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6px;
 }
 
-.bascket_all_checkbox_control[data-state="checked"] {
-  background: rgb(48, 48, 51);
-  border: 1px solid transparent;
+.basket_list_all_chkbx input[type="checkbox"] + label::after,
+.basket_list_li_chkbx input[type="checkbox"] + label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 14.5px;
+  transform: rotate(45deg);
+  box-sizing: content-box;
+  width: 6px;
+  height: 11px;
+  margin-top: -8px;
+  border-style: solid;
+  border-color: rgb(228, 228, 228);
+  border-image: initial;
+  border-width: 0px 1px 1px 0px;
 }
 
-.bascket_all_checkbox_control[data-state="unchecked"] {
-  background: none;
-  border: 1px solid #ccc;
-}
-
-.bascket_all_checkbox_label {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
+.checkedLabel::before {
+  background-color: rgb(48, 48, 51) !important;
+  border: 0 !important;
 }
 
 .bascket_menu_proinfo {
@@ -233,6 +189,7 @@ button {
   vertical-align: middle;
   border-top: 1px solid rgb(228, 228, 228);
   width: 4.3%;
+  position: relative;
 }
 
 .basket_list_li_proinfo_div {
@@ -452,6 +409,7 @@ button {
   vertical-align: middle;
   border-top: 1px solid rgb(228, 228, 228);
   width: 15%;
+  border-left: 1px solid rgb(228, 228, 228);
 }
 
 .basket_list_li_fee_div p {
@@ -623,8 +581,7 @@ button {
   display: block;
   width: 30px;
   height: 30px;
-  background: url("/img/store/icon_cout.png") -30px 0px /
-    60px 30px no-repeat;
+  background: url("/img/store/icon_cout.png") -30px 0px / 60px 30px no-repeat;
 }
 
 .basket_btn_div {
@@ -669,4 +626,11 @@ button {
   background-color: rgb(48, 48, 51);
   border: 1px solid rgb(48, 48, 51);
   border-radius: 0px;
+}
+
+.ani_title_p{
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
 }
