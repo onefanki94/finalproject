@@ -98,4 +98,7 @@ public interface MasterDAO {
 
     void updateHandleState(int idx);
     Integer findAdminIdxByUserid(String adminId);
+
+    // 애니 데이터 베이스 추가
+    void insertAnimation(MasterVO aniVO);
 }

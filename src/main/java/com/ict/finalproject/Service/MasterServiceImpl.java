@@ -181,4 +181,9 @@ public class MasterServiceImpl implements MasterService {
     public Integer findAdminIdxByUserid(String adminId) {
         return dao.findAdminIdxByUserid(adminId);
     }
+
+    @Override
+    public void addAnimation(MasterVO aniVO) {
+        dao.insertAnimation(aniVO);
+    }
 }

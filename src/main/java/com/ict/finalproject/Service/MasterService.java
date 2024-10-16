@@ -44,4 +44,5 @@ public interface MasterService {
     int getTotalUserReport(int useridx);
     void updateQnaAndReply(int idx, String reply, int adminIdx);
     Integer findAdminIdxByUserid(String adminId);
+    void addAnimation(MasterVO aniVO);
 }

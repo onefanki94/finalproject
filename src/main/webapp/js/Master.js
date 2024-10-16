@@ -207,3 +207,38 @@
                  });
                });
              });
+
+             $(document).ready(function() {
+                     // 로컬 스토리지에서 토큰을 가져와 폼에 추가
+                     var token = localStorage.getItem('token');
+                     if (token) {
+                         $('#token').val(token);
+                     } else {
+                         alert('토큰이 없습니다. 다시 로그인해 주세요.');
+                         return;
+                     }
+
+                     // 폼 제출 시 AJAX 처리
+                     $('#aniAddForm').submit(function(event) {
+                         event.preventDefault();  // 기본 폼 제출 방식을 방지
+
+                         // 폼 데이터를 객체로 직렬화
+                         var formData = new FormData(this);
+
+                         $.ajax({
+                             url: '/master/aniAddMasterOk',  // 서버의 애니 추가 처리 URL
+                             type: 'POST',
+                             data: formData,
+                             contentType: false,
+                             processData: false,
+                             success: function(response) {
+                                 alert('애니가 성공적으로 추가되었습니다.');
+                                 window.location.href = '/master/aniMasterList';  // 성공 시 리다이렉트할 페이지
+                             },
+                             error: function(xhr, status, error) {
+                                 console.error('에러:', xhr.responseText);
+                                 alert('애니 추가 중 오류가 발생했습니다.');
+                             }
+                         });
+                     });
+                 });

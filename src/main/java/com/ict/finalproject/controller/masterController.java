@@ -43,17 +43,17 @@ import java.util.Map;
 @RequestMapping("/master")
 public class masterController {
 
-        @Autowired
-        TAdminService tAdminService;
-        @Autowired
-        MemberService service;
-        @Autowired
-        MasterService masterService;
-        @Autowired
-        JWTUtil jwtUtil;
-        @Autowired
-        TAdminDAO dao;
-        ModelAndView mav = null;
+    @Autowired
+    TAdminService tAdminService;
+    @Autowired
+    MemberService service;
+    @Autowired
+    MasterService masterService;
+    @Autowired
+    JWTUtil jwtUtil;
+    @Autowired
+    TAdminDAO dao;
+    ModelAndView mav = null;
         /*TAdminService tAdminService;
 
 
@@ -63,7 +63,7 @@ public class masterController {
         this.jwtUtil = jwtUtil;
     }*/
 
-        // t_admin에  admin아이디 있는지 체크 하는 API
+    // t_admin에  admin아이디 있는지 체크 하는 API
         /*@GetMapping("/checkAdmin")
         public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
             // Authorization 헤더 확인
@@ -96,52 +96,52 @@ public class masterController {
         return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
     }
 
-        // 관리자페이지 로그인 매핑
-        @GetMapping("/admin_login")
-        public String adminLogin(){
-            return "join/admin_login";
-        }
+    // 관리자페이지 로그인 매핑
+    @GetMapping("/admin_login")
+    public String adminLogin() {
+        return "join/admin_login";
+    }
 
 
-        // Dashboard 매핑
-        @GetMapping("/masterMain")
-        public ModelAndView masterMain() {
-            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
-            int unanswerCount = masterService.getUnansweredQnaCount();
-            System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
-            mav = new ModelAndView();
-            mav.addObject("unanswerCount", unanswerCount);
-            mav.setViewName("master/masterMain");  // 뷰 이름 설정
-            return mav;  // 중복 리다이렉트 발생 여부 확인
-        }
+    // Dashboard 매핑
+    @GetMapping("/masterMain")
+    public ModelAndView masterMain() {
+        // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+        int unanswerCount = masterService.getUnansweredQnaCount();
+        System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
+        mav = new ModelAndView();
+        mav.addObject("unanswerCount", unanswerCount);
+        mav.setViewName("master/masterMain");  // 뷰 이름 설정
+        return mav;  // 중복 리다이렉트 발생 여부 확인
+    }
 
-        //Dashboard - 회원관리 - 회원 목록 리스트
-        @GetMapping("/userMasterList")
-        public ModelAndView masterUserList(MemberVO vo){
+    //Dashboard - 회원관리 - 회원 목록 리스트
+    @GetMapping("/userMasterList")
+    public ModelAndView masterUserList(MemberVO vo) {
 
-            // 유저 List 가져오기
-            List<MemberVO> memberList = service.getMemberList(vo);
+        // 유저 List 가져오기
+        List<MemberVO> memberList = service.getMemberList(vo);
 
-            // 총 유저수 구하기
-            int totalUser = service.getTotalUser();
+        // 총 유저수 구하기
+        int totalUser = service.getTotalUser();
 
-            // 오늘 가입자 수 구하기
-            int newUsers = service.getNewUsers();
+        // 오늘 가입자 수 구하기
+        int newUsers = service.getNewUsers();
 
-            // 최근 7일간 가입자 수 구하기
-            int newSignups = service.getNewSignups();
+        // 최근 7일간 가입자 수 구하기
+        int newSignups = service.getNewSignups();
 
-            mav = new ModelAndView();
-            mav.addObject("memberList", memberList);
-            mav.addObject("totalUser", totalUser);
-            mav.addObject("newUsers", newUsers);
-            mav.addObject("newSignups", newSignups);
-            mav.setViewName("master/userMasterList");
-            return mav;
-        }
+        mav = new ModelAndView();
+        mav.addObject("memberList", memberList);
+        mav.addObject("totalUser", totalUser);
+        mav.addObject("newUsers", newUsers);
+        mav.addObject("newSignups", newSignups);
+        mav.setViewName("master/userMasterList");
+        return mav;
+    }
 
     @GetMapping("/userDelMasterList")
-    public ModelAndView masterUserDelList(MasterVO vo){
+    public ModelAndView masterUserDelList(MasterVO vo) {
         List<MasterVO> memberDelList = masterService.getMemberDelList(vo);
         mav = new ModelAndView();
         mav.addObject("memberDelList", memberDelList);
@@ -149,38 +149,92 @@ public class masterController {
         return mav;
     }
 
-        // Dashboard - 애니관리 -  애니목록 리스트
-        @GetMapping("/aniMasterList")
-        public ModelAndView masterAniList(){
-            System.out.println("관리자페이지 애니 리스트 불러오기");
+    // Dashboard - 애니관리 -  애니목록 리스트
+    @GetMapping("/aniMasterList")
+    public ModelAndView masterAniList() {
+        System.out.println("관리자페이지 애니 리스트 불러오기");
 
-            List<MasterVO> aniList = masterService.getAniAllList();
+        List<MasterVO> aniList = masterService.getAniAllList();
 
-            mav = new ModelAndView();
-            mav.addObject("aniList", aniList);
-            mav.setViewName("master/aniMasterList");
-            return mav;
+        mav = new ModelAndView();
+        mav.addObject("aniList", aniList);
+        mav.setViewName("master/aniMasterList");
+        return mav;
+    }
+
+
+    // Dashboard - 회원관리 - 신고계정목록 리스트
+    @GetMapping("/reportinguserListMaster")
+    public ModelAndView masterReportList(MasterVO vo) {
+        List<MasterVO> reportinguserList = masterService.getReportinguserList(vo);
+        mav = new ModelAndView();
+        mav.addObject("reportinguserList", reportinguserList);
+        mav.setViewName("master/reportinguserListMaster");
+        return mav;
+    }
+
+
+    // Dashboard - 애니관리 - 애니 목록 - 애니 추가
+    @GetMapping("/aniAddMaster")
+    public ModelAndView aniAddMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/aniAddMaster");
+        return mav;
+    }
+
+    @PostMapping("/aniAddMasterOk")
+    public String aniAddMasterOk(
+            @RequestParam("title") String title,
+            @RequestParam("director") String director,
+            @RequestParam("outline") String outline,
+            @RequestParam("post_img") MultipartFile post_img,
+            @RequestParam("agetype") int agetype,
+            @RequestParam("anitype") int anitype,
+            @RequestParam("token") String token) {
+
+        try {
+            // JWT 토큰에서 adminid 추출
+            String adminid = jwtUtil.getUserIdFromToken(token);
+
+            // adminid로 adminidx 변환
+            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+            if (adminidx == null) {
+                // 처리 실패 (예: 관리자 정보를 찾을 수 없는 경우)
+                return ""; // 실패 시 이동할 페이지 설정
+            }
+
+            // 파일 저장 로직
+            String post_img_filename = null;
+            if (post_img != null && !post_img.isEmpty()) {
+                // 파일이 존재하면 저장
+                post_img_filename = saveFile(post_img, "img/ani_img/");
+            }
+
+            // MasterVO 객체에 데이터 설정
+            MasterVO aniVO = new MasterVO();
+            aniVO.setTitle(title);
+            aniVO.setDirector(director);
+            aniVO.setOutline(outline);
+            aniVO.setPost_img_filename(post_img_filename); // 저장된 파일명 설정
+            aniVO.setAgetype(agetype);
+            aniVO.setAnitype(anitype);
+            aniVO.setAdminidx(adminidx); // adminidx 값 설정
+
+            // 서비스 호출하여 애니메이션 추가
+            masterService.addAnimation(aniVO);
+
+            // 성공 시 페이지 리다이렉트
+            return "redirect:/master/aniMasterList";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ""; // 실패 시 에러 페이지 이동
         }
+    }
 
 
-        // Dashboard - 회원관리 - 신고계정목록 리스트
-        @GetMapping("/reportinguserListMaster")
-        public ModelAndView masterReportList(MasterVO vo){
-            List<MasterVO> reportinguserList = masterService.getReportinguserList(vo);
-            mav = new ModelAndView();
-            mav.addObject("reportinguserList", reportinguserList);
-            mav.setViewName("master/reportinguserListMaster");
-            return mav;
-        }
 
 
-        // Dashboard - 애니관리 - 애니 목록 - 애니 추가
-        @GetMapping("/aniAddMaster")
-        public ModelAndView aniAddMaster(){
-            mav = new ModelAndView();
-            mav.setViewName("master/aniAddMaster");
-            return mav;
-        }
 
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
     @GetMapping("/aniEditMaster/{idx}")
@@ -200,15 +254,20 @@ public class masterController {
         // 기존 post_img 값 가져오기 (DB에서 조회)
         String currentImg = masterService.getCurrentImgFile(idx);  // 기존 이미지 파일명 가져오기
 
-
-
         // 파일 처리 로직
         if (!post_img.isEmpty()) {
-            String uploadPath = "http://192.168.1.92:8000/";
+            // 파일이 저장될 로컬 경로 설정
+            String uploadPath = new File("src/main/webapp/img/ani_img/").getAbsolutePath();
             String fileName = post_img.getOriginalFilename();
             File destination = new File(uploadPath + File.separator + fileName);
+
+            // 디렉터리 생성 (존재하지 않으면)
+            if (!destination.exists()) {
+                destination.mkdirs();
+            }
+
             post_img.transferTo(destination);  // 파일 저장
-            vo.setPost_img_filename(fileName);
+            vo.setPost_img_filename(fileName);  // 파일 이름 설정
         } else {
             vo.setPost_img_filename(currentImg);  // 업로드된 파일이 없으면 기존 파일명 유지
         }
@@ -690,33 +749,29 @@ public class masterController {
     }
 
     // 파일을 저장하는 메서드
-    private String saveFile(MultipartFile file, String relativePath) throws IOException {
+    private String saveFile(MultipartFile file, String folderPath) throws IOException {
         if (file.isEmpty()) {
             return null;
         }
 
-        // 절대 경로로 파일을 저장
-        String absolutePath = new File("src/main/webapp/" + relativePath).getAbsolutePath();
+        // 저장할 디렉터리 경로
+        String absolutePath = new File("src/main/webapp/" + folderPath).getAbsolutePath();
 
-        try {
-            String originalFilename = file.getOriginalFilename();
-            String filePath = absolutePath + "/" + originalFilename;
-            File dest = new File(filePath);
+        // 파일 이름 설정
+        String originalFilename = file.getOriginalFilename();
+        String filePath = absolutePath + "/" + originalFilename;
+        File dest = new File(filePath);
 
-            // 디렉터리가 없으면 생성
-            if (!dest.exists()) {
-                dest.mkdirs();
-            }
-
-            // 파일 저장
-            file.transferTo(dest);
-
-            // 서버에서 접근 가능한 경로 반환
-            return "img/store/" + originalFilename;
-        } catch (IOException e) {
-            log.error("파일 저장 중 오류 발생", e);
-            throw e;
+        // 디렉터리 생성
+        if (!dest.exists()) {
+            dest.mkdirs();
         }
+
+        // 파일 저장
+        file.transferTo(dest);
+
+        // 저장된 파일의 이름만 반환 (DB에 저장할 이름)
+        return originalFilename;
     }
 
     // Dashboard - 굿즈관리 - 상품 수정
