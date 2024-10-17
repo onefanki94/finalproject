@@ -1,8 +1,6 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.StoreDAO;
-import com.ict.finalproject.DTO.BasketDTO;
-import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
 
@@ -28,6 +26,17 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreVO> getStoreList(){
         return  dao.getStoreList();
     }
+    // 기존 페이지네이션 삭제
+    public List<StoreVO> getPagedProducts(@Param("pageSize") int pageSize, @Param("offset") int offset){
+        return dao.getPagedProducts(pageSize, offset);
+    } //페이지네이션
+
+    @Override
+    public int getTotalProductCount() {
+        // 총 상품 개수를 DAO에서 가져옴
+        return dao.getTotalProductCount();
+    }
+
 
     @Override
     public List<StoreVO> searchStoreList(String keyword){
@@ -38,7 +47,7 @@ public class StoreServiceImpl implements StoreService {
     public StoreVO getStoreDetail(int storeId){
         return dao.getStoreDetail(storeId);
     }
-
+    
     @Override
     public List<ProductFilterVO> getFirstCategoryList() {
         return dao.getFirstCategoryList();  // DAO에서 카테고리 필터 리스트 가져오기
@@ -51,45 +60,6 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code){
         return dao.getSubcategoriesByFirstCategory1(code);
-    }
-
-
-
-
-    //채원
-    @Override
-    public int checkProductInBasket(BasketVO basketvo) {
-        return dao.checkProductInBasket(basketvo);
-    }
-
-    @Override
-    public int basketInput(BasketVO basketvo) {
-        return dao.basketInput(basketvo);
-    }
-
-    @Override
-    public List<BasketDTO> basketList(int useridx) {
-        return dao.basketList(useridx);
-    }
-
-    @Override
-    public int basketDelete(int idx, int useridx) {
-        return dao.basketDelete(idx, useridx);
-    }
-
-    @Override
-    public void basketChoiceAndAllDelOk(int idx, int useridx) {
-        dao.basketChoiceAndAllDelOk(idx,useridx);
-    }
-
-    @Override
-    public int basketPlusAmount(int idx, int useridx, int newTotal) {
-        return dao.basketPlusAmount(idx, useridx,newTotal);
-    }
-
-    @Override
-    public int basketMinusAmount(int idx, int useridx, int newTotal) {
-        return dao.basketMinusAmount(idx, useridx,newTotal);
     }
 
 

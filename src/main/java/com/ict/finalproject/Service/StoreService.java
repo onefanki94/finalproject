@@ -13,9 +13,16 @@ import java.util.List;
 
 @Service
 public interface StoreService {
+
     public List<StoreVO> getRecentProducts();
 
     public List<StoreVO> getStoreList();
+
+    public List<StoreVO> getPagedProducts(@Param("pageSize") int pageSize, @Param("offset") int offset); //페이지네이션
+
+    //public List<StoreVO> getPagedProducts(int pageNum, int pageSize); //페이지네이션
+
+    public int getTotalProductCount();
 
     public List<StoreVO> searchStoreList(String keyword);
 
