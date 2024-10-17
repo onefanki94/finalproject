@@ -78,6 +78,7 @@ public class storeMainController {
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize,
             @RequestParam(required = false) Integer category,
+            @RequestParam(required = false) Integer second_category,
             @RequestParam(required = false) String filterType) {
 
         // offset 계산
@@ -96,7 +97,7 @@ public class storeMainController {
         }
         // 3. 필터링 조건이 없는 경우 전체 상품을 가져옴
         else {
-            pagedProducts = storeService.getPagedProducts(pageSize, offset, category);
+            pagedProducts = storeService.getPagedProducts(pageSize, offset, null,null);
         }
 
         // 총 상품 개수를 가져옴
@@ -127,14 +128,19 @@ public class storeMainController {
     public List<StoreVO> getPagedProducts(
             @RequestParam int pageNum,
             @RequestParam int pageSize,
-            @RequestParam(required = false) Integer category) {
-
-
+            @RequestParam(required = false) Integer category,
+            @RequestParam(required = false) Integer second_category) {
 
         int offset = (pageNum - 1) * pageSize;
-        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category);
 
-        // 상품 목록을 콘솔에 출력
+//        // category와 secondCategory가 null일 경우 기본값을 설정합니다.
+//        int categoryInt = (category != null) ? category : 0;
+//        int secondCategoryInt = (second_category != null) ? second_category : 0; // 기본값 0 설정
+
+        // 두 번째 카테고리를 포함한 상품 목록을 가져옵니다.
+        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category, second_category);
+
+        // 상품 목록을 콘솔에 출력합니다.
         System.out.println("페이지 번호: " + pageNum + ", 페이지 크기: " + pageSize);
         System.out.println("상품 목록: " + pagedProducts);
 

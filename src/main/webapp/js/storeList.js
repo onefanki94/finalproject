@@ -54,8 +54,21 @@ function getParameterByName(name) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+
+
 let pageNum = getParameterByName('pageNum') || 1; // URL에서 pageNum 추출, 기본값 1
 let pageSize = getParameterByName('pageSize') || 10; // URL에서 pageSize 추출, 기본값 10
+let category = getParameterByName('category');  // category 추가
+let secondCategory = getParameterByName('second_category'); // second_category 추가
+
+// 필터링 조건이 있을 경우 파라미터에 추가
+let url = `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`;
+if (category) {
+    url += `&category=${category}`;
+}
+if (secondCategory) {
+    url += `&second_category=${secondCategory}`;
+
 
 fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize)
     .then(response => response.json())
@@ -74,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //필터에 따른 상품 리스트 불러오기
 function loadSubcategories(categoryCode) {
-    const categoryParam = category ? `&category=${category}` : '';
+    const categoryParam = categoryCode ? `&category=${categoryCode}` : '';
     const pageNum = 1;  // 페이지 넘버, 예시로 1로 고정
     const pageSize = 10;  // 페이지 크기, 예시로 10으로 고정
     $.ajax({
@@ -106,32 +119,59 @@ function loadSubcategories(categoryCode) {
         }
     });
 }
+// 카테고리명과 코드를 매핑
+const subcategoryMap = {
+    '아우터': 10,
+    '상의': 11,
+    '하의': 12,
+    '잡화': 13,
+    '아크릴': 20,
+    '피규어': 21,
+    '캔뱃지': 22,
+    '슬로건': 23,
+    '포스터': 24,
+    '기타': 25,
+    '필기류': 30,
+    '노트&메모지': 31,
+    '파일': 32,
+    '스티커': 33,
+    '달력': 34,
+    '기타': 35,
+    '컵&텀블러': 40,
+    '쿠션': 41,
+    '담요': 42,
+    '기타': 43
+};
+// 필터를 적용하는 함수
+function applyFilter(category, second_category) {
+    const pageNum = 1;
+    const pageSize = 10;
+
+    // AJAX 요청에서 category와 secondCategory를 서버로 전달
+    $.ajax({
+        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
+        method: 'GET',
+        data: {
+            category: category,  // 선택된 카테고리 전달
+            second_category: second_category || null // second_category가 있으면 전달, 없으면 null
+        },
+        success: function(data) {
+            // 성공 시 처리
+            console.log("필터링된 상품 목록: ", data);
+            // 필터링된 상품 목록을 화면에 표시하는 로직 추가
+            updateProductList(data);
+        },
+        error: function(error) {
+            console.error("필터 적용 중 오류 발생: ", error);
+        }
+    });
+}
 
 
- function applyFilter(category) {
-     console.log("필터링할 카테고리:", category);
 
-     // 필터 적용 로직
-     $.ajax({
-         url: '/pagedProducts',
-         method: 'GET',
-         data: {
-             category: category,  // 선택된 카테고리 전달
-             pageNum: 1,          // 페이지 초기화
-             pageSize: 10         // 기본 페이지 크기
-         },
-         success: function(response) {
-             // 상품 목록 업데이트 로직
-             updateProductList(response);
-         },
-         error: function(error) {
-             console.error("필터 적용 중 오류 발생:", error);
-         }
-     });
- }
-
- function updateProductList(products) {
+ function updateProductList(products) {}
      const productList = document.querySelector('.list-carousel-images');
+     console.log(products);
      productList.innerHTML = '';
 
      products.forEach(product => {
@@ -148,7 +188,27 @@ function loadSubcategories(categoryCode) {
      });
  }
 
+function filterProductsByServer() {
+    // 선택된 카테고리 텍스트를 가져옴
+    const selectedCategory = document.querySelector('.filter-item.active .filter-text').textContent;
+    const pageNum = 1;  // 기본 페이지 넘버
+    const pageSize = 10;  // 페이지 크기
 
+    // AJAX 요청으로 필터링된 상품 목록 가져오기
+    $.ajax({
+        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
+        method: 'GET',
+        data: {
+        category: selectedCategory || null,
+                    second_category: second_category.type || null // 필요에 따라 하위 카테고리도 설정
+        },
+         success: function(data) {
+                    console.log('필터링된 상품 목록: ', data);
+                    updateProductList(data);  // 상품 목록 업데이트
+                },
+        error: function(error) {
+            console.error('Error filtering products:', error);
+        }
+    });
+}
 
-
-  
