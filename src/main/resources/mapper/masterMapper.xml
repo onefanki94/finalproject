@@ -286,4 +286,10 @@
         FROM t_qna q LEFT JOIN
         t_reply r ON q.idx = r.qna_idx  WHERE q.idx = #{idx}
     </select>
+
+    <select id="getAdminByAdminId" resultType="com.ict.finalproject.vo.MasterVO">
+        SELECT *
+        FROM t_admin
+        WHERE adminid = #{adminid}
+    </select>
 </mapper>

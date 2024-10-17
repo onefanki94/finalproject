@@ -54,4 +54,5 @@ public interface MasterService {
     boolean updateNotice(MasterVO noticeEdit);
     MasterVO noticeSelect (int idx);
     MasterVO getQnaById(int idx);
+    boolean validateAdmin(String adminid, String adminpwd);
 }

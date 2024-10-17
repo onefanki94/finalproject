@@ -122,4 +122,5 @@ public interface MasterDAO {
 
     // QnA와 답변 데이터를 가져오는 메서드
     MasterVO getQnaReplyById(int idx);
+    MasterVO getAdminByAdminId(@Param("adminid") String adminid);
 }

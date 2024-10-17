@@ -2,18 +2,23 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MasterDAO;
 import com.ict.finalproject.vo.MasterVO;
-import com.ict.finalproject.vo.StoreVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class MasterServiceImpl implements MasterService {
     @Autowired
     MasterDAO dao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     // 관리자페이지 공지사항 추가
@@ -231,5 +236,28 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public MasterVO getQnaById(int idx) {
         return dao.getQnaReplyById(idx);
+    }
+
+    @Override
+    public boolean validateAdmin(String adminid, String adminpwd) {
+        MasterVO admin = dao.getAdminByAdminId(adminid);
+
+        if (admin != null) {
+            log.info("Database password (hashed): " + admin.getAdminpwd()); // 해시된 비밀번호 로그
+            log.info("User input password (plain): " + adminpwd); // 사용자가 입력한 비밀번호 로그
+
+            try {
+                // 비밀번호 비교
+                boolean matches = passwordEncoder.matches(adminpwd, admin.getAdminpwd());
+                log.info("Password match result: " + matches);
+                return matches; // 비밀번호가 일치하는지 반환
+            } catch (Exception e) {
+                log.error("Error occurred during password comparison", e);
+                throw new RuntimeException("Password comparison failed");
+            }
+        } else {
+            log.info("Admin not found with id: " + adminid);
+            return false;
+        }
     }
 }

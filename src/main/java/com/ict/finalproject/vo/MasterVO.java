@@ -25,6 +25,7 @@ public class MasterVO {
     private String delDT;
     private String inDate;
     private String delReasonDetail;
+    private String adminpwd;
 
     // 상품 테이블에서 사용 하는 것들
     private int price;

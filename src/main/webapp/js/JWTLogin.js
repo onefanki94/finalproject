@@ -1,4 +1,6 @@
-async function login(username, password) {
+console.log("JWTLogin.js 파일 로드됨");
+console.log("로그인 페이지에서 자바스크립트 로드됨");
+async function userlogin(username, password) {
     try {
         const response = await fetch('/loginOk', {
             method: 'POST',
@@ -67,10 +69,74 @@ async function makeAuthenticatedRequest(url, options = {}) {
     }
 }
 
+/* admin 로그인 */
+async function adminLogin(adminid, adminpwd) {
+    console.log("관리자 로그인 함수 실행됨"); // 함수 시작 시 로그
 
+    try {
+        const response = await fetch('/master/masterLoginOK', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ adminid: adminid, adminpwd: adminpwd })
+        });
 
+        if (!response.ok) {
+            console.error("서버 응답 오류:", response.status);
+            alert("서버 오류 발생: " + response.status);
+            return; // 오류 발생 시 함수 종료
+        }
 
+        const data = await response.json();  // 응답을 JSON으로 변환
 
+        if (data.token) {
+            const token = data.token;
+            localStorage.setItem("token", token);
+            console.log("로그인 성공. JWT 토큰이 로컬 스토리지에 저장되었습니다.");
 
+            // 로그인 성공 후 페이지 이동 (토큰을 URL에 포함하지 않음)
+            window.location.href = "/master/masterMain";  // 메인 페이지로 이동
 
+            // URL에서 토큰을 제거하고 간단한 URL만 남김
+            window.history.pushState({}, document.title, "/master/masterMain");
+        } else {
+            alert("로그인 실패. 다시 시도해 주세요.");
+        }
+    } catch (error) {
+        console.error("로그인 중 오류 발생:", error);
+        alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const adminLink = document.getElementById('adminLink');
+    const token = localStorage.getItem("token");
 
+    if (adminLink) {
+        if (token) {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+
+            if (payload.adminid) {
+                // 관리자 계정일 경우 링크를 대시보드로 설정
+                adminLink.href = "/master/masterMain";
+            } else {
+                // 관리자가 아니면 관리자 페이지로 접근을 막음
+                adminLink.href = "#"; // 링크를 비활성화
+                alert("관리자만 접근할 수 있습니다.");
+            }
+        } else {
+            // 토큰이 없으면 로그인 페이지로 설정
+            adminLink.href = "/master/masterLogin";
+        }
+
+        // 클릭 시 이벤트 핸들러 추가
+        adminLink.addEventListener('click', function(event) {
+            // 링크가 비활성화된 경우
+            if (adminLink.href === "#") {
+                event.preventDefault(); // 비활성화된 링크 클릭 시 동작 방지
+                alert("관리자만 접근할 수 있습니다."); // 경고 메시지 표시
+            }
+        });
+    }
+});

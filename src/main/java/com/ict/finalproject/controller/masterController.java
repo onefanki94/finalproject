@@ -12,6 +12,7 @@ import com.ict.finalproject.vo.StoreVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -36,6 +37,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,42 +67,45 @@ public class masterController {
     }*/
 
     // t_admin에  admin아이디 있는지 체크 하는 API
-        /*@GetMapping("/checkAdmin")
-        public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
-            // Authorization 헤더 확인
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                System.out.println("Authorization 헤더가 없거나 형식이 잘못되었습니다.");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-            }
+    @GetMapping("/checkAdmin")
+    public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
+        // Authorization 헤더 확인
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Authorization 헤더가 없거나 형식이 잘못되었습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
 
-            String token = authHeader.substring(7);  // 'Bearer ' 제거
+        String token = authHeader.substring(7);  // 'Bearer ' 제거
 
-            // JWT 토큰 유효성 검사
-            if (!jwtUtil.validateToken(token)) {
-                System.out.println("JWT 토큰이 유효하지 않습니다.");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-            }
+        // JWT 토큰 유효성 검사
+        if (!jwtUtil.validateToken(token)) {
+            System.out.println("JWT 토큰이 유효하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
 
+        try {
             // 토큰에서 사용자 ID 추출
-            String userId = jwtUtil.getUserIdFromToken(token);
-            System.out.println("JWT 토큰에서 추출한 사용자 ID: " + userId);  // 추출된 ID 출력
+            String userid = jwtUtil.getUserIdFromToken(token);
+            System.out.println("JWT 토큰에서 추출한 사용자 ID: " + userid);
 
-            // t_admin 테이블의 "admin" 아이디만 접근 허용
-            boolean isAdmin = tAdminService.existsByAdminId(userId);
-            System.out.println("t_admin 테이블에 " + userId + " 존재 여부: " + isAdmin);
+            // t_admin 테이블에서 해당 adminid가 존재하는지 확인
+            boolean isAdmin = tAdminService.existsByAdminId(userid);
+            System.out.println("t_admin 테이블에 " + userid + " 존재 여부: " + isAdmin);
 
-            return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
-        }*/
+            // 관리자 여부를 반환
+            return ResponseEntity.ok(isAdmin);
+
+        } catch (Exception e) {
+            // 오류 발생 시 로그 출력 및 UNAUTHORIZED 응답
+            System.out.println("JWT 처리 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
+    }
+
 
     @ModelAttribute("unansweredCount")
     public int unansweredQnaCount() {
         return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
-    }
-
-    // 관리자페이지 로그인 매핑
-    @GetMapping("/admin_login")
-    public String adminLogin() {
-        return "join/admin_login";
     }
 
 
@@ -564,7 +569,7 @@ public class masterController {
 
     //  Dashboard - 매출관리 - 일/월별 매출관리
     @GetMapping("/orderSalesMaster")
-    public ModelAndView orderSalesMaster(){
+    public ModelAndView orderSalesMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/orderSalesMaster");
         return mav;
@@ -572,15 +577,15 @@ public class masterController {
 
     // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
     @GetMapping("/orderSalesDetailMaster")
-    public ModelAndView orderSalesDetailMaster(){
-            mav = new ModelAndView();
-            mav.setViewName("master/orderSalesDetailMaster");
+    public ModelAndView orderSalesDetailMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/orderSalesDetailMaster");
         return mav;
     }
 
     // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
     @GetMapping("/orderSalesDetail1Master")
-    public ModelAndView orderSalesDetail1Master(){
+    public ModelAndView orderSalesDetail1Master() {
         mav = new ModelAndView();
         mav.setViewName("master/orderSalesDetail1Master");
         return mav;
@@ -588,14 +593,14 @@ public class masterController {
 
     // Dashboard - 기타관리 - 문의사항 리스트
     @GetMapping("/QNAMasterList")
-    public ModelAndView QNAMasterList(){
-            List<MasterVO> qnaList = masterService.getQNAList();
+    public ModelAndView QNAMasterList() {
+        List<MasterVO> qnaList = masterService.getQNAList();
 
-            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
-            int unanswerCount = masterService.getUnansweredQnaCount();
+        // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+        int unanswerCount = masterService.getUnansweredQnaCount();
         mav = new ModelAndView();
         mav.addObject("qnaList", qnaList);
-        mav.addObject("unanswerCount",unanswerCount);
+        mav.addObject("unanswerCount", unanswerCount);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }
@@ -651,11 +656,10 @@ public class masterController {
     }
 
 
-
     // Dashboard - 기타관리 - 자주묻는질문
     @GetMapping("/FAQMasterList")
-    public ModelAndView FAQMasterList(){
-            // 자주묻는 질문 목록 불러오기
+    public ModelAndView FAQMasterList() {
+        // 자주묻는 질문 목록 불러오기
         System.out.println("자주묻는질문 목록 불러오기");
         List<MasterVO> faqList = masterService.getFAQList();
         mav = new ModelAndView();
@@ -666,7 +670,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 자주묻는질문 - 작성
     @GetMapping("/FAQAddMaster")
-    public ModelAndView FAQAddMaster(){
+    public ModelAndView FAQAddMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/FAQAddMaster");
         return mav;
@@ -677,50 +681,50 @@ public class masterController {
             @RequestParam("code") String code,
             @RequestParam("question") String question,
             @RequestParam("answer") String answer,
-            @RequestParam("token") String token){
+            @RequestParam("token") String token) {
 
-            String bodyTag ="";
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+        String bodyTag = "";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
 
-            try{
-                // 토큰으로 adminid 추출
-                String adminid = jwtUtil.getUserIdFromToken(token);
+        try {
+            // 토큰으로 adminid 추출
+            String adminid = jwtUtil.getUserIdFromToken(token);
 
-                // adminid를 adminidx로 변환
-                Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+            // adminid를 adminidx로 변환
+            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
 
-                if(adminidx == null){
-                    bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-                }
-
-                // 자주묻는 질문 등록 로직 (데이터베이스 저장)
-                MasterVO faq = new MasterVO();
-                faq.setFaqtype(code);
-                faq.setQuestion(question);
-                faq.setAnswer(answer);
-                faq.setAdminidx(adminidx);
-
-                MasterVO resultFaq = masterService.createFAQ(faq);
-
-                if(resultFaq == null){
-                    bodyTag += "<script>alert('FAQ 등록 실패. 다시 시도해 주세요.');history.back();</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
-                }else{
-                    bodyTag += "<script>alert('FAQ가 성공적으로 등록되었습니다.');location.href='/master/FAQMasterList';</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
-                }
-            }catch (Exception e){
-                log.error("FAQ 등록 중 오류 발생", e);
-                bodyTag += "<script>alert('FAQ 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            if (adminidx == null) {
+                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
             }
+
+            // 자주묻는 질문 등록 로직 (데이터베이스 저장)
+            MasterVO faq = new MasterVO();
+            faq.setFaqtype(code);
+            faq.setQuestion(question);
+            faq.setAnswer(answer);
+            faq.setAdminidx(adminidx);
+
+            MasterVO resultFaq = masterService.createFAQ(faq);
+
+            if (resultFaq == null) {
+                bodyTag += "<script>alert('FAQ 등록 실패. 다시 시도해 주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                bodyTag += "<script>alert('FAQ가 성공적으로 등록되었습니다.');location.href='/master/FAQMasterList';</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("FAQ 등록 중 오류 발생", e);
+            bodyTag += "<script>alert('FAQ 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // Dashboard - 기타관리 - 자주묻는질문 - 수정
     @GetMapping("/FAQEditMaster")
-    public ModelAndView FAQEditMaster(){
+    public ModelAndView FAQEditMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/FAQEditMaster");
         return mav;
@@ -728,7 +732,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 자주묻는질문 - 삭제
     @GetMapping("/FAQDelMaster")
-    public ModelAndView FAQDelMaster(){
+    public ModelAndView FAQDelMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/FAQDelMaster");
         return mav;
@@ -736,7 +740,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 이벤트
     @GetMapping("/EventMasterList")
-    public ModelAndView EventMasterList(){
+    public ModelAndView EventMasterList() {
         mav = new ModelAndView();
         mav.setViewName("master/EventMasterList");
         return mav;
@@ -744,7 +748,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 이벤트 - 작성
     @GetMapping("/EventAddMaster")
-    public ModelAndView EventAddMaster(){
+    public ModelAndView EventAddMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/EventAddMaster");
         return mav;
@@ -752,7 +756,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 이벤트 - 수정
     @GetMapping("/EventEditMaster")
-    public ModelAndView EventEditMaster(){
+    public ModelAndView EventEditMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/EventEditMaster");
         return mav;
@@ -760,7 +764,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 이벤트 - 삭제
     @GetMapping("/EventDelMaster")
-    public ModelAndView EventDelMaster(){
+    public ModelAndView EventDelMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/EventDelMaster");
         return mav;
@@ -768,7 +772,7 @@ public class masterController {
 
     // Dashboard - 굿즈관리 - 상품 추가
     @GetMapping("/storeAddMaster")
-    public ModelAndView storeAddMaster(){
+    public ModelAndView storeAddMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/storeAddMaster");
         return mav;
@@ -998,11 +1002,9 @@ public class masterController {
     }
 
 
-
-
     // Dashboard - 굿즈관리 - 상품 수정
     @GetMapping("/orderEditMaster")
-    public ModelAndView orderEditMaster(){
+    public ModelAndView orderEditMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/orderEditMaster");
         return mav;
@@ -1010,12 +1012,40 @@ public class masterController {
 
     //관리자 로그인 페이지 view
     @GetMapping("/masterLogin")
-    public ModelAndView masterLogin(){
+    public ModelAndView masterLogin() {
         mav = new ModelAndView();
         mav.setViewName("join/admin_login");
-
         return mav;
     }
+
+    // 관리자 로그인
+    @PostMapping("/masterLoginOK")
+    public ResponseEntity<Map<String, String>> masterLoginOK(@RequestBody Map<String, String> request) {
+        String adminid = request.get("adminid");
+        String adminpwd = request.get("adminpwd");
+
+        try {
+            // 관리자 아이디와 비밀번호 확인
+            if (masterService.validateAdmin(adminid, adminpwd)) {
+                String token = jwtUtil.generateAdminToken(adminid);
+                Map<String, String> response = new HashMap<>();
+                response.put("token", token);
+                return ResponseEntity.ok(response);  // JSON 형식으로 반환
+            } else {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("errorMessage", "로그인 실패");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("errorMessage", "서버 에러");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+
+
 
     @PostMapping("/reportinguserOK")
     public String reportinguserOK(@RequestParam("userid") String userid,
