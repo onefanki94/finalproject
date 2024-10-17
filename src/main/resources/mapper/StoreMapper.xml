@@ -21,7 +21,7 @@
                     AND category = #{category}
                 </if>
                 <if test="second_category != null and second_category != ''">
-                    AND type = #{second_category}
+                    AND second_category = #{second_category}
                 </if>
             </where>
             LIMIT #{pageSize} OFFSET #{offset}
