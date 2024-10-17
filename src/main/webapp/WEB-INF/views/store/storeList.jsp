@@ -41,11 +41,28 @@
                                 </ul>
 
                                   <!-- 하위 카테고리를 표시할 영역 -->
-                                    <h3>하위 카테고리</h3>
-                                    <ul id="subcategory-list" class="filter-list">
-                                        <!-- 하위 카테고리 목록이 여기에 표시됩니다 -->
+                                   <h3>하위 카테고리</h3>
+                                   <ul id="subcategory-list" class="filter-list">
+                                       <li class="filter-item" onclick="applyFilter('아우터')"><span class="filter-text">아우터</span></li>
+                                       <li class="filter-item" onclick="applyFilter('상의')"><span class="filter-text">상의</span></li>
+                                       <li class="filter-item" onclick="applyFilter('하의')"><span class="filter-text">하의</span></li>
+                                       <li class="filter-item" onclick="applyFilter('잡화')"><span class="filter-text">잡화</span></li>
+                                       <li class="filter-item" onclick="applyFilter('아크릴')"><span class="filter-text">아크릴</span></li>
+                                       <li class="filter-item" onclick="applyFilter('피규어')"><span class="filter-text">피규어</span></li>
+                                       <li class="filter-item" onclick="applyFilter('캔뱃지')"><span class="filter-text">캔뱃지</span></li>
+                                       <li class="filter-item" onclick="applyFilter('슬로건')"><span class="filter-text">슬로건</span></li>
+                                       <li class="filter-item" onclick="applyFilter('포스터')"><span class="filter-text">포스터</span></li>
+                                       <li class="filter-item" onclick="applyFilter('기타')"><span class="filter-text">기타</span></li>
+                                       <li class="filter-item" onclick="applyFilter('필기류')"><span class="filter-text">필기류</span></li>
+                                       <li class="filter-item" onclick="applyFilter('노트&메모지')"><span class="filter-text">노트&메모지</span></li>
+                                       <li class="filter-item" onclick="applyFilter('파일')"><span class="filter-text">파일</span></li>
+                                       <li class="filter-item" onclick="applyFilter('스티커')"><span class="filter-text">스티커</span></li>
+                                       <li class="filter-item" onclick="applyFilter('달력')"><span class="filter-text">달력</span></li>
+                                       <li class="filter-item" onclick="applyFilter('컵&텀블러')"><span class="filter-text">컵&텀블러</span></li>
+                                       <li class="filter-item" onclick="applyFilter('쿠션')"><span class="filter-text">쿠션</span></li>
+                                       <li class="filter-item" onclick="applyFilter('담요')"><span class="filter-text">담요</span></li>
+                                   </ul>
 
-                                    </ul>
                             </div>
                             
                             </ul>
@@ -104,7 +121,7 @@
  <div class="pagination">
                <!-- 이전 페이지 링크 -->
                <c:if test="${currentPage > 1}">
-                   <a href="/storeList?pageNum=${currentPage - 1}">&laquo; 이전</a>
+                   <a href="/storeList?pageNum=${currentPage - 1}&category=${selectedCategory}&filterType=${selectedFilterType}">&laquo; 이전</a>
                </c:if>
 
                <!-- 페이지 번호 링크 -->
@@ -114,14 +131,14 @@
                            <span class="current">${i}</span> <!-- 현재 페이지 -->
                        </c:when>
                        <c:otherwise>
-                           <a href="/storeList?pageNum=${i}">${i}</a>
+                           <a href="/storeList?pageNum=${i}&category=${selectedCategory}&filterType=${selectedFilterType}">${i}</a>
                        </c:otherwise>
                    </c:choose>
                </c:forEach>
 
                <!-- 다음 페이지 링크 -->
                <c:if test="${currentPage < totalPages}">
-                   <a href="/storeList?pageNum=${currentPage + 1}">다음 &raquo;</a>
+                   <a href="/storeList?pageNum=${currentPage + 1}&category=${selectedCategory}&filterType=${selectedFilterType}">다음 &raquo;</a>
                </c:if>
            </div>
 

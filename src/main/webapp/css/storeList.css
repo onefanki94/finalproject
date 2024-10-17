@@ -313,6 +313,8 @@ input:checked + .slider::before {
 .pagination {
     text-align: center;
     margin-top: 20px;
+    display:flex;
+    justify-content: center; /* 가로 중앙 정렬 */
 }
 
 .pagination a, .pagination span {

@@ -76,30 +76,38 @@ public class storeMainController {
     @GetMapping("/storeList")
     public ModelAndView getStoreListAndView(
             @RequestParam(defaultValue = "1") int pageNum,
-            @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(required = false) Integer category,
+            @RequestParam(required = false) String filterType) {
 
         // offset 계산
         int offset = (pageNum - 1) * pageSize;
 
-        // pageSize와 offset을 매퍼로 전달하기 위한 파라미터 설정
-        Map<String, Object> params = new HashMap<>();
-        params.put("pageSize", pageSize);
-        params.put("offset", offset);
+        // 페이징 처리된 상품 목록을 가져옴 (카테고리와 필터 타입을 처리)
+        List<StoreVO> pagedProducts;
 
-        // 페이징 처리된 상품 목록을 가져옵니다.
-        //List<StoreVO> pagedProducts = storeService.getPagedProducts(params);
+        // 1. 카테고리 필터링이 있는 경우
+        if (category != null) {
+            pagedProducts = storeService.getProductsByCategory(pageSize, offset, category);
+        }
+        // 2. 필터 타입(최신순, 인기순, 가격순 등) 필터링이 있는 경우
+        else if (filterType != null) {
+            pagedProducts = storeService.getStoreListByFilter(filterType);
+        }
+        // 3. 필터링 조건이 없는 경우 전체 상품을 가져옴
+        else {
+            pagedProducts = storeService.getPagedProducts(pageSize, offset, category);
+        }
 
-        // 총 상품 개수를 가져옵니다.
+        // 총 상품 개수를 가져옴
         int totalProducts = storeService.getTotalProductCount();
-
-        // 페이징 처리된 상품 목록을 가져옵니다.
-        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset);
-
-        // 카테고리 목록을 가져옵니다.
-        List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
-
         // 총 페이지 수 계산
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        // 카테고리 목록을 가져옴
+        List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
+
+
+
 
         // ModelAndView 설정
         ModelAndView mav = new ModelAndView("store/storeList");
@@ -107,18 +115,24 @@ public class storeMainController {
         mav.addObject("firstCategoryList", firstCategoryList); // 카테고리 필터 전달
         mav.addObject("currentPage", pageNum); // 현재 페이지 전달
         mav.addObject("totalPages", totalPages); // 총 페이지 수 전달
+        mav.addObject("selectedCategory", category); // 선택된 카테고리 전달 (null일 수 있음)
+        mav.addObject("selectedFilterType", filterType); // 선택된 필터 타입 전달 (null일 수 있음)
 
         return mav;
     }
+
     //API구현
     @GetMapping("/pagedProducts")
     @ResponseBody  // JSON으로 데이터를 반환하기 위해 추가
     public List<StoreVO> getPagedProducts(
             @RequestParam int pageNum,
-            @RequestParam int pageSize) {
+            @RequestParam int pageSize,
+            @RequestParam(required = false) Integer category) {
+
+
 
         int offset = (pageNum - 1) * pageSize;
-        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset);
+        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category);
 
         // 상품 목록을 콘솔에 출력
         System.out.println("페이지 번호: " + pageNum + ", 페이지 크기: " + pageSize);
@@ -201,9 +215,17 @@ public class storeMainController {
     @GetMapping("/subcategories")
     @ResponseBody
     public List<String> subcategoriesByFirstCategory(@RequestParam("code") int categoryCode) {
-        System.out.println("Received category code: " + categoryCode);  // 서버 로그에 코드 값 출력
-        List<String> subcategories = storeService.getSubcategoriesByFirstCategory1(categoryCode);
-        System.out.println("subcategories: " + subcategories);  // 하위 카테고리 출력
+        // 서버에서 categoryCode 로그 출력
+        System.out.println("Received category code: " + categoryCode);
+
+        // StoreService를 통해 하위 카테고리 목록을 가져옴
+        List<String> subcategories = storeService.getSubcategoriesByFirstCategory(categoryCode);
+
+        // 하위 카테고리 목록을 로그로 출력하여 확인
+        System.out.println("Subcategories: " + subcategories);
+
+        // JSON 형식으로 클라이언트에 반환
         return subcategories;
     }
 }
+
