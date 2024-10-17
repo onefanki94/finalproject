@@ -84,7 +84,7 @@
                             <li class="list-carousel-wrapper">
                                 <ul class="list-carousel-images">
                                   <!--db에서 가져온 상품목록-->
-                                  <c:forEach var="product" items="${storeList}">
+                                  <c:forEach var="product" items="${pagedProducts}">
                                     <li class="list-product">
                                         <!-- idx 값을 사용하여 링크 생성 -->
                                       <a href="<c:url value='/storeDetail'>
@@ -103,8 +103,7 @@
                     </div>
                 </section>
 
-
-           <div class="pagination">
+ <div class="pagination">
                <!-- 이전 페이지 링크 -->
                <c:if test="${currentPage > 1}">
                    <a href="/storeList?pageNum=${currentPage - 1}">&laquo; 이전</a>
@@ -127,7 +126,7 @@
                    <a href="/storeList?pageNum=${currentPage + 1}">다음 &raquo;</a>
                </c:if>
            </div>
-      
+
 
 
 

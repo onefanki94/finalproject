@@ -87,13 +87,13 @@ public class storeMainController {
         params.put("offset", offset);
 
         // 페이징 처리된 상품 목록을 가져옵니다.
-        //List<StoreVO> pagedProducts = storeMapper.getPagedProducts(params);
+        //List<StoreVO> pagedProducts = storeService.getPagedProducts(params);
 
         // 총 상품 개수를 가져옵니다.
         int totalProducts = storeService.getTotalProductCount();
 
         // 페이징 처리된 상품 목록을 가져옵니다.
-        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageNum, pageSize);
+        List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset);
 
         // 카테고리 목록을 가져옵니다.
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
@@ -119,6 +119,11 @@ public class storeMainController {
 
         int offset = (pageNum - 1) * pageSize;
         List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset);
+
+        // 상품 목록을 콘솔에 출력
+        System.out.println("페이지 번호: " + pageNum + ", 페이지 크기: " + pageSize);
+        System.out.println("상품 목록: " + pagedProducts);
+
         return pagedProducts; // JSON으로 반환
     }
 

@@ -102,10 +102,8 @@
     align-items: center; /* 가운데 정렬 */
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    box-sizing: border-box;
     overflow: hidden;
-    width: 250px; /* 개별 상품의 너비를 고정 */
+    width: 23%; /* 개별 상품의 너비를 고정 */
     height: auto;
     margin: 10px; /* 각 상품 사이의 간격 추가 */
 }
@@ -113,7 +111,7 @@
 /* 상품 이미지 스타일 */
 .list-product img {
     width: 100%; /* 부모의 너비에 맞춰서 */
-    height: 200px;
+    height: auto;
     border-radius: 8px;
     transition: transform 0.8s ease-in-out;
 }
@@ -123,7 +121,7 @@
     margin: 10px 0; /* 상하로 여백 추가 */
     width: 100%;
     color: #888;
-    font-size: 0.9em;
+    font-size: 1em;
     text-align: center; /* 텍스트 가운데 정렬 */
 }
 
@@ -146,8 +144,7 @@
 .list-carousel-images {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center; /* 가운데 정렬 */
+    justify-content:left;
     margin: 0 auto;
     overflow: hidden;
 }
