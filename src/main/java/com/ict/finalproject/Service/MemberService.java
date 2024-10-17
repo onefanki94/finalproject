@@ -1,10 +1,13 @@
 package com.ict.finalproject.Service;
 
+import com.ict.finalproject.DTO.CurrentOrderDataDTO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
 import com.ict.finalproject.DTO.UserDelReasonDTO;
+import com.ict.finalproject.vo.AniListVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
+import com.ict.finalproject.vo.StoreVO;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ public interface MemberService {
     int getNewUsers();
     int getNewSignups();
 
+    //채원 시작
     //리뷰작성전 리스트 SELECT
     List<ReviewBeforeDTO> getReviewBefore(int useridx);
     //리뷰 등록
@@ -41,4 +45,13 @@ public interface MemberService {
     //회원 탈퇴
     int userDelOk(int useridx);
     void userDelInsert(UserDelReasonDTO userDelReasonDTO);
+    // 마이페이지 최근주문 최대 5개 데이터
+    List<CurrentOrderDataDTO> getCurrentOrderData(int useridx);
+    // 마이페이지 최근 굿즈 좋아요 5개 데이터
+    List<StoreVO> getCurrentLikeGoodsData(int useridx);
+    // 마이페이지 최근 애니 좋아요 5개 데이터
+    List<AniListVO> getCurrentLikeAniData(int useridx);
+    // 마이페이지 좋아요 굿즈
+    List<StoreVO> getLikeGoods(int page, int pageSize, int useridx);
+    int getTotalLikeGoodsCount(int useridx);
 }

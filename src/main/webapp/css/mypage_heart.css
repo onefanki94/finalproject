@@ -1,7 +1,7 @@
 .heart_tabmenu {
   display: flex;
   justify-content: center;
-  margin: 0 auto 66px;
+  margin: 0 auto 50px;
 }
 
 .heart_tabmenu ul li {
@@ -69,17 +69,12 @@
   margin-top: 7px;
 }
 
-.goods_imform strong,
 .ani_imform strong {
   color: rgb(48, 48, 51);
   display: block;
   margin-bottom: 7px;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
-}
-
-.ani_imform strong {
-  font-size: 15px !important;
 }
 
 .goods_imform p {
@@ -105,4 +100,57 @@
 
 .off {
   display: none;
+}
+
+
+#pagination {
+  display: block;
+  text-align: center;
+}
+
+.custom-pagination {
+  margin-top: 35px;
+  display: inline-block;
+  position: relative;
+  padding: 0 50px;
+  text-align: center;
+  line-height: 22px;
+  vertical-align: top;
+}
+
+.custom-pagination > .pageNumber_span {
+  font-weight: 300;
+  color: #d4d4d4;
+  display: inline-block;
+  min-width: 10px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+  cursor:pointer;
+}
+
+.clicked {
+  font-weight: 700;
+  color: rgb(48, 48, 51);
+  border-bottom: 1px solid rgb(48, 48, 51);
+}
+
+.goods_imform_aniTitle{
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
+    width:100%;
+    white-space: nowrap;        /* 텍스트가 한 줄로 표시되도록 함 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin:5px 0;
+}
+
+.goods_imform_title{
+    width:100%;
+    white-space: nowrap;        /* 텍스트가 한 줄로 표시되도록 함 */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

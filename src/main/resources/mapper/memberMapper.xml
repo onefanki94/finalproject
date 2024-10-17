@@ -133,5 +133,77 @@
         INSERT INTO T_userDel(useridx, delReason, delReasonDetail)
         VALUES (#{useridx}, #{delReason}, #{delReasonDetail})
     </insert>
+
+    <!-- 최근 주문 데이터 최대 5개 가져오기-->
+    <select id="getCurrentOrderData" resultType="com.ict.finalproject.DTO.CurrentOrderDataDTO">
+        SELECT
+        o.idx AS order_idx,
+        DATE_FORMAT(o.regDT, '%Y.%m.%d') AS order_date,
+        ol.pro_idx AS pro_idx,
+        p.thumImg AS pro_image,
+        pm.amount AS amount,
+        pm.ordername AS orderName,
+        pm.orderid AS orderId
+        FROM
+        T_order o
+        JOIN
+        T_orderList ol ON o.idx = ol.order_idx
+        JOIN
+        T_product p ON ol.pro_idx = p.idx
+        LEFT JOIN
+        T_payment pm ON o.idx = pm.order_idx
+        WHERE
+        o.useridx = ${param1}
+        AND
+        ol.idx = (
+        SELECT MIN(sub_ol.idx)
+        FROM T_orderList sub_ol
+        WHERE sub_ol.order_idx = o.idx
+        )
+        ORDER BY
+        o.regDT DESC
+        LIMIT 5;
+    </select>
+    <select id="getCurrentLikeGoodsData" resultType="com.ict.finalproject.vo.StoreVO">
+        select
+        p.idx AS idx,
+        p.title AS title,
+        p.ani_title AS ani_title,
+        p.price AS price,
+        p.thumImg AS thumImg
+        from T_proLike pl
+        join T_product p on pl.pro_idx=p.idx
+        where pl.useridx=${param1}
+        order by pl.regDT desc
+        limit 5;
+    </select>
+    <select id="getCurrentLikeAniData" resultType="com.ict.finalproject.vo.AniListVO">
+        select a.idx AS idx,
+        a.title AS title,
+        a.post_img AS post_img
+        from T_anilike al
+        join T_animation a on al.ani_idx=a.idx
+        where al.useridx=5
+        order by al.regDT desc
+        limit 5;
+    </select>
+    <select id="getLikeGoods" resultType="com.ict.finalproject.vo.StoreVO">
+        select
+        p.idx AS idx,
+        p.title AS title,
+        p.ani_title AS ani_title,
+        p.price AS price,
+        p.thumImg AS thumImg
+        from T_proLike pl
+        join T_product p on pl.pro_idx=p.idx
+        where pl.useridx=${param3}
+        order by pl.regDT desc
+        limit ${param1} offset ${param2};
+    </select>
+    <select id="getTotalLikeGoodsCount">
+        SELECT COUNT(*)
+        FROM T_proLike
+        WHERE useridx=${param1}
+    </select>
     <!-- 채원 끝-->
 </mapper>

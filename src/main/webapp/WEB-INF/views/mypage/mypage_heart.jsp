@@ -80,84 +80,20 @@
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
         <div class="heart_tabmenu">
           <ul>
-            <li class="heart_on_tab" onclick="reviewTab('tab1')">GOODS<span>(930)</span></li>
-            <li onclick="reviewTab('tab2')">ANIMATION<span>(0)</span></li>
+            <li class="heart_on_tab" onclick="reviewTab('tab1')">GOODS<span class="goodsCount"></span></li>
+            <li onclick="reviewTab('tab2')">ANIMATION<span class="aniCount"></span></li>
             <!---->
           </ul>
         </div>
         <div class="on" id="tab1">
           <ul class="goods_list_all">
-            <li class="goods_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="goods_img_bx">
-                    <img src="/img/main_img/goods1.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="goods_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                    <p>24,000원</p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="goods_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="goods_img_bx">
-                    <img src="/img/main_img/goods1.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="goods_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                    <p>24,000원</p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="goods_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="goods_img_bx">
-                    <img src="/img/main_img/goods1.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="goods_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                    <p>24,000원</p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="goods_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="goods_img_bx">
-                    <img src="/img/main_img/goods1.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="goods_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                    <p>24,000원</p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="goods_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="goods_img_bx">
-                    <img src="/img/main_img/goods1.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="goods_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                    <p>24,000원</p>
-                  </div>
-                </a>
-              </div>
-            </li>
+
           </ul>
+          <div id="pagination">
+              <div class="custom-pagination">
+
+              </div>
+          </div>
         </div>
         <!-- 애니 -->
         <div class="off" id="tab2">

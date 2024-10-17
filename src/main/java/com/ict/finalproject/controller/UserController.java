@@ -3,15 +3,11 @@ package com.ict.finalproject.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ict.finalproject.DTO.LoginRequestDTO;
-import com.ict.finalproject.DTO.ReviewBeforeDTO;
-import com.ict.finalproject.DTO.ReviewCompletedDTO;
-import com.ict.finalproject.DTO.UserDelReasonDTO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
-import com.ict.finalproject.vo.MemberVO;
-import com.ict.finalproject.vo.ReviewVO;
+import com.ict.finalproject.vo.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -295,6 +291,37 @@ public class UserController {
         return mav;
     }
 
+    //마이페이지 메인 데이터 뿌려주기
+    @PostMapping("/mypageMainList")
+    public ResponseEntity<Map<String, Object>> mypageMainList(@RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        // 최근 주문 : 주문일, 상품정보, 주문이름, 주문번호, 결제금액
+        List<CurrentOrderDataDTO> currentOrderData = service.getCurrentOrderData(useridx);
+//        log.info("********currentOrderData : {}",currentOrderData);
+
+        // 애니 좋아요 내역
+        List<AniListVO> currentLikeAniData = service.getCurrentLikeAniData(useridx);
+        // 굿즈 좋아요 내역
+        List<StoreVO> currentLikeGoodsData = service.getCurrentLikeGoodsData(useridx);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("currentOrderData", currentOrderData);
+        response.put("currentLikeGoodsData", currentLikeGoodsData);
+        response.put("currentLikeAniData", currentLikeAniData);
+
+        // 성공적으로 조회된 데이터를 반환
+        return ResponseEntity.ok(response);
+    }
+
     //마이페이지-좋아요 view
     @GetMapping("/mypage_heart")
     public ModelAndView mypageHeart() {
@@ -302,6 +329,38 @@ public class UserController {
         mav.setViewName("mypage/mypage_heart");
 
         return mav;
+    }
+
+    //마이페이지 좋아요 데이터
+    @PostMapping("/myHeartGoodsList")
+    public ResponseEntity<Map<String, Object>> getHeartList(
+            @RequestBody Map<String, Integer> params, @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        int page = params.getOrDefault("page", 1);
+        int pageSize = params.getOrDefault("pageSize", 16);
+
+        List<StoreVO> likeGoodsList = service.getLikeGoods(page, pageSize,useridx);
+        int totalProductCount = service.getTotalLikeGoodsCount(useridx);
+        int totalPages = (int) Math.ceil((double) totalProductCount / pageSize);
+
+        log.info("%%%%totalProductCount:{}",totalProductCount);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("likeGoodsList", likeGoodsList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+        response.put("goodsTotalCount",totalProductCount);
+
+        return ResponseEntity.ok(response);
     }
 
     //마이페이지-주문리스트 view

@@ -1,11 +1,14 @@
 package com.ict.finalproject.DAO;
 
 
+import com.ict.finalproject.DTO.CurrentOrderDataDTO;
 import com.ict.finalproject.DTO.ReviewBeforeDTO;
 import com.ict.finalproject.DTO.ReviewCompletedDTO;
 import com.ict.finalproject.DTO.UserDelReasonDTO;
+import com.ict.finalproject.vo.AniListVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
+import com.ict.finalproject.vo.StoreVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +38,7 @@ public interface MemberDAO {
         // 최근 7일간 가입자 수 구하기
         int getNewSignups();
 
+        //채원시작
         //리뷰작성전 리스트 SELECT
         List<ReviewBeforeDTO> getReviewBefore(int useridx);
 
@@ -68,4 +72,14 @@ public interface MemberDAO {
         //회원 탈퇴
         int userDelOk(int useridx);
         void userDelInsert(UserDelReasonDTO userDelReasonDTO);
+
+        // 마이페이지 최근주문 최대 5개 데이터
+        List<CurrentOrderDataDTO> getCurrentOrderData(int useridx);
+        // 마이페이지 최근 굿즈 좋아요 5개 데이터
+        List<StoreVO> getCurrentLikeGoodsData(int useridx);
+        // 마이페이지 최근 애니 좋아요 5개 데이터
+        List<AniListVO> getCurrentLikeAniData(int useridx);
+        // 마이페이지 좋아요 굿즈
+        List<StoreVO> getLikeGoods(int pageSize,int offset, int useridx);
+        int getTotalLikeGoodsCount(int useridx);
 }
