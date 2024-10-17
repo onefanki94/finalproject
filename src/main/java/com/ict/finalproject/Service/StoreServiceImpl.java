@@ -29,8 +29,8 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<StoreVO> getPagedProducts(int pageSize, int offset, int category) {
-        return dao.getPagedProducts(pageSize, offset, category);
+    public List<StoreVO> getPagedProducts(int pageSize, int offset, Integer category,  Integer second_category) {
+        return dao.getPagedProducts(pageSize, offset, category, second_category);
     }
 
     @Override

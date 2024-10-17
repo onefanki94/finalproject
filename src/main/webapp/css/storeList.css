@@ -265,6 +265,12 @@ input:checked + .slider::before {
 }
 
 
+.subcategory-list{
+    margin: 0 auto;
+    align-items: center;
+}
+
+
 /* 검색창 */
 .search-section {
     display: flex; /* Flexbox로 자식 요소들을 가로로 배치 */

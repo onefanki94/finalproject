@@ -4,9 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
-
+<script src="/js/storeList.js"></script>
 <link href="/css/storeList.css" rel="stylesheet" type="text/css">
-<script src="../../../js/storeList.js"></script>
+
 
 <div class="storeList_container">
         <h2>#hololive GAMERS 콜라보 굿즈 예약 판매 (~12.15)</h2>
@@ -19,7 +19,7 @@
                 </section>
 
                     <!-- 좌측 필터 -->
-                    <section class="filter-section">  
+                    <section class="filter-section">
                         <div class="left-con">
                             <h3>필터</h3>
                             <div class="filter-header">
@@ -43,33 +43,33 @@
                                   <!-- 하위 카테고리를 표시할 영역 -->
                                    <h3>하위 카테고리</h3>
                                    <ul id="subcategory-list" class="filter-list">
-                                       <li class="filter-item" onclick="applyFilter('아우터')"><span class="filter-text">아우터</span></li>
-                                       <li class="filter-item" onclick="applyFilter('상의')"><span class="filter-text">상의</span></li>
-                                       <li class="filter-item" onclick="applyFilter('하의')"><span class="filter-text">하의</span></li>
-                                       <li class="filter-item" onclick="applyFilter('잡화')"><span class="filter-text">잡화</span></li>
-                                       <li class="filter-item" onclick="applyFilter('아크릴')"><span class="filter-text">아크릴</span></li>
-                                       <li class="filter-item" onclick="applyFilter('피규어')"><span class="filter-text">피규어</span></li>
-                                       <li class="filter-item" onclick="applyFilter('캔뱃지')"><span class="filter-text">캔뱃지</span></li>
-                                       <li class="filter-item" onclick="applyFilter('슬로건')"><span class="filter-text">슬로건</span></li>
-                                       <li class="filter-item" onclick="applyFilter('포스터')"><span class="filter-text">포스터</span></li>
-                                       <li class="filter-item" onclick="applyFilter('기타')"><span class="filter-text">기타</span></li>
-                                       <li class="filter-item" onclick="applyFilter('필기류')"><span class="filter-text">필기류</span></li>
-                                       <li class="filter-item" onclick="applyFilter('노트&메모지')"><span class="filter-text">노트&메모지</span></li>
-                                       <li class="filter-item" onclick="applyFilter('파일')"><span class="filter-text">파일</span></li>
-                                       <li class="filter-item" onclick="applyFilter('스티커')"><span class="filter-text">스티커</span></li>
-                                       <li class="filter-item" onclick="applyFilter('달력')"><span class="filter-text">달력</span></li>
-                                       <li class="filter-item" onclick="applyFilter('컵&텀블러')"><span class="filter-text">컵&텀블러</span></li>
-                                       <li class="filter-item" onclick="applyFilter('쿠션')"><span class="filter-text">쿠션</span></li>
-                                       <li class="filter-item" onclick="applyFilter('담요')"><span class="filter-text">담요</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'아우터')"><span class="filter-text">아우터</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'상의')"><span class="filter-text">상의</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'하의')"><span class="filter-text">하의</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'잡화')"><span class="filter-text">잡화</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'아크릴')"><span class="filter-text">아크릴</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'피규어')"><span class="filter-text">피규어</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'캔뱃지')"><span class="filter-text">캔뱃지</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'슬로건')"><span class="filter-text">슬로건</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'포스터')"><span class="filter-text">포스터</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'기타')"><span class="filter-text">기타</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'필기류')"><span class="filter-text">필기류</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'노트&메모지')"><span class="filter-text">노트&메모지</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'파일')"><span class="filter-text">파일</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'스티커')"><span class="filter-text">스티커</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'달력')"><span class="filter-text">달력</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'컵&텀블러')"><span class="filter-text">컵&텀블러</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'쿠션')"><span class="filter-text">쿠션</span></li>
+                                       <li class="filter-item" onclick="applyFilter(null,'담요')"><span class="filter-text">담요</span></li>
                                    </ul>
 
                             </div>
-                            
+
                             </ul>
                             <hr>
                         </div>
                     </section>
-                
+
 
                 <!-- 상품 섹션 위쪽에 필터 추가 -->
                         <section class="product-filter">
@@ -88,7 +88,7 @@
                                     <span class="filter-option" onclick="filterProductsByType('popular')">인기순</span>
                                     <span class="filter-option" onclick="filterProductsByType('high-price')">높은 가격순</span>
                                     <span class="filter-option" onclick="filterProductsByType('low-price')">낮은 가격순</span>
-                                    
+
                                 </div>
                             </div>
                         </section>
@@ -142,8 +142,31 @@
                </c:if>
            </div>
 
+  <script>
+        window.applyFilter = function(category, second_category) {
+            console.log("선택된 카테고리: ", category);
+            console.log("선택된 하위 카테고리: ", second_category);
+            const pageNum = 1;
+            const pageSize = 10;
 
-
+            // AJAX 요청에서 category와 secondCategory를 서버로 전달
+            $.ajax({
+                url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
+                method: 'GET',
+                data: {
+                    category: category,
+                    second_category: second_category || null
+                },
+                success: function(data) {
+                    console.log("필터링된 상품 목록: ", data);
+                    updateProductList(data); // 필터링된 상품 목록을 화면에 업데이트하는 함수
+                },
+                error: function(error) {
+                    console.error("필터 적용 중 오류 발생: ", error);
+                }
+            });
+        };
+    </script>
 
 <%@include file="/WEB-INF/inc/store_footer.jspf"%>
 
