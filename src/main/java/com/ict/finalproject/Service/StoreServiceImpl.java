@@ -1,8 +1,6 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.StoreDAO;
-import com.ict.finalproject.DTO.BasketDTO;
-import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
 
@@ -19,78 +17,57 @@ public class StoreServiceImpl implements StoreService {
     @Autowired
     StoreDAO dao;
 
+
     @Override
-    public List<StoreVO> getRecentProducts(){
+    public List<StoreVO> getRecentProducts() {
         return dao.getRecentProducts();
     }
 
     @Override
-    public List<StoreVO> getStoreList(){
-        return  dao.getStoreList();
+    public List<StoreVO> getStoreList() {
+        return dao.getStoreList();
     }
 
     @Override
-    public List<StoreVO> searchStoreList(String keyword){
+    public List<StoreVO> getPagedProducts(int pageSize, int offset, Integer category,  Integer second_category) {
+        return dao.getPagedProducts(pageSize, offset, category, second_category);
+    }
+
+    @Override
+    public int getTotalProductCount() {
+        return dao.getTotalProductCount();
+    }
+
+    @Override
+    public List<StoreVO> getStoreListByFilter(String filterType) {
+        // 필터 타입에 따른 상품 목록을 가져오는 로직 구현
+        return dao.getStoreListByFilter(filterType);
+    }
+
+    @Override
+    public List<StoreVO> searchStoreList(String keyword) {
         return dao.searchStoreList(keyword);
     }
 
     @Override
-    public StoreVO getStoreDetail(int storeId){
+    public StoreVO getStoreDetail(int storeId) {
         return dao.getStoreDetail(storeId);
     }
 
     @Override
     public List<ProductFilterVO> getFirstCategoryList() {
-        return dao.getFirstCategoryList();  // DAO에서 카테고리 필터 리스트 가져오기
-    }
-
-    // @Override
-    // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category) {
-    //     return dao.getSubcategoriesByFirstCategory(category);
-    // }
-    @Override
-    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code){
-        return dao.getSubcategoriesByFirstCategory1(code);
-    }
-
-
-
-
-    //채원
-    @Override
-    public int checkProductInBasket(BasketVO basketvo) {
-        return dao.checkProductInBasket(basketvo);
+        return dao.getFirstCategoryList();
     }
 
     @Override
-    public int basketInput(BasketVO basketvo) {
-        return dao.basketInput(basketvo);
+    public List<String> getSubcategoriesByFirstCategory(int code) {
+        return dao.getSubcategoriesByFirstCategory(code);
     }
 
     @Override
-    public List<BasketDTO> basketList(int useridx) {
-        return dao.basketList(useridx);
+    public List<StoreVO> getProductsByCategory(int pageSize, int offset, int category) {
+        return dao.getProductsByCategory(pageSize, offset, category);
     }
-
-    @Override
-    public int basketDelete(int idx, int useridx) {
-        return dao.basketDelete(idx, useridx);
-    }
-
-    @Override
-    public void basketChoiceAndAllDelOk(int idx, int useridx) {
-        dao.basketChoiceAndAllDelOk(idx,useridx);
-    }
-
-    @Override
-    public int basketPlusAmount(int idx, int useridx, int newTotal) {
-        return dao.basketPlusAmount(idx, useridx,newTotal);
-    }
-
-    @Override
-    public int basketMinusAmount(int idx, int useridx, int newTotal) {
-        return dao.basketMinusAmount(idx, useridx,newTotal);
-    }
-
-
 }
+
+

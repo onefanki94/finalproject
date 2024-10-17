@@ -19,18 +19,23 @@ import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.*;
 
@@ -425,10 +430,6 @@ public class UserController {
             return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
         }
 
-        // 리뷰 이미지파일 업로드 위치 정하기
-        String path = session.getServletContext().getRealPath("/reviewFileUpload");
-        log.info("파일 저장 경로: {}", path);
-
         String imgfile1 = null;
         String imgfile2 = null;
         String uniqueFilename = "";
@@ -441,8 +442,9 @@ public class UserController {
                     MultipartFile file = files.get(i);
                     if (!file.isEmpty()) {
                         uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                        File f = new File(path, uniqueFilename);
-                        file.transferTo(f); // 파일 저장
+
+                        // 로컬 서버에 파일 저장하지 않고, 이미지 서버로 전송
+                        uploadFileToImageServer(file, uniqueFilename);
 
                         if (i == 0) {
                             imgfile1 = uniqueFilename;
@@ -467,25 +469,67 @@ public class UserController {
             if (result > 0) {
                 return ResponseEntity.ok("리뷰가 성공적으로 등록되었습니다.");
             } else {
-                fileDel(path, imgfile1);
-                fileDel(path, imgfile2);
+                fileDel(imgfile1);
+                fileDel(imgfile2);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 등록 실패");
             }
 
         } catch (Exception e) {
-            fileDel(path, imgfile1);
-            fileDel(path, imgfile2);
+            fileDel(imgfile1);
+            fileDel(imgfile2);
             log.error("리뷰 등록 중 오류 발생", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 등록 중 오류 발생");
         }
     }
 
+    // 이미지 서버로 파일을 전송하는 메소드
+    private void uploadFileToImageServer(MultipartFile file, String uniqueFilename) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        String imageServerUrl = "http://192.168.1.92:8000/upload"; // 이미지 서버의 파일 업로드 엔드포인트
+
+        // 파일을 MultiValueMap으로 준비
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", new MultipartInputStreamFileResource(file.getInputStream(), uniqueFilename));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+        // 이미지 서버로 파일 전송
+        restTemplate.postForEntity(imageServerUrl, requestEntity, String.class);
+    }
+
+    // MultipartFile을 InputStream 리소스로 변환하는 클래스
+    class MultipartInputStreamFileResource extends InputStreamResource {
+        private final String filename;
+
+        public MultipartInputStreamFileResource(InputStream inputStream, String filename) {
+            super(inputStream);
+            this.filename = filename;
+        }
+
+        @Override
+        public String getFilename() {
+            return this.filename;
+        }
+
+        @Override
+        public long contentLength() throws IOException {
+            return -1; // length를 모르는 경우 -1 반환
+        }
+    }
+
     // 파일 삭제
-    public void fileDel(String path, String filename) {
-        File f = new File(path, filename);
-        if (f.exists()) {
-            //파일이 있는 경우 -> 삭제
-            f.delete();
+    public void fileDel(String filename) {
+        RestTemplate restTemplate = new RestTemplate();
+        String deleteUrl = "http://192.168.1.92:8000/delete/" + filename;
+
+        try {
+            restTemplate.delete(deleteUrl);
+            System.out.println("File deleted successfully: " + filename);
+        } catch (RestClientException e) {
+            System.err.println("Failed to delete file: " + filename + ". Error: " + e.getMessage());
         }
     }
 
@@ -545,10 +589,6 @@ public class UserController {
         reviewEditbefore.setGrade(grade);
         reviewEditbefore.setContent(content);
 
-        // 리뷰 이미지파일 업로드 위치 정하기
-        String path = session.getServletContext().getRealPath("/reviewFileUpload");
-        log.info("파일 저장 경로: {}", path);
-
         // JSON 형식의 삭제된 파일 목록을 배열로 변환
         List<String> deletedFiles = new ArrayList<>();
         if (deletedFilesJson != null && !deletedFilesJson.isEmpty()) {//삭제된 파일이 존재하면
@@ -568,7 +608,7 @@ public class UserController {
         try {
             // 삭제된 파일 처리
             for (String deletedFile : deletedFiles) {
-                fileDel(path, deletedFile);
+                fileDel(deletedFile);
             }
 
             // 파일이 있는 경우에만 처리
@@ -578,8 +618,8 @@ public class UserController {
                     MultipartFile file = files.get(i);
                     if (!file.isEmpty()) {
                         uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                        File f = new File(path, uniqueFilename);
-                        file.transferTo(f); // 파일 저장
+                        // 로컬 서버에 파일 저장하지 않고, 이미지 서버로 전송
+                        uploadFileToImageServer(file, uniqueFilename);
 
                         if (i == 0) {
                             imgfile1 = uniqueFilename;
@@ -607,14 +647,14 @@ public class UserController {
             if (result > 0) {
                 return ResponseEntity.ok("리뷰가 성공적으로 수정되었습니다.");
             } else {
-                fileDel(path, imgfile1);
-                fileDel(path, imgfile2);
+                fileDel(imgfile1);
+                fileDel(imgfile2);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정 실패");
             }
 
         } catch (Exception e) {
-            fileDel(path, imgfile1);
-            fileDel(path, imgfile2);
+            fileDel(imgfile1);
+            fileDel(imgfile2);
             log.error("리뷰 수정 중 오류 발생", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정 중 오류 발생");
         }
@@ -677,8 +717,8 @@ public class UserController {
         try {
             // 리뷰 삭제
             service.reviewDelete(reviewDelbefore.getOrderList_idx());
-            fileDel(path, reviewDelbefore.getImgfile1());
-            fileDel(path, reviewDelbefore.getImgfile2());
+            fileDel(reviewDelbefore.getImgfile1());
+            fileDel(reviewDelbefore.getImgfile2());
             return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
         } catch (Exception e) {
             log.error("리뷰 삭제 중 오류 발생", e);

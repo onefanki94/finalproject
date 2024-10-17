@@ -138,10 +138,10 @@ function review_EditModal(index){
     // 이미지 파일 있으면 보여주기
     let filePreviewHtml = '';
     if (reviewCompleted.imgfile1) {
-        filePreviewHtml += `<div class="image-container"><img src="/reviewFileUpload/${reviewCompleted.imgfile1}" style="width: 76px; height: 76px; margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
+        filePreviewHtml += `<div class="image-container"><img src="http://192.168.1.92:8000/${reviewCompleted.imgfile1}" style="width: 76px; height: 76px; margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
     }
     if (reviewCompleted.imgfile2) {
-        filePreviewHtml += `<div class="image-container"><img src="/reviewFileUpload/${reviewCompleted.imgfile2}" style="width: 76px; height: 76px;  margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
+        filePreviewHtml += `<div class="image-container"><img src="http://192.168.1.92:8000/${reviewCompleted.imgfile2}" style="width: 76px; height: 76px;  margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
     }
 
     tag += `<div class="review_modal_body">
@@ -314,8 +314,8 @@ $(function(){
                         </div>
                         ${reviewCompleted.imgfile1 || reviewCompleted.imgfile2 ? `
                         <div class="review_img">
-                          ${reviewCompleted.imgfile1 ? `<img src="/reviewFileUpload/${reviewCompleted.imgfile1}" />` : ''}
-                          ${reviewCompleted.imgfile2 ? `<img src="/reviewFileUpload/${reviewCompleted.imgfile2}" />` : ''}
+                          ${reviewCompleted.imgfile1 ? `<img src="http://192.168.1.92:8000/${reviewCompleted.imgfile1}" />` : ''}
+                          ${reviewCompleted.imgfile2 ? `<img src="http://192.168.1.92:8000/${reviewCompleted.imgfile2}" />` : ''}
                         </div>` : ''}
                       </div>
                       <div class="review_regDT">
