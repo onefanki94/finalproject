@@ -14,10 +14,22 @@
 
     <!-- 페이징 처리된 상품 목록 가져오기 -->
     <select id="getPagedProducts" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
-        SELECT *
-        FROM t_product
+        SELECT * FROM t_product
+        <where>
+            <!-- 카테고리가 null이 아닐 때만 category 필터링 -->
+            <if test="category != null">
+                AND category = #{category}
+            </if>
+        </where>
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
+
+    <select id="getProductsByCategory" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT * FROM t_product
+        WHERE category = #{category}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
 
     <!-- 총 상품 개수 가져오기 -->
     <select id="getTotalProductCount" resultType="int">
