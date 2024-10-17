@@ -208,6 +208,7 @@ public class UserController {
         return mav;
     }
 
+    // 채원 시작
     // 헤더에서 토큰을 추출하고, 토큰의 유효성을 검증한 후 사용자 ID와 useridx를 반환 함수(코드가 너무 중복돼서 따로 뺌)
     private ResponseEntity<Map<String, Object>> extractUserIdFromToken(String Headertoken) {
         Map<String, Object> response = new HashMap<>();
@@ -255,6 +256,32 @@ public class UserController {
         // 정상 처리된 경우 사용자 ID와 useridx를 반환
         response.put("userid", userid);
         response.put("useridx", useridx);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/mypageCommInfo")
+    public ResponseEntity<Map<String, Object>> mypageCommInfo(@RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        // 회원정보 select
+        MemberVO userinfo = service.getUserinfo(useridx);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("currentID", userinfo.getUserid());
+        response.put("reservePoint", userinfo.getPoint());
+        // 리뷰 갯수 select
+        int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
+        response.put("reviewCompletedAmount", reviewCompletedAmount);
+
+        // 성공적으로 조회된 데이터를 반환
         return ResponseEntity.ok(response);
     }
 
@@ -316,53 +343,19 @@ public class UserController {
     //마이페이지-리뷰리스트 Data(작성전, 작성완료)
     @PostMapping("/reviewList")
     public ResponseEntity<Map<String, Object>> getReviewList(@RequestHeader("Authorization") String Headertoken) {
-        System.out.println(Headertoken);
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }  // 303 또는 302 응답
-
-
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         // 리뷰 작성 해야되는 데이터 SELECT
         List<ReviewBeforeDTO> reviewBefore = service.getReviewBefore(useridx);
+        Map<String, Object> response = new HashMap<>();
         response.put("reviewBefore", reviewBefore);
         // 갯수
         int reviewBeforeAmount = service.getReviewBeforeAmount(useridx);
@@ -388,47 +381,15 @@ public class UserController {
                                                 @RequestParam(value = "file", required = false) List<MultipartFile> files,
                                                 @RequestHeader("Authorization") String Headertoken,
                                                 HttpSession session) {
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
-        }
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         String imgfile1 = null;
         String imgfile2 = null;
@@ -542,47 +503,15 @@ public class UserController {
                                                @RequestParam(value = "deletedFiles", required = false) String deletedFilesJson,
                                                @RequestHeader("Authorization") String Headertoken,
                                                HttpSession session) {
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
-        }
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         // 업데이트 전 데이터 저장
         ReviewVO reviewEditbefore = service.getReviewEditbefore(orderList_Idx);
@@ -665,47 +594,15 @@ public class UserController {
     public ResponseEntity<String> reviewDelOK(@RequestParam("orderList_idx") int orderList_Idx,
                                               @RequestHeader("Authorization") String Headertoken,
                                               HttpSession session) {
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
-        }
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         // 삭제 전 데이터 저장
         ReviewVO reviewDelbefore = service.getReviewEditbefore(orderList_Idx);
@@ -748,56 +645,20 @@ public class UserController {
     //마이페이지-수정 전 유저 정보
     @PostMapping("/userInfo")
     public ResponseEntity<Map<String, Object>> getuserInfo(@RequestHeader("Authorization") String Headertoken) {
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }  // 303 또는 302 응답
-
-
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).headers(headers).body(response);
-        }
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         // 회원정보 select
         MemberVO userinfo = service.getUserinfo(useridx);
+        Map<String, Object> response = new HashMap<>();
         response.put("userinfo", userinfo);
-        // 리뷰 갯수 select
-        int reviewCompletedAmount = service.getReviewCompletedAmount(useridx);
-        response.put("reviewCompletedAmount", reviewCompletedAmount);
 
         // 성공적으로 조회된 데이터를 반환
         return ResponseEntity.ok(response);
@@ -807,48 +668,15 @@ public class UserController {
     @PostMapping("/userEditOK")
     public ResponseEntity<String> userEditOK(@RequestBody MemberVO member,
                                              @RequestHeader("Authorization") String Headertoken) {
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);  // 303 또는 302 응답
-        }
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         try {
             member.setIdx(useridx);
@@ -865,8 +693,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 수정 중 오류 발생");
         }
     }
-
-
 
     //마이페이지-회원탈퇴 이유 view
     @GetMapping("/mypage_userDelReason")
@@ -928,47 +754,15 @@ public class UserController {
     //회원 탈퇴
     @PostMapping("/userDelOk")
     public ResponseEntity<String> checkPwd(@RequestHeader("Authorization") String Headertoken, HttpSession session){
-        Map<String, Object> response = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-
-        // Authorization 헤더 확인
-        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
-            headers.setLocation(URI.create("/user/login"));  // 리다이렉션 경로 설정
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-        // 토큰 값에서 'Bearer ' 문자열 제거
-        String token = Headertoken.substring(7);
-
-        if (token.isEmpty()) {
-            response.put("error", "JWT 토큰이 비어 있습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
         }
 
-        String userid;
-        try {
-            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("error", "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage());
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        if (userid == null || userid.isEmpty()) {
-            response.put("error", "유효하지 않은 JWT 토큰입니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
-
-        // userid로 useridx 구하기
-        Integer useridx = service.getUseridx(userid);
-        if (useridx == null) {
-            response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
-            headers.setLocation(URI.create("/user/login"));
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
-        }
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
 
         // 회원 탈퇴
         // 세션에서 userDelReasonDTO 값 가져오기
@@ -985,7 +779,7 @@ public class UserController {
         if(result>0){
             return ResponseEntity.ok("회원 탈퇴 완료");
         }else{
-            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+            return new ResponseEntity<>(tokenResponse.getHeaders(), HttpStatus.SEE_OTHER);
         }
     }
 

@@ -138,7 +138,6 @@ public class storeMainController {
         return subcategories;
     }
 
-    // 쇼핑백 페이지 이동
     // 채원 시작
     // 헤더에서 토큰을 추출하고, 토큰의 유효성을 검증한 후 사용자 ID와 useridx를 반환 함수(코드가 너무 중복돼서 따로 뺌)
     private ResponseEntity<Map<String, Object>> extractUserIdFromToken(String Headertoken) {

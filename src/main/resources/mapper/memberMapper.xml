@@ -111,7 +111,7 @@
 
     <!-- 회원정보 데이터 가져오기 -->
     <select id="getUserinfo" resultType="com.ict.finalproject.vo.MemberVO">
-        SELECT idx, userid, userpwd, username, email, zipcode, addr, addrdetail, adult_state, login_type, tel
+        SELECT idx, userid, userpwd, username, email, zipcode, addr, addrdetail, adult_state, login_type, tel, point
         FROM T_user
         WHERE idx=${param1}
     </select>

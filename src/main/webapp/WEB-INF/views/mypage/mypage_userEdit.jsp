@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/css/mypage_userEdit.css" type="text/css" />
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/js/daum_api.js"></script>
+<script src="/js/mypage_common.js"></script>
 <script src="/js/mypage_userEdit.js"></script>
 
 <div class="mypage_wrap">
@@ -53,7 +54,7 @@
 
       <section>
         <div class="btn_bx">
-          <button type="button" class="logout_btn">LOGOUT</button>
+          <button type="button" class="logout_btn" onclick="logout()">LOGOUT</button>
         </div>
       </section>
     </div>
@@ -61,12 +62,12 @@
       <ul class="mypage_right_top">
         <li class="user_inform">
           <a class="atag_css" href="/user/mypage_userEdit"
-            ><strong>회원정보 수정</strong><span>sing2727 님</span></a
+            ><strong>회원정보 수정</strong><span class="currentID"></span></a
           >
         </li>
         <li class="user_retention_details">
           <a class="atag_css" href="/user/mypage_point"
-            ><strong class="">적립금</strong><span class="">360</span></a
+            ><strong class="">적립금</strong><span class="reservePoint"></span></a
           >
         </li>
         <li class="user_retention_details">

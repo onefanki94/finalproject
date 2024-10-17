@@ -12,11 +12,6 @@ $(function(){
             },
             success:function(response){
                 console.log(response.userinfo);
-                console.log(response.reviewCompletedAmount);
-
-                const reviewCompletedAmount = response.reviewCompletedAmount;
-                // 내 리뷰 수 업데이트
-                $('.afterCountSpan').text(reviewCompletedAmount);
 
                 const userinfo = response.userinfo;
                 // 로그인타입

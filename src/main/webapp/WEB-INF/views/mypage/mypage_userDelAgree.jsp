@@ -9,6 +9,7 @@
   href="/css/mypage_userDelAgree.css"
   type="text/css"
 />
+<script src="/js/mypage_common.js"></script>
 <script src="/js/mypage_userDelAgree.js"></script>
 
 <div class="mypage_wrap">
@@ -56,25 +57,25 @@
 
       <section>
         <div class="btn_bx">
-          <button type="button" class="logout_btn">LOGOUT</button>
+          <button type="button" class="logout_btn" onclick="logout()">LOGOUT</button>
         </div>
       </section>
     </div>
     <div class="mypage_right">
       <ul class="mypage_right_top">
         <li class="user_inform">
-          <a class="atag_css" href=""
-            ><strong>회원정보</strong><span>sing2727 님</span></a
+          <a class="atag_css" href="/user/mypage_userEdit"
+            ><strong>회원정보</strong><span class="currentID"></span></a
           >
         </li>
         <li class="user_retention_details">
-          <a class="atag_css" href=""
-            ><strong class="">적립금</strong><span class="">360</span></a
+          <a class="atag_css" href="/user/mypage_point"
+            ><strong class="">적립금</strong><span class="reservePoint"></span></a
           >
         </li>
         <li class="user_retention_details">
-          <a class="atag_css" href=""
-            ><strong class="">작성한 리뷰</strong><span class="">1</span></a
+          <a class="atag_css" href="/user/mypage_review"
+            ><strong class="">작성한 리뷰</strong><span class="afterCountSpan"></span></a
           >
         </li>
       </ul>
