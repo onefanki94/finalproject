@@ -368,6 +368,12 @@ img {
     margin-right: 5px; /* 체크박스와 텍스트 간 간격 */
 }
 
+/* 제목과 내용 테이블 */
+.inquiry-cm-write {
+    width: 100%;
+    margin-top: 20px;
+}
+
 /* 제목 입력 칸 스타일 */
 .inquiry-cm-write th {
     width: 80px;
@@ -378,6 +384,7 @@ img {
 
 .inquiry-cm-write td {
     padding: 10px;
+    width:100%;
 }
 
 .inquiry-title {

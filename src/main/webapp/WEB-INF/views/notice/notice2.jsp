@@ -187,25 +187,9 @@
                     <div class="inquiry-container">
                         <!-- 체크박스 영역 추가 -->
                         <div class="inquiry-checkbox-container">
-                            <!-- 여러 개의 체크박스 추가 -->
-                            <label>
-                                <input type="checkbox" name="category" value="멤버십"> 멤버십
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="환불"> 환불
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="상품"> 상품
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="배송"> 배송
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="이벤트"> 이벤트
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="기타"> 기타
-                            </label>
+                            <label><input type="checkbox" name="category" value="계정"> 계정</label>
+                            <label><input type="checkbox" name="category" value="배송"> 배송</label>
+                            <label><input type="checkbox" name="category" value="스트리밍"> 스트리밍</label>
                         </div>
 
                         <!-- 제목 입력 영역 -->
@@ -217,12 +201,13 @@
                                         <input type="text" name="subject" value="" id="subject" size="100" placeholder="제목을 입력하세요" class="inquiry-title">
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>내용</th>
+                                    <td>
+                                        <textarea id="content" name="content" class="inquiry-editor" placeholder="내용을 입력하세요" style="width: 90%; height: 300px;"></textarea>
+                                    </td>
+                                </tr>
                             </table>
-
-                            <!-- 본문 내용 입력 영역 -->
-                            <div class="inquiry-body">
-                                <textarea id="content" name="content" class="inquiry-editor" placeholder="내용을 입력하세요" style="width: 90%; height: 300px;"></textarea>
-                            </div>
 
                             <!-- 등록 버튼 -->
                             <div class="inquiry-footer">
