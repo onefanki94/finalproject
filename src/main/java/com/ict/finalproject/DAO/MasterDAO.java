@@ -98,4 +98,28 @@ public interface MasterDAO {
 
     void updateHandleState(int idx);
     Integer findAdminIdxByUserid(String adminId);
+
+    // 애니 데이터 베이스 추가
+    void insertAnimation(MasterVO aniVO);
+
+    // 애니 삭제 하기
+    void deletePostByIdx(int idx);
+
+    // 해당 굿즈의 idx 구하기
+    MasterVO getStoreByIdx(int idx);
+
+    // 굿즈 상품 수정
+    int updateStore(MasterVO store);
+
+    List<MasterVO> findSubCategoriesByCategory(@Param("category") int category);
+    int insertProductImg(MasterVO productImg);
+
+    // 공지사항 수정
+    MasterVO getNoticeById(@Param("idx") int idx);
+    int updateNotice(MasterVO noticeEdit);
+
+    MasterVO noticeSelect (int idx);
+
+    // QnA와 답변 데이터를 가져오는 메서드
+    MasterVO getQnaReplyById(int idx);
 }

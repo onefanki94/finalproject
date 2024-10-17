@@ -18,7 +18,7 @@
         INSERT INTO t_product
         (title, price, thumimg, relDT, brand, fee, stock, category, pro_detail)
         VALUES
-        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail});
+        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail})
     </insert>
 
     <!-- 관리자페이지 자주묻는 질문 리스트 -->
@@ -40,7 +40,7 @@
         LEFT JOIN
         t_firstcategory f ON p.category = f.code
         ORDER BY
-        p.idx;
+        p.idx
     </select>
 
     <!-- 관리자페이지 굿즈 상품 총 상품수 구하기 -->
@@ -78,7 +78,7 @@
 
     <!-- 관리자페이지 공지사항 목록 불러오기  -->
     <select id="getNoticeList">
-        SELECT n.idx, n.title, n.content, n.regDT, u.username AS admin_name
+        SELECT n.idx, n.title, n.content, n.regDT, u.username AS admin_name , n.modifyDT
         FROM t_notice n
         JOIN t_user u ON n.adminidx = u.idx
     </select>
@@ -170,17 +170,24 @@
         WHERE idx = #{idx}
     </update>
 
+    <select id="findAdminIdxByUserid" resultType="int" parameterType="string">
+        SELECT idx
+        FROM t_admin
+        WHERE adminid = #{adminid}
+    </select>
+
     <!-- 문의사항 전체 목록 보여주기 -->
     <select id="getQNAList" resultType="MasterVO">
-        SELECT q.idx, qt.type AS qnatype, q.title, q.content, u.userid, q.regDT, q.handleState
-        FROM t_qna q
+        SELECT q.idx, qt.type AS qnatype, q.title, q.content, u.userid, q.regDT,
+        q.handleState, r.reply AS reply FROM t_qna q
         JOIN t_qnatype qt ON q.qnatype = qt.code
-        JOIN t_user u ON q.useridx = u.idx;
+        JOIN t_user u ON q.useridx = u.idx
+        LEFT JOIN t_reply r ON q.idx = r.qna_idx
     </select>
 
     <!-- 문의 안한  실시간 갯수 카운팅 -->
     <select id="getUnansweredQnaCount">
-        select count(*) from t_qna where handleState = 0;
+        select count(*) from t_qna where handleState = 0
     </select>
 
     <!-- 신고 목록 보여주기 -->
@@ -189,7 +196,7 @@
         FROM t_ban b
         LEFT JOIN t_user u ON b.useridx = u.idx
         LEFT JOIN t_report r ON b.useridx = r.useridx
-        GROUP BY b.useridx, u.userid, r.report_type, b.stopDT, b.endDT, b.reason;
+        GROUP BY b.useridx, u.userid, r.report_type, b.stopDT, b.endDT, b.reason
     </select>
 
     <!-- 특정 유저의 신고 횟수를 구하는 쿼리 -->
@@ -202,6 +209,7 @@
         SELECT COUNT(*) FROM t_ban
     </select>
 
+    <!-- qna 처리 상태 업데이트 -->
     <update id="updateHandleState">
         UPDATE t_qna SET handleState = 1 WHERE idx = #{idx}
     </update>
@@ -212,8 +220,70 @@
         VALUES (#{idx}, #{reply}, #{adminIdx}, #{regDT})
     </insert>
 
-    <!-- 관리자 ID 가져오기 -->
-    <select id="findAdminIdxByUserid" resultType="int">
-        SELECT idx FROM t_admin WHERE adminid = #{adminId}
+    <!-- 애니 데이터 베이스 생성 -->
+    <insert id="insertAnimation" parameterType="com.ict.finalproject.vo.MasterVO">
+        INSERT INTO t_animation (post_img, title, anitype, director, agetype, outline, regDT, adminidx)
+        VALUES (#{post_img_filename}, #{title}, #{anitype}, #{director}, #{agetype}, #{outline}, now(), #{adminidx})
+    </insert>
+
+    <!-- 해당 idx의 값 의 데이터 삭제 -->
+    <delete id="deletePostByIdx" parameterType="int">
+        DELETE FROM t_animation WHERE idx = #{idx}
+    </delete>
+
+    <!-- 상품 정보를 idx로 조회 -->
+    <select id="getStoreByIdx" resultType="MasterVO">
+        SELECT * FROM t_product WHERE idx = #{idx}
+    </select>
+
+
+    <!-- 상품 정보를 수정 -->
+    <update id="updateStore">
+        UPDATE t_product SET category = #{category}, title = #{title}, price = #{price}, thumimg = #{thumimg},
+        ani_title = #{ani_title}, relDT = #{relDT}, brand = #{brand}, pro_detail = #{pro_detail}, fee = #{fee},
+        stock = #{stock}, second_category = #{second_category}, adminidx = #{adminidx}, modifyState = 1, modifyDT = now()  WHERE idx = #{idx}
+    </update>
+
+    <select id="findSubCategoriesByCategory" resultType="MasterVO">
+        SELECT code, first_code, type
+        FROM t_secondcategory
+        WHERE code = #{code}
+    </select>
+
+    <!-- t_productimg 테이블에 이미지 삽입 -->
+    <insert id="insertProductImg">
+        INSERT INTO t_productimg (pro_idx, detailImg)
+        VALUES (#{pro_idx}, #{detailImg})
+    </insert>
+
+    <!-- 해당 idx의 값 공지사항 조회 -->
+    <select id="getNoticeById" resultType="MasterVO">
+        SELECT idx, title, content, regDT
+        FROM t_notice
+        WHERE idx = #{idx}
+    </select>
+
+    <!-- 공지사항 업데이트 -->
+    <update id="updateNotice">
+        UPDATE t_notice
+        SET title = #{title},
+        content = #{content},
+        modifyState = 1,
+        modifyDT = now(),
+        adminidx = #{adminidx}
+        WHERE idx = #{idx}
+    </update>
+
+
+    <!-- idx의 해당하는 공지사항  값 불러오기 -->
+    <select id="noticeSelect" resultType="com.ict.finalproject.vo.MasterVO">
+        select idx, title, content from t_notice where idx = #{idx}
+    </select>
+
+    <!-- 답변 내용 확인하기 -->
+    <select id="getQnaById" resultType="com.ict.finalproject.vo.MasterVO">
+        SELECT q.idx, q.content AS content, r.reply AS reply
+        FROM t_qna q LEFT JOIN
+        t_reply r ON q.idx = r.qna_idx  WHERE q.idx = #{idx}
     </select>
 </mapper>

@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 좋아요 상태 요청
-    fetch(`/like/status?pro_idx=${productId}`, {
+    fetch(`/like/statusAndCount?pro_idx=${productId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,

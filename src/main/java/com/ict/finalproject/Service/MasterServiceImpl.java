@@ -181,4 +181,55 @@ public class MasterServiceImpl implements MasterService {
     public Integer findAdminIdxByUserid(String adminId) {
         return dao.findAdminIdxByUserid(adminId);
     }
+
+    @Override
+    public void addAnimation(MasterVO aniVO) {
+        dao.insertAnimation(aniVO);
+    }
+
+    @Override
+    public void deletePostByIdx(int idx) {
+        dao.deletePostByIdx(idx);
+    }
+
+    @Override
+    public MasterVO getStoreByIdx(int idx) {
+        return dao.getStoreByIdx(idx);
+    }
+
+    @Override
+    public boolean updateStore(MasterVO store) {
+        int result = dao.updateStore(store);
+        return result > 0;
+    }
+
+    @Override
+    public List<MasterVO> getSubCategoriesByCategory(int category) {
+        return dao.findSubCategoriesByCategory(category);
+    }
+
+    @Override
+    public boolean insertProductImg(MasterVO productImg) {
+        return dao.insertProductImg(productImg) > 0;
+    }
+
+    @Override
+    public MasterVO getNoticeById(int idx) {
+        return dao.getNoticeById(idx);
+    }
+
+    @Override
+    public boolean updateNotice(MasterVO noticeEdit) {
+        return dao.updateNotice(noticeEdit) > 0;
+    }
+
+    @Override
+    public MasterVO noticeSelect(int idx) {
+        return dao.noticeSelect(idx);
+    }
+
+    @Override
+    public MasterVO getQnaById(int idx) {
+        return dao.getQnaReplyById(idx);
+    }
 }

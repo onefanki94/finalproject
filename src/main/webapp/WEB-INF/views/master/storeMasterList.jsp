@@ -62,7 +62,7 @@
                     <td>${store.stock}<span> 개</span></td>
                     <td>${store.relDT}</td>
                     <td>
-                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster">수정</a></button>
+                        <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster/${store.idx}">수정</a></button>
                         <button class="btn btn-outline-danger btn-sm">삭제</button>
                     </td>
                 </tr>

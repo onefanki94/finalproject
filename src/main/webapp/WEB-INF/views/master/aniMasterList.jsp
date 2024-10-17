@@ -3,7 +3,7 @@
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <title>DashBoard - 애니리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
-<script src="/js/MasterPage.js"></script>
+<script src="/js/Master.js"></script>
  <div class="anime-list-container">
          <h2>애니 목록</h2>
 
@@ -59,7 +59,7 @@
                                       <td>${ani.age_type}</td>
                      <td>
                          <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster/${ani.idx}">수정</a></button>
-                         <button class="btn btn-outline-danger btn-sm">삭제</button>
+                         <button class="btn btn-outline-danger btn-sm" data-idx="${ani.idx}">삭제</button>
                      </td>
                  </tr>
                  </c:forEach>

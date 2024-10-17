@@ -16,8 +16,8 @@
                  <th style="width:6%">카테고리</th>
                  <th style="width:40%">제목</th>
                  <th style="width:10%">작성자</th>
-                 <th style="width:15%">등록일</th>
-                 <th style="width:15%">답변 처리</th>
+                 <th style="width:10%">등록일</th>
+                 <th style="width:10%">답변 처리</th>
                  <th style="width:12%">관리</th>
              </tr>
          </thead>
@@ -29,13 +29,25 @@
                      <td>${qna.title}</td>
                      <td>${qna.userid}</td>
                      <td>${qna.regDT}</td>
-                     <td>${qna.handleState}</td>
+                     <td><c:choose>
+                                 <c:when test="${qna.handleState == 1}">
+                                     처리 완료
+                                 </c:when>
+                                 <c:otherwise>
+                                     접수 중
+                                 </c:otherwise>
+                             </c:choose></td>
                      <td>
                          <!-- 답변 버튼 클릭 시 모달 오픈 -->
-                         <button class="btn btn-outline-secondary btn-sm answerBtn"
+                        <button class="btn btn-outline-secondary btn-sm answerBtn"
                                        data-idx="${qna.idx}"
                                        data-title="${qna.title}"
                                        data-content="${qna.content}">답변</button>
+                        <button class="btn btn-outline-info btn-sm"
+                                       data-idx="${qna.idx}"
+                                       data-content="${qna.content}"
+                                       data-reply="${qna.reply}"
+                                       >답변내용보기</button>
                      </td>
                  </tr>
              </c:forEach>
@@ -89,6 +101,29 @@
            <button type="submit" class="btn btn-primary">답변 제출</button>
          </div>
        </form>
+     </div>
+   </div>
+ </div>
+ <!-- 모달 구조 -->
+ <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="replyModalLabel">답변 내용 보기</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <p><strong>문의 내용:</strong></p>
+         <p id="qnaContent"></p>
+         <hr>
+         <p><strong>답변 내용:</strong></p>
+         <p id="qnaReply"></p>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+       </div>
      </div>
    </div>
  </div>
