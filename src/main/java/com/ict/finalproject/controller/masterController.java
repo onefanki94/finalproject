@@ -600,6 +600,23 @@ public class masterController {
         return mav;
     }
 
+    // 답변 내용 확인하기
+    @GetMapping("/getQnaReply/{idx}")
+    public ResponseEntity<MasterVO> getQnaReply(@PathVariable("idx") int idx) {
+        try {
+            // idx에 해당하는 QnA 데이터를 서비스에서 가져옴
+            MasterVO qna = masterService.getQnaById(idx);
+
+            if (qna != null) {
+                return new ResponseEntity<>(qna, HttpStatus.OK); // JSON 형태로 반환
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/QNAanswerOK")
     public String QNAanswerOK(@RequestParam("reply") String reply,
                               @RequestParam("idx") int idx,

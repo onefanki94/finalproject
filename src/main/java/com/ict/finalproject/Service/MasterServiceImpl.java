@@ -227,4 +227,9 @@ public class MasterServiceImpl implements MasterService {
     public MasterVO noticeSelect(int idx) {
         return dao.noticeSelect(idx);
     }
+
+    @Override
+    public MasterVO getQnaById(int idx) {
+        return dao.getQnaReplyById(idx);
+    }
 }

@@ -379,3 +379,19 @@ success: function(response) {
          });
      });
  });
+
+ $(document).ready(function() {
+     // 답변 보기 버튼 클릭 시 이벤트 처리
+     $('.btn-outline-info').on('click', function() {
+         // 버튼의 data-* 속성에서 값 가져오기
+         var content = $(this).data('content');
+         var reply = $(this).data('reply');
+
+         // 모달 창에 내용 채우기
+         $('#qnaContent').text(content);
+         $('#qnaReply').text(reply);
+
+         // 모달 창 띄우기
+         $('#replyModal').modal('show');
+     });
+ });
