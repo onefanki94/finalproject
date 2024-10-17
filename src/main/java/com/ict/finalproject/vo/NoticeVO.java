@@ -19,10 +19,19 @@ public class NoticeVO {
     private String title;
     private String content;
     private String regDT;
-    private Integer modifyState; //안되기만해봐라 뒤졌따 ㅋㅋㅋㅋㅋ ㅡ근데 왜 얘만 안되는것같지? 아 int는 뭐가 다른가 몰겠땅,,
+    private Integer modifyState;
     private Date modifyDT;
     private int delState;
     private Date delDT;
     private int adminidx;
+
+
+    private String question;  // 자주 묻는 질문 제목
+    private String answer;    // 자주 묻는 질문 답변
+    private String faqType;   // faqtype의 문자열 형태
+    private int faqtype;      // t_faq의 faqtype 컬럼
+
+
+
 
 }

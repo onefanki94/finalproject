@@ -22,30 +22,7 @@
 <body>
 
 
-<div class="detail_layer_pop" style="display:none;">
-    <div class="detail_view">
-        <div class="detail_layer_close" style="cursor:pointer;">
-        <img src="/img/notice/close_1.png" alt="Close">
-        </div>
-        <div class="detail_view_layer">
-            <div class="detil_new">
 
-                <div class="titarea">
-                    <div class="tit">
-                        <span id="modalDate"></span>
-                        <div id="modalTitle"></div>
-                    </div>
-                </div>
-
-                <div class="detail_content">
-                    <div class="sample_txt">
-                    <div id="modalContent"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="all">
@@ -57,7 +34,7 @@
             <div class="notice_tab">
                 <ul class="list">
                     <li class="selected">
-                        <a href="#tap1" class="btn">공지사항</a>
+                        <a href="#tap1" class="btn" id="resetFilters" style="cursor:pointer;">공지사항</a>
                     </li>
                     <li class="selected">
                         <a href="#tap2" class="btn">자주 묻는 질문</a>
@@ -74,6 +51,32 @@
     </div>
 </section>
 
+
+    <div class="detail_layer_pop" style="display:none;">
+        <div class="detail_view">
+            <div class="detail_layer_close" style="cursor:pointer;">
+            <img src="/img/notice/close_1.png" alt="Close">
+            </div>
+            <div class="detail_view_layer">
+                <div class="detil_new">
+
+                    <div class="titarea">
+                        <div class="tit">
+                            <span id="modalDate"></span>
+                            <div id="modalTitle"></div>
+                        </div>
+                    </div>
+
+                    <div class="detail_content">
+                        <div class="sample_txt">
+                        <div id="modalContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="con_width">
             <div class="notice" id="content">
@@ -89,16 +92,18 @@
 
                 <!-- <h2 class="search-tags">
                     <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
-                    <a class="${selectedTag == 'VOD' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('VOD')">#VOD</a>
-                    <a class="${selectedTag == '멤버십' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('멤버십')">#멤버십</a>
-                    <a class="${selectedTag == '환불' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('환불')">#환불</a>
+                    <a class="${selectedTag == '쇼핑' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('쇼핑')">#쇼핑</a>
+                    <a class="${selectedTag == '계정' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('계정')">#계정</a>
+                    <a class="${selectedTag == '포인트' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('포인트')">#포인트</a>
+                    <a class="${selectedTag == '애니' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('애니')">#애니</a>
+                    <a class="${selectedTag == '서비스' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('서비스')">#서비스</a>
                 </h2> -->
             </div>
 
             <!-- 공지사항 리스트 -->
             <div class="bbb">
                 <div class="content active" id="tap1"> <!-- 기본적으로 active 클래스를 추가 -->
-                    <div class="noticeList">
+                    <div class="noticeList" id="noticeList">
                         <div class="row header">
                             <div class="col-sm-1 p-2">번호</div>
                             <div class="col-sm-2 p-2">카테고리</div>
@@ -142,6 +147,7 @@
 
                 </div>
 
+                <!-- 자주 묻는 질문 -->
                 <div class="content" id="tap2">
                     <div class="FAQList">
                         <div class="f_header" style="height:auto; overflow:hidden; text-align:center;">
@@ -151,29 +157,25 @@
                                     <col width="*">
                                 </colgroup>
                                 <tbody>
-                                    <!-- 질문 항목 -->
-                                    <tr class="faq-question" style="cursor:pointer;">
-                                        <td>Q</td>
-                                        <td>
-                                            멤버십 정기결제와 3개월권의 혜택 차이는 무엇인가요?
-                                            <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
-                                        </td>
-                                    </tr>
+                                    <!-- FAQ 리스트 반복 출력 -->
+                                    <c:forEach var="faq" items="${faqs}">
+                                        <tr class="faq-question" style="cursor:pointer;">
+                                            <td>Q</td>
+                                            <td>
+                                                ${faq.question}  <!-- 질문 내용 -->
+                                                <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
+                                            </td>
+                                        </tr>
 
-                                    <!-- 답변 항목 (초기에는 숨김 처리) -->
-                                    <tr class="faq-answer" style="display: none;">
-                                        <td colspan="2">
-                                            <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
-                                                <p>A. 멤버십 상품별 누릴 수 있는 혜택의 차이는 아래와 같습니다.</p>
-                                                <p><strong>정기결제 (첫달무료)</strong></p>
-                                                <p>- 혜택: 동시 방영 LIVE, 1080 VOD 다운로드 제공, 상영회 예매권 우대, 온라인샵 배송비 무료</p>
-                                                <p>- 결제일 기준으로, 매달 12,900원이 결제 됩니다.</p>
-                                                <p><strong>3개월권</strong></p>
-                                                <p>- 혜택: 동시 방영 LIVE, 1080 VOD 다운로드 제공, 상영회 예매권 우대, 온라인샵 배송비 무료</p>
-                                                <p>- 결제일 기준으로, 3개월간 이용 가능하며 만료 이후 추가 결제가 발생되지 않습니다.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <!-- 답변 항목 (초기에는 숨김 처리) -->
+                                        <tr class="faq-answer" style="display: none;">
+                                            <td colspan="2">
+                                                <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
+                                                    <p>A. ${faq.answer}</p> <!-- 답변 내용 -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -258,11 +260,100 @@
 
 
 <script>
-<!-- 태그 필터링 함수 -->
-function filterByTag(tag) {
-    const keyword = document.getElementById("textSearch").value;
-    window.location.href = `/notice?page=1&tag=` + encodeURIComponent(tag) + `&keyword=` + encodeURIComponent(keyword);
-}
+    // 공지사항 탭 클릭 시 필터 초기화하고 전체 목록 요청
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        // AJAX 요청으로 필터링 없이 전체 공지사항 리스트 요청
+        $.ajax({
+            url: '/notice2',
+            type: 'GET',
+            data: { keyword: '', tag: '' },  // 검색어와 태그를 초기화
+            success: function (data) {
+                // #noticeList 부분 업데이트
+                const newNoticeList = $(data).find('#noticeList').html();
+                document.getElementById('noticeList').innerHTML = newNoticeList;
+
+                // 검색어 입력 필드 초기화
+                document.getElementById('textSearch').value = '';
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+
+
+    // 검색 실행 함수
+    function triggerSearch() {
+        const keyword = document.getElementById('textSearch').value;
+
+        $.ajax({
+            url: '/notice2',
+            type: 'GET',
+            data: { keyword },
+            success: function (data) {
+                document.getElementById('noticeList').innerHTML = $(data).find('#noticeList').html();
+                document.getElementById('textSearch').value = '';  // 검색어 입력 필드 초기화
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    // 검색바 표시/숨기기 함수
+    function toggleSearchBar(show) {
+        document.querySelector('.search').style.display = show ? 'block' : 'none';
+    }
+
+    // 탭 전환 시 검색바 처리
+    document.querySelectorAll('.notice_tab .list li').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const isNoticeTab = this.querySelector('.btn').innerText === '공지사항';
+            toggleSearchBar(isNoticeTab);  // 공지사항 탭이면 검색바 표시, 아니면 숨김
+        });
+    });
+
+    // 검색 버튼 클릭 또는 엔터 키 입력 시 검색 실행
+    ['click', 'keypress'].forEach(eventType => {
+        document.getElementById('textSearch').addEventListener(eventType, function(event) {
+            if (eventType === 'click' || (eventType === 'keypress' && event.key === 'Enter')) {
+                event.preventDefault();
+                triggerSearch();
+            }
+        });
+    });
+
+    // 페이지 로드 시 검색바 고정 (공지사항 탭에서 시작할 경우)
+    toggleSearchBar(true);  // 페이지 로드 시 항상 공지사항에는 검색바가 표시
+
+
+
+    // 모든 질문 항목에 대해 클릭 이벤트 추가
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function () {
+                // 현재 질문의 다음 요소(답변)를 가져옴
+                const answer = this.nextElementSibling;
+
+                // 모든 답변을 숨기고 아이콘을 초기화
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    if (ans !== answer) ans.style.display = 'none';
+                });
+
+                document.querySelectorAll('.toggle-icon').forEach(icon => {
+                    icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
+                });
+
+                // 현재 답변을 보이거나 숨기기
+                answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
+
+                // 아이콘 변경
+                const icon = this.querySelector('.toggle-icon');
+                icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
+            });
+        });
+
+
+
 
 
 //탭1_공지사항_모달
@@ -306,29 +397,6 @@ function filterByTag(tag) {
     });
 
 
-// 모든 질문 항목에 대해 클릭 이벤트 추가
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.addEventListener('click', function () {
-            // 현재 질문의 다음 요소(답변)를 가져옴
-            const answer = this.nextElementSibling;
-
-            // 모든 답변을 숨기고 아이콘을 초기화
-            document.querySelectorAll('.faq-answer').forEach(ans => {
-                if (ans !== answer) ans.style.display = 'none';
-            });
-
-            document.querySelectorAll('.toggle-icon').forEach(icon => {
-                icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
-            });
-
-            // 현재 답변을 보이거나 숨기기
-            answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
-
-            // 아이콘 변경
-            const icon = this.querySelector('.toggle-icon');
-            icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
-        });
-    });
 
 
 

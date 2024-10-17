@@ -18,5 +18,19 @@
         AND delState = 0
     </select>
 
+    <!-- FAQ 조회 쿼리 -->
+    <select id="getFaqs" parameterType="PagingVO" resultType="NoticeVO">
+        SELECT f.*, ft.type
+        FROM t_faq f
+        JOIN t_faqtype ft ON f.faqtype = ft.code
+        WHERE f.adminidx = 2
+        ORDER BY f.regDT DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="getTotalFaqCount" parameterType="PagingVO" resultType="int">
+        SELECT COUNT(*) FROM t_faq
+    </select>
+
 
 </mapper>

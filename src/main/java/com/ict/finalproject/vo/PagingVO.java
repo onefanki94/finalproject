@@ -12,19 +12,19 @@ public class PagingVO {
     private boolean hasNext;      // 다음 페이지가 있는지 여부
 
     private String keyword;     // 검색어
-    private String tag;         // 태그
+    private int faqtype;        // FAQ 타입
 
     // 기본 생성자
     public PagingVO() {}
 
     // 모든 매개변수를 받는 생성자
-    public PagingVO(int nowPage, int totalElements, int size, String keyword, String tag) {
+    public PagingVO(int nowPage, int totalElements, int size, String keyword, int faqtype) {
         this.nowPage = nowPage;
         this.totalElements = totalElements;
         this.size = size;
         this.offset = (nowPage - 1) * size; // 0 기반 페이지 번호 계산
         this.keyword = keyword;
-        this.tag = tag;
+        this.faqtype = faqtype;
 
         // 전체 페이지 수 계산
         this.totalPage = (int) Math.ceil((double) totalElements / size);
@@ -36,10 +36,6 @@ public class PagingVO {
         // 페이지 네비게이션 계산 (현재 페이지 기준으로 5개씩 보여주기)
         this.startPage = Math.max(1, nowPage - 4);
         this.endPage = Math.min(totalPage, nowPage + 4);
-    }
-
-    public int getOffset() {
-        return offset;
     }
 
     // Getter/Setter
@@ -61,7 +57,6 @@ public class PagingVO {
     public void setHasNext(boolean hasNext) { this.hasNext = hasNext; }
     public String getKeyword() { return keyword; }
     public void setKeyword(String keyword) { this.keyword = keyword; }
-    public String getTag() { return tag; }
-    public void setTag(String tag) { this.tag = tag; }
+    public int getFaqtype() { return faqtype; }
+    public void setFaqtype(int faqtype) { this.faqtype = faqtype; }
 }
-

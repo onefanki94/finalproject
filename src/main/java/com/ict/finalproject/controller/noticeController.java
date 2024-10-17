@@ -22,29 +22,30 @@ public class noticeController {
     public String getNoticeList(@RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 @RequestParam(defaultValue = "") String keyword,
+                                @RequestParam(defaultValue = "0") int faqtype,
                                 Model model) {
-        // 페이징 처리 및 공지사항 리스트 조회
-        PagingVO pVO = noticeService.getNoticePage(page, size, keyword, "");  // 태그는 빈 값으로 처리
-        List<NoticeVO> notices = noticeService.getNotices(pVO);
+
+        // 공지사항 페이징 처리 및 리스트 조회
+        PagingVO noticePVO = noticeService.getNoticePage(page, size, keyword);  // 공지사항 페이징
+        List<NoticeVO> notices = noticeService.getNotices(noticePVO);
+
+        // FAQ 페이징 처리 및 리스트 조회
+        PagingVO faqPVO = noticeService.getFaqPage(page, size, faqtype);  // 자주 묻는 질문 페이징
+        List<NoticeVO> faqs = noticeService.getFaqs(faqPVO);
 
         // 모델에 데이터 추가
         model.addAttribute("notices", notices);
-        model.addAttribute("paging", pVO);
-        model.addAttribute("keyword", keyword);  // 현재 검색어를 뷰에 전달
+        model.addAttribute("noticePaging", noticePVO);  // 공지사항 페이징 정보
+        model.addAttribute("faqs", faqs);
+        model.addAttribute("faqPaging", faqPVO);  // 자주 묻는 질문 페이징 정보
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("faqtype", faqtype);
 
-        return "notice/notice2";  // 뷰 페이지로 이동
+        return "notice/notice2";  // 고객센터 페이지로 이동
     }
 
 
 
-
-    // 공지사항 목록 조회 (검색 조건 포함)
-
-
-//    @GetMapping("/notice2")
-//    public String notice() {
-//        return "notice/notice2";
-//    }
 
     //상세페이지
 //    @GetMapping("/noticeView")
