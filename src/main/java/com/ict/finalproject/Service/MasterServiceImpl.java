@@ -212,4 +212,19 @@ public class MasterServiceImpl implements MasterService {
     public boolean insertProductImg(MasterVO productImg) {
         return dao.insertProductImg(productImg) > 0;
     }
+
+    @Override
+    public MasterVO getNoticeById(int idx) {
+        return dao.getNoticeById(idx);
+    }
+
+    @Override
+    public boolean updateNotice(MasterVO noticeEdit) {
+        return dao.updateNotice(noticeEdit) > 0;
+    }
+
+    @Override
+    public MasterVO noticeSelect(int idx) {
+        return dao.noticeSelect(idx);
+    }
 }

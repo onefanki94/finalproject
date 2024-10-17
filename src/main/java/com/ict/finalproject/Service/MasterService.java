@@ -50,4 +50,7 @@ public interface MasterService {
     boolean updateStore(MasterVO store);
     List<MasterVO> getSubCategoriesByCategory(int category);
     boolean insertProductImg(MasterVO productImg);
+    MasterVO getNoticeById(int idx);
+    boolean updateNotice(MasterVO noticeEdit);
+    MasterVO noticeSelect (int idx);
 }

@@ -10,6 +10,7 @@ import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.StoreVO;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -233,12 +234,9 @@ public class masterController {
     }
 
 
-
-
-
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
     @GetMapping("/aniEditMaster/{idx}")
-    public ModelAndView aniEditMaster(@PathVariable("idx") int idx){
+    public ModelAndView aniEditMaster(@PathVariable("idx") int idx) {
         mav = new ModelAndView();
         mav.addObject("ani", masterService.aniSelect(idx));
         mav.setViewName("master/aniEditMaster");
@@ -285,77 +283,76 @@ public class masterController {
         return "redirect:/master/aniMasterList";
     }
 
-        // Dashboard - 굿즈관리 - 굿즈목록 리스트
-        @GetMapping("/storeMasterList")
-        public ModelAndView storeMasterList(){
-            System.out.println("관리자페이지 굿즈 상품 테이블 불러오기");
-            List<MasterVO> storeList = masterService.getStoreList();
+    // Dashboard - 굿즈관리 - 굿즈목록 리스트
+    @GetMapping("/storeMasterList")
+    public ModelAndView storeMasterList() {
+        System.out.println("관리자페이지 굿즈 상품 테이블 불러오기");
+        List<MasterVO> storeList = masterService.getStoreList();
 
-            // 총 상품 수 구하기
-            int totalStore = masterService.getTotalStore();
+        // 총 상품 수 구하기
+        int totalStore = masterService.getTotalStore();
 
-            Map<String, Object> categoryCode1Count = masterService.getCategoryCountByCode(1); // 의류
-            Map<String, Object> categoryCode2Count = masterService.getCategoryCountByCode(2); // 완구/취미
-            Map<String, Object> categoryCode3Count = masterService.getCategoryCountByCode(3); // 문구/오피스
-            Map<String, Object> categoryCode4Count = masterService.getCategoryCountByCode(4); // 생활용품
+        Map<String, Object> categoryCode1Count = masterService.getCategoryCountByCode(1); // 의류
+        Map<String, Object> categoryCode2Count = masterService.getCategoryCountByCode(2); // 완구/취미
+        Map<String, Object> categoryCode3Count = masterService.getCategoryCountByCode(3); // 문구/오피스
+        Map<String, Object> categoryCode4Count = masterService.getCategoryCountByCode(4); // 생활용품
 
-            mav = new ModelAndView();
-            mav.addObject("storeList", storeList);
-            mav.addObject("totalStore", totalStore);
-            mav.addObject("categoryCode1Count", categoryCode1Count.get("product_category"));
-            mav.addObject("categoryCode2Count", categoryCode2Count.get("product_category"));
-            mav.addObject("categoryCode3Count", categoryCode3Count.get("product_category"));
-            mav.addObject("categoryCode4Count", categoryCode4Count.get("product_category"));
-            mav.setViewName("master/storeMasterList");
-            return mav;
+        mav = new ModelAndView();
+        mav.addObject("storeList", storeList);
+        mav.addObject("totalStore", totalStore);
+        mav.addObject("categoryCode1Count", categoryCode1Count.get("product_category"));
+        mav.addObject("categoryCode2Count", categoryCode2Count.get("product_category"));
+        mav.addObject("categoryCode3Count", categoryCode3Count.get("product_category"));
+        mav.addObject("categoryCode4Count", categoryCode4Count.get("product_category"));
+        mav.setViewName("master/storeMasterList");
+        return mav;
+    }
+
+    // Dashboard - 주문관리 - 주문내역 리스트
+    @GetMapping("/orderMasterList")
+    public ModelAndView orderMasterList() {
+        mav = new ModelAndView();
+        mav.setViewName("master/orderMasterList");
+        return mav;
+    }
+
+    // Dashboard - 신고관리 - 신고목록 리스트
+    @GetMapping("/reportinguserMasterList")
+    public ModelAndView reportinguserListMaster() {
+        List<MasterVO> reportingUser = masterService.getReportingUser();  // 모든 신고된 유저 리스트를 가져옴
+
+        // 각 유저별로 개별 신고 횟수를 계산
+        for (MasterVO user : reportingUser) {
+            int totalUserReport = masterService.getTotalUserReport(user.getUseridx());
+            user.setTotalUserReport(totalUserReport);  // VO에 각 유저의 신고 횟수 저장
         }
 
-        // Dashboard - 주문관리 - 주문내역 리스트
-        @GetMapping("/orderMasterList")
-        public ModelAndView orderMasterList(){
-            mav = new ModelAndView();
-            mav.setViewName("master/orderMasterList");
-            return mav;
-        }
+        // 전체 신고 누적 횟수 계산
+        int totalReportUser = masterService.getTotalReportCount();
 
-        // Dashboard - 신고관리 - 신고목록 리스트
-        @GetMapping("/reportinguserMasterList")
-        public ModelAndView reportinguserListMaster() {
-            List<MasterVO> reportingUser = masterService.getReportingUser();  // 모든 신고된 유저 리스트를 가져옴
-
-            // 각 유저별로 개별 신고 횟수를 계산
-            for (MasterVO user : reportingUser) {
-                int totalUserReport = masterService.getTotalUserReport(user.getUseridx());
-                user.setTotalUserReport(totalUserReport);  // VO에 각 유저의 신고 횟수 저장
-            }
-
-            // 전체 신고 누적 횟수 계산
-            int totalReportUser = masterService.getTotalReportCount();
-
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("reportingUser", reportingUser);
-            mav.addObject("totalReportUser", totalReportUser);
-            mav.setViewName("master/reportinguserMasterList");
-            return mav;
-        }
-
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("reportingUser", reportingUser);
+        mav.addObject("totalReportUser", totalReportUser);
+        mav.setViewName("master/reportinguserMasterList");
+        return mav;
+    }
 
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
-        @GetMapping("/boardMasterAll")
-        public ModelAndView boardMasterAll(){
-            // 커뮤니티 전체 글 목록 불러오기
-            System.out.println("관리자페이지에서 커뮤니티 테이블 전체 글 목록 불러오기");
-            List<MasterVO> boardList = masterService.getBoardList();
-            mav = new ModelAndView();
-            mav.addObject("boardList", boardList);
-            mav.setViewName("master/boardMasterAll");
-            return mav;
-        }
+    @GetMapping("/boardMasterAll")
+    public ModelAndView boardMasterAll() {
+        // 커뮤니티 전체 글 목록 불러오기
+        System.out.println("관리자페이지에서 커뮤니티 테이블 전체 글 목록 불러오기");
+        List<MasterVO> boardList = masterService.getBoardList();
+        mav = new ModelAndView();
+        mav.addObject("boardList", boardList);
+        mav.setViewName("master/boardMasterAll");
+        return mav;
+    }
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 댓글 전체 목록
     @GetMapping("/boardMasterReviewAll")
-    public ModelAndView boardMasterReviewAll(){
+    public ModelAndView boardMasterReviewAll() {
         List<MasterVO> reviewList = masterService.getReviewList();
 
         // 로그로 데이터 크기 확인
@@ -369,8 +366,8 @@ public class masterController {
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
     @GetMapping("/boardMasterReplyAll")
-    public ModelAndView boardMasterReplyAll(MasterVO vo){
-            List<MasterVO> replyList = masterService.getReplyList(vo);
+    public ModelAndView boardMasterReplyAll(MasterVO vo) {
+        List<MasterVO> replyList = masterService.getReplyList(vo);
         mav = new ModelAndView();
         mav.addObject("replyList", replyList);
         mav.setViewName("master/boardMasterReplyAll");
@@ -412,8 +409,8 @@ public class masterController {
 
     //  Dashboard - 기타관리 - 공지사항 목록
     @GetMapping("/noticeMasterList")
-    public ModelAndView noticeMasterList(){
-            // 관리자페이지 공지사항 글 목록 불러오기
+    public ModelAndView noticeMasterList() {
+        // 관리자페이지 공지사항 글 목록 불러오기
         System.out.println("관리자페이지 공지사항 목록 불러오기");
 
         List<MasterVO> noticeList = masterService.getNoticeList();
@@ -422,9 +419,10 @@ public class masterController {
         mav.setViewName("master/noticeMasterList");
         return mav;
     }
+
     //  Dashboard - 기타관리 - 공지사항 - 추가
     @GetMapping("/noticeAddMaster")
-    public ModelAndView noticeAddMaster(){
+    public ModelAndView noticeAddMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/noticeAddMaster");
         return mav;
@@ -478,12 +476,91 @@ public class masterController {
 
 
     //  Dashboard - 기타관리 - 공지사항 - 수정
-    @GetMapping("/noticeEditMaster")
-    public ModelAndView noticeEditMaster(){
+    @GetMapping("/noticeEditMaster/{idx}")
+    public ModelAndView noticeEditMaster(@PathVariable("idx") int idx) {
         mav = new ModelAndView();
+        mav.addObject("noticeEdit", masterService.noticeSelect(idx));
         mav.setViewName("master/noticeEditMaster");
         return mav;
     }
+
+    @PostMapping("/noticeEditMasterOk")
+    public ResponseEntity<String> noticeEditMasterOk(
+            @RequestParam(value = "idx", required = false, defaultValue = "0") int idx,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("token") String token) {
+
+        log.info("전달된 토큰: " + token);
+
+        String bodyTag = "";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_HTML);
+
+        // idx 값 검증
+        if (idx == 0) {
+            bodyTag += "<script>alert('공지사항 ID가 잘못되었습니다.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            // JWT 토큰 검증
+            if (token == null || token.trim().isEmpty()) {
+                bodyTag += "<script>alert('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            }
+
+            String adminid = jwtUtil.getUserIdFromToken(token);
+            log.info("추출된 사용자 ID: " + adminid);
+
+            if (adminid == null) {
+                log.error("토큰에서 사용자 ID를 추출할 수 없습니다.");
+                return new ResponseEntity<>("유효하지 않은 토큰입니다.", HttpStatus.UNAUTHORIZED);
+            }
+
+            // adminId로 adminidx 추출
+            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+            log.info("추출된 adminidx: " + adminidx); // adminidx 로그 추가
+
+            if (adminidx == null) {
+                log.error("adminidx가 null입니다.");
+                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            }
+
+            // 공지사항 정보 불러오기
+            MasterVO Editnotice = masterService.getNoticeById(idx);
+            if (Editnotice == null) {
+                bodyTag += "<script>alert('해당 공지사항을 찾을 수 없습니다.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.NOT_FOUND);
+            }
+
+            // 공지사항 정보 업데이트
+            Editnotice.setTitle(title);
+            Editnotice.setContent(content);
+            Editnotice.setAdminidx(adminidx);
+
+            boolean updateResult = masterService.updateNotice(Editnotice);
+            if (!updateResult) {
+                bodyTag += "<script>alert('공지사항 수정 실패. 다시 시도해 주세요.');history.back();</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            // 성공 시 리다이렉트
+            bodyTag += "<script>alert('공지사항이 성공적으로 수정되었습니다.');location.href='/master/noticeList';</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+
+        } catch (ExpiredJwtException e) {
+            log.error("토큰이 만료되었습니다.", e);
+            bodyTag += "<script>alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+            log.error("공지사항 수정 중 오류 발생", e);
+            bodyTag += "<script>alert('공지사항 수정 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     //  Dashboard - 매출관리 - 일/월별 매출관리
     @GetMapping("/orderSalesMaster")

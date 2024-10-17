@@ -113,4 +113,10 @@ public interface MasterDAO {
 
     List<MasterVO> findSubCategoriesByCategory(@Param("category") int category);
     int insertProductImg(MasterVO productImg);
+
+    // 공지사항 수정
+    MasterVO getNoticeById(@Param("idx") int idx);
+    int updateNotice(MasterVO noticeEdit);
+
+    MasterVO noticeSelect (int idx);
 }

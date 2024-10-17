@@ -78,7 +78,7 @@
 
     <!-- 관리자페이지 공지사항 목록 불러오기  -->
     <select id="getNoticeList">
-        SELECT n.idx, n.title, n.content, n.regDT, u.username AS admin_name
+        SELECT n.idx, n.title, n.content, n.regDT, u.username AS admin_name , n.modifyDT
         FROM t_notice n
         JOIN t_user u ON n.adminidx = u.idx
     </select>
@@ -254,4 +254,28 @@
         INSERT INTO t_productimg (pro_idx, detailImg)
         VALUES (#{pro_idx}, #{detailImg})
     </insert>
+
+    <!-- 해당 idx의 값 공지사항 조회 -->
+    <select id="getNoticeById" resultType="MasterVO">
+        SELECT idx, title, content, regDT
+        FROM t_notice
+        WHERE idx = #{idx}
+    </select>
+
+    <!-- 공지사항 업데이트 -->
+    <update id="updateNotice">
+        UPDATE t_notice
+        SET title = #{title},
+        content = #{content},
+        modifyState = 1,
+        modifyDT = now(),
+        adminidx = #{adminidx}
+        WHERE idx = #{idx}
+    </update>
+
+
+    <!-- idx의 해당하는 공지사항  값 불러오기 -->
+    <select id="noticeSelect" resultType="com.ict.finalproject.vo.MasterVO">
+        select idx, title, content from t_notice where idx = #{idx}
+    </select>
 </mapper>

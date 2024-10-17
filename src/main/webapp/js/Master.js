@@ -243,6 +243,8 @@ $(document).ready(function() {
      });
  });
 
+
+// 애니 해당 게시글 삭제 --------------------------------------------------------------------------
 $(document).ready(function() {
 // 삭제 버튼 클릭 시
 $('.btn-outline-danger').on('click', function() {
@@ -267,6 +269,7 @@ success: function(response) {
      });
  });
 
+// 굿즈 상품 수정 --------------------------------------------------------------------------
  $(document).ready(function() {
      var token = localStorage.getItem('token');
 
@@ -327,5 +330,52 @@ success: function(response) {
          } else {
              $('#second_category').empty().append('<option value="">중분류 선택</option>').prop('disabled', true);
          }
+     });
+ });
+// 공지사항 수정 -------------------------------------------------------------------
+ $(document).ready(function() {
+     $('#noticeEditForm').submit(function(event) {
+         event.preventDefault(); // 기본 폼 제출 동작을 막음
+
+         var idx = $('#idx').val();
+         var title = $('#title').val().trim();
+         var content = $('#content').val().trim();
+         var token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
+
+         // 폼 필드 검증
+         if (!title) {
+             alert("제목을 입력해 주세요.");
+             return false;
+         }
+
+         if (!content) {
+             alert("내용을 입력해 주세요.");
+             return false;
+         }
+
+         if (!token) {
+             alert("인증 토큰이 없습니다. 다시 로그인 해주세요.");
+             return false;
+         }
+
+         // Ajax를 통해 서버로 데이터 전송
+         $.ajax({
+             url: '/master/noticeEditMasterOk',
+             type: 'POST',
+             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',  // Content-Type 명시
+             data: {
+                 idx: idx,
+                 title: title,
+                 content: content,
+                 token: token  // 토큰을 함께 전송
+             },
+             success: function(response) {
+                 alert('공지사항이 성공적으로 수정되었습니다.');
+                 window.location.href = '/master/noticeMasterList';
+             },
+             error: function(xhr, status, error) {
+                 alert('공지사항 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
+             }
+         });
      });
  });
