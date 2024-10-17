@@ -109,34 +109,3 @@ async function adminLogin(adminid, adminpwd) {
         alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
     }
 }
-document.addEventListener('DOMContentLoaded', function() {
-    const adminLink = document.getElementById('adminLink');
-    const token = localStorage.getItem("token");
-
-    if (adminLink) {
-        if (token) {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-
-            if (payload.adminid) {
-                // 관리자 계정일 경우 링크를 대시보드로 설정
-                adminLink.href = "/master/masterMain";
-            } else {
-                // 관리자가 아니면 관리자 페이지로 접근을 막음
-                adminLink.href = "#"; // 링크를 비활성화
-                alert("관리자만 접근할 수 있습니다.");
-            }
-        } else {
-            // 토큰이 없으면 로그인 페이지로 설정
-            adminLink.href = "/master/masterLogin";
-        }
-
-        // 클릭 시 이벤트 핸들러 추가
-        adminLink.addEventListener('click', function(event) {
-            // 링크가 비활성화된 경우
-            if (adminLink.href === "#") {
-                event.preventDefault(); // 비활성화된 링크 클릭 시 동작 방지
-                alert("관리자만 접근할 수 있습니다."); // 경고 메시지 표시
-            }
-        });
-    }
-});

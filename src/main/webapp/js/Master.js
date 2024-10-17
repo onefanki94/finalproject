@@ -1,70 +1,78 @@
 // 굿즈 상품 테이블 대분류 중분류 내용 스크립트
 // 대분류와 중분류의 매핑 정보
-const categoryMapping = {
-"1": [
-{ value: 10, text: "아우터" },
-{ value: 11, text: "상의" },
-{ value: 12, text: "하의" },
-{ value: 13, text: "잡화" }
-],
-"2": [
-{ value: 20, text: "아크릴" },
-{ value: 21, text: "피규어" },
-{ value: 22, text: "캔뱃지" },
-{ value: 23, text: "슬로건" },
-{ value: 24, text: "포스터" }
-],
-"3": [
-{ value: 30, text: "필기류" },
-{ value: 31, text: "노트&메모지" },
-{ value: 32, text: "파일" },
-{ value: 33, text: "스티커" },
-{ value: 34, text: "달력" }
-],
-"4": [
-{ value: 40, text: "컵&텀블러" },
-{ value: 41, text: "쿠션" },
-{ value: 42, text: "담요" },
-{ value: 43, text: "기타" }
-]
-};
+document.addEventListener('DOMContentLoaded', function() {
+    const mainCategorySelect = document.getElementById('code');
+    const subCategorySelect = document.getElementById('second_category');
 
-document.addEventListener('DOMContentLoaded', function () {
-// DOM이 완전히 로드된 후 실행되도록 설정
+    if (!mainCategorySelect || !subCategorySelect) {
+        console.error('대분류 또는 중분류 select 요소가 존재하지 않습니다.');
+        return; // 요소가 없을 경우 함수 종료
+    }
 
-// 대분류 select 요소
-const mainCategorySelect = document.getElementById('category');
+    // 대분류가 변경될 때 중분류 업데이트
+    mainCategorySelect.addEventListener('change', function() {
+        const selectedValue = mainCategorySelect.value;
 
-// 중분류 select 요소
-const subCategorySelect = document.getElementById('second_category');
+        // 중분류 초기화
+        subCategorySelect.innerHTML = '<option value="">중분류 선택</option>'; // 기본 옵션 추가
+        subCategorySelect.disabled = true; // 기본적으로 비활성화
 
-// 요소가 존재하는지 확인
-if (mainCategorySelect && subCategorySelect) {
- // 대분류 선택 시 중분류 옵션을 업데이트하는 함수
- mainCategorySelect.addEventListener('change', function () {
-     const selectedMainCategory = mainCategorySelect.value;
+        // 대분류에 따라 중분류 추가
+        let subOptions = [];
+        switch (selectedValue) {
+            case '1': // 의류
+                subOptions = [
+                    { value: '10', text: '아우터' },
+                    { value: '11', text: '상의' },
+                    { value: '12', text: '하의' },
+                    { value: '13', text: '잡화' }
+                ];
+                break;
+            case '2': // 완구/취미
+                subOptions = [
+                    { value: '20', text: '아크릴' },
+                    { value: '21', text: '피규어' },
+                    { value: '22', text: '캔뱃지' },
+                    { value: '23', text: '슬로건' },
+                    { value: '24', text: '포스터' },
+                    { value: '25', text: '기타' }
+                ];
+                break;
+            case '3': // 문구/오피스
+                subOptions = [
+                    { value: '30', text: '필기류' },
+                    { value: '31', text: '노트&메모지' },
+                    { value: '32', text: '파일' },
+                    { value: '33', text: '스티커' },
+                    { value: '34', text: '달력' },
+                    { value: '35', text: '기타' }
+                ];
+                break;
+            case '4': // 생활용품
+                subOptions = [
+                    { value: '40', text: '컵&텀블러' },
+                    { value: '41', text: '쿠션' },
+                    { value: '42', text: '담요' },
+                    { value: '43', text: '기타' }
+                ];
+                break;
+            default:
+                break;
+        }
 
-     // 중분류 select 박스 초기화
-     subCategorySelect.innerHTML = '<option value="">중분류 선택</option>';
-     subCategorySelect.disabled = true;
-
-     // 선택된 대분류에 해당하는 중분류 옵션 추가
-     if (categoryMapping[selectedMainCategory]) {
-         categoryMapping[selectedMainCategory].forEach(subCategory => {
-             const option = document.createElement('option');
-             option.value = subCategory.value;
-             option.text = subCategory.text;
-             subCategorySelect.appendChild(option);
-         });
-
-         // 중분류 선택 가능하도록 활성화
-         subCategorySelect.disabled = false;
-     }
- });
-} else {
- console.error('대분류 또는 중분류 select 요소가 존재하지 않습니다.');
-}
+        // 중분류 옵션 추가
+        if (subOptions.length > 0) {
+            subOptions.forEach(option => {
+                const newOption = document.createElement('option');
+                newOption.value = option.value;
+                newOption.textContent = option.text;
+                subCategorySelect.appendChild(newOption);
+            });
+            subCategorySelect.disabled = false; // 중분류 활성화
+        }
+    });
 });
+
 
 // ---------------------------------------------------------
 $(document).ready(function() {
@@ -209,39 +217,45 @@ $('#answerForm').submit(function(event) {
 });
 
 $(document).ready(function() {
-     // 로컬 스토리지에서 토큰을 가져와 폼에 추가
-     var token = localStorage.getItem('token');
-     if (token) {
-         $('#token').val(token);
-     } else {
-         alert('토큰이 없습니다. 다시 로그인해 주세요.');
-         return;
-     }
+    // 로컬 스토리지에서 토큰을 가져옵니다.
+   var token = localStorage.getItem('token');
+   console.log("저장된 토큰:", token); // 토큰 출력
+   if (!token) {
+       alert('토큰이 없습니다. 다시 로그인해 주세요.');
+       return;
+   }
 
-     // 폼 제출 시 AJAX 처리
-     $('#aniAddForm').submit(function(event) {
-         event.preventDefault();  // 기본 폼 제출 방식을 방지
+    // 폼 제출 시 AJAX 처리
+    $('#aniAddForm').submit(function(event) {
+        event.preventDefault();  // 기본 폼 제출 방식을 방지
 
-         // 폼 데이터를 객체로 직렬화
-         var formData = new FormData(this);
+        // 폼 데이터를 객체로 직렬화
+        var formData = new FormData(this);
 
-         $.ajax({
-             url: '/master/aniAddMasterOk',  // 서버의 애니 추가 처리 URL
-             type: 'POST',
-             data: formData,
-             contentType: false,
-             processData: false,
-             success: function(response) {
-                 alert('애니가 성공적으로 추가되었습니다.');
-                 window.location.href = '/master/aniMasterList';  // 성공 시 리다이렉트할 페이지
-             },
-             error: function(xhr, status, error) {
-                 console.error('에러:', xhr.responseText);
-                 alert('애니 추가 중 오류가 발생했습니다.');
-             }
-         });
-     });
- });
+        $.ajax({
+            url: '/master/aniAddMasterOk',  // 서버의 애니 추가 처리 URL
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                'Authorization': 'Bearer ' + token // Authorization 헤더 추가
+            },
+            success: function(response) {
+                alert('애니가 성공적으로 추가되었습니다.');
+                window.location.href = '/master/aniMasterList';  // 성공 시 리다이렉트할 페이지
+            },
+            error: function(xhr, status, error) {
+                console.error('에러:', xhr.responseText);
+                alert('애니 추가 중 오류가 발생했습니다.');
+            }
+        });
+    });
+});
+
+
+
+
 
 
 // 애니 해당 게시글 삭제 --------------------------------------------------------------------------
@@ -393,5 +407,41 @@ success: function(response) {
 
          // 모달 창 띄우기
          $('#replyModal').modal('show');
+     });
+ });
+
+ $(document).ready(function() {
+     var token = localStorage.getItem('token');
+     console.log("저장된 토큰:", token); // 토큰 출력
+     if (!token) {
+         alert('토큰이 없습니다. 다시 로그인해 주세요.');
+         return;
+     }
+
+     $('#storeAddForm').submit(function(event) {
+         event.preventDefault(); // 기본 폼 제출 방지
+
+         var formData = new FormData(this);
+
+         console.log("AJAX 요청 전 토큰:", token); // AJAX 요청 전 토큰 출력
+
+         $.ajax({
+             url: '/master/storeAddMasterOk',
+             type: 'POST',
+             data: formData,
+             contentType: false,
+             processData: false,
+             headers: {
+                 'Authorization': 'Bearer ' + token // Authorization 헤더 추가
+             },
+             success: function(response) {
+                 alert('굿즈 상품이 성공적으로 등록되었습니다.');
+                 window.location.href = '/master/storeMasterList';
+             },
+             error: function(xhr, status, error) {
+                 console.error('에러:', xhr.responseText);
+                 alert('굿즈 상품 등록 중 오류가 발생했습니다.');
+             }
+         });
      });
  });

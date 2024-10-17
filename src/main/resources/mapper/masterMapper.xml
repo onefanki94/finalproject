@@ -16,9 +16,9 @@
     <!-- 관리자 페이지 굿즈 상품 등록 -->
     <insert id="insertStore" parameterType="com.ict.finalproject.vo.MasterVO">
         INSERT INTO t_product
-        (title, price, thumimg, relDT, brand, fee, stock, category, pro_detail)
+        (title, price, thumimg, relDT, brand, fee, stock, category, pro_detail,second_category)
         VALUES
-        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail})
+        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail},#{second_category})
     </insert>
 
     <!-- 관리자페이지 자주묻는 질문 리스트 -->

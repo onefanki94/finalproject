@@ -190,14 +190,11 @@ public class JWTUtil {
     }
 
     public String generateAdminToken(String adminid) {
-        String jwtToken = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(adminid) // `sub` 필드 대신 `userid`를 명시적으로 설정
-                .claim("adminid", adminid) // `userid` 필드 추가
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))  // 토큰 유효 기간 설정 (예: 24시간)
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 비밀키로 서명
                 .compact();
-
-        return jwtToken;
     }
 }
