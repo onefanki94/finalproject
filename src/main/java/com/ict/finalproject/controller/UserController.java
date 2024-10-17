@@ -333,7 +333,7 @@ public class UserController {
 
     //마이페이지 좋아요 데이터
     @PostMapping("/myHeartGoodsList")
-    public ResponseEntity<Map<String, Object>> getHeartList(
+    public ResponseEntity<Map<String, Object>> getHeartGoodsList(
             @RequestBody Map<String, Integer> params, @RequestHeader("Authorization") String Headertoken) {
         // JWT 토큰 검증 및 useridx 추출
         ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
@@ -352,8 +352,6 @@ public class UserController {
         int totalProductCount = service.getTotalLikeGoodsCount(useridx);
         int totalPages = (int) Math.ceil((double) totalProductCount / pageSize);
 
-        log.info("%%%%totalProductCount:{}",totalProductCount);
-
         Map<String, Object> response = new HashMap<>();
         response.put("likeGoodsList", likeGoodsList);
         response.put("totalPages", totalPages);
@@ -363,6 +361,80 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    //마이페이지 좋아요 데이터
+    @PostMapping("/myHeartAniList")
+    public ResponseEntity<Map<String, Object>> getHeartAniList(
+            @RequestBody Map<String, Integer> params, @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        int page = params.getOrDefault("page", 1);
+        int pageSize = params.getOrDefault("pageSize", 20);
+
+        List<AniListVO> likeAniList = service.getLikeAni(page, pageSize,useridx);
+        int totalProductCount = service.getTotalLikeAniCount(useridx);
+        int totalPages = (int) Math.ceil((double) totalProductCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("likeAniList", likeAniList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+        response.put("aniTotalCount",totalProductCount);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/likeDelOk")
+    public ResponseEntity<String> likeDelOk(@RequestBody Map<String, Integer> params,
+                                              @RequestHeader("Authorization") String Headertoken){
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        // pro_idx와 ani_idx 가져오기
+        Integer pro_idx = params.get("pro_idx");
+        Integer ani_idx = params.get("ani_idx");
+
+        try {
+            // pro_idx가 0이 아닐 때만 좋아요 삭제
+            if (pro_idx != null&&pro_idx != 0) {
+                int result = service.deleteGoodsLike(useridx, pro_idx);
+                if (result > 0) {
+                    return ResponseEntity.ok("굿즈 좋아요 취소 완료");
+                }else{
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("굿즈 좋아요 취소 실패");
+                }
+            }
+            // ani_idx가 0이 아닐 때만 좋아요 삭제
+            if (ani_idx != null&&ani_idx != 0) {
+                int result = service.deleteAniLike(useridx, ani_idx);
+                if (result > 0) {
+                    return ResponseEntity.ok("애니 좋아요 취소 완료");
+                }else{
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("애니 좋아요 취소 실패");
+                }
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유효한 좋아요 대상이 없습니다.2");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("좋아요 취소 중 오류 발생: " + e.getMessage());
+        }
+    }
+
+
     //마이페이지-주문리스트 view
     @GetMapping("/mypage_order")
     public ModelAndView mypageOrder() {
@@ -370,6 +442,33 @@ public class UserController {
         mav.setViewName("mypage/mypage_order");
 
         return mav;
+    }
+
+    // 주문리스트 데이터 뿌려주기
+    @PostMapping("/getOrderListAll")
+    public ResponseEntity<PageResponse<OrderListDTO>> getOrderListAll(
+            @RequestHeader("Authorization") String headerToken,
+            @RequestBody Map<String, Integer> params) {
+
+        // JWT 토큰에서 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(headerToken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        // 페이지 번호와 크기 가져오기 (기본값: page=1, size=10)
+        int page = params.getOrDefault("page", 1);
+        int pageSize = params.getOrDefault("pageSize", 5);
+
+        // 서비스 호출
+        PageResponse<OrderListDTO> orderList = service.getOrderListWithPaging(useridx, page, pageSize);
+
+        // 클라이언트에 반환
+        return ResponseEntity.ok(orderList);
     }
 
     //마이페이지-주문상세 view

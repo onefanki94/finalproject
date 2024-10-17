@@ -1,9 +1,6 @@
 package com.ict.finalproject.Service;
 
-import com.ict.finalproject.DTO.CurrentOrderDataDTO;
-import com.ict.finalproject.DTO.ReviewBeforeDTO;
-import com.ict.finalproject.DTO.ReviewCompletedDTO;
-import com.ict.finalproject.DTO.UserDelReasonDTO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.AniListVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
@@ -54,4 +51,12 @@ public interface MemberService {
     // 마이페이지 좋아요 굿즈
     List<StoreVO> getLikeGoods(int page, int pageSize, int useridx);
     int getTotalLikeGoodsCount(int useridx);
+    // 마이페이지 좋아요 애니
+    List<AniListVO> getLikeAni(int page, int pageSize, int useridx);
+    int getTotalLikeAniCount(int useridx);
+    // 마이페이지 좋아요 취소
+    int deleteGoodsLike(int useridx, int pro_idx);
+    int deleteAniLike(int useridx, int ani_idx);
+    // 마이페이지 주문내역 띄우기
+    PageResponse<OrderListDTO> getOrderListWithPaging(int useridx,int page,int pageSize);
 }

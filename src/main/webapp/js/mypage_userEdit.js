@@ -102,18 +102,6 @@ $(function(){
                         />
                     </div>
                     <div class="useredit_input_group">
-                        <label for="adult_state">본인인증</label>
-                        <input
-                          type="text"
-                          id="adult_state"
-                          name="adult_state"
-                          value="${adult_state}"
-                          readonly
-                          class="input_readonly"
-                        />
-                        <div id="authButtonContainer"></div>
-                    </div>
-                    <div class="useredit_input_group">
                         <label for="useremail">이메일</label>
                         <input type="text" id="email" name="email" value="${userinfo.email}"/>
                     </div>

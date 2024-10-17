@@ -1,10 +1,7 @@
 package com.ict.finalproject.DAO;
 
 
-import com.ict.finalproject.DTO.CurrentOrderDataDTO;
-import com.ict.finalproject.DTO.ReviewBeforeDTO;
-import com.ict.finalproject.DTO.ReviewCompletedDTO;
-import com.ict.finalproject.DTO.UserDelReasonDTO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.AniListVO;
 import com.ict.finalproject.vo.MemberVO;
 import com.ict.finalproject.vo.ReviewVO;
@@ -13,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -82,4 +80,13 @@ public interface MemberDAO {
         // 마이페이지 좋아요 굿즈
         List<StoreVO> getLikeGoods(int pageSize,int offset, int useridx);
         int getTotalLikeGoodsCount(int useridx);
+        // 마이페이지 좋아요 애니
+        List<AniListVO> getLikeAni(int page, int pageSize, int useridx);
+        int getTotalLikeAniCount(int useridx);
+        // 마이페이지 좋아요 취소
+        int deleteGoodsLike(int useridx, int pro_idx);
+        int deleteAniLike(int useridx, int ani_idx);
+        List<OrderListDTO> getPagedOrderList(int userIdx, int offset, int pageSize);
+        List<OrderProDTO> getOrderProducts(int order_idx);
+        long getTotalOrderCount(int userIdx);
 }

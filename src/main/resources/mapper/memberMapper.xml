@@ -183,7 +183,7 @@
         a.post_img AS post_img
         from T_anilike al
         join T_animation a on al.ani_idx=a.idx
-        where al.useridx=5
+        where al.useridx=${param1}
         order by al.regDT desc
         limit 5;
     </select>
@@ -204,6 +204,77 @@
         SELECT COUNT(*)
         FROM T_proLike
         WHERE useridx=${param1}
+    </select>
+    <select id="getLikeAni" resultType="com.ict.finalproject.vo.AniListVO">
+        select a.idx AS idx,
+        a.title AS title,
+        a.post_img AS post_img
+        from T_anilike al
+        join T_animation a on al.ani_idx=a.idx
+        where al.useridx=${param3}
+        order by al.regDT desc
+        limit ${param1} offset ${param2};
+    </select>
+    <select id="getTotalLikeAniCount">
+        SELECT COUNT(*)
+        FROM T_aniLike
+        WHERE useridx=${param1}
+    </select>
+    <delete id="deleteGoodsLike">
+        delete from T_proLike where useridx=${param1} and pro_idx=${param2}
+    </delete>
+    <delete id="deleteAniLike">
+        delete from T_aniLike where useridx=${param1} and ani_idx=${param2}
+    </delete>
+    <select id="getPagedOrderList" resultType="com.ict.finalproject.DTO.OrderListDTO">
+        SELECT
+        o.idx AS order_idx,
+        DATE_FORMAT(o.regDT, '%Y.%m.%d') AS order_date,
+        o.trackingNum As trackingNum,
+        o.use_point As use_point,
+        o.recipient As recipient,
+        o.zipcode As zipcode,
+        o.addr As addr,
+        o.addrdetail As addrdetail,
+        o.tel As tel,
+        o.request_memo As request_memo,
+        pm.createDT As payDT,
+        pm.paytype As paytype,
+        pm.amount AS amount,
+        pm.orderid AS orderId
+        FROM
+        T_order o
+        JOIN
+        T_payment pm ON o.idx = pm.order_idx
+        WHERE
+        o.useridx = ${param1} and o.payState=1 and pm.successYN=1
+        ORDER BY
+        o.regDT DESC
+        limit ${param3} offset ${param2};
+    </select>
+    <select id="getOrderProducts" resultType="com.ict.finalproject.DTO.OrderProDTO">
+        SELECT
+        ol.pro_idx AS pro_idx,
+        p.thumImg AS pro_image,
+        p.title AS pro_title,
+        p.ani_title AS pro_anititle,
+        p.price AS pro_price,
+        ol.amount AS order_pro_amount,
+        ol.orderState AS orderState
+        FROM
+        T_orderList ol
+        JOIN
+        T_product p ON ol.pro_idx = p.idx
+        WHERE
+        ol.order_idx = ${param1}
+    </select>
+    <select id="getTotalOrderCount">
+        SELECT COUNT(DISTINCT o.idx)
+        FROM T_order o
+        LEFT JOIN T_payment pm ON o.idx = pm.order_idx
+        WHERE o.useridx = ${param1}
+        AND o.payState = 1
+        AND pm.successYN = 1;
     </select>
     <!-- 채원 끝-->
 </mapper>

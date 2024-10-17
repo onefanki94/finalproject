@@ -89,8 +89,9 @@
           <ul class="goods_list_all">
 
           </ul>
+          <div class="no_heart no_heart_goods"></div>
           <div id="pagination">
-              <div class="custom-pagination">
+              <div class="custom-pagination custom-pagination-goods">
 
               </div>
           </div>
@@ -98,98 +99,14 @@
         <!-- 애니 -->
         <div class="off" id="tab2">
           <ul class="ani_list_all">
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="ani_list_li">
-              <div class="prd_b">
-                <a>
-                  <div class="ani_img_bx">
-                    <img src="/img/main_img/anipost3.png" />
-                    <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
-                  </div>
-                  <div class="ani_imform">
-                    <strong>[나혼자만 레벨업] 포스터 세트 굿즈</strong>
-                  </div>
-                </a>
-              </div>
-            </li>
+
           </ul>
+          <div class="no_heart no_heart_ani"></div>
+          <div id="pagination">
+            <div class="custom-pagination custom-pagination-ani">
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
