@@ -20,7 +20,7 @@
     $.ajax({
         type: 'GET',
         url: '/subcategories',  // 서버에서 하위 카테고리를 반환하는 엔드포인트
-        data: { category: category },  // 선택된 카테고리의 ID를 파라미터로 전송
+        data: { code: category },  // 선택된 카테고리의 ID를 파라미터로 전송
         success: function(subcategories) {
             const filterList = document.querySelector('.filter-list');
             filterList.innerHTML = '';  // 기존의 카테고리 항목을 초기화
@@ -30,7 +30,7 @@
                 subcategories.forEach(function(subcategory) {
                     const li = document.createElement('li');
                     li.className = 'filter-item';
-                    li.innerHTML = `<span class="filter-text">${subcategory.type}</span>`;
+                    li.innerHTML = `<span class="filter-text">${subcategory}</span>`;
                     filterList.appendChild(li);
                 });
             } else {
@@ -117,12 +117,12 @@
               <ul>
 
                 <li class="check"><a class="active" href="/storeMain">홈</a></li>
-                <li class=""><a href="javascript:void(0);" onclick="loadSubcategories(1)">의류</a></li>
-                <li class=""><a href="javascript:void(0);" onclick="loadSubcategories(2)">완구/취미</a></li>
-                <li class=""><a href="javascript:void(0);" onclick="loadSubcategories(3)">문구/오피스</a></li>
-                <li class=""><a href="javascript:void(0);" onclick="loadSubcategories(4)">생활용품</a></li>
-                <li class=""><a href="#"># 인기굿즈</a></li>
-                <li class=""><a href="#"># 신상굿즈</a></li>
+                <li class=""><a href="/storeList?category=1">의류</a></li>
+                <li class=""><a href="/storeList?category=2">완구/취미</a></li>
+                <li class=""><a href="/storeList?category=3">문구/오피스</a></li>
+                <li class=""><a href="/storeList?category=4">생활용품</a></li>
+                <li class=""><a href="/storeList?filterType=popular"># 인기굿즈</a></li>
+                <li class=""><a href="/storeList?filterType=new"># 신상굿즈</a></li>
               </ul>
             </nav>
           </div>

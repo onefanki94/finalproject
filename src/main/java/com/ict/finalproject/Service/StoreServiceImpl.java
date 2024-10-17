@@ -17,34 +17,57 @@ public class StoreServiceImpl implements StoreService {
     @Autowired
     StoreDAO dao;
 
+
     @Override
-    public List<StoreVO> getStoreList(){
-        return  dao.getStoreList();
+    public List<StoreVO> getRecentProducts() {
+        return dao.getRecentProducts();
     }
- 
+
     @Override
-    public List<StoreVO> searchStoreList(String keyword){
+    public List<StoreVO> getStoreList() {
+        return dao.getStoreList();
+    }
+
+    @Override
+    public List<StoreVO> getPagedProducts(int pageSize, int offset, Integer category,  Integer second_category) {
+        return dao.getPagedProducts(pageSize, offset, category, second_category);
+    }
+
+    @Override
+    public int getTotalProductCount() {
+        return dao.getTotalProductCount();
+    }
+
+    @Override
+    public List<StoreVO> getStoreListByFilter(String filterType) {
+        // 필터 타입에 따른 상품 목록을 가져오는 로직 구현
+        return dao.getStoreListByFilter(filterType);
+    }
+
+    @Override
+    public List<StoreVO> searchStoreList(String keyword) {
         return dao.searchStoreList(keyword);
     }
 
     @Override
-    public StoreVO getStoreDetail(int storeId){
+    public StoreVO getStoreDetail(int storeId) {
         return dao.getStoreDetail(storeId);
     }
-    
+
     @Override
     public List<ProductFilterVO> getFirstCategoryList() {
-        return dao.getFirstCategoryList();  // DAO에서 카테고리 필터 리스트 가져오기
+        return dao.getFirstCategoryList();
     }
 
-    // @Override
-    // public List<ProductFilterVO> getSubcategoriesByFirstCategory(int category) {
-    //     return dao.getSubcategoriesByFirstCategory(category);
-    // }
     @Override
-    public List<String> getSubcategoriesByFirstCategory1(@Param("code") int code){
-        return dao.getSubcategoriesByFirstCategory1(code);
+    public List<String> getSubcategoriesByFirstCategory(int code) {
+        return dao.getSubcategoriesByFirstCategory(code);
     }
 
-
+    @Override
+    public List<StoreVO> getProductsByCategory(int pageSize, int offset, int category) {
+        return dao.getProductsByCategory(pageSize, offset, category);
+    }
 }
+
+

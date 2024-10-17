@@ -78,8 +78,7 @@ public class JWTUtil {
     public String createJwt(String userid ,long expirationTime) {
         return Jwts.builder()
                 .setSubject(userid) // Subject에 userid 설정
-                .claim("userid", userid) // `userid` 필드 추가
-
+                .claim("userid", userid)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey) // 비밀키로 서명

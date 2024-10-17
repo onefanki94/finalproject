@@ -38,4 +38,20 @@ public interface MasterService {
     MasterVO aniSelect(int idx);
     String getCurrentImgFile(int idx);
     List<MasterVO> getQNAList();
+    int getUnansweredQnaCount();
+    List<MasterVO>getReportingUser();
+    int getTotalReportCount();
+    int getTotalUserReport(int useridx);
+    void updateQnaAndReply(int idx, String reply, int adminIdx);
+    Integer findAdminIdxByUserid(String adminId);
+    void addAnimation(MasterVO aniVO);
+    void deletePostByIdx(int idx);
+    MasterVO getStoreByIdx(int idx);
+    boolean updateStore(MasterVO store);
+    List<MasterVO> getSubCategoriesByCategory(int category);
+    boolean insertProductImg(MasterVO productImg);
+    MasterVO getNoticeById(int idx);
+    boolean updateNotice(MasterVO noticeEdit);
+    MasterVO noticeSelect (int idx);
+    MasterVO getQnaById(int idx);
 }

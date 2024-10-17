@@ -27,7 +27,7 @@
                         <td>${notice.regDT}</td>
                         <td>${notice.modifyDT}</td>
                         <td>
-                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/noticeEditMaster">수정</a></button>
+                            <button class="btn btn-outline-secondary btn-sm"><a href="/master/noticeEditMaster/${notice.idx}">수정</a></button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
                     </tr>

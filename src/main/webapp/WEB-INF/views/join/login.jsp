@@ -79,9 +79,9 @@
             <button type="submit" class="login_button">로그인</button>
           </form>
           <div class="login_bottom">
-            <a>아이디 찾기</a>
+            <a href="/user/idSearch">아이디 찾기</a>
             <span>•</span>
-            <a>비밀번호 찾기</a>
+            <a href="/user/pwdSearch">비밀번호 찾기</a>
             <span>•</span>
             <a href="/user/join">회원가입</a>
           </div>

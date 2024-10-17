@@ -38,6 +38,7 @@ public class MasterVO {
     private String category;
     private String type;
     private int code;
+    private int second_category;
 
     // 커뮤니티 테이블에서 사용 하는 것들
     private String commtype;
@@ -53,6 +54,8 @@ public class MasterVO {
     private String age_type;
     private String post_img_filename;
     private int modifyState;
+    private int pro_idx;
+    private String detailImg;
 
     // 관리자페이지에서 공지사항 사용하는것들
     private String admin_name;
@@ -79,6 +82,7 @@ public class MasterVO {
     private String handleState;
     private String handleDT;
     private int comunity_idx;
+    private int totalUserReport;
 
     // 관리자페이지에서 사용하는 리뷰 기능 사용하는 것들
     private int grade;
@@ -87,5 +91,7 @@ public class MasterVO {
     private String imgfile2;
     
     // 관리자 페이지에서 문의 기능 사용하는 것들
-    private int qnatype;
+    private String qnatype;
+    private int qna_idx;
+    private String reply;
 }

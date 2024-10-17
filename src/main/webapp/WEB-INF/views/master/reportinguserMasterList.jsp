@@ -10,64 +10,30 @@
             <table class="reportinguser-list table table-hover table-bordered">
                 <thead class="table-light">
                     <tr>
-                        <th style="width:8%">아이디</th>
-                        <th style="width:30%">제목</th>
+                        <th style="width:5%">아이디</th>
+                        <th style="width:30%">제제내용</th>
                         <th style="width:10%">사유</th>
-                        <th style="width:20%">작성일</th>
-                        <th style="width:7%">신고횟수</th>
-                        <th style="width:7%">누적 횟수</th>
-                        <th style="width:15%">관리</th>
+                        <th style="width:15%">Start</th>
+                        <th style="width:15%">End</th>
+                        <th style="width:8%">신고횟수</th>
+                        <th style="width:20%">관리</th>
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="ban" items="${reportingUser}">
                     <tr>
-                        <td>user1</td>
-                        <td>허위 정보 유포</td>
-                        <td>스팸</td>
-                        <td>2023-09-25</td>
-                        <td>2</td>
-                        <td>5</td>
+                        <td>${ban.userid}</td>
+                        <td>${ban.reason}</td>
+                        <td>${ban.report_type}</td>
+                        <td>${ban.stopDT}</td>
+                        <td>${ban.endDT}</td>
+                        <td>${ban.totalUserReport}</td>
                         <td>
                             <button class="btn btn-outline-primary btn-sm">메모</button>
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>user2</td>
-                        <td>비속어 사용</td>
-                        <td>욕설</td>
-                        <td>2023-09-26</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>
-                            <button class="btn btn-outline-primary btn-sm">메모</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>user3</td>
-                        <td>광고성 게시물</td>
-                        <td>광고</td>
-                        <td>2023-09-27</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>
-                            <button class="btn btn-outline-primary btn-sm">메모</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>user4</td>
-                        <td>도배</td>
-                        <td>도배</td>
-                        <td>2023-09-28</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>
-                            <button class="btn btn-outline-primary btn-sm">메모</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
-                        </td>
-                    </tr>
+                    </c:forEach>
                 </tbody>
             </table>
 

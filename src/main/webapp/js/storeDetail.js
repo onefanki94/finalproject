@@ -134,13 +134,16 @@ function updateTotalPrice() {
     let quantity = parseInt(quantityInput.value);
     let totalPrice = storeDetail.price * quantity;
 
+    // 총 가격을 천 단위로 포맷
+    let formattedTotalPrice = totalPrice.toLocaleString();  // 숫자를 천 단위로 포맷
+
     // 총 가격을 화면에 업데이트하는 로직 추가 (예: 특정 요소에 총 가격 표시)
-    document.getElementById('total-price').textContent = totalPrice;
+    document.getElementById('total-price').textContent =  formattedTotalPrice + ' 원';
 
     // Sticky Footer의 가격도 업데이트
     let stickyPriceElement = document.querySelector('.sticky-footer .price');
     if (stickyPriceElement) {
-        stickyPriceElement.textContent = totalPrice + ' 원';
+        stickyPriceElement.textContent =  formattedTotalPrice + ' 원';
     } else {
         console.error('Sticky footer price element not found.');
     }
@@ -148,19 +151,114 @@ function updateTotalPrice() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    // 로컬스토리지에서 토큰 가져오기
     const token = localStorage.getItem('token');
-    const likeIcon = document.querySelector('.like-icon');
-    const productId = likeIcon.getAttribute('data-product-id');
-
-    console.log("토큰값 불러오기:", token);
-    console.log("상품 ID:", productId);
-
-    if (!token || !productId) {
-        console.error('토큰 또는 상품 ID가 없습니다.');
+    console.log("로컬스토리지 토큰 " +token);
+    if (!token) {
+        console.error('로그인 토큰이 없습니다.');
         return;
     }
 
-    // 페이지 로드 시 좋아요 상태와 수를 서버에서 가져옴
+    // like-icon 요소 선택
+    const likeIcon = document.querySelector('.like-icon');
+    if (!likeIcon) {
+        console.error("like-icon 요소를 찾을 수 없습니다.");
+        return;
+    }
+
+    // like-icon 클릭 시 이벤트 발생
+    likeIcon.addEventListener('click', function (event) {
+        const likeHeart = event.target; // 클릭된 대상 자체를 가져옴
+        if (!likeHeart.classList.contains('like-heart')) {
+            console.error("like-heart 아이콘을 찾을 수 없습니다.");
+            return;
+        }
+
+        // 좋아요 카운트 요소와 기타 필요한 정보 찾기
+        const likeCountElement = likeHeart.closest('.like-icon').nextElementSibling; // 하트 아이콘 옆의 카운트 요소
+        const currentCount = parseInt(likeCountElement.textContent);
+        const isLiked = likeHeart.classList.contains('fa-solid'); // 채워진 하트 상태인지 확인
+
+        // 상품 ID 가져오기
+        const productId = likeHeart.closest('.like-icon').getAttribute('data-product-id');
+        if (!productId) {
+            console.error("상품 ID를 찾을 수 없습니다.");
+            return;
+        }
+
+        console.log("상품 ID:", productId, "좋아요 상태:", isLiked, "현재 좋아요 수:", currentCount);
+
+        // AJAX 요청으로 서버에 좋아요 상태 전달
+        fetch('/like/toggle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
+            },
+            body: JSON.stringify({
+                pro_idx: productId  // productId를 전송
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                console.log("좋아요 상태 변경 성공");
+                updateLikeUI(isLiked, likeHeart, likeCountElement, currentCount);
+            } else {
+                console.error("좋아요 상태 변경 실패");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // 좋아요 UI 업데이트 함수
+    function updateLikeUI(isLiked, likeHeart, likeCountElement, currentCount) {
+        if (isLiked) {
+            likeHeart.classList.remove('fa-solid');  // 채워진 하트 제거
+            likeHeart.classList.add('fa-regular');   // 빈 하트로 변경
+            likeCountElement.textContent = currentCount - 1;  // 카운트 감소
+        } else {
+            likeHeart.classList.remove('fa-regular');  // 빈 하트 제거
+            likeHeart.classList.add('fa-solid');       // 채워진 하트로 변경
+            likeCountElement.textContent = currentCount + 1;  // 카운트 증가
+        }
+    }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const averageRating = parseFloat(document.querySelector('.rating-number').textContent);
+    const starsContainer = document.getElementById('stars-container');
+
+    function generateStars(rating) {
+        let stars = '';
+        for (let i = 0; i < 5; i++) {
+            if (i < Math.floor(rating)) {
+                stars += '★';  // 채워진 별
+            } else {
+                stars += '☆';  // 빈 별
+            }
+        }
+        return stars;
+    }
+
+    // 별점을 생성해서 DOM에 반영
+    starsContainer.innerHTML = generateStars(averageRating);
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const token = localStorage.getItem('token');
+    const productId = document.querySelector('.like-icon').getAttribute('data-product-id');
+
+    if (!token || !productId) {
+        console.error('로그인 토큰이 없거나 상품 ID가 없습니다.');
+        return;
+    }
+
+    // 좋아요 상태 요청
     fetch(`/like/statusAndCount?pro_idx=${productId}`, {
         method: 'GET',
         headers: {
@@ -168,15 +266,10 @@ document.addEventListener('DOMContentLoaded', function () {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())  // 응답을 JSON으로 변환
+    .then(response => response.json())
     .then(data => {
-        console.log("서버로부터 받은 데이터:", data);  // 응답 데이터를 콘솔에 출력
-
         if (data.success) {
             const likeHeart = document.querySelector('.like-heart');
-            const likeCountElement = likeHeart.closest('.like-icon').nextElementSibling;
-
-            // 좋아요 상태 반영
             if (data.liked) {
                 likeHeart.classList.add('fa-solid');
                 likeHeart.classList.remove('fa-regular');
@@ -184,56 +277,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 likeHeart.classList.add('fa-regular');
                 likeHeart.classList.remove('fa-solid');
             }
-
-            // 좋아요 수 반영
-            likeCountElement.textContent = data.likeCount;
         } else {
-            console.error('좋아요 상태 및 수를 가져오는 데 실패했습니다:', data.message);
+            console.error('좋아요 상태를 가져오는 데 실패했습니다.');
         }
     })
-    .catch(error => console.error('좋아요 상태 및 수 요청 중 오류 발생:', error));
-
-
-    // 좋아요 클릭 시 이벤트 처리
-    likeIcon.addEventListener('click', function (event) {
-        const likeHeart = event.target;
-        const likeCountElement = likeHeart.closest('.like-icon').nextElementSibling;
-
-        fetch('/like/toggle', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ pro_idx: productId })  // 상품 ID 전송
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("좋아요 상태 변경 성공:", data);
-
-                // 좋아요 상태와 UI 업데이트
-                updateLikeUI(data.liked, likeHeart, likeCountElement, data.currentLikeCount); // UI 업데이트
-            } else {
-                console.error("좋아요 상태 변경 실패:", data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
-    function updateLikeUI(liked, likeHeart, likeCountElement, currentLikeCount) {
-        console.log("UI 업데이트 - 좋아요 상태:", liked);
-        console.log("UI 업데이트 - 현재 좋아요 수:", currentLikeCount);
-
-        if (liked) {
-            likeHeart.classList.remove('fa-regular');
-            likeHeart.classList.add('fa-solid');
-        } else {
-            likeHeart.classList.remove('fa-solid');
-            likeHeart.classList.add('fa-regular');
-        }
-
-        // 좋아요 수 업데이트
-        likeCountElement.textContent = currentLikeCount;
-    }
+    .catch(error => console.error('좋아요 상태 요청 중 오류 발생:', error));
 });
+});
+
+
