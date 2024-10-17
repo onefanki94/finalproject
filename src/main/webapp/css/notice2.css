@@ -337,95 +337,120 @@ img {
     max-width: 100%;
 }
 
-/* 전체 1:1 문의 내역 컨테이너 */
+
+/* 전체 레이아웃 스타일 */
 .inquiry-container {
     width: 100%;
-    padding: 30px;
-    background-color: #1f1f1f;
-    border: 1px solid #333;
-    margin-bottom: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
 }
 
-/* 체크박스 컨테이너 스타일 */
-.inquiry-checkbox-container {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    flex-wrap: wrap; /* 여러 줄로 배치될 때 줄 바꿈 */
-    gap: 10px; /* 체크박스 간의 간격 */
-    padding: 20px 0; /* 위아래 여백 추가 */
-    background-color: #2a2a2a; /* 배경색 설정 */
-    border: 1px solid #444; /* 테두리 설정 */
-    margin-bottom: 20px; /* 아래 요소와의 간격 */
-}
-
-/* 체크박스 스타일 */
-.inquiry-checkbox-container label {
-    color: #ffffff; /* 텍스트 색상 */
-    font-size: 16px;
-}
-
-.inquiry-checkbox-container input[type="checkbox"] {
-    margin-right: 5px; /* 체크박스와 텍스트 간 간격 */
-}
-
-/* 제목과 내용 테이블 */
-.inquiry-cm-write {
+/* 테이블 스타일 */
+.inquiry-table {
     width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.inquiry-table th {
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+    vertical-align: top;
+    background-color: #f5f5f5;
+    border: none;
+}
+
+.inquiry-table td {
+    padding: 10px;
+    vertical-align: middle;
+    background-color: #fff;
+    border: none;
+}
+
+/* 구분선 스타일 */
+.line td {
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 카테고리 옵션 스타일 */
+.category-options label {
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.category-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* 아이디 표시 스타일 */
+.user-id {
+    font-size: 14px;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 제목 입력 */
+.inquiry-title {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: #333;
+    border-radius: 5px;
+}
+
+/* 본문 내용 */
+.inquiry-content {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: #333;
+    border-radius: 5px;
+    resize: none;
+}
+
+/* 사진 첨부 */
+.inquiry-attachment {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.attachment-info {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* 버튼 스타일 */
+.inquiry-submit {
+    text-align: center;
     margin-top: 20px;
 }
 
-/* 제목 입력 칸 스타일 */
-.inquiry-cm-write th {
-    width: 80px;
-    text-align: left;
-    padding: 10px;
-    color: #ffffff;
-}
-
-.inquiry-cm-write td {
-    padding: 10px;
-    width:100%;
-}
-
-.inquiry-title {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #444;
-    background: #2a2a2a;
-    color: #ffffff;
-    border-radius: 5px;
-}
-
-/* 본문 내용 텍스트 박스 스타일 */
-.inquiry-editor {
-    width: 90%;
-    padding: 15px;
-    border: 1px solid #444;
-    background: #2a2a2a;
-    color: #ffffff;
-    border-radius: 5px;
-    resize: none; /* 텍스트 영역 크기 조절 비활성화 */
-}
-
-/* 하단 문의 버튼 스타일 */
-.inquiry-footer {
-    text-align: center; /* 가운데 정렬 */
-}
-
-.inquiry-submit-btn {
-    padding: 15px 30px;
-    background-color: #ff5d24;
+.submit-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
     border: none;
-    color: #ffffff;
-    font-size: 18px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
 }
 
-.inquiry-submit-btn:hover {
-    background-color: #e6531d;
+.submit-btn:hover {
+    background-color: #444;
 }
+
+
+
 
 /* 서비스 약관 컨테이너 */
 .terms-container {

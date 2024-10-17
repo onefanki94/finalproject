@@ -185,37 +185,82 @@
 
                 <div class="content" id="tap3">
                     <div class="inquiry-container">
-                        <!-- 체크박스 영역 추가 -->
-                        <div class="inquiry-checkbox-container">
-                            <label><input type="checkbox" name="category" value="계정"> 계정</label>
-                            <label><input type="checkbox" name="category" value="배송"> 배송</label>
-                            <label><input type="checkbox" name="category" value="스트리밍"> 스트리밍</label>
-                        </div>
-
-                        <!-- 제목 입력 영역 -->
-                        <form class="inquiry-write-tbl" method="post" action="" onsubmit="return commuFormCheck()">
-                            <table class="inquiry-cm-write">
+                        <!-- 카테고리 및 문의 영역 -->
+                        <form class="inquiry-form" method="post" action="" enctype="multipart/form-data">
+                            <table class="inquiry-table">
+                                <!-- 구매 관련 문의 -->
                                 <tr>
-                                    <th>제목</th>
-                                    <td>
-                                        <input type="text" name="subject" value="" id="subject" size="100" placeholder="제목을 입력하세요" class="inquiry-title">
+                                    <th>구매 관련 문의</th>
+                                    <td class="category-options">
+                                        <label><input type="radio" name="category" value="배송문의"> 배송문의</label>
+                                        <label><input type="radio" name="category" value="주문문의"> 주문문의</label>
+                                        <label><input type="radio" name="category" value="취소문의"> 취소문의</label>
+                                        <label><input type="radio" name="category" value="반품문의"> 반품문의</label>
+                                        <label><input type="radio" name="category" value="교환문의"> 교환문의</label>
+                                        <label><input type="radio" name="category" value="환불문의"> 환불문의</label>
                                     </td>
                                 </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 일반 상담 문의 -->
+                                <tr>
+                                    <th>일반 상담 문의</th>
+                                    <td class="category-options">
+                                        <label><input type="radio" name="category" value="회원정보문의"> 회원정보문의</label>
+                                        <label><input type="radio" name="category" value="회원제도문의"> 회원제도문의</label>
+                                        <label><input type="radio" name="category" value="결제방법문의"> 결제방법문의</label>
+                                        <label><input type="radio" name="category" value="상품문의"> 상품문의</label>
+                                    </td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 기타 문의 -->
+                                <tr>
+                                    <th>기타 문의</th>
+                                    <td class="category-options">
+                                        <label><input type="radio" name="category" value="기타"> 기타</label>
+                                    </td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 아이디는 로그인된 사용자 아이디를 서버에서 불러와 표시 -->
+                                <tr>
+                                    <th>아이디</th>
+                                    <td><span class="user-id">${loggedInUserId}</span></td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 제목 입력 -->
+                                <tr>
+                                    <th>제목</th>
+                                    <td><input type="text" name="subject" placeholder="제목을 입력하세요." class="inquiry-title"></td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 내용 입력 -->
                                 <tr>
                                     <th>내용</th>
+                                    <td><textarea name="content" placeholder="내용을 입력하세요." class="inquiry-content"></textarea></td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 사진 첨부 -->
+                                <tr>
+                                    <th>사진 첨부</th>
                                     <td>
-                                        <textarea id="content" name="content" class="inquiry-editor" placeholder="내용을 입력하세요" style="width: 90%; height: 300px;"></textarea>
+                                        <input type="file" name="attachment" class="inquiry-attachment">
+                                        <p class="attachment-info">파일용량은 최대 10MB로 제한되며, 1개의 파일을 첨부할 수 있습니다.</p>
                                     </td>
                                 </tr>
                             </table>
 
                             <!-- 등록 버튼 -->
-                            <div class="inquiry-footer">
-                                <button type="button" class="inquiry-submit-btn">1:1 문의하기</button>
+                            <div class="inquiry-submit">
+                                <button type="submit" class="submit-btn">1:1 문의하기</button>
                             </div>
                         </form>
                     </div>
-                </div>
+
 
                 <div class="content" id="tap4">
                     <div class="terms-container">
