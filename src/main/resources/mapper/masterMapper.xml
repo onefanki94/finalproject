@@ -14,11 +14,11 @@
     </insert>
 
     <!-- 관리자 페이지 굿즈 상품 등록 -->
-    <insert id="insertStore" parameterType="com.ict.finalproject.vo.MasterVO">
+    <insert id="insertStore" parameterType="com.ict.finalproject.vo.MasterVO" useGeneratedKeys="true" keyProperty="idx">
         INSERT INTO t_product
-        (title, price, thumimg, relDT, brand, fee, stock, category, pro_detail,second_category)
+        (title, price, ani_title, thumImg, relDT, brand, fee, stock, category, pro_detail,second_category)
         VALUES
-        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail},#{second_category})
+        (#{title}, #{price},#{ani_title} ,#{thumImg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail},#{second_category})
     </insert>
 
     <!-- 관리자페이지 자주묻는 질문 리스트 -->
@@ -251,7 +251,7 @@
     </select>
 
     <!-- t_productimg 테이블에 이미지 삽입 -->
-    <insert id="insertProductImg">
+    <insert id="insertProductImg" parameterType="map">
         INSERT INTO t_productimg (pro_idx, detailImg)
         VALUES (#{pro_idx}, #{detailImg})
     </insert>

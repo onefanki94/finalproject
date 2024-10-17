@@ -49,7 +49,7 @@ public interface MasterService {
     MasterVO getStoreByIdx(int idx);
     boolean updateStore(MasterVO store);
     List<MasterVO> getSubCategoriesByCategory(int category);
-    boolean insertProductImg(MasterVO productImg);
+    boolean insertProductImg(int pro_idx,String detailImg);
     MasterVO getNoticeById(int idx);
     boolean updateNotice(MasterVO noticeEdit);
     MasterVO noticeSelect (int idx);

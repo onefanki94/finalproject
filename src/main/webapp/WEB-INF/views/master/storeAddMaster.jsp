@@ -23,8 +23,8 @@
 
         <!-- 상품 섬네일 추가 -->
         <div>
-            <label for="thumimg"> 상품 섬네일 :</label>
-            <input type="file" id="thumimg" name="thumimg" accept="image/*">
+            <label for="thumImg"> 상품 섬네일 :</label>
+            <input type="file" id="thumImg" name="thumImg" accept="image/*">
         </div>
 
         <!-- 출시일 추가 -->
@@ -79,8 +79,13 @@
 
         <!-- 상세 내용 이미지 추가 -->
         <div>
-            <label for="pro_detail">상세 내용 이미지:</label>
-            <input type="file" id="pro_detail" name="pro_detail" accept="image/*">
+            <label for="pro_detail">상세 내용 :</label>
+            <input type="text" id="pro_detail" name="pro_detail">
+        </div>
+
+        <div>
+            <label for="detailImg">상세 내용 이미지 :</label>
+            <input type="file" id="detailImg" name="detailImg" accept="image/*">
         </div>
 
         <!-- 폼 제출 버튼 -->

@@ -858,14 +858,15 @@ public class masterController {
             @RequestParam("code") String code,
             @RequestParam("title") String title,
             @RequestParam("price") Integer price,
-            @RequestParam(value = "thumimg", required = false) MultipartFile thumimg,
+            @RequestParam(value = "thumImg", required = false) MultipartFile thumImg,
             @RequestParam("ani_title") String ani_title,
             @RequestParam("relDT") String relDT,
             @RequestParam("brand") String brand,
-            @RequestParam(value = "pro_detail", required = false) MultipartFile pro_detail,
+            @RequestParam("pro_detail") String pro_detail,
             @RequestParam("fee") int fee,
             @RequestParam("stock") int stock,
             @RequestParam("second_category") String second_category,
+            @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
             @RequestHeader("Authorization") String authorizationHeader) {
 
         System.out.println("Received Authorization Header: " + authorizationHeader);
@@ -878,6 +879,7 @@ public class masterController {
         // JWT 토큰에서 관리자 ID 추출
         String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
         String adminid;
+        int pro_idx = 0;
         try {
             adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
             if (adminid == null || adminid.isEmpty()) {
@@ -896,15 +898,14 @@ public class masterController {
 
         // 파일 저장 로직
         String thumimg_filename = null;
-        String proDetail_filename = null;
+        String detailImg_filename = null;
 
         try {
-            if (thumimg != null && !thumimg.isEmpty()) {
-                thumimg_filename = uploadFileToExternalServer(thumimg);
+            if (thumImg != null && !thumImg.isEmpty()) {
+                thumimg_filename = uploadFileToExternalServer(thumImg);
             }
-
-            if (pro_detail != null && !pro_detail.isEmpty()) {
-                proDetail_filename = uploadFileToExternalServer(pro_detail);
+            if(detailImg!= null &&!detailImg.isEmpty()) {
+                detailImg_filename = uploadFileToExternalServer(detailImg);
             }
 
             // MasterVO 객체에 데이터 설정
@@ -912,17 +913,19 @@ public class masterController {
             storeAdd.setCategory(code);
             storeAdd.setTitle(title);
             storeAdd.setPrice(price);
-            storeAdd.setThumimg(thumimg_filename);
+            storeAdd.setThumImg(thumimg_filename);
             storeAdd.setAni_title(ani_title);
             storeAdd.setRelDT(relDT);
             storeAdd.setBrand(brand);
-            storeAdd.setPro_detail(proDetail_filename);
+            storeAdd.setPro_detail(pro_detail);
             storeAdd.setFee(fee);
             storeAdd.setStock(stock);
             storeAdd.setSecond_category(second_category);
+            storeAdd.setDetailImg(detailImg_filename);
             storeAdd.setAdminidx(adminidx);
 
             masterService.createStore(storeAdd); // DB에 insert
+            masterService.insertProductImg(pro_idx,detailImg); // DB에 insert
 
 
             return ResponseEntity.ok("굿즈 상품이 성공적으로 등록되었습니다.");

@@ -1,7 +1,6 @@
 package com.ict.finalproject.DAO;
 
 import com.ict.finalproject.vo.MasterVO;
-import com.ict.finalproject.vo.StoreVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -112,7 +111,7 @@ public interface MasterDAO {
     int updateStore(MasterVO store);
 
     List<MasterVO> findSubCategoriesByCategory(@Param("category") int category);
-    int insertProductImg(MasterVO productImg);
+    int insertProductImg(int pro_idx, String detailImg);
 
     // 공지사항 수정
     MasterVO getNoticeById(@Param("idx") int idx);

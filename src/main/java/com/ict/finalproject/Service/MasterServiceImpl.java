@@ -41,8 +41,23 @@ public class MasterServiceImpl implements MasterService {
 
     @Override
     public MasterVO createStore(MasterVO store) {
-        int result = dao.insertStore(store);
-        return result > 0 ? store : null;
+        int result = dao.insertStore(store); // 여기서 idx가 자동으로 설정됩니다.
+
+        // 첫 번째 insert가 성공한 경우에만 두 번째 작업 수행
+        if (result > 0) {
+            int pro_idx = store.getIdx(); // 삽입된 상품의 idx를 가져옵니다.
+
+            // 두 번째 insert 수행
+            result = dao.insertProductImg(pro_idx, store.getDetailImg());
+
+            // 두 번째 insert도 성공해야 전체 트랜잭션이 커밋됨
+            if (result > 0) {
+                return store; // 성공적으로 두 작업 수행
+            }
+        }
+
+        // 실패 시 예외를 발생시켜 트랜잭션 롤백
+        throw new RuntimeException("저장 실패: 모든 작업을 완료하지 못했습니다.");
     }
 
     @Override
@@ -214,9 +229,10 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public boolean insertProductImg(MasterVO productImg) {
-        return dao.insertProductImg(productImg) > 0;
+    public boolean insertProductImg(int pro_idx,String detailImg) {
+        return dao.insertProductImg(pro_idx, detailImg) > 0;
     }
+
 
     @Override
     public MasterVO getNoticeById(int idx) {
