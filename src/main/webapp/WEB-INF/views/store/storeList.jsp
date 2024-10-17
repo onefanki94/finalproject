@@ -87,11 +87,9 @@
                                   <c:forEach var="product" items="${pagedProducts}">
                                     <li class="list-product">
                                         <!-- idx 값을 사용하여 링크 생성 -->
-                                      <a href="<c:url value='/storeDetail'>
-                                          <c:param name='idx' value='${product.idx}' />
-                                      </c:url>">
-                                          <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-                                      </a>
+                                     <a href="<c:url value='/storeDetail/${product.idx}' />">
+                                         <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                                     </a>
 
                                         <p>${product.title}</p>
                                         <p>    <fmt:formatNumber value="${product.price}" type="number" pattern="#,###"/> 원</p>
