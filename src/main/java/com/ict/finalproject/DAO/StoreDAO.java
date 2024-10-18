@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StoreDAO {
@@ -31,6 +32,8 @@ public interface StoreDAO {
     public List<String> getSubcategoriesByFirstCategory(@Param("code") int code);
     // 추가된 부분: 카테고리별 상품 목록 가져오기
     public List<StoreVO> getProductsByCategory(@Param("pageSize") int pageSize, @Param("offset") int offset, @Param("category") int category);
+
+    public List<StoreVO> getStoreWithPopularity(Map<String, Object> params);
     
     //채원
     //장바구니에 상품 있는지 체크

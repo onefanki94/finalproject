@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface StoreService {
@@ -32,6 +33,8 @@ public interface StoreService {
     public List<String> getSubcategoriesByFirstCategory(@Param("code") int code);
     // 추가된 부분: 카테고리별 상품 목록 가져오기
     public List<StoreVO> getProductsByCategory(@Param("pageSize") int pageSize, @Param("offset") int offset, @Param("category") int category);
+
+    public List<StoreVO> getStoreWithPopularity(Map<String, Object> params);
 
 
 
