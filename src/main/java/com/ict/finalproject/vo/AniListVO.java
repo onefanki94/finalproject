@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor //매게변수 없는 생성자
 @AllArgsConstructor //매게변수 전체 다 있는거
 public class AniListVO {
-
-    public String post_img;   // 이미지 URL
-    public String title;     // 제목
-    public int anitype;   // 장르
-    public String director;   // 감독
-    public int agetype;    // 나이 관람
+    private int idx;
+    private String post_img;   // 이미지 URL
+    private String title;     // 제목
+    private int anitype;   // 장르
+    private String director;   // 감독
+    private int agetype;    // 나이 관람
 }

@@ -18,7 +18,7 @@ public class MemberVO {
     private String addr;
     private String addrdetail;
     private String birth;
-    private String point;
+    private int point;
     private String regDT;
     private int adult_state;
     private int login_type;
