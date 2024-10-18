@@ -212,7 +212,11 @@ public class storeMainController {
         // 3. 기본 상품 정보와 숨겨진 이미지 리스트 설정
         storeDetail.setDetailImages(hiddenImages);
 
+        // 카테고리 코드로 해당 타입을 조회
+        String categoryType = storeService.getCategoryType(storeDetail.getCategory());
+
         mav.addObject("storeDetail", storeDetail);
+        mav.addObject("categoryType", categoryType);
         return mav;
     }
 

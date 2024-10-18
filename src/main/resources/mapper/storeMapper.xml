@@ -158,6 +158,9 @@
         ORDER BY s.regDT DESC  <!-- 최신 상품 우선 정렬 -->
     </select>
 
+    <select id="getCategoryType" resultType="String">
+        SELECT type FROM t_firstcategory WHERE code = #{categoryCode}
+    </select>
 
 
 </mapper>

@@ -40,6 +40,6 @@ public interface StoreService {
 
     public List<StoreVO> getStoreWithPopularity(Map<String, Object> params);
 
-
+    public String getCategoryType(int categoryCode);
 
 }

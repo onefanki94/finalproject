@@ -80,6 +80,12 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreVO> getStoreWithPopularity(Map<String, Object> params) {
         return dao.getStoreWithPopularity(params);
     }
+
+    @Override
+    public String getCategoryType(int categoryCode) {
+        // categoryCode를 통해 카테고리 타입 조회
+        return dao.getCategoryType(categoryCode);
+    }
 }
 
 
