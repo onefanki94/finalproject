@@ -56,7 +56,15 @@
                 <tr>
                     <td><input type="checkbox" name="select" id="select"/></td>
                     <td>${store.idx}</td>
-                    <td>${store.category}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${store.category == 1}">의류</c:when>
+                            <c:when test="${store.category == 2}">완구/취미</c:when>
+                            <c:when test="${store.category == 3}">문구/오피스</c:when>
+                            <c:when test="${store.category == 4}">생활용품</c:when>
+                            <c:otherwise>기타</c:otherwise>
+                        </c:choose>
+                    </td>
                     <td>${store.title}</td>
                     <td>${store.price}<span> 원</span></td>
                     <td>${store.stock}<span> 개</span></td>

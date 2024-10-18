@@ -35,7 +35,16 @@
                 <c:forEach var="board" items="${boardList}">
                     <tr>
                         <td>${board.idx}</td>
-                        <td>${board.category}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${board.category == 10}">자랑</c:when>
+                                <c:when test="${board.category == 20}">덕질</c:when>
+                                <c:when test="${board.category == 30}">친목</c:when>
+                                <c:when test="${board.category == 40}">팬아트</c:when>
+                                <c:when test="${board.category == 50}">추천</c:when>
+                                <c:otherwise>기타</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${board.title}</td>
                         <td>${board.author}</td>
                         <td>${board.regDT}</td>
@@ -60,21 +69,21 @@
                <!-- 이전 그룹으로 이동 -->
                <c:if test="${startPage > 1}">
                    <li class="page-item">
-                       <a class="page-link" href="/master/storeMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">이전</a>
+                       <a class="page-link" href="/master/boardMasterAll?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo;</a>
                    </li>
                </c:if>
 
                <!-- 페이지 번호 -->
                <c:forEach var="i" begin="${startPage}" end="${endPage}">
                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                       <a class="page-link" href="/master/storeMasterList?currentPage=${i}&pageSize=${pageSize}">${i}</a>
+                       <a class="page-link" href="/master/boardMasterAll?currentPage=${i}&pageSize=${pageSize}">${i}</a>
                    </li>
                </c:forEach>
 
                <!-- 다음 그룹으로 이동 -->
                <c:if test="${endPage < totalPages}">
                    <li class="page-item">
-                       <a class="page-link" href="/master/storeMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">다음</a>
+                       <a class="page-link" href="/master/boardMasterAll?currentPage=${endPage + 1}&pageSize=${pageSize}">&raquo</a>
                    </li>
                </c:if>
            </ul>

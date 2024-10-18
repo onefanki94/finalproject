@@ -134,4 +134,14 @@ public interface MasterDAO {
 
     // 굿즈 페이징 네이션
     List<MasterVO> getStoreListWithPaging(Map<String, Object> params);
+
+    // Board All 페이징
+    List<MasterVO> getBoardListWithPaging(Map<String, Object> params);
+    int getTotalBoardCount();
+
+    // Board ReviewAll
+    List<MasterVO> getReviewListWithPaging(Map<String, Object> params);
+    int getTotalReviewCount();
+
+
 }

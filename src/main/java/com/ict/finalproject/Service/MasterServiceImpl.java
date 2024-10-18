@@ -302,4 +302,30 @@ public class MasterServiceImpl implements MasterService {
         params.put("limit", limit);
         return dao.getStoreListWithPaging(params);
     }
+
+    @Override
+    public List<MasterVO> getBoardListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getBoardListWithPaging(params);
+    }
+
+    @Override
+    public int getTotalBoardCount() {
+        return dao.getTotalBoardCount();
+    }
+
+    @Override
+    public List<MasterVO> getReviewListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getReviewListWithPaging(params);
+    }
+
+    @Override
+    public int getTotalReviewCount() {
+        return dao.getTotalReviewCount();
+    }
 }

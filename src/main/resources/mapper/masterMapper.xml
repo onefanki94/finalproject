@@ -326,4 +326,27 @@
         LIMIT #{offset}, #{limit}
     </select>
 
+    <select id="getBoardListWithPaging" parameterType="map" resultType="MasterVO">
+        SELECT * FROM t_community
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 전체 게시글 수 조회 -->
+    <select id="getTotalBoardCount" resultType="int">
+        SELECT COUNT(*) FROM t_community
+    </select>
+
+    <!-- 페이징을 적용한 리뷰 목록 조회 -->
+    <select id="getReviewListWithPaging" parameterType="map" resultType="MasterVO">
+        SELECT * FROM t_review
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 전체 리뷰 개수 조회 -->
+    <select id="getTotalReviewCount" resultType="int">
+        SELECT COUNT(*) FROM t_review
+    </select>
+
 </mapper>

@@ -433,29 +433,66 @@ public class masterController {
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
     @GetMapping("/boardMasterAll")
-    public ModelAndView boardMasterAll() {
-        // 커뮤니티 전체 글 목록 불러오기
+    public ModelAndView boardMasterAll(
+            @RequestParam(value = "currentPage", defaultValue = "1") String currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
         System.out.println("관리자페이지에서 커뮤니티 테이블 전체 글 목록 불러오기");
-        List<MasterVO> boardList = masterService.getBoardList();
-        mav = new ModelAndView();
+
+        // currentPage를 정수형으로 변환
+        int currentPageInt;
+        try {
+            currentPageInt = Integer.parseInt(currentPage);
+        } catch (NumberFormatException e) {
+            // 변환 실패 시 기본값 1로 설정
+            currentPageInt = 1;
+        }
+
+        // 페이징 로직 추가
+        int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+        List<MasterVO> boardList = masterService.getBoardListWithPaging(offset, pageSize);
+
+        // 총 게시글 수 구하기
+        int totalBoard = masterService.getTotalBoardCount();
+        int totalPages = (int) Math.ceil((double) totalBoard / pageSize);
+
+        ModelAndView mav = new ModelAndView();
         mav.addObject("boardList", boardList);
+        mav.addObject("currentPage", currentPageInt);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/boardMasterAll");
         return mav;
     }
 
+
+
     //  Dashboard - 게시판, 댓글, 리뷰 - 댓글 전체 목록
     @GetMapping("/boardMasterReviewAll")
-    public ModelAndView boardMasterReviewAll() {
-        List<MasterVO> reviewList = masterService.getReviewList();
+    public ModelAndView boardMasterReviewAll(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        // 페이징 계산
+        int offset = Math.max(0, (currentPage - 1) * pageSize);
+        List<MasterVO> reviewList = masterService.getReviewListWithPaging(offset, pageSize);
+
+        // 전체 댓글 수
+        int totalReviews = masterService.getTotalReviewCount();
+        int totalPages = (int) Math.ceil((double) totalReviews / pageSize);
 
         // 로그로 데이터 크기 확인
         System.out.println("불러온 댓글 개수: " + reviewList.size());
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("reviewList", reviewList);
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/boardMasterReviewAll");
         return mav;
     }
+
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
     @GetMapping("/boardMasterReplyAll")
