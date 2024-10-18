@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,4 +26,6 @@ public class StoreVO {
     private int liked;
     private int likeCount;
     private String detailImg;
+    //상세페이지 숨겨진 이미지ㅣ 불러오기
+    private List<String> detailImages;  // 여러 이미지 저장을 위한 리스트
 }

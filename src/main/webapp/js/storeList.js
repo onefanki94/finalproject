@@ -1,20 +1,4 @@
 
-//상품검색창
-function searchProducts() {
-    const input = document.getElementById('productSearch').value.toLowerCase();
-    const productItems = document.querySelectorAll('.list-product'); // 상품 리스트
-
-    productItems.forEach(item => {
-        const productName = item.textContent.toLowerCase();
-        if (productName.includes(input)) {
-            item.style.display = ''; // 검색어가 포함된 항목 보이기
-        } else {
-            item.style.display = 'none'; // 검색어가 포함되지 않은 항목 숨기기
-        }
-    });
-}
-
-
 
 // URL에서 특정 파라미터의 값을 가져오는 함수
 function getParameterByName(name) {
@@ -169,8 +153,7 @@ console.log("filterProductsByType->",filterType)
         activeFilter.classList.add('active');
     }
 
-    // 현재 상품 목록을 가져옴
-    //let products = Array.from(document.querySelectorAll('.list-product'));
+
     console.log(products);
     // 필터 타입에 따른 정렬
     if (filterType === 'latest') {
@@ -183,12 +166,22 @@ console.log("filterProductsByType->",filterType)
         products.sort((a, b) => parseInt(a.price) - parseInt(b.price));  // 낮은 가격순 정렬
     }
 
-    // 기존 상품 목록을 지우고 정렬된 상품 목록을 다시 추가
-    //console.log(productList);
-    //productList.innerHTML = '';
-    //products.forEach(product => {productList.appendChild(product);console.log(product);});
-    //console.log(productList);
+
     updateProductList(products);
+}
+//상품검색창
+function searchProducts() {
+    const input = document.getElementById('productSearch').value.toLowerCase();
+    const productItems = document.querySelectorAll('.list-product'); // 상품 리스트
+
+    productItems.forEach(item => {
+        const productName = item.textContent.toLowerCase();
+        if (productName.includes(input)) {
+            item.style.display = ''; // 검색어가 포함된 항목 보이기
+        } else {
+            item.style.display = 'none'; // 검색어가 포함되지 않은 항목 숨기기
+        }
+    });
 }
 function updateProductList(products) {
     console.log("updateProductList(products)=>",products);

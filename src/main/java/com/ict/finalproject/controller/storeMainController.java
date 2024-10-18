@@ -200,14 +200,23 @@ public class storeMainController {
 
     // 상품 상세 정보 가져오기
     @GetMapping("/storeDetail/{storeId}")
-    public ModelAndView getStoreDetail(@PathVariable("storeId") int storeId) {
-        StoreVO storeDetail = storeService.getStoreDetail(storeId);  // 상품 상세 조회
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("storeDetail", storeDetail);
-        mav.setViewName("store/storeDetail");
+    public ModelAndView getStoreDetail(@PathVariable int storeId) {
+        ModelAndView mav = new ModelAndView("store/storeDetail");
 
+        // 1. 기본 상품 정보 가져오기
+        StoreVO storeDetail = storeService.getStoreDetail(storeId);
+
+        // 2. 숨겨진 이미지 리스트 가져오기
+        List<String> hiddenImages = storeService.getImagesByProductId(storeId);
+
+        // 3. 기본 상품 정보와 숨겨진 이미지 리스트 설정
+        storeDetail.setDetailImages(hiddenImages);
+
+        mav.addObject("storeDetail", storeDetail);
         return mav;
     }
+
+
 
     // 쇼핑백 페이지 이동
     @GetMapping("/shoppingBag")

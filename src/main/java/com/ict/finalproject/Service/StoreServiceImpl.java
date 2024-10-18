@@ -56,6 +56,12 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public List<String> getImagesByProductId(int productId) {
+        return dao.getImagesByProductId(productId);  // 숨겨진 이미지만 가져오기
+    }
+
+
+    @Override
     public List<ProductFilterVO> getFirstCategoryList() {
         return dao.getFirstCategoryList();
     }
