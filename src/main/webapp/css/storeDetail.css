@@ -557,15 +557,19 @@
     margin: 0 auto;
     padding: 0 auto;
     display: none;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     margin-top: 20px;
 
 }
 
 .hidden-description img{
+    display: grid;
+    margin-bottom :40px;
     border-radius: 10px;
     width: 600px;
     height: 600px;
-
+    object-fit: cover;
 }
 
 

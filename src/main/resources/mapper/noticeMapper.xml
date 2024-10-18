@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.finalproject.DAO.NoticeDAO">
+    <!-- 공지사항 목록을 가져오는 쿼리 -->
+    <select id="getNotices" resultType="NoticeVO">
+        SELECT * FROM t_notice
+        WHERE (#{keyword} IS NULL OR title LIKE CONCAT('%', #{keyword}, '%'))
+        AND delState = 0
+        ORDER BY regDT DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <!-- 전체 공지사항 수를 가져오는 쿼리 -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*) FROM t_notice
+        WHERE (#{keyword} IS NULL OR title LIKE CONCAT('%', #{keyword}, '%'))
+        AND delState = 0
+    </select>
+
+    <!-- FAQ 조회 쿼리 -->
+    <select id="getFaqs" parameterType="PagingVO" resultType="NoticeVO">
+        SELECT f.*, ft.type
+        FROM t_faq f
+        JOIN t_faqtype ft ON f.faqtype = ft.code
+        WHERE f.adminidx = 2
+        ORDER BY f.regDT DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="getTotalFaqCount" parameterType="PagingVO" resultType="int">
+        SELECT COUNT(*) FROM t_faq
+    </select>
+
+    <!-- 1:1 문의 등록 -->
+    <insert id="saveQna" parameterType="com.ict.finalproject.vo.QnaVO">
+        INSERT INTO t_qna (qnatype, title, content, useridx, imgfile1, imgfile2, regDT)
+        VALUES (#{qnatype}, #{title}, #{content}, #{useridx}, #{imgfile1}, #{imgfile2}, NOW())
+    </insert>
+
+
+</mapper>

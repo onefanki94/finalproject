@@ -15,7 +15,7 @@ import java.util.Map;
 public interface MasterService {
     MasterVO createNotice(MasterVO notice);
     MasterVO createFAQ(MasterVO faq);
-    MasterVO createStore(MasterVO store);
+    int createStore(MasterVO storeAdd);
     public List<MasterVO> getFAQList();
     public List<MasterVO> getStoreList();
      int getTotalStore();
@@ -49,9 +49,15 @@ public interface MasterService {
     MasterVO getStoreByIdx(int idx);
     boolean updateStore(MasterVO store);
     List<MasterVO> getSubCategoriesByCategory(int category);
-    boolean insertProductImg(MasterVO productImg);
+    void insertProductImg(MasterVO masterVO);
     MasterVO getNoticeById(int idx);
     boolean updateNotice(MasterVO noticeEdit);
     MasterVO noticeSelect (int idx);
     MasterVO getQnaById(int idx);
+    boolean validateAdmin(String adminid, String adminpwd);
+    boolean doesProductExist(int pro_idx);
+    MasterVO getProductImgByIdx(int idx);
+    boolean updateProductImg(MasterVO productImg);
+    int getTotalAnimeCount(); // 총 애니메이션 수를 가져옴
+    List<MasterVO> getAniListWithPaging(int currentPage, int pageSize); // 페이징된 애니 리스트 가져오기
 }

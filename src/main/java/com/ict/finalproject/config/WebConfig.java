@@ -40,12 +40,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:9911") // 허용할 출처(도메인) 지정
+                .allowedOrigins("http://localhost:9911") // 클라이언트 URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type", "Authorization")
-                .exposedHeaders("Authorization")
-                .allowCredentials(true)  // 쿠키와 인증 정보를 허용
-                .maxAge(3600);
+                .allowedHeaders("Authorization", "Content-Type")
+                .allowCredentials(true);
     }
 
     @Override

@@ -71,13 +71,31 @@
         </table>
 
         <!-- 페이지네이션 -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">다음</a></li>
-            </ul>
-        </nav>
-    </div>
+       <nav>
+           <ul class="pagination justify-content-center">
+               <c:set var="pageGroupSize" value="15" />
+               <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
+               <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
+
+               <!-- 이전 그룹으로 이동 -->
+               <c:if test="${startPage > 1}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/storeMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">이전</a>
+                   </li>
+               </c:if>
+
+               <!-- 페이지 번호 -->
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                   <li class="page-item ${i == currentPage ? 'active' : ''}">
+                       <a class="page-link" href="/master/storeMasterList?currentPage=${i}&pageSize=${pageSize}">${i}</a>
+                   </li>
+               </c:forEach>
+
+               <!-- 다음 그룹으로 이동 -->
+               <c:if test="${endPage < totalPages}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/storeMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">다음</a>
+                   </li>
+               </c:if>
+           </ul>
+       </nav>

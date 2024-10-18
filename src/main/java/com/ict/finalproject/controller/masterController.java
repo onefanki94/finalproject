@@ -8,36 +8,35 @@ import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.TAdminService;
 import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
-import com.ict.finalproject.vo.StoreVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -65,42 +64,45 @@ public class masterController {
     }*/
 
     // t_admin에  admin아이디 있는지 체크 하는 API
-        /*@GetMapping("/checkAdmin")
-        public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
-            // Authorization 헤더 확인
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                System.out.println("Authorization 헤더가 없거나 형식이 잘못되었습니다.");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-            }
+    @GetMapping("/checkAdmin")
+    public ResponseEntity<Boolean> checkAdmin(@RequestHeader("Authorization") String authHeader) {
+        // Authorization 헤더 확인
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Authorization 헤더가 없거나 형식이 잘못되었습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
 
-            String token = authHeader.substring(7);  // 'Bearer ' 제거
+        String token = authHeader.substring(7);  // 'Bearer ' 제거
 
-            // JWT 토큰 유효성 검사
-            if (!jwtUtil.validateToken(token)) {
-                System.out.println("JWT 토큰이 유효하지 않습니다.");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-            }
+        // JWT 토큰 유효성 검사
+        if (!jwtUtil.validateToken(token)) {
+            System.out.println("JWT 토큰이 유효하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
 
+        try {
             // 토큰에서 사용자 ID 추출
-            String userId = jwtUtil.getUserIdFromToken(token);
-            System.out.println("JWT 토큰에서 추출한 사용자 ID: " + userId);  // 추출된 ID 출력
+            String userid = jwtUtil.getUserIdFromToken(token);
+            System.out.println("JWT 토큰에서 추출한 사용자 ID: " + userid);
 
-            // t_admin 테이블의 "admin" 아이디만 접근 허용
-            boolean isAdmin = tAdminService.existsByAdminId(userId);
-            System.out.println("t_admin 테이블에 " + userId + " 존재 여부: " + isAdmin);
+            // t_admin 테이블에서 해당 adminid가 존재하는지 확인
+            boolean isAdmin = tAdminService.existsByAdminId(userid);
+            System.out.println("t_admin 테이블에 " + userid + " 존재 여부: " + isAdmin);
 
-            return ResponseEntity.ok(isAdmin);  // 관리자 여부를 반환
-        }*/
+            // 관리자 여부를 반환
+            return ResponseEntity.ok(isAdmin);
+
+        } catch (Exception e) {
+            // 오류 발생 시 로그 출력 및 UNAUTHORIZED 응답
+            System.out.println("JWT 처리 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
+    }
+
 
     @ModelAttribute("unansweredCount")
     public int unansweredQnaCount() {
         return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
-    }
-
-    // 관리자페이지 로그인 매핑
-    @GetMapping("/admin_login")
-    public String adminLogin() {
-        return "join/admin_login";
     }
 
 
@@ -152,16 +154,20 @@ public class masterController {
 
     // Dashboard - 애니관리 -  애니목록 리스트
     @GetMapping("/aniMasterList")
-    public ModelAndView masterAniList() {
-        System.out.println("관리자페이지 애니 리스트 불러오기");
+    public ModelAndView masterAniList(@RequestParam(value = "currentPage", defaultValue = "1") double currentPage,
+                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        int currentPageInt = (int) Math.floor(currentPage); // 정수로 변환
+        int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+        List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
 
-        List<MasterVO> aniList = masterService.getAniAllList();
-
-        mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.addObject("aniList", aniList);
+        mav.addObject("currentPage", currentPageInt);
+        mav.addObject("pageSize", pageSize);
         mav.setViewName("master/aniMasterList");
         return mav;
     }
+
 
 
     // Dashboard - 회원관리 - 신고계정목록 리스트
@@ -184,31 +190,44 @@ public class masterController {
     }
 
     @PostMapping("/aniAddMasterOk")
-    public String aniAddMasterOk(
+    public ResponseEntity<String> aniAddMasterOk(
             @RequestParam("title") String title,
             @RequestParam("director") String director,
             @RequestParam("outline") String outline,
-            @RequestParam("post_img") MultipartFile post_img,
+            @RequestParam(value = "post_img", required = false) MultipartFile post_img,
             @RequestParam("agetype") int agetype,
             @RequestParam("anitype") int anitype,
-            @RequestParam("token") String token) {
+            @RequestHeader("Authorization") String authorizationHeader) {
 
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
         try {
-            // JWT 토큰에서 adminid 추출
-            String adminid = jwtUtil.getUserIdFromToken(token);
-
-            // adminid로 adminidx 변환
-            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
-            if (adminidx == null) {
-                // 처리 실패 (예: 관리자 정보를 찾을 수 없는 경우)
-                return ""; // 실패 시 이동할 페이지 설정
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
 
-            // 파일 저장 로직
-            String post_img_filename = null;
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        String post_img_filename = null;
+        try {
+            // 파일이 존재하면 외부 서버로 업로드
             if (post_img != null && !post_img.isEmpty()) {
-                // 파일이 존재하면 저장
-                post_img_filename = saveFile(post_img, "img/ani_img/");
+                post_img_filename = uploadFileToExternalServer(post_img);
             }
 
             // MasterVO 객체에 데이터 설정
@@ -224,14 +243,64 @@ public class masterController {
             // 서비스 호출하여 애니메이션 추가
             masterService.addAnimation(aniVO);
 
-            // 성공 시 페이지 리다이렉트
-            return "redirect:/master/aniMasterList";
+            // 성공 시 응답
+            return ResponseEntity.ok("애니메이션이 성공적으로 추가되었습니다.");
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ""; // 실패 시 에러 페이지 이동
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("애니메이션 추가 중 오류가 발생했습니다.");
         }
     }
+
+
+
+
+
+    private String uploadFileToExternalServer(MultipartFile file) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        String imageServerUrl = "http://192.168.1.92:8000/upload"; // 이미지 서버의 파일 업로드 엔드포인트
+
+        // 파일을 MultiValueMap으로 준비
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        String uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        body.add("file", new MultipartInputStreamFileResource(file.getInputStream(), uniqueFilename));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+        // 이미지 서버로 파일 전송
+        ResponseEntity<String> response = restTemplate.postForEntity(imageServerUrl, requestEntity, String.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            // 서버에서 성공적으로 응답한 경우, 저장할 파일명만 반환
+            return uniqueFilename; // URL이 아닌 파일명만 반환
+        } else {
+            throw new IOException("파일 업로드 실패: " + response.getStatusCode());
+        }
+    }
+
+
+    class MultipartInputStreamFileResource extends InputStreamResource {
+        private final String filename;
+
+        public MultipartInputStreamFileResource(InputStream inputStream, String filename) {
+            super(inputStream);
+            this.filename = filename;
+        }
+
+        @Override
+        public String getFilename() {
+            return this.filename;
+        }
+
+        @Override
+        public long contentLength() throws IOException {
+            return -1; // length를 모르는 경우 -1 반환
+        }
+    }
+
 
 
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
@@ -564,7 +633,7 @@ public class masterController {
 
     //  Dashboard - 매출관리 - 일/월별 매출관리
     @GetMapping("/orderSalesMaster")
-    public ModelAndView orderSalesMaster(){
+    public ModelAndView orderSalesMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/orderSalesMaster");
         return mav;
@@ -572,15 +641,15 @@ public class masterController {
 
     // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
     @GetMapping("/orderSalesDetailMaster")
-    public ModelAndView orderSalesDetailMaster(){
-            mav = new ModelAndView();
-            mav.setViewName("master/orderSalesDetailMaster");
+    public ModelAndView orderSalesDetailMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/orderSalesDetailMaster");
         return mav;
     }
 
     // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
     @GetMapping("/orderSalesDetail1Master")
-    public ModelAndView orderSalesDetail1Master(){
+    public ModelAndView orderSalesDetail1Master() {
         mav = new ModelAndView();
         mav.setViewName("master/orderSalesDetail1Master");
         return mav;
@@ -588,14 +657,14 @@ public class masterController {
 
     // Dashboard - 기타관리 - 문의사항 리스트
     @GetMapping("/QNAMasterList")
-    public ModelAndView QNAMasterList(){
-            List<MasterVO> qnaList = masterService.getQNAList();
+    public ModelAndView QNAMasterList() {
+        List<MasterVO> qnaList = masterService.getQNAList();
 
-            // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
-            int unanswerCount = masterService.getUnansweredQnaCount();
+        // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+        int unanswerCount = masterService.getUnansweredQnaCount();
         mav = new ModelAndView();
         mav.addObject("qnaList", qnaList);
-        mav.addObject("unanswerCount",unanswerCount);
+        mav.addObject("unanswerCount", unanswerCount);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }
@@ -651,11 +720,10 @@ public class masterController {
     }
 
 
-
     // Dashboard - 기타관리 - 자주묻는질문
     @GetMapping("/FAQMasterList")
-    public ModelAndView FAQMasterList(){
-            // 자주묻는 질문 목록 불러오기
+    public ModelAndView FAQMasterList() {
+        // 자주묻는 질문 목록 불러오기
         System.out.println("자주묻는질문 목록 불러오기");
         List<MasterVO> faqList = masterService.getFAQList();
         mav = new ModelAndView();
@@ -666,7 +734,7 @@ public class masterController {
 
     // Dashboard - 기타관리 - 자주묻는질문 - 작성
     @GetMapping("/FAQAddMaster")
-    public ModelAndView FAQAddMaster(){
+    public ModelAndView FAQAddMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/FAQAddMaster");
         return mav;
@@ -677,116 +745,6 @@ public class masterController {
             @RequestParam("code") String code,
             @RequestParam("question") String question,
             @RequestParam("answer") String answer,
-            @RequestParam("token") String token){
-
-            String bodyTag ="";
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-
-            try{
-                // 토큰으로 adminid 추출
-                String adminid = jwtUtil.getUserIdFromToken(token);
-
-                // adminid를 adminidx로 변환
-                Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
-
-                if(adminidx == null){
-                    bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-                }
-
-                // 자주묻는 질문 등록 로직 (데이터베이스 저장)
-                MasterVO faq = new MasterVO();
-                faq.setFaqtype(code);
-                faq.setQuestion(question);
-                faq.setAnswer(answer);
-                faq.setAdminidx(adminidx);
-
-                MasterVO resultFaq = masterService.createFAQ(faq);
-
-                if(resultFaq == null){
-                    bodyTag += "<script>alert('FAQ 등록 실패. 다시 시도해 주세요.');history.back();</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
-                }else{
-                    bodyTag += "<script>alert('FAQ가 성공적으로 등록되었습니다.');location.href='/master/FAQMasterList';</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
-                }
-            }catch (Exception e){
-                log.error("FAQ 등록 중 오류 발생", e);
-                bodyTag += "<script>alert('FAQ 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-    }
-
-    // Dashboard - 기타관리 - 자주묻는질문 - 수정
-    @GetMapping("/FAQEditMaster")
-    public ModelAndView FAQEditMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/FAQEditMaster");
-        return mav;
-    }
-
-    // Dashboard - 기타관리 - 자주묻는질문 - 삭제
-    @GetMapping("/FAQDelMaster")
-    public ModelAndView FAQDelMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/FAQDelMaster");
-        return mav;
-    }
-
-    // Dashboard - 기타관리 - 이벤트
-    @GetMapping("/EventMasterList")
-    public ModelAndView EventMasterList(){
-        mav = new ModelAndView();
-        mav.setViewName("master/EventMasterList");
-        return mav;
-    }
-
-    // Dashboard - 기타관리 - 이벤트 - 작성
-    @GetMapping("/EventAddMaster")
-    public ModelAndView EventAddMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/EventAddMaster");
-        return mav;
-    }
-
-    // Dashboard - 기타관리 - 이벤트 - 수정
-    @GetMapping("/EventEditMaster")
-    public ModelAndView EventEditMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/EventEditMaster");
-        return mav;
-    }
-
-    // Dashboard - 기타관리 - 이벤트 - 삭제
-    @GetMapping("/EventDelMaster")
-    public ModelAndView EventDelMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/EventDelMaster");
-        return mav;
-    }
-
-    // Dashboard - 굿즈관리 - 상품 추가
-    @GetMapping("/storeAddMaster")
-    public ModelAndView storeAddMaster(){
-        mav = new ModelAndView();
-        mav.setViewName("master/storeAddMaster");
-        return mav;
-    }
-
-    // 굿즈 상품 데이터베이스 등록
-    @PostMapping("/storeAddMasterOk")
-    public ResponseEntity<String> storeAddMasterOK(
-            @RequestParam("code") String code,
-            @RequestParam("title") String title,
-            @RequestParam("price") Integer price,
-            @RequestParam("thumimg") MultipartFile thumimg,
-            @RequestParam("ani_title") String ani_title,
-            @RequestParam("relDT") String relDT,
-            @RequestParam("brand") String brand,
-            @RequestParam("pro_detail") MultipartFile pro_detail,
-            @RequestParam("fee") int fee,
-            @RequestParam("stock") int stock,
             @RequestParam("token") String token) {
 
         String bodyTag = "";
@@ -794,85 +752,210 @@ public class masterController {
         headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
 
         try {
-            // JWT 토큰에서 adminid 추출
+            // 토큰으로 adminid 추출
             String adminid = jwtUtil.getUserIdFromToken(token);
 
-            // adminid로 adminidx 변환
+            // adminid를 adminidx로 변환
             Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+
             if (adminidx == null) {
                 bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
                 return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
             }
 
-            // 파일 저장 경로 설정
-            String thumimgPath = saveFile(thumimg, "img/store/");
-            String proDetailPath = saveFile(pro_detail, "img/store/");
+            // 자주묻는 질문 등록 로직 (데이터베이스 저장)
+            MasterVO faq = new MasterVO();
+            faq.setFaqtype(code);
+            faq.setQuestion(question);
+            faq.setAnswer(answer);
+            faq.setAdminidx(adminidx);
 
-            // 파일 저장 실패 시 처리
-            if (thumimgPath == null || proDetailPath == null) {
-                bodyTag += "<script>alert('파일 업로드에 실패했습니다.');history.back();</script>";
+            MasterVO resultFaq = masterService.createFAQ(faq);
+
+            if (resultFaq == null) {
+                bodyTag += "<script>alert('FAQ 등록 실패. 다시 시도해 주세요.');history.back();</script>";
                 return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                bodyTag += "<script>alert('FAQ가 성공적으로 등록되었습니다.');location.href='/master/FAQMasterList';</script>";
+                return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("FAQ 등록 중 오류 발생", e);
+            bodyTag += "<script>alert('FAQ 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
+            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Dashboard - 기타관리 - 자주묻는질문 - 수정
+    @GetMapping("/FAQEditMaster")
+    public ModelAndView FAQEditMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/FAQEditMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 자주묻는질문 - 삭제
+    @GetMapping("/FAQDelMaster")
+    public ModelAndView FAQDelMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/FAQDelMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트
+    @GetMapping("/EventMasterList")
+    public ModelAndView EventMasterList() {
+        mav = new ModelAndView();
+        mav.setViewName("master/EventMasterList");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트 - 작성
+    @GetMapping("/EventAddMaster")
+    public ModelAndView EventAddMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/EventAddMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트 - 수정
+    @GetMapping("/EventEditMaster")
+    public ModelAndView EventEditMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/EventEditMaster");
+        return mav;
+    }
+
+    // Dashboard - 기타관리 - 이벤트 - 삭제
+    @GetMapping("/EventDelMaster")
+    public ModelAndView EventDelMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/EventDelMaster");
+        return mav;
+    }
+
+    // Dashboard - 굿즈관리 - 상품 추가
+    @GetMapping("/storeAddMaster")
+    public ModelAndView storeAddMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/storeAddMaster");
+        return mav;
+    }
+
+    private String getAdminIdFromToken(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new RuntimeException("토큰이 없습니다.");
+        }
+
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid = jwtUtil.getUserIdFromToken(token);  // JWT에서 관리자 ID 추출
+
+        if (adminid == null || adminid.isEmpty()) {
+            throw new RuntimeException("유효하지 않은 JWT 토큰입니다.");
+        }
+
+        return adminid;
+    }
+
+    @PostMapping("/storeAddMasterOk")
+    public String storeAddMasterOK(
+            @RequestParam("code") String code,
+            @RequestParam("title") String title,
+            @RequestParam("price") int price,
+            @RequestParam(value = "thumImg", required = false) MultipartFile thumImg,
+            @RequestParam("ani_title") String ani_title,
+            @RequestParam("relDT") String relDT,
+            @RequestParam("brand") String brand,
+            @RequestParam("pro_detail") String pro_detail,
+            @RequestParam("fee") int fee,
+            @RequestParam("stock") int stock,
+            @RequestParam("second_category") int second_category,
+            @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
+            @RequestHeader("Authorization") String authorizationHeader) {
+
+        System.out.println("Received Authorization Header: " + authorizationHeader);
+
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return "redirect:/user/login"; // 토큰이 없을 경우 로그인 페이지로 리디렉션
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
+        int pro_idx;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return "redirect:/user/login"; // 유효하지 않은 토큰일 경우 로그인 페이지로 리디렉션
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/user/login"; // JWT 파싱 중 오류 발생 시 로그인 페이지로 리디렉션
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return "redirect:/user/login"; // 관리자 정보를 찾을 수 없을 경우 로그인 페이지로 리디렉션
+        }
+
+        // 파일 저장 로직
+        String thumimg_filename = null;
+        String detailImg_filename = null;
+
+        try {
+            if (thumImg != null && !thumImg.isEmpty()) {
+                thumimg_filename = uploadFileToExternalServer(thumImg);
+            }
+            if (detailImg != null && !detailImg.isEmpty()) {
+                detailImg_filename = uploadFileToExternalServer(detailImg);
             }
 
-            // 상품 등록 로직
+            // t_product 테이블에 데이터 삽입
             MasterVO storeAdd = new MasterVO();
             storeAdd.setCategory(code);
             storeAdd.setTitle(title);
             storeAdd.setPrice(price);
-            storeAdd.setThumimg(thumimgPath);  // 저장된 썸네일 이미지 경로
+            storeAdd.setThumImg(thumimg_filename);
             storeAdd.setAni_title(ani_title);
             storeAdd.setRelDT(relDT);
             storeAdd.setBrand(brand);
-            storeAdd.setPro_detail(proDetailPath);  // 저장된 상세 정보 파일 경로
+            storeAdd.setPro_detail(pro_detail);
             storeAdd.setFee(fee);
             storeAdd.setStock(stock);
+            storeAdd.setSecond_category(second_category);
             storeAdd.setAdminidx(adminidx);
 
-            // 서비스 호출하여 저장
-            MasterVO resultStore = masterService.createStore(storeAdd);
-            if (resultStore == null) {
-                bodyTag += "<script>alert('굿즈 상품 등록 실패. 다시 시도해 주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
-            } else {
-                bodyTag += "<script>alert('굿즈 상품이 성공적으로 등록되었습니다.');location.href='/master/storeMasterList';</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            // t_product 테이블에 데이터 삽입 후 idx 반환
+            pro_idx = masterService.createStore(storeAdd);
+            System.out.println("생성된 pro_idx: " + pro_idx); // 생성된 idx 값을 확인
+
+            // pro_idx가 유효한지 확인
+            if (pro_idx <= 0) {
+                throw new RuntimeException("유효하지 않은 pro_idx입니다.");
             }
-        } catch (IOException e) {
-            log.error("파일 처리 중 오류 발생", e);
-            bodyTag += "<script>alert('파일 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+
+            // t_productimg 테이블에 데이터 삽입
+            MasterVO productImg = new MasterVO();
+            productImg.setPro_idx(pro_idx); // 생성된 pro_idx를 설정
+            productImg.setDetailImg(detailImg_filename);
+            masterService.insertProductImg(productImg);
+
+            // 성공적으로 등록되었을 때 리스트 페이지로 리디렉션
+            return "redirect:/master/storeMasterList";
+
         } catch (Exception e) {
-            log.error("굿즈 등록 중 오류 발생", e);
-            bodyTag += "<script>alert('굿즈 상품 등록 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            // 오류 발생 시 에러 페이지로 리디렉션
+            return "redirect:/errorPage"; // 적절한 에러 페이지 설정
         }
     }
 
-    // 파일을 저장하는 메서드
-    private String saveFile(MultipartFile file, String folderPath) throws IOException {
-        if (file.isEmpty()) {
-            return null;
-        }
 
-        // 저장할 디렉터리 경로
-        String absolutePath = new File("src/main/webapp/" + folderPath).getAbsolutePath();
 
-        // 파일 이름 설정
-        String originalFilename = file.getOriginalFilename();
-        String filePath = absolutePath + "/" + originalFilename;
-        File dest = new File(filePath);
 
-        // 디렉터리 생성
-        if (!dest.exists()) {
-            dest.mkdirs();
-        }
 
-        // 파일 저장
-        file.transferTo(dest);
-
-        // 저장된 파일의 이름만 반환 (DB에 저장할 이름)
-        return originalFilename;
-    }
 
     // Dashboard - 굿즈관리 - 상품 수정
     @GetMapping("/storeEditMaster/{idx}")
@@ -885,110 +968,109 @@ public class masterController {
     @PostMapping("/storeEditMasterOK")
     public ResponseEntity<String> storeEditMasterOK(
             @RequestParam("idx") int idx,
-            @RequestParam("category") String category,
-            @RequestParam("second_category") int secondCategory,
+            @RequestParam("code") String code,
+            @RequestParam(value = "second_category", required = false, defaultValue = "0") int second_category,
             @RequestParam("title") String title,
             @RequestParam("price") Integer price,
-            @RequestParam(value = "thumimg", required = false) MultipartFile thumimg,
+            @RequestParam(value = "thumImg", required = false) MultipartFile thumImg,
             @RequestParam("ani_title") String ani_title,
             @RequestParam("relDT") String relDT,
             @RequestParam("brand") String brand,
-            @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
+            @RequestParam("pro_detail") String pro_detail,
             @RequestParam("fee") int fee,
             @RequestParam("stock") int stock,
-            @RequestParam(value = "detaillmg", required = false) MultipartFile detaillmg, // 추가 이미지 파일
-            @RequestParam("token") String token) {
+            @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
+            @RequestHeader("Authorization") String authorizationHeader) {
 
-        String bodyTag = "";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token);
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        // 기존 상품 정보 불러오기
+        MasterVO store = masterService.getStoreByIdx(idx);
+        if (store == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 상품을 찾을 수 없습니다.");
+        }
+
+        // 파일 저장 로직
+        String thumimg_filename = null;
+        String detailImg_filename = null;
 
         try {
-            // JWT 토큰 검증
-            if (token == null || token.trim().isEmpty()) {
-                bodyTag += "<script>alert('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
+            if (thumImg != null && !thumImg.isEmpty()) {
+                thumimg_filename = uploadFileToExternalServer(thumImg);
             }
-
-            String adminid = jwtUtil.getUserIdFromToken(token);
-            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
-            if (adminidx == null) {
-                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-            }
-
-            // 기존 상품 정보 불러오기
-            MasterVO store = masterService.getStoreByIdx(idx);
-            if (store == null) {
-                bodyTag += "<script>alert('해당 상품을 찾을 수 없습니다.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.NOT_FOUND);
-            }
-
-            // 썸네일 이미지 및 상세 이미지 경로 처리
-            String thumimgPath = null;
-            String proDetailPath = null;
-            String detailImgPath = null;
-
-            if (thumimg != null && !thumimg.isEmpty()) {
-                thumimgPath = saveFile(thumimg, "img/store/");
-            }
-
             if (detailImg != null && !detailImg.isEmpty()) {
-                proDetailPath = saveFile(detailImg, "img/store/");
-            }
-
-            if (detaillmg != null && !detaillmg.isEmpty()) {
-                detailImgPath = saveFile(detaillmg, "img/store/");
+                detailImg_filename = uploadFileToExternalServer(detailImg);
             }
 
             // 상품 정보 수정
-            store.setCategory(category);
-            store.setSecond_category(secondCategory);
+            store.setCategory(code);
+            store.setSecond_category(second_category);
             store.setTitle(title);
             store.setPrice(price);
             store.setAni_title(ani_title);
             store.setRelDT(relDT);
             store.setBrand(brand);
+            store.setPro_detail(pro_detail);
             store.setFee(fee);
             store.setStock(stock);
             store.setAdminidx(adminidx);
 
-            if (thumimgPath != null) {
-                store.setThumimg(thumimgPath);
-            }
-            if (proDetailPath != null) {
-                store.setPro_detail(proDetailPath);
+            if (thumimg_filename != null) {
+                store.setThumImg(thumimg_filename);
             }
 
             boolean updateResult = masterService.updateStore(store);
             if (!updateResult) {
-                bodyTag += "<script>alert('굿즈 상품 수정 실패. 다시 시도해 주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+                throw new RuntimeException("굿즈 상품 수정 실패");
             }
 
-            // 상세 이미지가 존재하면 t_productimg 테이블에 저장
-            if (detailImgPath != null) {
-                MasterVO productImg = new MasterVO();
-                productImg.setPro_idx(idx); // 상품의 idx를 참조
-                productImg.setDetailImg(detailImgPath); // 저장된 이미지 경로
-
-                boolean imgInsertResult = masterService.insertProductImg(productImg);
-                if (!imgInsertResult) {
-                    bodyTag += "<script>alert('이미지 저장 실패. 다시 시도해 주세요.');history.back();</script>";
-                    return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            // detailImg 업데이트 로직
+            if (detailImg_filename != null) {
+                MasterVO productImg = masterService.getProductImgByIdx(idx);
+                if (productImg == null) {
+                    // 기존 이미지 데이터가 없으면 새로 삽입
+                    productImg = new MasterVO();
+                    productImg.setPro_idx(idx);
+                    productImg.setDetailImg(detailImg_filename);
+                    masterService.insertProductImg(productImg);
+                } else {
+                    // 기존 이미지 데이터가 있으면 업데이트
+                    productImg.setDetailImg(detailImg_filename);
+                    masterService.updateProductImg(productImg);
                 }
             }
 
-            // 성공 시 리다이렉트
-            bodyTag += "<script>alert('굿즈 상품이 성공적으로 수정되었습니다.');location.href='/master/storeMasterList';</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            return ResponseEntity.ok().body("굿즈 상품이 성공적으로 수정되었습니다.");
 
         } catch (Exception e) {
-            log.error("굿즈 상품 수정 중 오류 발생", e);
-            bodyTag += "<script>alert('굿즈 상품 수정 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("굿즈 상품 수정 중 오류가 발생했습니다.");
         }
     }
+
+
 
 
     @GetMapping("/getSubCategories/{category}")
@@ -998,11 +1080,9 @@ public class masterController {
     }
 
 
-
-
     // Dashboard - 굿즈관리 - 상품 수정
     @GetMapping("/orderEditMaster")
-    public ModelAndView orderEditMaster(){
+    public ModelAndView orderEditMaster() {
         mav = new ModelAndView();
         mav.setViewName("master/orderEditMaster");
         return mav;
@@ -1010,12 +1090,40 @@ public class masterController {
 
     //관리자 로그인 페이지 view
     @GetMapping("/masterLogin")
-    public ModelAndView masterLogin(){
+    public ModelAndView masterLogin() {
         mav = new ModelAndView();
         mav.setViewName("join/admin_login");
-
         return mav;
     }
+
+    // 관리자 로그인
+    @PostMapping("/masterLoginOK")
+    public ResponseEntity<Map<String, String>> masterLoginOK(@RequestBody Map<String, String> request) {
+        String adminid = request.get("adminid");
+        String adminpwd = request.get("adminpwd");
+
+        try {
+            // 관리자 아이디와 비밀번호 확인
+            if (masterService.validateAdmin(adminid, adminpwd)) {
+                String token = jwtUtil.generateAdminToken(adminid);
+                Map<String, String> response = new HashMap<>();
+                response.put("token", token);
+                return ResponseEntity.ok(response);  // JSON 형식으로 반환
+            } else {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("errorMessage", "로그인 실패");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("errorMessage", "서버 에러");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+
+
 
     @PostMapping("/reportinguserOK")
     public String reportinguserOK(@RequestParam("userid") String userid,

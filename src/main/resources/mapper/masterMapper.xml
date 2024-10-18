@@ -14,11 +14,9 @@
     </insert>
 
     <!-- 관리자 페이지 굿즈 상품 등록 -->
-    <insert id="insertStore" parameterType="com.ict.finalproject.vo.MasterVO">
-        INSERT INTO t_product
-        (title, price, thumimg, relDT, brand, fee, stock, category, pro_detail)
-        VALUES
-        (#{title}, #{price}, #{thumimg}, #{relDT}, #{brand}, #{fee}, #{stock}, #{category}, #{pro_detail})
+    <insert id="createStore" parameterType="MasterVO" useGeneratedKeys="true" keyProperty="idx">
+        INSERT INTO t_product (category, title, price, thumImg, ani_title, relDT, brand, pro_detail, fee, stock, second_category, adminidx)
+        VALUES (#{category}, #{title}, #{price}, #{thumImg}, #{ani_title}, #{relDT}, #{brand}, #{pro_detail}, #{fee}, #{stock}, #{second_category}, #{adminidx})
     </insert>
 
     <!-- 관리자페이지 자주묻는 질문 리스트 -->
@@ -239,7 +237,7 @@
 
     <!-- 상품 정보를 수정 -->
     <update id="updateStore">
-        UPDATE t_product SET category = #{category}, title = #{title}, price = #{price}, thumimg = #{thumimg},
+        UPDATE t_product SET category = #{category}, title = #{title}, price = #{price}, thumImg = #{thumImg},
         ani_title = #{ani_title}, relDT = #{relDT}, brand = #{brand}, pro_detail = #{pro_detail}, fee = #{fee},
         stock = #{stock}, second_category = #{second_category}, adminidx = #{adminidx}, modifyState = 1, modifyDT = now()  WHERE idx = #{idx}
     </update>
@@ -251,7 +249,7 @@
     </select>
 
     <!-- t_productimg 테이블에 이미지 삽입 -->
-    <insert id="insertProductImg">
+    <insert id="insertProductImg" parameterType="MasterVO">
         INSERT INTO t_productimg (pro_idx, detailImg)
         VALUES (#{pro_idx}, #{detailImg})
     </insert>
@@ -286,4 +284,40 @@
         FROM t_qna q LEFT JOIN
         t_reply r ON q.idx = r.qna_idx  WHERE q.idx = #{idx}
     </select>
+
+    <select id="getAdminByAdminId" resultType="com.ict.finalproject.vo.MasterVO">
+        SELECT *
+        FROM t_admin
+        WHERE adminid = #{adminid}
+    </select>
+
+    <select id="doesProductExist" parameterType="int" resultType="int">
+        SELECT COUNT(1) FROM t_product WHERE idx = #{pro_idx}
+    </select>
+
+
+    <!-- 기존 제품 이미지 조회 -->
+    <select id="getProductImgByIdx" parameterType="int" resultType="MasterVO">
+        SELECT * FROM t_productimg WHERE pro_idx = #{idx}
+    </select>
+
+    <!-- 제품 이미지 업데이트 -->
+    <update id="updateProductImg" parameterType="MasterVO">
+        UPDATE t_productimg
+        SET detailImg = #{detailImg}
+        WHERE pro_idx = #{pro_idx}
+    </update>
+
+    <!-- 총 애니메이션 수를 가져오는 쿼리 -->
+    <select id="getTotalAnimeCount" resultType="int">
+        SELECT COUNT(*) FROM t_animation
+    </select>
+
+    <!-- 페이징된 애니메이션 리스트를 가져오는 쿼리 -->
+    <select id="getAniListWithPaging" parameterType="map" resultType="MasterVO">
+        SELECT * FROM t_animation
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
 </mapper>

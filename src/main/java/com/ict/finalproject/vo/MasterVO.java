@@ -25,10 +25,11 @@ public class MasterVO {
     private String delDT;
     private String inDate;
     private String delReasonDetail;
+    private String adminpwd;
 
     // 상품 테이블에서 사용 하는 것들
     private int price;
-    private String thumimg;
+    private String thumImg;
     private String ani_title;
     private String relDT;
     private String brand;
@@ -39,6 +40,7 @@ public class MasterVO {
     private String type;
     private int code;
     private int second_category;
+    private int pro_idx;
 
     // 커뮤니티 테이블에서 사용 하는 것들
     private String commtype;
@@ -54,7 +56,7 @@ public class MasterVO {
     private String age_type;
     private String post_img_filename;
     private int modifyState;
-    private int pro_idx;
+
     private String detailImg;
 
     // 관리자페이지에서 공지사항 사용하는것들
@@ -94,4 +96,14 @@ public class MasterVO {
     private String qnatype;
     private int qna_idx;
     private String reply;
+
+    // 페이징 네이션에 사용하는 기능들
+    private int currentPage;     // 현재 페이지 번호
+    private int pageSize;        // 한 페이지당 항목 수
+    private int offset;          // 쿼리에 사용할 오프셋 값
+    private int totalRecords;    // 전체 항목 수
+    private int totalPages;      // 전체 페이지 수
+    private int startPage;       // 페이지 네비게이션 시작 페이지
+    private int endPage;         // 페이지 네비게이션 끝 페이지
+    private int pageGroupSize;
 }

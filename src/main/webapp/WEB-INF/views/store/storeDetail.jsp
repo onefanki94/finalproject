@@ -127,13 +127,12 @@
                     <button class="toggle-description btn btn-secondary btn-lg" onclick="toggleDescription()">상품정보 더보기▼</button>
             </div>
 
-            
-                    
-        <!-- 숨겨진 상품 설명 -->
+
+        <!-- 숨겨진 상품 설명 및 추가 이미지 -->
         <div id="hidden-description" class="hidden-description">
-            <img src="${storeDetail.detailImg}">
-        
-        
+            <c:forEach var="image" items="${storeDetail.detailImages}">
+                  <img src="${image}" alt="Additional Image" class="additional-image">
+              </c:forEach>
         </div>
     </div>
    

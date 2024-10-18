@@ -12,27 +12,61 @@
     </select>
 
 
+    <!-- 페이징 처리된 상품 목록 가져오기 -->
+        <select id="getPagedProducts" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+            SELECT *
+            FROM t_product
+            <where>
+                <if test="category != null  and category != ''">
+                    AND category = #{category}
+                </if>
+                <if test="second_category != null and second_category != ''">
+                    AND second_category = #{second_category}
+                </if>
+            </where>
+            LIMIT #{pageSize} OFFSET #{offset}
+        </select>
 
+
+    <select id="getProductsByCategory" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT * FROM t_product
+        WHERE category = #{category}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+
+    <!-- 총 상품 개수 가져오기 -->
+    <select id="getTotalProductCount" resultType="int">
+        SELECT COUNT(*) FROM t_product
+    </select>
 
     <select id="getStoreDetail" parameterType="int" resultType="com.ict.finalproject.vo.StoreVO">
-     SELECT 
-    p.idx,
-    p.title,
-    p.price,
-    CONCAT('http://192.168.1.92:8000/', p.thumImg) AS thumImg,
-    p.ani_title,
-    p.relDT,
-    p.brand,
-    p.fee,
-    p.stock,
-    p.pro_detail,
-    p.category,
-    CONCAT('http://192.168.1.92:8000/', MIN(i.detailImg)) AS detailImg
-FROM t_product p
-LEFT JOIN t_productimg i ON p.idx = i.pro_idx
-WHERE p.idx = #{storeId}
-GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fee, p.stock, p.pro_detail, p.category;
+        SELECT
+        p.idx,
+        p.title,
+        p.price,
+        CONCAT('http://192.168.1.92:8000/', COALESCE(p.thumImg, 'default_image.png')) AS thumImg,
+        p.ani_title,
+        p.relDT,
+        p.brand,
+        p.fee,
+        p.stock,
+        p.pro_detail,
+        p.category,
+        CONCAT('http://192.168.1.92:8000/', COALESCE(MIN(i.detailImg), 'default_image.png')) AS detailImg
+        FROM t_product p
+        LEFT JOIN t_productimg i ON p.idx = i.pro_idx
+        WHERE p.idx = #{storeId}
+        GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fee, p.stock, p.pro_detail, p.category;
+    </select>
 
+
+    <!-- 디테일페이지 숨은상품 이미지 가져오기 -->
+    <select id="getImagesByProductId" parameterType="int" resultType="String">
+        SELECT
+        CONCAT('http://192.168.1.92:8000/', detailImg) AS detailImg
+        FROM t_productimg
+        WHERE pro_idx = #{pro_idx}
     </select>
 
     <select id="getStoreList" resultType="com.ict.finalproject.vo.StoreVO">
@@ -45,24 +79,25 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
     <select id="getStoreListBySortFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product
         <choose>
-            <when test="'latest'.equals(filterType)">
+            <when test="filterType == 'latest'">
                 ORDER BY created_date DESC
             </when>
-            <when test="'popular'.equals(filterType)">
+            <when test="filterType == 'popular'">
                 ORDER BY popularity DESC
             </when>
-            <when test="'high-price'.equals(filterType)">
+            <when test="filterType == 'high-price'">
                 ORDER BY price DESC
             </when>
-            <when test="'low-price'.equals(filterType)">
+            <when test="filterType == 'low-price'">
                 ORDER BY price ASC
             </when>
-             <otherwise>
-            <!-- 기본 정렬 --> 
-            ORDER BY created_date DESC
-        </otherwise>
+            <otherwise>
+                <!-- 기본 정렬 -->
+                ORDER BY created_date DESC
+            </otherwise>
         </choose>
     </select>
+
 
     <select id="searchStoreList" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product
@@ -109,50 +144,20 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
         JOIN t_firstcategory f ON s.first_code = f.code
         WHERE f.code = #{code}
     </select>
-
-
-    <!-- 채원 시작 -->
-    <!-- 장바구니에 상품있는지 체크 -->
-    <select id="checkProductInBasket" parameterType="com.ict.finalproject.vo.BasketVO" resultType="int">
-        SELECT COUNT(*)
-        FROM T_basket
-        WHERE useridx = #{useridx} AND pro_idx = #{pro_idx} AND delState=0
+    <!--  좋아요 카운팅-->
+    <select id="getStoreWithPopularity" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT s.*,
+        COALESCE(likeData.likeCount, 0) AS popularity
+        FROM t_product s
+        LEFT JOIN (
+        SELECT pro_idx, COUNT(*) AS likeCount
+        FROM t_prolike
+        GROUP BY pro_idx
+        ) likeData ON s.idx = likeData.pro_idx  <!-- 상품과 좋아요 데이터를 조인 -->
+        WHERE s.category = #{category}  <!-- 필요에 따라 카테고리 필터링 -->
+        ORDER BY s.regDT DESC  <!-- 최신 상품 우선 정렬 -->
     </select>
-    <!-- 장바구니에 상품데이터 저장 -->
-    <insert id="basketInput" parameterType="com.ict.finalproject.vo.BasketVO">
-        INSERT INTO T_basket(pro_idx, useridx, amount, total)
-        VALUES(#{pro_idx}, #{useridx}, #{amount}, #{total})
-    </insert>
-    <!-- 장바구니 리스트 -->
-    <select id="basketList" resultType="com.ict.finalproject.DTO.BasketDTO">
-        SELECT b.idx, b.pro_idx, b.useridx, b.amount, b.total, p.ani_title, p.title, p.thumImg, p.price, p.fee
-        FROM T_basket b
-        JOIN T_product p ON b.pro_idx = p.idx
-        WHERE b.useridx=${param1} AND b.delState=0
-        ORDER BY b.regDT desc
-    </select>
-    <!-- 장바구니 상품 삭제-->
-    <update id="basketDelete">
-        UPDATE T_basket
-        SET delState=1, delDT=now()
-        WHERE idx=${param1} AND useridx=${param2}
-    </update>
 
-    <!-- 장바구니 상품 삭제-->
-    <update id="basketChoiceAndAllDelOk">
-        UPDATE T_basket
-        SET delState=1, delDT=now()
-        WHERE idx=${param1} AND useridx=${param2}
-    </update>
 
-    <update id="basketPlusAmount">
-        update T_basket
-        set amount=amount+1, total=${param3}
-        where idx=${param1} and useridx=${param2}
-    </update>
-    <update id="basketMinusAmount">
-        update T_basket
-        set amount=amount-1, total=${param3}
-        where idx=${param1} and useridx=${param2}
-    </update>
+
 </mapper>
