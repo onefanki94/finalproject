@@ -1,0 +1,2994 @@
+[33mcommit a1047f3b6210a5d6b701c11b34f131fc29d3f020[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mchulsoon[m[33m, [m[1;31morigin/chulsoon[m[33m)[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 16:27:22 2024 +0900
+
+    1018복원
+
+[33mcommit 224bc011394e8c3772cb2c30991e555934c34dcc[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 15:52:25 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 936dc1900e03b2d89164202692fb7103d4f4b4bd[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 15:51:00 2024 +0900
+
+    1018디테일이미지추가
+
+[33mcommit 91cbb32d008382eff67062d30484dbc1b10f3f3a[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 13:09:40 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 3040b3243c24f61716ec4ef48730ebb48067a58f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 13:09:14 2024 +0900
+
+    1018
+
+[33mcommit cae6c854efbdb74179f0950d4700ca1bab82dbb7[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 10:36:24 2024 +0900
+
+    1018
+
+[33mcommit 5eac1f82f28acad3ae63b717d1f34d51aaccc360[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 01:02:24 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 73e0e5ef4f85f8b9817b6a6bb9b686342afcd61a[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 18 01:01:59 2024 +0900
+
+    1018filter완료
+
+[33mcommit 9d6b2e4585c81e17c0f8e2d949b3398723d13750[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 19:59:43 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 462965a89184ccd6acf839bc273adc7804e89d37[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 19:59:19 2024 +0900
+
+    1017최종
+
+[33mcommit b64ec82421dc87d6c73c06c709f3e450c5e33e02[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 16:06:46 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 4c29f6232f8463e232cfd74726d85bb27eed1853[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 16:06:12 2024 +0900
+
+    1017필터수정중
+
+[33mcommit a7f89b2d03d8bcfaa429dcc915b18bad9d97c4bb[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 11:38:02 2024 +0900
+
+    1017경로수정
+
+[33mcommit 7ed4341bbf3ee2e2c15c75f2d7605a4de3f12e82[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 11:16:09 2024 +0900
+
+    1017storeList
+
+[33mcommit 5e390b04eb0abd8adf9097e9b962301ac4185bcd[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 01:02:07 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit f0938ef01d66707bd6c54a95f879459a23129844[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 17 01:01:49 2024 +0900
+
+    1016최종및List이미지확인
+
+[33mcommit 2e1816554ee7c5850525ac569a2e5fb30bbc94e4[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 16 19:05:18 2024 +0900
+
+    1016최종
+
+[33mcommit 4520182bb4ecda87ff8d5f84f28cc52978c9fc80[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 16 18:15:51 2024 +0900
+
+    Update storeMain.css
+
+[33mcommit 8fb64fb2d969ab884a4a2884aae929131098ae65[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 16 18:06:59 2024 +0900
+
+    1016storeMain
+
+[33mcommit 24209b26ab1ffa7e2987b41ada508d1ed3e16a20[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 16 15:22:10 2024 +0900
+
+    1016단위수정
+
+[33mcommit eff6ebbf610340fb2ac46409ecd97daf4a53752a[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 16 14:20:32 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 43d4d2dd98c88ef80d08af88c75c9ca9a67490b6[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 16 14:20:00 2024 +0900
+
+    1016storeMain
+
+[33mcommit 9aa305ec38e41f014e29198787ab92197635c274[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 21:31:35 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit b128ba3df84437f1d4e84949d8a5e99a4902900c[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 21:31:06 2024 +0900
+
+    1015
+
+[33mcommit 75f792e8a14cebc1a41502f47d1091ae5e16bb12[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 18:40:38 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 106d0f49c8a8095967bfcb8d6a5510abed7751b4[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 18:40:06 2024 +0900
+
+    1015중간
+
+[33mcommit dc471cca9342003495476a92d36979d58e5ac8bd[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 14:58:22 2024 +0900
+
+    1015
+
+[33mcommit ac605379f79342d46f08d4489d134c1cc4db3014[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 14:44:42 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit bab00b185b4bbd7b4123efca9acf67baf1a79648[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 14:44:04 2024 +0900
+
+    1015
+
+[33mcommit 6736c793d3f478eda7b30c87e145ab5649ba7c89[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 13:24:03 2024 +0900
+
+    125215
+
+[33mcommit 85681583b92e9a402eed4b18dbc97aaac79ea3dc[m
+Merge: 3c4e496 f0b4235
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 12:47:57 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit f0b4235bd7231fecc249e09fe7981ff2abf48f74[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 12:47:43 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit ad2d5602e7b4e1b6c98e47afc49fa1140c59c5e6[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 15 12:47:23 2024 +0900
+
+    1015
+
+[33mcommit 3c4e4961406f92d24326e0a764ab992b5ebf2aba[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 15 12:18:17 2024 +0900
+
+    1251215
+
+[33mcommit 08ff929574e78c4a5353a85750f2e05b3aaecb5b[m
+Merge: 13b609e 2658b02
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 22:10:04 2024 +0900
+
+    2351215
+
+[33mcommit 13b609e56ae11bc1580bb7e3efe8f80dd61aa8bf[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 22:09:21 2024 +0900
+
+    12151215
+
+[33mcommit fef9f832cc7878e4da10c94f0ec3f1540a21a07c[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 20:27:55 2024 +0900
+
+    23262326
+
+[33mcommit 2658b0226c47e2003cdb2c90bb2a436e6ec8e919[m
+Merge: 377c15a a36105a
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 19:47:20 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit a36105a2f99c2d9b0f3f52467e1a83207518e402[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 19:47:10 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit bb45000ea680086c80e5948dd7bc397d8e483970[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 19:46:40 2024 +0900
+
+    1014최종
+
+[33mcommit d66fc64084090e1e118c7f8e14891a3506df98e0[m
+Merge: fd3a674 377c15a
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 17:22:26 2024 +0900
+
+    181215
+
+[33mcommit fd3a674db939718841c1297811be0ed679f4d9b6[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 17:21:57 2024 +0900
+
+    1251215
+
+[33mcommit 377c15a0e07a4c69b0ca63f37d8283fc2e9b26a6[m
+Merge: 51cff34 4e2a07a
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 14 15:45:20 2024 +0900
+
+    Merge branch 'refs/heads/cosyon' into chbr
+
+[33mcommit 4e2a07a5b1c4037c0b6e4b039a6abb568956ffbf[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 14 15:40:29 2024 +0900
+
+    10/14 대대댓글 정렬, 수정, 삭제 확인. 재확인 요망
+
+[33mcommit 51cff34a20897b0868280afa243fb0e19403eda6[m
+Merge: 7809774 2b4b92b
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 15:31:49 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 2b4b92bff5eb590d26ca8f2c058baf096432ae5c[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 15:31:35 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 5eac266ca229fabadc651979d0cc8d6af611979d[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 15:29:30 2024 +0900
+
+    1014modify
+
+[33mcommit 78097745e3b8cafc9368da39a52a275548c7e8c5[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 15:17:32 2024 +0900
+
+    152451215
+
+[33mcommit 64b74936951b95fec7da96875fefd29a75397685[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 14 14:41:08 2024 +0900
+
+    10/13 대댓글 css, 목록조회
+
+[33mcommit 32b95b93521dee32104df8874d1fd979fe4da845[m
+Merge: 5984f9a e0bdbe2
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 13:14:32 2024 +0900
+
+    121512185
+
+[33mcommit 5984f9a7b1d6875254c6927c759a76015f10e6a6[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 13:13:36 2024 +0900
+
+     12451215
+
+[33mcommit e0bdbe292719dfb0b0cabff690c7d07a09fb32a0[m
+Merge: a5026ef 3e41049
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 13:12:58 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 3e41049e16977163d15d6d63dcc17c1060c9c210[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 13:12:46 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 21932f9d889921d3ed5f8e95159f4c7119b1b529[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 13:12:07 2024 +0900
+
+    1014modify
+
+[33mcommit a5026ef11419cac41c87f1d99498702cb64595a5[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 14 13:09:55 2024 +0900
+
+    상품상세페이지 css삑나는거랑 sticy_footer디자인 바꿈
+
+[33mcommit 62f45cad763f78884aba9390db6b1af9c92f941d[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 14 13:00:12 2024 +0900
+
+    1254218
+
+[33mcommit d29f8584c49d73e06fa61b5628c5ae509f28ce8c[m
+Merge: d5b8a14 5175606
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 12:04:46 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 5175606725e16599c559d28b24f7b7b26031d8bf[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 12:01:02 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 7160f202139a8a43cd6ec34c60739a9f8e7b581b[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 14 12:00:43 2024 +0900
+
+    1014
+
+[33mcommit d5b8a14b990f1f21e08707ae735dd3ae8da793e0[m
+Merge: 20cda1a 3a04f13
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 14 11:52:12 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 20cda1a56eacfdb474ddb8e074ffe5e1302ec76e[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 14 11:50:22 2024 +0900
+
+    메인 굿즈 띄우기 완료 커밋
+
+[33mcommit f060273447cf0df5a9bbcdb125958ba30e1b3249[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 14 01:08:09 2024 +0900
+
+    회원탈퇴 끝 커밋
+
+[33mcommit 3a04f13046c9ee2e22360598915d0f9f8d928066[m
+Merge: 1c37c40 922ead5
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Oct 13 18:41:59 2024 +0900
+
+    Merge branch 'refs/heads/cosyon' into chbr
+
+[33mcommit 922ead5ae4e6f5a328d2a54659b565e50a867223[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Oct 13 18:39:09 2024 +0900
+
+    10/13 대댓글, 댓글수정
+
+[33mcommit 269b77cb5a9771618bdc294f8861e396497ea580[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Oct 13 14:36:51 2024 +0900
+
+    10/13 댓글 삭제
+
+[33mcommit 8f6864737178896b9c13bee433e685331f149ba6[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 20:39:37 2024 +0900
+
+    10/12 페이지별 아이디값 전역변수 선언 및 댓글작성자=로그인한idx 일치=수정/삭제버튼
+
+[33mcommit 16a6d2f35ac2e3bad50887a642562dd5d9c543e4[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 20:29:43 2024 +0900
+
+    회원수정 완료 커밋
+
+[33mcommit cbfcf4d2568d46e9e8c9c44f4a0d0346f0d0db16[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 19:48:07 2024 +0900
+
+    12151264
+
+[33mcommit 1c37c4025934d6d04bc30520ca899c9f3cdb2f57[m
+Merge: 2164217 c601161
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 17:46:10 2024 +0900
+
+    2512185
+
+[33mcommit c6011613308f6a8b486fa869290312f524a8da9c[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 17:45:09 2024 +0900
+
+    1254218
+
+[33mcommit 216421711b62d88c0910b5f63f95ddf1d8d5284e[m
+Merge: e61ab7f 1eeb2b7
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 17:24:57 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 0017c0246afe1302a3b1cc862b685c26b8df9d4c[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 17:24:48 2024 +0900
+
+    1215134
+
+[33mcommit 1eeb2b74d77bc93518cf3db557fb8b37083a9e40[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 17:24:46 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 120c0ff1bc19807dda1536398e035a5277151f6c[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 17:24:30 2024 +0900
+
+    1012
+
+[33mcommit 7bb6db0fabf812c20de352425c032ba779a8b9c9[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 17:21:52 2024 +0900
+
+    15442154
+
+[33mcommit 3e2fc625273207a7df8dfae8d81a419a49f9b403[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 17:16:18 2024 +0900
+
+    10/12 댓글 추가 후 댓글 목록 다시 불러오기
+
+[33mcommit e61ab7fa3396c92918e26e535d0c381a14c98b41[m
+Merge: eaffe29 99681f5
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 17:10:19 2024 +0900
+
+    Merge branch 'refs/heads/cosyon' into chbr
+
+[33mcommit 99681f55a70db4bb88d0946501723ed4fe5fff77[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 16:59:47 2024 +0900
+
+    10/12 댓글 목록 아이디출력 매퍼수정
+
+[33mcommit 53bd2267def20d18fb205b29537d6ef65548619d[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 16:45:23 2024 +0900
+
+    10/12 댓글 목록 슈루루루정
+
+[33mcommit 270aef44d87803d810233eb772406fa3eafba30c[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 16:45:07 2024 +0900
+
+    10/12 댓글 목록 슈루루루정
+
+[33mcommit eaffe290096989d528e4b945f338c3dced7f69ff[m
+Merge: 6347d85 259949c
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 15:59:17 2024 +0900
+
+    Merge branch 'refs/heads/cosyon' into chbr
+
+[33mcommit 259949ce15513839164012e31a5474deb3a47083[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 15:56:09 2024 +0900
+
+    10/12 댓글 목록 수정중
+
+[33mcommit 6347d85fe586185380ea1ce8af8b2f0a9fb2bd28[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 15:43:54 2024 +0900
+
+    유저수정 모르고 디벨롭에서 작업 커밋
+
+[33mcommit 3aaec2dc33e56fc1e27b9d6541052201cc791825[m
+Merge: 653a617 4ba1e4f
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 15:24:53 2024 +0900
+
+    154215
+
+[33mcommit 653a617dfd546b6e6e7ed9cf396df26bf677baa3[m
+Merge: be70138 de84546
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 15:22:57 2024 +0900
+
+    121851231
+
+[33mcommit be70138222c196f9fe1adc9e02f0a585324b8bab[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 15:21:00 2024 +0900
+
+    521546
+
+[33mcommit 4ba1e4f5d5983242ee40bf819901af552f390554[m
+Merge: de84546 f54dc8b
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 15:07:57 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit f54dc8bd710c643d9ffff0ad3c88d68d200ec76f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 15:07:31 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 275f99e335497a5f6eb59b08be5e65e364094db4[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 15:07:04 2024 +0900
+
+    1012
+
+[33mcommit de84546a5b272b49bc057841b2e39672195d3f93[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 14:48:51 2024 +0900
+
+    이미지폴더 삭제->푸쉬 위해서
+
+[33mcommit ac2746804461fd06456e89f8d6ccb553beaffb69[m
+Merge: 88bb7a8 3b3c34a
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 14:48:11 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 88bb7a8ccdc81a3990cd3069d63ecf834c40209c[m
+Merge: 1dbd8c3 58951e5
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 14:47:13 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 58951e56806e4304f8332a83669f0b695417a912[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 14:46:26 2024 +0900
+
+    스토어 헤더 고침 커밋
+
+[33mcommit 5e75623d71341a866440e564e71d2e659059ff96[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Oct 12 14:18:39 2024 +0900
+
+    1012 리뷰 수정,삭제 완료 커밋 페이지 헤더도 고침
+
+[33mcommit 4a3ee0cb11e462a37597e369d9e2daaffe1d3818[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 13:20:43 2024 +0900
+
+    1012
+
+[33mcommit ca947453ee7339faa994417ee08a9f1359add02a[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 12:55:59 2024 +0900
+
+    12545428
+
+[33mcommit 3b3c34a5a5d46f30ce6cf12fb4a21bc91ce5cd5d[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 12:31:00 2024 +0900
+
+    845212164
+
+[33mcommit 6a90127306cb2ca76239202361556b51713c486e[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 12 11:14:27 2024 +0900
+
+    10/12 댓글등록
+
+[33mcommit 9b9e56dbca1c7e7454d35221e6b5d91cbb93d664[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 10:51:07 2024 +0900
+
+    1485215
+
+[33mcommit 16b9c72113e6c891f16a58380ca6448b82527015[m
+Merge: 5371f06 f08aa37
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 10:41:09 2024 +0900
+
+    1545124
+
+[33mcommit 5371f062b4a3ab961c9ffc60f8c7196280449d8b[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 10:40:15 2024 +0900
+
+    184215
+
+[33mcommit f08aa37f8a7e80f75a52ee7809f87955e53688f9[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Oct 12 10:38:29 2024 +0900
+
+    1012
+
+[33mcommit ce2f2f9e282abb99e0528a8e0a929dbb99b5767d[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 12 09:55:24 2024 +0900
+
+    12652158
+
+[33mcommit 220fc1a03b6d5641512b78ef544f287fef6a58a9[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Fri Oct 11 21:00:24 2024 +0900
+
+    10/11
+
+[33mcommit 75991af8783080d8adf3f02f7a443869bdf4d5a6[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 11 19:42:40 2024 +0900
+
+    1011 리뷰 수정 완료 삭제는 에러? 낼 와서 고치자 커밋
+
+[33mcommit 024a220f4f659f9e3eb44090800b61791cc9d612[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 19:01:20 2024 +0900
+
+    1011최종
+
+[33mcommit 1dbd8c359e18988ab290d5b8a5944c7e4e368996[m
+Merge: 8d79b64 01da625
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 11 17:19:38 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 8d79b64f539b2196e37100148743101d39b2d2e4[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 11 17:14:52 2024 +0900
+
+    리뷰 수정하기 수정중 커밋
+
+[33mcommit 01da625cfdf1ecb1ed112c47640a8074e6c00cc5[m
+Merge: 84fe27e ac7c226
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 11 16:42:46 2024 +0900
+
+    15481215
+
+[33mcommit 84fe27ec5ba99e186f7c7ad17a82b7f9e8844e80[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 11 16:41:45 2024 +0900
+
+    482161
+
+[33mcommit ac7c226e56ce65b54b58bd9c7f1d832690dc8ccb[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 16:35:28 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 98ff9f62479029c44a73073d7005034f076f016d[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 11 16:34:48 2024 +0900
+
+    154813241
+
+[33mcommit 54b6367876387e52aacea2daf0cd1405e5bae0c8[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 11 16:31:43 2024 +0900
+
+    애니 사진이랑 리뷰 CR까지 끝 커밋
+
+[33mcommit c7dc961ac93a59ace4e59626a7b222fcb5aa937b[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 16:13:06 2024 +0900
+
+    1011이미지수정
+
+[33mcommit ee0e6fff77a6e30738f80dca358f52b523a5d8be[m
+Merge: 81a2642 9be97e6
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 15:41:07 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 9be97e6f07ab862d5d4dc7dca22f3b001f0d45a1[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 15:40:42 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 85eb3a4338d0c67eb77e379c25ac3a6bffe405d5[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 15:40:15 2024 +0900
+
+    1011중간수정
+
+[33mcommit 4d38cb761aa5e9e5adb3f14df6cc8218f2ba9f0e[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 11 13:07:02 2024 +0900
+
+    1011수정중
+
+[33mcommit 106eadb666d01f0b519a48093245f1db597adb2f[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 22:13:31 2024 +0900
+
+    1010 리뷰쪽 커밋
+
+[33mcommit 3ecc066366f17e705f8f7683754a6cc0973e05b0[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 21:55:30 2024 +0900
+
+    1821584
+
+[33mcommit e65d2155c7dace4a181a6e49de0e86eadd8d424f[m
+Merge: 2e8e787 81a2642
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 21:47:13 2024 +0900
+
+    1842196
+
+[33mcommit 2e8e7873835f1e7b8f59b96b273db7833f5480ef[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 21:46:09 2024 +0900
+
+    4821984
+
+[33mcommit 0b14c0e4bf012ffa4eb51b2e1b35c324d0c48c1a[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 19:21:48 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit e6cb923383e64139d697f75694763ceec03c71b9[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 19:20:22 2024 +0900
+
+    1010마지막
+
+[33mcommit 81a26425e4844e4633455beb1ce5d43815b37526[m
+Merge: 681615a 0a55140
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 18:11:17 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 681615a8e62d576c2ae22c9c650b6906356dd4f2[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 18:10:18 2024 +0900
+
+    관리자 로그인, 주문완료 페이지 완성 커밋
+
+[33mcommit 0a55140e828b2fe7c442efbc1d28a5ad31c5b452[m
+Merge: cf5f353 2effb5a
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 15:48:36 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit cf5f353fa189cee74c2db26a72c5cd0cf8a129e9[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 15:48:34 2024 +0900
+
+    장바구니 없어져서 Commit
+
+[33mcommit 2effb5a0aaa8c5457e3bf6ee974dfd88e1496ea2[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 15:46:54 2024 +0900
+
+    4821545
+
+[33mcommit 9f37d50884ca460d4dea88734eb7320b866d8933[m
+Merge: 66f82c8 0c8312d
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 15:30:15 2024 +0900
+
+    18121545
+
+[33mcommit 0c8312d296e89d9bbad88f6ee61e743dc428d893[m
+Merge: 4c49825 5888486
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 15:26:24 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 5888486f6dbc7ba3c067355803216f96a5fad8c7[m
+Merge: 46973f1 2ebd49e
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 15:24:00 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 4c498253b1098a7300715862872e092844de0368[m
+Merge: cf68cae c73addd
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 15:23:46 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 2ebd49e0fba34b9f6e62c5ef241f9c90468d8e9b[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 15:23:04 2024 +0900
+
+    1010백엔드
+
+[33mcommit c73addd8a7cc8c748f1de37578ba9ff9174c8fc1[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 15:22:34 2024 +0900
+
+    1010 결제 실패 구현 커밋 ->  잘되는진 모르겠음ㅋ
+
+[33mcommit 66f82c87912579112cc0be40036daa9bc63f5709[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 15:21:56 2024 +0900
+
+    484215
+
+[33mcommit 46973f13c1a3579f2c06b268dcbce96c88d238a3[m
+Merge: 352aef7 eaa7859
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Oct 10 15:13:51 2024 +0900
+
+    Merge branch 'refs/heads/develop' into chbr
+
+[33mcommit 352aef734a411d2b4efce1b5cbdc8748f3c8cf3d[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Oct 10 15:08:21 2024 +0900
+
+    10/10
+    
+    기존 @RequestParam에서 변경된
+    @PathVariable에 맞게 전체수정
+
+[33mcommit eaa7859e3fef60a1bb8d5f5eaabb06c04ec4a4b1[m
+Merge: 8bf2abd 870c1da
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 14:45:14 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 870c1da886c3df18aa8487c59a4b3cdf2f9b4f9f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 14:44:37 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 0ac13e71cfd3f8061d8809a82fabe8a20bd16b0f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 14:44:16 2024 +0900
+
+    1010백엔드
+
+[33mcommit 9e785c26146f9844b4194cab6fa3d4d9d6b1f865[m
+Merge: 8bf2abd 0e8cf30
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Oct 10 14:33:20 2024 +0900
+
+    Merge branch 'refs/heads/choi' into chbr
+    
+    # Conflicts:
+    #       src/main/java/com/ict/finalproject/controller/communityController.java
+    #       src/main/webapp/WEB-INF/views/community/cmWrite.jsp
+
+[33mcommit 0e8cf3070e67d2c22a3382d44417959f5f115aa6[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Oct 10 14:24:33 2024 +0900
+
+    10/10 14:24
+
+[33mcommit 8bf2abd4c452362592a486b6958c8ff90676dbc7[m
+Merge: 297ddb3 a6b33f5
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 14:06:30 2024 +0900
+
+    442154152
+
+[33mcommit 297ddb318cf66a13c498c52a5766d748bb11a6d1[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 14:05:46 2024 +0900
+
+    85151
+
+[33mcommit 34987ee6def5b841f2be3ec3537936cd533fbdb5[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 13:13:03 2024 +0900
+
+    1010 결제 성공 구현 완료 커밋
+
+[33mcommit 4d7c43734e6520ab95699f2300b83047e59529fd[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Oct 10 12:01:34 2024 +0900
+
+    10/10 12:01
+
+[33mcommit 79cd27bc3e19cf76257bc4e57cebd50d594768b6[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 11:38:34 2024 +0900
+
+    85251
+
+[33mcommit 3730d61e4bf63e4a61d3d47e0673b2e04d2e2b59[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 11:14:29 2024 +0900
+
+    1010수정
+
+[33mcommit 8fc9c2c89bcf2d5362710981c5a6f6de1ca630c8[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 10 10:12:13 2024 +0900
+
+    55823
+
+[33mcommit d97bb70e31ad1714ab206cd679099364b4fd4470[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Oct 10 09:34:35 2024 +0900
+
+    결제 조금 진행 커밋
+
+[33mcommit a6b33f500559129e49c42642800036cd172bd855[m
+Merge: f08fd21 2ea686d
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 09:22:33 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 2ea686df9b26ed7d0abaea03fd2067ffec4dff62[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 10 09:22:16 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 8cbecfd5463da2e378f6238ff046e6bc476bbfbe[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 21:14:01 2024 +0900
+
+    관리자페이지 공지사항 추가 하다 말음
+
+[33mcommit f08fd2111e32f9053701e3bb4bcb8e5e512d518c[m
+Merge: e0b38aa 8f1af69
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 20:48:02 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit e0b38aa1e231cfe290c879248e2d65811bc38d57[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 20:46:55 2024 +0900
+
+    관리자페이지 유저 리스트
+
+[33mcommit 224aa9e8fe5108c05e58d4689a64eebb2ef95007[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 20:03:45 2024 +0900
+
+    관리자페이지 하려면 JWT 임시 주석
+
+[33mcommit 8f1af69258d87c0c7f9a1b9cc2c357725ea80bc7[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 9 17:19:49 2024 +0900
+
+    1009back
+
+[33mcommit 049bc78b489d98a8bb29bbeeb3a310681b00e302[m
+Merge: b8cbc34 5d86ceb
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 9 16:40:36 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 5d86ceb6602e993af22aee9a479e842bc050b518[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 16:36:19 2024 +0900
+
+    12345
+
+[33mcommit b8cbc34c53a3b6893d4f0e0a9e2aa36763bde79e[m
+Merge: af50402 a99b66f
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 9 16:35:08 2024 +0900
+
+    Merge branch 'develop' into chulsoon
+
+[33mcommit af504029a17a4a5214fe1d1a314fd3160c1667ec[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 9 16:17:11 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 5d119b19a1ee6dbe6ee06a3cb8380b0441371460[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 9 16:16:28 2024 +0900
+
+    1009
+
+[33mcommit a99b66f0ac4e228ef40d652303aaa0cb38d7c90b[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 16:05:47 2024 +0900
+
+    52812
+
+[33mcommit 2cb8a7bdc561179c765165380e508565771d3eb8[m
+Merge: aad1611 9074fc0
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 15:57:50 2024 +0900
+
+    5542
+
+[33mcommit 9074fc0c3a5ee8b90a7783c4ce529f6c7b16e97f[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 15:54:50 2024 +0900
+
+    123545
+
+[33mcommit e06c0be30efbcd93ce9c905460b41da32c523701[m
+Merge: 5c941e6 3c7d980
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 15:54:01 2024 +0900
+
+     1234
+
+[33mcommit 5c941e6f092b85b67ca9485ae3b1d753f2b1ce26[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 9 15:53:06 2024 +0900
+
+    수정
+
+[33mcommit 10fcfc8cd6afe2c833c1b181ada37d9b09b9bd5d[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 22:09:09 2024 +0900
+
+    1008 주문서 커밋
+
+[33mcommit 41073b87cbfdaf93e97db94b4a9ab6bca386e39b[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 19:28:14 2024 +0900
+
+    1008최종
+
+[33mcommit aad16114a8ff931a918fe46a36aabf19575155bc[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 18:45:57 2024 +0900
+
+    12
+
+[33mcommit 7dcfbfbe572396dd26785d1746a0dc8bd903c709[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 18:00:12 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 50c5167f14f9aedcad1ba337d2da77f2644d26ba[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 17:59:39 2024 +0900
+
+    1008리스트재수정
+
+[33mcommit 3c7d9805cac6812f187fd93d93170f7e5b13590a[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 17:33:31 2024 +0900
+
+    Update StoreMapper.xml
+
+[33mcommit 6f4de63137f7a551558ae2b2a026415c8b334edd[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 17:32:42 2024 +0900
+
+    1008리스트수정
+
+[33mcommit 09146e52df925b66bd152bf50ab221e43e1481ed[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 8 17:16:33 2024 +0900
+
+    10/07 13:12
+
+[33mcommit 15a1326f6119bf973f1775439d1e323eca18a955[m
+Merge: 3b2a9fb 5609cae
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 8 16:09:00 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choi
+    
+    # Conflicts:
+    #       src/main/java/com/ict/finalproject/DAO/CommuDAO.java
+    #       src/main/java/com/ict/finalproject/Service/CommuService.java
+    #       src/main/java/com/ict/finalproject/Service/CommuServiceImpl.java
+    #       src/main/java/com/ict/finalproject/controller/communityController.java
+    #       src/main/resources/mapper/commuMapper.xml
+
+[33mcommit d3796e4768ded7a264c173483c333c852850d621[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 15:36:40 2024 +0900
+
+    Update storeMapper.xml
+
+[33mcommit 4ac2d01965dacead2fad5e4d89e1aa68d6c697a5[m
+Merge: d63f8be 52e0d33
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 15:35:55 2024 +0900
+
+    Merge branch 'develop' into chulsoon
+
+[33mcommit 52e0d335a609fe85844cb18267dd5baba2f072b9[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 15:31:45 2024 +0900
+
+    12
+
+[33mcommit d63f8be87faa1af423a4b6e65a88797d6415f029[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 15:30:16 2024 +0900
+
+    1008재수정
+
+[33mcommit cf68caedc29fdee6c044c27694bb3af12e82b2ee[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 14:42:17 2024 +0900
+
+    ㅇㅇ
+
+[33mcommit 152a80ef0cc6afb2fc730181bb0bc106a4fc3ac1[m
+Merge: 8c95b6e 3b2a9fb
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 14:40:57 2024 +0900
+
+    1
+
+[33mcommit 3b2a9fbb8880c23b9bb4d2879102c6dbb5ee9a5f[m
+Merge: 7b865e7 d257777
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 14:30:27 2024 +0900
+
+    Merge branch 'develop' into chulsoon
+
+[33mcommit d257777d6ad9d625f48967e5a53ba87c2a941985[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 8 14:23:57 2024 +0900
+
+    1008수정
+
+[33mcommit fce1794b95c5876806d50b4a3b4420ece04c5dfc[m
+Merge: a941fda d4ae203
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 14:23:45 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit a941fdaf76b25943888ebe4074b5b5bdeb2b08cd[m
+Merge: b1a8edc 0540b72
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 14:21:59 2024 +0900
+
+    Merge branch 'chaewon_all' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 0540b72527f07d0b073c9f72a8e849c2e1c07eef[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 14:21:27 2024 +0900
+
+    1008 장바구니
+
+[33mcommit 8c95b6e5d7e736251f9480c8b2e3129a91215f64[m
+Merge: 163f577 d4ae203
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 14:14:05 2024 +0900
+
+    develop 병합
+
+[33mcommit d4ae2032d71984c9a8e89a2eacc0f72df47f9d79[m
+Merge: 7549413 fae3500
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 13:15:08 2024 +0900
+
+    JWT 힘들다
+
+[33mcommit 5609cae9289629a30b1d4a57857d8b2479861434[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 8 13:12:22 2024 +0900
+
+    10/07 13:12
+
+[33mcommit b1a8edc9f8db198d860cdaffc6a82d64c6ddb5be[m
+Merge: 736d8ed bb9c108
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 12:53:51 2024 +0900
+
+    Merge branch 'chaewon_all' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit bb9c10880f12bef4075c41f2dc63d9873269d32c[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 8 12:52:15 2024 +0900
+
+    1008 orderpage 완성 커밋
+
+[33mcommit fae3500ae757af1969db872e4e26e5324bfea220[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 12:46:28 2024 +0900
+
+    JWT 수정완료 및 cmList 게시글 작성 성공
+
+[33mcommit 4f2b876f05f12a8eee4cb593c259b32492d0c0e2[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 8 11:39:30 2024 +0900
+
+    "JWT 및 StoreList 수정"
+
+[33mcommit 2ead071ea3daf5e4a53e7c9d7097bd5998cae302[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 21:42:19 2024 +0900
+
+    10/07 21:42
+
+[33mcommit 7b865e76cf40c5367e09f9bd76d0ed71ee8558e6[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 7 19:01:24 2024 +0900
+
+    1007매퍼수정
+
+[33mcommit 163f57751c07763514c114d4b21ba69a7b456e24[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 7 17:52:01 2024 +0900
+
+    1
+
+[33mcommit 736d8ed9b417b55e325ef90ccdc7270c836d9780[m
+Merge: fea29bc 7549413
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 17:50:52 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 7549413219812aa3a886ebb2df406f85af93c55c[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 17:50:14 2024 +0900
+
+    <<이런거 지움
+
+[33mcommit 8ba339fb100c05f28dea53b716cc9f16fb848366[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 17:46:24 2024 +0900
+
+    ㅇㅇ
+
+[33mcommit fea29bcb1238326c56d28e4a0bd33659aa51dafd[m
+Merge: 0e76cba af3b024
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 17:33:00 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 0e76cba05958d286eaf7d4af179702444b4b6fef[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 17:31:47 2024 +0900
+
+    1007 vo 만들었음
+
+[33mcommit faf0e19fcefd615662b1d1450f26c171ed941caa[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 17:07:32 2024 +0900
+
+    10/07 15:07
+
+[33mcommit af3b0243a76149f21c0fb11f0c327f91ca781bd3[m
+Merge: 230cda6 ae542fc
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 7 16:50:36 2024 +0900
+
+    develop commit
+
+[33mcommit ae542fcc19f9739d7f3beded0f26485fad2d85b0[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Oct 7 16:47:34 2024 +0900
+
+    role X idx O
+
+[33mcommit 088407da499c9eb8bf28b7a5cf61454ae9240484[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 16:38:38 2024 +0900
+
+    10/07 16:38
+
+[33mcommit 230cda673b417d18d5b51ca729f432ce5e2bea01[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 7 15:05:41 2024 +0900
+
+    modify
+
+[33mcommit 14085c6d335baf6020d281b36b660feda1fb535f[m
+Merge: 2c99056 1392a5f
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 12:07:37 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choibr
+
+[33mcommit 1392a5f2ee21927ac7e1e3b777bdcc6041ce11a1[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 12:06:23 2024 +0900
+
+    10/07 12:06
+
+[33mcommit e24ea163b1c2167c7e0fb18db8a953cfa7b16ff4[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 7 11:02:06 2024 +0900
+
+    1007사이즈수정
+
+[33mcommit 07e35b4b82c8c54e80722bfffd1e063ce3fd9f76[m
+Merge: fdb2653 2c99056
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 7 10:58:44 2024 +0900
+
+    Merge branch 'develop' into chulsoon
+
+[33mcommit fdb2653f647bf1f92f0355165757bceea60c11dd[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Oct 7 10:55:12 2024 +0900
+
+    1007수정
+
+[33mcommit 2c99056a0d9e31ddccbb5232060b8ecbbb60b7cf[m
+Merge: e314c5c 5801187
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 10:32:08 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit e314c5ccd53d562871d61d55edba16f1ffc357ce[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 10:31:20 2024 +0900
+
+    다시
+
+[33mcommit 04e5836bf851ada6ed9de8364037f4fcb31bbe4b[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 10:30:50 2024 +0900
+
+    1007 메인동영상 화질업그레이드 arrow 이미지 추가 커밋
+
+[33mcommit 238e18b5ab619602db7fe460b70557d04015a9e2[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Oct 7 10:21:58 2024 +0900
+
+    1007 장바구니, 오더페이지 커밋(오더 미완성)
+
+[33mcommit 0dedfb546c28d32a098335914688bfac10c6b9d3[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 09:57:06 2024 +0900
+
+    10/07 09:57
+
+[33mcommit 580118772fd7d55d8d4d470bae4f8bb878d9c376[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Oct 7 09:30:07 2024 +0900
+
+    10/06
+
+[33mcommit 244092a8bf9a4646508e4951d4e058570e71dbc2[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 5 22:50:46 2024 +0900
+
+    jwt 짜증
+
+[33mcommit 82a2593396daf14a84156f305e406077ad5a1647[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 5 21:53:49 2024 +0900
+
+    JWT 테스트
+
+[33mcommit c74beed50fb449d81de09510bfb6eacc757e3433[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 5 21:15:21 2024 +0900
+
+    footer 관리자 아이디 권한 설정
+
+[33mcommit bdf553b9f47ffa1d26e9c26b7333ba62bc454754[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 5 19:20:42 2024 +0900
+
+    10/5 JWT 로그인 어드민 계정
+
+[33mcommit a36a3afb60bae0d184632ad521d89a5209a2a8db[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 5 17:23:14 2024 +0900
+
+    10/05 17:23
+
+[33mcommit 16ef2a076fe33879d47fd59deb893204e4939b94[m
+Merge: c730a5c ba9969d
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 5 15:28:19 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choibr
+
+[33mcommit c730a5c78d084b89956c20fa303e3c94f135ba06[m
+Merge: c001eb5 f5614f3
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 5 15:26:26 2024 +0900
+
+    develop 병합
+
+[33mcommit ba9969d430369fe760405e355cb17eced40e372d[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Oct 5 15:26:14 2024 +0900
+
+    10/05 15:26
+
+[33mcommit c001eb5901e24fe08dc2947e495eb2e5204e7380[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Oct 5 15:24:57 2024 +0900
+
+    10/5 JWT 테스트
+
+[33mcommit 203b5b5e36361cc545fe02f7bd46eac623e34b50[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 21:54:47 2024 +0900
+
+    jwt 로그인 헤더 테스트중
+
+[33mcommit cf8c1e213f98ebab1b1065e80305150dddd7b650[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 19:43:05 2024 +0900
+
+    1004 메인, 리뷰모달 등등 이것저것 수정 커밋 집가기전 마지막 커밋!
+
+[33mcommit 0ae16a7f76c1a6bc050c6eec37ffbc4c485f0aed[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 19:32:50 2024 +0900
+
+    1004최종수정
+
+[33mcommit 6432b85bc7bcd5b1b844a3ade79951bedf11d485[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 19:23:20 2024 +0900
+
+    1004중간수정
+
+[33mcommit f5614f3e072260a541aabbfe6c6c62769dabe8ae[m
+Merge: 2c1e197 5a315c0
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 18:42:51 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 5a315c036717b3404c1635f4bc2be091c11e9730[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 18:41:55 2024 +0900
+
+    검색창구현
+
+[33mcommit 20eab7c3b4b30f50014b91899486784061c1a0e2[m
+Merge: f647ed9 2c1e197
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 17:38:48 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 2c1e1979d1e03ffbfe9977b388f680ef15ddc873[m
+Merge: 73f155f 11bef1c
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 17:37:31 2024 +0900
+
+    jwt 테스트
+
+[33mcommit 11bef1c4a3dc4088411689ea4217402bd15ebe51[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 17:36:01 2024 +0900
+
+    jwt 테스트중
+
+[33mcommit f647ed9c4cf637996e84a80f268cc87207507b96[m
+Merge: 5df0a66 73f155f
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 17:30:03 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 73f155fcca3feae04cf237107583e2c92a1ef776[m
+Merge: 91cc66b 32efbe6
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 17:28:43 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 32efbe6464fc31b3e6d00c29551d3ddcfe672633[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 17:28:12 2024 +0900
+
+    전체사이즈수정
+
+[33mcommit 5df0a66d17a25c2130812b20f23cf6a93def589e[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 17:24:02 2024 +0900
+
+    1004 스토어헤더 만들었음
+
+[33mcommit 8e689d3799a22f673c4912e59cfa17bfcb5bef10[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 17:06:34 2024 +0900
+
+    2
+
+[33mcommit a12f24ff0a6d5ef770451c748a2fe2ad95d17a01[m
+Merge: 3f108b8 91cc66b
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 17:04:43 2024 +0900
+
+    2
+
+[33mcommit 57b67b3d105e2a43621950a1b412f8c6fe1f37f0[m
+Merge: 64176cf 91cc66b
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 16:33:42 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 3f108b8b785fe9da15e2608eb9b4be558198c1e8[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 16:33:00 2024 +0900
+
+    1
+
+[33mcommit 91cc66b8558bda643b2eaa7d91af6bb6b318d5bb[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 16:32:18 2024 +0900
+
+    1004 헤더 커밋
+
+[33mcommit 64176cf400ede310631d972732be5828dfdcac7a[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 16:27:46 2024 +0900
+
+    1004 commit
+
+[33mcommit 27cf877c99e776e15b8291f71c9ce023d346f1db[m
+Merge: 9bfc606 c27fad1
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 16:22:32 2024 +0900
+
+    develop 병합
+
+[33mcommit 9bfc6067a7c5d5efbfe691a0a7b55fe9070b1270[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 16:20:51 2024 +0900
+
+    커밋
+
+[33mcommit c27fad1d38715978c5f18ab738f9077224bdc7db[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 16:16:19 2024 +0900
+
+    1004 css수정 body 키프레임 추가 스토어랑 마이페이지
+
+[33mcommit 2bae055a77b11a75eb80549e87167b91e4a8d050[m
+Merge: fc458d2 e98755a
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 16:09:29 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit e98755aee9e7cd282b60a610425cb435707bc00d[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 16:09:12 2024 +0900
+
+    1004 채원 커밋
+
+[33mcommit 674ab9bba1f75ccdf41746ed8e86efb2db0f17de[m
+Merge: f87e03f 95c70c7
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 16:04:03 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit f87e03fdfa713d0202dbb38532d65e36c099ffe2[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 16:03:22 2024 +0900
+
+    상품리스트수정
+
+[33mcommit 95c70c775540703099e8c5c79c918d93eeb4d2b8[m
+Merge: 6b58e79 4ce7467
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Fri Oct 4 15:57:49 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choibr
+
+[33mcommit 4ce7467c47687aad0a98bd3a840ada80612b8597[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Fri Oct 4 15:57:35 2024 +0900
+
+    15:57
+
+[33mcommit 6b58e79a2491d1ba802dad4433ffb33767c25247[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 15:47:45 2024 +0900
+
+    JS재수정
+
+[33mcommit fdc796291bf6224b54997c5004bbc26f506e3673[m
+Merge: db10062 6f5e453
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 15:45:44 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit fc458d25af0c183d8f7e75ad0d776fb557f1361a[m
+Merge: 066c1d8 6f5e453
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 15:45:41 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit db10062d8b6cd52f4e0de09fd803247a953d2006[m
+Merge: dfe3166 4298053
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 15:45:40 2024 +0900
+
+    Merge branch 'chulsoon' into develop
+
+[33mcommit 4298053fcdf771ac579c1edf10f76a1abd15ea6f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 15:45:16 2024 +0900
+
+    JS추가
+
+[33mcommit 066c1d80e5856d0ab247a6377c58c23aaabb2ad5[m
+Merge: 406952f 576c6fd
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 15:44:14 2024 +0900
+
+    Merge branch 'chaewon_all' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 576c6fd834a205164ff8b0c68f10d8466e1ad453[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 15:43:20 2024 +0900
+
+    1004 푸터 매핑
+
+[33mcommit 6f5e4532c35de39d24b5854649ed3edfb6eaad86[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 15:08:03 2024 +0900
+
+    1004 채원 수정
+
+[33mcommit dfe3166e3ea3a476e00abfe9340ae081c1a488f1[m
+Merge: 512777d f0cb54f
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 15:05:13 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 512777d31982bc08fd7d75b7db40f4a29c22b937[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 15:04:08 2024 +0900
+
+    1004프론트수정
+
+[33mcommit f0cb54f0c300bd0d761d3a2e3cc09f1530f2908b[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 15:03:26 2024 +0900
+
+    1004 채원 다시 수정
+
+[33mcommit 25aea1d325fa2a8471b159166a35aa346e19460f[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 15:01:36 2024 +0900
+
+    1004 15:00 채원 수정 커밋
+
+[33mcommit 30e89ae643cf4bc3d96e4dcc82780244d6b4c1b0[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 14:55:17 2024 +0900
+
+    1004 14:55 채원 했던거 다 커밋
+
+[33mcommit 406952febf827ec26b3578af9d6e3392b39c6b0b[m
+Merge: 4fac800 9537571
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 14:52:45 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit b3c0899d06ffec467bedf63a4c335b2850de0e6d[m
+Merge: b0602d5 9537571
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 14:51:32 2024 +0900
+
+    develop병합
+
+[33mcommit b0602d56a865fef87f872d6f6b2d4da315ab6db8[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 14:50:13 2024 +0900
+
+    jwt 로그인 및 회원가입 테스트
+
+[33mcommit 9537571ac23156f543887802ad95418a3f3a72bd[m[33m ([m[1;32mchulsoon_Local[m[33m)[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 14:47:02 2024 +0900
+
+    1004재수정
+
+[33mcommit 0ad05f3ac0b608c42002c45c217d3f11ae1cd863[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 14:42:27 2024 +0900
+
+    1004프론트수정
+
+[33mcommit 4fac80063f4509fe369459803a709284a338edb5[m
+Merge: c354b00 a449057
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 14:35:25 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit c354b00a8f420c3f8c23518a5aea510600cdbe42[m
+Merge: d1b4d1f ceb2013
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 14:34:44 2024 +0900
+
+    Merge branch 'chaewon_all' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit ceb20135493b64b66da9d6ff14fe167bf01f87ed[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Oct 4 14:33:48 2024 +0900
+
+    1004 집에서 해온거 메인,마이페이지 끝
+
+[33mcommit aafe81301381beaaa6664d1b20cf2f11b1fa89e6[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 14:27:49 2024 +0900
+
+    1004상품리스트수정
+
+[33mcommit 65b9fb5b28da284dd7e6b5e811cb6a83b7230caf[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 14:19:37 2024 +0900
+
+    1004프론트수정
+
+[33mcommit 973d0aacb539188ad239beb0139959c7fb0a1ba4[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 12:58:08 2024 +0900
+
+    1004프론트수정
+
+[33mcommit 89207b047ecd224e7c9e6f6892e317f8a41cf7ee[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Oct 4 11:54:43 2024 +0900
+
+    1004
+
+[33mcommit 82b9dc52df4f1344857e7c9cf8b4289093f69f22[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Oct 4 09:20:42 2024 +0900
+
+    10/4 작업
+
+[33mcommit a0e2ec2507482ceb054bb162d5ca4445c0e4a77d[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 3 18:52:56 2024 +0900
+
+    1003최종
+
+[33mcommit 92a9905b86b364814f50498686ec627940385a2f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Oct 3 16:00:34 2024 +0900
+
+    1003수정
+
+[33mcommit ed66d9c0c9de02c90a1ea2ca8eb4a18493e3181c[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Oct 3 15:35:53 2024 +0900
+
+    jwt 테스트중
+
+[33mcommit 1a00f2d69d8adf54ae5040b8d0865ef93b03b22b[m
+Merge: 8c75734 a449057
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 2 19:22:04 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 8c757343b699efa1465ce122182724e39d63907a[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 2 19:20:39 2024 +0900
+
+    1002
+
+[33mcommit a214f14ec1bc4ec1a5d3717c605a75fedfa66c27[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 2 18:43:25 2024 +0900
+
+    정이꺼 포함 커밋
+
+[33mcommit a4490570c8f4d66feb0f9e23b40192639dde0adb[m
+Merge: 8c500a1 c901297
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 2 18:29:46 2024 +0900
+
+    develop 병합
+
+[33mcommit c901297d8cd10e36f56034f58d19094c9700aedb[m
+Merge: d1b4d1f ccbab06
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Wed Oct 2 18:21:19 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choibr
+
+[33mcommit a3848c348b43cb3413bce801b23c4d8f061d6df5[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 2 18:16:55 2024 +0900
+
+    메인수정2
+
+[33mcommit d1b4d1fca74ef88e582f80c446d10e62e963a5a7[m
+Merge: aae9aa2 e0b9816
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Wed Oct 2 18:14:25 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit aae9aa22984c75a73c219b7dd20fb10759a5f7b0[m
+Merge: a640b9c 5922944
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Wed Oct 2 18:11:50 2024 +0900
+
+    Merge branch 'chaewon_all' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit ccbab063c9dc53fa7dffebcf2d18f2781f98d36d[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Wed Oct 2 18:09:24 2024 +0900
+
+    10-02 18:09
+
+[33mcommit 8c500a1337dd405c03e48b410e94e5c440a5f15a[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 2 18:04:48 2024 +0900
+
+    10/2 관리자페이지 작성및 수정 18:04
+
+[33mcommit 59229441ede65623caa74103fe7a11bcc1eb3f17[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Wed Oct 2 18:03:55 2024 +0900
+
+    10.02 마이페이지 만든거 다 넣었음
+
+[33mcommit faff3ac6954c9a5a1a91905ac2a06347879904d4[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 2 17:45:08 2024 +0900
+
+    메인수정
+
+[33mcommit ac722739213690530927fffbe1077355764b87ce[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Oct 2 14:16:48 2024 +0900
+
+    복구용
+
+[33mcommit c81a50cb28fabfc2faaebc98c7f9c2f3b11a374a[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Oct 2 11:52:41 2024 +0900
+
+    10/2 오전11:52
+
+[33mcommit 5fd6ecc39e83e63b65a7a6948edd4c650185b9e9[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 19:41:33 2024 +0900
+
+    1001
+
+[33mcommit e0b98160e25ebb8f4a64eb52185ecbe121917a17[m
+Merge: 67a6e81 06a9ccc
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 1 17:27:59 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choibr
+
+[33mcommit 06a9ccc069ca77741a46ecf2435b9058f990b74e[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 1 17:25:40 2024 +0900
+
+    09/30 17:25
+
+[33mcommit 67a6e811b7fcddd1954800904be66f8b6014ef36[m
+Merge: 38713d5 a66d8bf
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 17:12:10 2024 +0900
+
+    오후 05:12
+
+[33mcommit a66d8bf647e84d3cb41a9a948bc3ce219812885e[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 17:09:03 2024 +0900
+
+    modify
+
+[33mcommit 38713d587c482d5d5974e3ed7d6f00b073058132[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 17:04:48 2024 +0900
+
+    10/1 오후 05:04
+
+[33mcommit 31a106014806cbe51c6771719b55971d89251229[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 16:27:58 2024 +0900
+
+    modify
+
+[33mcommit 60f81cc1df6d361eace6cef33db6e2239b446cf3[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 16:10:16 2024 +0900
+
+    10/1오후 4:10 관리자페이지 작업
+
+[33mcommit ce4b7dfbe9c352729199f6f6798a7967da528c14[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 1 15:53:50 2024 +0900
+
+    09/30 15:35
+
+[33mcommit ff3e411c68e859d75e8623d8919b9ee9b6cbccb3[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 15:45:03 2024 +0900
+
+    10/1 오후 3:44 작업
+
+[33mcommit dddb0415ec0f58846447a1e3dcf10e376326ee53[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Oct 1 14:25:07 2024 +0900
+
+    09/30 14:25
+
+[33mcommit d2aad6bc13c19ea1844765d9381eccdf5886d9a2[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 13:14:29 2024 +0900
+
+    modify
+
+[33mcommit 54f25d5ddd538cedeca2f0aab310d108a0f0ba75[m
+Merge: a02ffe4 a640b9c
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 13:05:09 2024 +0900
+
+    Merge branch 'develop' into chulsoon
+
+[33mcommit a02ffe45dc8c213dcb74c2faa5702d3427fb9426[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 13:03:27 2024 +0900
+
+    modify
+
+[33mcommit b2c037e23d226ad39373fcddb1f9ac8ddb13d3f1[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 13:00:23 2024 +0900
+
+    이전 관리자메뉴 롤백
+
+[33mcommit a640b9c2c727125744faece686223b015507c546[m
+Merge: 4a676c0 9d7c415
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 1 10:34:58 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 9d7c415f7d37d16952e76feac29229cb52d526f3[m
+Merge: 0e93bb7 216c534
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 10:19:05 2024 +0900
+
+    10/1 develop 병합 one
+
+[33mcommit 0e93bb7d7351d4e3a7b899528d8cf5714b19140a[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Oct 1 10:14:17 2024 +0900
+
+    10/1 오전 10:14
+
+[33mcommit 4a676c0d4268b584ca1c67db6496969a1951ecc1[m
+Merge: ef1a660 216c534
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 1 10:10:18 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit ef1a66045b4b687711c229c854fb40cf6745e4b3[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 1 10:05:37 2024 +0900
+
+    10.01 메인페이지 조금 수정 commit
+
+[33mcommit a278a232b7670eb4ddead54d77ac5858b5a6d6e2[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Tue Oct 1 10:02:01 2024 +0900
+
+    modify
+
+[33mcommit 24247a6e374cd2294184567bd1b0db403acd091c[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Tue Oct 1 10:01:56 2024 +0900
+
+    10.01 회원가입 끝 commit
+
+[33mcommit 11498a4afc56a038c181df9ce279ffea660baacd[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Sep 30 21:53:54 2024 +0900
+
+    백업
+
+[33mcommit 216c5340dd77fbcd89f21c2b76facb9baf054740[m
+Merge: 1f87007 ea37d15
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Sep 30 21:36:12 2024 +0900
+
+    Merge branch 'refs/heads/develop' into choibr
+
+[33mcommit 1f87007447c138e72f58322b1f0e1d72062b5705[m
+Merge: 9114609 af50c82
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Sep 30 21:30:47 2024 +0900
+
+    Merge branch 'refs/heads/boram' into choibr
+
+[33mcommit af50c82ba013cc421a0b8cd0775da5810d4355fb[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Sep 30 21:27:51 2024 +0900
+
+    09/30 18:44
+
+[33mcommit e55d5a157d2e2581547970008626103f996b74f9[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Sep 30 20:48:12 2024 +0900
+
+    09/30 18:44
+
+[33mcommit ea37d15a82359d68f1f129b981a87bf86ac156dd[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Sep 30 19:25:52 2024 +0900
+
+    modify
+
+[33mcommit 705fd15e182526cfedc7759621a233e0b85800a9[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Sep 30 18:51:16 2024 +0900
+
+    9/30 관리자페이지 수정(PM 6:51)
+
+[33mcommit a90ff07989273091f5255beaf85ab4b841eddc76[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Sep 30 18:44:56 2024 +0900
+
+    09/30 18:44
+
+[33mcommit 16eba1e49404fdeb5a33eeec56ed71e5ed009122[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Sep 30 18:21:05 2024 +0900
+
+    modify
+
+[33mcommit 23edf4f108a1fb6d8d9119740df351bd6fd71a27[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Mon Sep 30 15:29:51 2024 +0900
+
+    09/30
+
+[33mcommit 9ffc37265f6702c19335e4d1bd5f2a244e9ad16b[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Sep 30 15:28:31 2024 +0900
+
+    0930 join 만드는중
+
+[33mcommit ce083bcd55ac031267978d9314bc5763b20e5a1b[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Sep 30 15:18:39 2024 +0900
+
+    modify
+
+[33mcommit 91146092caffb508ebd8d69f41f930d8554e8965[m[33m ([m[1;31morigin/chulsoon_Local[m[33m)[m
+Merge: 8efc439 beaa1fa
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Sep 30 14:50:52 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 8efc43978ee396325e070f4dbd331f1ac2a4ca05[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Mon Sep 30 14:45:45 2024 +0900
+
+    modify
+
+[33mcommit beaa1fa6a6b937c477da3178e61cfaae504798b9[m
+Merge: 5e6f6cf e272bab
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Sep 30 14:16:03 2024 +0900
+
+    09/30 오후 02:16
+
+[33mcommit 5e6f6cfdf1659758c1df4f1a0d65c667a1221d45[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Mon Sep 30 09:45:43 2024 +0900
+
+    09/30 오전09:45
+
+[33mcommit b9960d18d0e91ffa0323dafb1f2d1b21204e493d[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Mon Sep 30 09:43:22 2024 +0900
+
+    0930 main_home.jsp, css 수정 완료
+
+[33mcommit e272babb18c40cef2cd1b805c71c598aaf699f24[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Sep 29 21:39:28 2024 +0900
+
+    09/29 21:39
+
+[33mcommit 57f992eff28385de67776cf15f569fc26506cd2e[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Sep 29 20:53:41 2024 +0900
+
+    09/29 20:36
+
+[33mcommit 6478c6cbb4909c21cc362b9065d7c514601e00a9[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Sep 29 19:16:50 2024 +0900
+
+    09/29 19:16
+
+[33mcommit dbdf1788b917fe6cb16860c5f7237ed804f0f932[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sun Sep 29 17:53:10 2024 +0900
+
+    9/29 오후 05:52 관리자페이지 수정
+
+[33mcommit a0539b39064d04417c4c33ecc329aaceae754258[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Sep 29 15:54:35 2024 +0900
+
+    09/29 15:54
+
+[33mcommit fb1cf115a95cc355c07b3ec406b72320083cf56e[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sun Sep 29 10:36:29 2024 +0900
+
+    09/29 10:36
+
+[33mcommit 86c6d476a35919999efa4e7825d7420c4581dbf0[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 21:41:33 2024 +0900
+
+    09/28 21:35
+
+[33mcommit 3a7450a60f1ea54816725ee1d5f0e632a8d9db17[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 21:35:25 2024 +0900
+
+    09/28 21:35
+
+[33mcommit 0d7f22753c101c7c6d3c0cae1fe91f724af833cd[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 20:55:33 2024 +0900
+
+    09/28 20:55
+
+[33mcommit 2f1c5dc8597bda1284705eb74e78fba703c721fa[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 20:39:10 2024 +0900
+
+    09/28 16:30
+
+[33mcommit 04ad691cabd7c6ffce6e53bc0590b8a6305b0c2f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Sep 28 20:28:12 2024 +0900
+
+    xenic
+
+[33mcommit c02c3bceff0dce43b67017782b5052dbef4dc854[m
+Merge: 2d3a838 f729a3b
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 18:16:47 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 51775eb6edd64fc54261f1484f3287b2c7dc7bc0[m
+Merge: 7c121f5 d63a157
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 17:35:07 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 7c121f5fe32c6137d301aaa84422d440787bf54d[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 17:34:56 2024 +0900
+
+    chaewon 점검을 위해 슬라이드 수정
+
+[33mcommit d63a157104e31a287b21282d2e045f90e1df2355[m
+Merge: 840a1f3 a029b07
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 17:24:34 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit a029b0740667d06afa069a0f4f7df20fa7106ae6[m
+Merge: b967039 f729a3b
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 17:20:18 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit f729a3b267cfdf3287aee762789422d4309d20cb[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 17:19:36 2024 +0900
+
+    dd
+
+[33mcommit b967039a344aa4eb89912b3ebf3a55b6456b0c7b[m
+Merge: f0e7fcd a666596
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 17:15:38 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 840a1f32583f305d030cf65b9c14cb8aad278fd6[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 16:31:02 2024 +0900
+
+    09/28 16:30
+
+[33mcommit f0e7fcd914e68eed235fbb6ccb53c83f913e6b44[m
+Merge: b936c8d f5816c3
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Sep 28 16:46:44 2024 +0900
+
+    modify
+
+[33mcommit 2d3a8388bf7c8354ec383a9eb52f1713161c5cb0[m
+Merge: fa3634a a666596
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 16:46:26 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit a66659646150c5e3316cf160d965f8fa8cf7d2fa[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 16:38:44 2024 +0900
+
+    commit
+
+[33mcommit b936c8d77ec714b477e2aba16d86f45d7c2b551e[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Sep 28 16:36:08 2024 +0900
+
+    modify
+
+[33mcommit f5816c303df9c8614eff53092260977f380460cc[m
+Merge: 5a1e43c 220b31d
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 16:19:41 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into onefanki94
+
+[33mcommit 5a1e43cf7ce7463ac6c23b655f0bdec7f756b47c[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 16:05:40 2024 +0900
+
+    09/28 관리자페이지 코드 (CSS) 수정 및 작성 오후 16:05분 수정
+
+[33mcommit fa3634aa1e207bd3fdd56c6f3fd84f5489b2d200[m
+Merge: fe024b2 220b31d
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 16:04:58 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into chaewon_all
+
+[33mcommit 2da410bfd481e5c477df4c79399c430887eeb298[m
+Merge: f89f9bb 8d748f7
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 16:02:49 2024 +0900
+
+    Merge branch 'chaewon' of https://github.com/onefanki94/finalproject into onefanki94
+
+[33mcommit 220b31d6d4e61c2b4c0e4f0ab21aa6fde3d78766[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 16:01:54 2024 +0900
+
+    commit
+
+[33mcommit f89f9bb0254d62b8ea4557f5914e827ded21956b[m
+Merge: 4781189 329ca54
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 15:52:31 2024 +0900
+
+    1234
+
+[33mcommit 8d748f7022d93a14cf87f90cf8ce1991e381d352[m
+Merge: 5e4ae5c 329ca54
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 15:52:17 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 329ca5405bfd2e52e9191f0aa4df4d516cafe9a9[m
+Merge: 4dff5f4 33e5123
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 15:49:20 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 5e4ae5c39420a953660d1b620d907a1a7536f802[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 15:43:13 2024 +0900
+
+    0928 15:43 delvelop 올리기 전 커밋
+
+[33mcommit fe024b200d74721907c08a7e9968feac57f9d86e[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 15:30:48 2024 +0900
+
+    commit
+
+[33mcommit 4781189b8a703119bf43508052b177062b197b70[m
+Merge: 689a74f 1278883
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 15:03:28 2024 +0900
+
+    1
+
+[33mcommit 689a74f26bc764aa92f77945b0afdc7533edcbe9[m
+Merge: c6b072e 33e5123
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 15:01:50 2024 +0900
+
+    1
+
+[33mcommit 1278883ba9020ff30f68c9265c98345669c8a8c2[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 14:52:14 2024 +0900
+
+    09/28 관리자페이지 코드 (CSS) 수정 및 작성 오후 14:52분 수정
+
+[33mcommit 39756e45efd0c46b7e2464bf25220ae42388c117[m
+Merge: 023d5f3 33e5123
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 14:32:42 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit 023d5f3391d5dff734077910286c6bbb4051355b[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 14:24:03 2024 +0900
+
+    0928
+
+[33mcommit 33e5123a0ead17b254448218f142ccdb736b0e01[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Sat Sep 28 14:01:13 2024 +0900
+
+    modify
+
+[33mcommit a4b201b9dd8ce699032b8de8ff032f58412dba58[m
+Merge: 411269c 4dff5f4
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Sat Sep 28 13:13:35 2024 +0900
+
+    Merge branch 'chaewon-backup' of https://github.com/onefanki94/finalproject into chaewon
+
+[33mcommit c6b072e1e93e5888be3fd2aa9f883e3893b9a76e[m
+Merge: 5c92669 877108f
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 13:09:48 2024 +0900
+
+    9/28 pm01:09
+
+[33mcommit 5c9266908db81c5eeaeacce0154c383407cb5e69[m
+Merge: aafe5fe 092ba05
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 13:07:40 2024 +0900
+
+    9/28 pm01:27
+
+[33mcommit 092ba056d8016eef326035bfa6b6c9a93fe908e6[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Sat Sep 28 11:28:49 2024 +0900
+
+    09/28 11:28
+
+[33mcommit aafe5feff2245180655043e7354c560dcc7315e9[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 09:43:18 2024 +0900
+
+    커밋
+
+[33mcommit e1f9400060864f4db299c603e918a2fddc49a983[m
+Merge: ff07143 a36e272
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Sat Sep 28 09:41:52 2024 +0900
+
+    커밋
+
+[33mcommit 877108fd39598119a7f3ea0d2bc07cd28140c042[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 18:45:39 2024 +0900
+
+    123456
+
+[33mcommit 277be4f75aee970790c06e2b49858449b9499cc8[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 18:41:54 2024 +0900
+
+    1234
+
+[33mcommit 411269c7931de385c6d0c3f43a6e01e4178ed724[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 18:26:51 2024 +0900
+
+    0927 마지막 커밋 애니추천 애니메이션까지 만들었다.
+
+[33mcommit a36e272f832a38e600b168ab3e1183f21cfbfea7[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 18:01:49 2024 +0900
+
+    modify
+
+[33mcommit 05000fdb8117cb78846e3d768e584202461a19c0[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 17:37:47 2024 +0900
+
+    0927 17:37 새로운 굿즈 애니메이션 전까지 만들었음
+
+[33mcommit ff071432bfe8307fcd33cfbd0d5ef2480d5570f1[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Sep 27 17:37:26 2024 +0900
+
+    9/27 오후 17:37 관리자 페이지 코드 작성
+
+[33mcommit 18c828572ff8b63a67d95daec2f27b29765bee45[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Sep 27 17:02:34 2024 +0900
+
+    9/27 오후 17:02 관리자 페이지 코드 작성
+
+[33mcommit 3fa4fb753b9c4e8141851a8197c636f201d801ca[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 16:21:01 2024 +0900
+
+    modify
+
+[33mcommit 4dff5f4f2676f08ab80328c6238c146ed412e91d[m
+Author: perloe990401 <wjddl22533@naver.com>
+Date:   Fri Sep 27 16:20:33 2024 +0900
+
+    9.27(정)
+
+[33mcommit db26aed09c426639325b763dee3ea2611a51f833[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 16:17:19 2024 +0900
+
+    0927 04:17 최신굿즈 돌아가는거까지 만들어둠
+
+[33mcommit 3c7a793fe07f2be313b1b4fdc476d5fa743da595[m
+Merge: 9e87fd3 79d70b9
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Fri Sep 27 16:03:52 2024 +0900
+
+    Merge pull request #2 from onefanki94/boram
+    
+    Boram
+
+[33mcommit 9e87fd3d1814953da3eac4cb8b62faf8fc33c457[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Sep 27 15:57:42 2024 +0900
+
+    9/27 관리자 페이지 커밋 오후 3시 35분
+
+[33mcommit 698a220c48f99094f0a47e5f1c8d28e6d06bb9eb[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 15:36:45 2024 +0900
+
+    0927 15:36 메인페이지 추천애니
+
+[33mcommit b9d6330492886210d349cfe918cdb0a825f1bd8b[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 15:29:57 2024 +0900
+
+    modify
+
+[33mcommit 79d70b9e53b2c7bf47ec943cc66415932de9b6f5[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Fri Sep 27 15:23:53 2024 +0900
+
+    db
+
+[33mcommit b02e8ca4928049079dfcc50098236042ea089e9f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 15:07:04 2024 +0900
+
+    modify
+
+[33mcommit ab6ed73728087014b12813b8b99d1fb3f0d4a5ee[m
+Merge: 7fa3aac 5a6c512
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 11:36:50 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 7fa3aac7e527fdbe7f6c52f53725cec03a35f3db[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Fri Sep 27 11:33:42 2024 +0900
+
+    modify
+
+[33mcommit 5b739804c3be1f06b8eaec242474fc5fb7c2b02c[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Fri Sep 27 11:15:09 2024 +0900
+
+    09-27 11:15
+
+[33mcommit 5a6c512f965e743bf3dd0c2f65f54d189802f657[m
+Merge: de5f91a 5f98c7a
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 11:08:07 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit de5f91ada8bc7420981a933930d6064bc6e50c11[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 11:07:32 2024 +0900
+
+    store_header modify
+
+[33mcommit 5f98c7aa5ac5b547c8555e69413cc42938a76073[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Fri Sep 27 10:51:28 2024 +0900
+
+    09/27 관리자페이지 코드 (CSS) 수정 및 작성 오전 10:51분 수정
+
+[33mcommit d1a47489af59600f708ba5ff0cb8762fa3a397bd[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Fri Sep 27 10:43:59 2024 +0900
+
+    chaewon store_header
+
+[33mcommit d7917ab23d7794dbbeb54aa047cf01837a4d0461[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Sep 26 20:03:33 2024 +0900
+
+    공지사항 수정
+
+[33mcommit 95443e726c04fe2f78418fbb96db402bb769450b[m
+Merge: 5cc1d9f dd910fc
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Sep 26 19:42:02 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into boram
+
+[33mcommit dd910fc469daed75038c05756caf2084723772bb[m[33m ([m[1;31morigin/backup[m[33m)[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 19:01:41 2024 +0900
+
+    09/26 관리자페이지 코드 (CSS) 수정 및 작성 오후 19:01분 수정
+
+[33mcommit 96107d3f5aee2f9591d6212fa685bc390b922b17[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Sep 26 18:48:24 2024 +0900
+
+    modify
+
+[33mcommit 1eb4f046e749c056acd959ac3b36988fb679f0d0[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 18:38:18 2024 +0900
+
+    09/26 관리자페이지 코드 (CSS) 수정 및 작성 오후 18:38분 수정
+
+[33mcommit 74e4f41efb08c62f3a926ceeebae737186548280[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 18:35:58 2024 +0900
+
+    store_header modify
+
+[33mcommit b2dea22e92c3bfd9e5ebf93bdb7768550c11a17f[m
+Merge: 10e1781 1dd0a0c
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 18:14:48 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 10e1781b9f2397d990ed5517746f280880897472[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 18:13:59 2024 +0900
+
+    chaewon header
+
+[33mcommit 1dd0a0c99087f61f8d357bb77e0e95a71dc2f1f8[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 17:24:33 2024 +0900
+
+    09/26 관리자페이지 코드 (CSS) 수정 및 작성 오후 17:24분 수정
+
+[33mcommit 8daf33accc96fa0f4591874a40fee490d41c1b5b[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 16:36:48 2024 +0900
+
+    09/26 관리자페이지 애니 추가 코드 (CSS) 수정 및 작성 오후 16:36분 수정
+
+[33mcommit 0a200f322c5142c117a4539e8fe0a86fe1e9f90a[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 16:15:57 2024 +0900
+
+    09/26 관리자페이지 코드 수정 및 작성 오후 16:15분 수정
+
+[33mcommit b38f0b2f119045a0dd2dc45ef5556167d76c63a6[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 16:14:26 2024 +0900
+
+    09/26 관리자페이지 코드 수정 및 작성 오후 16:14분 수정
+
+[33mcommit 5cc1d9fd4f62352734f6ef420e0446b06dab1806[m
+Merge: 2020c96 348870f
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Sep 26 15:44:57 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into boram
+
+[33mcommit 2020c96630feeaa18835927f891e176028eb5f87[m
+Merge: 0dbe350 61ebac4
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Sep 26 15:44:27 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into boram
+
+[33mcommit 348870fd84c7cb2dfb7dc71060f0f5dde634b519[m
+Merge: 661be02 13eb8ad
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 15:41:01 2024 +0900
+
+    15:40 modify
+
+[33mcommit 661be024bd849245e1e433b433629ec48a8b1713[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 15:39:46 2024 +0900
+
+    modify
+
+[33mcommit 13eb8ad244703e3bbace93705f8465a7fbaf938b[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:35:16 2024 +0900
+
+    Reapply "Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop"
+    
+    This reverts commit 2be5ebf43dc8f82c15d52539903d8c18dc425b53.
+
+[33mcommit 2be5ebf43dc8f82c15d52539903d8c18dc425b53[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:35:12 2024 +0900
+
+    Revert "Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop"
+    
+    This reverts commit 61ebac4516673755a88fdfc4122c0339e66c0e85, reversing
+    changes made to 7660f1d67d9f8774d172afc9b6ba5bffd291b6c8.
+
+[33mcommit 61ebac4516673755a88fdfc4122c0339e66c0e85[m
+Merge: 7660f1d c99272f
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:24:34 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 7660f1d67d9f8774d172afc9b6ba5bffd291b6c8[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:24:31 2024 +0900
+
+    gg
+
+[33mcommit c99272f9a1a1e3df66628e6fc227abb6df040e14[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Sep 26 15:22:42 2024 +0900
+
+    modify
+
+[33mcommit 66b801cea309264ebd03f3b01339bdb2c1215801[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:10:56 2024 +0900
+
+    ㅗ
+
+[33mcommit 330b5515dfb6f7a6550d50d536ed717879668079[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:05:35 2024 +0900
+
+    img update
+
+[33mcommit 6bb545c1750fb9936217ab07569de8ee299adbbd[m
+Merge: 49383dc 34da55a
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 15:00:55 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 34da55a99028e870177ae32ff00c774bdc1ec103[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Sep 26 15:00:18 2024 +0900
+
+    Update storeMain.jsp
+
+[33mcommit 49383dc80e13d9e5033eb251ee5224c9ed4e6257[m
+Author: chaewon Kim <sing2727@naver.com>
+Date:   Thu Sep 26 14:59:21 2024 +0900
+
+    chaewon test delete
+    
+    chaewon test delete
+
+[33mcommit 22e7b8809e1e1fbda86cb55277b287d954d7205c[m
+Merge: 6bfc446 f75ba26
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Sep 26 14:56:12 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 6bfc446c20294ba1b38c5412d02db9cb5547c610[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Thu Sep 26 14:53:16 2024 +0900
+
+    modify
+
+[33mcommit 0dbe350a14cf3241881e69f7ace6960327bbb923[m
+Merge: f482c59 f75ba26
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Sep 26 14:49:49 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into boram
+
+[33mcommit f482c59e3f382c90805a8ed0be00c51b5c4eb349[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Thu Sep 26 14:39:17 2024 +0900
+
+    test
+
+[33mcommit f75ba2660d695c4a990780efe66f7588fad877b8[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 14:07:28 2024 +0900
+
+    09/26 관리자페이지 (회원,애니목록) CSS코드 수정 및 작성 오후 14:07분 수정
+
+[33mcommit dd9021c77dcd874a2ba9465406c158f338018d75[m
+Merge: f840e20 45857a1
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 11:10:27 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit f840e2036108610f3016910e7e2063fb9d481c1e[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 11:10:22 2024 +0900
+
+    09/26 관리자페이지 (회원,애니목록) 코드 수정및 작성 오전 11:10분 수정
+
+[33mcommit 45857a16cca0f351390548d5652c0ff59ccf077a[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 09:43:59 2024 +0900
+
+    Create README.md
+    
+    Readme 생성
+
+[33mcommit ddc038678416a2c6625decfc63d39d825eae0e3f[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 09:38:40 2024 +0900
+
+    09/26 헤더 페이지 관리자 메뉴 코드 작성 오전 09:38분 수정
+
+[33mcommit e4f5a26be9bedbd12cc57b76d0678b2b82ceadef[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Thu Sep 26 09:33:21 2024 +0900
+
+    09/26 헤더 페이지 메뉴 코드 작성 오전 09:33분 수정
+
+[33mcommit 65ee0ad68ad26fc72be15f06b8e8831cfc90c98d[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 23:41:09 2024 +0900
+
+    modify
+
+[33mcommit 568c60cc539601dd292d5739b30a92dccae93a7f[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 18:57:52 2024 +0900
+
+    modify
+
+[33mcommit 2ce92d000bceb15161c35b974d0a24b1b28af6fa[m
+Merge: 3731bdd 0063009
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 18:55:44 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit 3731bdd017083718593e225b32f769a57c9ca4fb[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 18:55:21 2024 +0900
+
+    modify
+
+[33mcommit 00630090ca03758b1aa290517d4883427164580c[m
+Merge: b6f8897 f3085ab
+Author: perloe990401 <wjddl22533@naver.com>
+Date:   Wed Sep 25 18:54:25 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit b6f8897a74380bfa238a31d05be4ed67eab642e1[m
+Author: perloe990401 <wjddl22533@naver.com>
+Date:   Wed Sep 25 18:51:44 2024 +0900
+
+    09/25 18:51
+
+[33mcommit f3085abfea2f73c0b53deedcf5c45c0b28bfa638[m
+Merge: f154a83 6140082
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 18:33:18 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+    
+    # Conflicts:
+    #       src/main/webapp/WEB-INF/views/home.jsp
+
+[33mcommit f154a835a71b9de08125c25b2e412b9720b791ca[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 18:32:44 2024 +0900
+
+    09/25 관리자페이지 오후 18:32분 수정
+
+[33mcommit 6140082c16389b8dc3cd5f5cf6312ec7dfd21743[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 18:19:12 2024 +0900
+
+    modify
+
+[33mcommit 712098ccf5c054cb9232f366e0131c146e026dec[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 17:43:43 2024 +0900
+
+    modify
+
+[33mcommit 7240cae1ac029562d3650546bd2e9835673b1e07[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 17:03:39 2024 +0900
+
+    09/25 관리자페이지 오후 17:03분 수정
+
+[33mcommit 98b45a6dfff2c0da12ba3b111290953b26bd3ef9[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 16:56:53 2024 +0900
+
+    09/25 관리자페이지 오후 16:56분 수정
+
+[33mcommit 5eb83876a3ef13958ad7f784bc972d84371ce52f[m
+Merge: 259dce7 1de50a0
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 16:04:36 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 259dce732a187ca70c143da9696f3c2459ae79d7[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 16:04:24 2024 +0900
+
+    09/25 관리자페이지 오후 16:04분 수정
+
+[33mcommit 1de50a054a6a255cca01a190b76d9c336c2d57ae[m
+Author: perloe990401 <wjddl22533@naver.com>
+Date:   Wed Sep 25 15:07:28 2024 +0900
+
+    Create alist.jsp
+    
+    .....
+
+[33mcommit 1df3a9c786992a397789907c8d43ef22f9454493[m
+Author: chulsoonCHOI <xenic85@gmail.com>
+Date:   Wed Sep 25 14:58:29 2024 +0900
+
+    Create goodsmallMain.jsp
+
+[33mcommit 480f790e289d73c65df78fd3aa90166c39dd745c[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 14:56:00 2024 +0900
+
+    09/25 수정
+
+[33mcommit 56a2dcd74ff30d6500b4ab03748ed2365a5e8e23[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 12:59:32 2024 +0900
+
+    modify1
+
+[33mcommit 4e9cdb4dd643df886792a8bae4f2cab18cac56e6[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 12:56:06 2024 +0900
+
+    1
+
+[33mcommit a93fc186cb54a82e63ba67db497bdb928d8ed927[m
+Merge: c37c983 8e15826
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Wed Sep 25 12:47:43 2024 +0900
+
+    Merge branch 'develop' of https://github.com/onefanki94/finalproject into develop
+
+[33mcommit c37c983407926500f19490eb714886bb6645f0ee[m
+Author: perloe990401 <wjddl22533@naver.com>
+Date:   Tue Sep 24 18:20:05 2024 +0900
+
+    modify1
+
+[33mcommit 8e15826b8c51c86145a63e3bbe5a698fb84a8814[m
+Author: perloe990401 <wjddl22533@naver.com>
+Date:   Tue Sep 24 18:20:05 2024 +0900
+
+    modify1
+
+[33mcommit 3b959408ac9fb3558aec3b4a1b26fa27a89885f0[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Sep 24 18:10:31 2024 +0900
+
+    modify
+
+[33mcommit e39cc8bfc985f80e45a39a1c86e54234f95ec254[m
+Merge: 600bc11 31049a6
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Sep 24 17:32:12 2024 +0900
+
+    Merge branch 'master' of https://github.com/onefanki94/finalproject
+
+[33mcommit 600bc116325ab5f52c3122f760003f48027a18bd[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Sep 24 17:30:09 2024 +0900
+
+    first commit
+
+[33mcommit 31049a689f7bd9d631a61ad4c1fa28f2900b6ffa[m
+Merge: b5e4ac2 ff64387
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Sep 24 17:08:04 2024 +0900
+
+    Merge branch 'master' of https://github.com/onefanki94/finalproject
+
+[33mcommit b5e4ac238737e5472beeb5108adcccd778edb149[m
+Author: lucky-rami <br.cnc0616@gmail.com>
+Date:   Tue Sep 24 17:06:56 2024 +0900
+
+    Update testVO.java
+
+[33mcommit ff64387411f814c7bf83b2caff9cde9436d1cf30[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Sep 24 17:05:43 2024 +0900
+
+    testcss
+
+[33mcommit 2ec1503b6e5655927fcebb2049e25485cccbfa19[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Sep 24 16:38:26 2024 +0900
+
+    first commit
+
+[33mcommit 6d42d7c78d93b1636a3cd2d4cdda212a2eed7a2d[m
+Author: onefanki94 <renaitrout@kakao.com>
+Date:   Tue Sep 24 16:32:25 2024 +0900
+
+    first commit
