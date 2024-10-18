@@ -2,10 +2,7 @@ package com.ict.finalproject.DAO;
 
 
 import com.ict.finalproject.DTO.*;
-import com.ict.finalproject.vo.AniListVO;
-import com.ict.finalproject.vo.MemberVO;
-import com.ict.finalproject.vo.ReviewVO;
-import com.ict.finalproject.vo.StoreVO;
+import com.ict.finalproject.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -90,4 +87,10 @@ public interface MemberDAO {
         List<OrderProDTO> getOrderProducts(int order_idx);
         long getTotalOrderCount(int userIdx);
         OrderListDTO getOrderDetailData(int order_idx, int useridx);
+        //적립금 업데이트
+        void pointInsert(int useridx, int type, int point);
+        void userPointUpdate(int useridx, int point);
+        //적립금 내역
+        List<PointVO> getPointList(int pageSize, int offset, int useridx);
+        int getTotalPointCount(int useridx);
 }

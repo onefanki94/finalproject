@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="/css/mypage_point.css" type="text/css" />
 <script src="/js/mypage_common.js"></script>
+<script src="/js/mypage_point.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -64,12 +65,12 @@
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_point"
-              ><strong class="">적립금</strong><span class="reservePoint">360</span></a
+              ><strong class="">적립금</strong><span class="reservePoint"></span></a
             >
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_review"
-              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan">1</span></a
+              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan"></span></a
             >
           </li>
         </ul>
@@ -101,6 +102,11 @@
                 </li>
               </ul>
             </div>
+          </div>
+          <div id="pagination">
+              <div class="custom-pagination">
+
+              </div>
           </div>
         </div>
       </div>

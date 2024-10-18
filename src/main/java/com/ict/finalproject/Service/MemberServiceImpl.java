@@ -2,14 +2,12 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MemberDAO;
 import com.ict.finalproject.DTO.*;
-import com.ict.finalproject.vo.AniListVO;
-import com.ict.finalproject.vo.MemberVO;
-import com.ict.finalproject.vo.ReviewVO;
-import com.ict.finalproject.vo.StoreVO;
+import com.ict.finalproject.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -211,7 +209,25 @@ public class MemberServiceImpl implements MemberService {
         return orderDetail;
     }
 
+    @Transactional
+    @Override
+    public void pointUpdate(int useridx, int type, int point) {
+        // T_point에 포인트 내역 추가
+        dao.pointInsert(useridx, type, point);
+        // T_user point 업데이트
+        dao.userPointUpdate(useridx, point);
+    }
 
+    @Override
+    public List<PointVO> getPointList(int page, int pageSize, int useridx) {
+        int offset = (page-1)*pageSize;
+        return dao.getPointList(pageSize, offset, useridx);
+    }
+
+    @Override
+    public int getTotalPointCount(int useridx) {
+        return dao.getTotalPointCount(useridx);
+    }
 
 
 }

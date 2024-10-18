@@ -89,7 +89,7 @@ $(function(){
                                     <img src="http://192.168.1.92:8000/${currentLikeAniData.post_img}" />
                                   </div>
                                 </div>
-                                <p class="txt">${currentLikeAniData.title}</p>
+                                <p class="txtani" style="text-decoration:none">${currentLikeAniData.title}</p>
                               </a>
                             </li>
                         `);

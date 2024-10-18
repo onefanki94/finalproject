@@ -1,10 +1,7 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DTO.*;
-import com.ict.finalproject.vo.AniListVO;
-import com.ict.finalproject.vo.MemberVO;
-import com.ict.finalproject.vo.ReviewVO;
-import com.ict.finalproject.vo.StoreVO;
+import com.ict.finalproject.vo.*;
 
 import java.util.List;
 
@@ -61,4 +58,9 @@ public interface MemberService {
     PageResponse<OrderListDTO> getOrderListWithPaging(int useridx,int page,int pageSize);
     // 마이페이지 주문내역 상세
     OrderListDTO getOrderDetailData(int order_idx,int useridx);
+    //적립금 업데이트
+    void pointUpdate(int useridx, int type, int point);
+    // 적립금 내역
+    List<PointVO> getPointList(int page, int pageSize, int useridx);
+    int getTotalPointCount(int useridx);
 }

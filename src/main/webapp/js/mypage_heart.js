@@ -24,7 +24,6 @@ function reviewTab(tabId) {
 function formatNumber(number) {
     return number.toLocaleString();
 }
-const token = localStorage.getItem("token");
 
 function createPaginationGoods(totalPages, currentPage) {
     $(".custom-pagination-goods").empty();

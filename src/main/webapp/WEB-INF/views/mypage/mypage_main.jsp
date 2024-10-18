@@ -97,14 +97,14 @@
             <h3 class="my_tit">MY HEART</h3>
 
             <div class="heart_artwrap" id="heart_artwrap_goods">
-              <h4 class="h_tit">Goods</h4>
+              <h4 class="h_tit">GOODS</h4>
               <ul class="heart_lst" id="heart_lst_goods">
 
               </ul>
             </div>
 
             <div class="heart_artwrap" id="heart_artwrap_ani">
-              <h4 class="h_tit">Animation</h4>
+              <h4 class="h_tit">ANIMATION</h4>
               <ul class="heart_lst" id="heart_lst_ani">
 
               </ul>

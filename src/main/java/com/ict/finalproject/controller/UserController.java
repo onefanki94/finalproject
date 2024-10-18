@@ -514,6 +514,35 @@ public class UserController {
         return mav;
     }
 
+    // 적립금 내역 데이터
+    @PostMapping("/getPointList")
+    public ResponseEntity<Map<String, Object>> getPointList(@RequestBody Map<String, Integer> params,
+                                                            @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        int page = params.getOrDefault("page", 1);
+        int pageSize = params.getOrDefault("pageSize", 10);
+
+        List<PointVO> pointList = service.getPointList(page, pageSize, useridx);
+        int totalProductCount = service.getTotalPointCount(useridx);
+        int totalPages = (int) Math.ceil((double) totalProductCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("pointList", pointList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+
+        return ResponseEntity.ok(response);
+    }
+
     //마이페이지-리뷰리스트 view
     @GetMapping("/mypage_review")
     public ModelAndView mypageReview() {
@@ -611,6 +640,7 @@ public class UserController {
             int result = service.saveReview(review); // 리뷰 저장 서비스 호출
 
             if (result > 0) {
+                service.pointUpdate(useridx, 2, 150);
                 return ResponseEntity.ok("리뷰가 성공적으로 등록되었습니다.");
             } else {
                 fileDel(imgfile1);

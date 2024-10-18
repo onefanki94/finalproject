@@ -1,7 +1,6 @@
 function formatNumber(number) {
     return number.toLocaleString();
 }
-const token = localStorage.getItem("token");
 
 function getOrderListAll(page){
     const pageSize = 5; //한 페이지에 보여줄 항목 수
