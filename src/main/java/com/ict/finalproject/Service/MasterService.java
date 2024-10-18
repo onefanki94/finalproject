@@ -58,4 +58,6 @@ public interface MasterService {
     boolean doesProductExist(int pro_idx);
     MasterVO getProductImgByIdx(int idx);
     boolean updateProductImg(MasterVO productImg);
+    int getTotalAnimeCount(); // 총 애니메이션 수를 가져옴
+    List<MasterVO> getAniListWithPaging(int currentPage, int pageSize); // 페이징된 애니 리스트 가져오기
 }

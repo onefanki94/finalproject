@@ -96,4 +96,14 @@ public class MasterVO {
     private String qnatype;
     private int qna_idx;
     private String reply;
+
+    // 페이징 네이션에 사용하는 기능들
+    private int currentPage;     // 현재 페이지 번호
+    private int pageSize;        // 한 페이지당 항목 수
+    private int offset;          // 쿼리에 사용할 오프셋 값
+    private int totalRecords;    // 전체 항목 수
+    private int totalPages;      // 전체 페이지 수
+    private int startPage;       // 페이지 네비게이션 시작 페이지
+    private int endPage;         // 페이지 네비게이션 끝 페이지
+    private int pageGroupSize;
 }

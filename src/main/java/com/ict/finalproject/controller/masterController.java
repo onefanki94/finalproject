@@ -154,16 +154,20 @@ public class masterController {
 
     // Dashboard - 애니관리 -  애니목록 리스트
     @GetMapping("/aniMasterList")
-    public ModelAndView masterAniList() {
-        System.out.println("관리자페이지 애니 리스트 불러오기");
+    public ModelAndView masterAniList(@RequestParam(value = "currentPage", defaultValue = "1") double currentPage,
+                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        int currentPageInt = (int) Math.floor(currentPage); // 정수로 변환
+        int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+        List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
 
-        List<MasterVO> aniList = masterService.getAniAllList();
-
-        mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.addObject("aniList", aniList);
+        mav.addObject("currentPage", currentPageInt);
+        mav.addObject("pageSize", pageSize);
         mav.setViewName("master/aniMasterList");
         return mav;
     }
+
 
 
     // Dashboard - 회원관리 - 신고계정목록 리스트

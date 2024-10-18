@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -279,5 +280,18 @@ public class MasterServiceImpl implements MasterService {
     public boolean updateProductImg(MasterVO productImg) {
         int result = dao.updateProductImg(productImg);
         return result > 0;
+    }
+
+    @Override
+    public int getTotalAnimeCount() {
+        return dao.getTotalAnimeCount();
+    }
+
+    @Override
+    public List<MasterVO> getAniListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getAniListWithPaging(params);
     }
 }

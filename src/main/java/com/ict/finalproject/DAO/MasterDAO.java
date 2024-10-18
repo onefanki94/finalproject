@@ -127,4 +127,8 @@ public interface MasterDAO {
     int doesProductExist(int pro_idx);
     MasterVO getProductImgByIdx(int idx);
     int updateProductImg(MasterVO productImg);
+
+    // 애니 페이징네이션
+    int getTotalAnimeCount(); // 총 애니메이션 수를 가져옴
+    List<MasterVO> getAniListWithPaging(Map<String, Object> params);// 페이징된 애니 리스트 가져오기
 }

@@ -308,4 +308,16 @@
         WHERE pro_idx = #{pro_idx}
     </update>
 
+    <!-- 총 애니메이션 수를 가져오는 쿼리 -->
+    <select id="getTotalAnimeCount" resultType="int">
+        SELECT COUNT(*) FROM t_animation
+    </select>
+
+    <!-- 페이징된 애니메이션 리스트를 가져오는 쿼리 -->
+    <select id="getAniListWithPaging" parameterType="map" resultType="MasterVO">
+        SELECT * FROM t_animation
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
 </mapper>
