@@ -106,7 +106,7 @@
             </tr>
             <tr>
                 <th>카테고리</th>
-                <td colspan="3"><a href="#">#${storeDetail.category}</a></td>
+                <td colspan="3"><a href="#">#${categoryType}</a></td>
             </tr>
             <tr>
                 <th>상품설명</th>
@@ -272,8 +272,8 @@
             </div>
             <div class="sticky-right">
                 <div class="price">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</div>
-                <button class="sticky_basket_btn">장바구니</button>
-                <button class="sticky_buy_btn">바로구매</button>
+                <button class="sticky_basket_btn" id="basket_in_btn">장바구니</button>
+                <button class="sticky_buy_btn" id="order_buy_btn">바로구매</button>
             </div>
         </div>
     </div>

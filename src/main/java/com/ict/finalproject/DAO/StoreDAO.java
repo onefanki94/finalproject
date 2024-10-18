@@ -39,6 +39,8 @@ public interface StoreDAO {
 
     public List<StoreVO> getStoreWithPopularity(Map<String, Object> params);
 
+    public String getCategoryType(int categoryCode);
+
 
     //채원
     //장바구니에 상품 있는지 체크
