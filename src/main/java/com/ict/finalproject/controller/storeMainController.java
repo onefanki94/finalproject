@@ -87,10 +87,6 @@ public class storeMainController {
 
 
 
-
-
-
-
     @GetMapping("/storeList")
     public ModelAndView getStoreListAndView(
             @RequestParam(defaultValue = "1") int pageNum,
@@ -99,11 +95,23 @@ public class storeMainController {
             @RequestParam(required = false) Integer second_category,
             @RequestParam(required = false) String filterType) {
 
+
         // offset 계산
         int offset = (pageNum - 1) * pageSize;
 
+        // category와 filterType이 빈 값이거나 null일 경우 기본 처리
+//        if (category == null || category == 0) {
+//            category = null;  // 기본값 null 처리
+//        }
+//        if (filterType == null || filterType.trim().isEmpty()) {
+//            filterType = null;  // 빈 문자열일 경우 null로 처리
+//        }
+
+
+
         // 페이징 처리된 상품 목록을 가져옴 (카테고리와 필터 타입을 처리)
         List<StoreVO> pagedProducts;
+
 
         // 1. 카테고리 필터링이 있는 경우
         if (category != null) {
@@ -124,8 +132,6 @@ public class storeMainController {
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
         // 카테고리 목록을 가져옴
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
-
-
 
 
         // ModelAndView 설정
@@ -151,10 +157,6 @@ public class storeMainController {
 
         int offset = (pageNum - 1) * pageSize;
 
-//        // category와 secondCategory가 null일 경우 기본값을 설정합니다.
-//        int categoryInt = (category != null) ? category : 0;
-//        int secondCategoryInt = (second_category != null) ? second_category : 0; // 기본값 0 설정
-
         // 두 번째 카테고리를 포함한 상품 목록을 가져옵니다.
         List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category, second_category);
 
@@ -168,26 +170,26 @@ public class storeMainController {
 
 
     // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
-    /*@GetMapping("/recentProducts")
-    public ModelAndView getRecentProducts() {
-        List<StoreVO> recentProducts = storeService.getRecentProducts();
-        log.info("호출 " + recentProducts );
-        // 데이터를 출력하여 확인
-        if (recentProducts == null || recentProducts.isEmpty()) {
-            System.out.println("신규 굿즈 데이터가 없습니다.");
-        } else {
-            System.out.println("신규 굿즈 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
-            for (StoreVO product : recentProducts) {
-                System.out.println("상품 ID: " + product.getIdx() + ", 상품명: " + product.getTitle());
-            }
-        }
-
-        ModelAndView mav = new ModelAndView("store/storeMain");
-        mav.addObject("recentProducts", recentProducts);
-        return mav;
-    }*/
-
-
+//    @GetMapping("/recentProducts")
+//    public ModelAndView getRecentProducts() {
+//        List<StoreVO> recentProducts = storeService.getRecentProducts();
+//        log.info("호출 " + recentProducts );
+//        // 데이터를 출력하여 확인
+//        if (recentProducts == null || recentProducts.isEmpty()) {
+//            System.out.println("신규 굿즈 데이터가 없습니다.");
+//        } else {
+//            System.out.println("신규 굿즈 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
+//            for (StoreVO product : recentProducts) {
+//                System.out.println("상품 ID: " + product.getIdx() + ", 상품명: " + product.getTitle());
+//            }
+//        }
+//
+//        ModelAndView mav = new ModelAndView("store/storeMain");
+//        mav.addObject("recentProducts", recentProducts);
+//        return mav;
+//    }
+//
+//
 
 
     // 검색된 상품 목록 가져오기
