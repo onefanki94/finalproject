@@ -59,10 +59,10 @@
                     
             </div>
                     <!-- 구매 버튼 -->
-                <div class="buy-buttons">
-                    <button class="add-to-cart">장바구니</button>
-                    <button class="buy-now">바로 구매</button>
-                </div>
+                    <div class="buy-buttons">
+                        <button class="add-to-cart" id="basket_in_btn">장바구니</button>
+                        <button class="buy-now" id="order_buy_btn">바로 구매</button>
+                    </div>
         </div>
         
     </div>
