@@ -1,6 +1,8 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.StoreDAO;
+import com.ict.finalproject.DTO.BasketDTO;
+import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
 
@@ -80,6 +82,43 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreVO> getStoreWithPopularity(Map<String, Object> params) {
         return dao.getStoreWithPopularity(params);
     }
+
+    //채원
+    @Override
+    public int checkProductInBasket(BasketVO basketvo) {
+        return dao.checkProductInBasket(basketvo);
+    }
+
+    @Override
+    public int basketInput(BasketVO basketvo) {
+        return dao.basketInput(basketvo);
+    }
+
+    @Override
+    public List<BasketDTO> basketList(int useridx) {
+        return dao.basketList(useridx);
+    }
+
+    @Override
+    public int basketDelete(int idx, int useridx) {
+        return dao.basketDelete(idx, useridx);
+    }
+
+    @Override
+    public void basketChoiceAndAllDelOk(int idx, int useridx) {
+        dao.basketChoiceAndAllDelOk(idx,useridx);
+    }
+
+    @Override
+    public int basketPlusAmount(int idx, int useridx, int newTotal) {
+        return dao.basketPlusAmount(idx, useridx,newTotal);
+    }
+
+    @Override
+    public int basketMinusAmount(int idx, int useridx, int newTotal) {
+        return dao.basketMinusAmount(idx, useridx,newTotal);
+    }
+
 }
 
 
