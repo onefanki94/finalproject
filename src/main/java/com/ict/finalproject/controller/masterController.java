@@ -354,28 +354,52 @@ public class masterController {
 
     // Dashboard - 굿즈관리 - 굿즈목록 리스트
     @GetMapping("/storeMasterList")
-    public ModelAndView storeMasterList() {
+    public ModelAndView storeMasterList(@RequestParam(value = "currentPage", defaultValue = "1") String currentPageStr,
+                                        @RequestParam(value = "pageSize", defaultValue = "10") String pageSizeStr) {
         System.out.println("관리자페이지 굿즈 상품 테이블 불러오기");
-        List<MasterVO> storeList = masterService.getStoreList();
+
+        // currentPage와 pageSize를 정수형으로 변환
+        int currentPage;
+        int pageSize;
+        try {
+            // 소수점이 포함된 경우 정수로 변환
+            currentPage = (int) Double.parseDouble(currentPageStr);
+            pageSize = (int) Double.parseDouble(pageSizeStr);
+        } catch (NumberFormatException e) {
+            // 변환에 실패하면 기본값으로 설정
+            currentPage = 1;
+            pageSize = 10;
+        }
+
+        // 페이징 로직 추가
+        int offset = Math.max(0, (currentPage - 1) * pageSize);
+        List<MasterVO> storeList = masterService.getStoreListWithPaging(offset, pageSize);
 
         // 총 상품 수 구하기
         int totalStore = masterService.getTotalStore();
+        int totalPages = (int) Math.ceil((double) totalStore / pageSize);
 
+        // 카테고리별 상품 수 구하기
         Map<String, Object> categoryCode1Count = masterService.getCategoryCountByCode(1); // 의류
         Map<String, Object> categoryCode2Count = masterService.getCategoryCountByCode(2); // 완구/취미
         Map<String, Object> categoryCode3Count = masterService.getCategoryCountByCode(3); // 문구/오피스
         Map<String, Object> categoryCode4Count = masterService.getCategoryCountByCode(4); // 생활용품
 
-        mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", storeList);
         mav.addObject("totalStore", totalStore);
         mav.addObject("categoryCode1Count", categoryCode1Count.get("product_category"));
         mav.addObject("categoryCode2Count", categoryCode2Count.get("product_category"));
         mav.addObject("categoryCode3Count", categoryCode3Count.get("product_category"));
         mav.addObject("categoryCode4Count", categoryCode4Count.get("product_category"));
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/storeMasterList");
         return mav;
     }
+
+
 
     // Dashboard - 주문관리 - 주문내역 리스트
     @GetMapping("/orderMasterList")

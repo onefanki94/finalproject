@@ -131,4 +131,7 @@ public interface MasterDAO {
     // 애니 페이징네이션
     int getTotalAnimeCount(); // 총 애니메이션 수를 가져옴
     List<MasterVO> getAniListWithPaging(Map<String, Object> params);// 페이징된 애니 리스트 가져오기
+
+    // 굿즈 페이징 네이션
+    List<MasterVO> getStoreListWithPaging(Map<String, Object> params);
 }

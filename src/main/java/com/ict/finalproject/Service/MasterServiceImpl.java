@@ -294,4 +294,12 @@ public class MasterServiceImpl implements MasterService {
         params.put("limit", limit);
         return dao.getAniListWithPaging(params);
     }
+
+    @Override
+    public List<MasterVO> getStoreListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getStoreListWithPaging(params);
+    }
 }

@@ -320,4 +320,10 @@
         LIMIT #{offset}, #{limit}
     </select>
 
+    <select id="getStoreListWithPaging" resultType="MasterVO">
+        SELECT * FROM t_product
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
 </mapper>

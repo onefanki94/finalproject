@@ -86,7 +86,7 @@
 
          <!-- 페이지네이션 -->
         <nav>
-            <ul class="pagination">
+            <ul class="pagination justify-content-center">
                 <c:set var="pageGroupSize" value="10" />
                 <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
                 <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />

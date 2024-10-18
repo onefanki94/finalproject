@@ -101,7 +101,7 @@ function applyFilter(category, second_category) {
 }
 
 let productList;
-let procducts;
+let products;
 document.addEventListener('DOMContentLoaded', function() {
     productList = document.querySelector('.list-carousel-images');
     if (!productList) {
@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/pagedProducts?pageNum=1&pageSize=10')
         .then(response => response.json())  // 응답을 JSON으로 변환
         .then(data => {
+            products = data;  // 전역 변수 products에 데이터 할당
             // 서버에서 받은 데이터를 가지고 productList를 업데이트
             data.forEach(product => {
                 const listItem = document.createElement('li');
@@ -143,6 +144,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // 필터 적용 함수 정의
 function filterProductsByType(filterType) {
 console.log("filterProductsByType->",filterType)
+
+    // 필터 타입에 따른 정렬을 시도하기 전에 products가 배열인지 확인
+    if (!Array.isArray(products)) {
+        console.error("products가 배열이 아니거나 정의되지 않았습니다.");
+        return;
+    }
+
     // 모든 필터 버튼에서 'active' 클래스 제거
     const allFilters = document.querySelectorAll('.filter-options');
     allFilters.forEach(filter => filter.classList.remove('active'));
@@ -183,6 +191,7 @@ function searchProducts() {
         }
     });
 }
+
 function updateProductList(products) {
     console.log("updateProductList(products)=>",products);
     productList = document.querySelector('.list-carousel-images');
