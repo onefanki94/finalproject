@@ -1518,3 +1518,40 @@ color: #fff;
 }
 
 // -----------------------------------------
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pagination .page-link {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+    color: green;
+    border: 1px solid green;
+    font-weight: bold;
+}
+
+.pagination .page-item:hover .page-link {
+    background-color: #f0f0f0;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;
+    cursor: not-allowed;
+}

@@ -2,18 +2,25 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MasterDAO;
 import com.ict.finalproject.vo.MasterVO;
-import com.ict.finalproject.vo.StoreVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class MasterServiceImpl implements MasterService {
     @Autowired
     MasterDAO dao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     // 관리자페이지 공지사항 추가
@@ -35,9 +42,10 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public MasterVO createStore(MasterVO store) {
-        int result = dao.insertStore(store);
-        return result > 0 ? store : null;
+    @Transactional
+    public int createStore(MasterVO storeAdd) {
+         dao.createStore(storeAdd);
+         return storeAdd.getIdx();
     }
 
     @Override
@@ -209,9 +217,10 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public boolean insertProductImg(MasterVO productImg) {
-        return dao.insertProductImg(productImg) > 0;
+    public void insertProductImg(MasterVO masterVO) {
+        dao.insertProductImg(masterVO);
     }
+
 
     @Override
     public MasterVO getNoticeById(int idx) {
@@ -231,5 +240,58 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public MasterVO getQnaById(int idx) {
         return dao.getQnaReplyById(idx);
+    }
+
+    @Override
+    public boolean validateAdmin(String adminid, String adminpwd) {
+        MasterVO admin = dao.getAdminByAdminId(adminid);
+
+        if (admin != null) {
+            log.info("Database password (hashed): " + admin.getAdminpwd()); // 해시된 비밀번호 로그
+            log.info("User input password (plain): " + adminpwd); // 사용자가 입력한 비밀번호 로그
+
+            try {
+                // 비밀번호 비교
+                boolean matches = passwordEncoder.matches(adminpwd, admin.getAdminpwd());
+                log.info("Password match result: " + matches);
+                return matches; // 비밀번호가 일치하는지 반환
+            } catch (Exception e) {
+                log.error("Error occurred during password comparison", e);
+                throw new RuntimeException("Password comparison failed");
+            }
+        } else {
+            log.info("Admin not found with id: " + adminid);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean doesProductExist(int pro_idx) {
+        int count = dao.doesProductExist(pro_idx);
+        return count > 0;
+    }
+
+    @Override
+    public MasterVO getProductImgByIdx(int idx) {
+        return dao.getProductImgByIdx(idx);
+    }
+
+    @Override
+    public boolean updateProductImg(MasterVO productImg) {
+        int result = dao.updateProductImg(productImg);
+        return result > 0;
+    }
+
+    @Override
+    public int getTotalAnimeCount() {
+        return dao.getTotalAnimeCount();
+    }
+
+    @Override
+    public List<MasterVO> getAniListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getAniListWithPaging(params);
     }
 }
