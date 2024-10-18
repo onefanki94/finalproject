@@ -231,16 +231,6 @@
         o.idx AS order_idx,
         DATE_FORMAT(o.regDT, '%Y.%m.%d') AS order_date,
         o.trackingNum As trackingNum,
-        o.use_point As use_point,
-        o.recipient As recipient,
-        o.zipcode As zipcode,
-        o.addr As addr,
-        o.addrdetail As addrdetail,
-        o.tel As tel,
-        o.request_memo As request_memo,
-        pm.createDT As payDT,
-        pm.paytype As paytype,
-        pm.amount AS amount,
         pm.orderid AS orderId
         FROM
         T_order o
@@ -275,6 +265,30 @@
         WHERE o.useridx = ${param1}
         AND o.payState = 1
         AND pm.successYN = 1;
+    </select>
+    <select id="getOrderDetailData" resultType="com.ict.finalproject.DTO.OrderListDTO">
+        SELECT
+        o.idx AS order_idx,
+        DATE_FORMAT(o.regDT, '%Y.%m.%d') AS order_date,
+        o.trackingNum As trackingNum,
+        o.total_price As total_price,
+        o.use_point As use_point,
+        o.recipient As recipient,
+        o.zipcode As zipcode,
+        o.addr As addr,
+        o.addrdetail As addrdetail,
+        o.tel As tel,
+        o.request_memo As request_memo,
+        pm.createDT As payDT,
+        pm.paytype As paytype,
+        pm.amount AS amount,
+        pm.orderid AS orderId
+        FROM
+        T_order o
+        JOIN
+        T_payment pm ON o.idx = pm.order_idx
+        WHERE
+        o.idx=${param1} and o.useridx = ${param2} and o.payState=1 and pm.successYN=1
     </select>
     <!-- 채원 끝-->
 </mapper>

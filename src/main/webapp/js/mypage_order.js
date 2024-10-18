@@ -15,7 +15,6 @@ function getOrderListAll(page){
             "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
         },
         success: function(response) {
-            console.log(response);
             displayOrderList(response.content);
             setupPagination(response.totalPages,response.page);
         },
@@ -44,8 +43,8 @@ function displayOrderList(orderList) {
         const orderHTML = `
             <li class="order_list_li">
               <div class="order_date_num">
-                <a href=""><span>주문일자  </span>${order.order_date}</a>
-                <a href=""><span>주문번호  </span>${order.orderId}</a>
+                <a href="/user/mypage_order_detail/${order.order_idx}"><span>주문일자  </span>${order.order_date}</a>
+                <a href="/user/mypage_order_detail/${order.order_idx}"><span>주문번호  </span>${order.orderId}</a>
               </div>
               <ul>
                   ${order.products.map(product => {
@@ -58,11 +57,11 @@ function displayOrderList(orderList) {
                     <li>
                       <ul class="order_data_ulStyle">
                         <li class="order_data_list_one">
-                          <a href="">
+                          <a href="/user/mypage_order_detail/${order.order_idx}">
                             <div class="order_data_inform">
                               <div class="order_data_img"><img src="http://192.168.1.92:8000/${product.pro_image}"/></div>
                               <div style="padding: 5px 0;">
-                                <p class="order_aniTitle">${product.pro_anititle}<p>
+                                <p class="order_aniTitle">${product.pro_anititle}</p>
                                 <p class="order_pro_name">${product.pro_title}</p>
                                 <ul class="order_pro_option">
                                   <li>${formattedAmount}</li>

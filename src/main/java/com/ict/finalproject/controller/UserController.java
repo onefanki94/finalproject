@@ -472,12 +472,37 @@ public class UserController {
     }
 
     //마이페이지-주문상세 view
-    @GetMapping("/mypage_order_detail")
-    public ModelAndView mypageOrderDetail() {
+    @GetMapping("/mypage_order_detail/{order_idx}")
+    public ModelAndView mypageOrderDetail(@PathVariable("order_idx") int order_idx) {
         mav = new ModelAndView();
+        mav.addObject("order_idx", order_idx);
         mav.setViewName("mypage/mypage_order_detail");
-
         return mav;
+    }
+
+    //마이페이지 주문 상세 데이터 뿌려주기
+    @PostMapping("/getOrderDetailOk")
+    public ResponseEntity<Map<String, Object>> getOrderDetailOk(@RequestParam("order_idx") int order_idx,
+                                                                @RequestHeader("Authorization") String headerToken){
+        // JWT 토큰에서 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(headerToken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        //주문 상세 내역 데이터
+        OrderListDTO orderDatail = service.getOrderDetailData(order_idx,useridx);
+        // 주문자 데이터
+        MemberVO orderer = service.getUserinfo(useridx);
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderDatail", orderDatail);
+        response.put("orderer", orderer);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     //마이페이지-적립금리스트 view

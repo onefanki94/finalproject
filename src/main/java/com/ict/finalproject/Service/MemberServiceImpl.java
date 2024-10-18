@@ -199,5 +199,19 @@ public class MemberServiceImpl implements MemberService {
         return response;
     }
 
+    //주문 정보 상세 데이터
+    @Override
+    public OrderListDTO getOrderDetailData(int order_idx, int useridx) {
+        // 1. 주문내역 상세 정보 가져오기
+        OrderListDTO orderDetail = dao.getOrderDetailData(order_idx, useridx);
+        // 2. 주문한 상품 정보 가져오기
+        List<OrderProDTO> products = dao.getOrderProducts(order_idx);
+        orderDetail.setProducts(products);
+
+        return orderDetail;
+    }
+
+
+
 
 }

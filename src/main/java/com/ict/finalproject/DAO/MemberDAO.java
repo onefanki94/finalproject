@@ -89,4 +89,5 @@ public interface MemberDAO {
         List<OrderListDTO> getPagedOrderList(int userIdx, int offset, int pageSize);
         List<OrderProDTO> getOrderProducts(int order_idx);
         long getTotalOrderCount(int userIdx);
+        OrderListDTO getOrderDetailData(int order_idx, int useridx);
 }

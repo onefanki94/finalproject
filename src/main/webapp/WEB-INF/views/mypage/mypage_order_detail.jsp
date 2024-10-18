@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="/css/mypage_order_detail.css" type="text/css" />
 <script src="/js/mypage_common.js"></script>
+<script src="/js/mypage_orderDetail.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -76,7 +77,7 @@
 
       <div class="mypage_right_element">
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
-        <div>
+        <div class="order_detail_all_container">
           <div class="order_detail_all">
             <div class="order_detail_state">
               <h4 class="my_tit">주문상세내역</h4>
@@ -254,3 +255,6 @@
   </div>
 </div>
 
+<script>
+    var order_idx = ${order_idx};
+</script>

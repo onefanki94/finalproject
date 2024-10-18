@@ -14,6 +14,7 @@ public class OrderListDTO {
     private int order_idx;//ㅇㅇ
     private String order_date;//ㅇㅇ
     private String trackingNum;//ㅇㅇ
+    private int total_price;
     private int use_point;//ㅇㅇ
     private String recipient;//ㅇㅇ
     private String zipcode;//ㅇㅇ

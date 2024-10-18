@@ -59,4 +59,6 @@ public interface MemberService {
     int deleteAniLike(int useridx, int ani_idx);
     // 마이페이지 주문내역 띄우기
     PageResponse<OrderListDTO> getOrderListWithPaging(int useridx,int page,int pageSize);
+    // 마이페이지 주문내역 상세
+    OrderListDTO getOrderDetailData(int order_idx,int useridx);
 }
