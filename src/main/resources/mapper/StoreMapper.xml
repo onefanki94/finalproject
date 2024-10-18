@@ -71,24 +71,25 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
     <select id="getStoreListBySortFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product
         <choose>
-            <when test="'latest'.equals(filterType)">
+            <when test="filterType == 'latest'">
                 ORDER BY created_date DESC
             </when>
-            <when test="'popular'.equals(filterType)">
+            <when test="filterType == 'popular'">
                 ORDER BY popularity DESC
             </when>
-            <when test="'high-price'.equals(filterType)">
+            <when test="filterType == 'high-price'">
                 ORDER BY price DESC
             </when>
-            <when test="'low-price'.equals(filterType)">
+            <when test="filterType == 'low-price'">
                 ORDER BY price ASC
             </when>
-             <otherwise>
-            <!-- 기본 정렬 --> 
-            ORDER BY created_date DESC
-        </otherwise>
+            <otherwise>
+                <!-- 기본 정렬 -->
+                ORDER BY created_date DESC
+            </otherwise>
         </choose>
     </select>
+
 
     <select id="searchStoreList" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product
@@ -135,6 +136,21 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
         JOIN t_firstcategory f ON s.first_code = f.code
         WHERE f.code = #{code}
     </select>
+    <!--  좋아요 카운팅-->
+    <select id="getStoreWithPopularity" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT s.*,
+        COALESCE(likeData.likeCount, 0) AS popularity
+        FROM t_product s
+        LEFT JOIN (
+        SELECT pro_idx, COUNT(*) AS likeCount
+        FROM t_prolike
+        GROUP BY pro_idx
+        ) likeData ON s.idx = likeData.pro_idx  <!-- 상품과 좋아요 데이터를 조인 -->
+        WHERE s.category = #{category}  <!-- 필요에 따라 카테고리 필터링 -->
+        ORDER BY s.regDT DESC  <!-- 최신 상품 우선 정렬 -->
+    </select>
+
+
 
 
 </mapper>
