@@ -1,30 +1,3 @@
-    // 좌측 필터 클릭 시 활성화
-    function filterProductsByType(filterType) {
-        const allFilters = document.querySelectorAll('.filter-option');
-        allFilters.forEach(filter => filter.classList.remove('active'));
-
-        const activeFilter = document.querySelector(`.filter-option[onclick="filterProductsByType('${filterType}')"]`);
-        if (activeFilter) {
-            activeFilter.classList.add('active');
-        }
-
-        let products = Array.from(document.querySelectorAll('.list-product'));
-
-
-        if (filterType === 'latest') {
-            products.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
-        } else if (filterType === 'popular') {
-            products.sort((a, b) => parseInt(b.dataset.popular) - parseInt(a.dataset.popular));
-        } else if (filterType === 'high-price') {
-            products.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price));
-        } else if (filterType === 'low-price') {
-            products.sort((a, b) => parseInt(a.dataset.price) - parseInt(b.dataset.price));
-        }
-
-        const productContainer = document.querySelector('.list-carousel-images');
-        productContainer.innerHTML = '';  // 기존 상품 제거
-        products.forEach(product => productContainer.appendChild(product));  // 정렬된 상품 다시 추가
-    }
 
     //상품검색창
     function searchProducts() {
@@ -79,7 +52,7 @@ fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize)
     .catch(error => console.error('Error:', error));
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM fully loaded and parsed");
+
 
 });
 
@@ -170,21 +143,50 @@ function filterProductsByServer() {
     });
 }
 
-function updateProductList(products) {  // 함수 본문에 코드가 존재 (올바른 정의 방식)
-    const productList = document.querySelector('.list-carousel-images');  // 함수 내부에 위치
-    console.log(products);
-    productList.innerHTML = '';  // 기존의 상품 목록을 지움
+    function updateProductList(products) {
+        const productList = document.querySelector('.list-carousel-images');
+        console.log(productList);  // productList가 null이 아닌지 확인
+        if (!productList) {
+            console.error("상품 목록 컨테이너를 찾을 수 없습니다.");
+            return;  // productList가 정의되지 않았을 경우 함수 종료
+        }
+        console.log(products);  // products 데이터 확인용
 
+        productList.innerHTML = '';  // 기존의 상품 목록을 지움
+
+        products.forEach(product => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-product';
+            listItem.innerHTML = `
+                <a href="/storeDetail/${product.idx}">
+                    <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                </a>
+                <p>${product.title}</p>
+                <p>${product.price.toLocaleString()} 원</p>
+            `;
+            productList.appendChild(listItem);  // 새로운 상품 목록을 추가
+        });
+    }
+
+const products = [
+    // 서버에서 가져온 상품 데이터에 popularity 값이 포함됨
+    { date: '2024-10-15', popularity: 100, price: 15000, title: '상품 제목 1', id: 1, imageUrl: 'http://192.168.1.92:8000/sample-product.jpg' }
+];
+//    좋아요 수 표시로 상품목록 업데이트
     products.forEach(product => {
         const listItem = document.createElement('li');
         listItem.className = 'list-product';
+        listItem.setAttribute('data-date', product.date);
+        listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
+        listItem.setAttribute('data-price', product.price);
+
         listItem.innerHTML = `
-            <a href="/storeDetail/${product.idx}">
-                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+            <a href="/storeDetail/${product.id}">
+                <img src="${product.imageUrl}" alt="${product.title}">
             </a>
             <p>${product.title}</p>
             <p>${product.price.toLocaleString()} 원</p>
         `;
-        productList.appendChild(listItem);  // 새로운 상품 목록을 추가
+
+        productList.appendChild(listItem);
     });
-    }

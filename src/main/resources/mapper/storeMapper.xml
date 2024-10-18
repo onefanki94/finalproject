@@ -135,6 +135,21 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
         JOIN t_firstcategory f ON s.first_code = f.code
         WHERE f.code = #{code}
     </select>
+    <!--  좋아요 카운팅-->
+    <select id="getStoreWithPopularity" parameterType="map" resultType="com.ict.finalproject.vo.StoreVO">
+        SELECT s.*,
+        COALESCE(likeData.likeCount, 0) AS popularity
+        FROM t_product s
+        LEFT JOIN (
+        SELECT pro_idx, COUNT(*) AS likeCount
+        FROM t_prolike
+        GROUP BY pro_idx
+        ) likeData ON s.idx = likeData.pro_idx  <!-- 상품과 좋아요 데이터를 조인 -->
+        WHERE s.category = #{category}  <!-- 필요에 따라 카테고리 필터링 -->
+        ORDER BY s.regDT DESC  <!-- 최신 상품 우선 정렬 -->
+    </select>
+
+
 
 
 </mapper>
