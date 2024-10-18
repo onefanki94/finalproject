@@ -161,6 +161,15 @@ public class OrderServiceImpl implements OrderService{
         dao.updatePaymentFailure(payment);
     }
 
+    @Override
+    public String getPaymentKey(int order_idx) {
+        return dao.getPaymentKey(order_idx);
+    }
+
+    @Override
+    public OrderListVO getCancelProduct(int order_idx, int pro_idx) {
+        return dao.getCancelProduct(order_idx,pro_idx);
+    }
 
 
 }

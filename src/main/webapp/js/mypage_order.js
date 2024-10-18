@@ -41,6 +41,7 @@ function displayOrderList(orderList) {
     orderList.forEach(order => {
         const orderHTML = `
             <li class="order_list_li">
+              <input type="hidden" id="order_idx" value="${order.order_idx}"/>
               <div class="order_date_num">
                 <a href="/user/mypage_order_detail/${order.order_idx}"><span>주문일자  </span>${order.order_date}</a>
                 <a href="/user/mypage_order_detail/${order.order_idx}"><span>주문번호  </span>${order.orderId}</a>
@@ -52,9 +53,13 @@ function displayOrderList(orderList) {
                     const packageButton = product.orderState >= 3
                         ? `<button class="order_package">CJ대한통운 <span>${order.trackingNum}</span></button>`
                         : '';
+                    const cancelButton = product.orderState == 1
+                        ? `<button id="payCancel_btn">취소하기</button>`
+                        : '';
                     return `
                     <li>
                       <ul class="order_data_ulStyle">
+                        <input type="hidden" id="pro_idx" value="${product.pro_idx}"/>
                         <li class="order_data_list_one">
                           <a href="/user/mypage_order_detail/${order.order_idx}">
                             <div class="order_data_inform">
@@ -75,6 +80,7 @@ function displayOrderList(orderList) {
                                 <p class="order_state_data">${getOrderStateText(product.orderState)}</p>
                               </div>
                               ${packageButton} <!-- 버튼 삽입 -->
+                              ${cancelButton}
                             </div>
                           </div>
                         </li>
@@ -148,3 +154,29 @@ function setupPagination(totalPages, currentPage) {
         getOrderListAll(page);
     });
 }
+
+$(document).on('click', '#payCancel_btn', function() {
+    var order_idx= $(this).closest(".order_list_li").find('#order_idx').val();
+    var pro_idx= $(this).closest(".order_data_ulStyle").find('#pro_idx').val();
+    console.log("order_idx",order_idx);
+    console.log("pro_idx",pro_idx);
+
+    $.ajax({
+        url: '/order/cancel_basicInfo',
+        type: 'POST',
+       data: JSON.stringify({
+                order_idx: order_idx,
+                pro_idx: pro_idx
+        }),
+        contentType: 'application/json',
+        headers: {
+                "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+        },
+        success: function(response) {
+            location.href = `/order/mypage_cancel1?order_idx=${order_idx}&pro_idx=${pro_idx}`;
+        },
+        error: function(error) {
+            console.log('취소 페이지 이동중 에러 발생:', error);
+        }
+    });
+});

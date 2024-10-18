@@ -1,6 +1,7 @@
 package com.ict.finalproject.controller;
 
 import com.ict.finalproject.DTO.OrderRequest;
+import com.ict.finalproject.DTO.PayCancelDTO;
 import com.ict.finalproject.DTO.PaymentApprovalDTO;
 import com.ict.finalproject.DTO.PaymentReqDTO;
 import com.ict.finalproject.JWT.JWTUtil;
@@ -9,6 +10,7 @@ import com.ict.finalproject.Service.OrderService;
 import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.OrderVO;
 import com.ict.finalproject.vo.PaymentVO;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -205,5 +207,60 @@ public class OrderController {
         return "결제가 실패했습니다. 다시 시도해주세요.";
     }
 
+    // 결제 취소 구현
+    // 결제 취소 페이지로 이동할거임
+    @PostMapping("/cancel_basicInfo")
+    public ResponseEntity<String> cancelBasicInfo(@RequestBody PayCancelDTO payCancelDTO,
+                                               @RequestHeader("Authorization") String Headertoken,
+                                               HttpSession session){
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        // 프론트에서 가져온 order_idx와 pro_idx를 PayCancelDTO에 담았음
+        int order_idx = payCancelDTO.getOrder_idx();
+        // paymentkey값 알아와서 저장하기
+        String paymentkey = service.getPaymentKey(order_idx);
+        log.info("paymentkey:{}",paymentkey);
+        payCancelDTO.setPaymentkey(paymentkey);
+        session.setAttribute("PayCancelDTO", payCancelDTO);
+        return ResponseEntity.ok("PayCancelDTO에 기본정보 저장 완료");
+    }
+    //결제 취소 step 1 view
+    @GetMapping("/mypage_cancel1")
+    public ModelAndView mypageCancel1(@RequestParam("order_idx") int order_idx,
+                                      @RequestParam("pro_idx") int pro_idx) {
+        // 화면에 데이터 뿌려주기
+        OrderListVO cancelProduct = service.getCancelProduct(order_idx,pro_idx);
+        mav = new ModelAndView();
+        mav.addObject("cancelProduct",cancelProduct);
+        mav.setViewName("mypage/mypage_cancel1");
+
+        return mav;
+    }
+
+    //결제 취소 step 2 view
+    @GetMapping("/mypage_cancel2")
+    public ModelAndView mypageCancel2() {
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_cancel2");
+
+        return mav;
+    }
+
+    //결제 취소 step 3 view
+    @GetMapping("/mypage_cancel3")
+    public ModelAndView mypageCancel3() {
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_cancel3");
+
+        return mav;
+    }
 
 }

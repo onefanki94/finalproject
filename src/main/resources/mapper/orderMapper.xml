@@ -102,4 +102,29 @@
         WHERE orderId = #{orderId}
     </update>
 
+    <!-- 결제 취소 페이먼츠키 가져오기 -->
+    <select id="getPaymentKey">
+        select paymentkey
+        from T_payment
+        where order_idx=${param1}
+    </select>
+    <select id="getCancelProduct">
+        SELECT
+        ol.pro_idx,
+        ol.order_idx,
+        ol.orderState,
+        p.title,
+        p.ani_title,
+        ol.amount,
+        p.price,
+        p.thumImg
+        FROM
+        T_orderList ol
+        JOIN
+        T_product p ON ol.pro_idx = p.idx
+        WHERE
+        ol.order_idx = ${param1}
+        AND
+        ol.pro_idx = ${param2}
+    </select>
 </mapper>

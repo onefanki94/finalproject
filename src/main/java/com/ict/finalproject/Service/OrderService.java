@@ -32,4 +32,10 @@ public interface OrderService {
     // 결제 실패
     public void handleFailure(String orderId, String code, String message);
 
+    // 결제 취소
+    // paymentkey값 가져오기
+    String getPaymentKey(int order_idx);
+    // step 1 데이터 뿌려주기
+    OrderListVO getCancelProduct(int order_idx,int pro_idx);
+
 }
