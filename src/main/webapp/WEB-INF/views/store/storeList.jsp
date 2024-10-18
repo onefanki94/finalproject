@@ -4,8 +4,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/WEB-INF/inc/store_header.jspf"%>
 
-<script src="/js/storeList.js"></script>
 <link href="/css/storeList.css" rel="stylesheet" type="text/css">
+<script src="/js/storeList.js"></script>
+
+
+<script>
+
+</script>
+
+
+
+
+
 
 
 <div class="storeList_container">
@@ -141,67 +151,6 @@
                    <a href="/storeList?pageNum=${currentPage + 1}&category=${selectedCategory}&filterType=${selectedFilterType}">다음 &raquo;</a>
                </c:if>
            </div>
-
-<script>
-  const subcategoryMap = {
-      '아우터': 10,
-      '상의': 11,
-      '하의': 12,
-      '잡화': 13,
-      '아크릴': 20,
-      '피규어': 21,
-      '캔뱃지': 22,
-      '슬로건': 23,
-      '포스터': 24,
-      '기타': 25,
-      '필기류': 30,
-      '노트&메모지': 31,
-      '파일': 32,
-      '스티커': 33,
-      '달력': 34,
-      '기타': 35,
-      '컵&텀블러': 40,
-      '쿠션': 41,
-      '담요': 42,
-      '기타': 43
-  };
-
-  window.applyFilter = function(category, second_category) {
-      console.log("선택된 카테고리: ", category);
-      console.log("선택된 하위 카테고리: ", second_category);
-      const pageNum = 1;
-      const pageSize = 10;
-
-      // second_category 값을 subcategoryMap에서 가져옴
-      const secondCategoryValue = subcategoryMap[second_category] || null;
-
-      // category 값이 없을 때는 파라미터에서 제외
-      const requestData = {
-          pageNum: pageNum,
-          pageSize: pageSize,
-          second_category: secondCategoryValue
-      };
-
-      if (category) {
-          requestData.category = category;
-      }
-
-      // AJAX 요청에서 category와 secondCategory를 서버로 전달
-      $.ajax({
-          url: `/pagedProducts`,
-          method: 'GET',
-          data: requestData,
-          success: function(data) {
-              console.log("필터링된 상품 목록: ", data);
-              updateProductList(data); // 필터링된 상품 목록을 화면에 업데이트하는 함수
-          },
-          error: function(error) {
-              console.error("필터 적용 중 오류 발생: ", error);
-              console.log("전달된 데이터:", requestData);
-          }
-      });
-  };
-</script>
 
 
 <%@include file="/WEB-INF/inc/store_footer.jspf"%>

@@ -71,24 +71,25 @@ GROUP BY p.idx, p.title, p.price, p.thumImg, p.ani_title, p.relDT, p.brand, p.fe
     <select id="getStoreListBySortFilter" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product
         <choose>
-            <when test="'latest'.equals(filterType)">
+            <when test="filterType == 'latest'">
                 ORDER BY created_date DESC
             </when>
-            <when test="'popular'.equals(filterType)">
+            <when test="filterType == 'popular'">
                 ORDER BY popularity DESC
             </when>
-            <when test="'high-price'.equals(filterType)">
+            <when test="filterType == 'high-price'">
                 ORDER BY price DESC
             </when>
-            <when test="'low-price'.equals(filterType)">
+            <when test="filterType == 'low-price'">
                 ORDER BY price ASC
             </when>
-             <otherwise>
-            <!-- 기본 정렬 --> 
-            ORDER BY created_date DESC
-        </otherwise>
+            <otherwise>
+                <!-- 기본 정렬 -->
+                ORDER BY created_date DESC
+            </otherwise>
         </choose>
     </select>
+
 
     <select id="searchStoreList" parameterType="String" resultType="com.ict.finalproject.vo.StoreVO">
         SELECT * FROM t_product

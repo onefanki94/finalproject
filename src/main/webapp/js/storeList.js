@@ -1,18 +1,18 @@
 
-    //상품검색창
-    function searchProducts() {
-        const input = document.getElementById('productSearch').value.toLowerCase();
-        const productItems = document.querySelectorAll('.list-product'); // 상품 리스트
+//상품검색창
+function searchProducts() {
+    const input = document.getElementById('productSearch').value.toLowerCase();
+    const productItems = document.querySelectorAll('.list-product'); // 상품 리스트
 
-        productItems.forEach(item => {
-            const productName = item.textContent.toLowerCase();
-            if (productName.includes(input)) {
-                item.style.display = ''; // 검색어가 포함된 항목 보이기
-            } else {
-                item.style.display = 'none'; // 검색어가 포함되지 않은 항목 숨기기
-            }
-        });
-    }
+    productItems.forEach(item => {
+        const productName = item.textContent.toLowerCase();
+        if (productName.includes(input)) {
+            item.style.display = ''; // 검색어가 포함된 항목 보이기
+        } else {
+            item.style.display = 'none'; // 검색어가 포함되지 않은 항목 숨기기
+        }
+    });
+}
 
 
 
@@ -52,8 +52,6 @@ fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize)
     .catch(error => console.error('Error:', error));
 
 document.addEventListener('DOMContentLoaded', function() {
-
-
 });
 
 
@@ -118,75 +116,166 @@ function applyFilter(category, second_category) {
     });
 }
 
-
-function filterProductsByServer() {
-    // 선택된 카테고리 텍스트를 가져옴
-    const selectedCategory = document.querySelector('.filter-item.active .filter-text').textContent;
-    const pageNum = 1;  // 기본 페이지 넘버
-    const pageSize = 10;  // 페이지 크기
-
-    // AJAX 요청으로 필터링된 상품 목록 가져오기
-    $.ajax({
-        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
-        method: 'GET',
-        data: {
-        category: selectedCategory || null,
-                    second_category: second_category.type || null // 필요에 따라 하위 카테고리도 설정
-        },
-         success: function(data) {
-                    console.log('필터링된 상품 목록: ', data);
-                    updateProductList(data);  // 상품 목록 업데이트
-                },
-        error: function(error) {
-            console.error('Error filtering products:', error);
-        }
-    });
-}
-
-    function updateProductList(products) {
-        const productList = document.querySelector('.list-carousel-images');
-        console.log(productList);  // productList가 null이 아닌지 확인
-        if (!productList) {
-            console.error("상품 목록 컨테이너를 찾을 수 없습니다.");
-            return;  // productList가 정의되지 않았을 경우 함수 종료
-        }
-        console.log(products);  // products 데이터 확인용
-
-        productList.innerHTML = '';  // 기존의 상품 목록을 지움
-
-        products.forEach(product => {
-            const listItem = document.createElement('li');
-            listItem.className = 'list-product';
-            listItem.innerHTML = `
-                <a href="/storeDetail/${product.idx}">
-                    <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-                </a>
-                <p>${product.title}</p>
-                <p>${product.price.toLocaleString()} 원</p>
-            `;
-            productList.appendChild(listItem);  // 새로운 상품 목록을 추가
-        });
+let productList;
+let procducts;
+document.addEventListener('DOMContentLoaded', function() {
+    productList = document.querySelector('.list-carousel-images');
+    if (!productList) {
+        console.error("상품 목록 컨테이너를 찾을 수 없습니다.");
+        return;
     }
 
-const products = [
-    // 서버에서 가져온 상품 데이터에 popularity 값이 포함됨
-    { date: '2024-10-15', popularity: 100, price: 15000, title: '상품 제목 1', id: 1, imageUrl: 'http://192.168.1.92:8000/sample-product.jpg' }
-];
-//    좋아요 수 표시로 상품목록 업데이트
+    // 서버에서 상품 목록을 가져오는 API 호출
+    fetch('/pagedProducts?pageNum=1&pageSize=10')
+        .then(response => response.json())  // 응답을 JSON으로 변환
+        .then(data => {
+            // 서버에서 받은 데이터를 가지고 productList를 업데이트
+            data.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-product';
+                listItem.setAttribute('data-date', product.date);
+                listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
+                listItem.setAttribute('data-price', product.price);
+
+                listItem.innerHTML = `
+                    <a href="/storeDetail/${product.idx}">
+                        <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                    </a>
+                    <p>${product.title}</p>
+                    <p>${product.price.toLocaleString()} 원</p>
+                `;
+                productList.appendChild(listItem);
+            });
+
+            // 기본 필터 적용 (예: 최신순)
+            filterProductsByType('latest');
+        })
+        .catch(error => {
+            console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
+        });
+
+
+});
+// 필터 적용 함수 정의
+function filterProductsByType(filterType) {
+console.log("filterProductsByType->",filterType)
+    // 모든 필터 버튼에서 'active' 클래스 제거
+    const allFilters = document.querySelectorAll('.filter-options');
+    allFilters.forEach(filter => filter.classList.remove('active'));
+
+    // 클릭된 필터 버튼에 'active' 클래스 추가
+    const activeFilter = document.querySelector(`.filter-options[onclick="filterProductsByType('${filterType}')"]`);
+    if (activeFilter) {
+        activeFilter.classList.add('active');
+    }
+
+    // 현재 상품 목록을 가져옴
+    //let products = Array.from(document.querySelectorAll('.list-product'));
+    console.log(products);
+    // 필터 타입에 따른 정렬
+    if (filterType === 'latest') {
+        products.sort((a, b) => new Date(b.regDT) - new Date(a.regDT));  // 최신순 정렬
+    } else if (filterType === 'popular') {
+        products.sort((a, b) => parseInt(b.likeCount) - parseInt(a.likeCount));  // 인기순 (좋아요 수) 정렬
+    } else if (filterType === 'high-price') {
+        products.sort((a, b) => parseInt(b.price) - parseInt(a.price));  // 높은 가격순 정렬
+    } else if (filterType === 'low-price') {
+        products.sort((a, b) => parseInt(a.price) - parseInt(b.price));  // 낮은 가격순 정렬
+    }
+
+    // 기존 상품 목록을 지우고 정렬된 상품 목록을 다시 추가
+    //console.log(productList);
+    //productList.innerHTML = '';
+    //products.forEach(product => {productList.appendChild(product);console.log(product);});
+    //console.log(productList);
+    updateProductList(products);
+}
+function updateProductList(products) {
+    console.log("updateProductList(products)=>",products);
+    productList = document.querySelector('.list-carousel-images');
+    console.log("line193");  // productList가 null이 아닌지 확인
+    if (!productList) {
+        console.error("상품 목록 컨테이너를 찾을 수 없습니다.");
+        return;  // productList가 정의되지 않았을 경우 함수 종료
+    }
+
+
+    productList.innerHTML = '';  // 기존의 상품 목록을 지움
+
+
     products.forEach(product => {
         const listItem = document.createElement('li');
         listItem.className = 'list-product';
-        listItem.setAttribute('data-date', product.date);
-        listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
-        listItem.setAttribute('data-price', product.price);
-
         listItem.innerHTML = `
-            <a href="/storeDetail/${product.id}">
-                <img src="${product.imageUrl}" alt="${product.title}">
+            <a href="/storeDetail/${product.idx}">
+                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
             </a>
             <p>${product.title}</p>
             <p>${product.price.toLocaleString()} 원</p>
         `;
-
-        productList.appendChild(listItem);
+        productList.appendChild(listItem);  // 새로운 상품 목록을 추가
     });
+}
+
+////////////////////////////////////////
+
+  const subcategoryMap = {
+      '아우터': 10,
+      '상의': 11,
+      '하의': 12,
+      '잡화': 13,
+      '아크릴': 20,
+      '피규어': 21,
+      '캔뱃지': 22,
+      '슬로건': 23,
+      '포스터': 24,
+      '기타': 25,
+      '필기류': 30,
+      '노트&메모지': 31,
+      '파일': 32,
+      '스티커': 33,
+      '달력': 34,
+      '기타': 35,
+      '컵&텀블러': 40,
+      '쿠션': 41,
+      '담요': 42,
+      '기타': 43
+  };
+
+  window.applyFilter = function(category, second_category) {
+      console.log("선택된 카테고리: ", category);
+      console.log("선택된 하위 카테고리: ", second_category);
+      const pageNum = 1;
+      const pageSize = 10;
+
+      // second_category 값을 subcategoryMap에서 가져옴
+      const secondCategoryValue = subcategoryMap[second_category] || null;
+
+      // category 값이 없을 때는 파라미터에서 제외
+      const requestData = {
+          pageNum: pageNum,
+          pageSize: pageSize,
+          second_category: secondCategoryValue
+      };
+
+      if (category) {
+          requestData.category = category;
+      }
+
+      // AJAX 요청에서 category와 secondCategory를 서버로 전달
+      $.ajax({
+          url: `/pagedProducts`,
+          method: 'GET',
+          data: requestData,
+          success: function(data) {
+              console.log("필터링된 상품 목록: ", data);
+              products = data;
+              updateProductList(data); // 필터링된 상품 목록을 화면에 업데이트하는 함수
+          },
+          error: function(error) {
+              console.error("필터 적용 중 오류 발생: ", error);
+              console.log("전달된 데이터:", requestData);
+          }
+      });
+  };
+
