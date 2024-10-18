@@ -83,6 +83,12 @@ public class StoreServiceImpl implements StoreService {
         return dao.getStoreWithPopularity(params);
     }
 
+    @Override
+    public String getCategoryType(int categoryCode) {
+        // categoryCode를 통해 카테고리 타입 조회
+        return dao.getCategoryType(categoryCode);
+    }
+
     //채원
     @Override
     public int checkProductInBasket(BasketVO basketvo) {
