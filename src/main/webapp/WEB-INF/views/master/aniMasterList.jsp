@@ -53,10 +53,28 @@
                                   <tr>
                                       <td><input type="checkbox" name="select" id="select"/></td>
                                       <td>${ani.idx}</td>
-                                      <td>${ani.anitype_type}</td>
+                                      <td>
+                                          <c:choose>
+                                              <c:when test="${ani.anitype == 1}">드라마</c:when>
+                                              <c:when test="${ani.anitype == 2}">미스터리</c:when>
+                                              <c:when test="${ani.anitype == 3}">스포츠</c:when>
+                                              <c:when test="${ani.anitype == 4}">코미디</c:when>
+                                              <c:when test="${ani.anitype == 5}">판타지</c:when>
+                                              <c:when test="${ani.anitype == 6}">SF</c:when>
+                                              <c:otherwise>기타</c:otherwise>
+                                          </c:choose>
+                                      </td>
                                       <td>${ani.title}</td>
                                       <td>${ani.director}</td>
-                                      <td>${ani.age_type}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${ani.agetype == 1}">전체</c:when>
+                                            <c:when test="${ani.agetype == 2}">12세</c:when>
+                                            <c:when test="${ani.agetype == 3}">15세</c:when>
+                                            <c:when test="${ani.agetype == 4}">19세</c:when>
+                                            <c:otherwise>알 수 없음</c:otherwise>
+                                        </c:choose>
+                                    </td>
                      <td>
                          <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster/${ani.idx}">수정</a></button>
                          <button class="btn btn-outline-danger btn-sm" data-idx="${ani.idx}">삭제</button>
