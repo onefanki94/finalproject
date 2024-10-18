@@ -68,7 +68,7 @@ if (category) {
 }
 if (secondCategory) {
     url += `&second_category=${secondCategory}`;
-
+}
 
 fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize)
     .then(response => response.json())
@@ -119,29 +119,7 @@ function loadSubcategories(categoryCode) {
         }
     });
 }
-// 카테고리명과 코드를 매핑
-const subcategoryMap = {
-    '아우터': 10,
-    '상의': 11,
-    '하의': 12,
-    '잡화': 13,
-    '아크릴': 20,
-    '피규어': 21,
-    '캔뱃지': 22,
-    '슬로건': 23,
-    '포스터': 24,
-    '기타': 25,
-    '필기류': 30,
-    '노트&메모지': 31,
-    '파일': 32,
-    '스티커': 33,
-    '달력': 34,
-    '기타': 35,
-    '컵&텀블러': 40,
-    '쿠션': 41,
-    '담요': 42,
-    '기타': 43
-};
+
 // 필터를 적용하는 함수
 function applyFilter(category, second_category) {
     const pageNum = 1;
@@ -168,26 +146,6 @@ function applyFilter(category, second_category) {
 }
 
 
-
- function updateProductList(products) {}
-     const productList = document.querySelector('.list-carousel-images');
-     console.log(products);
-     productList.innerHTML = '';
-
-     products.forEach(product => {
-         const listItem = document.createElement('li');
-         listItem.className = 'list-product';
-         listItem.innerHTML = `
-             <a href="/storeDetail/${product.idx}">
-                 <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-             </a>
-             <p>${product.title}</p>
-             <p>${product.price.toLocaleString()} 원</p>
-         `;
-         productList.appendChild(listItem);
-     });
- }
-
 function filterProductsByServer() {
     // 선택된 카테고리 텍스트를 가져옴
     const selectedCategory = document.querySelector('.filter-item.active .filter-text').textContent;
@@ -212,3 +170,21 @@ function filterProductsByServer() {
     });
 }
 
+function updateProductList(products) {  // 함수 본문에 코드가 존재 (올바른 정의 방식)
+    const productList = document.querySelector('.list-carousel-images');  // 함수 내부에 위치
+    console.log(products);
+    productList.innerHTML = '';  // 기존의 상품 목록을 지움
+
+    products.forEach(product => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-product';
+        listItem.innerHTML = `
+            <a href="/storeDetail/${product.idx}">
+                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+            </a>
+            <p>${product.title}</p>
+            <p>${product.price.toLocaleString()} 원</p>
+        `;
+        productList.appendChild(listItem);  // 새로운 상품 목록을 추가
+    });
+    }
