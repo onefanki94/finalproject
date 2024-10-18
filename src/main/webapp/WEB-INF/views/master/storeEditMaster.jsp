@@ -4,8 +4,8 @@
 <script src="/js/Master.js"></script>
 <div class="storeEdit">
     <h2>굿즈 상품 수정</h2>
-    <form action="/master/storeEditMasterOK" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="idx" value="${Editstore.idx}">
+    <form id="storeEditForm" action="/master/storeEditMasterOK" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="idx" name="idx" value="${Editstore.idx}">
         <input type="hidden" id="token" name="token">
 
         <!-- 상품명 추가 -->
@@ -59,7 +59,7 @@
         <!-- 대분류 및 중분류 추가 -->
         <div>
             <label for="main-category">대분류:</label>
-            <select id="category" name="category">
+            <select id="code" name="code">
                 <option value="">대분류 선택</option>
                 <option value="1">의류</option>
                 <option value="2">완구/취미</option>
@@ -76,10 +76,15 @@
         </div>
 
         <!-- 상세 내용 이미지 추가 -->
-        <div>
-            <label for="detailImg">상세 내용 이미지:</label>
-            <input type="file" id="detailImg" name="detailImg" accept="image/*">
-        </div>
+                <div>
+                    <label for="pro_detail">상세 내용 :</label>
+                    <input type="text" id="pro_detail" name="pro_detail" value="${Editstore.pro_detail}">
+                </div>
+
+                <div>
+                    <label for="detailImg">상세 내용 이미지 :</label>
+                    <input type="file" id="detailImg" name="detailImg" accept="image/*">
+                </div>
 
         <!-- 폼 제출 버튼 -->
         <div>

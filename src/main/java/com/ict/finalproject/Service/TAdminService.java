@@ -9,4 +9,5 @@ public interface TAdminService {
      * @return 관리자 idx 값
      */
     Integer getAdminIdxByAdminId(String adminid);
+
 }

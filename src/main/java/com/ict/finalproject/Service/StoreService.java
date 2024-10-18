@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface StoreService {
@@ -28,10 +29,16 @@ public interface StoreService {
     public List<ProductFilterVO> getFirstCategoryList();  // 이 부분 추가
     // 상품 상세 정보 가져오기
     public StoreVO getStoreDetail(int storeId);
+
+    // 해당 상세상품의 숨은이미지 리스트 가져오기
+    public List<String> getImagesByProductId(int productId);
+
     // 카테고리 코드에 따른 하위 카테고리 목록 가져오기
     public List<String> getSubcategoriesByFirstCategory(@Param("code") int code);
     // 추가된 부분: 카테고리별 상품 목록 가져오기
     public List<StoreVO> getProductsByCategory(@Param("pageSize") int pageSize, @Param("offset") int offset, @Param("category") int category);
+
+    public List<StoreVO> getStoreWithPopularity(Map<String, Object> params);
 
 
 

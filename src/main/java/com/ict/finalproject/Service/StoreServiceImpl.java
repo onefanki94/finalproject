@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,6 +56,12 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public List<String> getImagesByProductId(int productId) {
+        return dao.getImagesByProductId(productId);  // 숨겨진 이미지만 가져오기
+    }
+
+
+    @Override
     public List<ProductFilterVO> getFirstCategoryList() {
         return dao.getFirstCategoryList();
     }
@@ -67,6 +74,11 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public List<StoreVO> getProductsByCategory(int pageSize, int offset, int category) {
         return dao.getProductsByCategory(pageSize, offset, category);
+    }
+
+    @Override
+    public List<StoreVO> getStoreWithPopularity(Map<String, Object> params) {
+        return dao.getStoreWithPopularity(params);
     }
 }
 
