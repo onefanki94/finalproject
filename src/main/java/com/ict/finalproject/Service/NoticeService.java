@@ -2,6 +2,7 @@ package com.ict.finalproject.Service;
 
 import com.ict.finalproject.vo.NoticeVO;
 import com.ict.finalproject.vo.PagingVO;
+import com.ict.finalproject.vo.QnaVO;
 
 import java.util.List;
 
@@ -15,5 +16,8 @@ public interface NoticeService {
     List<NoticeVO> getFaqs(PagingVO pVO);      // FAQ 목록
     PagingVO getFaqPage(int page, int size, int faqtype);      // FAQ 페이징
 
+    // 1:1문의 메서드 추가
+    int saveQna(QnaVO qna);
+    QnaVO getQnaByIdx(int idx);
 
 }

@@ -3,6 +3,7 @@ package com.ict.finalproject.Service;
 import com.ict.finalproject.DAO.NoticeDAO;
 import com.ict.finalproject.vo.NoticeVO;
 import com.ict.finalproject.vo.PagingVO;
+import com.ict.finalproject.vo.QnaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,20 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public List<NoticeVO> getFaqs(PagingVO pVO) {
         return noticeDAO.getFaqs(pVO);
+    }
+
+
+    //1:1 문의
+    @Override
+    public int saveQna(QnaVO qna) {
+        // NoticeDAO를 통해 QNA 데이터를 저장
+        return noticeDAO.saveQna(qna);
+    }
+
+    @Override
+    public QnaVO getQnaByIdx(int idx) {
+        // NoticeDAO를 통해 QNA 데이터를 가져옴
+        return noticeDAO.getQnaByIdx(idx);
     }
 
 
