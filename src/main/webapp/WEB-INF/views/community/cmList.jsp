@@ -33,7 +33,7 @@
                     <a href="javascript:void(0);" class="btn" onclick="showTab('40')">팬아트</a>
                 </li>
                 <li>
-                    <a href="/allnotice" class="btn">통합공지</a>
+                    <a href="/notice2" class="btn">통합공지</a>
                 </li>
             </ul>
         </div>

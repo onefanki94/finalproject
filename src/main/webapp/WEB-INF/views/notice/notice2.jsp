@@ -186,7 +186,7 @@
                 <div class="content" id="tap3">
                     <div class="inquiry-container">
                         <!-- 카테고리 및 문의 영역 -->
-                        <form class="inquiry-form" method="post" action="/inquirySubmit" enctype="multipart/form-data">
+                        <form class="inquiry-form" method="post" onsubmit = "return submitInquiry()" enctype="multipart/form-data">
                             <table class="inquiry-table">
                                 <!-- 구매 관련 문의 -->
                                 <tr>
@@ -233,14 +233,14 @@
                                 <!-- 제목 입력 -->
                                 <tr>
                                     <th>제목</th>
-                                    <td><input type="text" name="title" placeholder="제목을 입력하세요." class="inquiry-title"></td>
+                                    <td><input type="text" name="title" id="title" placeholder="제목을 입력하세요." class="inquiry-title"></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
                                 <!-- 내용 입력 -->
                                 <tr>
                                     <th>내용</th>
-                                    <td><textarea name="content" placeholder="내용을 입력하세요." class="inquiry-content"></textarea></td>
+                                    <td><textarea name="content" id="content" placeholder="내용을 입력하세요." class="inquiry-content"></textarea></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
@@ -248,7 +248,7 @@
                                 <tr>
                                     <th>사진 첨부</th>
                                     <td>
-                                        <input type="file" name="file" class="inquiry-attachment" multiple>
+                                        <input type="file" name="file" id="file" class="inquiry-attachment" multiple>
                                         <p class="attachment-info">파일용량은 최대 10MB로 제한되며, 1개의 파일을 첨부할 수 있습니다.</p>
                                     </td>
                                 </tr>
@@ -456,15 +456,27 @@ window.onload = function(){
 // 1:1 문의 제출 함수
 function submitInquiry() {
     //let formData = new FormData(document.querySelector(".inquiry-form"));
-    // 입력 필드 값 가져오기
-    var qnatype = document.getElementById("qnatype").value;
-    var title  = document.getElementById("title").value;
-    var content = document.getElementById("content").value;
-    var file = document.getElementById("file").value;
+    let formData = new FormData();
 
+    // 입력 필드 값 가져오기
+    let qnatype = document.querySelector('input[name="qnatype"]:checked').value;
+    let title = document.querySelector('.inquiry-title').value;
+    let content = document.querySelector('.inquiry-content').value;
+    let files = document.querySelector('.inquiry-attachment').files;
+ console.log("1", Array.from(formData.entries()));
+    // FormData에 입력 값 추가
+    formData.append("qnatype", qnatype);
+    formData.append("title", title);
+    formData.append("content", content);
+
+    // 파일 추가
+    for (let i = 0; i < files.length; i++) {
+        formData.append('file', files[i]);
+    }
 
     // 로컬 스토리지에서 JWT 토큰 가져오기
     const token = localStorage.getItem("token");
+    console.log(token);
     if (!token) {
         alert('로그인이 필요합니다.');
         location.href = "/user/login";
@@ -472,13 +484,10 @@ function submitInquiry() {
     }
 
     // 서버로 전송할 데이터를 FormData 객체에 추가
-    var formData = new FormData();
-    formData.append("qnatype", qnatype);
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("file", file);
+    // var formData = new FormData();
+    //formData.append("file", file);
 
-
+    console.log("2", Array.from(formData.entries()));
     $.ajax({
         url: '/inquirySubmit',
         type: 'POST',
@@ -486,8 +495,8 @@ function submitInquiry() {
         processData: false, // 데이터를 기본 문자열로 처리하지 않음
         contentType: false, // "multipart/form-data"로 전송
         headers: {
-            "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
-        },
+                "Authorization": "Bearer "+token   // JWT 토큰을 Authorization 헤더에 포함
+          },
         success: function(response) {
             alert('1:1 문의가 등록되었습니다.');
             location.reload(); // 성공 시 페이지 새로고침

@@ -77,11 +77,12 @@ public class noticeController {
                                                 @RequestParam(value = "file", required = false) List<MultipartFile> files,
                                                 @RequestHeader("Authorization") String token) {
         System.out.println("여긴오니?");
-
+        System.out.println("1" + title + "2" + content + "3" + qnatype + "4" + files + "5" + token);
         // 토큰에서 "Bearer " 제거
-        //String token = authorization.replace("Bearer ", "");
+        token = token.replace("Bearer ", "");
         //토큰에서 사용자 아이디 추출
         String userid = jwtUtil.getUserIdFromToken(token);
+        System.out.println("id : " +userid);
         // userid로 index구하기
         int useridx= mservice.getUseridx(userid);
 

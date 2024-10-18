@@ -215,14 +215,4 @@ public class communityController {
         return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
     }
 
-
-
-
-
-
-    //커뮤니티-공지사항 이동
-    @GetMapping("/allnotice")
-    public String allnotice(){
-        return "notice/notice2";
-    } //서비스가 없으니 당연히 리스트가 안나오지
 }
