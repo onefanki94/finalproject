@@ -37,11 +37,11 @@
                         <td>${board.idx}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${board.category == 10}">자랑</c:when>
-                                <c:when test="${board.category == 20}">덕질</c:when>
-                                <c:when test="${board.category == 30}">친목</c:when>
-                                <c:when test="${board.category == 40}">팬아트</c:when>
-                                <c:when test="${board.category == 50}">추천</c:when>
+                                <c:when test="${board.commtype == 10}">자랑</c:when>
+                                <c:when test="${board.commtype == 20}">덕질</c:when>
+                                <c:when test="${board.commtype == 30}">친목</c:when>
+                                <c:when test="${board.commtype == 40}">팬아트</c:when>
+                                <c:when test="${board.commtype == 50}">추천</c:when>
                                 <c:otherwise>기타</c:otherwise>
                             </c:choose>
                         </td>

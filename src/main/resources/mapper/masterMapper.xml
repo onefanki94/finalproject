@@ -327,8 +327,13 @@
     </select>
 
     <select id="getBoardListWithPaging" parameterType="map" resultType="MasterVO">
-        SELECT * FROM t_community
-        ORDER BY idx DESC
+        SELECT c.idx, tc.type AS category, c.title,
+       u.userid AS author,
+        c.regDT, c.hit, c.commtype
+        FROM t_community c
+        LEFT JOIN t_communitytype tc ON c.commtype = tc.code
+        LEFT JOIN t_user u ON c.useridx = u.idx
+        ORDER BY c.idx
         LIMIT #{offset}, #{limit}
     </select>
 
