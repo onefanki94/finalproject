@@ -65,7 +65,7 @@
       </div>
     </div>
   </div>
-  <div class="basket_btn_div"><a href="#">쇼핑 계속하기</a><button id="buy_btn_all" type="button">구매하기</button></div>
+  <div class="basket_btn_div"><a href="/storeMain">쇼핑 계속하기</a><button id="buy_btn_all" type="button">구매하기</button></div>
 </div>
 
 <%@include file="/WEB-INF/inc/store_footer.jspf"%>
