@@ -272,8 +272,8 @@
             </div>
             <div class="sticky-right">
                 <div class="price">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</div>
-                <button class="sticky_basket_btn">장바구니</button>
-                <button class="sticky_buy_btn">바로구매</button>
+                <button class="sticky_basket_btn" id="basket_in_btn">장바구니</button>
+                <button class="sticky_buy_btn" id="order_buy_btn">바로구매</button>
             </div>
         </div>
     </div>

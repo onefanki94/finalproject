@@ -153,7 +153,7 @@
         LEFT JOIN
         T_payment pm ON o.idx = pm.order_idx
         WHERE
-        o.useridx = ${param1} and o.payState=1 and ol.orderState=1
+        o.useridx = ${param1} and o.payState=1
         AND
         ol.idx = (
         SELECT MIN(sub_ol.idx)
