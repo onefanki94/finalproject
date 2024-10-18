@@ -17,8 +17,9 @@
 }
 
 .order_detail_all .order_detail_state .my_data {
-  display: flex;
-  padding-top: 16px;
+    display: flex;
+    padding: 16px 0px;
+    border-bottom: 1px solid #d4d4d4;
 }
 
 .order_detail_all .order_detail_state .my_data p {
@@ -31,64 +32,6 @@
 
 .order_detail_all .order_detail_state .my_data p span {
   font-weight: normal;
-}
-
-.order_detail_all .order_detail_state .order_state {
-  display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  text-align: center;
-  margin-top: 80px;
-}
-
-.order_detail_all .order_detail_state .order_state .order_state_li {
-  position: relative;
-  width: 13%;
-  line-height: 1.3;
-  color: rgb(48, 48, 51);
-}
-
-.order_detail_all .order_detail_state .order_state .order_state_li .order_state_div {
-  padding-top: 100%;
-  background-color: rgb(244, 244, 244);
-  border-radius: 50%;
-  text-align: center;
-}
-
-.order_state_ok {
-  position: absolute;
-  top: 50%;
-  left: 0px;
-  transform: translateY(-50%);
-  font-size: 17px;
-  display: flex;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.order_detail_all .order_detail_state .order_state .order_state_li .order_state_div::after {
-  margin-top: -8px;
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -19%;
-  transform: rotate(45deg);
-  clear: both;
-  display: block;
-  width: 15px;
-  height: 15px;
-  border-top: 1px solid rgb(160, 160, 160);
-  border-right: 1px solid rgb(160, 160, 160);
-}
-
-.order_current_state {
-  color: #fff;
-  background-color: rgb(48, 48, 51);
-  padding-top: 100%;
-  border-radius: 50%;
-  text-align: center;
 }
 
 .order_detail_inform .tb_header {
@@ -120,12 +63,16 @@
   text-align: center;
 }
 
-.order_detail_inform ul {
-  padding: 10px 0;
+.tb_body_ul>li>ul {
+  padding: 20px 0;
+}
+
+.tb_body_ul>li>ul{
+    border-top: 1px solid #d4d4d4;
 }
 
 .tb_body_ul {
-  border-bottom: 1px solid rgb(228, 228, 228);
+  border-bottom: 2px solid #d4d4d4;
 }
 
 .order_detail_inform .order_data_list_one {
@@ -163,18 +110,20 @@
 }
 
 .order_detail_inform .order_data_list_one .order_data_inform .order_pro_option {
-  margin-top: 13px;
   font-size: 12px;
 }
 
 .order_delivery_fee_data {
-  width: min(23%, 235px);
+  width: min(20%, 140px);
   padding: 20px;
   font-size: 15px;
+  text-align:center;
 }
 
 .order_current_state_div {
-  width: min(20%, 180px);
+  width: min(28%, 300px);
+  padding: 20px;
+  text-align:center;
 }
 
 .order_state_all .order_state_data {
@@ -326,4 +275,12 @@ table {
   font-size: 13px;
   color: rgb(255, 255, 255);
   background-color: rgb(48, 48, 51);
+}
+
+.order_aniTitle{
+    font-size: 13px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
+    margin-bottom:3px;
 }

@@ -204,11 +204,23 @@
   width: 100%;
 }
 
-.my_heart .heart_artwrap .heart_lst p {
-  margin: 21px 0;
+.my_heart .heart_artwrap .heart_lst .txt {
+  /*margin: 21px 0;*/
   font-size: 12px;
   line-height: 1.5;
   color: #5d5d5d;
+}
+
+.my_heart .heart_artwrap .heart_lst .txtani{
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
+    width:100%;
+    white-space: nowrap;        /* 텍스트가 한 줄로 표시되도록 함 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin:5px 0;
 }
 
 .order_list_none {

@@ -243,6 +243,7 @@ $(function(){
                 "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
             },
             success: function(response) {
+                mypageCommInfo();
                 console.log(response.reviewBefore);
                 console.log(response.reviewBeforeAmount);
                 console.log(response.reviewCompleted);

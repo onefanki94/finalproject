@@ -53,7 +53,7 @@
 .mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num {
   display: flex;
   padding: 16px 0px;
-  border-bottom: 1px solid rgb(228, 228, 228);
+  border-bottom: 2px solid #d4d4d4;
 }
 
 .mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num a {
@@ -66,11 +66,14 @@
 
 .mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num a span {
   font-weight: normal;
+  display: inline-block;
+  margin-right: 0.35em;
 }
 
-.order_list_bottom ul {
-  padding: 10px 0;
+.order_list_bottom .order_data_ulStyle {
+  padding: 20px 0;
 }
+
 
 .order_list_bottom .order_data_list_one {
   display: flex;
@@ -104,17 +107,19 @@
 .order_list_bottom .order_data_list_one .order_data_inform .order_pro_name {
   font-size: 16px;
   font-weight: bold;
+
 }
 
 .order_list_bottom .order_data_list_one .order_data_inform .order_pro_option {
-  margin-top: 13px;
+  margin-top: 7px;;
   font-size: 12px;
 }
 
 .order_delivery_fee_data {
-  width: min(23%, 235px);
+  width: min(20%, 140px);
   padding: 20px;
   font-size: 15px;
+  text-align: center;
 }
 
 .order_state_all .order_state_data {
@@ -141,7 +146,9 @@
 }
 
 .order_state_div {
-  width: min(20%, 180px);
+  width: min(28%, 300px);
+  text-align: center;
+  padding: 20px;
 }
 
 .order_notification {
@@ -203,8 +210,7 @@
   margin-top: 20px;
 }
 
-.del_possible,
-.del_impossible {
+.del_possible {
   position: relative;
   flex: 1;
   box-sizing: border-box;
@@ -215,8 +221,19 @@
   border-top: 1px solid #303033;
 }
 
+.del_impossible{
+    box-sizing: border-box;
+    padding-top: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    border-top: 1px solid #303033;
+    position: relative;
+    width: min(100%, 66em);
+}
+
 .del_possible {
-  margin-right: 4.4%;
+  margin-right: 4%;
 }
 
 .del_possible::before,
@@ -239,4 +256,58 @@
 .del_possible::after,
 .del_impossible::after {
   right: 0;
+}
+
+.order_list_li>ul>li{
+    position: relative;
+/*    margin-top: 10px;
+    padding-top: 10px;*/
+    border-top: 1px solid rgb(228, 228, 228);
+}
+
+.order_list_li>ul>li:nth-of-type(1){
+/*    margin-top: 0;
+    padding-top: 0;*/
+    border-top: 0;
+}
+
+#pagination {
+  display: block;
+  text-align: center;
+}
+
+.custom-pagination {
+  margin-top: 35px;
+  display: inline-block;
+  position: relative;
+  padding: 0 50px;
+  text-align: center;
+  line-height: 22px;
+  vertical-align: top;
+}
+
+.custom-pagination > .pageNumber_span {
+  font-weight: 300;
+  color: #d4d4d4;
+  display: inline-block;
+  min-width: 10px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+  cursor:pointer;
+}
+
+.clicked {
+  font-weight: 700;
+  color: rgb(48, 48, 51);
+  border-bottom: 1px solid rgb(48, 48, 51);
+}
+
+.order_aniTitle{
+    font-size: 13px;
+    font-weight: 700;
+    color: rgb(48, 48, 51);
+    text-decoration: underline;
+    margin-bottom:3px;
 }
