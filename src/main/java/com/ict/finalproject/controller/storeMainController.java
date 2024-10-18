@@ -249,7 +249,7 @@ public class storeMainController {
         // JSON 형식으로 클라이언트에 반환
         return subcategories;
     }
-}
+
 
 
 
@@ -261,7 +261,6 @@ public class storeMainController {
 
         // Authorization 헤더 확인
         if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
-            log.info("1");
             response.put("error", "Authorization 헤더가 없거나 잘못되었습니다.");
             headers.setLocation(URI.create("/user/login"));
             return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
@@ -270,7 +269,6 @@ public class storeMainController {
         // 토큰 값에서 'Bearer ' 문자열 제거
         String token = Headertoken.substring(7);
         if (token.isEmpty()) {
-            log.info("2");
             response.put("error", "JWT 토큰이 비어 있습니다.");
             headers.setLocation(URI.create("/user/login"));
             return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
@@ -278,7 +276,6 @@ public class storeMainController {
 
         String userid;
         try {
-            log.info("token :{}",token);
             userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
         } catch (Exception e) {
             e.printStackTrace();
@@ -288,7 +285,6 @@ public class storeMainController {
         }
 
         if (userid == null || userid.isEmpty()) {
-            log.info("4");
             response.put("error", "유효하지 않은 JWT 토큰입니다.");
             headers.setLocation(URI.create("/user/login"));
             return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);
@@ -297,7 +293,6 @@ public class storeMainController {
         // userid로 useridx 구하기
         Integer useridx = memberService.getUseridx(userid);
         if (useridx == null) {
-            log.info("5");
             response.put("error", "사용자 ID에 해당하는 인덱스를 찾을 수 없습니다.");
             headers.setLocation(URI.create("/user/login"));
             return new ResponseEntity<>(response, headers, HttpStatus.SEE_OTHER);

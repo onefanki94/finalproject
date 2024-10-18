@@ -17,7 +17,7 @@ public class AniListVO {
     private int anitype;   // 장르
     private String director;   // 감독
     private int agetype;
-    private String regDT// 나이 관람
+    private String regDT;// 나이 관람
 
     /*@@@@@@@@@@@@별점@@@@@@@@@@@@@@@@*/
     private Integer ani_idx;  // 애니메이션 인덱스
