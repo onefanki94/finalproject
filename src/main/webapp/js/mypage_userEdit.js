@@ -12,11 +12,6 @@ $(function(){
             },
             success:function(response){
                 console.log(response.userinfo);
-                console.log(response.reviewCompletedAmount);
-
-                const reviewCompletedAmount = response.reviewCompletedAmount;
-                // 내 리뷰 수 업데이트
-                $('.afterCountSpan').text(reviewCompletedAmount);
 
                 const userinfo = response.userinfo;
                 // 로그인타입
@@ -105,18 +100,6 @@ $(function(){
                           readonly
                           class="input_readonly"
                         />
-                    </div>
-                    <div class="useredit_input_group">
-                        <label for="adult_state">본인인증</label>
-                        <input
-                          type="text"
-                          id="adult_state"
-                          name="adult_state"
-                          value="${adult_state}"
-                          readonly
-                          class="input_readonly"
-                        />
-                        <div id="authButtonContainer"></div>
                     </div>
                     <div class="useredit_input_group">
                         <label for="useremail">이메일</label>

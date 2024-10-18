@@ -1,15 +1,13 @@
 package com.ict.finalproject.DAO;
 
 
-import com.ict.finalproject.DTO.ReviewBeforeDTO;
-import com.ict.finalproject.DTO.ReviewCompletedDTO;
-import com.ict.finalproject.DTO.UserDelReasonDTO;
-import com.ict.finalproject.vo.MemberVO;
-import com.ict.finalproject.vo.ReviewVO;
+import com.ict.finalproject.DTO.*;
+import com.ict.finalproject.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -35,6 +33,7 @@ public interface MemberDAO {
         // 최근 7일간 가입자 수 구하기
         int getNewSignups();
 
+        //채원시작
         //리뷰작성전 리스트 SELECT
         List<ReviewBeforeDTO> getReviewBefore(int useridx);
 
@@ -68,4 +67,30 @@ public interface MemberDAO {
         //회원 탈퇴
         int userDelOk(int useridx);
         void userDelInsert(UserDelReasonDTO userDelReasonDTO);
+
+        // 마이페이지 최근주문 최대 5개 데이터
+        List<CurrentOrderDataDTO> getCurrentOrderData(int useridx);
+        // 마이페이지 최근 굿즈 좋아요 5개 데이터
+        List<StoreVO> getCurrentLikeGoodsData(int useridx);
+        // 마이페이지 최근 애니 좋아요 5개 데이터
+        List<AniListVO> getCurrentLikeAniData(int useridx);
+        // 마이페이지 좋아요 굿즈
+        List<StoreVO> getLikeGoods(int pageSize,int offset, int useridx);
+        int getTotalLikeGoodsCount(int useridx);
+        // 마이페이지 좋아요 애니
+        List<AniListVO> getLikeAni(int page, int pageSize, int useridx);
+        int getTotalLikeAniCount(int useridx);
+        // 마이페이지 좋아요 취소
+        int deleteGoodsLike(int useridx, int pro_idx);
+        int deleteAniLike(int useridx, int ani_idx);
+        List<OrderListDTO> getPagedOrderList(int userIdx, int offset, int pageSize);
+        List<OrderProDTO> getOrderProducts(int order_idx);
+        long getTotalOrderCount(int userIdx);
+        OrderListDTO getOrderDetailData(int order_idx, int useridx);
+        //적립금 업데이트
+        void pointInsert(int useridx, int type, int point);
+        void userPointUpdate(int useridx, int point);
+        //적립금 내역
+        List<PointVO> getPointList(int pageSize, int offset, int useridx);
+        int getTotalPointCount(int useridx);
 }

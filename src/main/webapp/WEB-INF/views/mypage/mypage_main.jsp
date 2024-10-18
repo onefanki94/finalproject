@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="/css/mypage_main.css" type="text/css" />
+<script src="/js/mypage_common.js"></script>
+<script src="/js/mypage_main.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -50,7 +52,7 @@
 
       <section>
         <div class="btn_bx">
-          <button type="button" class="logout_btn">LOGOUT</button>
+          <button type="button" class="logout_btn" onclick="logout()">LOGOUT</button>
         </div>
       </section>
     </div>
@@ -58,17 +60,17 @@
       <ul class="mypage_right_top">
           <li class="user_inform">
             <a class="atag_css" href="/user/mypage_userEdit"
-              ><strong>회원정보 수정</strong><span>sing2727 님</span></a
+              ><strong>회원정보 수정</strong><span class="currentID"></span></a
             >
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_point"
-              ><strong class="">적립금</strong><span class="">360</span></a
+              ><strong class="">적립금</strong><span class="reservePoint"></span></a
             >
           </li>
           <li class="user_retention_details">
             <a class="atag_css" href="/user/mypage_review"
-              ><strong class="">작성한 리뷰</strong><span class="">1</span></a
+              ><strong class="">작성한 리뷰</strong><span class="afterCountSpan"></span></a
             >
           </li>
         </ul>
@@ -86,199 +88,28 @@
                 <div class="amount">결제금액</div>
               </div>
             </li>
-            <li>
-              <a class="my_tbl" href="/mypage/my-order/detail/19047612">
-                <div class="date">2023.04.10</div>
-                <div class="history">
-                  <div class="imgbx">
-                    <div class="imgin">
-                      <img src="//img.29cm.co.kr/next-product/2023/01/17/5a4d2780ccab4003b1d0913495616071_20230117174147.jpg?width=300" />
-                    </div>
-                  </div>
-                  <div class="prd_order">
-                    <div class="prd_order_flex">
-                      <div class="prd_order_in">
-                        <em class="elp">
-                          <span>WOMAN GNRL 에센셜 베이직 가디건 [GREY]</span>
-                        </em>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="num">ORD20230410-1261116</div>
-                <div class="amount">35,436원</div>
-              </a>
-            </li>
-            <li>
-              <a class="my_tbl" href="/mypage/my-order/detail/19047612">
-                <div class="date">2023.04.10</div>
-                <div class="history">
-                  <div class="imgbx">
-                    <div class="imgin">
-                      <img src="//img.29cm.co.kr/next-product/2023/01/17/5a4d2780ccab4003b1d0913495616071_20230117174147.jpg?width=300" />
-                    </div>
-                  </div>
-                  <div class="prd_order">
-                    <div class="prd_order_flex">
-                      <div class="prd_order_in">
-                        <em class="elp">
-                          <span>WOMAN GNRL 에센셜 베이직 가디건 [GREY]</span>
-                        </em>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="num">ORD20230410-1261116</div>
-                <div class="amount">35,436원</div>
-              </a>
-            </li>
-            <li>
-              <a class="my_tbl" href="/mypage/my-order/detail/19047612">
-                <div class="date">2023.04.10</div>
-                <div class="history">
-                  <div class="imgbx">
-                    <div class="imgin">
-                      <img src="//img.29cm.co.kr/next-product/2023/01/17/5a4d2780ccab4003b1d0913495616071_20230117174147.jpg?width=300" />
-                    </div>
-                  </div>
-                  <div class="prd_order">
-                    <div class="prd_order_flex">
-                      <div class="prd_order_in">
-                        <em class="elp">
-                          <span>WOMAN GNRL 에센셜 베이직 가디건 [GREY]</span>
-                        </em>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="num">ORD20230410-1261116</div>
-                <div class="amount">35,436원</div>
-              </a>
-            </li>
           </ul>
-          <a class="btn_my_more" href="">더보기</a>
+          <a class="btn_my_more" href="/user/mypage_order">더보기</a>
         </div>
 
         <div class="split_wrap">
           <div class="my_heart">
             <h3 class="my_tit">MY HEART</h3>
 
-            <div class="heart_artwrap">
-              <h4 class="h_tit">Goods</h4>
-              <ul class="heart_lst">
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="//img.29cm.co.kr/item/202408/11ef64473ac1ce0d8362cfe25427e5f1.jpg?width=600" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="//img.29cm.co.kr/item/202408/11ef64473ac1ce0d8362cfe25427e5f1.jpg?width=600" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="//img.29cm.co.kr/item/202408/11ef64473ac1ce0d8362cfe25427e5f1.jpg?width=600" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="//img.29cm.co.kr/item/202408/11ef64473ac1ce0d8362cfe25427e5f1.jpg?width=600" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="//img.29cm.co.kr/item/202408/11ef64473ac1ce0d8362cfe25427e5f1.jpg?width=600" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
+            <div class="heart_artwrap" id="heart_artwrap_goods">
+              <h4 class="h_tit">GOODS</h4>
+              <ul class="heart_lst" id="heart_lst_goods">
+
               </ul>
             </div>
 
-            <div class="heart_artwrap">
-              <h4 class="h_tit">Animation</h4>
-              <ul class="heart_lst">
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="/img/main_img/anipost1.png" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="/img/main_img/anipost1.png" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="/img/main_img/anipost1.png" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="/img/main_img/anipost1.png" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="" style="color: #5d5d5d">
-                    <div class="imgbx">
-                      <div class="imgin">
-                        <img src="/img/main_img/anipost1.png" />
-                      </div>
-                    </div>
-                    <p class="txt">[29EDITION] Ditto Shoulder Bag 디토 숄더백 / 레드 와인</p>
-                  </a>
-                </li>
+            <div class="heart_artwrap" id="heart_artwrap_ani">
+              <h4 class="h_tit">ANIMATION</h4>
+              <ul class="heart_lst" id="heart_lst_ani">
+
               </ul>
-              <div class="order_list_none">
-                <p>애니 좋아요 내역이 없습니다</p>
-              </div>
-              <ul class="heart_lst"></ul>
             </div>
-            <a class="btn_my_more" href="">더보기</a>
+            <a class="btn_my_more" href="/user/mypage_heart">더보기</a>
           </div>
         </div>
       </div>
