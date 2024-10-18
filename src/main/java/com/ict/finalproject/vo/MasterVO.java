@@ -40,6 +40,7 @@ public class MasterVO {
     private String type;
     private int code;
     private String second_category;
+    private int pro_idx;
 
     // 커뮤니티 테이블에서 사용 하는 것들
     private String commtype;
@@ -55,7 +56,7 @@ public class MasterVO {
     private String age_type;
     private String post_img_filename;
     private int modifyState;
-    private int pro_idx;
+
     private String detailImg;
 
     // 관리자페이지에서 공지사항 사용하는것들

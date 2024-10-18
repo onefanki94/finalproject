@@ -15,7 +15,7 @@ import java.util.Map;
 public interface MasterService {
     MasterVO createNotice(MasterVO notice);
     MasterVO createFAQ(MasterVO faq);
-    MasterVO createStore(MasterVO store);
+    int createStore(MasterVO storeAdd);
     public List<MasterVO> getFAQList();
     public List<MasterVO> getStoreList();
      int getTotalStore();
@@ -49,10 +49,11 @@ public interface MasterService {
     MasterVO getStoreByIdx(int idx);
     boolean updateStore(MasterVO store);
     List<MasterVO> getSubCategoriesByCategory(int category);
-    boolean insertProductImg(int pro_idx,String detailImg);
+    void insertProductImg(MasterVO masterVO);
     MasterVO getNoticeById(int idx);
     boolean updateNotice(MasterVO noticeEdit);
     MasterVO noticeSelect (int idx);
     MasterVO getQnaById(int idx);
     boolean validateAdmin(String adminid, String adminpwd);
+    boolean doesProductExist(int pro_idx);
 }

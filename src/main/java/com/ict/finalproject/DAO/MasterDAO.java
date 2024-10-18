@@ -16,7 +16,7 @@ public interface MasterDAO {
     int  insertNotice(MasterVO notice);
     // 자주묻는 질문 추가
     int insertFAQ(MasterVO faq);
-    int insertStore(MasterVO store);
+    int createStore(MasterVO storeAdd);
     // 자주 묻는 질문 리스트 전체 출력
     public List<MasterVO> getFAQList();
     // 굿즈 상품테이블 리스트 전체 출력
@@ -111,7 +111,7 @@ public interface MasterDAO {
     int updateStore(MasterVO store);
 
     List<MasterVO> findSubCategoriesByCategory(@Param("category") int category);
-    int insertProductImg(int pro_idx, String detailImg);
+    void insertProductImg(MasterVO masterVO);
 
     // 공지사항 수정
     MasterVO getNoticeById(@Param("idx") int idx);
@@ -122,4 +122,7 @@ public interface MasterDAO {
     // QnA와 답변 데이터를 가져오는 메서드
     MasterVO getQnaReplyById(int idx);
     MasterVO getAdminByAdminId(@Param("adminid") String adminid);
+
+
+    int doesProductExist(int pro_idx);
 }

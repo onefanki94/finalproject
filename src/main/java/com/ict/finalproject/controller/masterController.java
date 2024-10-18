@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -853,7 +854,9 @@ public class masterController {
         return adminid;
     }
 
+
     @PostMapping("/storeAddMasterOk")
+    @Transactional
     public ResponseEntity<String> storeAddMasterOK(
             @RequestParam("code") String code,
             @RequestParam("title") String title,
@@ -869,19 +872,16 @@ public class masterController {
             @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
             @RequestHeader("Authorization") String authorizationHeader) {
 
-        System.out.println("Received Authorization Header: " + authorizationHeader);
-
-        // Authorization 헤더 확인
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
         }
 
-        // JWT 토큰에서 관리자 ID 추출
-        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String token = authorizationHeader.substring(7);
         String adminid;
-        int pro_idx = 0;
+        int pro_idx;
+
         try {
-            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            adminid = jwtUtil.getUserIdFromToken(token);
             if (adminid == null || adminid.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
             }
@@ -890,25 +890,24 @@ public class masterController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
         }
 
-        // adminid로 adminidx 변환
         Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
         if (adminidx == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
         }
 
-        // 파일 저장 로직
         String thumimg_filename = null;
         String detailImg_filename = null;
 
         try {
+            // 이미지 파일 업로드 처리
             if (thumImg != null && !thumImg.isEmpty()) {
                 thumimg_filename = uploadFileToExternalServer(thumImg);
             }
-            if(detailImg!= null &&!detailImg.isEmpty()) {
+            if (detailImg != null && !detailImg.isEmpty()) {
                 detailImg_filename = uploadFileToExternalServer(detailImg);
             }
 
-            // MasterVO 객체에 데이터 설정
+            // 첫 번째 테이블(t_product)에 데이터 삽입 준비
             MasterVO storeAdd = new MasterVO();
             storeAdd.setCategory(code);
             storeAdd.setTitle(title);
@@ -921,19 +920,31 @@ public class masterController {
             storeAdd.setFee(fee);
             storeAdd.setStock(stock);
             storeAdd.setSecond_category(second_category);
-            storeAdd.setDetailImg(detailImg_filename);
             storeAdd.setAdminidx(adminidx);
 
-            masterService.createStore(storeAdd); // DB에 insert
-            masterService.insertProductImg(pro_idx,detailImg); // DB에 insert
+            // t_product 테이블에 데이터 삽입 후 idx 반환
+            pro_idx = masterService.createStore(storeAdd);
+            System.out.println("생성된 pro_idx: " + pro_idx);
 
+            if (pro_idx <= 0) {
+                throw new RuntimeException("굿즈 상품 등록 중 문제가 발생했습니다.");
+            }
+
+            // t_productimg 테이블에 데이터 삽입 준비
+            MasterVO productImg = new MasterVO();
+            productImg.setPro_idx(pro_idx); // t_product 테이블의 idx를 설정
+            productImg.setDetailImg(detailImg_filename);
+
+            // t_productimg 테이블에 데이터 삽입
+            masterService.insertProductImg(productImg);
 
             return ResponseEntity.ok("굿즈 상품이 성공적으로 등록되었습니다.");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("굿즈 상품 등록 중 오류가 발생했습니다.");
+            throw new RuntimeException("굿즈 상품 등록 중 오류가 발생했습니다.");
         }
     }
+
 
 
 

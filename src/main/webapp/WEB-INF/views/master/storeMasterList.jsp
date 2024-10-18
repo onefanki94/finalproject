@@ -48,7 +48,7 @@
                     <th style="width:8%" class="sortable" onclick="sortTable(4)">판매가</th>
                     <th style="width:8%" class="sortable" onclick="sortTable(5)">재고</th>
                     <th style="width:10%" class="sortable" onclick="sortTable(6)">등록일</th>
-                    <th style="width:12%">관리<a href="/master/storeAddMaster"class="btn btn-outline-success btn-sm" >추가</a></th>
+                    <th style="width:12%">관리<a href="/master/storeAddMaster"class="btn btn-outline-success btn-sm" >추가</a><a href="/master/storeAddMaster"class="btn btn-outline-success btn-sm" >추가1</a></th>
                 </tr>
             </thead>
             <tbody id="storeTableBody">

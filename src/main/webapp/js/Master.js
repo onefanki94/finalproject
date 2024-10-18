@@ -411,36 +411,44 @@ success: function(response) {
  });
 
  $(document).ready(function() {
-     var token = localStorage.getItem('token');
-     console.log("저장된 토큰:", token); // 토큰 출력
-     if (!token) {
-         alert('토큰이 없습니다. 다시 로그인해 주세요.');
-         return;
-     }
-
-     $('#storeAddForm').submit(function(event) {
+     $("#storeAddForm").on("submit", function(event) {
          event.preventDefault(); // 기본 폼 제출 방지
 
-         var formData = new FormData(this);
+         const form = $(this)[0];
+         const formData = new FormData(form);
 
-         console.log("AJAX 요청 전 토큰:", token); // AJAX 요청 전 토큰 출력
+         // JWT 토큰을 로컬 스토리지에서 가져오기
+         const token = localStorage.getItem("token");
+         if (!token) {
+             alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+             window.location.href = "/user/login"; // 로그인 페이지로 리디렉션
+             return;
+         }
 
+         // 서버로 AJAX 요청 보내기
          $.ajax({
-             url: '/master/storeAddMasterOk',
-             type: 'POST',
-             data: formData,
-             contentType: false,
-             processData: false,
+             url: "/master/storeAddMasterOk",
+             type: "POST",
              headers: {
-                 'Authorization': 'Bearer ' + token // Authorization 헤더 추가
+                 "Authorization": "Bearer " + token
              },
-             success: function(response) {
-                 alert('굿즈 상품이 성공적으로 등록되었습니다.');
-                 window.location.href = '/master/storeMasterList';
+             data: formData,
+             processData: false,
+             contentType: false,
+             success: function(data) {
+                 alert("굿즈 상품이 성공적으로 등록되었습니다.");
+                 form.reset(); // 폼 초기화
              },
-             error: function(xhr, status, error) {
-                 console.error('에러:', xhr.responseText);
-                 alert('굿즈 상품 등록 중 오류가 발생했습니다.');
+             error: function(xhr) {
+                 if (xhr.status === 401) {
+                     // 401 에러: 인증 오류 발생 시 로그인 페이지로 리디렉션
+                     alert("세션이 만료되었습니다. 다시 로그인해 주세요.");
+                     localStorage.removeItem("token"); // 만료된 토큰 삭제
+                     window.location.href = "/user/login"; // 로그인 페이지로 리디렉션
+                 } else {
+                     console.error("에러:", xhr);
+                     alert("굿즈 상품 등록 중 오류가 발생했습니다.");
+                 }
              }
          });
      });
