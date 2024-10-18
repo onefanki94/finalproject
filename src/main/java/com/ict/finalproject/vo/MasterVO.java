@@ -39,7 +39,7 @@ public class MasterVO {
     private String category;
     private String type;
     private int code;
-    private String second_category;
+    private int second_category;
     private int pro_idx;
 
     // 커뮤니티 테이블에서 사용 하는 것들

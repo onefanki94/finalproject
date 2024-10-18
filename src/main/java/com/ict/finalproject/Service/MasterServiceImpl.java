@@ -269,4 +269,15 @@ public class MasterServiceImpl implements MasterService {
         int count = dao.doesProductExist(pro_idx);
         return count > 0;
     }
+
+    @Override
+    public MasterVO getProductImgByIdx(int idx) {
+        return dao.getProductImgByIdx(idx);
+    }
+
+    @Override
+    public boolean updateProductImg(MasterVO productImg) {
+        int result = dao.updateProductImg(productImg);
+        return result > 0;
+    }
 }

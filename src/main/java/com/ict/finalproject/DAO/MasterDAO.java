@@ -125,4 +125,6 @@ public interface MasterDAO {
 
 
     int doesProductExist(int pro_idx);
+    MasterVO getProductImgByIdx(int idx);
+    int updateProductImg(MasterVO productImg);
 }

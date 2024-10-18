@@ -56,4 +56,6 @@ public interface MasterService {
     MasterVO getQnaById(int idx);
     boolean validateAdmin(String adminid, String adminpwd);
     boolean doesProductExist(int pro_idx);
+    MasterVO getProductImgByIdx(int idx);
+    boolean updateProductImg(MasterVO productImg);
 }

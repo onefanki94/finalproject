@@ -237,7 +237,7 @@
 
     <!-- 상품 정보를 수정 -->
     <update id="updateStore">
-        UPDATE t_product SET category = #{category}, title = #{title}, price = #{price}, thumimg = #{thumimg},
+        UPDATE t_product SET category = #{category}, title = #{title}, price = #{price}, thumImg = #{thumImg},
         ani_title = #{ani_title}, relDT = #{relDT}, brand = #{brand}, pro_detail = #{pro_detail}, fee = #{fee},
         stock = #{stock}, second_category = #{second_category}, adminidx = #{adminidx}, modifyState = 1, modifyDT = now()  WHERE idx = #{idx}
     </update>
@@ -294,4 +294,18 @@
     <select id="doesProductExist" parameterType="int" resultType="int">
         SELECT COUNT(1) FROM t_product WHERE idx = #{pro_idx}
     </select>
+
+
+    <!-- 기존 제품 이미지 조회 -->
+    <select id="getProductImgByIdx" parameterType="int" resultType="MasterVO">
+        SELECT * FROM t_productimg WHERE pro_idx = #{idx}
+    </select>
+
+    <!-- 제품 이미지 업데이트 -->
+    <update id="updateProductImg" parameterType="MasterVO">
+        UPDATE t_productimg
+        SET detailImg = #{detailImg}
+        WHERE pro_idx = #{pro_idx}
+    </update>
+
 </mapper>
