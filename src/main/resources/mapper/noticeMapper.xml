@@ -32,5 +32,11 @@
         SELECT COUNT(*) FROM t_faq
     </select>
 
+    <!-- 1:1 문의 등록 -->
+    <insert id="saveQna" parameterType="com.ict.finalproject.vo.QnaVO">
+        INSERT INTO t_qna (qnatype, title, content, useridx, imgfile1, imgfile2, regDT)
+        VALUES (#{qnatype}, #{title}, #{content}, #{useridx}, #{imgfile1}, #{imgfile2}, NOW())
+    </insert>
+
 
 </mapper>

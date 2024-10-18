@@ -2,6 +2,7 @@ package com.ict.finalproject.DAO;
 
 import com.ict.finalproject.vo.NoticeVO;
 import com.ict.finalproject.vo.PagingVO;
+import com.ict.finalproject.vo.QnaVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,5 +19,9 @@ public interface NoticeDAO {
     // 자주 묻는 질문(FAQ) 관련 메서드
     List<NoticeVO> getFaqs(PagingVO pVO);  // FAQ 페이징
     int getTotalFaqCount(PagingVO pVO);  // FAQ 전체 개수
+
+    // 1:1문의 메서드 추가
+    int saveQna(QnaVO qna);
+    QnaVO getQnaByIdx(int idx);
 
 }

@@ -186,18 +186,18 @@
                 <div class="content" id="tap3">
                     <div class="inquiry-container">
                         <!-- 카테고리 및 문의 영역 -->
-                        <form class="inquiry-form" method="post" action="" enctype="multipart/form-data">
+                        <form class="inquiry-form" method="post" action="/inquirySubmit" enctype="multipart/form-data">
                             <table class="inquiry-table">
                                 <!-- 구매 관련 문의 -->
                                 <tr>
                                     <th>구매 관련 문의</th>
                                     <td class="category-options">
-                                        <label><input type="radio" name="category" value="배송문의"> 배송문의</label>
-                                        <label><input type="radio" name="category" value="주문문의"> 주문문의</label>
-                                        <label><input type="radio" name="category" value="취소문의"> 취소문의</label>
-                                        <label><input type="radio" name="category" value="반품문의"> 반품문의</label>
-                                        <label><input type="radio" name="category" value="교환문의"> 교환문의</label>
-                                        <label><input type="radio" name="category" value="환불문의"> 환불문의</label>
+                                        <label><input type="radio" name="qnatype" value="1"> 배송문의</label>
+                                        <label><input type="radio" name="qnatype" value="2"> 주문문의</label>
+                                        <label><input type="radio" name="qnatype" value="3"> 취소문의</label>
+                                        <label><input type="radio" name="qnatype" value="4"> 반품문의</label>
+                                        <label><input type="radio" name="qnatype" value="5"> 교환문의</label>
+                                        <label><input type="radio" name="qnatype" value="6"> 환불문의</label>
                                     </td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
@@ -206,10 +206,10 @@
                                 <tr>
                                     <th>일반 상담 문의</th>
                                     <td class="category-options">
-                                        <label><input type="radio" name="category" value="회원정보문의"> 회원정보문의</label>
-                                        <label><input type="radio" name="category" value="회원제도문의"> 회원제도문의</label>
-                                        <label><input type="radio" name="category" value="결제방법문의"> 결제방법문의</label>
-                                        <label><input type="radio" name="category" value="상품문의"> 상품문의</label>
+                                        <label><input type="radio" name="qnatype" value="7"> 회원정보문의</label>
+                                        <label><input type="radio" name="qnatype" value="8"> 회원제도문의</label>
+                                        <label><input type="radio" name="qnatype" value="9"> 결제방법문의</label>
+                                        <label><input type="radio" name="qnatype" value="10"> 상품문의</label>
                                     </td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
@@ -218,7 +218,7 @@
                                 <tr>
                                     <th>기타 문의</th>
                                     <td class="category-options">
-                                        <label><input type="radio" name="category" value="기타"> 기타</label>
+                                        <label><input type="radio" name="qnatype" value="11"> 기타</label>
                                     </td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
@@ -233,7 +233,7 @@
                                 <!-- 제목 입력 -->
                                 <tr>
                                     <th>제목</th>
-                                    <td><input type="text" name="subject" placeholder="제목을 입력하세요." class="inquiry-title"></td>
+                                    <td><input type="text" name="title" placeholder="제목을 입력하세요." class="inquiry-title"></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
@@ -248,7 +248,7 @@
                                 <tr>
                                     <th>사진 첨부</th>
                                     <td>
-                                        <input type="file" name="attachment" class="inquiry-attachment">
+                                        <input type="file" name="file" class="inquiry-attachment" multiple>
                                         <p class="attachment-info">파일용량은 최대 10MB로 제한되며, 1개의 파일을 첨부할 수 있습니다.</p>
                                     </td>
                                 </tr>
@@ -290,6 +290,32 @@
 
 
 <script>
+window.onload = function(){
+    console.log("호출");
+
+    var token = localStorage.getItem("token"); // 토큰 값 가져오기
+    if(token != "" && token != null){
+        $.ajax({
+            url: "/getuser",
+            type: "get",
+            data:{Authorization:token},
+            success: function(vo){
+                console.log("로그인된 사용자 ID:" + vo.userid);
+
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+            },
+            error: function(){
+                console.error("로그인 여부 확인 실패");
+            }
+        });
+    }
+};
+
+
     // 공지사항 탭 클릭 시 필터 초기화하고 전체 목록 요청
     document.getElementById('resetFilters').addEventListener('click', function() {
         // AJAX 요청으로 필터링 없이 전체 공지사항 리스트 요청
@@ -425,6 +451,62 @@
             contentList[index].classList.add('active');
         });
     });
+
+
+// 1:1 문의 제출 함수
+function submitInquiry() {
+    //let formData = new FormData(document.querySelector(".inquiry-form"));
+    // 입력 필드 값 가져오기
+    var qnatype = document.getElementById("qnatype").value;
+    var title  = document.getElementById("title").value;
+    var content = document.getElementById("content").value;
+    var file = document.getElementById("file").value;
+
+
+    // 로컬 스토리지에서 JWT 토큰 가져오기
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert('로그인이 필요합니다.');
+        location.href = "/user/login";
+        return false;
+    }
+
+    // 서버로 전송할 데이터를 FormData 객체에 추가
+    var formData = new FormData();
+    formData.append("qnatype", qnatype);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("file", file);
+
+
+    $.ajax({
+        url: '/inquirySubmit',
+        type: 'POST',
+        data: formData,
+        processData: false, // 데이터를 기본 문자열로 처리하지 않음
+        contentType: false, // "multipart/form-data"로 전송
+        headers: {
+            "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+        },
+        success: function(response) {
+            alert('1:1 문의가 등록되었습니다.');
+            location.reload(); // 성공 시 페이지 새로고침
+        },
+        error: function(xhr) {
+            if (xhr.status === 401) {
+                alert('인증에 실패했습니다. 다시 로그인하세요.');
+                location.href = "/user/login";  // 로그인 페이지로 이동
+            } else if (xhr.status === 404) {
+                alert('서버에서 요청을 찾을 수 없습니다.');
+            } else {
+                alert("요청 처리 중 오류가 발생했습니다.");
+            }
+            console.error("Error:", xhr);  // 오류 출력
+        }
+    });
+
+    return false;  // 기본 폼 제출 방지
+}
 
 
 
