@@ -14,6 +14,7 @@
         stock: "${storeDetail.stock}"   // 서버에서 전달된 재고 수량
     };
 </script>
+<link rel="stylesheet" href="/css/basketmodal.css" type="text/css" />
 <script src="/js/storeDetail_input.js"></script>
 
 <!-- 상품 상세 페이지 컨테이너 -->
