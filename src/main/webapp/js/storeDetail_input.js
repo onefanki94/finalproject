@@ -17,7 +17,9 @@ $(function(){
         var pro_idx=$("#pro_idx").val();
         var amount = $("#amount").val();
         var totalPrice = document.getElementById("total-price").textContent;
-        $("#total").val(totalPrice);
+        var totalPriceWithoutComma = totalPrice.replace(/,/g, ''); // 콤마 제거
+        var totalPriceInt = parseInt(totalPriceWithoutComma, 10);
+        $("#total").val(totalPriceInt);
         var total = $("#total").val();
 
         console.log("pro_idx : ",pro_idx);

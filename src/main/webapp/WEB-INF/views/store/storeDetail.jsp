@@ -26,12 +26,13 @@
     
         <!-- 상품 정보 섹션 -->
         <div class="product-info-section">
+            <input type="hidden" name="pro_idx" id="pro_idx" value="${storeDetail.idx}">
             <h1 class="product-title">${storeDetail.title}</h1>
             <p class="product-price"><fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</p>
     
             <div class="product-meta-info">
                 <p>발매일: ${storeDetail.relDT}</p>
-                <p>적립포인트: ${storeDetail.price * 0.01}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
+                <p>적립포인트: ${storeDetail.price/100}원</p> <!-- 가격의 1%를 적립 포인트로 표시 -->
                 <p>배송비: <fmt:formatNumber value="${storeDetail.fee}" type="number" pattern="#,###"/> 원</p>
 
                <div class="like-section">
@@ -49,13 +50,18 @@
                          <p>${storeDetail.title}</p>
                     <span class="product-quantity-control">
                         <button class="quantity-button" onclick="decreaseQuantity()">-</button>
-                        <input type="number" value="1" min="1" max="5000" class="quantity-input">
+                        <input type="number" name="amount" id="amount" value="1" min="1" max="5000" class="quantity-input">
                         <button class="quantity-button" onclick="increaseQuantity()">+</button>
                     </span>
                     <span class="product-price-info">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</span>
                 </div>
     
-                <div class="total-price">총 결제금액: <span id="total-price">  <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/> 원</span></div>
+                <div class="total-price">총 결제금액:
+                    <span id="total-price">
+                        <fmt:formatNumber value="${storeDetail.price}" type="number" pattern="#,###"/>
+                    </span>원
+                    <input type="hidden" id="total" name="total" value="">
+                </div>
                     
             </div>
                     <!-- 구매 버튼 -->
