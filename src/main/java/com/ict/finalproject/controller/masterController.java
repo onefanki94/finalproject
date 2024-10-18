@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -854,13 +853,11 @@ public class masterController {
         return adminid;
     }
 
-
     @PostMapping("/storeAddMasterOk")
-    @Transactional
-    public ResponseEntity<String> storeAddMasterOK(
+    public String storeAddMasterOK(
             @RequestParam("code") String code,
             @RequestParam("title") String title,
-            @RequestParam("price") Integer price,
+            @RequestParam("price") int price,
             @RequestParam(value = "thumImg", required = false) MultipartFile thumImg,
             @RequestParam("ani_title") String ani_title,
             @RequestParam("relDT") String relDT,
@@ -872,34 +869,38 @@ public class masterController {
             @RequestParam(value = "detailImg", required = false) MultipartFile detailImg,
             @RequestHeader("Authorization") String authorizationHeader) {
 
+        System.out.println("Received Authorization Header: " + authorizationHeader);
+
+        // Authorization 헤더 확인
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+            return "redirect:/user/login"; // 토큰이 없을 경우 로그인 페이지로 리디렉션
         }
 
-        String token = authorizationHeader.substring(7);
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
         String adminid;
         int pro_idx;
-
         try {
-            adminid = jwtUtil.getUserIdFromToken(token);
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
             if (adminid == null || adminid.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+                return "redirect:/user/login"; // 유효하지 않은 토큰일 경우 로그인 페이지로 리디렉션
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+            return "redirect:/user/login"; // JWT 파싱 중 오류 발생 시 로그인 페이지로 리디렉션
         }
 
+        // adminid로 adminidx 변환
         Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
         if (adminidx == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+            return "redirect:/user/login"; // 관리자 정보를 찾을 수 없을 경우 로그인 페이지로 리디렉션
         }
 
+        // 파일 저장 로직
         String thumimg_filename = null;
         String detailImg_filename = null;
 
         try {
-            // 이미지 파일 업로드 처리
             if (thumImg != null && !thumImg.isEmpty()) {
                 thumimg_filename = uploadFileToExternalServer(thumImg);
             }
@@ -907,7 +908,7 @@ public class masterController {
                 detailImg_filename = uploadFileToExternalServer(detailImg);
             }
 
-            // 첫 번째 테이블(t_product)에 데이터 삽입 준비
+            // t_product 테이블에 데이터 삽입
             MasterVO storeAdd = new MasterVO();
             storeAdd.setCategory(code);
             storeAdd.setTitle(title);
@@ -924,24 +925,26 @@ public class masterController {
 
             // t_product 테이블에 데이터 삽입 후 idx 반환
             pro_idx = masterService.createStore(storeAdd);
-            System.out.println("생성된 pro_idx: " + pro_idx);
+            System.out.println("생성된 pro_idx: " + pro_idx); // 생성된 idx 값을 확인
 
+            // pro_idx가 유효한지 확인
             if (pro_idx <= 0) {
-                throw new RuntimeException("굿즈 상품 등록 중 문제가 발생했습니다.");
+                throw new RuntimeException("유효하지 않은 pro_idx입니다.");
             }
 
-            // t_productimg 테이블에 데이터 삽입 준비
-            MasterVO productImg = new MasterVO();
-            productImg.setPro_idx(pro_idx); // t_product 테이블의 idx를 설정
-            productImg.setDetailImg(detailImg_filename);
-
             // t_productimg 테이블에 데이터 삽입
+            MasterVO productImg = new MasterVO();
+            productImg.setPro_idx(pro_idx); // 생성된 pro_idx를 설정
+            productImg.setDetailImg(detailImg_filename);
             masterService.insertProductImg(productImg);
 
-            return ResponseEntity.ok("굿즈 상품이 성공적으로 등록되었습니다.");
+            // 성공적으로 등록되었을 때 리스트 페이지로 리디렉션
+            return "redirect:/master/storeMasterList";
+
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("굿즈 상품 등록 중 오류가 발생했습니다.");
+            // 오류 발생 시 에러 페이지로 리디렉션
+            return "redirect:/errorPage"; // 적절한 에러 페이지 설정
         }
     }
 

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,8 +41,10 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    @Transactional
     public int createStore(MasterVO storeAdd) {
-        return dao.createStore(storeAdd);
+         dao.createStore(storeAdd);
+         return storeAdd.getIdx();
     }
 
     @Override

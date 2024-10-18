@@ -14,7 +14,7 @@
     </insert>
 
     <!-- 관리자 페이지 굿즈 상품 등록 -->
-    <insert id="createStore" parameterType="MasterVO" useGeneratedKeys="true" keyProperty="pro_idx">
+    <insert id="createStore" parameterType="MasterVO" useGeneratedKeys="true" keyProperty="idx">
         INSERT INTO t_product (category, title, price, thumImg, ani_title, relDT, brand, pro_detail, fee, stock, second_category, adminidx)
         VALUES (#{category}, #{title}, #{price}, #{thumImg}, #{ani_title}, #{relDT}, #{brand}, #{pro_detail}, #{fee}, #{stock}, #{second_category}, #{adminidx})
     </insert>

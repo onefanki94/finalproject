@@ -374,21 +374,19 @@ success: function(response) {
 
          // Ajax를 통해 서버로 데이터 전송
          $.ajax({
-             url: '/master/noticeEditMasterOk',
-             type: 'POST',
-             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',  // Content-Type 명시
-             data: {
-                 idx: idx,
-                 title: title,
-                 content: content,
-                 token: token  // 토큰을 함께 전송
-             },
+             type: "POST",
+             url: "/storeAddMasterOk",
+             data: formData,
+             processData: false,
+             contentType: false,
              success: function(response) {
-                 alert('공지사항이 성공적으로 수정되었습니다.');
-                 window.location.href = '/master/noticeMasterList';
+                 // 성공 시 리다이렉트 처리
+                 window.location.href = "/master/storeMasterList";
              },
              error: function(xhr, status, error) {
-                 alert('공지사항 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
+                 // 서버에서 반환된 오류 메시지를 로그로 확인
+                 console.log("에러 메시지: " + xhr.responseText);
+                 alert("등록 중 오류가 발생했습니다.");
              }
          });
      });
@@ -437,9 +435,9 @@ success: function(response) {
              contentType: false,
              success: function(data) {
                  alert("굿즈 상품이 성공적으로 등록되었습니다.");
-                 form.reset(); // 폼 초기화
+                 window.location.href = '/master/storeMasterList';
              },
-             error: function(xhr) {
+             error: function(xhr) { // 콤마 추가됨
                  if (xhr.status === 401) {
                      // 401 에러: 인증 오류 발생 시 로그인 페이지로 리디렉션
                      alert("세션이 만료되었습니다. 다시 로그인해 주세요.");
