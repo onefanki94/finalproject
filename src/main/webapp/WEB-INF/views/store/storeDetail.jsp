@@ -106,7 +106,7 @@
             </tr>
             <tr>
                 <th>카테고리</th>
-                <td colspan="3"><a href="#">#${storeDetail.category}</a></td>
+                <td colspan="3"><a href="#">#${categoryType}</a></td>
             </tr>
             <tr>
                 <th>상품설명</th>
