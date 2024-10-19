@@ -100,6 +100,13 @@ public class storeMainController {
         int offset = (pageNum - 1) * pageSize;
 
         // category와 filterType이 빈 값이거나 null일 경우 기본 처리
+//        if (category == null || category == 0) {
+//            category = null;  // 기본값 null 처리
+//        }
+//        if (filterType == null || filterType.trim().isEmpty()) {
+//            filterType = null;  // 빈 문자열일 경우 null로 처리
+//        }
+
 
 
         // 페이징 처리된 상품 목록을 가져옴 (카테고리와 필터 타입을 처리)
