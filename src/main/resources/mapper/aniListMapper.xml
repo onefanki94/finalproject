@@ -2,31 +2,131 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.AniListDAO">
-    <select id="getAniList">
-        select * from t_animation
+    <select id="getAniList" resultType="com.ict.finalproject.vo.AniListVO">
+       SELECT
+            a.idx,
+            a.post_img,
+            a.title,
+            at.type AS anitype,
+            a.director,
+            ag.type AS agetype,
+            a.outline
+        FROM
+            t_animation a
+        JOIN
+            t_anitype at ON a.anitype = at.code
+        JOIN
+            t_agetype ag ON a.agetype = ag.code
     </select>
 
     <select id="aniListSelect" resultType="com.ict.finalproject.vo.AniListVO">
-    SELECT post_img, title, anitype, director, agetype
-    FROM t_animation
-    ORDER BY title ASC
+        SELECT idx,post_img, title, anitype, director, agetype
+        FROM t_animation
+        ORDER BY title ASC
     </select>
 
-    <select id="aniDetailView" resultType="com.ict.finalproject.vo.AniListVO">
-    SELECT post_img, title, anitype, director, agetype
-    FROM t_animation
-    WHERE title = #{title}
+    <select id="getAniDetailView" resultType="com.ict.finalproject.vo.AniListVO">
+    SELECT
+        a.post_img,
+        a.title,
+        a.anitype AS anitype,
+        a.director,
+        ag.type AS agetype,
+        a.outline,
+        DATE(a.regDT) AS regDT,
+        a.idx,
+        g.grade AS userGrade
+    FROM
+        t_animation a
+    JOIN
+        t_anitype at ON a.anitype = at.code
+    JOIN
+        t_agetype ag ON a.agetype = ag.code
+    LEFT JOIN
+        t_grade g ON a.idx = g.ani_idx
+    WHERE
+        a.title = #{title}
 </select>
-    <update id="updateAniHit">
-    UPDATE t_animation
-    SET hit = hit + 1
-    WHERE title = #{title}
-</update>
 
-   <select id="findAniListWithPagination" parameterType="map" resultType="com.ict.finalproject.vo.AniListVO">
-    SELECT *
-    FROM ani_list
-    ORDER BY some_column  -- 원하는 정렬 기준
-    LIMIT #{offset}, #{limit}
+    <update id="updateAniHit">
+        UPDATE t_animation
+        SET hit = hit + 1
+        WHERE title = #{title}
+    </update>
+
+    <select id="findAniListWithPagination" parameterType="map" resultType="com.ict.finalproject.vo.AniListVO">
+        SELECT *
+        FROM t_animation
+        ORDER BY some_column
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getMoviesByGenre" resultType="com.ict.finalproject.vo.AniListVO">
+        SELECT post_img, title, anitype, director, agetype
+        FROM t_animation
+        WHERE anitype = #{anitype}
+    </select>
+
+    <select id="getSortedAniList" resultType="com.ict.finalproject.vo.AniListVO">
+        SELECT * FROM t_animation
+        ORDER BY
+        <choose>
+            <when test="sortBy == 'new'">
+                date DESC
+            </when>
+            <when test="sortBy == 'title'">
+                title ASC
+            </when>
+            <when test="sortBy == 'popular'">
+                popularity DESC
+            </when>
+            <otherwise>
+                title ASC <!-- 기본 정렬 기준 설정 -->
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getRandomSimilarAnis" resultType="com.ict.finalproject.vo.AniListVO">
+     SELECT
+            a.post_img,
+            a.title,
+            at.type AS anitype,
+            a.director,
+            ag.type AS agetype,
+            a.outline
+        FROM
+            t_animation a
+        JOIN
+            t_anitype at ON a.anitype = at.code
+        JOIN
+            t_agetype ag ON a.agetype = ag.code
+        WHERE
+            a.anitype = #{genreType}
+        ORDER BY
+            RAND()
+        LIMIT 5
 </select>
+
+    <select id="getAverageRatingByAniId" resultType="double">
+        SELECT AVG(grade)
+        FROM t_grade
+        WHERE ani_idx = #{idx}
+    </select>
+
+    <insert id="addGrade" parameterType="map">
+        INSERT INTO t_grade (ani_idx, grade, useridx)
+        VALUES (#{ani_idx}, #{grade}, #{useridx})
+    </insert>
+
+    <!-- 별점 -->
+    <select id="getUseridx" parameterType="String" resultType="Integer">
+        SELECT * from t_grade where ani_idx = #{ani_idx} and useridx = #{useridx}
+    </select>
+
+<!--        &lt;!&ndash; 좋아요 상태 토글 &ndash;&gt;
+    <insert id="toggleLike" parameterType="com.ict.finalproject.vo.LikeRequest">
+        INSERT INTO t_anilike (ani_idx, useridx)
+        VALUES (#{ani_idx}, #{useridx})
+        ON DUPLICATE KEY UPDATE
+    </insert>-->
 </mapper>

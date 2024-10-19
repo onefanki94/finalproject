@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/main_header.css" type="text/css"/>
+    <script src="/js/search_all.js"></script>
     <script>
         $(function () {
            // 스크롤 시 header fade-in
@@ -93,11 +94,11 @@
               </ul>
             </div>
             <div class="sh_search_login">
-                <form class="search-button">
+                <div class="search-button">
                     <input type="text" id="search_key" name="search_key" class="search-input" placeholder="검색어를 입력하세요" />
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
-            <div class="sh_login"></div>
+                    <button type="button" onclick="search_all()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="sh_login"></div>
            </div>
        </div>
    </header>

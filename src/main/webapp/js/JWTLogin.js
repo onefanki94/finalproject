@@ -1,4 +1,6 @@
-async function login(username, password) {
+console.log("JWTLogin.js 파일 로드됨");
+console.log("로그인 페이지에서 자바스크립트 로드됨");
+async function userlogin(username, password) {
     try {
         const response = await fetch('/loginOk', {
             method: 'POST',
@@ -67,44 +69,43 @@ async function makeAuthenticatedRequest(url, options = {}) {
     }
 }
 
-async function reportUser(userid, reason, endDT) {
-    // 로컬 스토리지에서 JWT 토큰 가져오기
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
-    }
+/* admin 로그인 */
+async function adminLogin(adminid, adminpwd) {
+    console.log("관리자 로그인 함수 실행됨"); // 함수 시작 시 로그
 
     try {
-        const response = await fetch('/reportinguserOK', {
+        const response = await fetch('/master/masterLoginOK', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // JWT 토큰을 Authorization 헤더에 추가
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                userid: userid,
-                reason: reason,
-                endDT: endDT
-            })
+            body: JSON.stringify({ adminid: adminid, adminpwd: adminpwd })
         });
 
-        if (response.ok) {
-            alert("신고가 성공적으로 접수되었습니다.");
-            // 필요한 후속 처리
+        if (!response.ok) {
+            console.error("서버 응답 오류:", response.status);
+            alert("서버 오류 발생: " + response.status);
+            return; // 오류 발생 시 함수 종료
+        }
+
+        const data = await response.json();  // 응답을 JSON으로 변환
+
+        if (data.token) {
+            const token = data.token;
+            localStorage.setItem("token", token);
+            console.log("로그인 성공. JWT 토큰이 로컬 스토리지에 저장되었습니다.");
+
+            // 로그인 성공 후 페이지 이동 (토큰을 URL에 포함하지 않음)
+            window.location.href = "/master/masterMain";  // 메인 페이지로 이동
+
+            // URL에서 토큰을 제거하고 간단한 URL만 남김
+            window.history.pushState({}, document.title, "/master/masterMain");
         } else {
-            const errorData = await response.json();
-            alert(`신고 실패: ${errorData.message || "알 수 없는 오류"}`);
+            alert("로그인 실패. 다시 시도해 주세요.");
         }
     } catch (error) {
-        console.error("신고 처리 중 오류 발생:", error);
-        alert("신고 처리 중 오류가 발생했습니다.");
+        console.error("로그인 중 오류 발생:", error);
+        alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
     }
 }
-
-
-
-
-
-

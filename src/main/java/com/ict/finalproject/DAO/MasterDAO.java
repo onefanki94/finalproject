@@ -1,7 +1,6 @@
 package com.ict.finalproject.DAO;
 
 import com.ict.finalproject.vo.MasterVO;
-import com.ict.finalproject.vo.StoreVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +16,7 @@ public interface MasterDAO {
     int  insertNotice(MasterVO notice);
     // 자주묻는 질문 추가
     int insertFAQ(MasterVO faq);
-    int insertStore(MasterVO store);
+    int createStore(MasterVO storeAdd);
     // 자주 묻는 질문 리스트 전체 출력
     public List<MasterVO> getFAQList();
     // 굿즈 상품테이블 리스트 전체 출력
@@ -54,4 +53,82 @@ public interface MasterDAO {
     // 유저가 탈퇴 상태인지 확인
     boolean isUserDeleted(@Param("idx") int idx);
     Integer findUserIdxByUserid(String userid);
+
+    // 탈퇴 회원 조회 하기
+    List<MasterVO> getMemberDelList(MasterVO vo);
+
+    // 회원이 신고 한 유저 목록 구하기
+    List<MasterVO> getReportinguserList(MasterVO vo);
+
+    // 신고 내역을 t_report 테이블에 삽입
+    void updateReport(int idx, String userid, String reason, LocalDateTime reportDT, LocalDateTime handleDT, int handleState);
+
+    // 모든 리뷰 불러오기
+    List<MasterVO> getReplyList(MasterVO vo);
+
+    // idx에 대한 리뷰 디테일 불러오기
+    MasterVO getReviewDetail(int idx);
+
+    // 애니 정보 선택
+    MasterVO aniSelect(int idx);
+
+    // 애니 idx의 기존 이미지 값 불러오기
+    String getCurrentImgFile(int idx);
+
+    // 애니 정보 수정
+    int updateAnimation(MasterVO vo);
+
+    // 문의 내용 목록 불러오기
+    List<MasterVO> getQNAList();
+
+    // 문의 들어온 내용 중 답변 처리 안된 갯수 파악하기
+    int getUnansweredQnaCount();
+
+    // t_ban에 들어와 있는 데이터 목록 불러오기
+    List<MasterVO>getReportingUser();
+
+    // 전체 신고 누적 횟수 카운트
+    int getTotalReportCount();
+
+    // 특정 아이디의 신고 횟수 카운트
+    int getTotalUserReport(int useridx);
+
+    void insertReply(@Param("idx") int idx, @Param("reply") String reply, @Param("adminIdx") int adminIdx, @Param("regDT") LocalDateTime regDT);
+
+    void updateHandleState(int idx);
+    Integer findAdminIdxByUserid(String adminId);
+
+    // 애니 데이터 베이스 추가
+    void insertAnimation(MasterVO aniVO);
+
+    // 애니 삭제 하기
+    void deletePostByIdx(int idx);
+
+    // 해당 굿즈의 idx 구하기
+    MasterVO getStoreByIdx(int idx);
+
+    // 굿즈 상품 수정
+    int updateStore(MasterVO store);
+
+    List<MasterVO> findSubCategoriesByCategory(@Param("category") int category);
+    void insertProductImg(MasterVO masterVO);
+
+    // 공지사항 수정
+    MasterVO getNoticeById(@Param("idx") int idx);
+    int updateNotice(MasterVO noticeEdit);
+
+    MasterVO noticeSelect (int idx);
+
+    // QnA와 답변 데이터를 가져오는 메서드
+    MasterVO getQnaReplyById(int idx);
+    MasterVO getAdminByAdminId(@Param("adminid") String adminid);
+
+
+    int doesProductExist(int pro_idx);
+    MasterVO getProductImgByIdx(int idx);
+    int updateProductImg(MasterVO productImg);
+
+    // 애니 페이징네이션
+    int getTotalAnimeCount(); // 총 애니메이션 수를 가져옴
+    List<MasterVO> getAniListWithPaging(Map<String, Object> params);// 페이징된 애니 리스트 가져오기
 }

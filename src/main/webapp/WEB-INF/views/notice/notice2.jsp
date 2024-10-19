@@ -22,39 +22,7 @@
 <body>
 
 
-<div class="detail_layer_pop" style="display:none;">
-    <div class="detail_view">
-        <div class="detail_layer_close" style="cursor:pointer;">
-        <img src="/img/notice/close_1.png" alt="Close">
-        </div>
-        <div class="detail_view_layer">
-            <div class="detil_new">
 
-                <div class="titarea">
-                    <div class="tit">
-                        <span id="modalDate">2024.09.30</span>
-                        " 애니플러스 VOD 추가 없데이트 안내 건"
-                        <div id="modalTitle">" 애니플러스 VOD 추가 없데이트 안내 건"</div>
-                    </div>
-                </div>
-
-                <div class="detail_content">
-                    <div class="sample_txt">
-                    <p id="modalContent">안녕하세요.애니플러스입니다.</p>
-                    <p><br></p>
-                    <p>VOD 작품 관련한 추가 업데이트 관련 안내 드립니다.</p>
-                    <p>- 빅 오더 OVA</p>
-                    <p>- 슈퍼 러버즈 OVA</p>
-                    <p>공개일: 2024.09.28(토) 오전 10시 이후</p>
-                    <p>※ 해당 작품은 멤버십 & 화별 과금 모두 이용 가능합니다.</p>
-                    <p>많은 시청 바랍니다.</p>
-                    <p>감사합니다.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="all">
@@ -66,7 +34,7 @@
             <div class="notice_tab">
                 <ul class="list">
                     <li class="selected">
-                        <a href="#tap1" class="btn">공지사항</a>
+                        <a href="#tap1" class="btn" id="resetFilters" style="cursor:pointer;">공지사항</a>
                     </li>
                     <li class="selected">
                         <a href="#tap2" class="btn">자주 묻는 질문</a>
@@ -83,6 +51,32 @@
     </div>
 </section>
 
+
+    <div class="detail_layer_pop" style="display:none;">
+        <div class="detail_view">
+            <div class="detail_layer_close" style="cursor:pointer;">
+            <img src="/img/notice/close_1.png" alt="Close">
+            </div>
+            <div class="detail_view_layer">
+                <div class="detil_new">
+
+                    <div class="titarea">
+                        <div class="tit">
+                            <span id="modalDate"></span>
+                            <div id="modalTitle"></div>
+                        </div>
+                    </div>
+
+                    <div class="detail_content">
+                        <div class="sample_txt">
+                        <div id="modalContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="con_width">
             <div class="notice" id="content">
@@ -91,47 +85,69 @@
                         <select>
                             <option>제목</option>
                         </select>
-                        <input type="text" id="textSearch" placeholder="검색어를 입력하세요." />
+                        <input type="text" id="textSearch" value="${keyword}" placeholder="검색어를 입력하세요." />
                         <button type="button" id="btnSearch">검색</button>
                     </div>
                 </div>
 
-                <h2 class="search-tags">
-                    <a class="on" style="cursor:pointer;">
-                    "#전체"
-                    </a>
-                    <a style="cursor:pointer;">
-                    "#VOD"
-                    </a>
-                    <a style="cursor:pointer;">
-                    "#멤버십"
-                    </a>
-                    <a style="cursor:pointer;">
-                    "#환불"
-                    </a>
-                </h2>
+                <!-- <h2 class="search-tags">
+                    <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
+                    <a class="${selectedTag == '쇼핑' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('쇼핑')">#쇼핑</a>
+                    <a class="${selectedTag == '계정' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('계정')">#계정</a>
+                    <a class="${selectedTag == '포인트' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('포인트')">#포인트</a>
+                    <a class="${selectedTag == '애니' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('애니')">#애니</a>
+                    <a class="${selectedTag == '서비스' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('서비스')">#서비스</a>
+                </h2> -->
             </div>
 
             <!-- 공지사항 리스트 -->
             <div class="bbb">
                 <div class="content active" id="tap1"> <!-- 기본적으로 active 클래스를 추가 -->
-                    <div class="noticeList">
+                    <div class="noticeList" id="noticeList">
                         <div class="row header">
                             <div class="col-sm-1 p-2">번호</div>
                             <div class="col-sm-2 p-2">카테고리</div>
                             <div class="col-sm-8 p-2">제목</div>
                             <div class="col-sm-1 p-2">등록일</div>
                         </div>
-                        <!-- <c:forEach var="vo" items="${list}"></c:forEach> -->
-                        <div class="row">
-                            <div class="col-sm-1 p-2">3</div>
-                            <div class="col-sm-2 p-2">[공지]</div>
-                            <div class="col-sm-8 p-2"><a href="#" class="noticeTitle" data-title="공지사항 1" data-content="공지사항 1의 내용입니다.">제목</a></div>
-                            <div class="col-sm-1 p-2">20024.01.01</div>
-                        </div>
+
+                        <!-- 공지사항 리스트 반복 출력 -->
+                            <c:forEach var="notice" items="${notices}">
+                                <div class="row">
+                                    <div class="col-sm-1 p-2">${notice.idx}</div>
+                                    <div class="col-sm-8 p-2">
+                                        <a href="#" class="noticeTitle" data-title="${notice.title}" data-content="${notice.content}">
+                                            ${notice.title}
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-1 p-2"></div>
+                                    <div class="col-sm-2 p-2">${notice.regDT}</div>
+                                </div>
+                            </c:forEach>
                     </div>
+
+                    <!-- 페이지네이션 -->
+                        <div class="pagination">
+                            <ul class="paging">
+                                <c:if test="${paging.hasPrevious}">
+                                    <li><a href="?page=${paging.nowPage - 1}&tag=${selectedTag}&keyword=${keyword}">&lt;</a></li>
+                                </c:if>
+
+                                <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+                                    <li class="<c:if test='${paging.nowPage == i}'>active</c:if>">
+                                        <a href="?page=${i}&tag=${selectedTag}&keyword=${keyword}">${i}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <c:if test="${paging.hasNext}">
+                                    <li><a href="?page=${paging.nowPage + 1}&tag=${selectedTag}&keyword=${keyword}">&gt;</a></li>
+                                </c:if>
+                            </ul>
+                        </div>
+
                 </div>
 
+                <!-- 자주 묻는 질문 -->
                 <div class="content" id="tap2">
                     <div class="FAQList">
                         <div class="f_header" style="height:auto; overflow:hidden; text-align:center;">
@@ -141,29 +157,25 @@
                                     <col width="*">
                                 </colgroup>
                                 <tbody>
-                                    <!-- 질문 항목 -->
-                                    <tr class="faq-question" style="cursor:pointer;">
-                                        <td>Q</td>
-                                        <td>
-                                            멤버십 정기결제와 3개월권의 혜택 차이는 무엇인가요?
-                                            <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
-                                        </td>
-                                    </tr>
+                                    <!-- FAQ 리스트 반복 출력 -->
+                                    <c:forEach var="faq" items="${faqs}">
+                                        <tr class="faq-question" style="cursor:pointer;">
+                                            <td>Q</td>
+                                            <td>
+                                                ${faq.question}  <!-- 질문 내용 -->
+                                                <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
+                                            </td>
+                                        </tr>
 
-                                    <!-- 답변 항목 (초기에는 숨김 처리) -->
-                                    <tr class="faq-answer" style="display: none;">
-                                        <td colspan="2">
-                                            <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
-                                                <p>A. 멤버십 상품별 누릴 수 있는 혜택의 차이는 아래와 같습니다.</p>
-                                                <p><strong>정기결제 (첫달무료)</strong></p>
-                                                <p>- 혜택: 동시 방영 LIVE, 1080 VOD 다운로드 제공, 상영회 예매권 우대, 온라인샵 배송비 무료</p>
-                                                <p>- 결제일 기준으로, 매달 12,900원이 결제 됩니다.</p>
-                                                <p><strong>3개월권</strong></p>
-                                                <p>- 혜택: 동시 방영 LIVE, 1080 VOD 다운로드 제공, 상영회 예매권 우대, 온라인샵 배송비 무료</p>
-                                                <p>- 결제일 기준으로, 3개월간 이용 가능하며 만료 이후 추가 결제가 발생되지 않습니다.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <!-- 답변 항목 (초기에는 숨김 처리) -->
+                                        <tr class="faq-answer" style="display: none;">
+                                            <td colspan="2">
+                                                <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
+                                                    <p>A. ${faq.answer}</p> <!-- 답변 내용 -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -173,52 +185,82 @@
 
                 <div class="content" id="tap3">
                     <div class="inquiry-container">
-                        <!-- 체크박스 영역 추가 -->
-                        <div class="inquiry-checkbox-container">
-                            <!-- 여러 개의 체크박스 추가 -->
-                            <label>
-                                <input type="checkbox" name="category" value="멤버십"> 멤버십
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="환불"> 환불
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="상품"> 상품
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="배송"> 배송
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="이벤트"> 이벤트
-                            </label>
-                            <label>
-                                <input type="checkbox" name="category" value="기타"> 기타
-                            </label>
-                        </div>
+                        <!-- 카테고리 및 문의 영역 -->
+                        <form class="inquiry-form" method="post" action="/inquirySubmit" enctype="multipart/form-data">
+                            <table class="inquiry-table">
+                                <!-- 구매 관련 문의 -->
+                                <tr>
+                                    <th>구매 관련 문의</th>
+                                    <td class="category-options">
+                                        <label><input type="radio" name="qnatype" value="1"> 배송문의</label>
+                                        <label><input type="radio" name="qnatype" value="2"> 주문문의</label>
+                                        <label><input type="radio" name="qnatype" value="3"> 취소문의</label>
+                                        <label><input type="radio" name="qnatype" value="4"> 반품문의</label>
+                                        <label><input type="radio" name="qnatype" value="5"> 교환문의</label>
+                                        <label><input type="radio" name="qnatype" value="6"> 환불문의</label>
+                                    </td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
 
-                        <!-- 제목 입력 영역 -->
-                        <form class="inquiry-write-tbl" method="post" action="/qnaOK" onsubmit="return qnaFormCheck()">
-                            <table class="inquiry-cm-write">
+                                <!-- 일반 상담 문의 -->
+                                <tr>
+                                    <th>일반 상담 문의</th>
+                                    <td class="category-options">
+                                        <label><input type="radio" name="qnatype" value="7"> 회원정보문의</label>
+                                        <label><input type="radio" name="qnatype" value="8"> 회원제도문의</label>
+                                        <label><input type="radio" name="qnatype" value="9"> 결제방법문의</label>
+                                        <label><input type="radio" name="qnatype" value="10"> 상품문의</label>
+                                    </td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 기타 문의 -->
+                                <tr>
+                                    <th>기타 문의</th>
+                                    <td class="category-options">
+                                        <label><input type="radio" name="qnatype" value="11"> 기타</label>
+                                    </td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 아이디는 로그인된 사용자 아이디를 서버에서 불러와 표시 -->
+                                <tr>
+                                    <th>아이디</th>
+                                    <td><span class="user-id">${loggedInUserId}</span></td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 제목 입력 -->
                                 <tr>
                                     <th>제목</th>
+                                    <td><input type="text" name="title" placeholder="제목을 입력하세요." class="inquiry-title"></td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 내용 입력 -->
+                                <tr>
+                                    <th>내용</th>
+                                    <td><textarea name="content" placeholder="내용을 입력하세요." class="inquiry-content"></textarea></td>
+                                </tr>
+                                <tr class="line"><td colspan="2"></td></tr>
+
+                                <!-- 사진 첨부 -->
+                                <tr>
+                                    <th>사진 첨부</th>
                                     <td>
-                                        <input type="text" name="subject" value="" id="subject" size="100" placeholder="제목을 입력하세요" class="inquiry-title">
+                                        <input type="file" name="file" class="inquiry-attachment" multiple>
+                                        <p class="attachment-info">파일용량은 최대 10MB로 제한되며, 1개의 파일을 첨부할 수 있습니다.</p>
                                     </td>
                                 </tr>
                             </table>
 
-                            <!-- 본문 내용 입력 영역 -->
-                            <div class="inquiry-body">
-                                <textarea id="content" name="content" class="inquiry-editor" placeholder="내용을 입력하세요" style="width: 90%; height: 300px;"></textarea>
-                            </div>
-
                             <!-- 등록 버튼 -->
-                            <div class="inquiry-footer">
-                                <button type="button" class="inquiry-submit-btn">1:1 문의하기</button>
+                            <div class="inquiry-submit">
+                                <button type="submit" class="submit-btn">1:1 문의하기</button>
                             </div>
                         </form>
                     </div>
-                </div>
+
 
                 <div class="content" id="tap4">
                     <div class="terms-container">
@@ -239,32 +281,7 @@
                 </div>
             </div>
 
-            <div class="pagination">
-                <ul  class="paging">
 
-                    <!-- 이전페이지 -->
-                        <%-- <c:if test="${pVO.nowPage==1}"> </c:if>--%>
-                        <li  class="pre"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
-
-                    <!-- 첫번쨰 페이지가 아니면 -->
-                        <%-- <c:if test="${pVO.nowPage>1}"> </c:if>--%>
-                           <li class="pre"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage-1});"'><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
-
-                    <%--<c:forEach var="p" begin="${pVO.startPageNum}" end="${pVO.startPageNum+pVO.onePageNum-1 }"> </c:forEach>--%>
-                        <%-- c:if test="${p<=pVO.totalPage}"> </c:if>--%>
-                            <li class="page" <c:if test="${p==pVO.nowPage}">active</c:if>'><a class="page-link"  href="javascript:reloadPage(${pVO.searchKey},${p});">${p}</a></li>
-
-
-
-                    <!-- 다음페이가 없을때 -->
-                        <%-- <c:if test="${pVO.nowPage==pVO.totalPage}"></c:if>--%>
-                            <li class="next"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/right-chevron.png" style=" width:20px; height:18px; "/></a></li>
-
-                    <!-- 다음페이지가 있을때 -->
-                        <%-- <c:if test="${pVO.nowPage<pVO.totalPage}"></c:if>--%>
-                            <li  class="next"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage+1});"><img src="/img/cm/right-chevron.png" style=" width:20px;height:18px; " /></a></li>
-                </ul>
-            </div>
 
         </div>
 
@@ -273,6 +290,128 @@
 
 
 <script>
+window.onload = function(){
+    console.log("호출");
+
+    var token = localStorage.getItem("token"); // 토큰 값 가져오기
+    if(token != "" && token != null){
+        $.ajax({
+            url: "/getuser",
+            type: "get",
+            data:{Authorization:token},
+            success: function(vo){
+                console.log("로그인된 사용자 ID:" + vo.userid);
+
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+            },
+            error: function(){
+                console.error("로그인 여부 확인 실패");
+            }
+        });
+    }
+};
+
+
+    // 공지사항 탭 클릭 시 필터 초기화하고 전체 목록 요청
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        // AJAX 요청으로 필터링 없이 전체 공지사항 리스트 요청
+        $.ajax({
+            url: '/notice2',
+            type: 'GET',
+            data: { keyword: '', tag: '' },  // 검색어와 태그를 초기화
+            success: function (data) {
+                // #noticeList 부분 업데이트
+                const newNoticeList = $(data).find('#noticeList').html();
+                document.getElementById('noticeList').innerHTML = newNoticeList;
+
+                // 검색어 입력 필드 초기화
+                document.getElementById('textSearch').value = '';
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+
+
+    // 검색 실행 함수
+    function triggerSearch() {
+        const keyword = document.getElementById('textSearch').value;
+
+        $.ajax({
+            url: '/notice2',
+            type: 'GET',
+            data: { keyword },
+            success: function (data) {
+                document.getElementById('noticeList').innerHTML = $(data).find('#noticeList').html();
+                document.getElementById('textSearch').value = '';  // 검색어 입력 필드 초기화
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    // 검색바 표시/숨기기 함수
+    function toggleSearchBar(show) {
+        document.querySelector('.search').style.display = show ? 'block' : 'none';
+    }
+
+    // 탭 전환 시 검색바 처리
+    document.querySelectorAll('.notice_tab .list li').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const isNoticeTab = this.querySelector('.btn').innerText === '공지사항';
+            toggleSearchBar(isNoticeTab);  // 공지사항 탭이면 검색바 표시, 아니면 숨김
+        });
+    });
+
+    // 검색 버튼 클릭 또는 엔터 키 입력 시 검색 실행
+    ['click', 'keypress'].forEach(eventType => {
+        document.getElementById('textSearch').addEventListener(eventType, function(event) {
+            if (eventType === 'click' || (eventType === 'keypress' && event.key === 'Enter')) {
+                event.preventDefault();
+                triggerSearch();
+            }
+        });
+    });
+
+    // 페이지 로드 시 검색바 고정 (공지사항 탭에서 시작할 경우)
+    toggleSearchBar(true);  // 페이지 로드 시 항상 공지사항에는 검색바가 표시
+
+
+
+    // 모든 질문 항목에 대해 클릭 이벤트 추가
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function () {
+                // 현재 질문의 다음 요소(답변)를 가져옴
+                const answer = this.nextElementSibling;
+
+                // 모든 답변을 숨기고 아이콘을 초기화
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    if (ans !== answer) ans.style.display = 'none';
+                });
+
+                document.querySelectorAll('.toggle-icon').forEach(icon => {
+                    icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
+                });
+
+                // 현재 답변을 보이거나 숨기기
+                answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
+
+                // 아이콘 변경
+                const icon = this.querySelector('.toggle-icon');
+                icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
+            });
+        });
+
+
+
+
+
 //탭1_공지사항_모달
     document.querySelectorAll('.noticeTitle').forEach(item => {
         item.addEventListener('click', function (e) {
@@ -282,8 +421,8 @@
             const title = this.getAttribute('data-title');
             const content = this.getAttribute('data-content');
 
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalContent').textContent = content;
+            document.getElementById('modalTitle').innerHTML = title;
+            document.getElementById('modalContent').innerHTML = content;
             document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
         });
     });
@@ -314,29 +453,62 @@
     });
 
 
-// 모든 질문 항목에 대해 클릭 이벤트 추가
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.addEventListener('click', function () {
-            // 현재 질문의 다음 요소(답변)를 가져옴
-            const answer = this.nextElementSibling;
+// 1:1 문의 제출 함수
+function submitInquiry() {
+    //let formData = new FormData(document.querySelector(".inquiry-form"));
+    // 입력 필드 값 가져오기
+    var qnatype = document.getElementById("qnatype").value;
+    var title  = document.getElementById("title").value;
+    var content = document.getElementById("content").value;
+    var file = document.getElementById("file").value;
 
-            // 모든 답변을 숨기고 아이콘을 초기화
-            document.querySelectorAll('.faq-answer').forEach(ans => {
-                if (ans !== answer) ans.style.display = 'none';
-            });
 
-            document.querySelectorAll('.toggle-icon').forEach(icon => {
-                icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
-            });
+    // 로컬 스토리지에서 JWT 토큰 가져오기
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert('로그인이 필요합니다.');
+        location.href = "/user/login";
+        return false;
+    }
 
-            // 현재 답변을 보이거나 숨기기
-            answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
+    // 서버로 전송할 데이터를 FormData 객체에 추가
+    var formData = new FormData();
+    formData.append("qnatype", qnatype);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("file", file);
 
-            // 아이콘 변경
-            const icon = this.querySelector('.toggle-icon');
-            icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
-        });
+
+    $.ajax({
+        url: '/inquirySubmit',
+        type: 'POST',
+        data: formData,
+        processData: false, // 데이터를 기본 문자열로 처리하지 않음
+        contentType: false, // "multipart/form-data"로 전송
+        headers: {
+            "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+        },
+        success: function(response) {
+            alert('1:1 문의가 등록되었습니다.');
+            location.reload(); // 성공 시 페이지 새로고침
+        },
+        error: function(xhr) {
+            if (xhr.status === 401) {
+                alert('인증에 실패했습니다. 다시 로그인하세요.');
+                location.href = "/user/login";  // 로그인 페이지로 이동
+            } else if (xhr.status === 404) {
+                alert('서버에서 요청을 찾을 수 없습니다.');
+            } else {
+                alert("요청 처리 중 오류가 발생했습니다.");
+            }
+            console.error("Error:", xhr);  // 오류 출력
+        }
     });
+
+    return false;  // 기본 폼 제출 방지
+}
+
+
 
 
 

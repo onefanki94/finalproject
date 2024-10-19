@@ -11,6 +11,7 @@
 <script>
 var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
 var userid;
+var currentCommIdx;// 현재 페이지의 comm_idx를 전역 변수로 설정
 
 window.onload = function(){
     console.log("호출");
@@ -203,56 +204,55 @@ window.onload = function(){
      }
 
      // 댓글 목록 로드 함수
-     function loadComments(comm_idx) {
-         $.ajax({
-             url: "/getComment",
-             type: "GET",
-             data: { comm_idx: comm_idx },
-             success: function(comments) {
-                 let replyList = $('#replyList');
-                 replyList.empty();
+          function loadComments(comm_idx) {
+              currentCommIdx = comm_idx;
+              $.ajax({
+                  url: "/getComment",
+                  type: "GET",
+                  data: { comm_idx: comm_idx },
+                  success: function(comments) {
+                      let replyList = $('#replyList');
+                      replyList.empty();
 
-                 comments.forEach( comment => {
-                     let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 정도 설정 (30px씩)
+                      // 댓글을 렌더링
+                      comments.forEach(comment => {
+                          let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 설정
 
-                     // 댓글 HTML 생성
-                     let comm = '<div class="comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">' +
-                                                '<p><strong>' + comment.userid + '</strong><br/>' + '<p>' + comment.content + '</p>' +
-                                                '<p>' + comment.regDT + '</p>';
+                          let comm = '<div class="comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">';
+                          comm += '<p><strong>' + comment.userid + '</strong><br/><p>' + comment.content + '</p>';
+                          comm += '<p>' + comment.regDT + '</p>';
 
+                          if (comment.useridx === useridx) {
+                              comm += '<input type="button" value="수정" onclick="editComment('+comment.idx+')"/>'+
+                                      '<input type="button" value="삭제" onclick="deleteComment('+comment.idx+')"/>';
 
-                        //comm+="<button type='button' onclick='test("+comment.idx+")'>test</button>";
-                     if (comment.useridx === useridx) {
-                         console.log(comment);
-                         comm += '<input type="button" value="수정" onclick="editComment('+comment.idx+')"/>'+
-                                  '<input type="button" value="삭제" onclick="deleteComment('+comment.idx+')"/>';
+                              comm += '<div id="edit-form-' + comment.idx + '" style="display:none;">' +
+                                      '<textarea id="edit-textarea-' + comment.idx + '">' + comment.content + '</textarea>' +
+                                      '<button onclick="updateComment('+comment.idx+','+comment.comm_idx+')">수정하기</button>' +
+                                      '</div>';
+                          }
 
-                         comm += '<div id="edit-form-' + comment.idx+'" style="display:none;">' +
-                              '<textarea id="edit-textarea-'+comment.idx+'">${comment.content}</textarea>' +
-                              '<button onclick="updateComment('+comment.idx+','+comment.comm_idx+')">수정하기</button>' +
-                           '</div>';
+                          // 댓글의 depth가 2 이상이면 답글 쓰기 비활성화 (자식 댓글은 depth가 2이므로)
+                          if (comment.depth < 2) {  // depth가 2 미만일 경우에만 답글 허용
+                              comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
+                              comm += '<div id="replyInput-' + comment.idx + '" style="display:none;">' +
+                                      '<input type="text" id="replyContent-' + comment.idx + '" placeholder="댓글을 남겨보세요." />' +
+                                      '<button onclick="regiReply(' + comment.idx + ',' + comment.comm_idx + ')">등록</button>' +
+                                      '</div>';
+                          }
+                          //else {
+                              //comm += '<p>더 이상 답글을 달 수 없습니다.</p>';
+                          //}
 
-
-                        }
-
-                    if(useridx != null && useridx != ""){
-                         comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
-
-                         comm += '<div id="replyInput-'+comment.idx+'" style="display:none;">' +
-                                     '<input type="text" id="replyContent-'+comment.idx+'" placeholder="댓글을 남겨보세요." />' +
-                                     '<button onclick="regiReply('+comment.idx+','+comment.comm_idx+')">등록</button>' +
-                                  '</div>';
-                    }
-
-                     comm += '</div>';
-                     replyList.append(comm);
-                 });
-             },
-             error: function(xhr, status, error) {
-                 console.error("댓글 로드 오류:", error);
-             }
-         });
-     }
+                          comm += '</div>';
+                          replyList.append(comm);
+                      });
+                  },
+                  error: function(xhr, status, error) {
+                      console.error("댓글 로드 오류:", error);
+                  }
+              });
+          }
     function test(testidx){
     alert(testidx);
     }
@@ -394,7 +394,7 @@ window.onload = function(){
              data: { idx: idx },
              success: function() {
                  alert('댓글이 삭제되었습니다.');
-                 loadComments(comm_idx); // 댓글 목록 다시 불러오기
+                 loadComments(currentCommIdx); // 댓글 목록 다시 불러오기
              },
              error: function(xhr, status, error) {
                  console.error("댓글 삭제 오류:", error);

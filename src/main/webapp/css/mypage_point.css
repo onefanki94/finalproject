@@ -43,3 +43,36 @@
   display: flex;
   justify-content: space-between;
 }
+
+#pagination {
+  display: block;
+  text-align: center;
+}
+
+.custom-pagination {
+  margin-top: 35px;
+  display: inline-block;
+  position: relative;
+  padding: 0 50px;
+  text-align: center;
+  line-height: 22px;
+  vertical-align: top;
+}
+
+.custom-pagination > .pageNumber_span {
+  font-weight: 300;
+  color: #d4d4d4;
+  display: inline-block;
+  min-width: 10px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+  cursor:pointer;
+}
+
+.clicked {
+  font-weight: 700;
+  color: rgb(48, 48, 51);
+  border-bottom: 1px solid rgb(48, 48, 51);
+}

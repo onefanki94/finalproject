@@ -58,9 +58,9 @@ header {
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(50px);
   height: 150px;
-  padding: 0 50px;
+  padding: 0 3em;
   margin: 0 auto;
-  max-width: 1920px;
+  /*max-width: 1920px;*/
   z-index: 2000;
 }
 

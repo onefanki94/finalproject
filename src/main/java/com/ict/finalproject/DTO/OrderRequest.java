@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderRequest {
-    private List<Integer> products;  // 상품 ID 리스트
+    private List<Integer> products;// 상품 ID 리스트
+    private List<Integer> productsCounts;// 상품 갯수 리스트
     private int total_price;
 }

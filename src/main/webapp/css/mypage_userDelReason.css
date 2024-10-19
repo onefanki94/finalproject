@@ -39,6 +39,7 @@
   padding: 10px;
   height: 120px;
   border: 1px solid #aaaaaa;
+  outline: none;
 }
 
 .mypage_right_element > div:nth-of-type(2) h4 {

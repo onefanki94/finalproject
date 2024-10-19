@@ -213,20 +213,23 @@
 }
 
 .product-info-table {
-    width: 70%;
     border-collapse: collapse;
     margin-bottom: 30px;
 }
 
-.product-info-table th, .product-info-table td {
+.product-info-table th {
+    width: 15%;
     padding: 12px 15px;
     font-size: 14px;
     text-align: center;
+    font-weight: bold;
+    background-color: #f9f9f9;
 }
 
-.product-info-table th {
-    background-color: #f9f9f9;
-    font-weight: bold;
+.product-info-table td {
+    padding: 12px 15px;
+
+    text-align:left;
 }
 
 .product-info-table td a {

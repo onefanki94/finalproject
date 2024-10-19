@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.ProlikeDAO">
 
-
     <!-- 좋아요 추가 -->
     <insert id="insertLike" parameterType="map">
         INSERT INTO t_prolike (pro_idx, useridx, regDT)
@@ -16,10 +15,9 @@
         where pro_idx = #{pro_idx} AND useridx = #{useridx}
     </delete>
 
-    
     <select id="isLiked" parameterType="map" resultType="boolean">
         SELECT COUNT(*) > 0
-        FROM likes
+        FROM t_prolike
         WHERE pro_idx = #{pro_idx} AND user_idx = #{useridx}
     </select>
 
@@ -35,5 +33,4 @@
         FROM t_prolike
         WHERE pro_idx = #{pro_idx}
     </select>
-
 </mapper>

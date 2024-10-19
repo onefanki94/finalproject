@@ -20,12 +20,14 @@ import java.util.Arrays;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    private GlobalModelInterceptor globalModelInterceptor;
     private final JWTInterceptor jwtInterceptor;
 
     // JwtInterceptor를 생성자 주입 방식으로 주입받음
     @Autowired
-    public WebConfig(JWTInterceptor jwtInterceptor) {
+    public WebConfig(JWTInterceptor jwtInterceptor, GlobalModelInterceptor globalModelInterceptor) {
         this.jwtInterceptor = jwtInterceptor;
+        this.globalModelInterceptor = globalModelInterceptor;
     }
 
   /*  @Override
@@ -38,17 +40,24 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:9911") // 허용할 출처(도메인) 지정
+                .allowedOrigins("http://localhost:9911") // 클라이언트 URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type", "Authorization")
-                .exposedHeaders("Authorization")
-                .allowCredentials(true)  // 쿠키와 인증 정보를 허용
-                .maxAge(3600);
+                .allowedHeaders("Authorization", "Content-Type")
+                .allowCredentials(true);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("img/store/**")
                 .addResourceLocations("file:src/main/webapp/img/store/");
+        registry.addResourceHandler("/reviewFileUpload/**")
+                .addResourceLocations("file:src/main/webapp/reviewFileUpload/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // "/master/**"로 시작하는 URL에만 인터셉터 적용
+        registry.addInterceptor(globalModelInterceptor)
+                .addPathPatterns("/master/**");
     }
 }
