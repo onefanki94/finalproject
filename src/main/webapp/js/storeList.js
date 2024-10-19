@@ -34,7 +34,7 @@ if (secondCategory) {
     url += `&second_category=${secondCategory}`;
 }
 
-fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize + '&category=' + category)
+fetch(url)
     .then(response => response.json())
     .then(data => {
         products = data;  // 전역 변수 products에 데이터 할당
@@ -129,36 +129,35 @@ function applyFilter(category, second_category) {
 
 
 
-//    // 서버에서 상품 목록을 가져오는 API 호출
-//    fetch('/pagedProducts?pageNum=1&pageSize=10&category=4')
-//        .then(response => response.json())  // 응답을 JSON으로 변환
-//        .then(data => {
-//            products = data;  // 전역 변수 products에 데이터 할당
-//            // 서버에서 받은 데이터를 가지고 productList를 업데이트
-////            data.forEach(product => {
-////                const listItem = document.createElement('li');
-////                listItem.className = 'list-product';
-////                listItem.setAttribute('data-date', product.date);
-////                listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
-////                listItem.setAttribute('data-price', product.price);
-////
-////                listItem.innerHTML = `
-////                    <a href="/storeDetail/${product.idx}">
-////                        <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-////                    </a>
-////                    <p>${product.title}</p>
-////                    <p>${product.price.toLocaleString()} 원</p>
-////                `;
-////                productList.appendChild(listItem);
-////            });
-////
-////            // 기본 필터 적용 (예: 최신순)
-////            filterProductsByType('latest');
-//        })
-//        .catch(error => {
-//            console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
+// 서버에서 상품 목록을 가져오는 API 호출
+//fetch('/pagedProducts?pageNum=1&pageSize=10)
+//    .then(response => response.json())  // 응답을 JSON으로 변환
+//    .then(data => {
+//        products = data;  // 전역 변수 products에 데이터 할당
+//        // 서버에서 받은 데이터를 가지고 productList를 업데이트
+//        data.forEach(product => {
+//            const listItem = document.createElement('li');
+//            listItem.className = 'list-product';
+//            listItem.setAttribute('data-date', product.date);
+//            listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
+//            listItem.setAttribute('data-price', product.price);
+//
+//            listItem.innerHTML = `
+//                <a href="/storeDetail/${product.idx}">
+//                    <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+//                </a>
+//                <p>${product.title}</p>
+//                <p>${product.price.toLocaleString()} 원</p>
+//            `;
+//            productList.appendChild(listItem);
 //        });
-
+//
+//        // 기본 필터 적용 (예: 최신순)
+//        filterProductsByType('latest');
+//    })
+//    .catch(error => {
+//        console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
+//    });
 
 });
 // 필터 적용 함수 정의
