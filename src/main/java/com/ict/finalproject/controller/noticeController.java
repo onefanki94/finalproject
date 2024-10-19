@@ -47,7 +47,15 @@ public class noticeController {
                                 @RequestParam(defaultValue = "10") int size,
                                 @RequestParam(defaultValue = "") String keyword,
                                 @RequestParam(defaultValue = "0") int faqtype,
+                                @RequestHeader(value = "Authorization", required = false) String token,
                                 Model model) {
+
+        // 로그인된 사용자의 아이디를 추가하는 부분
+        if (token != null) {
+            token = token.replace("Bearer ", ""); // "Bearer " 제거
+            String userId = jwtUtil.getUserIdFromToken(token); // 토큰에서 사용자 아이디 추출
+            model.addAttribute("userid", userId); // 아이디를 Model에 추가
+        }
 
         // 공지사항 페이징 처리 및 리스트 조회
         PagingVO noticePVO = noticeService.getNoticePage(page, size, keyword);  // 공지사항 페이징
@@ -78,11 +86,15 @@ public class noticeController {
                                                 @RequestHeader("Authorization") String token) {
         System.out.println("여긴오니?");
         System.out.println("1" + title + "2" + content + "3" + qnatype + "4" + files + "5" + token);
+
+
         // 토큰에서 "Bearer " 제거
         token = token.replace("Bearer ", "");
+
         //토큰에서 사용자 아이디 추출
         String userid = jwtUtil.getUserIdFromToken(token);
         System.out.println("id : " +userid);
+
         // userid로 index구하기
         int useridx= mservice.getUseridx(userid);
 

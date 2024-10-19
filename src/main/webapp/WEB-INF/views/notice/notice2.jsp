@@ -226,7 +226,7 @@
                                 <!-- 아이디는 로그인된 사용자 아이디를 서버에서 불러와 표시 -->
                                 <tr>
                                     <th>아이디</th>
-                                    <td><span class="user-id">${loggedInUserId}</span></td>
+                                    <td><span class="user-id">${userid}</span></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
@@ -291,7 +291,6 @@
 
 <script>
 window.onload = function(){
-    console.log("호출");
 
     var token = localStorage.getItem("token"); // 토큰 값 가져오기
     if(token != "" && token != null){
@@ -300,6 +299,7 @@ window.onload = function(){
             type: "get",
             data:{Authorization:token},
             success: function(vo){
+                document.querySelector('.user-id').innerText = vo.userid;
                 console.log("로그인된 사용자 ID:" + vo.userid);
 
                 userid = vo.userid;
@@ -313,6 +313,18 @@ window.onload = function(){
             }
         });
     }
+
+    // tap3 탭 클릭 시 로그인 여부 확인
+        document.querySelector('.notice_tab .list li:nth-child(3) .btn').addEventListener('click', function() {
+            if (!token) { // 토큰이 없으면
+                alert('로그인이 필요합니다.');
+                location.href = "/user/login"; // 로그인 페이지로 이동
+                return; // 이후 코드 실행 중단
+            }
+
+            // 로그인된 사용자는 tap3의 콘텐츠에 접근 가능
+            console.log('1:1 문의하기 탭에 접근했습니다.');
+        });
 };
 
 
@@ -413,6 +425,7 @@ window.onload = function(){
 
 
 //탭1_공지사항_모달
+function setNoticeTitleClickEvents() {
     document.querySelectorAll('.noticeTitle').forEach(item => {
         item.addEventListener('click', function (e) {
             e.preventDefault(); // 링크 기본 동작 방지
@@ -426,31 +439,43 @@ window.onload = function(){
             document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
         });
     });
+}
 
-    // 모달 닫기
-    document.querySelector('.detail_layer_close').addEventListener('click', function () {
-        document.querySelector('.detail_layer_pop').style.display = 'none'; // 모달 숨기기
+// 모달 닫기 이벤트 설정
+document.querySelector('.detail_layer_close').addEventListener('click', function () {
+    document.querySelector('.detail_layer_pop').style.display = 'none'; // 모달 숨기기
+});
+
+// 초기 로드 시 공지사항의 모달 이벤트 설정
+setNoticeTitleClickEvents();
+
+// 탭 전환 시마다 이벤트 리스너 재설정 및 컨텐츠 갱신
+const tabList = document.querySelectorAll('.notice_tab .list li');
+const contentList = document.querySelectorAll('.content');
+
+tabList.forEach((tab, index) => {
+    tab.querySelector('.btn').addEventListener('click', function (e) {
+        e.preventDefault();
+        // 모든 탭 비활성화 및 콘텐츠 숨김
+        tabList.forEach(t => t.classList.remove('selected'));
+        contentList.forEach(content => content.classList.remove('active'));
+
+        // 현재 탭 활성화 및 해당 콘텐츠 보여줌
+        tab.classList.add('selected');
+        contentList[index].classList.add('active');
+
+        // 공지사항 탭으로 돌아왔을 때 이벤트 리스너 재설정
+        if (index === 0) { // 공지사항 탭인 경우
+            setNoticeTitleClickEvents();
+        }
     });
+});
 
+// 공지사항 리스트가 AJAX로 새로 로드될 때마다 이벤트 리스너 재설정
+$(document).ajaxComplete(function() {
+    setNoticeTitleClickEvents();
+});
 
-
-
-//탭 전환
-    const tabList = document.querySelectorAll('.notice_tab .list li');
-    const contentList = document.querySelectorAll('.content');
-
-    tabList.forEach((tab, index) => {
-        tab.querySelector('.btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            // 모든 탭 비활성화 및 콘텐츠 숨김
-            tabList.forEach(t => t.classList.remove('selected'));
-            contentList.forEach(content => content.classList.remove('active'));
-
-            // 현재 탭 활성화 및 해당 콘텐츠 보여줌
-            tab.classList.add('selected');
-            contentList[index].classList.add('active');
-        });
-    });
 
 
 // 1:1 문의 제출 함수
