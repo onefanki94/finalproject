@@ -156,7 +156,7 @@ public class storeMainController {
             @RequestParam(required = false) Integer second_category) {
 
         int offset = (pageNum - 1) * pageSize;
-
+        System.out.println("jo"+category);
         // 두 번째 카테고리를 포함한 상품 목록을 가져옵니다.
         List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category, second_category);
 
