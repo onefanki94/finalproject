@@ -63,4 +63,8 @@ public interface MemberService {
     // 적립금 내역
     List<PointVO> getPointList(int page, int pageSize, int useridx);
     int getTotalPointCount(int useridx);
+
+    String findId(String username, String email);
+    String findPwd(String userid,String username ,String email);
+    boolean changePassword(String userid, String userpwd);
 }

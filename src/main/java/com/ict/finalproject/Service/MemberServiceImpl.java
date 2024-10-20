@@ -6,6 +6,7 @@ import com.ict.finalproject.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,8 @@ public class MemberServiceImpl implements MemberService {
     private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
     @Autowired
     MemberDAO dao;
+
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public int memberCreate(MemberVO vo) {
@@ -229,5 +232,20 @@ public class MemberServiceImpl implements MemberService {
         return dao.getTotalPointCount(useridx);
     }
 
+    @Override
+    public String findId(String username, String email) {
+        return dao.findId(username, email);
+    }
 
+    @Override
+    public String findPwd(String userid, String username ,String email) {
+        return dao.findPwd(userid,username ,email);
+    }
+
+    @Override
+    public boolean changePassword(String userid, String userpwd) {
+        String encryptedPassword = passwordEncoder.encode(userpwd);
+        int result = dao.changePassword(userid, encryptedPassword);
+        return result > 0;
+    }
 }

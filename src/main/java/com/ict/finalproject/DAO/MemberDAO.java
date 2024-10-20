@@ -93,4 +93,9 @@ public interface MemberDAO {
         //적립금 내역
         List<PointVO> getPointList(int pageSize, int offset, int useridx);
         int getTotalPointCount(int useridx);
+
+        // 아이디 및 비밀번호 찾기 , 비밀번호 변경
+        String findId(String username, String email);
+        String findPwd(String userid,String username, String email);
+        int changePassword(String userid, String userpwd);
 }
