@@ -110,25 +110,18 @@ window.onload = function(){
            <div class="list_section">
                <c:if test="${previousPost != null}"></c:if>
                     <a href="/cmView/${go.idx}">
-
-                    <div class="list_pre">
-                        <i class="bi bi-chevron-up"></i>이전페이지
-
-                    </div></a>
-
-
-
+                        <div class="list_pre">
+                            <i class="bi bi-chevron-up"></i>이전페이지
+                        </div>
+                    </a>
                <c:if test="${previousPost == null}"></c:if>
 
                <c:if test="${nextPost != null}"></c:if>
                <a href="/cmView/${tun.idx}">
-
-                <div class="list_next">
-                    <i class="bi bi-chevron-down"></i>다음페이지
-                </div></a>
-
-
-
+                   <div class="list_next">
+                       <i class="bi bi-chevron-down"></i>다음페이지
+                   </div>
+               </a>
 
                <c:if test="${nextPost == null}"></c:if>
            </div>
@@ -202,6 +195,16 @@ window.onload = function(){
 
          return false;  // 기본 폼 제출 방지
      }
+
+     // 엔터키 이벤트 리스너 추가
+     $(document).ready(function() {
+         $('#textSearch').keydown(function(event) {
+             if (event.key === 'Enter') {
+                 event.preventDefault(); // 기본 엔터 동작 방지
+                 regiComm(); // regiComm() 함수 호출
+             }
+         });
+     });
 
      // 댓글 목록 로드 함수
           function loadComments(comm_idx) {
