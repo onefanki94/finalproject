@@ -10,6 +10,7 @@ body {
     background:url(https://lwi.nexon.com/kartdrift/gow/renewal/common/bg_sub.png) center top no-repeat;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .cm_tab {
@@ -70,8 +71,10 @@ body {
 .container{
     max-width: 1200px;
     height:auto;
-    margin: 0 auto;
     justify-content: center;
+    border: 1px solid #ddd; /* 얇은 회색 보더 */
+    padding: 20px; /* 내부 여백 */
+    margin-bottom : 50px;
 }
 
 .viewInfo{
@@ -131,6 +134,17 @@ body {
     background-color:#FAFAFA;
 }
 
+.reply_input textarea {
+    font-size: 13px;
+    color: #333;
+    border: 1px solid #dde1e5;
+    background-color: #FAFAFA;
+    width: 90%;
+    min-height: 90px;
+    padding: 8px;
+    margin-bottom: 10px; /* 여백 추가 */
+}
+
 .reply_input button{
     margin-left:0;
     font-size: 13px;
@@ -141,10 +155,67 @@ body {
     height: 90px;
 }
 
+/* 날짜와 답글쓰기, 수정, 삭제의 공통 스타일 */
+.comment-meta,
+.reply-btn,
+.edit-btn,
+.delete-btn {
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--skinText979797);
+    cursor: pointer;
+    margin-right: 10px; /* 요소 간 여백 추가 */
+}
+
+
+/* 댓글 요소 스타일 */
+.comment-item {
+    border-bottom: 1px solid #ddd; /* 아래쪽 실선 추가 */
+    padding-bottom: 10px; /* 실선과 내용 간의 여백 */
+    margin-bottom: 10px; /* 다음 댓글과의 간격 */
+}
+
+.comment-item:last-child {
+    border-bottom: none; /* 마지막 댓글의 보더바텀 제거 */
+}
+
+
+/* 답변쓰기, 수정, 삭제 정렬 */
+.comment-actions {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 5px; /* 위쪽 여백 */
+}
+
+.edit-btn,
+.delete-btn {
+    margin-left: 10px; /* 왼쪽에 여백을 줘서 작성자와 떨어지게 함 */
+    border: 1px solid #ddd; /* 보더 추가 */
+    padding: 2px 6px; /* 버튼 크기 조정 */
+    background-color: transparent; /* 배경색 투명 */
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--skinText979797);
+}
+
+/* 답글쓰기와 수정/삭제 버튼 간격 조절 */
+.reply-btn {
+    margin-left: 15px; /* 답글쓰기와 이전 요소 사이의 간격 */
+}
+
+/* 수정과 삭제 사이의 간격 */
+.edit-btn {
+    margin-left: auto; /* 우측으로 정렬 */
+}
+
+
+
 
 .list_section {
-    margin: 60px 0 100px 0;
-
+    margin: 60px auto 100px auto; /* 자동 여백으로 가운데 정렬 */
+    max-width: 1200px; /* 최대 너비 1200px 설정 */
+    align-items: center;
 }
 
 .list_section a{
@@ -162,10 +233,12 @@ body {
 .list_next {
     border-collapse: separate;
     padding: 20px;/*수정*/
-    border-top: 1px solid #dde1e5;
-    border-bottom: 1px solid #dde1e5;
     font-size:17px;
     cursor: pointer;
+}
+
+.list_pre{
+border-bottom: 1px solid #dde1e5;
 }
 
 

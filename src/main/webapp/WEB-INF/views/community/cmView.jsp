@@ -83,61 +83,56 @@ window.onload = function(){
             </div>
 
             <div class="cmContent">${vo.content}</div>
-
         </div>
 
         <!-- 댓 글 -->
-           <div id="replyArea" style="margin-top:30px;" >
-                <form method="post" id="replyForm">
-                 <div class="review-writer">
-                     <div class="reply_input">
-                     <input type="text" id="textSearch" placeholder="정책위반 댓글은 삭제될 수 있습니다." />
-                     <button type="button" id="btnSearch" onclick="regiComm()">등록</button>
+        <div id="replyArea" style="margin-top:30px;">
+            <form method="post" id="replyForm">
+                <div class="review-writer">
+                    <div class="reply_input">
+                        <input type="text" id="textSearch" placeholder="정책위반 댓글은 삭제될 수 있습니다." />
+                        <button type="button" id="btnSearch" onclick="regiComm()">등록</button>
                     </div>
-
-                   <!-- 원글 글번호 -->
-                     <input type="hidden" name="no" value="${vo.idx}"/>
-                  </div>
-               </form>
-
-           <!-- 댓글 목록 -->
-           <div ></div>
-              <div id="replyList"></div>
-           </div>
+                    <input type="hidden" name="no" value="${vo.idx}" />
+                </div>
+            </form>
+            <div></div>
+            <div id="replyList"></div>
         </div>
+    </div>
 
         <!-- 리스트 목록 -->
-           <div class="list_section">
-               <c:if test="${previousPost != null}"></c:if>
-                    <a href="/cmView/${go.idx}">
-                        <div class="list_pre">
-                            <i class="bi bi-chevron-up"></i>이전페이지
-                        </div>
-                    </a>
-               <c:if test="${previousPost == null}"></c:if>
+                   <div class="list_section">
+                       <c:if test="${previousPost != null}"></c:if>
+                            <a href="/cmView/${go.idx}">
+                                <div class="list_pre">
+                                    <i class="bi bi-chevron-up"></i>이전페이지
+                                </div>
+                            </a>
+                       <c:if test="${previousPost == null}"></c:if>
 
-               <c:if test="${nextPost != null}"></c:if>
-               <a href="/cmView/${tun.idx}">
-                   <div class="list_next">
-                       <i class="bi bi-chevron-down"></i>다음페이지
+                       <c:if test="${nextPost != null}"></c:if>
+                       <a href="/cmView/${tun.idx}">
+                           <div class="list_next">
+                               <i class="bi bi-chevron-down"></i>다음페이지
+                           </div>
+                       </a>
+
+                       <c:if test="${nextPost == null}"></c:if>
                    </div>
-               </a>
+                <div class="listBt">
+                    <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
+                        수정
+                    </a>
+                    <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
+                        목록
+                    </a>
+                    <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
+                        삭제
+                    </a>
+                </div>
 
-               <c:if test="${nextPost == null}"></c:if>
-           </div>
-        <div class="listBt">
-            <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
-                수정
-            </a>
-            <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
-                목록
-            </a>
-            <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
-                삭제
-            </a>
-        </div>
-
-    </div>
+            </div>
 
     <!-- 삭제 확인 및 처리 -->
     <script type="text/javascript">
@@ -221,32 +216,34 @@ window.onload = function(){
                       comments.forEach(comment => {
                           let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 설정
 
-                          let comm = '<div class="comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">';
+                          let comm = '<div class="comment-item comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">';
                           comm += '<p><strong>' + comment.userid + '</strong><br/><p>' + comment.content + '</p>';
-                          comm += '<p>' + comment.regDT + '</p>';
+                          comm += '<p class="comment-meta">' + comment.regDT
 
-                          if (comment.useridx === useridx) {
-                              comm += '<input type="button" value="수정" onclick="editComment('+comment.idx+')"/>'+
-                                      '<input type="button" value="삭제" onclick="deleteComment('+comment.idx+')"/>';
-
-                              comm += '<div id="edit-form-' + comment.idx + '" style="display:none;">' +
-                                      '<textarea id="edit-textarea-' + comment.idx + '">' + comment.content + '</textarea>' +
-                                      '<button onclick="updateComment('+comment.idx+','+comment.comm_idx+')">수정하기</button>' +
-                                      '</div>';
-                          }
 
                           // 댓글의 depth가 2 이상이면 답글 쓰기 비활성화 (자식 댓글은 depth가 2이므로)
-                          if (comment.depth < 2) {  // depth가 2 미만일 경우에만 답글 허용
-                              comm += '<input type="button" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>';
-                              comm += '<div id="replyInput-' + comment.idx + '" style="display:none;">' +
-                                      '<input type="text" id="replyContent-' + comment.idx + '" placeholder="댓글을 남겨보세요." />' +
-                                      '<button onclick="regiReply(' + comment.idx + ',' + comment.comm_idx + ')">등록</button>' +
-                                      '</div>';
-                          }
-                          //else {
-                              //comm += '<p>더 이상 답글을 달 수 없습니다.</p>';
-                          //}
+                            if (comment.depth < 2) {  // depth가 2 미만일 경우에만 답글 허용
+                                comm += '<span class="reply-btn" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>답글쓰기</span>';
+                                comm += '<div id="replyInput-' + comment.idx + '" class="reply_input" style="display:none;">' +
+                                        '<input type="text" id="replyContent-' + comment.idx + '" placeholder="답글을 남겨보세요." />' +
+                                        '<button onclick="regiReply(' + comment.idx + ',' + comment.comm_idx + ')">등록</button>' +
+                                        '</div>';
+                            }
 
+
+                          // 수정/삭제 버튼
+                              if (comment.useridx === useridx) {
+                                  comm += '<span class="edit-btn" onclick="editComment(' + comment.idx + ')">수정</span>';
+                                  comm += '<span class="delete-btn" onclick="deleteComment(' + comment.idx + ')">삭제</span>';
+
+                                  comm += '<div id="edit-form-' + comment.idx + '" class="reply_input" style="display:none;">' +
+                                          '<textarea id="edit-textarea-' + comment.idx + '">' + comment.content + '</textarea>' +
+                                          '<button onclick="updateComment(' + comment.idx + ',' + comment.comm_idx + ')">수정하기</button>' +
+                                          '</div>';
+                              }
+
+
+                            comm +='</p>';
                           comm += '</div>';
                           replyList.append(comm);
                       });
@@ -410,7 +407,6 @@ window.onload = function(){
              let comm_idx = $('[name=no]').val();
              loadComments(comm_idx); // 댓글 목록 로드
          });
-
 
 
 
