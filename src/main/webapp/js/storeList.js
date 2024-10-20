@@ -11,7 +11,14 @@ function getParameterByName(name) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-
+let productList;
+let products;
+document.addEventListener('DOMContentLoaded', function() {
+    productList = document.querySelector('.list-carousel-images');
+    if (!productList) {
+        console.error("상품 목록 컨테이너를 찾을 수 없습니다.");
+        return;
+    }
 
 let pageNum = getParameterByName('pageNum') || 1; // URL에서 pageNum 추출, 기본값 1
 let pageSize = getParameterByName('pageSize') || 10; // URL에서 pageSize 추출, 기본값 10
@@ -27,10 +34,30 @@ if (secondCategory) {
     url += `&second_category=${secondCategory}`;
 }
 
-fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize)
+fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize + '&category=' + category)
     .then(response => response.json())
     .then(data => {
-        console.log(data);  // 데이터가 제대로 오는지 확인
+        products = data;  // 전역 변수 products에 데이터 할당
+                    // 서버에서 받은 데이터를 가지고 productList를 업데이트
+                    data.forEach(product => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'list-product';
+                        listItem.setAttribute('data-date', product.date);
+                        listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
+                        listItem.setAttribute('data-price', product.price);
+
+                        listItem.innerHTML = `
+                            <a href="/storeDetail/${product.idx}">
+                                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                            </a>
+                            <p>${product.title}</p>
+                            <p>${product.price.toLocaleString()} 원</p>
+                        `;
+                        productList.appendChild(listItem);
+                    });
+
+                    // 기본 필터 적용 (예: 최신순)
+                    filterProductsByType('latest');
         // 데이터 처리 로직 추가
     })
     .catch(error => console.error('Error:', error));
@@ -45,6 +72,7 @@ function loadSubcategories(categoryCode) {
     const categoryParam = categoryCode ? `&category=${categoryCode}` : '';
     const pageNum = 1;  // 페이지 넘버, 예시로 1로 고정
     const pageSize = 10;  // 페이지 크기, 예시로 10으로 고정
+
     $.ajax({
         url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}${categoryParam}`,
         method: 'GET',
@@ -79,7 +107,6 @@ function loadSubcategories(categoryCode) {
 function applyFilter(category, second_category) {
     const pageNum = 1;
     const pageSize = 10;
-
     // AJAX 요청에서 category와 secondCategory를 서버로 전달
     $.ajax({
         url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
@@ -100,44 +127,37 @@ function applyFilter(category, second_category) {
     });
 }
 
-let productList;
-let products;
-document.addEventListener('DOMContentLoaded', function() {
-    productList = document.querySelector('.list-carousel-images');
-    if (!productList) {
-        console.error("상품 목록 컨테이너를 찾을 수 없습니다.");
-        return;
-    }
 
-    // 서버에서 상품 목록을 가져오는 API 호출
-    fetch('/pagedProducts?pageNum=1&pageSize=10')
-        .then(response => response.json())  // 응답을 JSON으로 변환
-        .then(data => {
-            products = data;  // 전역 변수 products에 데이터 할당
-            // 서버에서 받은 데이터를 가지고 productList를 업데이트
-            data.forEach(product => {
-                const listItem = document.createElement('li');
-                listItem.className = 'list-product';
-                listItem.setAttribute('data-date', product.date);
-                listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
-                listItem.setAttribute('data-price', product.price);
 
-                listItem.innerHTML = `
-                    <a href="/storeDetail/${product.idx}">
-                        <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-                    </a>
-                    <p>${product.title}</p>
-                    <p>${product.price.toLocaleString()} 원</p>
-                `;
-                productList.appendChild(listItem);
-            });
-
-            // 기본 필터 적용 (예: 최신순)
-            filterProductsByType('latest');
-        })
-        .catch(error => {
-            console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
-        });
+//    // 서버에서 상품 목록을 가져오는 API 호출
+//    fetch('/pagedProducts?pageNum=1&pageSize=10&category=4')
+//        .then(response => response.json())  // 응답을 JSON으로 변환
+//        .then(data => {
+//            products = data;  // 전역 변수 products에 데이터 할당
+//            // 서버에서 받은 데이터를 가지고 productList를 업데이트
+////            data.forEach(product => {
+////                const listItem = document.createElement('li');
+////                listItem.className = 'list-product';
+////                listItem.setAttribute('data-date', product.date);
+////                listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
+////                listItem.setAttribute('data-price', product.price);
+////
+////                listItem.innerHTML = `
+////                    <a href="/storeDetail/${product.idx}">
+////                        <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+////                    </a>
+////                    <p>${product.title}</p>
+////                    <p>${product.price.toLocaleString()} 원</p>
+////                `;
+////                productList.appendChild(listItem);
+////            });
+////
+////            // 기본 필터 적용 (예: 최신순)
+////            filterProductsByType('latest');
+//        })
+//        .catch(error => {
+//            console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
+//        });
 
 
 });
@@ -280,4 +300,5 @@ function updateProductList(products) {
           }
       });
   };
+
 
