@@ -7,6 +7,7 @@ import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.CommentVO;
 import com.ict.finalproject.vo.CommuVO;
 import com.ict.finalproject.vo.MemberVO;
+import com.ict.finalproject.vo.PagingVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -41,39 +42,42 @@ public class communityController {
 //    ModelAndView mav = null;
 
     // 커뮤니티 리스트 페이지
-    // Controller: communityController.java
     @GetMapping("/cmList")
     public String cmList(
-            @RequestParam(value = "commtype", required = false, defaultValue = "all") String commtype,
-            @RequestParam(value = "orderBy", required = false, defaultValue = "DEFAULT") String orderBy,
-            @RequestParam(value = "searchCategory", required = false, defaultValue = "TITLE_AND_CONTENT") String searchCategory,
-            @RequestParam(value = "searchKeyword", required = false, defaultValue = "") String searchKeyword,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "commtype", defaultValue = "all") String commtype,
+            @RequestParam(value = "orderBy", defaultValue = "DEFAULT") String orderBy,
+            @RequestParam(value = "searchCategory", defaultValue = "TITLE_AND_CONTENT") String searchCategory,
+            @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
             Model model) {
 
-        // commtype이 null이거나 빈 문자열일 때 기본값 "all"로 설정
-        if (commtype == null || commtype.trim().isEmpty()) {
-            commtype = "all";
-        }
 
-        // 전체 리스트 조회 또는 특정 커뮤니티 타입으로 필터링된 리스트 조회
-        List<CommuVO> list;
-        if ("all".equals(commtype)) {
-            list = commuService.FilteredList(null, orderBy, searchCategory, searchKeyword);
-        } else {
-            list = commuService.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
-        }
 
-        // 검색어 입력 후 검색어를 초기화하여 JSP로 전달
-        searchKeyword = "";  // 검색 후 검색어 초기화
+        // PagingVO 객체를 생성하여 필요한 값 설정
+        PagingVO pagingVO = new PagingVO(page, 0, size);
+        pagingVO.setForCommunity(commtype, orderBy, searchCategory, searchKeyword);
 
-        // JSP에 전달할 데이터 설정
+        // 전체 항목 수를 조회하면서 PagingVO를 사용
+        int totalElements = commuService.getTotalCount(pagingVO);
+        pagingVO.setTotalElements(totalElements);
+
+        // totalElements를 이용해 다시 PagingVO 초기화
+        pagingVO = new PagingVO(page, totalElements, size);
+        pagingVO.setForCommunity(commtype, orderBy, searchCategory, searchKeyword);
+
+        // 페이징 조건에 맞는 커뮤니티 목록 조회
+        List<CommuVO> list = commuService.getCommuList(pagingVO);
+
+        // 모델에 데이터를 추가하여 JSP로 전달
         model.addAttribute("list", list);
+        model.addAttribute("pagingVO", pagingVO);
         model.addAttribute("commtype", commtype);
         model.addAttribute("orderBy", orderBy);
         model.addAttribute("searchCategory", searchCategory);
         model.addAttribute("searchKeyword", searchKeyword);
 
-        return "community/cmList";  // JSP 파일 이름 (cmList.jsp)
+        return "community/cmList";
     }
 
     //상세페이지

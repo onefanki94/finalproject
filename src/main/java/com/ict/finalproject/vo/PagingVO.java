@@ -11,20 +11,25 @@ public class PagingVO {
     private boolean hasPrevious;  // 이전 페이지가 있는지 여부
     private boolean hasNext;      // 다음 페이지가 있는지 여부
 
+    //노티 필드
     private String keyword;     // 검색어
     private int faqtype;        // FAQ 타입
 
+    //커뮤 필드
+    private String commtype;       // 커뮤니티 타입
+    private String orderBy;        // 정렬 조건
+    private String searchCategory; // 검색 카테고리
+    private String searchKeyword;  // 검색어
+
     // 기본 생성자
     public PagingVO() {}
-
     // 모든 매개변수를 받는 생성자
-    public PagingVO(int nowPage, int totalElements, int size, String keyword, int faqtype) {
+    // 생성자: 필요한 필드만 설정하는 방식으로
+    public PagingVO(int nowPage, int totalElements, int size) {
         this.nowPage = nowPage;
         this.totalElements = totalElements;
         this.size = size;
-        this.offset = (nowPage - 1) * size; // 0 기반 페이지 번호 계산
-        this.keyword = keyword;
-        this.faqtype = faqtype;
+        this.offset = (nowPage - 1) * size;
 
         // 전체 페이지 수 계산
         this.totalPage = (int) Math.ceil((double) totalElements / size);
@@ -34,9 +39,24 @@ public class PagingVO {
         this.hasNext = nowPage < totalPage;
 
         // 페이지 네비게이션 계산 (현재 페이지 기준으로 5개씩 보여주기)
-        this.startPage = Math.max(1, nowPage - 4);
-        this.endPage = Math.min(totalPage, nowPage + 4);
+        this.startPage = ((nowPage - 1) / 5) * 5 + 1;
+        this.endPage = Math.min(startPage + 4, totalPage);
     }
+
+    // 필드 사용 여부에 따라 설정하는 메서드
+    public void setForCommunity(String commtype, String orderBy, String searchCategory, String searchKeyword) {
+        this.commtype = commtype;
+        this.orderBy = orderBy;
+        this.searchCategory = searchCategory;
+        this.searchKeyword = searchKeyword;
+    }
+
+    // 공지사항 설정 메서드
+    public void setForNotice(String keyword, int faqtype) {
+        this.keyword = keyword;
+        this.faqtype = faqtype;
+    }
+
 
     // Getter/Setter
     public int getNowPage() { return nowPage; }
@@ -59,4 +79,13 @@ public class PagingVO {
     public void setKeyword(String keyword) { this.keyword = keyword; }
     public int getFaqtype() { return faqtype; }
     public void setFaqtype(int faqtype) { this.faqtype = faqtype; }
+
+    public String getCommtype() {return commtype; }
+    public void setCommtype(String commtype) {this.commtype = commtype; }
+    public String getOrderBy() {return  orderBy; }
+    public void setOrderBy(String orderBy) {this.orderBy = orderBy; }
+    public String getSearchCategory() {return searchCategory; }
+    public void setSearchCategory(String searchCategory) {this.searchCategory = searchCategory; }
+    public String getSearchKeyword() {return searchKeyword; }
+    public void setSearchKeyword(String searchKeyword) {this.searchKeyword = searchKeyword; }
 }

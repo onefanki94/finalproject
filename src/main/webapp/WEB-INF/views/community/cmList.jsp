@@ -112,37 +112,52 @@
         </div>
     </div>
     <div class="pagination">
-        <ul  class="paging">
+        <ul class="paging">
+        <c:out value="현재 페이지: ${pagingVO.nowPage}, 전체 페이지 수: ${pagingVO.totalPage}, 시작 페이지: ${pagingVO.startPage}, 끝 페이지: ${pagingVO.endPage}" />
 
-            <!-- 이전페이지 -->
-            <!-- 첫번째 페이지이면 -->
-                <%-- <c:if test="${pVO.nowPage==1}"> </c:if>--%>
-                <li  class="pre"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
 
-            <!-- 첫번쨰 페이지가 아니면 -->
-                <%-- <c:if test="${pVO.nowPage>1}"> </c:if>--%>
-                   <li class="pre"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage-1});"'><img src="/img/cm/left-chevron.png" style=" width:20px; height:18px; " /></a></li>
-
+            <!-- 이전 페이지 버튼 -->
+            <c:if test="${pagingVO.hasPrevious}">
+                <li class="pre">
+                    <a class="page-link" href="javascript:reloadPage(${pagingVO.nowPage - 1});">
+                        <img src="/img/cm/left-chevron.png" style="width:20px; height:18px;" />
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${!pagingVO.hasPrevious}">
+                <li class="pre disabled">
+                    <a class="page-link" href="javascript:void(0);">
+                        <img src="/img/cm/left-chevron.png" style="width:20px; height:18px;" />
+                    </a>
+                </li>
+            </c:if>
 
             <!-- 페이지 번호 -->
-            	    <!-- 시작페이지 (1~5)에서 한번에 표시할 페이지 수 만큼 < =총페이지수 -->
-            	    <!--                               1                                  1+5-1   =5-->
-            	    <!--                               6                                  6+5-1   =10 -->
-            <%--<c:forEach var="p" begin="${pVO.startPageNum}" end="${pVO.startPageNum+pVO.onePageNum-1 }"> </c:forEach>--%>
-                <%-- c:if test="${p<=pVO.totalPage}"> </c:if>--%>
-                    <li class="page" <c:if test="${p==pVO.nowPage}">active</c:if>'><a class="page-link"  href="javascript:reloadPage(${pVO.searchKey},${p});">${p}</a></li>
+            <c:forEach var="p" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
+                <c:if test="${p <= pagingVO.totalPage}">
+                    <li class="${p == pagingVO.nowPage ? 'page active' : 'page'}">
+                        <a class="page-link" href="javascript:reloadPage(${p});">${p}</a>
+                    </li>
+                </c:if>
+            </c:forEach>
 
+            <!-- 다음 페이지 버튼 -->
+            <c:if test="${pagingVO.hasNext}">
+                <li class="next">
+                    <a class="page-link" href="javascript:reloadPage(${pagingVO.nowPage + 1});">
+                        <img src="/img/cm/right-chevron.png" style="width:20px; height:18px;" />
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${!pagingVO.hasNext}">
+                <li class="next disabled">
+                    <a class="page-link" href="javascript:void(0);">
+                        <img src="/img/cm/right-chevron.png" style="width:20px; height:18px;" />
+                    </a>
+                </li>
+            </c:if>
 
-            <!-- 다음페이지 -->
-            <!-- 다음페이가 없을때 -->
-                <%-- <c:if test="${pVO.nowPage==pVO.totalPage}"></c:if>--%>
-                    <li class="next"><a class="page-link" href="javascript:void(0);"><img src="/img/cm/right-chevron.png" style=" width:20px; height:18px; "/></a></li>
-
-            <!-- 다음페이지가 있을때 -->
-                <%-- <c:if test="${pVO.nowPage<pVO.totalPage}"></c:if>--%>
-                    <li  class="next"><a class="page-link" href="javascript:reloadPage(${pVO.searchKey},${pVO.nowPage+1});"><img src="/img/cm/right-chevron.png" style=" width:20px;height:18px; " /></a></li>
-
-         </ul>
+        </ul>
     </div>
 
 </div>
@@ -151,42 +166,64 @@
 <script>
 
 // 전체 탭을 클릭하면 필터를 초기화하고 탭 필터링을 수행
-    function resetFilterAndShowTab(commtype) {
-        document.getElementById("commtype").value = "all"; // 드롭다운을 초기화
-        showTab(commtype);
-    }
-
-
-
-
+function resetFilterAndShowTab(commtype) {
+    document.getElementById("commtype").value = "all"; // 드롭다운 초기화
+    document.getElementById("searchKeyword").value = ''; // 검색어 초기화
+    document.getElementById("selectDirection").value = "DEFAULT"; // 정렬 조건 초기화
+    document.getElementById("selectCategory").selectedIndex = 0; // 검색 카테고리 초기화
+    showTab(commtype); // 탭 전환
+}
 
 // showTab 함수 정의(탭 전환)
-        function showTab(commtype) {
-            console.log("Tab clicked: " + commtype); // 클릭 시 commtype 값 출력
-            // 검색 폼에 commtype 값을 설정
-            document.getElementById("commtype").value = commtype;
-            document.getElementById("searchForm").submit();
-        }
+function showTab(commtype) {
+    // console.log("Tab clicked: " + commtype); // 클릭 시 commtype 값 출력
+    // 검색 폼에 commtype 값을 설정
+    document.getElementById("commtype").value = commtype;
 
-// 드롭다운 변경 시 폼 제출
-    function submitSearchForm() {
-        document.getElementById("searchForm").submit();
+    // 검색 조건 초기화
+    document.getElementById("searchKeyword").value = '';
+
+    // 드롭다운 요소가 존재하는지 확인하고 초기화
+    var orderByElement = document.getElementById("orderBy");
+    if (orderByElement) {
+        orderByElement.value = "DEFAULT"; // 정렬 조건 초기화
     }
 
+    var searchCategoryElement = document.getElementById("searchCategory");
+    if (searchCategoryElement) {
+        searchCategoryElement.selectedIndex = 0; // 검색 카테고리 초기화
+    }
 
-        // 검색 폼 제출 후 검색어 입력 필드를 초기화하는 함수
-            function submitSearchForm() {
-                document.getElementById("searchForm").submit();
+    // 폼 제출
+    document.getElementById("searchForm").submit();
+}
 
-                // 폼 제출 후 검색어 필드 초기화
-                document.getElementById("searchKeyword").value = '';
-            }
+// 검색 폼 제출 후 검색어 입력 필드를 초기화하는 함수
+function submitSearchForm() {
+    document.getElementById("searchForm").submit();
+
+    // 폼 제출 후 검색어 필드 초기화
+    document.getElementById("searchKeyword").value = '';
+}
+
+function reloadPage(page) {
+
+
+    const commtype = document.getElementById("commtype").value || 'all';
+    const orderBy = document.getElementById("selectDirection").value || 'DEFAULT';
+    const searchCategory = document.getElementById("selectCategory").value || 'TITLE_AND_CONTENT';
+    const searchKeyword = document.getElementById("searchKeyword").value || '';
+
+    // URL 파라미터에 초기화된 값을 사용하여 페이지를 이동
+    window.location.href = `/cmList?commtype=${commtype}&page=${2}&orderBy=${orderBy}&searchCategory=${searchCategory}&searchKeyword=${searchKeyword}`;
+}
+
 
 var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
 var userid;
 
 window.onload = function(){
-    console.log("호출");
+    // console.log("호출");
 
     var token = localStorage.getItem("token"); //토근 값 가져오기
     if(token != "" && token != null){
@@ -195,13 +232,13 @@ window.onload = function(){
             type:"get",
             data:{Authorization:token},
             success: function(vo){
-                console.log("로그인된 사용자 ID:" + userid);
+                // console.log("로그인된 사용자 ID:" + userid);
 
                 userid = vo.userid;
                 useridx = vo.idx;
 
-                console.log(userid);
-                console.log(useridx);
+                // console.log(userid);
+                // console.log(useridx);
 
                 userid = userid;
                     if(userid && userid.trim() !== ""){
