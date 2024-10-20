@@ -160,15 +160,22 @@ public class masterController {
                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         int currentPageInt = (int) Math.floor(currentPage); // 정수로 변환
         int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+
+        // 전체 애니메이션 수 구하기
+        int totalAniCount = masterService.getTotalAnimeCount();
+        int totalPages = (int) Math.ceil((double) totalAniCount / pageSize);
+
         List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("aniList", aniList);
         mav.addObject("currentPage", currentPageInt);
         mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/aniMasterList");
         return mav;
     }
+
 
 
 
@@ -413,24 +420,36 @@ public class masterController {
 
     // Dashboard - 신고관리 - 신고목록 리스트
     @GetMapping("/reportinguserMasterList")
-    public ModelAndView reportinguserListMaster() {
-        List<MasterVO> reportingUser = masterService.getReportingUser();  // 모든 신고된 유저 리스트를 가져옴
+    public ModelAndView reportinguserListMaster(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        int offset = (currentPage - 1) * pageSize;
+
+        // 페이징을 적용한 신고된 유저 목록 조회
+        List<MasterVO> reportingUser = masterService.getReportingUserWithPaging(offset, pageSize);
 
         // 각 유저별로 개별 신고 횟수를 계산
         for (MasterVO user : reportingUser) {
             int totalUserReport = masterService.getTotalUserReport(user.getUseridx());
-            user.setTotalUserReport(totalUserReport);  // VO에 각 유저의 신고 횟수 저장
+            user.setTotalUserReport(totalUserReport);
         }
 
         // 전체 신고 누적 횟수 계산
         int totalReportUser = masterService.getTotalReportCount();
+        int totalUsers = masterService.getTotalReportingUserCount();
+        int totalPages = (int) Math.ceil((double) totalUsers / pageSize);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("reportingUser", reportingUser);
         mav.addObject("totalReportUser", totalReportUser);
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("totalPages", totalPages);
+        mav.addObject("pageSize", pageSize);
         mav.setViewName("master/reportinguserMasterList");
         return mav;
     }
+
 
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
@@ -497,14 +516,29 @@ public class masterController {
 
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
-    @GetMapping("/boardMasterReplyAll")
-    public ModelAndView boardMasterReplyAll(MasterVO vo) {
-        List<MasterVO> replyList = masterService.getReplyList(vo);
-        mav = new ModelAndView();
+    @GetMapping("/boardMasterCommentAll")
+    public ModelAndView boardMasterCommentAll(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        int offset = (currentPage - 1) * pageSize;
+
+        // 페이징을 적용한 댓글 목록 조회
+        List<MasterVO> replyList = masterService.getReplyListWithPaging(offset, pageSize);
+
+        // 전체 댓글 개수 조회
+        int totalReplies = masterService.getTotalReplyCount();
+        int totalPages = (int) Math.ceil((double) totalReplies / pageSize);
+
+        ModelAndView mav = new ModelAndView();
         mav.addObject("replyList", replyList);
-        mav.setViewName("master/boardMasterReplyAll");
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("totalPages", totalPages);
+        mav.addObject("pageSize", pageSize);
+        mav.setViewName("master/boardMasterCommentAll");
         return mav;
     }
+
 
     @GetMapping("/getReviewDetail")
     public ResponseEntity<MasterVO> getReviewDetail(@RequestParam("idx") int idx) {
@@ -1149,6 +1183,12 @@ public class masterController {
     }
 
 
+    @PostMapping("/storeDeleteMaster/{idx}")
+    public String storeDeleteMaster(@PathVariable("idx") int idx) {
+        masterService.deleteProductImagesByProductIdx(idx);
+        masterService.deleteStoreByIdx(idx);
+        return "redirect:/master/storeMasterList";
+    }
 
 
     @GetMapping("/getSubCategories/{category}")

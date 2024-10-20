@@ -71,4 +71,10 @@ public interface MasterService {
     boolean updateEvent(MasterVO event);
     MasterVO getEventByIdx(int idx);
     List<Map<String, Object>> getUserRegistrationStats();
+    void deleteStoreByIdx(int idx);
+    void deleteProductImagesByProductIdx(int idx);
+    List<MasterVO> getReportingUserWithPaging(int offset, int pageSize);
+    int getTotalReportingUserCount();
+    List<MasterVO> getReplyListWithPaging(int offset, int pageSize);
+    int getTotalReplyCount();
 }

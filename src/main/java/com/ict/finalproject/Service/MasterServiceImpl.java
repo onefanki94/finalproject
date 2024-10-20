@@ -363,4 +363,34 @@ public class MasterServiceImpl implements MasterService {
     public List<Map<String, Object>> getUserRegistrationStats() {
         return dao.getUserRegistrationStats();
     }
+
+    @Override
+    public void deleteStoreByIdx(int idx) {
+        dao.deleteStoreByIdx(idx);
+    }
+
+    @Override
+    public void deleteProductImagesByProductIdx(int idx) {
+        dao.deleteProductImagesByProductIdx(idx);
+    }
+
+    @Override
+    public List<MasterVO> getReportingUserWithPaging(int offset, int pageSize) {
+        return dao.getReportingUserWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public int getTotalReportingUserCount() {
+        return dao.getTotalReportingUserCount();
+    }
+
+    @Override
+    public List<MasterVO> getReplyListWithPaging(int offset, int pageSize) {
+        return dao.getReplyListWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public int getTotalReplyCount() {
+        return dao.getTotalReplyCount();
+    }
 }

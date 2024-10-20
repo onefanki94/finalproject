@@ -154,4 +154,15 @@ public interface MasterDAO {
     // 회원가입 통계 차트
     List<Map<String, Object>> getUserRegistrationStats();
 
+    // 굿즈 상품 삭제
+    void deleteStoreByIdx(int idx);
+    void deleteProductImagesByProductIdx(int idx);
+
+    // 회원별 신고계정 목록 페이징
+    List<MasterVO> getReportingUserWithPaging(int offset, int pageSize);
+    int getTotalReportingUserCount();
+
+    // 회원별 리뷰 목록
+    List<MasterVO> getReplyListWithPaging(int offset, int pageSize);
+    int getTotalReplyCount();
 }

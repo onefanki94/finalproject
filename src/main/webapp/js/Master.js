@@ -293,6 +293,30 @@ success: function(response) {
      });
  });
 
+ $(document).ready(function() {
+     // 삭제 버튼 클릭 시
+     $('.btn-outline-danger').off('click').on('click', function() {
+         var idx = $(this).data('idx'); // 삭제할 스토어의 idx 값
+
+         // 삭제 여부를 사용자에게 확인
+         if (confirm("정말로 삭제하시겠습니까?")) {
+             // AJAX 요청으로 삭제 요청을 서버에 보냄
+             $.ajax({
+                 type: 'POST',  // 삭제 요청은 POST로
+                 url: '/master/storeDeleteMaster/' + idx,  // 서버에 삭제 요청을 보낼 URL
+                 success: function(response) {
+                     alert('해당 ' + idx + ' 번호의 스토어가 삭제되었습니다.');
+                     window.location.href = '/master/storeMasterList';  // 성공 시 리스트로 리다이렉트
+                 },
+                 error: function(xhr, status, error) {
+                     console.error('삭제 중 에러 발생:', xhr.responseText);
+                     alert('삭제 중 오류가 발생했습니다.');
+                 }
+             });
+         }
+     });
+ });
+
 // 굿즈 상품 수정 --------------------------------------------------------------------------
  $(document).ready(function() {
      var token = localStorage.getItem('token');
