@@ -65,4 +65,7 @@ public interface MasterService {
     int getTotalBoardCount();
     List<MasterVO> getReviewListWithPaging(int offset, int pageSize);
     int getTotalReviewCount();
+    void addEvent(MasterVO event);
+    List<MasterVO> getEventList();
+    public MasterVO getEventDetail(int idx);
 }

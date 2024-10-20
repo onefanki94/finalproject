@@ -354,4 +354,21 @@
         SELECT COUNT(*) FROM t_review
     </select>
 
+<!--  이벤트 추가 쿼리  -->
+    <insert id="insertEvent">
+        insert into t_event (title, thumfile, content, event_date, adminidx)
+        values (#{title}, #{thumfile}, #{content},#{event_date}, #{adminidx})
+    </insert>
+
+    <!-- 이벤트 목록 불러오기 -->
+    <select id="getEventList">
+        select idx, title, event_date, regDT from t_event
+    </select>
+
+    <!-- 이벤트 해당 idx로 모달창 내용 띄우기 -->
+    <select id="getEventDetail" parameterType="int" resultType="MasterVO">
+        SELECT idx, title, content, event_date, regDT
+        FROM t_event
+        WHERE idx = #{idx}
+    </select>
 </mapper>

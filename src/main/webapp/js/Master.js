@@ -461,3 +461,76 @@ success: function(response) {
          });
      });
  });
+
+
+ $(document).ready(function() {
+     // 이벤트 추가 폼 제출 시
+     $('#eventAddForm').on('submit', function(event) {
+         event.preventDefault(); // 기본 폼 제출 방지
+
+         // 폼 데이터 객체 생성
+         var formData = new FormData(this);
+
+         // JWT 토큰을 로컬 스토리지에서 가져오기
+         var token = localStorage.getItem("token");
+         if (!token) {
+             alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+             window.location.href = "/user/login"; // 로그인 페이지로 리디렉션
+             return;
+         }
+
+         // AJAX 요청 보내기
+         $.ajax({
+             url: '/master/EventAddMasterOk',
+             type: 'POST',
+             data: formData,
+             headers: {
+                 "Authorization": "Bearer " + token
+             },
+             processData: false, // 파일 업로드 시 필요
+             contentType: false, // 파일 업로드 시 필요
+             success: function(response) {
+                 alert(response); // 서버의 응답 메시지 출력
+                 window.location.href = "/master/EventMasterList"; // 이벤트 목록 페이지로 이동
+             },
+             error: function(xhr) {
+                 if (xhr.status === 401) {
+                     alert("세션이 만료되었습니다. 다시 로그인해 주세요.");
+                     localStorage.removeItem("token");
+                     window.location.href = "/user/login";
+                 } else {
+                     console.error("에러:", xhr);
+                     alert("이벤트 등록 중 오류가 발생했습니다.");
+                 }
+             }
+         });
+     });
+ });
+
+ $(document).ready(function() {
+     $('.viewDetails').on('click', function() {
+         var eventIdx = $(this).data('idx'); // 이벤트 ID 가져오기
+
+         // 서버에서 이벤트 상세 정보를 Ajax로 가져오기
+         $.ajax({
+             type: 'GET',
+             url: '/master/getEventDetail',
+             data: { idx: eventIdx },
+             success: function(response) {
+                 if (response) {
+                     $('#eventTitle').text(response.title);
+                     $('#eventDate').text(response.event_date);
+                     $('#eventContent').html(response.content); // HTML 형식으로 내용 삽입
+
+                     // 모달 창 열기
+                     $('#eventDetailModal').modal('show');
+                 } else {
+                     alert('이벤트 상세 정보를 불러오지 못했습니다.');
+                 }
+             },
+             error: function() {
+                 alert('이벤트 상세 정보를 가져오는 데 실패했습니다.');
+             }
+         });
+     });
+ });

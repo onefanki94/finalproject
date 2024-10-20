@@ -866,7 +866,9 @@ public class masterController {
     // Dashboard - 기타관리 - 이벤트
     @GetMapping("/EventMasterList")
     public ModelAndView EventMasterList() {
+        List<MasterVO> eventList = masterService.getEventList();
         mav = new ModelAndView();
+        mav.addObject("eventList", eventList);
         mav.setViewName("master/EventMasterList");
         return mav;
     }
@@ -1233,5 +1235,78 @@ public class masterController {
         masterService.updateReportAndBan(idx, userid, reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
 
         return "redirect:/master/reportinguserListMaster";  // 신고 목록 페이지로 리다이렉트
+    }
+
+    // 이벤트 페이지 글 쓰기
+    @PostMapping("/EventAddMasterOk")
+    public ResponseEntity<String> EventAddMasterOk(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("event_date") String event_date,
+            @RequestParam("thumfile") MultipartFile thumfile,
+            @RequestHeader("Authorization") String authorizationHeader) {
+
+        System.out.println("Received title: " + title);
+
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        // 파일 저장 로직 (예시)
+        String thumfileName = null;
+        try {
+            if (thumfile != null && !thumfile.isEmpty()) {
+                // 파일 저장 메서드 (파일명 반환)
+                thumfileName = uploadFileToExternalServer(thumfile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 중 오류가 발생했습니다.");
+        }
+
+        // 이벤트 엔티티 생성 및 데이터 설정
+        MasterVO event = new MasterVO();
+        event.setTitle(title);
+        event.setContent(content);
+        event.setEvent_date(event_date);
+        event.setThumfile(thumfileName); // 파일명 설정
+        event.setAdminidx(adminidx);
+
+        try {
+            // 이벤트 추가 서비스 호출
+            masterService.addEvent(event);
+            return ResponseEntity.ok("이벤트가 성공적으로 등록되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 등록 중 오류가 발생했습니다.");
+        }
+    }
+
+    @GetMapping("/getEventDetail")
+    @ResponseBody
+    public MasterVO getEventDetail(@RequestParam("idx") int idx) {
+        // 이벤트 상세 정보를 가져오기 위한 서비스 호출
+        MasterVO eventDetail = masterService.getEventDetail(idx);
+        return eventDetail;
     }
 }

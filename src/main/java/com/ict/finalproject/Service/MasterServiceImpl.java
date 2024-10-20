@@ -328,4 +328,24 @@ public class MasterServiceImpl implements MasterService {
     public int getTotalReviewCount() {
         return dao.getTotalReviewCount();
     }
+
+    @Override
+    public void addEvent(MasterVO event) {
+        int result = dao.insertEvent(event);
+        if (result > 0) {
+            log.info("이벤트 등록 성공. Event idx: {}", result);
+        } else {
+            log.error("이벤트 등록 실패");
+        }
+    }
+
+    @Override
+    public List<MasterVO> getEventList() {
+        return dao.getEventList();
+    }
+
+    @Override
+    public MasterVO getEventDetail(int idx) {
+        return dao.getEventDetail(idx);
+    }
 }

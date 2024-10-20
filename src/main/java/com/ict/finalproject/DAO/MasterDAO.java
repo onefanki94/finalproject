@@ -143,5 +143,8 @@ public interface MasterDAO {
     List<MasterVO> getReviewListWithPaging(Map<String, Object> params);
     int getTotalReviewCount();
 
-
+    // 이벤트 페이지
+    int insertEvent(MasterVO event);
+    List<MasterVO> getEventList();
+    public MasterVO getEventDetail(int idx);
 }
