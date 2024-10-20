@@ -1028,7 +1028,7 @@ public class UserController {
     public ResponseEntity<String> findPwd(@RequestParam String userid, @RequestParam String username , @RequestParam String email){
         String userpwd = service.findPwd(userid, username ,email);
         if(userpwd!= null){
-            return ResponseEntity.ok("회원님의 비밀번호는  " + userpwd + " 입니다");
+            return ResponseEntity.ok("회원님의 비밀번호는 암호화된 상태입니다.");
         } else{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찾으시는 아이디의 비밀번호가 없습니다.");
         }

@@ -17,6 +17,7 @@
         $('#' + tab).removeClass('off').addClass('on'); // 선택된 탭을 표시
       };
 
+
       // 아이디 찾기 AJAX 요청
       $('#findIdForm').submit(function (event) {
         event.preventDefault();
@@ -119,8 +120,11 @@
 <body>
   <div class="serachIdPw_div">
     <div class="serachIdPw_back_div">
-      <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back1.png')"></div>
-      <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back2.png')"></div>
+     <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back1.png')"></div>
+           <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back2.png')"></div>
+           <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back3.png')"></div>
+           <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back4.png')"></div>
+           <div class="serachIdPw_back_img" style="background: url('/img/join_img/join_back1.png')"></div>
     </div>
     <div class="serachIdPw_back_div_color"></div>
     <div class="serachIdPw_div_pa">
@@ -131,7 +135,7 @@
             <li class="search_off" onclick="reviewTab('tab2')">비밀번호 찾기</li>
           </ul>
         </div>
-        <div class="serachIdPw_bottom off" id="tab1">
+        <div class="serachIdPw_bottom on" id="tab1">
           <h1>아이디를 잊으셨나요?<span>가입시 입력하신 정보로 아이디를 찾으실 수 있습니다.</span></h1>
           <form id="findIdForm">
             <div class="serachIdPw_input">
@@ -143,7 +147,7 @@
             </div>
           </form>
         </div>
-        <div class="serachIdPw_bottom on" id="tab2">
+        <div class="serachIdPw_bottom off" id="tab2">
           <h1>비밀번호를 잊으셨나요?<span>가입시 입력하신 정보로 비밀번호를 찾으실 수 있습니다.</span></h1>
           <form id="findPasswordForm">
             <div class="serachIdPw_input">
