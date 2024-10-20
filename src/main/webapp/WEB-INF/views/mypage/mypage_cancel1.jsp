@@ -15,7 +15,7 @@
         <h3>나의 쇼핑정보</h3>
         <ul>
           <li>
-            <a href="/user/mypage_order">주문배송조회</a>
+            <a href="/user/mypage_order" class="option_active">주문배송조회</a>
           </li>
           <li>
             <a href="/user/mypage_review"> 상품 리뷰 </a>
@@ -138,35 +138,42 @@
                 </tr>
               </thead>
               <tbody class="productCancel_tbody">
-                <tr>
-                  <td class="productCancel_td">
-                    <div class="cancel_product_info">
-                      <img src="http://192.168.1.92:8000/${cancelProduct.thumImg}" />
-                      <div>
-                        <p class="order_aniTitle">${cancelProduct.ani_title}</p>
-                        <strong>${cancelProduct.title}</strong>
-                        <p class="pro_price"></p>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="productCancel_td">
-                    <span>${cancelProduct.orderState == 1 ? "결제완료" : "결제실패"}</span>
-                  </td>
-                  <td class="productCancel_td">
-                    <div class="cancel_amount_count">
-                      <div>
-                        <button>-</button>
-                        <input
-                          type="text"
-                          class="cancel_amount_input"
-                          id="cancel_amount"
-                          value="${cancelProduct.amount}"
-                        />
-                        <button>+</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                <c:forEach var="product" items="${cancelProductList}">
+                    <tr>
+                      <td class="productCancel_td">
+                        <div class="cancel_list_chkbx">
+                          <input type="checkbox" class="chk_product" id="chk_product_${product.pro_idx}" name="chk_product" value="${product.pro_idx}"/>
+                          <label for="chk_product_${product.pro_idx}"></label>
+                        </div>
+                        <div class="cancel_product_info">
+                          <img src="http://192.168.1.92:8000/${product.thumImg}" />
+                          <div>
+                            <p class="order_aniTitle">${product.ani_title}</p>
+                            <strong>${product.title}</strong>
+                            <p class="pro_price"></p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="productCancel_td">
+                        <span>${product.orderState == 1 ? "결제완료" : "부분취소완료"}</span>
+                      </td>
+                      <td class="productCancel_td">
+                        <div class="cancel_amount_count">
+                          <div>
+                            <button class="cancelAmount_minus">-</button>
+                            <input
+                              type="text"
+                              class="cancel_amount_input"
+                              id="cancel_amount"
+                              value="${product.amount - product.cancelCount}"
+                            />
+                            <button class="cancelAmount_plus">+</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                </c:forEach>
+
               </tbody>
             </table>
           </section>
@@ -174,12 +181,12 @@
             <div>
               <span>취소 접수 전 유의 사항 안내</span>
               <ul>
-                <li>- 한 번에 한 상품끼리만 취소 접수 가능합니다.</li>
+                <li>- 한 번에 한 주문끼리만 취소 접수 가능합니다.</li>
                 <li>- 한번 취소한 상품은 상태변경이 불가합니다.</li>
                 <li>- 상품에따라 취소가 불가능할 수 있습니다.</li>
               </ul>
             </div>
-            <button>다음으로</button>
+            <button id="next_cancelPage">다음으로</button>
           </div>
         </div>
       </div>
@@ -188,5 +195,11 @@
 </div>
 
 <script>
-    let price = ${cancelProduct.price};
+    let prices = [];
+    let maxAmounts = [];
+
+    <c:forEach var="product" items="${cancelProductList}" varStatus="status">
+        prices.push(${product.price});
+        maxAmounts.push(${product.amount - product.cancelCount});
+    </c:forEach>
 </script>

@@ -55,7 +55,7 @@ function displayOrderDetail(orderDetail,orderer){
                   <ul class="tb_body_ul">
                     ${orderDetail.products.map(product => {
                       const formattedAmount = formatNumber(product.pro_price) + "원";
-                      const packageButton = product.orderState >= 3
+                      const packageButton = product.orderState >= 3 && product.orderState <=6
                           ? `<button class="order_package">CJ대한통운 <span>${orderDetail.trackingNum}</span></button>`
                           : '';
                       return `
@@ -201,6 +201,22 @@ function getOrderStateText(orderState) {
             return "배송완료";
         case 6:
             return "구매확정";
+        case 7:
+            return "전체취소 완료";
+        case 8:
+            return "부분취소 완료";
+        case 9:
+            return "교환접수 완료";
+        case 10:
+            return "교환 처리중";
+        case 11:
+            return "교환 처리완료";
+        case 12:
+            return "환불접수 완료";
+        case 13:
+            return "환불 처리중";
+        case 14:
+            return "환불 처리완료";
         default:
             return "상태오류";
     }

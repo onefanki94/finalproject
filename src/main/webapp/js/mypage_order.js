@@ -39,22 +39,26 @@ function displayOrderList(orderList) {
 
     // 주문 리스트 순회
     orderList.forEach(order => {
+        // 결제완료 또는 부분취소 완료 상태인 상품이 있는지 확인
+        const hasCancelableProduct = order.products.some(product => product.orderState === 1 || product.orderState === 8);
+
+        const cancelButtonHTML = hasCancelableProduct
+            ? `<button id="payCancel_btn">취소하기</button>`
+            : ''; // 조건에 맞는 상품이 있으면 취소하기 버튼 추가
         const orderHTML = `
             <li class="order_list_li">
               <input type="hidden" id="order_idx" value="${order.order_idx}"/>
               <div class="order_date_num">
                 <a href="/user/mypage_order_detail/${order.order_idx}"><span>주문일자  </span>${order.order_date}</a>
                 <a href="/user/mypage_order_detail/${order.order_idx}"><span>주문번호  </span>${order.orderId}</a>
+                ${cancelButtonHTML}
               </div>
               <ul>
                   ${order.products.map(product => {
                     const formattedAmount = formatNumber(product.pro_price) + "원";
                     // orderState에 따라 버튼 출력 여부 결정
-                    const packageButton = product.orderState >= 3
+                    const packageButton = product.orderState >= 3 && product.orderState <=6
                         ? `<button class="order_package">CJ대한통운 <span>${order.trackingNum}</span></button>`
-                        : '';
-                    const cancelButton = product.orderState == 1
-                        ? `<button id="payCancel_btn">취소하기</button>`
                         : '';
                     return `
                     <li>
@@ -80,7 +84,6 @@ function displayOrderList(orderList) {
                                 <p class="order_state_data">${getOrderStateText(product.orderState)}</p>
                               </div>
                               ${packageButton} <!-- 버튼 삽입 -->
-                              ${cancelButton}
                             </div>
                           </div>
                         </li>
@@ -108,6 +111,22 @@ function getOrderStateText(orderState) {
             return "배송완료";
         case 6:
             return "구매확정";
+        case 7:
+            return "전체취소 완료";
+        case 8:
+            return "부분취소 완료";
+        case 9:
+            return "교환접수 완료";
+        case 10:
+            return "교환 처리중";
+        case 11:
+            return "교환 처리완료";
+        case 12:
+            return "환불접수 완료";
+        case 13:
+            return "환불 처리중";
+        case 14:
+            return "환불 처리완료";
         default:
             return "상태오류";
     }
@@ -157,23 +176,20 @@ function setupPagination(totalPages, currentPage) {
 
 $(document).on('click', '#payCancel_btn', function() {
     var order_idx= $(this).closest(".order_list_li").find('#order_idx').val();
-    var pro_idx= $(this).closest(".order_data_ulStyle").find('#pro_idx').val();
     console.log("order_idx",order_idx);
-    console.log("pro_idx",pro_idx);
 
     $.ajax({
         url: '/order/cancel_basicInfo',
         type: 'POST',
        data: JSON.stringify({
-                order_idx: order_idx,
-                pro_idx: pro_idx
+                order_idx: order_idx
         }),
         contentType: 'application/json',
         headers: {
                 "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
         },
         success: function(response) {
-            location.href = `/order/mypage_cancel1?order_idx=${order_idx}&pro_idx=${pro_idx}`;
+            location.href = `/order/mypage_cancel1?order_idx=${order_idx}`;
         },
         error: function(error) {
             console.log('취소 페이지 이동중 에러 발생:', error);

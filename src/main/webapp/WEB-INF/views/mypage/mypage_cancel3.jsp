@@ -15,7 +15,7 @@
         <h3>나의 쇼핑정보</h3>
         <ul>
           <li>
-            <a href="/user/mypage_order">주문배송조회</a>
+            <a href="/user/mypage_order" class="option_active">주문배송조회</a>
           </li>
           <li>
             <a href="/user/mypage_review"> 상품 리뷰 </a>
@@ -136,18 +136,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="cancel_product_info">
-                      <img src="./img/main_img/goods4.png" />
-                      <div>
-                        <p class="order_aniTitle">상품애니명</p>
-                        <strong>상품명상품명상품명</strong>
-                        <p class="pro_price">40000원 / 수량 2개</p>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                <c:forEach var="product" items="${cancelProduct}">
+                    <tr>
+                      <td>
+                        <div class="cancel_product_info">
+                          <img src="http://192.168.1.92:8000/${product.thumImg}" />
+                          <div>
+                            <p class="order_aniTitle">${product.ani_title}</p>
+                            <strong>${product.title}</strong>
+                            <p class="pro_price">
+                                <span class="pro_price_span"></span>
+                                / 수량 ${cancelProducts[product.pro_idx]}개
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                </c:forEach>
               </tbody>
             </table>
           </section>
@@ -157,21 +162,21 @@
               <dl>
                 <dt class="order_price">
                   <span>결제금액</span>
-                  <strong>40000원</strong>
+                  <strong class="pay_totalPrice"></strong>
                 </dt>
                 <dd class="order_price_detail">
                   <ul>
                     <li>
                       <span>상품금액</span>
-                      <span>40000원</span>
+                      <span class="cancelProductPrice"></span>
                     </li>
                     <li>
                       <span>배송비</span>
-                      <span>2500원</span>
+                      <span class="refundDeliveryFee"></span>
                     </li>
                     <li>
                       <span>적립금할인</span>
-                      <span>4000원</span>
+                      <span class="order_usePoint"></span>
                     </li>
                   </ul>
                 </dd>
@@ -179,24 +184,24 @@
               <dl>
                 <dt class="order_price">
                   <span>환불예정금액</span>
-                  <strong>40000원</strong>
+                  <strong class="cancel_totalPrice"></strong>
                 </dt>
                 <dd class="order_price_detail">
                   <ul class="cancel_price_list">
                     <li>
                       <span>카드 환불</span>
-                      <span>40000원</span>
+                      <span class="cancel_amount"></span>
                     </li>
                     <li>
                       <span>적립금 환불</span>
-                      <span>4000원</span>
+                      <span class="cancel_point"></span>
                     </li>
                   </ul>
                 </dd>
               </dl>
             </div>
             <div class="btn_div">
-              <button>취소접수 완료하기</button>
+              <button id="cancel_input_btn">취소접수 완료하기</button>
             </div>
           </section>
         </div>
@@ -205,3 +210,16 @@
   </div>
 </div>
 
+<script>
+    let prices = [];
+    let amounts = [];
+    let cancelCounts = [];
+    <c:forEach var="product" items="${cancelProduct}" varStatus="status">
+        prices.push(${product.price});
+        amounts.push(${product.amount});
+        cancelCounts.push(${cancelProducts[product.pro_idx]});
+    </c:forEach>
+    let use_point = ${use_point};
+    let refundDeliveryFee = ${refundDeliveryFee};
+    let totalProductPrice = ${totalProductPrice};
+</script>

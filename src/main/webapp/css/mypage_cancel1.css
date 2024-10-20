@@ -119,6 +119,7 @@
   padding: 30px 0px;
   border-bottom: 1px solid #e4e4e4;
   padding-left: 0px;
+  position: relative;
 }
 
 .cancel_product_info {
@@ -126,6 +127,8 @@
   grid-template-columns: 110px 1fr;
   gap: 20px;
   width: 100%;
+  position: relative;
+  left: 3.2em;
 }
 
 .cancel_product_info img {
@@ -133,6 +136,7 @@
   object-fit: cover;
   vertical-align: top;
   border: 0;
+  height:100%;
 }
 
 .cancel_product_info > div {
@@ -301,4 +305,61 @@
   color: #fff;
   font-weight: bold;
   margin-top:20px;
+}
+
+.cancel_list_chkbx input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.cancel_list_chkbx input[type="checkbox"] + label {
+  vertical-align: top;
+  line-height: 24px !important;
+  cursor: pointer;
+  font-size: 16px;
+  color: rgb(48, 48, 51);
+  margin-left: 20px;
+}
+
+.cancel_list_chkbx input[type="checkbox"] + label::before {
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 2px;
+  transition: background-color 0.2s;
+  background-size: 24px;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: top;
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6px;
+}
+
+.cancel_list_chkbx input[type="checkbox"] + label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 14.5px;
+  transform: rotate(45deg);
+  box-sizing: content-box;
+  width: 6px;
+  height: 11px;
+  margin-top: -8px;
+  border-style: solid;
+  border-color: rgb(228, 228, 228);
+  border-image: initial;
+  border-width: 0px 1px 1px 0px;
+}
+
+.checkedLabel::before {
+  background-color: rgb(48, 48, 51) !important;
+  border: 0 !important;
+}
+
+.cancel_list_chkbx{
+    height:0;
 }

@@ -30,4 +30,8 @@ public class OrderVO {
         this.useridx = useridx;
         this.total_price= total_price;
     }
+
+    public OrderVO(int use_point) {
+        this.use_point = use_point;
+    }
 }

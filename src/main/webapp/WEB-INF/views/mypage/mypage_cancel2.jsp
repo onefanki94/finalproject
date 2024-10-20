@@ -15,7 +15,7 @@
         <h3>나의 쇼핑정보</h3>
         <ul>
           <li>
-            <a href="/user/mypage_order">주문배송조회</a>
+            <a href="/user/mypage_order" class="option_active">주문배송조회</a>
           </li>
           <li>
             <a href="/user/mypage_review"> 상품 리뷰 </a>
@@ -136,18 +136,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="cancel_product_info">
-                      <img src="./img/main_img/goods4.png" />
-                      <div>
-                        <p class="order_aniTitle">상품애니명</p>
-                        <strong>상품명상품명상품명</strong>
-                        <p class="pro_price">40000원 / 수량 2개</p>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                <c:forEach var="product" items="${cancelProduct}">
+                    <tr>
+                      <td>
+                        <div class="cancel_product_info">
+                          <img src="http://192.168.1.92:8000/${product.thumImg}" />
+                          <div>
+                            <p class="order_aniTitle">${product.ani_title}</p>
+                            <strong>${product.title}</strong>
+                            <p class="pro_price">
+                                <span class="pro_price_span"></span>
+                                / 수량 ${cancelProducts[product.pro_idx]}개
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                </c:forEach>
               </tbody>
             </table>
           </section>
@@ -165,13 +170,14 @@
                   <option value="적립금 미사용으로 재주문 예정이에요.">
                     적립금 미사용으로 재주문 예정이에요.
                   </option>
+                  <option value="기타 : ">
+                      기타
+                  </option>
                 </select>
-                <textarea
-                  placeholder="그 외 취소 사유를 작성해주세요."
-                ></textarea>
+                <textarea id="cancelReasonDetail" placeholder="그 외 취소 사유를 작성해주세요."></textarea>
               </div>
               <div class="btn_div">
-                <button>다음으로</button>
+                <button id="next_cancelPage">다음으로</button>
               </div>
             </div>
           </section>
@@ -181,3 +187,9 @@
   </div>
 </div>
 
+<script>
+    let prices = [];
+    <c:forEach var="product" items="${cancelProduct}" varStatus="status">
+        prices.push(${product.price});
+    </c:forEach>
+</script>
