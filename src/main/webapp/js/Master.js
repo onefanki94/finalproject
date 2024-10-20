@@ -534,3 +534,43 @@ success: function(response) {
          });
      });
  });
+
+ $(document).ready(function() {
+     $('#eventEditForm').on('submit', function(event) {
+         event.preventDefault();
+
+         var formData = new FormData(this);
+         var token = localStorage.getItem("token");
+         if (!token) {
+             alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+             window.location.href = "/user/login";
+             return;
+         }
+
+         $.ajax({
+             url: '/master/EventEditMasterOk',
+             type: 'POST',
+             data: formData,
+             headers: {
+                 "Authorization": "Bearer " + token
+             },
+             processData: false,
+             contentType: false,
+             success: function(response) {
+                 alert(response);
+                 window.location.href = "/master/EventMasterList";
+             },
+             error: function(xhr) {
+                 if (xhr.status === 401) {
+                     alert("세션이 만료되었습니다. 다시 로그인해 주세요.");
+                     localStorage.removeItem("token");
+                     window.location.href = "/user/login";
+                 } else {
+                     alert("이벤트 수정 중 오류가 발생했습니다.");
+                 }
+             }
+         });
+     });
+ });
+
+

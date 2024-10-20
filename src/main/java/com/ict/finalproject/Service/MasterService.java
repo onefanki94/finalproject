@@ -68,4 +68,7 @@ public interface MasterService {
     void addEvent(MasterVO event);
     List<MasterVO> getEventList();
     public MasterVO getEventDetail(int idx);
+    boolean updateEvent(MasterVO event);
+    MasterVO getEventByIdx(int idx);
+    List<Map<String, Object>> getUserRegistrationStats();
 }

@@ -147,4 +147,11 @@ public interface MasterDAO {
     int insertEvent(MasterVO event);
     List<MasterVO> getEventList();
     public MasterVO getEventDetail(int idx);
+
+    int updateEvent(MasterVO event);
+    MasterVO getEventByIdx(int idx);
+
+    // 회원가입 통계 차트
+    List<Map<String, Object>> getUserRegistrationStats();
+
 }

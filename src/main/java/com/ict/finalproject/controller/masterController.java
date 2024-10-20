@@ -111,6 +111,8 @@ public class masterController {
     public ModelAndView masterMain() {
         // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
         int unanswerCount = masterService.getUnansweredQnaCount();
+
+
         System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
         mav = new ModelAndView();
         mav.addObject("unanswerCount", unanswerCount);
@@ -882,10 +884,23 @@ public class masterController {
     }
 
     // Dashboard - 기타관리 - 이벤트 - 수정
-    @GetMapping("/EventEditMaster")
-    public ModelAndView EventEditMaster() {
-        mav = new ModelAndView();
+    @GetMapping("/EventEditMaster/{idx}")
+    public ModelAndView EventEditMaster(@PathVariable("idx") int idx) {
+        ModelAndView mav = new ModelAndView();
+
+        // 해당 idx의 이벤트 정보를 조회
+        MasterVO event = masterService.getEventByIdx(idx);
+        if (event == null) {
+            // 이벤트가 존재하지 않을 경우 에러 페이지로 이동
+            mav.setViewName("error");
+            mav.addObject("message", "해당 이벤트를 찾을 수 없습니다.");
+            return mav;
+        }
+
+        // 이벤트 정보가 존재하면 뷰에 전달
         mav.setViewName("master/EventEditMaster");
+        mav.addObject("event", event);
+
         return mav;
     }
 
@@ -1308,5 +1323,80 @@ public class masterController {
         // 이벤트 상세 정보를 가져오기 위한 서비스 호출
         MasterVO eventDetail = masterService.getEventDetail(idx);
         return eventDetail;
+    }
+
+    @PostMapping("/EventEditMasterOk")
+    public ResponseEntity<String> EventEditMasterOk(
+            @RequestParam(value = "idx", required = false, defaultValue = "0") int idx,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("event_date") String event_date,
+            @RequestParam("thumfile") MultipartFile thumfile,
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        // 파일 저장 처리
+        String thumfileName = null;
+        try {
+            if (thumfile != null && !thumfile.isEmpty()) {
+                // 파일 저장 메서드 호출
+                thumfileName = uploadFileToExternalServer(thumfile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 중 오류가 발생했습니다.");
+        }
+
+        // 이벤트 수정 엔티티 생성 및 데이터 설정
+        MasterVO event = new MasterVO();
+        event.setIdx(idx);
+        event.setTitle(title);
+        event.setContent(content);
+        event.setEvent_date(event_date);
+        event.setThumfile(thumfileName); // 파일명 설정
+        event.setAdminidx(adminidx);
+
+        try {
+            // 이벤트 수정 서비스 호출
+            boolean isUpdated = masterService.updateEvent(event);
+            if (isUpdated) {
+                return ResponseEntity.ok("이벤트가 성공적으로 수정되었습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 수정 중 오류가 발생했습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 수정 중 오류가 발생했습니다.");
+        }
+    }
+
+    // 차트 보여주기
+    @GetMapping("/registrationChart")
+    public ResponseEntity<List<Map<String, Object>>> getRegistrationStats() {
+        List<Map<String, Object>> stats = masterService.getUserRegistrationStats();
+        return ResponseEntity.ok(stats);
     }
 }

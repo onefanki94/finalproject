@@ -348,4 +348,19 @@ public class MasterServiceImpl implements MasterService {
     public MasterVO getEventDetail(int idx) {
         return dao.getEventDetail(idx);
     }
+
+    @Override
+    public boolean updateEvent(MasterVO event) {
+        return dao.updateEvent(event) > 0;
+    }
+
+    @Override
+    public MasterVO getEventByIdx(int idx) {
+        return dao.getEventByIdx(idx);
+    }
+
+    @Override
+    public List<Map<String, Object>> getUserRegistrationStats() {
+        return dao.getUserRegistrationStats();
+    }
 }

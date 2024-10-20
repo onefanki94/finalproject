@@ -7,6 +7,7 @@ top: 0;
 left: 0;
 overflow-y: auto;
 padding-top: 20px;
+ text-align: center; /* 사이드바의 모든 콘텐츠를 가운데 정렬 */
 }
 
 .loginInfo {
@@ -120,6 +121,13 @@ justify-content : center;
 margin : 0 auto;
 margin-top : 30px;
 margin-bottom : 30px;
+}
+
+.masterLogo img {
+    display: block;
+    margin: 0 auto; /* 이미지를 가운데 정렬 */
+    width: 60%; /* 필요에 따라 크기 조정 */
+    height: auto;
 }
 
 // --------------------------------------------------------------------------------------------------------------
