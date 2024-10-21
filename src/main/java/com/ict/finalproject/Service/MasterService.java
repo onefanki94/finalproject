@@ -80,4 +80,7 @@ public interface MasterService {
     public MasterVO getCommentByIdx(int idx);
     public List<MasterVO> getRepliesByCommentIdx(int idx);
     boolean authenticateAdmin(String adminid, String adminpwd);
+    List<MasterVO> getUserListWithPaging(int offset, int pageSize);
+    MasterVO getFAQById(int idx);
+    void updateFAQ(MasterVO faq);
 }

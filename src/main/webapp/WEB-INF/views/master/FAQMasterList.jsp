@@ -4,7 +4,7 @@
 <title>DashBoard - 자주 묻는 질문</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
+<script src="/js/Master.js"></script>
  <div class="FAQ-list-container">
              <h2>자주 묻는 질문 리스트</h2>
              <table class="FAQ-list table table-hover table-bordered">
@@ -25,7 +25,7 @@
                          <td>${faq.question}</td>
                          <td>${faq.regDT}</td>
                          <td>
-                             <button class="btn btn-outline-secondary btn-sm"><a href="/master/FAQEditMaster">수정</a></button>
+                             <button class="btn btn-outline-secondary btn-sm" data-idx><a href="/master/FAQEditMaster/${faq.idx}">수정</a></button>
                              <button class="btn btn-outline-danger btn-sm">삭제</button>
                          </td>
                      </tr>

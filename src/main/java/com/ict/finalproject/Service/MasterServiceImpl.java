@@ -412,4 +412,19 @@ public class MasterServiceImpl implements MasterService {
         }
         return false; // 인증 실패
     }
+
+    @Override
+    public List<MasterVO> getUserListWithPaging(int offset, int pageSize) {
+        return dao.getUserListWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public MasterVO getFAQById(int idx) {
+        return dao.getFAQById(idx);
+    }
+
+    @Override
+    public void updateFAQ(MasterVO faq) {
+        dao.updateFAQ(faq);
+    }
 }

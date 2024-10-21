@@ -71,7 +71,7 @@
                     <td>${store.relDT}</td>
                     <td>
                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster/${store.idx}">수정</a></button>
-                        <button class="btn btn-outline-danger btn-sm" data-idx="${store.idx}">삭제</button>
+<button class="btn btn-outline-danger btn-sm store-delete" data-idx="${store.idx}">삭제</button>
                     </td>
                 </tr>
                 </c:forEach>

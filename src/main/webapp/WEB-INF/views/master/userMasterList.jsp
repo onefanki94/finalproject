@@ -69,13 +69,47 @@
         </table>
 
         <!-- 페이지네이션 -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">다음</a></li>
-            </ul>
-        </nav>
-    </div>
+              <nav>
+                  <ul class="pagination justify-content-center">
+                      <c:set var="pageGroupSize" value="5" />
+                      <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
+                      <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
+
+                      <!-- 첫 번째 페이지로 이동 -->
+                      <c:if test="${startPage > 1}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/userMasterList?currentPage=1&pageSize=${pageSize}">&laquo;&laquo;</a>
+                          </li>
+                      </c:if>
+
+                      <!-- 이전 그룹으로 이동 -->
+                      <c:if test="${startPage > 1}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/userMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">&lsaquo;</a>
+                          </li>
+                      </c:if>
+
+               <c:if test="${not empty currentPage}">
+                   <!-- 페이지 번호 -->
+                   <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                       <li class="page-item ${i == currentPage ? 'active' : ''}">
+                           <a class="page-link" href="/master/userMasterList?currentPage=${i}&pageSize=${pageSize}">${i}</a>
+                       </li>
+                   </c:forEach>
+               </c:if>
+
+                      <!-- 다음 그룹으로 이동 -->
+                      <c:if test="${endPage < totalPages}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/userMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">&rsaquo;</a>
+                          </li>
+                      </c:if>
+
+                      <!-- 마지막 페이지로 이동 -->
+                      <c:if test="${endPage < totalPages}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/userMasterList?currentPage=${totalPages}&pageSize=${pageSize}">&raquo;&raquo;</a>
+                          </li>
+                      </c:if>
+                  </ul>
+              </nav>

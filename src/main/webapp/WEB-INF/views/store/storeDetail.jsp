@@ -39,7 +39,7 @@
                <div class="like-section">
                    <div class="like-icon" data-product-id="${storeDetail.idx}">
                    </div>
-                   <span class="like-count">${storeDetail.likeCount}${storeDetail.liked}</span>
+                   <span class="like-count">${storeDetail.likeCount}</span>
                </div>
             </div>
     

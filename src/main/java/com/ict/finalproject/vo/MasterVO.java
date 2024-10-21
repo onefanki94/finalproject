@@ -96,6 +96,7 @@ public class MasterVO {
     private String qnatype;
     private int qna_idx;
     private String reply;
+    private String attachmentUrl;
 
     // 페이징 네이션에 사용하는 기능들
     private int currentPage;     // 현재 페이지 번호
@@ -106,9 +107,24 @@ public class MasterVO {
     private int startPage;       // 페이지 네비게이션 시작 페이지
     private int endPage;         // 페이지 네비게이션 끝 페이지
     private int pageGroupSize;
+    private int page;
 
     // 관리자 페이지 이벤트 페이지 사용하는 기능들
     private String event_date;
     private String thumfile;
     private String thumfileName;
+
+    // 관리자에서 회원목록 기능 사용하는것
+
+    private String userpwd;
+    private String username;
+    private String tel;
+    private String email;
+    private String zipcode;
+    private String addr;
+    private String addrdetail;
+    private String birth;
+    private int point;
+    private int adult_state;
+    private int login_type;
 }

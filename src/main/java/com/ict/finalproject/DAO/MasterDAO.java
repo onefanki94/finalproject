@@ -169,4 +169,8 @@ public interface MasterDAO {
     public MasterVO getCommentByIdx(int idx);
     public List<MasterVO> getRepliesByCommentIdx(int idx);
     MasterVO findAdminByAdminid(String adminid);
+
+    List<MasterVO> getUserListWithPaging(int offset, int pageSize);
+    MasterVO getFAQById(int idx);
+    void updateFAQ(MasterVO faq);
 }

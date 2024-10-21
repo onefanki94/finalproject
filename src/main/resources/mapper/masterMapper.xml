@@ -11,7 +11,7 @@
 
     <!-- 관리자페이지 자주묻는 질문 등록 -->
     <insert id="insertFAQ" parameterType="com.ict.finalproject.vo.MasterVO">
-        insert into t_faq (question,answer,faqtype,adminidx) values(#{question}, #{answer}, #{faqtype} , 2)
+        insert into t_faq (question,answer,faqtype,adminidx) values(#{question}, #{answer}, #{faqtype} , #{adminidx})
     </insert>
 
     <!-- 관리자 페이지 굿즈 상품 등록 -->
@@ -23,7 +23,7 @@
     <!-- 관리자페이지 자주묻는 질문 리스트 -->
     <select id="getFAQList" resultType="com.ict.finalproject.vo.MasterVO">
         select f.idx, f.question, ft.type as faqtype, DATE_FORMAT(f.regDT, '%Y-%m-%d') as regDT
-        from t_faq f join t_faqtype ft ON f.faqtype = ft.code
+        from t_faq f join t_faqtype ft ON f.faqtype = ft.code ORDER BY f.idx ASC;
     </select>
 
     <!-- 관리자 페이지 굿즈 상품 테이블 전체 목록 조회 -->
@@ -108,7 +108,7 @@
 
     <!-- 신고 기능 목록 보여주기 -->
     <select id="getReportinguserList" resultType="MasterVO">
-        SELECT r.idx, r.reason, DATE_FORMAT(r.reportDT, '%Y-%m-%d') as reportDT, u.userid, r.handleState, DATE_FORMAT(r.handleDT, '%Y-%m-%d') as handleDT
+        SELECT r.idx, r.reason, r.reportDT, u.userid, r.handleState, r.handleDT
         FROM t_report r JOIN t_user u ON r.useridx = u.idx
     </select>
 
@@ -157,7 +157,7 @@
     <!-- 애니 수정 -->
     <update id="updateAnimation" parameterType="MasterVO">
         update t_animation set post_img = #{post_img_filename}, title = #{title}, anitype = #{anitype}, director = #{director},
-        agetype = #{agetype}, outline = #{outline}, modifyState = 1, modifyDT = now(), adminidx = 2 where idx= #{idx}
+        agetype = #{agetype}, outline = #{outline}, modifyState = 1, modifyDT = now(), adminidx = #{adminidx} where idx= #{idx}
     </update>
 
     <!-- 애니 idx 값에 기존에 있던 이미지 파일 불러오기 -->
@@ -183,7 +183,7 @@
     <!-- 문의사항 전체 목록 보여주기 -->
     <select id="getQNAList" resultType="MasterVO">
         SELECT q.idx, qt.type AS qnatype, q.title, q.content, u.userid, DATE_FORMAT(q.regDT, '%Y-%m-%d') as regDT,
-        q.handleState, r.reply AS reply FROM t_qna q
+        q.handleState, r.reply AS reply, q.imgfile1 as attachmentUrl FROM t_qna q
         JOIN t_qnatype qt ON q.qnatype = qt.code
         JOIN t_user u ON q.useridx = u.idx
         LEFT JOIN t_reply r ON q.idx = r.qna_idx
@@ -196,7 +196,7 @@
 
     <!-- 신고 목록 보여주기 -->
     <select id="getReportingUser">
-        SELECT b.useridx, u.userid, r.report_type, DATE_FORMAT(b.stopDT, '%Y-%m-%d') as stopDT, DATE_FORMAT(b.endDT, '%Y-%m-%d') as endDT, b.reason
+        SELECT b.useridx, u.userid, r.report_type, b.stopDT, b.endDT, b.reason
         FROM t_ban b
         LEFT JOIN t_user u ON b.useridx = u.idx
         LEFT JOIN t_report r ON b.useridx = r.useridx
@@ -456,4 +456,24 @@
         SELECT * FROM t_admin
         WHERE adminid = #{adminid}
     </select>
+
+    <select id="getUserListWithPaging" resultType="MasterVO">
+        SELECT *
+        FROM t_user
+        ORDER BY regDT DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- idx로 FAQ 정보 가져오기 -->
+    <select id="getFAQById" parameterType="int" resultType="com.ict.finalproject.vo.MasterVO">
+        SELECT * FROM t_faq WHERE idx = #{idx}
+    </select>
+
+    <!-- FAQ 정보 수정 -->
+    <update id="updateFAQ" parameterType="MasterVO">
+        UPDATE t_faq
+        SET question = #{question}, answer = #{answer}, faqtype = #{faqtype}, modifyDT = NOW(), adminidx = #{adminidx}
+        WHERE idx = #{idx}
+    </update>
+
 </mapper>

@@ -175,53 +175,63 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-// 답변 버튼 클릭 시
-$('.answerBtn').on('click', function() {
-const idx = $(this).data('idx');  // 문의 ID
-const title = $(this).data('title');  // 문의 제목
-const content = $(this).data('content');  // 문의 내용
+    // 답변 버튼 클릭 시
+    $('.answerBtn').on('click', function() {
+        const idx = $(this).data('idx');  // 문의 ID
+        const title = $(this).data('title');  // 문의 제목
+        const content = $(this).data('content');  // 문의 내용
+        const attachment = $(this).data('attachment'); // 첨부파일 이름
+        var attachmentUrl = "http://192.168.1.92:8000/" + attachment; // 동적 URL
 
-// 모달의 hidden input과 문의 제목, 내용 설정
-$('#idx').val(idx);
-$('#title').val(title);
-$('#content').val(content);
+        // 모달의 hidden input과 문의 제목, 내용 설정
+        $('#idx').val(idx);
+        $('#title').val(title);
+        $('#content').val(content);
 
-// 모달 창 열기
-$('#answerModal').modal('show');
-});
-});
+        // 첨부 파일 링크 설정
+        const attachmentSection = $('#attachmentSection');
+        if (attachment) {
+            // 첨부파일이 있을 경우 다운로드 링크를 생성
+            attachmentSection.html('<a href="' + attachmentUrl + '" target="_blank" download>파일 다운로드</a> (1)');
+        } else {
+            // 첨부파일이 없을 경우 적절한 메시지 표시
+            attachmentSection.html('첨부된 파일이 없습니다. (0)');
+        }
 
-// 답변 폼 제출 시 처리 (선택사항: AJAX로 제출하려면 아래 코드 사용)
-$(document).ready(function() {
-$('#answerForm').submit(function(event) {
- event.preventDefault();  // 폼 자동 제출 방지
+        // 모달 창 열기
+        $('#answerModal').modal('show');
+    });
 
- // 로컬스토리지에서 토큰 가져오기
- const token = localStorage.getItem('token');
- if (!token) {
-   alert("로그인 토큰이 없습니다.");
-   return;
- }
+    // 답변 폼 제출 시 처리
+    $('#answerForm').submit(function(event) {
+        event.preventDefault();  // 폼 자동 제출 방지
 
- const formData = $(this).serialize();  // 폼 데이터를 직렬화
+        // 로컬스토리지에서 토큰 가져오기
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert("로그인 토큰이 없습니다.");
+            return;
+        }
 
- $.ajax({
-   type: 'POST',
-   url: '/master/QNAanswerOK',
-   headers: {
-     'Authorization': `Bearer ${token}`  // Authorization 헤더에 토큰 추가
-   },
-   data: formData,
-   success: function(response) {
-     alert('답변이 성공적으로 처리되었습니다.');
-     location.reload();  // 페이지 새로고침
-   },
-   error: function(xhr, status, error) {
-     console.error('Error:', xhr.responseText);  // 에러 메시지를 콘솔에 출력
-     alert('답변 처리 중 오류가 발생했습니다.');
-   }
- });
-});
+        const formData = $(this).serialize();  // 폼 데이터를 직렬화
+
+        $.ajax({
+            type: 'POST',
+            url: '/master/QNAanswerOK',
+            headers: {
+                'Authorization': `Bearer ${token}`  // Authorization 헤더에 토큰 추가
+            },
+            data: formData,
+            success: function(response) {
+                alert('답변이 성공적으로 처리되었습니다.');
+                location.reload();  // 페이지 새로고침
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', xhr.responseText);  // 에러 메시지를 콘솔에 출력
+                alert('답변 처리 중 오류가 발생했습니다.');
+            }
+        });
+    });
 });
 
 $(document).ready(function() {
@@ -268,52 +278,54 @@ $(document).ready(function() {
 
 // 애니 해당 게시글 삭제 --------------------------------------------------------------------------
 $(document).ready(function() {
-// 삭제 버튼 클릭 시
-$('.btn-outline-danger').on('click', function() {
-var idx = $(this).data('idx'); // 삭제할 애니메이션의 idx 값
+    // 애니 삭제 버튼 클릭 시
+    $('.btn-outline-danger.ani-delete').on('click', function() {
+        var idx = $(this).data('idx'); // 삭제할 애니의 idx 값
 
-// 삭제 여부를 사용자에게 확인
-if (confirm("정말로 삭제하시겠습니까?")) {
-// AJAX 요청으로 삭제 요청을 서버에 보냄
-$.ajax({
-type: 'POST',  // 삭제 요청은 POST로
-url: '/master/aniDeleteMaster/' + idx,  // 서버에 삭제 요청을 보낼 URL
-success: function(response) {
-                     alert('해당 ' + idx + ' 번호의 애니가 삭제되었습니다.');
-                     window.location.href = '/master/aniMasterList';  // 성공 시 리스트로 리다이렉트
-                 },
-                 error: function(xhr, status, error) {
-                     console.error('삭제 중 에러 발생:', xhr.responseText);
-                     alert('삭제 중 오류가 발생했습니다.');
-                 }
-             });
-         }
-     });
- });
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            $.ajax({
+                type: 'POST',
+                url: '/master/aniDeleteMaster/' + idx,
+                success: function(response) {
+                    if (response.success) {
+                        alert('해당 ' + idx + ' 번호의 애니가 삭제되었습니다.');
+                        window.location.href = '/master/aniMasterList';  // 성공 시 애니 리스트로 리다이렉트
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('삭제 중 에러 발생:', xhr.responseText);
+                    alert('삭제 중 오류가 발생했습니다.');
+                }
+            });
+        }
+    });
 
- $(document).ready(function() {
-     // 삭제 버튼 클릭 시
-     $('.btn-outline-danger').off('click').on('click', function() {
-         var idx = $(this).data('idx'); // 삭제할 스토어의 idx 값
+    // 스토어 삭제 버튼 클릭 시
+    $('.btn-outline-danger.store-delete').on('click', function() {
+        var idx = $(this).data('idx'); // 삭제할 스토어의 idx 값
 
-         // 삭제 여부를 사용자에게 확인
-         if (confirm("정말로 삭제하시겠습니까?")) {
-             // AJAX 요청으로 삭제 요청을 서버에 보냄
-             $.ajax({
-                 type: 'POST',  // 삭제 요청은 POST로
-                 url: '/master/storeDeleteMaster/' + idx,  // 서버에 삭제 요청을 보낼 URL
-                 success: function(response) {
-                     alert('해당 ' + idx + ' 번호의 스토어가 삭제되었습니다.');
-                     window.location.href = '/master/storeMasterList';  // 성공 시 리스트로 리다이렉트
-                 },
-                 error: function(xhr, status, error) {
-                     console.error('삭제 중 에러 발생:', xhr.responseText);
-                     alert('삭제 중 오류가 발생했습니다.');
-                 }
-             });
-         }
-     });
- });
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            $.ajax({
+                type: 'POST',
+                url: '/master/storeDeleteMaster/' + idx,
+                success: function(response) {
+                    if (response.success) {
+                        alert('해당 ' + idx + ' 번호의 스토어가 삭제되었습니다.');
+                        window.location.href = '/master/storeMasterList';  // 성공 시 스토어 리스트로 리다이렉트
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('삭제 중 에러 발생:', xhr.responseText);
+                    alert('삭제 중 오류가 발생했습니다.');
+                }
+            });
+        }
+    });
+});
 
 // 굿즈 상품 수정 --------------------------------------------------------------------------
  $(document).ready(function() {
@@ -637,6 +649,42 @@ success: function(response) {
              },
              error: function() {
                  alert('댓글 상세 정보를 가져오는 데 실패했습니다.');
+             }
+         });
+     });
+ });
+
+ $(document).ready(function() {
+     $('#FAQEditForm').on('submit', function(event) {
+         event.preventDefault(); // 기본 폼 제출 방지
+
+         var formData = $(this).serialize(); // 폼 데이터 직렬화
+         var token = localStorage.getItem("token");
+         if (!token) {
+             alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+             window.location.href = "/user/login";
+             return;
+         }
+
+         $.ajax({
+             url: '/master/FAQEditMasterOk',
+             type: 'POST',
+             data: formData,
+             headers: {
+                 "Authorization": "Bearer " + token
+             },
+             success: function(response) {
+                 alert(response);
+                 window.location.href = "/master/FAQMasterList"; // 수정 후 목록으로 이동
+             },
+             error: function(xhr) {
+                 if (xhr.status === 401) {
+                     alert("세션이 만료되었습니다. 다시 로그인해 주세요.");
+                     localStorage.removeItem("token");
+                     window.location.href = "/user/login";
+                 } else {
+                     alert("자주 묻는 질문 수정 중 오류가 발생했습니다.");
+                 }
              }
          });
      });

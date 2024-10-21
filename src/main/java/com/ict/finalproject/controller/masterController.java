@@ -114,7 +114,6 @@ public class masterController {
     }
 
 
-
     // Dashboard 매핑
     @GetMapping("/masterMain")
     public ModelAndView masterMain() {
@@ -127,30 +126,38 @@ public class masterController {
         return mav;  // 중복 리다이렉트 발생 여부 확인
     }
 
-    //Dashboard - 회원관리 - 회원 목록 리스트
     @GetMapping("/userMasterList")
-    public ModelAndView masterUserList(MemberVO vo) {
+    public ModelAndView masterUserList(
+            @RequestParam(defaultValue = "1") String currentPage,
+            @RequestParam(defaultValue = "10") int pageSize) {
 
-        // 유저 List 가져오기
-        List<MemberVO> memberList = service.getMemberList(vo);
+        // 현재 페이지를 확인하여 부동 소수점일 경우 정수로 변환
+        int currentPageInt;
+        try {
+            currentPageInt = Integer.parseInt(currentPage);
+        } catch (NumberFormatException e) {
+            // 변환 실패 시 기본값 1로 설정
+            currentPageInt = 1;
+        }
 
-        // 총 유저수 구하기
-        int totalUser = service.getTotalUser();
+        int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+        List<MasterVO> memberList = masterService.getUserListWithPaging(offset, pageSize);
 
-        // 오늘 가입자 수 구하기
-        int newUsers = service.getNewUsers();
 
-        // 최근 7일간 가입자 수 구하기
-        int newSignups = service.getNewSignups();
+        // 유저 리스트 가져오기
 
-        mav = new ModelAndView();
+        int totalUser = service.getTotalUser(); // 총 유저 수
+        int totalPages = (int) Math.ceil((double) totalUser / pageSize); // 총 페이지 수
+
+        ModelAndView mav = new ModelAndView();
         mav.addObject("memberList", memberList);
-        mav.addObject("totalUser", totalUser);
-        mav.addObject("newUsers", newUsers);
-        mav.addObject("newSignups", newSignups);
+        mav.addObject("currentPage", currentPageInt);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/userMasterList");
         return mav;
     }
+
 
     @GetMapping("/userDelMasterList")
     public ModelAndView masterUserDelList(MasterVO vo) {
@@ -182,8 +189,6 @@ public class masterController {
         mav.setViewName("master/aniMasterList");
         return mav;
     }
-
-
 
 
     // Dashboard - 회원관리 - 신고계정목록 리스트
@@ -269,9 +274,6 @@ public class masterController {
     }
 
 
-
-
-
     private String uploadFileToExternalServer(MultipartFile file) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         String imageServerUrl = "http://192.168.1.92:8000/upload"; // 이미지 서버의 파일 업로드 엔드포인트
@@ -318,7 +320,6 @@ public class masterController {
     }
 
 
-
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
     @GetMapping("/aniEditMaster/{idx}")
     public ModelAndView aniEditMaster(@PathVariable("idx") int idx) {
@@ -363,9 +364,19 @@ public class masterController {
     }
 
     @PostMapping("/aniDeleteMaster/{idx}")
-    public String aniDeleteMaster(@PathVariable("idx") int idx) {
-        masterService.deletePostByIdx(idx);
-        return "redirect:/master/aniMasterList";
+    public ResponseEntity<Map<String, Object>> aniDeleteMaster(@PathVariable("idx") int idx) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            masterService.deletePostByIdx(idx);
+            response.put("success", true);
+            response.put("message", "삭제되었습니다.");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "삭제 중 오류가 발생했습니다.");
+        }
+
+        return ResponseEntity.ok(response); // JSON 응답 반환
     }
 
     // Dashboard - 굿즈관리 - 굿즈목록 리스트
@@ -416,7 +427,6 @@ public class masterController {
     }
 
 
-
     // Dashboard - 주문관리 - 주문내역 리스트
     @GetMapping("/orderMasterList")
     public ModelAndView orderMasterList() {
@@ -458,7 +468,6 @@ public class masterController {
     }
 
 
-
     //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
     @GetMapping("/boardMasterAll")
     public ModelAndView boardMasterAll(
@@ -492,7 +501,6 @@ public class masterController {
         mav.setViewName("master/boardMasterAll");
         return mav;
     }
-
 
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 댓글 전체 목록
@@ -536,11 +544,9 @@ public class masterController {
         List<MasterVO> commentList = masterService.getReplyListWithPaging(offset, pageSize);
 
 
-
         // 전체 댓글 개수 조회
         int totalReplies = masterService.getTotalReplyCount();
         int totalPages = (int) Math.ceil((double) totalReplies / pageSize);
-
 
 
         ModelAndView mav = new ModelAndView();
@@ -567,7 +573,6 @@ public class masterController {
 
         return response;
     }
-
 
 
     @GetMapping("/getReviewDetail")
@@ -914,12 +919,64 @@ public class masterController {
     }
 
     // Dashboard - 기타관리 - 자주묻는질문 - 수정
-    @GetMapping("/FAQEditMaster")
-    public ModelAndView FAQEditMaster() {
+    @GetMapping("/FAQEditMaster/{idx}")
+    public ModelAndView FAQEditMaster(@PathVariable("idx") int idx) {
         mav = new ModelAndView();
+        mav.addObject("FAQ", masterService.getFAQById(idx));
         mav.setViewName("master/FAQEditMaster");
         return mav;
     }
+
+    @PostMapping("/FAQEditMasterOk")
+    public ResponseEntity<String> FAQEditMasterOk(
+            @RequestParam(value = "idx", defaultValue = "0") int idx, // 기본값 0
+            @RequestParam("code") String code,
+            @RequestParam("question") String question,
+            @RequestParam("answer") String answer,
+            @RequestHeader("Authorization") String authorizationHeader) {
+
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        MasterVO faq = new MasterVO();
+        faq.setIdx(idx);
+        faq.setFaqtype(code);
+        faq.setQuestion(question);
+        faq.setAnswer(answer);
+        faq.setAdminidx(adminidx);
+
+        try {
+            masterService.updateFAQ(faq);
+            return ResponseEntity.ok("자주묻는 질문이 성공적으로 수정되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("자주 묻는 질문 수정중 오류가 발생했습니다.");
+        }
+    }
+
+
+
 
     // Dashboard - 기타관리 - 자주묻는질문 - 삭제
     @GetMapping("/FAQDelMaster")

@@ -4,7 +4,6 @@
 <title>DashBoard - 신고 목록 리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
 <script src="/js/Master.js"></script>
 
 <div class="reportinguserList-list-container">
