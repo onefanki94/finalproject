@@ -427,4 +427,9 @@ public class MasterServiceImpl implements MasterService {
     public void updateFAQ(MasterVO faq) {
         dao.updateFAQ(faq);
     }
+
+    @Override
+    public void deleteReport(int idx) {
+        dao.deleteReport(idx);
+    }
 }

@@ -62,7 +62,7 @@
                         <td>
                             <!-- 신고내역추가 버튼 클릭 시 모달에 유저 ID 설정 -->
                             <button class="btn btn-outline-success btn-sm addReportBtn" data-userid="${reportinguser.userid}">신고내역추가</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+                            <button class="btn btn-outline-danger btn-sm deleteBtn" data-idx="${reportinguser.idx}">삭제</button>
                         </td>
                     </tr>
                 </c:forEach>

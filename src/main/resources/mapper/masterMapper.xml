@@ -108,7 +108,7 @@
 
     <!-- 신고 기능 목록 보여주기 -->
     <select id="getReportinguserList" resultType="MasterVO">
-        SELECT r.idx, r.reason, r.reportDT, u.userid, r.handleState, r.handleDT
+        SELECT r.idx, r.reason, DATE_FORMAT(r.reportDT, '%Y-%m-%d') as reportDT, u.userid, r.handleState, DATE_FORMAT(r.handleDT, '%Y-%m-%d') as handleDT
         FROM t_report r JOIN t_user u ON r.useridx = u.idx
     </select>
 
@@ -196,7 +196,7 @@
 
     <!-- 신고 목록 보여주기 -->
     <select id="getReportingUser">
-        SELECT b.useridx, u.userid, r.report_type, b.stopDT, b.endDT, b.reason
+        SELECT b.useridx, u.userid, r.report_type, DATE_FORMAT(b.stopDT, '%Y-%m-%d') as stopDT, DATE_FORMAT(b.endDT, '%Y-%m-%d') as endDT, b.reason
         FROM t_ban b
         LEFT JOIN t_user u ON b.useridx = u.idx
         LEFT JOIN t_report r ON b.useridx = r.useridx
@@ -475,5 +475,10 @@
         SET question = #{question}, answer = #{answer}, faqtype = #{faqtype}, modifyDT = NOW(), adminidx = #{adminidx}
         WHERE idx = #{idx}
     </update>
+
+    <!-- 해당 신고 삭제 하기 -->
+    <delete id="deleteReport" parameterType="int">
+        DELETE FROM t_report WHERE idx = #{idx}
+    </delete>
 
 </mapper>

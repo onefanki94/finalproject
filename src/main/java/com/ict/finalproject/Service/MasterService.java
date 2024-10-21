@@ -83,4 +83,5 @@ public interface MasterService {
     List<MasterVO> getUserListWithPaging(int offset, int pageSize);
     MasterVO getFAQById(int idx);
     void updateFAQ(MasterVO faq);
+    void deleteReport(int idx);
 }

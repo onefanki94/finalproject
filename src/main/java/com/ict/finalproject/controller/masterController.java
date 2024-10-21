@@ -144,6 +144,12 @@ public class masterController {
         List<MasterVO> memberList = masterService.getUserListWithPaging(offset, pageSize);
 
 
+        // 오늘 가입자 수 구하기
+        int newUsers = service.getNewUsers();
+
+        // 최근 7일간 가입자 수 구하기
+        int newSignups = service.getNewSignups();
+
         // 유저 리스트 가져오기
 
         int totalUser = service.getTotalUser(); // 총 유저 수
@@ -154,6 +160,9 @@ public class masterController {
         mav.addObject("currentPage", currentPageInt);
         mav.addObject("pageSize", pageSize);
         mav.addObject("totalPages", totalPages);
+        mav.addObject("totalUser", totalUser);
+        mav.addObject("newUsers", newUsers);
+        mav.addObject("newSignups", newSignups);
         mav.setViewName("master/userMasterList");
         return mav;
     }
@@ -1377,6 +1386,13 @@ public class masterController {
         masterService.updateReportAndBan(idx, userid, reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
 
         return "redirect:/master/reportinguserListMaster";  // 신고 목록 페이지로 리다이렉트
+    }
+
+    @PostMapping("/reportingDeleteMaster/{idx}")
+    public String reportingDeleteMaster(@PathVariable("idx") int idx) {
+        System.out.println("Received idx: " + idx); // 로그로 idx 값 출력
+        masterService.deleteReport(idx);
+        return "redirect:/master/reportinguserListMaster";
     }
 
     // 이벤트 페이지 글 쓰기

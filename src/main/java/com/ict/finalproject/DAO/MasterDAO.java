@@ -173,4 +173,6 @@ public interface MasterDAO {
     List<MasterVO> getUserListWithPaging(int offset, int pageSize);
     MasterVO getFAQById(int idx);
     void updateFAQ(MasterVO faq);
+
+    void deleteReport(int idx);
 }
