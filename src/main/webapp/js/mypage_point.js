@@ -40,7 +40,7 @@ function createPaginationPoint(totalPages, currentPage) {
         const page = $(this).data('page');
         $(".custom-pagination .pageNumber_span span").removeClass("clicked");
         $(this).addClass("clicked");
-        mypageGoodsLike(page);
+        getPointList(page);
     });
 }
 
@@ -67,7 +67,7 @@ function getPointList(page){
                     const getPointType = getPoinType(pointList.type);
                     const pointClass = pointList.type <3 || pointList.type==4
                         ? `<span style="color:var(--primary); font-weight: bold;">+${formattedPoint}</span>`
-                        : `<span style="color:#a0a0a0; font-weight: bold;">-${formattedPoint}</span>`;
+                        : `<span style="color:#a0a0a0; font-weight: bold;">${formattedPoint}</span>`;
                     $(".point_list_ul").append(`
                         <li class="point_list_li">
                           <div class="point_date"><span>${pointList.formatted_regDT}</span></div>

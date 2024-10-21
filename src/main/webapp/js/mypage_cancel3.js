@@ -28,7 +28,7 @@ function calculateRefund() {
     // 환불 예정 금액을 화면에 표시
     $('.cancelProductPrice').text(formatNumber(cancelProductPrice)+"원");
     $('.pay_totalPrice').text(formatNumber(cancelAmount)+"원");
-    $('.cancel_totalPrice').text(formatNumber(refundDeliveryFee+cancelProductPrice+refundUsePoint)+"원");
+    $('.cancel_totalPrice').text(formatNumber(cancelAmount+refundUsePoint)+"원");
     $('.cancel_amount').text(formatNumber(cancelAmount)+"원");
 
     // 적립금 환불 예정 금액 표시

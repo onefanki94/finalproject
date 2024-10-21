@@ -30,6 +30,7 @@ public interface OrderService {
     OrderVO orderSuccessData(int order_idx);
     List<OrderListVO> orderListSuccessData(int order_idx);
     PaymentVO paymentSuccessData(int order_idx);
+    int getUseridx(int order_idx);
     
     // 결제 실패
     void handleFailure(String orderId, String code, String message);
@@ -43,5 +44,8 @@ public interface OrderService {
     int getUsePoint(int order_idx);
     // 결제 취소
     ResponseEntity<String> cancelPayment(PayCancelDTO sessionPayCancelDTO);
+    List<OrderListVO> getOrderProducts(int order_idx);
+    // 구매확정
+    int confirmOrder(int order_idx,int pro_idx);
 
 }

@@ -150,6 +150,11 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public int getUseridx(int order_idx) {
+        return dao.getUseridx(order_idx);
+    }
+
+    @Override
     public void handleFailure(String orderId, String errorCode, String errorMessage) {
         PaymentVO payment = dao.getPaymentByOrderId(orderId);
         payment.setFailReason(errorMessage);  // 실패 이유 저장
@@ -212,10 +217,14 @@ public class OrderServiceImpl implements OrderService{
             if (response.getStatusCode() == HttpStatus.OK) {
                 // Toss API에서 받은 결제 정보
                 CancelResDTO responseData = response.getBody();
-                log.info("***************************response.getBody() : {}",response.getBody());
-                log.info("%%%%%%%%%%%%%%%%%%%%%%%%responseData : {}",responseData);
+                Map<String, Object> paramMap = new HashMap<>();
+                // 최신 취소 내역 (리스트의 마지막 요소)
+                CancelResDTO.CancelInfo latestCancel = responseData.getCancels().get(responseData.getCancels().size() - 1);
+
+                paramMap.put("paymentKey", responseData.getPaymentKey());
+                paramMap.put("cancelInfo", latestCancel);
                 // 결제 취소 성공 정보 저장
-                dao.PaymentCancelSuccess(responseData);
+                dao.PaymentCancelSuccess(paramMap);
 
                 // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리
                 int order_idx = sessionPayCancelDTO.getOrder_idx();
@@ -229,10 +238,15 @@ public class OrderServiceImpl implements OrderService{
                     int amount = orderProduct.getAmount();
                     int cancelCount = cancelProducts.getOrDefault(pro_idx, 0);
 
+                    // DB에서 이미 취소된 수량 가져오기
+                    int currentCancelCount = orderProduct.getCancelCount();
+                    int totalCanceledCount = currentCancelCount + cancelCount; // 새롭게 취소된 수량과 기존 취소 수량 합산
+
+
                     // cancelCount -> amount = cancelCount면 전체 취소라서 orderState=7로 업데이트
-                    if (amount == cancelCount) {
+                    if (totalCanceledCount == amount) {
                         dao.updateOrderListState(pro_idx, order_idx, 7, cancelCount); // 전체 취소 상태
-                    } else if (cancelCount > 0) {
+                    } else if (totalCanceledCount > 0) {
                         dao.updateOrderListState(pro_idx, order_idx, 8, cancelCount); // 부분 취소 상태
                     }
                     // 취소된 상품만큼 재고(stock) 더하기
@@ -252,6 +266,25 @@ public class OrderServiceImpl implements OrderService{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("결제 취소 중 오류가 발생했습니다: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<OrderListVO> getOrderProducts(int order_idx) {
+        return dao.getOrderProducts(order_idx);
+    }
+
+    @Override
+    public int confirmOrder(int order_idx, int pro_idx) {
+        // orderState=6(구매확정)으로 변경
+        dao.updateOrderStateConfirm(order_idx,pro_idx);
+
+        // 주문한 상품 가격과 갯수 출력(p.price, ol.amount)
+        OrderListVO orderProductInfo = dao.getOrderProductPriceAmount(order_idx,pro_idx);
+
+        int rewardPoints = (orderProductInfo.getPrice()*(orderProductInfo.getAmount()-orderProductInfo.getCancelCount()))/100;
+        log.info("예상 적립금 : {}",rewardPoints);
+
+        return rewardPoints;
     }
 
 }

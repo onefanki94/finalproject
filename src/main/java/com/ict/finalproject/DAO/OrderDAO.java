@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -36,6 +37,7 @@ public interface OrderDAO {
     OrderVO orderSuccessData(int order_idx);
     List<OrderListVO> orderListSuccessData(int order_idx);
     PaymentVO paymentSuccessData(int order_idx);
+    int getUseridx(int order_idx);
 
     // 결제 실패
     void updatePaymentFailure(PaymentVO payment);
@@ -48,9 +50,13 @@ public interface OrderDAO {
     // 사용한 적립금 가져오기
     int getUsePoint(int order_idx);
     // 결제 취소
-    void PaymentCancelSuccess(CancelResDTO responseData);
+    void PaymentCancelSuccess(Map<String, Object> paramMap);
     void updateOrderStateCancel(int order_idx);
     void updateOrderListState(int pro_idx, int order_idx, int orderState, int cancelCount);
     void increaseProductStock(int pro_idx, int cancelCount);
+    List<OrderListVO> getOrderProducts(int order_idx);
+    //구매확정
+    void updateOrderStateConfirm(int order_idx,int pro_idx);
+    OrderListVO getOrderProductPriceAmount(int order_idx,int pro_idx);
 
 }

@@ -143,6 +143,7 @@
   display: flex;
   flex-direction: column;
   padding: 23px 0;
+  width:80%;
 }
 
 .order_aniTitle {
@@ -161,6 +162,9 @@
   font-size: 16px;
   color: #303030;
   margin: 2px 0px;
+  white-space: nowrap;        /* 텍스트가 한 줄로 표시되도록 함 */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pro_price {

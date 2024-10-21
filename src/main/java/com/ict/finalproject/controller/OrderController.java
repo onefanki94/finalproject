@@ -182,6 +182,11 @@ public class OrderController {
 
         // Toss 결제 승인 처리
         int order_idx = service.approvePayment(approvalDTO);
+        // 적립금 빼기
+        int useridx = service.getUseridx(order_idx);
+        int use_point = service.getUsePoint(order_idx);
+        memberService.pointUpdate(useridx, 3, -use_point);
+        log.info("사용자 ID {}의 적립금 {}원이 차감 되었습니다.", useridx, use_point);
 
         // 화면에 뿌릴 데이터
         // 1. T_order : regDT(주문접수일시), 배송정보(수령인, 전화번호, 주소, 요청사항), 총 금액, 적립금 사용액
@@ -399,7 +404,9 @@ public class OrderController {
         log.info("전체 취소 여부: {}", isFullCancellation);
 
         // 3. 총 주문 금액 계산 (배송비 제외)
-        int totalProductPrice = allCancelProducts.stream()
+        // 얘는 처음에 주문한 금액이 다 들어가있어야됨
+        List<OrderListVO> allOrderProducts = service.getOrderProducts(payCancelDTO.getOrder_idx());
+        int totalProductPrice = allOrderProducts.stream()
                 .mapToInt(product -> product.getPrice() * product.getAmount()) // 상품 가격 * 상품 수량
                 .sum();
         log.info("총 상품 금액 (배송비 제외): {}", totalProductPrice);
@@ -475,6 +482,35 @@ public class OrderController {
             log.error("결제 취소 중 오류 발생: {}", cancelResponse.getBody());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("결제 취소 중 오류가 발생했습니다. 관리자에게 문의해주세요.");
+        }
+    }
+
+    // 주문상태 구매확정으로 변경
+    @PostMapping("/orderConfirmOk")
+    public ResponseEntity<String> orderConfirm(@RequestBody Map<String, Object> requestData, @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        int order_idx = Integer.parseInt(requestData.get("order_idx").toString());
+        int pro_idx = Integer.parseInt(requestData.get("pro_idx").toString());
+
+        try {
+            // 구매 확정 처리
+            int rewardPoints = service.confirmOrder(order_idx,pro_idx);
+            // 구매확정 적립금 적립
+            memberService.pointUpdate(useridx, 1, rewardPoints);
+            log.info("사용자 ID {}의 적립금 {}원이 적립 되었습니다.", useridx, rewardPoints);
+
+            return ResponseEntity.ok("구매 확정 완료");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("구매 확정 중 에러 발생: " + e.getMessage());
         }
     }
 

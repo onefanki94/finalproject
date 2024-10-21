@@ -67,7 +67,7 @@
         WHERE order_idx=${param1}
     </update>
     <select id="getOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
-        SELECT pro_idx, amount
+        SELECT pro_idx, amount, cancelCount
         FROM T_orderList
         WHERE order_idx = ${param1}
     </select>
@@ -89,9 +89,14 @@
         WHERE ol.order_idx = ${param1}
     </select>
     <select id="paymentSuccessData" resultType="com.ict.finalproject.vo.PaymentVO">
-        select paytype, orderId, createDT
+        select paytype, orderId, createDT, amount
         from T_payment
         where order_idx = ${param1}
+    </select>
+    <select id="getUseridx">
+        select useridx
+        from T_order
+        where idx=${param1}
     </select>
 
     <!-- 결제 실패 정보 업데이트 -->
@@ -127,6 +132,22 @@
         ol.order_idx = ${param1}
         AND (ol.orderState = 1 OR ol.orderState = 8)
     </select>
+    <select id="getOrderProducts" resultType="com.ict.finalproject.vo.OrderListVO">
+        SELECT
+        ol.pro_idx,
+        ol.order_idx,
+        ol.orderState,
+        ol.cancelCount,
+        ol.amount,
+        p.price,
+        p.thumImg
+        FROM
+        T_orderList ol
+        JOIN
+        T_product p ON ol.pro_idx = p.idx
+        WHERE
+        ol.order_idx = ${param1}
+    </select>
     <select id="getUsePoint">
         select use_point
         from T_order
@@ -134,11 +155,11 @@
     </select>
 
     <!-- 결제 취소 정보 업데이트 -->
-    <update id="PaymentCancelSuccess" parameterType="com.ict.finalproject.DTO.CancelResDTO">
+    <update id="PaymentCancelSuccess" parameterType="map">
         UPDATE T_payment
         SET cancelYN = 1,
-        cancelReason = #{cancels[0].cancelReason},  <!-- 첫 번째 CancelInfo의 cancelReason을 사용 -->
-        cancelAmount = #{cancels[0].cancelAmount},  <!-- 첫 번째 CancelInfo의 cancelAmount을 사용 -->
+        cancelReason = #{cancelInfo.cancelReason},
+        cancelAmount = #{cancelInfo.cancelAmount},
         cancelDT = now()
         WHERE paymentkey = #{paymentKey}
     </update>
@@ -157,4 +178,16 @@
         set stock = stock+${param2}
         where idx=${param1}
     </update>
+    <!-- 구매확정 -->
+    <update id="updateOrderStateConfirm">
+        update T_orderList
+        set orderState=6
+        where order_idx=${param1} and pro_idx=${param2}
+    </update>
+    <select id="getOrderProductPriceAmount" resultType="com.ict.finalproject.vo.OrderListVO">
+        select p.price, ol.amount, ol.cancelCount
+        from T_orderList ol
+        JOIN T_product p ON ol.pro_idx = p.idx
+        where ol.order_idx = ${param1} and pro_idx=${param2}
+    </select>
 </mapper>

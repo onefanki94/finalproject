@@ -43,7 +43,7 @@ function displayOrderList(orderList) {
         const hasCancelableProduct = order.products.some(product => product.orderState === 1 || product.orderState === 8);
 
         const cancelButtonHTML = hasCancelableProduct
-            ? `<button id="payCancel_btn">취소하기</button>`
+            ? `<button id="payCancel_btn">상품 결제 취소하기</button>`
             : ''; // 조건에 맞는 상품이 있으면 취소하기 버튼 추가
         const orderHTML = `
             <li class="order_list_li">
@@ -59,6 +59,9 @@ function displayOrderList(orderList) {
                     // orderState에 따라 버튼 출력 여부 결정
                     const packageButton = product.orderState >= 3 && product.orderState <=6
                         ? `<button class="order_package">CJ대한통운 <span>${order.trackingNum}</span></button>`
+                        : '';
+                    const orderConfirmButton = product.orderState ==5
+                        ? `<button class="order_package orderConfirm">구매확정 하기</button>`
                         : '';
                     return `
                     <li>
@@ -83,7 +86,10 @@ function displayOrderList(orderList) {
                               <div class="order_state_all">
                                 <p class="order_state_data">${getOrderStateText(product.orderState)}</p>
                               </div>
-                              ${packageButton} <!-- 버튼 삽입 -->
+                              <div>
+                                  ${packageButton} <!-- 버튼 삽입 -->
+                                  ${orderConfirmButton}
+                              </div>
                             </div>
                           </div>
                         </li>
@@ -174,6 +180,7 @@ function setupPagination(totalPages, currentPage) {
     });
 }
 
+//결제취소
 $(document).on('click', '#payCancel_btn', function() {
     var order_idx= $(this).closest(".order_list_li").find('#order_idx').val();
     console.log("order_idx",order_idx);
@@ -195,4 +202,34 @@ $(document).on('click', '#payCancel_btn', function() {
             console.log('취소 페이지 이동중 에러 발생:', error);
         }
     });
+});
+
+// 구매확정
+$(document).on('click', '.orderConfirm', function() {
+    var pro_idx= $(this).closest(".order_data_ulStyle").find('#pro_idx').val();
+    console.log("pro_idx",pro_idx);
+    var order_idx= $(this).closest(".order_list_li").find('#order_idx').val();
+    console.log("order_idx",order_idx);
+
+    if(confirm("구매확정을 하시면 교환/환불이 불가능합니다.\n정말 선택한 상품을 구매확정 하시겠습니까?")){
+        $.ajax({
+            url: '/order/orderConfirmOk',
+            type: 'POST',
+           data: JSON.stringify({
+                    pro_idx: pro_idx,
+                    order_idx:order_idx
+            }),
+            contentType: 'application/json',
+            headers: {
+                    "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+            },
+            success: function(response) {
+                alert("선택한 상품이 구매확정 되었습니다!");
+                getOrderListAll(1);
+            },
+            error: function(error) {
+                console.log('구매확정 중 에러 발생:', error);
+            }
+        });
+    }
 });
