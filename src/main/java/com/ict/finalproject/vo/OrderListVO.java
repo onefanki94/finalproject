@@ -17,6 +17,7 @@ public class OrderListVO {
     private String ani_title;
     private String thumImg;
     private int price;
+    private int cancelCount;
 
     // 매개변수가 있는 생성자
     public OrderListVO(int order_idx, int pro_idx, int amount) {

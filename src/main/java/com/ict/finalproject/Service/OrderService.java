@@ -1,10 +1,12 @@
 package com.ict.finalproject.Service;
 
+import com.ict.finalproject.DTO.PayCancelDTO;
 import com.ict.finalproject.DTO.PaymentApprovalDTO;
 import com.ict.finalproject.DTO.PaymentReqDTO;
 import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.OrderVO;
 import com.ict.finalproject.vo.PaymentVO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -28,8 +30,22 @@ public interface OrderService {
     OrderVO orderSuccessData(int order_idx);
     List<OrderListVO> orderListSuccessData(int order_idx);
     PaymentVO paymentSuccessData(int order_idx);
+    int getUseridx(int order_idx);
     
     // 결제 실패
-    public void handleFailure(String orderId, String code, String message);
+    void handleFailure(String orderId, String code, String message);
+
+    // 결제 취소
+    // paymentkey값 가져오기
+    String getPaymentKey(int order_idx);
+    // step 1 데이터 뿌려주기
+    List<OrderListVO> getCancelProduct(int order_idx);
+    // 사용한 적립금 가져오기
+    int getUsePoint(int order_idx);
+    // 결제 취소
+    ResponseEntity<String> cancelPayment(PayCancelDTO sessionPayCancelDTO);
+    List<OrderListVO> getOrderProducts(int order_idx);
+    // 구매확정
+    int confirmOrder(int order_idx,int pro_idx);
 
 }

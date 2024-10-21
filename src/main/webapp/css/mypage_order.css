@@ -52,8 +52,11 @@
 
 .mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num {
   display: flex;
-  padding: 16px 0px;
+  padding: 10px 0px;
   border-bottom: 2px solid #d4d4d4;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
 }
 
 .mypage_order_list_all .mypage_order_list .order_list_bottom .order_list_li .order_date_num a {
@@ -138,6 +141,7 @@
   background: transparent;
   border: 0;
   margin-top: 10px;
+  width: 100%;
 }
 
 .order_package span {
@@ -148,7 +152,7 @@
 .order_state_div {
   width: min(28%, 300px);
   text-align: center;
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .order_notification {
@@ -310,4 +314,31 @@
     color: rgb(48, 48, 51);
     text-decoration: underline;
     margin-bottom:3px;
+}
+
+#payCancel_btn{
+    border: 1px solid transparent;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0px;
+    position: relative;
+    min-height: 50px;
+    border-radius: 4px;
+    padding: 0 20px;
+    background-color: #303030;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+    transform: scale(0.9);
+    margin-left: auto;
+    margin-right: 0.3em;
+}
+
+.orderConfirm{
+    color:var(--primary);
+    font-weight:bold;
 }

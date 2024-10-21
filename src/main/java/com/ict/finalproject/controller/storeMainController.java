@@ -3,8 +3,10 @@ package com.ict.finalproject.controller;
 import com.ict.finalproject.DTO.BasketDTO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MemberService;
+import com.ict.finalproject.Service.NoticeService;
 import com.ict.finalproject.Service.StoreService;
 import com.ict.finalproject.vo.BasketVO;
+import com.ict.finalproject.vo.NoticeVO;
 import com.ict.finalproject.vo.ProductFilterVO;
 import com.ict.finalproject.vo.StoreVO;
 import jakarta.servlet.ServletContext;
@@ -25,6 +27,7 @@ import java.io.Console;
 import java.net.URI;
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -40,6 +43,9 @@ public class storeMainController {
 
     @Autowired
     ServletContext context;
+
+    @Autowired
+    NoticeService noticeService;
 
     // 메인 페이지 이동
     @GetMapping("/storeMain")
@@ -263,6 +269,32 @@ public class storeMainController {
         // JSON 형식으로 클라이언트에 반환
         return subcategories;
     }
+
+
+    @RestController
+    @RequestMapping("/api/notice")
+    public class NoticeController {
+
+        @GetMapping("/titlesAndDates")
+        public List<Map<String, String>> getNoticeTitlesAndDates() {
+            // 전체 공지사항 리스트에서 title과 regDT만 추출
+            List<NoticeVO> noticeList = noticeService.getAllNotices();
+            List<Map<String, String>> titlesAndDates = noticeList.stream()
+                    .map(notice -> {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("title", notice.getTitle());
+                        map.put("regDT", notice.getRegDT());
+                        return map;
+                    })
+                    .collect(Collectors.toList());
+
+            return titlesAndDates;  // JSON 형식으로 title과 regDT 반환
+        }
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
     // 채원 시작

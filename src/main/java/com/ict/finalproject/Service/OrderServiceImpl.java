@@ -1,9 +1,8 @@
 package com.ict.finalproject.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ict.finalproject.DAO.OrderDAO;
-import com.ict.finalproject.DTO.PaymentApprovalDTO;
-import com.ict.finalproject.DTO.PaymentReqDTO;
-import com.ict.finalproject.DTO.PaymentResDTO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.OrderVO;
 import com.ict.finalproject.vo.PaymentVO;
@@ -16,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -61,7 +57,7 @@ public class OrderServiceImpl implements OrderService{
         dao.updateOrderRequest(paymentRequest);
     }
 
-    @Value("${toss.secretKey}")  // application.properties의 secretKey 값을 주입
+    @Value("${toss.secretKey}")  // application.properties의 secretKey 값
     private String secretKey;
 
     @Override
@@ -115,25 +111,25 @@ public class OrderServiceImpl implements OrderService{
             payment.setPaymentKey(approvalDTO.getPaymentKey());
             // 4. 결제 승인 성공 처리
             dao.updatePaymentSuccess(payment);
+
+            // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리 + 장바구니에 있으면 delState
+            // 1. T_order의 payState
+            dao.orderPayState(payment.getOrder_idx());
+            // 2. T_orderList의 orderState
+            dao.orderListState(payment.getOrder_idx());
+            // 3. 주문한 상품 갯수만큼 stock 빼기
+            List<OrderListVO> orderProducts = dao.getOrderListByOrderIdx(payment.getOrder_idx());
+            for (OrderListVO orderProduct : orderProducts) {
+                int order_proIdx = orderProduct.getPro_idx();
+                int order_amount = orderProduct.getAmount();
+
+                // 상품의 재고를 차감하는 메서드 호출
+                dao.decreaseProductStock(order_proIdx, order_amount);
+            }
+            //장바구니에서 결제한 경우 장바구니에서 삭제 -> 아직
         } else {
             throw new RuntimeException("결제 승인 실패: " + response.getBody());
         }
-
-        // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리 + 장바구니에 있으면 delState
-        // 1. T_order의 payState
-        dao.orderPayState(payment.getOrder_idx());
-        // 2. T_orderList의 orderState
-        dao.orderListState(payment.getOrder_idx());
-        // 3. 주문한 상품 갯수만큼 stock 빼기
-        List<OrderListVO> orderProducts = dao.getOrderListByOrderIdx(payment.getOrder_idx());
-        for (OrderListVO orderProduct : orderProducts) {
-            int order_proIdx = orderProduct.getPro_idx();
-            int order_amount = orderProduct.getAmount();
-
-            // 상품의 재고를 차감하는 메서드 호출
-            dao.decreaseProductStock(order_proIdx, order_amount);
-        }
-        //장바구니에서 결제한 경우 장바구니에서 삭제 -> 아직
 
         return payment.getOrder_idx();
     }
@@ -154,6 +150,11 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public int getUseridx(int order_idx) {
+        return dao.getUseridx(order_idx);
+    }
+
+    @Override
     public void handleFailure(String orderId, String errorCode, String errorMessage) {
         PaymentVO payment = dao.getPaymentByOrderId(orderId);
         payment.setFailReason(errorMessage);  // 실패 이유 저장
@@ -161,6 +162,129 @@ public class OrderServiceImpl implements OrderService{
         dao.updatePaymentFailure(payment);
     }
 
+    @Override
+    public String getPaymentKey(int order_idx) {
+        return dao.getPaymentKey(order_idx);
+    }
 
+    @Override
+    public List<OrderListVO> getCancelProduct(int order_idx) {
+        return dao.getCancelProduct(order_idx);
+    }
+
+    @Override
+    public int getUsePoint(int order_idx) {
+        return dao.getUsePoint(order_idx);
+    }
+
+    @Override
+    public ResponseEntity<String> cancelPayment(PayCancelDTO sessionPayCancelDTO) {
+        try {
+            // 1.  Toss Payments에 결제 취소 요청
+            // 변수선언
+            String paymentKey = sessionPayCancelDTO.getPaymentkey();
+            String cancelReason = sessionPayCancelDTO.getCancelReason();
+            int cancelAmount = sessionPayCancelDTO.getCancelAmount();
+
+            log.info("cancelReason : {}", sessionPayCancelDTO.getCancelReason());
+            log.info("cancelAmount : {}", sessionPayCancelDTO.getCancelAmount());
+
+            // Toss Payments API로 승인 요청
+            String apiUrl = "https://api.tosspayments.com/v1/payments/"+paymentKey+"/cancel";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
+
+            // secretKey + ":" 을 인코딩
+            String auth = secretKey + ":";
+            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
+            headers.set("Authorization", "Basic " + encodedAuth);
+
+            // 승인 요청 데이터
+            Map<String, Object> requestData = new HashMap<>();
+            requestData.put("cancelAmount",cancelAmount);
+            requestData.put("cancelReason", cancelReason);
+            log.info("Toss API 요청 데이터: {}", requestData);
+
+            HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+            RestTemplate restTemplate = new RestTemplate();
+            // Toss Payments API로 승인 요청
+            ResponseEntity<CancelResDTO> response = restTemplate.postForEntity(apiUrl, requestEntity, CancelResDTO.class);
+
+            log.info("Toss API 응답: {}", response.getBody());
+
+
+            if (response.getStatusCode() == HttpStatus.OK) {
+                // Toss API에서 받은 결제 정보
+                CancelResDTO responseData = response.getBody();
+                Map<String, Object> paramMap = new HashMap<>();
+                // 최신 취소 내역 (리스트의 마지막 요소)
+                CancelResDTO.CancelInfo latestCancel = responseData.getCancels().get(responseData.getCancels().size() - 1);
+
+                paramMap.put("paymentKey", responseData.getPaymentKey());
+                paramMap.put("cancelInfo", latestCancel);
+                // 결제 취소 성공 정보 저장
+                dao.PaymentCancelSuccess(paramMap);
+
+                // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리
+                int order_idx = sessionPayCancelDTO.getOrder_idx();
+                Map<Integer, Integer> cancelProducts = sessionPayCancelDTO.getCancelProducts();
+                // 1. T_order의 cancelDT, state
+                dao.updateOrderStateCancel(order_idx);
+                // 2. T_orderList의 orderState
+                List<OrderListVO> orderProducts = dao.getOrderListByOrderIdx(order_idx);
+                for (OrderListVO orderProduct : orderProducts) {
+                    int pro_idx = orderProduct.getPro_idx();
+                    int amount = orderProduct.getAmount();
+                    int cancelCount = cancelProducts.getOrDefault(pro_idx, 0);
+
+                    // DB에서 이미 취소된 수량 가져오기
+                    int currentCancelCount = orderProduct.getCancelCount();
+                    int totalCanceledCount = currentCancelCount + cancelCount; // 새롭게 취소된 수량과 기존 취소 수량 합산
+
+
+                    // cancelCount -> amount = cancelCount면 전체 취소라서 orderState=7로 업데이트
+                    if (totalCanceledCount == amount) {
+                        dao.updateOrderListState(pro_idx, order_idx, 7, cancelCount); // 전체 취소 상태
+                    } else if (totalCanceledCount > 0) {
+                        dao.updateOrderListState(pro_idx, order_idx, 8, cancelCount); // 부분 취소 상태
+                    }
+                    // 취소된 상품만큼 재고(stock) 더하기
+                    if (cancelCount > 0) {
+                        dao.increaseProductStock(pro_idx, cancelCount);
+                    }
+                }
+                // 성공적으로 결제 취소 완료, 메시지와 상태 코드 반환
+                return ResponseEntity.ok("결제 취소가 성공적으로 처리되었습니다.");
+            } else {
+                // Toss API에서 결제 취소 실패 응답이 왔을 때
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("결제 취소 실패: " + response.getBody());
+            }
+        }catch (Exception e) {
+            // 에러가 발생한 경우
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("결제 취소 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<OrderListVO> getOrderProducts(int order_idx) {
+        return dao.getOrderProducts(order_idx);
+    }
+
+    @Override
+    public int confirmOrder(int order_idx, int pro_idx) {
+        // orderState=6(구매확정)으로 변경
+        dao.updateOrderStateConfirm(order_idx,pro_idx);
+
+        // 주문한 상품 가격과 갯수 출력(p.price, ol.amount)
+        OrderListVO orderProductInfo = dao.getOrderProductPriceAmount(order_idx,pro_idx);
+
+        int rewardPoints = (orderProductInfo.getPrice()*(orderProductInfo.getAmount()-orderProductInfo.getCancelCount()))/100;
+        log.info("예상 적립금 : {}",rewardPoints);
+
+        return rewardPoints;
+    }
 
 }

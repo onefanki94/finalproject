@@ -199,27 +199,23 @@ a {
     font-size: 24px;
     margin-right: 10px;
 }
-
-.date {
-    color: gray;
+.notice-item {
+    display: flex;
+    justify-content: space-between;  /* 제목과 등록일을 양쪽으로 배치 */
+    padding: 10px 0;                 /* 상하 여백 */
 }
 
-.notification-content {
-    font-size: 16px;
-   
+.notice-title {
+    font-weight: bold;
+    color: #333;
 }
 
-.notification-title {
-    margin: 10px 0; /* 여백 줄임 */
+.notice-date {
+    color: #777;  /* 등록일 색상 조정 */
+    font-size: 14px;
+    text-align: right;
 }
 
-.notification-title h2 {
-    font-size: 16px; /* 제목 크기 조정 */
-}
-
-.notification-title p {
-    font-size: 14px; /* 부제목 크기 조정 */
-}
 
 .pagination {
     display: flex;

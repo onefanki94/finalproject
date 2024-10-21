@@ -1,0 +1,228 @@
+.cancelProcess {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.cancel_step {
+  counter-increment: step 1;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.cancel_stepOk {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 400;
+  line-height: 136%;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  background-color: #303030;
+}
+
+.cancel_stepOk::before,
+.cancel_stepNo::before {
+  content: "STEP " counter(step);
+  font-weight: 700;
+  line-height: 136%;
+  font-size: 20px;
+}
+
+@media (min-width: 541px) {
+  .cancel_stepOk,
+  .cancel_stepNo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+}
+
+.cancel_stepNo {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 400;
+  line-height: 136%;
+  font-size: 12px;
+  color: rgb(48, 48, 51);
+  background-color: #f4f4f4;
+}
+
+.nextSvg {
+  min-width: inherit;
+  min-height: inherit;
+  margin: 0px 17px;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.cancel_reason_container {
+  display: grid;
+  gap: 40px;
+  padding-top: 20px;
+}
+
+.cancel_reason_container > section h2 {
+  display: block;
+  padding: 12px 0px;
+  border-bottom: 4px solid rgb(48, 48, 51);
+  font-weight: 700;
+  line-height: 136%;
+  font-size: 22px;
+  margin: 0;
+}
+
+.cancel_reason_container > section > table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.cancel_reason_container > section > table thead {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.cancel_reason_container > section > table thead tr {
+  width: 100%;
+  text-align: center;
+}
+
+.cancel_reason_container > section > table thead tr th {
+  padding: 16px 0px;
+  display: inline-block;
+  font-weight: 700;
+  line-height: 140%;
+  font-size: 16px;
+  color: rgb(48, 48, 51);
+}
+
+.cancel_reason_container > section > table tbody {
+  display: grid;
+  width: 100%;
+}
+
+.cancel_reason_container > section > table tbody tr {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.cancel_reason_container > section > table tbody td {
+  width: 100%;
+  padding: 30px 0px;
+}
+
+.cancel_product_info {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.cancel_product_info img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.cancel_product_info > div {
+  display: flex;
+  flex-direction: column;
+  padding: 23px 0;
+}
+
+.order_aniTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgb(48, 48, 51);
+  text-decoration: underline;
+  margin-bottom: 3px;
+}
+
+.cancel_product_info > div > strong,
+.productCancel_td > span {
+  display: inline-block;
+  font-weight: 700;
+  line-height: 140%;
+  font-size: 16px;
+  color: rgb(48, 48, 51);
+  margin: 2px 0px;
+}
+
+.pro_price {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 136%;
+  font-size: 12px;
+  color: #474747;
+  margin-top: 4px;
+}
+
+.cancel_reason_form {
+  padding-top: 20px;
+}
+
+.radio_group {
+  display: flex;
+  flex-direction: column;
+}
+
+#cancelReason {
+  padding: 10px 5px;
+  width: 30%;
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+  color: rgb(48, 48, 51);
+  display: block;
+  margin-bottom: 20px;
+  outline: none;
+  font-family: var(--e-font), var(--k-font);
+}
+
+.reason_group textarea {
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  height: 120px;
+  border: 1px solid #e4e4e4;
+  outline: none;
+  border-radius: 5px;
+}
+
+.reason_group textarea::placeholder {
+  font-family: var(--e-font), var(--k-font);
+}
+
+.btn_div {
+  margin-top: 26px;
+}
+
+.btn_div button {
+  border: 1px solid transparent;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0px;
+  position: relative;
+  min-width: 88px;
+  height: 52px;
+  min-height: 52px;
+  border-radius: 4px;
+  padding: 0 20px;
+  background-color: #303030;
+  color: #fff;
+  font-weight: bold;
+  margin-left: auto;
+}

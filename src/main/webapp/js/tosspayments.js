@@ -8,9 +8,12 @@ function generateUUID() {
     });
 }
 
+let orderId = null; // 전역 변수로 선언하여 한 번만 생성되도록 함
 async function requestPayment(userid) {
     const customerKey = userid;//사용자코드
-    const orderId = generateUUID();//주문번호
+    if (!orderId && orderId==null) {
+        orderId = generateUUID();//주문번호
+    }
     let amount = parseInt($("#total_payPrice").val());
 
     // 조건 추가
@@ -139,6 +142,15 @@ async function requestPayment(userid) {
             useCardPoint: false,
             useAppCardOnly: false,
         },
+    }).catch(function(error) {
+        if (error.code === 'USER_CANCEL') {
+          // 사용자가 결제 창을 닫은 경우 처리
+          console.log('결제가 취소되었습니다.');
+        } else {
+          // 기타 결제 오류 처리
+          console.error('결제 중 오류 발생:', error);
+          alert('결제 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
     });
 }
 

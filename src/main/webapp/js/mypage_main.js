@@ -30,7 +30,7 @@ $(function(){
                     const formattedAmount = formatNumber(currentOrderData.amount) + "원"; // 여기서 형식화된 금액을 변수로 저장
                     $(".my_order_tbl").append(`
                         <li>
-                          <a class="my_tbl" href="">
+                          <a class="my_tbl" href="/user/mypage_order_detail/${currentOrderData.order_idx}">
                             <div class="date">${currentOrderData.order_date}</div>
                             <div class="history">
                               <div class="imgbx">
