@@ -137,7 +137,7 @@
      </c:if>
 
      <!-- 페이지 번호 링크 -->
-     <c:forEach var="i" begin="${currentPage - 2 > 0 ? currentPage - 2 : 1}" end="${currentPage + 2 < totalPages ? currentPage + 2 : totalPages}">
+     <c:forEach var="i" begin="${currentPage - 2 > 0 ? currentPage - 2 : 1}" end="${currentPage + 1 < totalPages ? currentPage + 1 : totalPages}">
          <c:choose>
              <c:when test="${i == currentPage}">
                  <span class="current">${i}</span>
