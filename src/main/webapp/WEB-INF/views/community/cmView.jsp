@@ -80,7 +80,7 @@ window.onload = function(){
                 <div class="row bg-highlight">
                     <div class="col-sm-10 p-2 author-id">${vo.useridx}</div>
                     <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">${vo.hit}</div>
-                    <div class="col-sm-1 text-end"><button id="reportBtn" class="btn btn-link">
+                    <div class="col-sm-1 text-end"><button id="reportPostBtn" class="btn btn-link">
                     <img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K">
                     </button></div>
                 </div>
@@ -286,8 +286,15 @@ window.onload = function(){
                           let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 설정
 
                           let comm = '<div class="comment-item comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">';
-                          comm += '<p><strong>' + comment.userid + '</strong><br/><p>' + comment.content + '</p>';
-                          comm += '<p class="comment-meta">' + comment.regDT
+                              comm += '<div class="comment-header">';
+                              comm += '<p class="comment-user"><strong>' + comment.userid + '</strong></p>';
+                              comm += '<button id="reportCommentBtn-' + comment.idx + '" class="btn btn-link reportBtn" data-author-id="' + comment.userid + '" data-content="' + comment.content + '">'  +
+                                      '<img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K">' +
+                                      '</button>';
+                              comm += '</div>';
+
+                              comm += '<p>' + comment.content + '</p>';
+                              comm += '<p class="comment-meta">' + comment.regDT + '</p>';
 
 
                           // 댓글의 depth가 2 이상이면 답글 쓰기 비활성화 (자식 댓글은 depth가 2이므로)
@@ -316,6 +323,35 @@ window.onload = function(){
                           comm += '</div>';
                           replyList.append(comm);
                       });
+                      // 댓글 신고 버튼 이벤트 리스너 등록
+                          comments.forEach(comment => {
+                              let reportBtn = document.getElementById("reportCommentBtn-" + comment.idx);
+                              if (reportBtn) {
+                                  reportBtn.addEventListener("click", function () {
+                                      // 댓글 정보 가져오기
+                                      const commentIdx = comment.idx;
+                                      const authorId = comment.userid;
+                                      const content = comment.content;
+
+                                      // 텍스트와 라디오 버튼 초기화
+                                      document.querySelector(".report_reason_text textarea").value = "";
+                                      document.querySelectorAll('input[name="report_reason"]').forEach((radio) => {
+                                          radio.checked = false;
+                                      });
+
+                                      // 모달에 데이터 설정
+                                      document.querySelector("#reportModal .report_info span").textContent = authorId;
+                                      document.querySelector("#reportModal .report_info p").textContent = content;
+
+                                      // 현재 신고하는 댓글의 idx 설정
+                                      currentCommentIdx = commentIdx;
+
+                                      // 모달 열기
+                                      document.getElementById("reportModal").style.display = "block";
+                                  });
+                              }
+                          });
+
                   },
                   error: function(xhr, status, error) {
                       console.error("댓글 로드 오류:", error);
@@ -480,15 +516,15 @@ window.onload = function(){
 
 //신고
 document.addEventListener("DOMContentLoaded", function () {
-    const reportBtn = document.getElementById("reportBtn");
+    const reportPostBtn = document.getElementById("reportPostBtn");
     const reportModal = document.getElementById("reportModal");
     const closeModal = document.getElementById("closeModal");
     const cancelReport = document.getElementById("cancelReport");
     const radioButtons = document.querySelectorAll('input[name="report_reason"]');
     const labels = document.querySelectorAll(".report_reason_ul li label");
 
-    // 신고 버튼 클릭 시 모달 띄우기
-    reportBtn.addEventListener("click", function () {
+    // 게시물 신고 버튼 클릭 시 모달 띄우기
+    reportPostBtn.addEventListener("click", function () {
 
         // 텍스트와 라디오 버튼 초기화
         document.querySelector(".report_reason_text textarea").value = "";
@@ -507,6 +543,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // 모달 열기
         reportModal.style.display = "block";
     });
+
 
     // 신고 데이터 전송 버튼 클릭 시
     document.getElementById("submitReport").addEventListener("click", function () {
