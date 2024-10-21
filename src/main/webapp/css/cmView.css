@@ -90,6 +90,11 @@ body {
     margin:5px 0px 5px 0px;
 }
 
+.custom-style {
+    color: #737881;
+    font-size: 14px;
+}
+
 .row img{
     width: 16px;
     height: 16px;
@@ -269,6 +274,9 @@ border-bottom: 1px solid #dde1e5;
     background-color:#fff;
     border-radius:0;
 }
+
+
+
 
 @media all and (max-width:680px) {
     html{

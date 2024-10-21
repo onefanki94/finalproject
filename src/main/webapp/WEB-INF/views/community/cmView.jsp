@@ -7,6 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
+    <link href="/css/reportModal.css" rel="stylesheet" type="text/css">
 	<link href="/css/cmView.css" rel="stylesheet" type="text/css">
 <script>
 var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
@@ -73,12 +74,13 @@ window.onload = function(){
             <div class="viewInfo">
                 <div class="row">
                     <div class="col-sm-1 custom-col">${vo.commtype}</div>
-                    <div class="col-sm-10 custom-col">${vo.title}</div>
-                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">${vo.hit}</div>
+                    <div class="col-sm-9 custom-col">${vo.title}</div>
+                    <div class="col-sm-2 text-end custom-style">${vo.regDT}</div>
                 </div>
                 <div class="row bg-highlight">
                     <div class="col-sm-10 p-2">${vo.useridx}</div>
-                    <div class="col-sm-2 text-end">${vo.regDT}</div>
+                    <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">${vo.hit}</div>
+                    <div class="col-sm-1 text-end"><button id="reportBtn" class="btn btn-link">신고하기</button></div>
                 </div>
             </div>
 
@@ -102,37 +104,102 @@ window.onload = function(){
     </div>
 
         <!-- 리스트 목록 -->
-                   <div class="list_section">
-                       <c:if test="${previousPost != null}"></c:if>
-                            <a href="/cmView/${go.idx}">
-                                <div class="list_pre">
-                                    <i class="bi bi-chevron-up"></i>이전페이지
-                                </div>
-                            </a>
-                       <c:if test="${previousPost == null}"></c:if>
+           <div class="list_section">
+               <c:if test="${previousPost != null}"></c:if>
+                    <a href="/cmView/${go.idx}">
+                        <div class="list_pre">
+                            <i class="bi bi-chevron-up"></i>이전페이지
+                        </div>
+                    </a>
+               <c:if test="${previousPost == null}"></c:if>
 
-                       <c:if test="${nextPost != null}"></c:if>
-                       <a href="/cmView/${tun.idx}">
-                           <div class="list_next">
-                               <i class="bi bi-chevron-down"></i>다음페이지
-                           </div>
-                       </a>
-
-                       <c:if test="${nextPost == null}"></c:if>
+               <c:if test="${nextPost != null}"></c:if>
+               <a href="/cmView/${tun.idx}">
+                   <div class="list_next">
+                       <i class="bi bi-chevron-down"></i>다음페이지
                    </div>
-                <div class="listBt">
-                    <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
-                        수정
-                    </a>
-                    <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
-                        목록
-                    </a>
-                    <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
-                        삭제
-                    </a>
-                </div>
+               </a>
 
+               <c:if test="${nextPost == null}"></c:if>
+           </div>
+            <div class="listBt">
+                <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
+                    수정
+                </a>
+                <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
+                    목록
+                </a>
+                <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
+                    삭제
+                </a>
             </div>
+
+        </div>
+
+        <!-- 신고 모달 -->
+        <div class="reportModal_body" id="reportModal" style="display: none;">
+            <div class="reportModal_background"></div>
+            <div class="reportModal_container">
+                <div class="reportModal_layer">
+                    <div class="reportModal_top">
+                        <p>작성 글 신고하기</p>
+                        <button id="closeModal"><i class="fa-solid fa-x"></i></button>
+                    </div>
+                    <div class="reportModal_bottom">
+                        <strong>신고대상 ID 및 내용</strong>
+                        <div class="report_info">
+                            <span>sing2727</span>
+                            <p>제 첫 키보드인데 굉장히 만족합니다!...</p>
+                        </div>
+                        <strong>신고사유</strong>
+                        <ul class="report_reason_ul">
+                            <li>
+                                <input type="radio" id="not_relevant_img" name="report_reason" value="1" />
+                                <label for="not_relevant_img">관련없는 이미지</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="not_relevant_content" name="report_reason" value="2" />
+                                <label for="not_relevant_content">관련없는 내용</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="abuse" name="report_reason" value="3" />
+                                <label for="abuse">욕설/비방</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="PromotionalPost" value="4" />
+                                <label for="PromotionalPost">광고/홍보글</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="perPersonal_info_leak" value="5" />
+                                <label for="perPersonal_info_leak">개인정보 유출</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="over_post" value="6" />
+                                <label for="over_post">게시글 도배</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="adult" value="7" />
+                                <label for="adult">음란/선정성</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="etc" value="8" />
+                                <label for="etc">기타</label>
+                            </li>
+                        </ul>
+                        <div class="report_reason_text">
+                            <textarea placeholder="이 외 사유를 적어주세요.(100자까지 작성가능)" maxlength="100"></textarea>
+                        </div>
+                        <div class="report_reason_bottom">
+                            <p>신고해주신 내용은 관리자 검토 후 내부정책에 의거 조치가 진행됩니다.</p>
+                        </div>
+                        <div class="report_btn_div">
+                            <button id="cancelReport">취소</button>
+                            <button id="submitReport">신고</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- 삭제 확인 및 처리 -->
     <script type="text/javascript">
@@ -408,6 +475,49 @@ window.onload = function(){
              loadComments(comm_idx); // 댓글 목록 로드
          });
 
+
+//신고
+document.addEventListener("DOMContentLoaded", function () {
+    const reportBtn = document.getElementById("reportBtn");
+    const reportModal = document.getElementById("reportModal");
+    const closeModal = document.getElementById("closeModal");
+    const cancelReport = document.getElementById("cancelReport");
+    const radioButtons = document.querySelectorAll('input[name="report_reason"]');
+    const labels = document.querySelectorAll(".report_reason_ul li label");
+
+    // 신고 버튼 클릭 시 모달 띄우기
+    reportBtn.addEventListener("click", function () {
+        reportModal.style.display = "block";
+    });
+
+    // 모달 닫기 버튼 클릭 시 모달 닫기
+    closeModal.addEventListener("click", function () {
+        reportModal.style.display = "none";
+    });
+
+    // 취소 버튼 클릭 시 모달 닫기
+    cancelReport.addEventListener("click", function () {
+        reportModal.style.display = "none";
+    });
+
+    // 배경 클릭 시 모달 닫기
+    window.addEventListener("click", function (event) {
+        if (event.target === reportModal) {
+            reportModal.style.display = "none";
+        }
+    });
+
+    // 라디오 버튼 변경 시 라벨 스타일 변경
+    $(function () {
+        $('input[type="radio"]').on("change", function () {
+          // 모든 라벨에서 checkedLabel 클래스 제거
+          $(".report_reason_ul li label").removeClass("checkedLabel");
+
+          // 선택된 라디오 버튼의 라벨에 checkedLabel 클래스 추가
+          $(this).next("label").addClass("checkedLabel");
+        });
+    });
+});
 
 
     </script>
