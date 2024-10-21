@@ -53,11 +53,26 @@ public class storeMainController {
             System.out.println("storeMain에서 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
         }
 
-        String imageDirPath = context.getRealPath("/img/store/origin");
+        // Origin 이미지 경로에서 파일을 읽어옴
+        String originImageDirPath = context.getRealPath("/img/store/origin");
+        List<Map<String, String>> originImageInfoList = getImageInfoList(originImageDirPath);  // 이미지 리스트 생성
+
+        // Event 이미지 경로에서 파일을 읽어옴
+        String eventImageDirPath = context.getRealPath("/img/store/event");
+        List<Map<String, String>> eventImageInfoList = getImageInfoList(eventImageDirPath);  // 이벤트 이미지 리스트 생성
+
+        ModelAndView mav = new ModelAndView("store/storeMain");  // storeMain.jsp로 이동
+        mav.addObject("recentProducts", recentProducts);  // recentProducts 데이터를 JSP로 전달
+        mav.addObject("originImageInfoList", originImageInfoList);  // origin 이미지 경로와 이름 정보를 JSP로 전달
+        mav.addObject("eventImageInfoList", eventImageInfoList);  // event 이미지 경로와 이름 정보를 JSP로 전달
+        return mav;
+    }
+
+    // 이미지를 처리하는 로직을 중복해서 쓰지 않도록 메서드로 분리
+    private List<Map<String, String>> getImageInfoList(String imageDirPath) {
         File folder = new File(imageDirPath);
         File[] listOfFiles = folder.listFiles();
 
-        // 이미지 파일명과 확장자를 제거한 이름을 저장할 리스트
         List<Map<String, String>> imageInfoList = new ArrayList<>();
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
@@ -78,14 +93,8 @@ public class storeMainController {
                 }
             }
         }
-
-        ModelAndView mav = new ModelAndView("store/storeMain");  // storeMain.jsp로 이동
-        mav.addObject("recentProducts", recentProducts);  // recentProducts 데이터를 JSP로 전달
-        mav.addObject("imageInfoList", imageInfoList);  // 이미지 경로와 이름 정보를 JSP로 전달
-        return mav;
+        return imageInfoList;
     }
-
-
 
     @GetMapping("/storeList")
     public ModelAndView getStoreListAndView(

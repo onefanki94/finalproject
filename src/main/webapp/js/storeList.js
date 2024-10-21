@@ -1,4 +1,5 @@
-
+let productList;
+let products;
 
 // URL에서 특정 파라미터의 값을 가져오는 함수
 function getParameterByName(name) {
@@ -11,8 +12,32 @@ function getParameterByName(name) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-let productList;
-let products;
+// 필터를 적용하는 함수
+function applyFilter(category, second_category) {
+  let pageNum = 1;
+   let pageSize = 10;
+    // AJAX 요청에서 category와 secondCategory를 서버로 전달
+    $.ajax({
+        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
+        method: 'GET',
+        data: {
+            category: category,  // 선택된 카테고리 전달
+            second_category: second_category || null // second_category가 있으면 전달, 없으면 null
+        },
+        success: function(data) {
+            // 성공 시 처리
+            console.log("필터링된 상품 목록: ", data);
+            // 필터링된 상품 목록을 화면에 표시하는 로직 추가
+            updateProductList(data);
+        },
+        error: function(error) {
+            console.error("필터 적용 중 오류 발생: ", error);
+        }
+    });
+}
+
+
+//하위카테고리 적용 문제
 document.addEventListener('DOMContentLoaded', function() {
     productList = document.querySelector('.list-carousel-images');
     if (!productList) {
@@ -34,7 +59,7 @@ if (secondCategory) {
     url += `&second_category=${secondCategory}`;
 }
 
-fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize + '&category=' + category)
+fetch(url)
     .then(response => response.json())
     .then(data => {
         products = data;  // 전역 변수 products에 데이터 할당
@@ -62,8 +87,7 @@ fetch('/pagedProducts?pageNum=' + pageNum + '&pageSize=' + pageSize + '&category
     })
     .catch(error => console.error('Error:', error));
 
-document.addEventListener('DOMContentLoaded', function() {
-});
+
 
 
 
@@ -103,62 +127,39 @@ function loadSubcategories(categoryCode) {
     });
 }
 
-// 필터를 적용하는 함수
-function applyFilter(category, second_category) {
-    const pageNum = 1;
-    const pageSize = 10;
-    // AJAX 요청에서 category와 secondCategory를 서버로 전달
-    $.ajax({
-        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
-        method: 'GET',
-        data: {
-            category: category,  // 선택된 카테고리 전달
-            second_category: second_category || null // second_category가 있으면 전달, 없으면 null
-        },
-        success: function(data) {
-            // 성공 시 처리
-            console.log("필터링된 상품 목록: ", data);
-            // 필터링된 상품 목록을 화면에 표시하는 로직 추가
-            updateProductList(data);
-        },
-        error: function(error) {
-            console.error("필터 적용 중 오류 발생: ", error);
-        }
-    });
-}
 
 
 
-//    // 서버에서 상품 목록을 가져오는 API 호출
-//    fetch('/pagedProducts?pageNum=1&pageSize=10&category=4')
-//        .then(response => response.json())  // 응답을 JSON으로 변환
-//        .then(data => {
-//            products = data;  // 전역 변수 products에 데이터 할당
-//            // 서버에서 받은 데이터를 가지고 productList를 업데이트
-////            data.forEach(product => {
-////                const listItem = document.createElement('li');
-////                listItem.className = 'list-product';
-////                listItem.setAttribute('data-date', product.date);
-////                listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
-////                listItem.setAttribute('data-price', product.price);
-////
-////                listItem.innerHTML = `
-////                    <a href="/storeDetail/${product.idx}">
-////                        <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
-////                    </a>
-////                    <p>${product.title}</p>
-////                    <p>${product.price.toLocaleString()} 원</p>
-////                `;
-////                productList.appendChild(listItem);
-////            });
-////
-////            // 기본 필터 적용 (예: 최신순)
-////            filterProductsByType('latest');
-//        })
-//        .catch(error => {
-//            console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
+
+// 서버에서 상품 목록을 가져오는 API 호출
+//fetch('/pagedProducts?pageNum=1&pageSize=10)
+//    .then(response => response.json())  // 응답을 JSON으로 변환
+//    .then(data => {
+//        products = data;  // 전역 변수 products에 데이터 할당
+//        // 서버에서 받은 데이터를 가지고 productList를 업데이트
+//        data.forEach(product => {
+//            const listItem = document.createElement('li');
+//            listItem.className = 'list-product';
+//            listItem.setAttribute('data-date', product.date);
+//            listItem.setAttribute('data-popular', product.popularity);  // 좋아요 수 반영
+//            listItem.setAttribute('data-price', product.price);
+//
+//            listItem.innerHTML = `
+//                <a href="/storeDetail/${product.idx}">
+//                    <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+//                </a>
+//                <p>${product.title}</p>
+//                <p>${product.price.toLocaleString()} 원</p>
+//            `;
+//            productList.appendChild(listItem);
 //        });
-
+//
+//        // 기본 필터 적용 (예: 최신순)
+//        filterProductsByType('latest');
+//    })
+//    .catch(error => {
+//        console.error('상품 목록을 가져오는 중 오류가 발생했습니다:', error);
+//    });
 
 });
 // 필터 적용 함수 정의
@@ -301,4 +302,5 @@ function updateProductList(products) {
       });
   };
 
-
+document.addEventListener('DOMContentLoaded', function() {
+});
