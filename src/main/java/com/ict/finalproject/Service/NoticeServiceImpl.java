@@ -57,6 +57,9 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
 
-
-
+    // 전체 공지사항 목록을 가져오는 메서드(storeMain)
+    @Override
+    public List<NoticeVO> getAllNotices() {
+        return noticeDAO.getAllNotices();
+    }
 }

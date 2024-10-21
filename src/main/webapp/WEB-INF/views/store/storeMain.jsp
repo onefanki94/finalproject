@@ -53,17 +53,9 @@
         <!--Notification-->
         <section>
             <div class="notification">
-                <div class="notification-header" onclick="goToNoticePage()">
-                    <span class="icon">&#128365;</span> <!-- 알림 아이콘 -->
-                    <span class="date">2024-09-25</span>
-                </div>
-                <div class="notification-content" onclick="goToNoticePage()">
-                    <p>[9월 20일, 9월 23일 입고] 예약 상품 배송 안내</p>
-                </div>
-                <div class="pagination">
-                    <button class="prev">&lt;</button>
-                    <span class="page-info">1 / 10</span>
-                    <button class="next">&gt;</button>
+                <div id="noticeList">
+
+                    <!-- 제목과 등록일자가 여기에 표시됩니다 -->
                 </div>
             </div>
         </section>

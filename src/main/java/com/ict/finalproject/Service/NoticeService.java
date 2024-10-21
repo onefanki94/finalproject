@@ -20,4 +20,8 @@ public interface NoticeService {
     int saveQna(QnaVO qna);
     QnaVO getQnaByIdx(int idx);
 
+    // 전체 공지사항 목록을 가져오는 메서드(storeMain)
+    List<NoticeVO> getAllNotices();
+
+
 }

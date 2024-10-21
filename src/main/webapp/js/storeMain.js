@@ -78,6 +78,33 @@ $371(document).ready(function() {
 
 //공지사항이동
 function goToNoticePage() {
-    window.location.href = "/allnotice"; // notice 페이지로 이동
+    window.location.href = "/notice2"; // notice 페이지로 이동
 }
+
+
+// 제목과 등록일자 불러오기
+function loadNoticeTitlesAndDates() {
+    fetch('/api/notice/titlesAndDates')  // 서버의 API에 GET 요청
+        .then(response => response.json())  // JSON 응답 처리
+        .then(data => {
+            const noticeListElement = document.getElementById('noticeList');
+            noticeListElement.innerHTML = '';  // 기존 내용을 비움
+
+            // 가져온 데이터 각각을 화면에 추가
+            data.forEach(notice => {
+                const noticeItem = document.createElement('div');
+                noticeItem.className = 'notice-item';
+                noticeItem.innerHTML = `
+                    <p>제목: ${notice.title}</p>
+                    <p>등록일: ${notice.regDT}</p>
+                `;
+                noticeListElement.appendChild(noticeItem);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// 페이지 로드 시 공지사항 제목과 등록일자를 불러옴
+loadNoticeTitlesAndDates();
+
 
