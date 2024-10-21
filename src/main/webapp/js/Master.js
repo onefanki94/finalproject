@@ -416,18 +416,26 @@ $(document).ready(function() {
              return false;
          }
 
+         // FormData 객체 생성
+         var formData = new FormData(this);
+         formData.append('token', token); // 토큰 추가
+
          // Ajax를 통해 서버로 데이터 전송
          $.ajax({
              type: "POST",
-             url: "/storeAddMasterOk",
+             url: "/master/noticeEditMasterOk",
              data: formData,
+             headers: {
+                 "Authorization": "Bearer " + token // Authorization 헤더 추가
+             },
              processData: false,
              contentType: false,
              success: function(response) {
                  // 성공 시 리다이렉트 처리
-                 window.location.href = "/master/storeMasterList";
+                 alert(response);
+                 window.location.href = "/master/noticeMasterList";
              },
-             error: function(xhr, status, error) {
+             error: function(xhr) {
                  // 서버에서 반환된 오류 메시지를 로그로 확인
                  console.log("에러 메시지: " + xhr.responseText);
                  alert("등록 중 오류가 발생했습니다.");

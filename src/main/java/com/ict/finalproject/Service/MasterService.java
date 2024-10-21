@@ -84,4 +84,5 @@ public interface MasterService {
     MasterVO getFAQById(int idx);
     void updateFAQ(MasterVO faq);
     void deleteReport(int idx);
+    Map<String, Object>getCategoryCodeCountByani(int categorytCode);
 }

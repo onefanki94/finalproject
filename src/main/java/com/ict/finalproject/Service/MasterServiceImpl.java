@@ -432,4 +432,9 @@ public class MasterServiceImpl implements MasterService {
     public void deleteReport(int idx) {
         dao.deleteReport(idx);
     }
+
+    @Override
+    public Map<String, Object> getCategoryCodeCountByani(int categorytCode) {
+        return dao.getCategoryCodeCountByani(categorytCode);
+    }
 }

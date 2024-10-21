@@ -481,4 +481,19 @@
         DELETE FROM t_report WHERE idx = #{idx}
     </delete>
 
+    <select id="getCategoryCodeCountByani" resultType="map" parameterType="int">
+        SELECT
+        at.code AS anitype_code,
+        at.type AS anitype_name,
+        COUNT(a.anitype) AS animation_count
+        FROM
+        t_animation a
+        JOIN
+        t_anitype at ON a.anitype = at.code
+        WHERE
+        at.code = #{code}  <!-- 특정 code로 제한 -->
+        GROUP BY
+        at.code, at.type
+    </select>
+
 </mapper>

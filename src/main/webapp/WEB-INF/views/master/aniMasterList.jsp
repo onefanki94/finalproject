@@ -11,11 +11,11 @@
          <div class="summary">
              <div>
                  <strong>총 애니 수</strong>
-                 <p id="totalAnime">3 개</p>
+                 <p id="totalAnime"> ${totalAniCount} 개</p>
              </div>
              <div>
                  <strong>장르별</strong>
-                 <p id="categorySummary">액션: 1, 코미디: 1, 판타지: 1</p>
+                 <p id="categorySummary">드라마 : ${categoryCode1Count} 편 ,미스터리 : ${categoryCode2Count} 편 ,스포츠 : ${categoryCode3Count} 편 ,코미디 : ${categoryCode4Count} 편, 판타지 : ${categoryCode5Count} 편 , SF : ${categoryCode6Count} 편</p>
              </div>
          </div>
 

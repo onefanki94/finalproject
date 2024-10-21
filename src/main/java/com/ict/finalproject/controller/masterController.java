@@ -188,6 +188,13 @@ public class masterController {
         int totalAniCount = masterService.getTotalAnimeCount();
         int totalPages = (int) Math.ceil((double) totalAniCount / pageSize);
 
+        Map<String, Object> categoryCode1Count = masterService.getCategoryCodeCountByani(1);
+        Map<String, Object> categoryCode2Count = masterService.getCategoryCodeCountByani(2);
+        Map<String, Object> categoryCode3Count = masterService.getCategoryCodeCountByani(3);
+        Map<String, Object> categoryCode4Count = masterService.getCategoryCodeCountByani(4);
+        Map<String, Object> categoryCode5Count = masterService.getCategoryCodeCountByani(5);
+        Map<String, Object> categoryCode6Count = masterService.getCategoryCodeCountByani(6);
+
         List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
 
         ModelAndView mav = new ModelAndView();
@@ -195,6 +202,13 @@ public class masterController {
         mav.addObject("currentPage", currentPageInt);
         mav.addObject("pageSize", pageSize);
         mav.addObject("totalPages", totalPages);
+        mav.addObject("categoryCode1Count", categoryCode1Count.get("animation_count"));
+        mav.addObject("categoryCode2Count", categoryCode2Count.get("animation_count"));
+        mav.addObject("categoryCode3Count", categoryCode3Count.get("animation_count"));
+        mav.addObject("categoryCode4Count", categoryCode4Count.get("animation_count"));
+        mav.addObject("categoryCode5Count", categoryCode5Count.get("animation_count"));
+        mav.addObject("categoryCode6Count", categoryCode6Count.get("animation_count"));
+        mav.addObject("totalAniCount", totalAniCount);
         mav.setViewName("master/aniMasterList");
         return mav;
     }
@@ -696,80 +710,68 @@ public class masterController {
 
     @PostMapping("/noticeEditMasterOk")
     public ResponseEntity<String> noticeEditMasterOk(
-            @RequestParam(value = "idx", required = false, defaultValue = "0") int idx,
+            @RequestParam(value = "idx") int idx, // idx는 필수
             @RequestParam("title") String title,
             @RequestParam("content") String content,
-            @RequestParam("token") String token) {
+            @RequestHeader("Authorization") String authorizationHeader) {
 
-        log.info("전달된 토큰: " + token);
+        log.info("전달된 토큰: " + authorizationHeader); // 토큰 확인
 
-        String bodyTag = "";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_HTML);
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7); // "Bearer " 부분을 제거
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
 
         // idx 값 검증
-        if (idx == 0) {
-            bodyTag += "<script>alert('공지사항 ID가 잘못되었습니다.');history.back();</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.BAD_REQUEST);
+        if (idx <= 0) {
+            return ResponseEntity.badRequest().body("공지사항 ID가 잘못되었습니다."); // 수정된 부분
         }
+
+        // 공지사항 정보 불러오기
+        MasterVO editNotice = masterService.getNoticeById(idx);
+        if (editNotice == null) {
+            return ResponseEntity.notFound().build(); // 수정된 부분
+        }
+
+        // 공지사항 정보 업데이트
+        editNotice.setTitle(title);
+        editNotice.setContent(content);
+        editNotice.setAdminidx(adminidx);
 
         try {
-            // JWT 토큰 검증
-            if (token == null || token.trim().isEmpty()) {
-                bodyTag += "<script>alert('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-            }
-
-            String adminid = jwtUtil.getUserIdFromToken(token);
-            log.info("추출된 사용자 ID: " + adminid);
-
-            if (adminid == null) {
-                log.error("토큰에서 사용자 ID를 추출할 수 없습니다.");
-                return new ResponseEntity<>("유효하지 않은 토큰입니다.", HttpStatus.UNAUTHORIZED);
-            }
-
-            // adminId로 adminidx 추출
-            Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
-            log.info("추출된 adminidx: " + adminidx); // adminidx 로그 추가
-
-            if (adminidx == null) {
-                log.error("adminidx가 null입니다.");
-                bodyTag += "<script>alert('관리자 정보를 찾을 수 없습니다.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
-            }
-
-            // 공지사항 정보 불러오기
-            MasterVO Editnotice = masterService.getNoticeById(idx);
-            if (Editnotice == null) {
-                bodyTag += "<script>alert('해당 공지사항을 찾을 수 없습니다.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.NOT_FOUND);
-            }
-
-            // 공지사항 정보 업데이트
-            Editnotice.setTitle(title);
-            Editnotice.setContent(content);
-            Editnotice.setAdminidx(adminidx);
-
-            boolean updateResult = masterService.updateNotice(Editnotice);
+            boolean updateResult = masterService.updateNotice(editNotice);
             if (!updateResult) {
-                bodyTag += "<script>alert('공지사항 수정 실패. 다시 시도해 주세요.');history.back();</script>";
-                return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정 실패. 다시 시도해 주세요.");
             }
 
-            // 성공 시 리다이렉트
-            bodyTag += "<script>alert('공지사항이 성공적으로 수정되었습니다.');location.href='/master/noticeList';</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
+            return ResponseEntity.ok("공지사항이 성공적으로 수정되었습니다."); // 성공 메시지
 
-        } catch (ExpiredJwtException e) {
-            log.error("토큰이 만료되었습니다.", e);
-            bodyTag += "<script>alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');history.back();</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             log.error("공지사항 수정 중 오류 발생", e);
-            bodyTag += "<script>alert('공지사항 수정 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
-            return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
     }
+
+
 
 
     //  Dashboard - 매출관리 - 일/월별 매출관리

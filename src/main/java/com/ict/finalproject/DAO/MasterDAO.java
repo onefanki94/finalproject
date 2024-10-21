@@ -175,4 +175,6 @@ public interface MasterDAO {
     void updateFAQ(MasterVO faq);
 
     void deleteReport(int idx);
+
+    Map<String, Object> getCategoryCodeCountByani(int categorytCode);
 }
