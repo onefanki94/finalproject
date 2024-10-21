@@ -77,4 +77,7 @@ public interface MasterService {
     int getTotalReportingUserCount();
     List<MasterVO> getReplyListWithPaging(int offset, int pageSize);
     int getTotalReplyCount();
+    public MasterVO getCommentByIdx(int idx);
+    public List<MasterVO> getRepliesByCommentIdx(int idx);
+    boolean authenticateAdmin(String adminid, String adminpwd);
 }

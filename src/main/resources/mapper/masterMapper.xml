@@ -91,8 +91,12 @@
 
     <!-- idx에 대한 리뷰 상세보기  -->
     <select id="getReviewDetail" resultType="MasterVO" parameterType="int">
-        select r.idx, r.content, r.grade, r.useridx, DATE_FORMAT(r.regDT, '%Y-%m-%d') as regDT, r.imgfile1, r.imgfile2, ol.order_idx
-        from t_review r left join t_orderlist ol ON r.orderList_idx = ol.idx
+        select r.idx, r.content, r.grade, u.userid,
+        DATE_FORMAT(r.regDT, '%Y-%m-%d') as regDT,
+        r.imgfile1, r.imgfile2, ol.order_idx
+        from t_review r
+        left join t_user u ON r.useridx = u.idx
+        left join t_orderlist ol ON r.orderList_idx = ol.idx
         where r.idx = #{idx}
     </select>
 
@@ -342,8 +346,10 @@
 
     <!-- 페이징을 적용한 리뷰 목록 조회 -->
     <select id="getReviewListWithPaging" parameterType="map" resultType="MasterVO">
-        SELECT *, DATE_FORMAT(regDT, '%Y-%m-%d') as regDT, grade FROM t_review
-        ORDER BY idx DESC
+        SELECT r.*, u.userid, DATE_FORMAT(r.regDT, '%Y-%m-%d') as regDT, r.grade
+        FROM t_review r
+        LEFT JOIN t_user u ON r.useridx = u.idx
+        ORDER BY r.idx DESC
         LIMIT #{offset}, #{limit}
     </select>
 
@@ -417,9 +423,10 @@
 
     <!-- 페이징을 적용한 댓글 목록 조회 -->
     <select id="getReplyListWithPaging" parameterType="map" resultType="MasterVO">
-        SELECT r.idx, u.userid, r.content ,r.regDT
+        SELECT r.idx, u.userid, r.content, DATE_FORMAT(r.regDT, '%Y-%m-%d') AS regDT
         FROM t_comment r
         JOIN t_user u ON r.useridx = u.idx
+        WHERE r.parentidx IS NULL OR r.parentidx = 0
         ORDER BY r.idx
         LIMIT #{offset}, #{pageSize}
     </select>
@@ -427,5 +434,26 @@
     <!-- 전체 댓글 개수 조회 -->
     <select id="getTotalReplyCount" resultType="int">
         SELECT COUNT(*) FROM t_comment
+    </select>
+
+    <!-- 댓글 정보 조회 -->
+    <select id="getCommentByIdx" resultType="MasterVO">
+        SELECT idx, content, useridx, DATE_FORMAT(regDT, '%Y-%m-%d') AS regDT
+        FROM t_comment
+        WHERE idx = #{idx}
+    </select>
+
+    <!-- 답글 목록 조회 -->
+    <select id="getRepliesByCommentIdx" parameterType="int" resultType="MasterVO">
+        SELECT r.idx, u.userid, r.content, DATE_FORMAT(r.regDT, '%Y-%m-%d') AS regDT
+        FROM t_comment r
+        JOIN t_user u ON r.useridx = u.idx
+        WHERE r.parentidx = #{idx}
+        ORDER BY r.idx
+    </select>
+
+    <select id="findAdminByAdminid" parameterType="String" resultType="MasterVO">
+        SELECT * FROM t_admin
+        WHERE adminid = #{adminid}
     </select>
 </mapper>

@@ -200,6 +200,11 @@ display: flex;
 justify-content: space-between;
 }
 
+.btn-primary {
+width : 30%;
+}
+
+
 .summary {
 display: flex;
 justify-content: space-around;

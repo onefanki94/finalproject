@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <title>DashBoard - 게시판 리뷰 전체 목록</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
@@ -11,24 +12,37 @@
     <table class="table table-hover table-bordered">
         <thead class="table-light">
              <tr>
-                                    <th style="width:2%;">No.</th>
-                                    <th style="width:6%;">카테고리</th>
-                                    <th style="width:30%;">댓글내용</th>
-                                    <th style="width:8%;">작성자</th>
-                                    <th style="width:8%;">작성일</th>
-                                    <th style="width:15%;">관리</th>
+                                    <tr>
+                                                    <th style="width:2%;">NO</th>
+                                                    <th style="width:40%;">리뷰제목</th>
+                                                    <th style="width:8%;">별점</th>
+                                                    <th style="width:8%;">작성자</th>
+                                                    <th style="width:8%;">작성일</th>
+                                                    <th style="width:15%;">관리</th>
+                                                </tr>
                                 </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${reviewList}" var="review">
                                 <tr>
-                                    <td>${review.idx}</td>
-                                    <td>${review.comm_idx}</td>
-                                    <td>${review.content}</td>
-                                    <td>${review.useridx}</td>
-                                    <td>${review.regDT}</td>
+                                <td>${review.idx}</td>
+                                                    <td>${review.content}</td>
+                                                    <td>
+                                                        <div class="grade">
+                                                            <c:forEach begin="1" end="5" var="i">
+                                                                <c:choose>
+                                                                    <c:when test="${i <= review.grade}">★</c:when>
+                                                                    <c:otherwise>☆</c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </td>
+                                                    <td>${review.userid}</td>
+<c:set var="formattedDate" value="${review.regDT}" />
+<fmt:parseDate var="parsedDate" value="${formattedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+<td><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" /></td>
                                     <td>
-                                        <a href="#" class="btn btn-outline-success btn-sm">상세보기</a>
+                                        <a href="#" class="btn btn-outline-success btn-sm reviewDetailBtn" data-idx="${review.idx}">상세보기</a>
                                         <a href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                                     </td>
                                 </tr>
@@ -42,28 +56,28 @@
 <!-- 페이징 영역 -->
         <nav>
            <ul class="pagination justify-content-center">
-               <c:set var="pageGroupSize" value="10" />
+               <c:set var="pageGroupSize" value="5" />
                <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
                <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
 
                <!-- 이전 그룹으로 이동 -->
                <c:if test="${startPage > 1}">
                    <li class="page-item">
-                       <a class="page-link" href="/master/boardMasterReplyAll?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo;</a>
+                       <a class="page-link" href="/master/boardMasterReviewAll?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo;</a>
                    </li>
                </c:if>
 
                <!-- 페이지 번호 -->
                <c:forEach var="i" begin="${startPage}" end="${endPage}">
                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                       <a class="page-link" href="/master/boardMasterReplyAll?currentPage=${i}&pageSize=${pageSize}">${i}</a>
+                       <a class="page-link" href="/master/boardMasterReviewAll?currentPage=${i}&pageSize=${pageSize}">${i}</a>
                    </li>
                </c:forEach>
 
                <!-- 다음 그룹으로 이동 -->
                <c:if test="${endPage < totalPages}">
                    <li class="page-item">
-                       <a class="page-link" href="/master/boardMasterReplyAll?currentPage=${endPage + 1}&pageSize=${pageSize}">&raquo</a>
+                       <a class="page-link" href="/master/boardMasterReviewAll?currentPage=${endPage + 1}&pageSize=${pageSize}">&raquo</a>
                    </li>
                </c:if>
            </ul>

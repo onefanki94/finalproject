@@ -11,6 +11,7 @@ import com.ict.finalproject.vo.MemberVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -105,14 +106,20 @@ public class masterController {
         return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
     }
 
+    // 관리자페이지 로그아웃
+    @PostMapping("/logoutOk")
+    public ResponseEntity<String> masterLogout(HttpSession session) {
+        session.invalidate(); // 세션 무효화
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+
+
 
     // Dashboard 매핑
     @GetMapping("/masterMain")
     public ModelAndView masterMain() {
         // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
         int unanswerCount = masterService.getUnansweredQnaCount();
-
-
         System.out.println("hey! 모두들 안녕 내가 누군지 아니?");
         mav = new ModelAndView();
         mav.addObject("unanswerCount", unanswerCount);
@@ -518,26 +525,49 @@ public class masterController {
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
     @GetMapping("/boardMasterCommentAll")
     public ModelAndView boardMasterCommentAll(
-            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "currentPage", defaultValue = "1") String currentPage,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        int offset = (currentPage - 1) * pageSize;
+        // currentPage를 double로 파싱한 후, Math.floor를 사용해 정수로 변환
+        int currentPageInt = (int) Math.floor(Double.parseDouble(currentPage));
+        int offset = (currentPageInt - 1) * pageSize;
 
         // 페이징을 적용한 댓글 목록 조회
-        List<MasterVO> replyList = masterService.getReplyListWithPaging(offset, pageSize);
+        List<MasterVO> commentList = masterService.getReplyListWithPaging(offset, pageSize);
+
+
 
         // 전체 댓글 개수 조회
         int totalReplies = masterService.getTotalReplyCount();
         int totalPages = (int) Math.ceil((double) totalReplies / pageSize);
 
+
+
         ModelAndView mav = new ModelAndView();
-        mav.addObject("replyList", replyList);
-        mav.addObject("currentPage", currentPage);
+        mav.addObject("commentList", commentList);
+        mav.addObject("currentPage", currentPageInt);
         mav.addObject("totalPages", totalPages);
         mav.addObject("pageSize", pageSize);
         mav.setViewName("master/boardMasterCommentAll");
         return mav;
     }
+
+    @GetMapping("/getCommentDetails")
+    @ResponseBody
+    public Map<String, Object> getCommentDetails(@RequestParam("idx") int idx) {
+        Map<String, Object> response = new HashMap<>();
+
+        // 댓글 정보 조회
+        MasterVO comment = masterService.getCommentByIdx(idx);
+        response.put("comment", comment);
+
+        // 해당 댓글에 대한 답글 목록 조회
+        List<MasterVO> replies = masterService.getRepliesByCommentIdx(idx);
+        response.put("replies", replies);
+
+        return response;
+    }
+
 
 
     @GetMapping("/getReviewDetail")

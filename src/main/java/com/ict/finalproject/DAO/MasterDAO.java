@@ -165,4 +165,8 @@ public interface MasterDAO {
     // 회원별 리뷰 목록
     List<MasterVO> getReplyListWithPaging(int offset, int pageSize);
     int getTotalReplyCount();
+
+    public MasterVO getCommentByIdx(int idx);
+    public List<MasterVO> getRepliesByCommentIdx(int idx);
+    MasterVO findAdminByAdminid(String adminid);
 }

@@ -393,4 +393,23 @@ public class MasterServiceImpl implements MasterService {
     public int getTotalReplyCount() {
         return dao.getTotalReplyCount();
     }
+
+    @Override
+    public MasterVO getCommentByIdx(int idx) {
+        return dao.getCommentByIdx(idx);
+    }
+
+    @Override
+    public List<MasterVO> getRepliesByCommentIdx(int idx) {
+        return dao.getRepliesByCommentIdx(idx);
+    }
+
+    @Override
+    public boolean authenticateAdmin(String adminid, String adminpwd) {
+        MasterVO admin = dao.findAdminByAdminid(adminid);
+        if (admin != null && admin.getAdminpwd().equals(adminpwd)) {
+            return true; // 인증 성공
+        }
+        return false; // 인증 실패
+    }
 }

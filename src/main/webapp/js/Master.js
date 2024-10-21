@@ -121,8 +121,9 @@ $.ajax({
 });
 
 $(document).ready(function() {
-    // 상세보기 버튼 클릭 시
-    $('.detailBtn').on('click', function() {
+    // 리뷰 상세보기 버튼 클릭 시
+    $(document).on('click', '.reviewDetailBtn', function(event) {
+        event.preventDefault(); // 기본 링크 동작을 막음
         var reviewIdx = $(this).data('idx');  // 버튼에서 idx 값 가져오기
 
         // Ajax 요청으로 서버에서 리뷰 상세 정보를 가져옴
@@ -138,24 +139,19 @@ $(document).ready(function() {
 
                     // 이미지 파일이 존재할 경우만 이미지 경로 설정
                     if (response.imgfile1) {
-                        // 이미지 경로 설정 (한글 및 공백 인코딩 처리)
                         const imgPath1 = "http://192.168.1.92:8000/" + encodeURIComponent(response.imgfile1);
-                        $('#imgFile1').attr('src', imgPath1).show(); // 이미지 요소를 표시
-                        console.log("이미지 1 경로: " + imgPath1);  // 디버깅용 로그
+                        $('#imgFile1').attr('src', imgPath1).show();
                     } else {
-                        // 이미지가 없는 경우 "리뷰 이미지 없음" 메시지 표시
-                        $('#imgFile1').hide(); // 이미지 요소를 숨김
-                        $('#imgFile1').parent().append('<p>리뷰 이미지 없음</p>'); // "리뷰 이미지 없음" 메시지 추가
+                        $('#imgFile1').hide();
+                        $('#imgFile1').parent().append('<p>리뷰 이미지 없음</p>');
                     }
 
                     if (response.imgfile2) {
                         const imgPath2 = "http://192.168.1.92:8000/" + encodeURIComponent(response.imgfile2);
-                        $('#imgFile2').attr('src', imgPath2).show(); // 이미지 요소를 표시
-                        console.log("이미지 2 경로: " + imgPath2);  // 디버깅용 로그
+                        $('#imgFile2').attr('src', imgPath2).show();
                     } else {
-                        // 이미지가 없는 경우 "리뷰 이미지 없음" 메시지 표시
-                        $('#imgFile2').hide(); // 이미지 요소를 숨김
-                        $('#imgFile2').parent().append('<p>리뷰 이미지 없음</p>'); // "리뷰 이미지 없음" 메시지 추가
+                        $('#imgFile2').hide();
+                        $('#imgFile2').parent().append('<p>리뷰 이미지 없음</p>');
                     }
 
                     // 서버로부터 받은 데이터를 모달에 표시
@@ -173,6 +169,8 @@ $(document).ready(function() {
         });
     });
 });
+
+
 
 
 
@@ -597,4 +595,49 @@ success: function(response) {
      });
  });
 
+ $(document).ready(function() {
+     // 댓글 상세보기 버튼 클릭 시
+     $(document).on('click', '.commentDetailBtn', function(event) {
+         event.preventDefault();
+         var commentIdx = $(this).data('idx');  // 버튼에서 idx 값 가져오기
 
+         // Ajax 요청으로 서버에서 댓글 상세 정보를 가져옴
+         $.ajax({
+             type: 'GET',
+             url: '/master/getCommentDetails',  // 댓글 상세정보를 가져오는 URL
+             data: { idx: commentIdx },
+             success: function(response) {
+                 if (response && response.comment) {
+                     // 서버로부터 받은 댓글 데이터를 모달에 표시
+                     var comment = response.comment;
+                     $('#commentContent').text(comment.content || '내용 없음');
+                     $('#commentAuthor').text(comment.userid || '작성자 정보 없음');
+                     $('#commentDate').text(comment.regDT || '작성일 정보 없음');
+
+                     // 답글 목록 표시
+                     var replies = response.replies;
+                     var replyListHtml = '';
+                     if (replies && replies.length > 0) {
+                         replies.forEach(function(reply) {
+                             replyListHtml += '<li class="list-group-item">';
+                             replyListHtml += '<p><strong>' + reply.userid + '</strong> (' + reply.regDT + ')</p>';
+                             replyListHtml += '<p>' + reply.content + '</p>';
+                             replyListHtml += '</li>';
+                         });
+                     } else {
+                         replyListHtml = '<li class="list-group-item">답글이 없습니다.</li>';
+                     }
+                     $('#replyList').html(replyListHtml);
+
+                     // 모달 창 띄우기
+                     $('#commentModal').modal('show');
+                 } else {
+                     alert('댓글 상세 정보를 불러오지 못했습니다.');
+                 }
+             },
+             error: function() {
+                 alert('댓글 상세 정보를 가져오는 데 실패했습니다.');
+             }
+         });
+     });
+ });
