@@ -6,34 +6,60 @@ $(function(){
         $(this).find(".pro_price_span").text(formatNumber(productPrice) + "원");
     });
 
-    $('.refundDeliveryFee').text(formatNumber(refundDeliveryFee)+"원");
+    $('.refundDeliveryFee').text(formatNumber(refundDeliveryFee) + "원");
 
-    calculateRefund();
-})
+    calculateRefund();  // calculateRefund 함수 호출
+});
+
+function truncatePrice(number) {
+    return Math.floor(number);  // 소수점 아래 자리를 모두 버림
+}
 
 function calculateRefund() {
-    let cancelAmount = 0; //실제 카드환불될 금액
-    // 취소 상품 금액을 합산
-    let cancelProductPrice = 0;
+    let cancelAmount = 0;  // 실제 카드 환불될 금액
+    let cancelProductPrice = 0;  // 취소 상품 금액 합산
+    let totalRefundUsePoint = 0;  // 적립금 총 사용 금액
+    let refundUsePoint = 0;  // 개별 상품의 적립금 환불 금액
+    let totalRoundedCancelAmount = 0;  // 소수점 버림 후 총 취소 금액 합계
+    let lastProductIndex = prices.length - 1;  // 마지막 상품 인덱스
+    let totalDifference = 0; // 전체 차이 값 저장
+
+    // 상품 가격과 취소 수량을 기준으로 취소 금액을 계산
     for (let i = 0; i < prices.length; i++) {
-        cancelProductPrice += prices[i] * cancelCounts[i]; // 가격 * 수량을 합산
+        let productCancelPrice = prices[i] * cancelCounts[i];  // 개별 상품 가격 * 수량
+        cancelProductPrice += productCancelPrice;  // 취소 상품 금액 합산
+
+        // 적립금 비율을 계산하여 적용
+        refundUsePoint = Math.floor(use_point * (productCancelPrice / totalProductPrice));
+
+        totalRefundUsePoint += refundUsePoint;  // 적립금 총 사용 금액 합산
+
+        // 소수점 버림 후 취소 금액 합산
+        totalRoundedCancelAmount += Math.floor(productCancelPrice);
+
+        // 마지막 항목에선 소수점 잔여 차이를 반영하지 않고, 마지막에서 보정
+        if (i === lastProductIndex) {
+            totalDifference = cancelProductPrice - totalRoundedCancelAmount;
+        }
     }
 
-    // 적립금은 환불 금액의 비율에 따라 계산
-    let refundUsePoint = use_point * (cancelProductPrice / totalProductPrice);
+    // 마지막 상품에서 발생한 소수점 차이 보정
+    if (totalDifference > 0) {
+        cancelProductPrice -= totalDifference;  // 소수점 차이만큼 마지막 금액에서 보정
+    }
 
-    // 최종 환불 금액 계산 = 취소 상품 금액 - 적립금 사용 금액 + 배송비
-    cancelAmount = cancelProductPrice - refundUsePoint + refundDeliveryFee;
+    // 최종 카드 환불 금액 계산
+    cancelAmount = Math.floor(cancelProductPrice - totalRefundUsePoint + refundDeliveryFee);
 
     // 환불 예정 금액을 화면에 표시
-    $('.cancelProductPrice').text(formatNumber(cancelProductPrice)+"원");
-    $('.pay_totalPrice').text(formatNumber(cancelAmount)+"원");
-    $('.cancel_totalPrice').text(formatNumber(cancelAmount+refundUsePoint)+"원");
-    $('.cancel_amount').text(formatNumber(cancelAmount)+"원");
+    $('.cancelProductPrice').text(formatNumber(cancelProductPrice) + "원");
+    $('.pay_totalPrice').text(formatNumber(cancelAmount) + "원");
+    $('.cancel_totalPrice').text(formatNumber(cancelAmount + totalRefundUsePoint) + "원");
+    $('.cancel_amount').text(formatNumber(cancelAmount) + "원");
 
     // 적립금 환불 예정 금액 표시
-    $('.order_usePoint').text(formatNumber(refundUsePoint)+"원");
-    $('.cancel_point').text(formatNumber(refundUsePoint)+"원");
+    $('.order_usePoint').text(formatNumber(totalRefundUsePoint) + "원");
+    $('.cancel_point').text(formatNumber(totalRefundUsePoint) + "원");
 }
 
 // 결제 취소하기
@@ -41,10 +67,10 @@ $(document).on('click', '#cancel_input_btn', function() {
     let cancelAmount = $('.cancel_amount').text().replace("원", "").replace(",", "");
     let refundUsePoint = $('.cancel_point').text().replace("원", "").replace(",", "");
 
-    console.log("cancelAmount",cancelAmount);
-    console.log("refundUsePoint",refundUsePoint);
+    console.log("cancelAmount", cancelAmount);
+    console.log("refundUsePoint", refundUsePoint);
 
-    if(confirm("선택한 상품을 삭제하시겠습니까?")){
+    if(confirm("선택한 상품을 삭제하시겠습니까?")) {
         $.ajax({
             url: '/order/cancel',
             type: 'POST',
@@ -54,10 +80,10 @@ $(document).on('click', '#cancel_input_btn', function() {
             }),
             contentType: 'application/json',
             headers: {
-                    "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+                "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
             },
             success: function(response) {
-                alert("상품 결제를 취소하셨습니다.")
+                alert("상품 결제를 취소하셨습니다.");
                 location.href = "/user/mypage_order";
             },
             error: function(xhr, status, error) {
@@ -66,4 +92,4 @@ $(document).on('click', '#cancel_input_btn', function() {
             }
         });
     }
-})
+});
