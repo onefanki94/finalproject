@@ -67,4 +67,5 @@ public interface MemberService {
     String findId(String username, String email);
     String findPwd(String userid,String username ,String email);
     boolean changePassword(String userid, String userpwd);
+    boolean checkIdDuplicate(String userid);
 }

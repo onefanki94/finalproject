@@ -248,4 +248,11 @@ public class MemberServiceImpl implements MemberService {
         int result = dao.changePassword(userid, encryptedPassword);
         return result > 0;
     }
+
+    @Override
+    public boolean checkIdDuplicate(String userid) {
+        int count = dao.checkUserIdExists(userid);
+        System.out.println("아이디: " + userid + ", 존재 여부: " + (count > 0)); // 디버깅 로그
+        return count > 0;
+    }
 }
