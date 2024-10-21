@@ -86,7 +86,7 @@
 
          <!-- 페이지네이션 -->
         <nav>
-            <ul class="pagination">
+            <ul class="pagination justify-content-center">
                 <c:set var="pageGroupSize" value="10" />
                 <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
                 <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
@@ -94,7 +94,7 @@
                 <!-- 이전 그룹으로 이동 -->
                 <c:if test="${startPage > 1}">
                     <li class="page-item">
-                        <a class="page-link" href="/master/aniMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo; 이전</a>
+                        <a class="page-link" href="/master/aniMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo;</a>
                     </li>
                 </c:if>
 
@@ -108,7 +108,7 @@
                 <!-- 다음 그룹으로 이동 -->
                 <c:if test="${endPage < totalPages}">
                     <li class="page-item">
-                        <a class="page-link" href="/master/aniMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">다음 &raquo;</a>
+                        <a class="page-link" href="/master/aniMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">&raquo;</a>
                     </li>
                 </c:if>
             </ul>

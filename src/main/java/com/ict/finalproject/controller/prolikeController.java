@@ -88,6 +88,7 @@ ProlikeService ProlikeService;
             response.put("liked", true);  // 현재 상태 반환
             response.put("currentLikeCount", ProlikeService.getLikeCount(proLikeVO.getPro_idx()));  // 좋아요 수 반환
         }
+        System.out.println(liked + "dfdsfdfd");
 
         return response;
     }

@@ -261,12 +261,10 @@ button {
 .success_modal_container {
   opacity: 1;
   transform: translate3d(0px, 0vh, 0px);
-  height: calc(100% + 0vh);
+  height: auto;
   position: relative;
   display: flex;
-  -webkit-box-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
   align-items: center;
 }
 
@@ -275,23 +273,20 @@ button {
   display: flex;
   flex-direction: column;
   width: 28.75rem;
-  height: auto;
-  max-height: calc(-2rem + 100vh);
+  max-width: 100%;
+  padding: 1.5rem;
   border-radius: 0.5rem;
   overflow: hidden;
   color: #f7f7f7;
   background: rgb(27, 27, 28);
-  box-shadow: 0 0 1rem rgb(0, 0, 0, 0.5);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
 }
 
 .success_modal_container_flex div:nth-of-type(1) {
   display: flex;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
   justify-content: space-between;
-  padding: 0 1.5rem 0.625rem;
-  height: 4.5rem;
+  padding-bottom: 0.625rem;
 }
 
 .success_modal_container_flex div:nth-of-type(1) i {
@@ -301,36 +296,31 @@ button {
 .success_modal_container_flex div:nth-of-type(2) {
   margin-top: 20px;
   text-align: center;
-  height: 3rem;
-  position: relative;
-}
-
-.success_modal_container_flex div:nth-of-type(2) span {
-  font-weight: bold;
-  color: var(--primary);
+  padding: 0 1rem;
+  word-wrap: break-word;
 }
 
 .success_modal_container_flex div:nth-of-type(3) {
   margin-top: 20px;
   text-align: center;
-  height: 7rem;
-  position: relative;
+  padding: 1rem 0;
 }
 
 .success_modal_container_flex div:nth-of-type(3) button {
-  width: 63%;
-  height: 60px;
+  width: 80%;
+  max-width: 250px;
+  height: 50px;
   border-radius: 5px;
   background: var(--primary);
-  padding: 15px 0;
-  border: 0;
-  color: rgb(255, 255, 255, 0.9);
-  text-align: center;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 16px;
-  font-family: var(--e-font), var(--k-font);
   font-weight: bold;
+  cursor: pointer;
+  margin: 5px 0;
 }
 
 .success_modal_container_flex div:nth-of-type(3) button:hover {
   background: #2c827c;
 }
+

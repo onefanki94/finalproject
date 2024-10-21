@@ -354,28 +354,52 @@ public class masterController {
 
     // Dashboard - 굿즈관리 - 굿즈목록 리스트
     @GetMapping("/storeMasterList")
-    public ModelAndView storeMasterList() {
+    public ModelAndView storeMasterList(@RequestParam(value = "currentPage", defaultValue = "1") String currentPageStr,
+                                        @RequestParam(value = "pageSize", defaultValue = "10") String pageSizeStr) {
         System.out.println("관리자페이지 굿즈 상품 테이블 불러오기");
-        List<MasterVO> storeList = masterService.getStoreList();
+
+        // currentPage와 pageSize를 정수형으로 변환
+        int currentPage;
+        int pageSize;
+        try {
+            // 소수점이 포함된 경우 정수로 변환
+            currentPage = (int) Double.parseDouble(currentPageStr);
+            pageSize = (int) Double.parseDouble(pageSizeStr);
+        } catch (NumberFormatException e) {
+            // 변환에 실패하면 기본값으로 설정
+            currentPage = 1;
+            pageSize = 10;
+        }
+
+        // 페이징 로직 추가
+        int offset = Math.max(0, (currentPage - 1) * pageSize);
+        List<MasterVO> storeList = masterService.getStoreListWithPaging(offset, pageSize);
 
         // 총 상품 수 구하기
         int totalStore = masterService.getTotalStore();
+        int totalPages = (int) Math.ceil((double) totalStore / pageSize);
 
+        // 카테고리별 상품 수 구하기
         Map<String, Object> categoryCode1Count = masterService.getCategoryCountByCode(1); // 의류
         Map<String, Object> categoryCode2Count = masterService.getCategoryCountByCode(2); // 완구/취미
         Map<String, Object> categoryCode3Count = masterService.getCategoryCountByCode(3); // 문구/오피스
         Map<String, Object> categoryCode4Count = masterService.getCategoryCountByCode(4); // 생활용품
 
-        mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.addObject("storeList", storeList);
         mav.addObject("totalStore", totalStore);
         mav.addObject("categoryCode1Count", categoryCode1Count.get("product_category"));
         mav.addObject("categoryCode2Count", categoryCode2Count.get("product_category"));
         mav.addObject("categoryCode3Count", categoryCode3Count.get("product_category"));
         mav.addObject("categoryCode4Count", categoryCode4Count.get("product_category"));
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/storeMasterList");
         return mav;
     }
+
+
 
     // Dashboard - 주문관리 - 주문내역 리스트
     @GetMapping("/orderMasterList")
@@ -409,29 +433,66 @@ public class masterController {
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 게시판 전체 목록
     @GetMapping("/boardMasterAll")
-    public ModelAndView boardMasterAll() {
-        // 커뮤니티 전체 글 목록 불러오기
+    public ModelAndView boardMasterAll(
+            @RequestParam(value = "currentPage", defaultValue = "1") String currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
         System.out.println("관리자페이지에서 커뮤니티 테이블 전체 글 목록 불러오기");
-        List<MasterVO> boardList = masterService.getBoardList();
-        mav = new ModelAndView();
+
+        // currentPage를 정수형으로 변환
+        int currentPageInt;
+        try {
+            currentPageInt = Integer.parseInt(currentPage);
+        } catch (NumberFormatException e) {
+            // 변환 실패 시 기본값 1로 설정
+            currentPageInt = 1;
+        }
+
+        // 페이징 로직 추가
+        int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+        List<MasterVO> boardList = masterService.getBoardListWithPaging(offset, pageSize);
+
+        // 총 게시글 수 구하기
+        int totalBoard = masterService.getTotalBoardCount();
+        int totalPages = (int) Math.ceil((double) totalBoard / pageSize);
+
+        ModelAndView mav = new ModelAndView();
         mav.addObject("boardList", boardList);
+        mav.addObject("currentPage", currentPageInt);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/boardMasterAll");
         return mav;
     }
 
+
+
     //  Dashboard - 게시판, 댓글, 리뷰 - 댓글 전체 목록
     @GetMapping("/boardMasterReviewAll")
-    public ModelAndView boardMasterReviewAll() {
-        List<MasterVO> reviewList = masterService.getReviewList();
+    public ModelAndView boardMasterReviewAll(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        // 페이징 계산
+        int offset = Math.max(0, (currentPage - 1) * pageSize);
+        List<MasterVO> reviewList = masterService.getReviewListWithPaging(offset, pageSize);
+
+        // 전체 댓글 수
+        int totalReviews = masterService.getTotalReviewCount();
+        int totalPages = (int) Math.ceil((double) totalReviews / pageSize);
 
         // 로그로 데이터 크기 확인
         System.out.println("불러온 댓글 개수: " + reviewList.size());
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("reviewList", reviewList);
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/boardMasterReviewAll");
         return mav;
     }
+
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
     @GetMapping("/boardMasterReplyAll")
@@ -805,7 +866,9 @@ public class masterController {
     // Dashboard - 기타관리 - 이벤트
     @GetMapping("/EventMasterList")
     public ModelAndView EventMasterList() {
+        List<MasterVO> eventList = masterService.getEventList();
         mav = new ModelAndView();
+        mav.addObject("eventList", eventList);
         mav.setViewName("master/EventMasterList");
         return mav;
     }
@@ -1172,5 +1235,78 @@ public class masterController {
         masterService.updateReportAndBan(idx, userid, reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
 
         return "redirect:/master/reportinguserListMaster";  // 신고 목록 페이지로 리다이렉트
+    }
+
+    // 이벤트 페이지 글 쓰기
+    @PostMapping("/EventAddMasterOk")
+    public ResponseEntity<String> EventAddMasterOk(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("event_date") String event_date,
+            @RequestParam("thumfile") MultipartFile thumfile,
+            @RequestHeader("Authorization") String authorizationHeader) {
+
+        System.out.println("Received title: " + title);
+
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        // 파일 저장 로직 (예시)
+        String thumfileName = null;
+        try {
+            if (thumfile != null && !thumfile.isEmpty()) {
+                // 파일 저장 메서드 (파일명 반환)
+                thumfileName = uploadFileToExternalServer(thumfile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 중 오류가 발생했습니다.");
+        }
+
+        // 이벤트 엔티티 생성 및 데이터 설정
+        MasterVO event = new MasterVO();
+        event.setTitle(title);
+        event.setContent(content);
+        event.setEvent_date(event_date);
+        event.setThumfile(thumfileName); // 파일명 설정
+        event.setAdminidx(adminidx);
+
+        try {
+            // 이벤트 추가 서비스 호출
+            masterService.addEvent(event);
+            return ResponseEntity.ok("이벤트가 성공적으로 등록되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 등록 중 오류가 발생했습니다.");
+        }
+    }
+
+    @GetMapping("/getEventDetail")
+    @ResponseBody
+    public MasterVO getEventDetail(@RequestParam("idx") int idx) {
+        // 이벤트 상세 정보를 가져오기 위한 서비스 호출
+        MasterVO eventDetail = masterService.getEventDetail(idx);
+        return eventDetail;
     }
 }

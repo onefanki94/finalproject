@@ -53,17 +53,9 @@
         <!--Notification-->
         <section>
             <div class="notification">
-                <div class="notification-header" onclick="goToNoticePage()">
-                    <span class="icon">&#128365;</span> <!-- 알림 아이콘 -->
-                    <span class="date">2024-09-25</span>
-                </div>
-                <div class="notification-content" onclick="goToNoticePage()">
-                    <p>[9월 20일, 9월 23일 입고] 예약 상품 배송 안내</p>
-                </div>
-                <div class="pagination">
-                    <button class="prev">&lt;</button>
-                    <span class="page-info">1 / 10</span>
-                    <button class="next">&gt;</button>
+                <div id="noticeList">
+
+                    <!-- 제목과 등록일자가 여기에 표시됩니다 -->
                 </div>
             </div>
         </section>
@@ -107,19 +99,17 @@
                 <div class="origin-carousel">
                     <div class="origin-carousel-wrapper">
                         <div class="origin-carousel-images">
-                            <!-- 서버에서 전달된 이미지 파일 리스트를 반복 -->
-                                    <c:forEach var="imageInfo" items="${imageInfoList}">
-                                        <div class="origin-item">
-                                            <div class="origin-item-img">
-                                                <a href="/storeList">
-                                                    <!-- 이미지 경로에서는 확장자가 포함된 이름을 사용 -->
-                                                    <img src="img/store/origin/${imageInfo.imageNameWithExt}" alt="${imageInfo.imageName}">
-                                                </a>
-                                            </div>
-                                            <!-- 확장자를 제거한 이름만 출력 -->
-                                            <div class="origin-tag">${imageInfo.imageName}</div>
-                                        </div>
-                                    </c:forEach>
+                   <!-- Origin 이미지 섹션 -->
+                   <c:forEach var="originImageInfo" items="${originImageInfoList}">
+                       <div class="origin-item">
+                           <div class="origin-item-img">
+                               <a href="/storeList">
+                                   <img src="/img/store/origin/${originImageInfo.imageNameWithExt}" alt="${originImageInfo.imageName}">
+                               </a>
+                           </div>
+                           <div class="origin-tag">${originImageInfo.imageName}</div>
+                       </div>
+                   </c:forEach>
                         </div>    
                     </div>
                 </div>
@@ -157,44 +147,24 @@
                 </div>       
         </section>
 
-            <!--MD event-->
+            <!--event-->
             <section class="md">
                 <h2>이벤트#신규이벤트 업데이트</h2>
                     <div class="md-carousel">
                         <div class="md-carousel-wrapper">
                             <div class="md-carousel-images">
-                                <div class="md-item">
-                                    <div class="md-item-img">
-                                    <a href="/storeList">
-                                        <img src="img/store/news1.png" alt="Product 1">                             
-                                    </a>
-                                    </div>
-                                    
-                                        <div class="md-tag">블루아카이브 2주년</div>                                                  
-                                </div>
-                                <div class="md-item">
-                                    <div class="md-item-img">
-                                    <a href="/storeList">
-                                        <img src="img/store/news2.png" alt="Product 2">                             
-                                    </a>
-                                    </div>                                 
-                                    <a href="/storeList">
-                                        <div class="md-tag">블루아카이브 2주년</div>
-                                    </a>                  
-                                </div>
-                                <div class="md-item">
-                                    <div class="md-item-img">
-                                    <a href="/storeList">
-                                        <img src="img/store/news3.png" alt="Product 3">                             
-                                    </a>
-                                    </div>                                  
-                                    <a href="/storeList">
-                                        <div class="md-tag">블루아카이브 2주년</div>
-                                    </a>                        
-                                </div>
-                                <div>
-                        
-    
+
+                      <!-- Event 이미지 섹션 -->
+                      <c:forEach var="eventImageInfo" items="${eventImageInfoList}">
+                          <div class="md-item">
+                              <div class="md-item-img">
+                                  <a href="/Event">
+                                      <img src="/img/store/event/${eventImageInfo.imageNameWithExt}" alt="${eventImageInfo.imageName}">
+                                  </a>
+                              </div>
+                              <div class="md-tag">${eventImageInfo.imageName}</div>
+                          </div>
+                      </c:forEach>
     
                             </div>    
                         </div>

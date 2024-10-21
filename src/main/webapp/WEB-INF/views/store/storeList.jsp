@@ -129,28 +129,36 @@
                 </section>
 
  <div class="pagination">
-               <!-- 이전 페이지 링크 -->
-               <c:if test="${currentPage > 1}">
-                   <a href="/storeList?pageNum=${currentPage - 1}&category=${selectedCategory}&filterType=${selectedFilterType}">&laquo; 이전</a>
-               </c:if>
+     <!-- 이전 페이지 링크 -->
+     <c:if test="${currentPage > 1}">
+         <a href="/storeList?pageNum=${currentPage - 1}
+            <c:if test='${selectedCategory != null}'>&category=${selectedCategory}</c:if>
+            <c:if test='${selectedFilterType != null}'>&filterType=${selectedFilterType}</c:if>">&laquo; 이전</a>
+     </c:if>
 
-               <!-- 페이지 번호 링크 -->
-               <c:forEach var="i" begin="${currentPage - 2 > 0 ? currentPage - 2 : 1}" end="${currentPage + 2 < totalPages ? currentPage + 2 : totalPages}">
-                   <c:choose>
-                       <c:when test="${i == currentPage}">
-                           <span class="current">${i}</span> <!-- 현재 페이지 -->
-                       </c:when>
-                       <c:otherwise>
-                           <a href="/storeList?pageNum=${i}&category=${selectedCategory}&filterType=${selectedFilterType}">${i}</a>
-                       </c:otherwise>
-                   </c:choose>
-               </c:forEach>
+     <!-- 페이지 번호 링크 -->
+     <c:forEach var="i" begin="${currentPage - 2 > 0 ? currentPage - 2 : 1}" end="${currentPage + 2 < totalPages ? currentPage + 2 : totalPages}">
+         <c:choose>
+             <c:when test="${i == currentPage}">
+                 <span class="current">${i}</span>
+             </c:when>
+             <c:otherwise>
+                 <a href="/storeList?pageNum=${i}
+                    <c:if test='${selectedCategory != null}'>&category=${selectedCategory}</c:if>
+                    <c:if test='${selectedFilterType != null}'>&filterType=${selectedFilterType}</c:if>">${i}</a>
+             </c:otherwise>
+         </c:choose>
+     </c:forEach>
 
-               <!-- 다음 페이지 링크 -->
-               <c:if test="${currentPage < totalPages}">
-                   <a href="/storeList?pageNum=${currentPage + 1}&category=${selectedCategory}&filterType=${selectedFilterType}">다음 &raquo;</a>
-               </c:if>
-           </div>
+     <!-- 다음 페이지 링크 -->
+     <c:if test="${currentPage < totalPages}">
+         <a href="/storeList?pageNum=${currentPage + 1}
+            <c:if test='${selectedCategory != null}'>&category=${selectedCategory}</c:if>
+            <c:if test='${selectedFilterType != null}'>&filterType=${selectedFilterType}</c:if>">다음 &raquo;</a>
+     </c:if>
+ </div>
+
+
 
 
 <%@include file="/WEB-INF/inc/store_footer.jspf"%>
