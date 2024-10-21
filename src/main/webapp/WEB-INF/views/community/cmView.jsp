@@ -78,13 +78,13 @@ window.onload = function(){
                     <div class="col-sm-2 text-end custom-style">${vo.regDT}</div>
                 </div>
                 <div class="row bg-highlight">
-                    <div class="col-sm-10 p-2">${vo.useridx}</div>
+                    <div class="col-sm-10 p-2 author-id">${vo.useridx}</div>
                     <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">${vo.hit}</div>
                     <div class="col-sm-1 text-end"><button id="reportBtn" class="btn btn-link">신고하기</button></div>
                 </div>
             </div>
 
-            <div class="cmContent">${vo.content}</div>
+            <div class="cmContent post-content">${vo.content}</div>
         </div>
 
         <!-- 댓 글 -->
@@ -487,8 +487,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 신고 버튼 클릭 시 모달 띄우기
     reportBtn.addEventListener("click", function () {
+        // 수집할 데이터: 신고 유형, 상세 사유, 신고 대상자의 아이디 및 작성 글 정보
+        const authorId = document.querySelector(".author-id").textContent; // 글 작성자 아이디가 있는 요소
+        const postContent = document.querySelector(".post-content").textContent; // 글 내용이 있는 요소
+
+        // 모달 내 신고 정보 업데이트 (모달을 띄우기 전에 정보를 설정)
+        document.querySelector("#reportModal .report_info span").textContent = authorId;
+        document.querySelector("#reportModal .report_info p").textContent = postContent;
+
+        // 모달 열기
         reportModal.style.display = "block";
     });
+
+    // 신고 데이터 전송 버튼 클릭 시
+    document.getElementById("submitReport").addEventListener("click", function () {
+        // 신고 유형과 상세 사유 수집
+        const reportType = document.querySelector('input[name="report_reason"]:checked');
+        const reason = document.querySelector(".report_reason_text textarea").value;
+
+        // 데이터 유효성 검사
+        if (!reportType || !reason) {
+            alert("모든 항목을 입력해 주세요.");
+            return;
+        }
+
+        // 서버로 전송할 데이터 객체 생성
+        const reportData = {
+            report_type: reportType.value,
+            reason: reason,
+            comunity_idx: currentCommIdx,
+            useridx: useridx,
+            reportDT: new Date().toISOString()
+        };
+
+        // 댓글 신고 시에만 comment_idx 추가
+            if (typeof currentCommentIdx !== 'undefined' && currentCommentIdx !== null) {
+                reportData.comment_idx = currentCommentIdx;
+            }
+
+        // 서버로 전송
+        sendReportData(reportData);
+    });
+
 
     // 모달 닫기 버튼 클릭 시 모달 닫기
     closeModal.addEventListener("click", function () {
@@ -500,12 +540,24 @@ document.addEventListener("DOMContentLoaded", function () {
         reportModal.style.display = "none";
     });
 
-    // 배경 클릭 시 모달 닫기
-    window.addEventListener("click", function (event) {
-        if (event.target === reportModal) {
-            reportModal.style.display = "none";
-        }
-    });
+    // 신고 데이터 전송 함수
+    function sendReportData(data) {
+        $.ajax({
+            url: "/submitReport",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                alert("신고가 접수되었습니다.");
+                reportModal.style.display = "none";
+            },
+            error: function (error) {
+                alert("신고 처리 중 오류가 발생했습니다.");
+                console.error("신고 오류:", error);
+            }
+        });
+    }
+
 
     // 라디오 버튼 변경 시 라벨 스타일 변경
     $(function () {

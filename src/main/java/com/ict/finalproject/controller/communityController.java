@@ -1,5 +1,6 @@
 package com.ict.finalproject.controller;
 
+import com.ict.finalproject.DTO.ReportDTO;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.CommentService;
 import com.ict.finalproject.Service.CommuService;
@@ -218,5 +219,18 @@ public class communityController {
 
         return new ResponseEntity<>(bodyTag, headers, HttpStatus.OK);
     }
+
+    @PostMapping("/submitReport")
+    public ResponseEntity<String> submitReport(@RequestBody ReportDTO reportDTO) {
+        try {
+            // 데이터 저장 로직
+            commuService.insertReport(reportDTO);
+            return ResponseEntity.ok("신고가 접수되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace(); // 콘솔에 오류 스택 트레이스를 출력하여 어디에서 문제가 발생했는지 확인
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("신고 처리 중 오류가 발생했습니다.");
+        }
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.ict.finalproject.DAO;
 
 
+import com.ict.finalproject.DTO.ReportDTO;
 import com.ict.finalproject.vo.CommuVO;
 import com.ict.finalproject.vo.NoticeVO;
 import com.ict.finalproject.vo.PagingVO;
@@ -41,6 +42,9 @@ public interface CommuDAO {
     // 게시글 수정 메서드
     int UpdateBoard(CommuVO board);
     int Delete(int idx);
+
+    //신고 등록 메서드
+    int insertReport(ReportDTO reportDTO);
 
 
 

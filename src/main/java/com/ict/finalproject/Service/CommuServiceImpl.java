@@ -1,6 +1,7 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.CommuDAO;
+import com.ict.finalproject.DTO.ReportDTO;
 import com.ict.finalproject.vo.CommuVO;
 import com.ict.finalproject.vo.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,11 @@ public class CommuServiceImpl implements CommuService {
     @Override
     public int Delete(int idx) {
         return commuDAO.Delete(idx);
+    }
+
+    @Override
+    public int insertReport(ReportDTO reportDTO) {
+        return commuDAO.insertReport(reportDTO);
     }
 
 

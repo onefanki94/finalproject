@@ -1,5 +1,6 @@
 package com.ict.finalproject.Service;
 
+import com.ict.finalproject.DTO.ReportDTO;
 import com.ict.finalproject.vo.CommuVO;
 import com.ict.finalproject.vo.PagingVO;
 import org.apache.ibatis.annotations.Param;
@@ -38,4 +39,9 @@ public interface CommuService {
     // 게시글 수정, 삭제
     boolean UpdateBoard(CommuVO board);
     int Delete(int idx);
+
+    //신고 등록 메서드
+    int insertReport(ReportDTO reportDTO);
+
+
 }

@@ -4,7 +4,7 @@
 <mapper namespace="com.ict.finalproject.DAO.CommuDAO">
     <insert id="insertBoard" parameterType="CommuVO">
         insert into t_community (useridx, commtype, title, content, regDT)
-        values (#{useridx}, #{commtype}, #{title}, #{content}, NOW(), 0, NOW(), 0, NOW(), 0)
+        values (#{useridx}, #{commtype}, #{title}, #{content}, NOW())
     </insert>
 
 
@@ -59,6 +59,30 @@
             AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%') OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
         </if>
     </select>
+
+
+
+    <insert id="insertReport" parameterType="com.ict.finalproject.DTO.ReportDTO">
+        INSERT INTO t_report (
+        comunity_idx,
+        comment_idx,
+        report_type,
+        reason,
+        reportDT,
+        useridx
+        ) VALUES (
+        <if test="comunity_idx != null">
+            #{comunity_idx, jdbcType=INTEGER},
+        </if>
+        <if test="comment_idx != null">
+            #{comment_idx, jdbcType=INTEGER},
+        </if>
+        #{report_type, jdbcType=INTEGER},
+        #{reason, jdbcType=VARCHAR},
+        #{reportDT, jdbcType=TIMESTAMP},
+        #{useridx, jdbcType=INTEGER}
+        )
+    </insert>
 
 
 
