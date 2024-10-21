@@ -7,6 +7,11 @@ let activeFilter = 'latest';  // 기본값: 최신순
 
 // 리뷰 탭 전환 함수
 function showTab(tabType) {
+  if (tabType === 'inquiry') {
+        // 1:1 상품문의 탭을 누르면 /notice2로 이동
+        window.location.href = '/notice2';
+        return;  // 이후 동작을 막기 위해 함수 종료
+    }
     activeTab = tabType;
     const allTabs = document.querySelectorAll('.review-tabs span');
     allTabs.forEach(tab => tab.classList.remove('active'));
@@ -149,6 +154,7 @@ function updateTotalPrice() {
     }
 }
 document.addEventListener('DOMContentLoaded', function () {
+
     // 로컬스토리지에서 토큰 가져오기
     const token = localStorage.getItem('token');
     console.log("로컬스토리지 토큰 " + token);
@@ -217,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error:', error));
     });
 
+
     // 좋아요 UI 업데이트 함수
     function updateLikeUI(isLiked, likeHeart, likeCountElement, currentCount) {
         if (isLiked) {
@@ -229,6 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
             likeCountElement.textContent = currentCount + 1;  // 카운트 증가
         }
     }
+
 
     // 새로고침 시 좋아요 상태 불러오는 함수
     function fetchLikeStatusAndUpdateUI(productId, token) {

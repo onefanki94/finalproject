@@ -80,7 +80,7 @@
     <div class="product-tabs">
         <button class="tab active">상품정보</button>
         <button class="tab" onclick="scrollToShippingSection()">배송/교환/반품</button>
-        <button class="tab">1:1 상품문의</button>
+        <button class="tab" onclick="window.location.href='/notice2'">1:1 상품문의</button>
         <button class="tab" onclick ="scrollToReviewSection()">리뷰</button>
     </div>
 
@@ -172,10 +172,7 @@
         </div>
     </div>
 
-    <!-- 1:1 문의 버튼 -->
-    <div class="inquiry-button-section">
-        <button class="inquiry-button">1:1 상품 문의</button>
-    </div>
+
 
 
 
