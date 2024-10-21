@@ -142,9 +142,12 @@ public class storeMainController {
         }
 
         // 총 상품 개수를 가져옴
-        int totalProducts = storeService.getTotalProductCount();
+        int totalProducts = pagedProducts.isEmpty() ? 0 : storeService.getTotalProductCount();
         // 총 페이지 수 계산
-        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        int totalPages = totalProducts > 0 ? (int) Math.ceil((double) totalProducts / pageSize) : 0;
+
+
+
         // 카테고리 목록을 가져옴
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
 
@@ -171,40 +174,14 @@ public class storeMainController {
             @RequestParam(required = false) Integer second_category) {
 
         int offset = (pageNum - 1) * pageSize;
-        System.out.println("jo"+category);
+
         // 두 번째 카테고리를 포함한 상품 목록을 가져옵니다.
         List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category, second_category);
 
-        // 상품 목록을 콘솔에 출력합니다.
-        System.out.println("페이지 번호: " + pageNum + ", 페이지 크기: " + pageSize);
-        System.out.println("상품 목록: " + pagedProducts);
+
 
         return pagedProducts; // JSON으로 반환
     }
-
-
-
-    // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
-//    @GetMapping("/recentProducts")
-//    public ModelAndView getRecentProducts() {
-//        List<StoreVO> recentProducts = storeService.getRecentProducts();
-//        log.info("호출 " + recentProducts );
-//        // 데이터를 출력하여 확인
-//        if (recentProducts == null || recentProducts.isEmpty()) {
-//            System.out.println("신규 굿즈 데이터가 없습니다.");
-//        } else {
-//            System.out.println("신규 굿즈 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
-//            for (StoreVO product : recentProducts) {
-//                System.out.println("상품 ID: " + product.getIdx() + ", 상품명: " + product.getTitle());
-//            }
-//        }
-//
-//        ModelAndView mav = new ModelAndView("store/storeMain");
-//        mav.addObject("recentProducts", recentProducts);
-//        return mav;
-//    }
-//
-//
 
 
     // 검색된 상품 목록 가져오기
@@ -291,6 +268,8 @@ public class storeMainController {
             return titlesAndDates;  // JSON 형식으로 title과 regDT 반환
         }
     }
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
