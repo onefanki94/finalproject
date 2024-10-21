@@ -38,5 +38,12 @@
         VALUES (#{qnatype}, #{title}, #{content}, #{useridx}, #{imgfile1}, #{imgfile2}, NOW())
     </insert>
 
+    <!-- storeMain에서 공지사항 불러오기 -->
+    <select id="getAllNotices" resultType="com.ict.finalproject.vo.NoticeVO">
+        SELECT * FROM t_notice
+        ORDER BY regDT DESC
+        LIMIT 2  <!-- 최신 공지 2개만 가져옴 -->
+    </select>
+
 
 </mapper>
