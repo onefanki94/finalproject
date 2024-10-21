@@ -323,34 +323,9 @@ window.onload = function(){
                           comm += '</div>';
                           replyList.append(comm);
                       });
-                      // 댓글 신고 버튼 이벤트 리스너 등록
-                          comments.forEach(comment => {
-                              let reportBtn = document.getElementById("reportCommentBtn-" + comment.idx);
-                              if (reportBtn) {
-                                  reportBtn.addEventListener("click", function () {
-                                      // 댓글 정보 가져오기
-                                      const commentIdx = comment.idx;
-                                      const authorId = comment.userid;
-                                      const content = comment.content;
 
-                                      // 텍스트와 라디오 버튼 초기화
-                                      document.querySelector(".report_reason_text textarea").value = "";
-                                      document.querySelectorAll('input[name="report_reason"]').forEach((radio) => {
-                                          radio.checked = false;
-                                      });
 
-                                      // 모달에 데이터 설정
-                                      document.querySelector("#reportModal .report_info span").textContent = authorId;
-                                      document.querySelector("#reportModal .report_info p").textContent = content;
 
-                                      // 현재 신고하는 댓글의 idx 설정
-                                      currentCommentIdx = commentIdx;
-
-                                      // 모달 열기
-                                      document.getElementById("reportModal").style.display = "block";
-                                  });
-                              }
-                          });
 
                   },
                   error: function(xhr, status, error) {
@@ -363,60 +338,60 @@ window.onload = function(){
     }
 
      function regiReply(commentIdx, comm_idx) {//원댓글의 idx + 게시물의 idx
-              //let contents =  $('[id=replyContent-${comment.idx}]').val();
-              const content = document.querySelector("#replyContent-"+commentIdx).value;
+          //let contents =  $('[id=replyContent-${comment.idx}]').val();
+          const content = document.querySelector("#replyContent-"+commentIdx).value;
 
-              alert(content);
+          alert(content);
 
-              // 로컬 스토리지에서 JWT 토큰 가져오기
-              const token = localStorage.getItem("token");
-              if (!token) {
-                  alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
-                  location.href = "/user/login";  // 로그인 페이지로 이동
-                  return false;
-              }
+          // 로컬 스토리지에서 JWT 토큰 가져오기
+          const token = localStorage.getItem("token");
+          if (!token) {
+              alert('로그인이 필요합니다.');  // 토큰이 없을 경우 로그인 필요 메시지
+              location.href = "/user/login";  // 로그인 페이지로 이동
+              return false;
+          }
 
-              // 서버로 전송할 데이터를 FormData 객체에 추가
-              const postData = new URLSearchParams();
-              postData.append("content", content);
-              postData.append("token", token);  // token 추가
-              postData.append("commentIdx", commentIdx);
-              postData.append("comm_idx", comm_idx);
+          // 서버로 전송할 데이터를 FormData 객체에 추가
+          const postData = new URLSearchParams();
+          postData.append("content", content);
+          postData.append("token", token);  // token 추가
+          postData.append("commentIdx", commentIdx);
+          postData.append("comm_idx", comm_idx);
 
 
               // AJAX 요청 보내기
               $.ajax({
-                      url: "/regiReply",
-                      type: "POST",
-                      data: postData.toString(),
-                      contentType: "application/x-www-form-urlencoded",
-                      headers: {
-                          "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
-                      },
-                      success: function(data) {
-                          alert('답글이 등록되었습니다.');  // 성공 메시지
+                  url: "/regiReply",
+                  type: "POST",
+                  data: postData.toString(),
+                  contentType: "application/x-www-form-urlencoded",
+                  headers: {
+                      "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
+                  },
+                  success: function(data) {
+                      alert('답글이 등록되었습니다.');  // 성공 메시지
 
-                          // comm_idx를 success 콜백 함수 내에서 사용 가능하게 함
-                          loadComments(comm_idx);  // 댓글 추가 후 댓글 목록 다시 불러오기
+                      // comm_idx를 success 콜백 함수 내에서 사용 가능하게 함
+                      loadComments(comm_idx);  // 댓글 추가 후 댓글 목록 다시 불러오기
 
-                          // 입력 폼을 비웁니다.
-                          const replyContentElement = document.querySelector("#replyContent-" + commentIdx);
-                          if (replyContentElement) {
-                              replyContentElement.value = '';  // 요소가 존재하는 경우에만 값을 비웁니다.
-                          } else {
-                              console.error("Element #replyContent-" + commentIdx + " not found.");
-                          }
-                      },
-                      error: function(xhr, status, error) {
-                          if (xhr.status === 401) {
-                              alert('인증에 실패했습니다. 다시 로그인하세요.');
-                              location.href = "/user/login";  // 로그인 페이지로 이동
-                          } else {
-                              alert("요청 처리 중 오류가 발생했습니다.");
-                          }
-                          console.error("Error:", error);  // 오류 출력
+                      // 입력 폼을 비웁니다.
+                      const replyContentElement = document.querySelector("#replyContent-" + commentIdx);
+                      if (replyContentElement) {
+                          replyContentElement.value = '';  // 요소가 존재하는 경우에만 값을 비웁니다.
+                      } else {
+                          console.error("Element #replyContent-" + commentIdx + " not found.");
                       }
-                  });
+                  },
+                  error: function(xhr, status, error) {
+                      if (xhr.status === 401) {
+                          alert('인증에 실패했습니다. 다시 로그인하세요.');
+                          location.href = "/user/login";  // 로그인 페이지로 이동
+                      } else {
+                          alert("요청 처리 중 오류가 발생했습니다.");
+                      }
+                      console.error("Error:", error);  // 오류 출력
+                  }
+              });
 
               return false;  // 기본 폼 제출 방지
           }
@@ -516,21 +491,31 @@ window.onload = function(){
 
 //신고
 document.addEventListener("DOMContentLoaded", function () {
-    const reportPostBtn = document.getElementById("reportPostBtn");
     const reportModal = document.getElementById("reportModal");
     const closeModal = document.getElementById("closeModal");
     const cancelReport = document.getElementById("cancelReport");
-    const radioButtons = document.querySelectorAll('input[name="report_reason"]');
-    const labels = document.querySelectorAll(".report_reason_ul li label");
+
+    // 신고 모달 열기 전 라디오 버튼 및 텍스트 초기화 함수
+    function initializeReportModal() {
+        // 텍스트 초기화
+            document.querySelector(".report_reason_text textarea").value = "";
+
+            // 라디오 버튼 초기화 (명시적으로 checked 해제 후 재할당)
+            document.querySelectorAll('input[name="report_reason"]').forEach((radio) => {
+                radio.checked = false;  // 기존 체크 상태 해제
+                radio.removeAttribute("checked");  // checked 속성 제거
+            });
+
+            // 라벨 스타일 초기화
+            document.querySelectorAll(".report_reason_ul li label").forEach((label) => {
+                label.classList.remove("checkedLabel"); // 라벨 클래스 제거
+            });
+    }
 
     // 게시물 신고 버튼 클릭 시 모달 띄우기
-    reportPostBtn.addEventListener("click", function () {
-
-        // 텍스트와 라디오 버튼 초기화
-        document.querySelector(".report_reason_text textarea").value = "";
-        document.querySelectorAll('input[name="report_reason"]').forEach((radio) => {
-            radio.checked = false;
-        });
+    $(document).on("click", "#reportPostBtn", function () {
+        // 모달 초기화 함수 호출
+        initializeReportModal();
 
         // 수집할 데이터: 신고 유형, 상세 사유, 신고 대상자의 아이디 및 작성 글 정보
         const authorId = document.querySelector(".author-id").textContent; // 글 작성자 아이디가 있는 요소
@@ -544,16 +529,37 @@ document.addEventListener("DOMContentLoaded", function () {
         reportModal.style.display = "block";
     });
 
+    // 댓글 신고 버튼 클릭 시 모달 띄우기 (댓글마다 개별 이벤트 등록)
+    $(document).on("click", "[id^='reportCommentBtn-']", function () {
+        // 모달 초기화 함수 호출
+        initializeReportModal();
+
+        // 댓글 정보 가져오기
+        const commentIdx = $(this).attr("id").split('-')[1];
+        const authorId = $(this).data("author-id");
+        const content = $(this).data("content");
+
+        // 모달에 데이터 설정
+        document.querySelector("#reportModal .report_info span").textContent = authorId;
+        document.querySelector("#reportModal .report_info p").textContent = content;
+
+        // 현재 신고하는 댓글의 idx 설정
+        currentCommentIdx = commentIdx;
+
+        // 모달 열기
+        reportModal.style.display = "block";
+    });
+
+    // 모달 열릴 때 초기화 처리
+    $('#reportModal').on('show.bs.modal', function () {
+        initializeReportModal();
+    });
 
     // 신고 데이터 전송 버튼 클릭 시
     document.getElementById("submitReport").addEventListener("click", function () {
         // 신고 유형과 상세 사유 수집
         const reportType = document.querySelector('input[name="report_reason"]:checked');
         const reason = document.querySelector(".report_reason_text textarea").value.trim();
-
-        // 데이터 유효성 검사 로그 추가
-            console.log("Report Type: ", reportType ? reportType.value : "Not Selected");
-            console.log("Reason: ", reason ? reason : "Not Entered");
 
         // 데이터 유효성 검사
         if (!reportType || reason === "") {
@@ -571,30 +577,30 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // 댓글 신고 시에만 comment_idx 추가
-            if (typeof currentCommentIdx !== 'undefined' && currentCommentIdx !== null) {
-                reportData.comment_idx = currentCommentIdx;
-            } else {
-                reportData.comment_idx = null; // 게시글 신고 시 comment_idx를 null로 설정
-            }
-
+        if (typeof currentCommentIdx !== 'undefined' && currentCommentIdx !== null) {
+            reportData.comment_idx = currentCommentIdx;
+        } else {
+            reportData.comment_idx = null; // 게시글 신고 시 comment_idx를 null로 설정
+        }
 
         // 데이터가 올바르게 수집되었는지 확인하기 위해 콘솔에 출력
-            console.log("Report Data: ", reportData);
+        console.log("Report Data: ", reportData);
 
         // 서버로 전송
         sendReportData(reportData);
     });
 
+     // 모달 닫기 버튼 클릭 시 모달 닫기
+        closeModal.addEventListener("click", function () {
+            reportModal.style.display = "none";
+            initializeReportModal(); // 모달을 닫을 때도 초기화
+        });
 
-    // 모달 닫기 버튼 클릭 시 모달 닫기
-    closeModal.addEventListener("click", function () {
-        reportModal.style.display = "none";
-    });
-
-    // 취소 버튼 클릭 시 모달 닫기
-    cancelReport.addEventListener("click", function () {
-        reportModal.style.display = "none";
-    });
+        // 취소 버튼 클릭 시 모달 닫기
+        cancelReport.addEventListener("click", function () {
+            reportModal.style.display = "none";
+            initializeReportModal(); // 모달을 닫을 때도 초기화
+        });
 
     // 신고 데이터 전송 함수
     function sendReportData(data) {
@@ -614,15 +620,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
     // 라디오 버튼 변경 시 라벨 스타일 변경
     $(function () {
         $('input[type="radio"]').on("change", function () {
-          // 모든 라벨에서 checkedLabel 클래스 제거
-          $(".report_reason_ul li label").removeClass("checkedLabel");
+            // 모든 라벨에서 checkedLabel 클래스 제거
+            $(".report_reason_ul li label").removeClass("checkedLabel");
 
-          // 선택된 라디오 버튼의 라벨에 checkedLabel 클래스 추가
-          $(this).next("label").addClass("checkedLabel");
+            // 선택된 라디오 버튼의 라벨에 checkedLabel 클래스 추가
+            $(this).next("label").addClass("checkedLabel");
         });
     });
 });
