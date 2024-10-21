@@ -80,3 +80,4 @@ $371(document).ready(function() {
 function goToNoticePage() {
     window.location.href = "/allnotice"; // notice 페이지로 이동
 }
+
