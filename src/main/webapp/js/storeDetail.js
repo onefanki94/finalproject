@@ -230,34 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const averageRating = parseFloat(document.querySelector('.rating-number').textContent);
-    const starsContainer = document.getElementById('stars-container');
-
-    function generateStars(rating) {
-        let stars = '';
-        for (let i = 0; i < 5; i++) {
-            if (i < Math.floor(rating)) {
-                stars += '★';  // 채워진 별
-            } else {
-                stars += '☆';  // 빈 별
-            }
-        }
-        return stars;
-    }
-
-    // 별점을 생성해서 DOM에 반영
-    starsContainer.innerHTML = generateStars(averageRating);
-});
-document.addEventListener('DOMContentLoaded', function () {
-    const token = localStorage.getItem('token');
-    const productId = document.querySelector('.like-icon').getAttribute('data-product-id');
-
-    if (!token || !productId) {
-        console.error('로그인 토큰이 없거나 상품 ID가 없습니다.');
-        return;
-    }
-
     // 좋아요 상태 요청
     fetch(`/like/statusAndCount?pro_idx=${productId}`, {
         method: 'GET',
@@ -283,6 +255,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch(error => console.error('좋아요 상태 요청 중 오류 발생:', error));
 });
-});
+
 
 

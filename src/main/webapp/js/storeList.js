@@ -1,4 +1,5 @@
-
+let productList;
+let products;
 
 // URL에서 특정 파라미터의 값을 가져오는 함수
 function getParameterByName(name) {
@@ -11,8 +12,32 @@ function getParameterByName(name) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-let productList;
-let products;
+// 필터를 적용하는 함수
+function applyFilter(category, second_category) {
+  let pageNum = 1;
+   let pageSize = 10;
+    // AJAX 요청에서 category와 secondCategory를 서버로 전달
+    $.ajax({
+        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
+        method: 'GET',
+        data: {
+            category: category,  // 선택된 카테고리 전달
+            second_category: second_category || null // second_category가 있으면 전달, 없으면 null
+        },
+        success: function(data) {
+            // 성공 시 처리
+            console.log("필터링된 상품 목록: ", data);
+            // 필터링된 상품 목록을 화면에 표시하는 로직 추가
+            updateProductList(data);
+        },
+        error: function(error) {
+            console.error("필터 적용 중 오류 발생: ", error);
+        }
+    });
+}
+
+
+//하위카테고리 적용 문제
 document.addEventListener('DOMContentLoaded', function() {
     productList = document.querySelector('.list-carousel-images');
     if (!productList) {
@@ -62,8 +87,7 @@ fetch(url)
     })
     .catch(error => console.error('Error:', error));
 
-document.addEventListener('DOMContentLoaded', function() {
-});
+
 
 
 
@@ -103,29 +127,7 @@ function loadSubcategories(categoryCode) {
     });
 }
 
-// 필터를 적용하는 함수
-function applyFilter(category, second_category) {
-    const pageNum = 1;
-    const pageSize = 10;
-    // AJAX 요청에서 category와 secondCategory를 서버로 전달
-    $.ajax({
-        url: `/pagedProducts?pageNum=${pageNum}&pageSize=${pageSize}`,
-        method: 'GET',
-        data: {
-            category: category,  // 선택된 카테고리 전달
-            second_category: second_category || null // second_category가 있으면 전달, 없으면 null
-        },
-        success: function(data) {
-            // 성공 시 처리
-            console.log("필터링된 상품 목록: ", data);
-            // 필터링된 상품 목록을 화면에 표시하는 로직 추가
-            updateProductList(data);
-        },
-        error: function(error) {
-            console.error("필터 적용 중 오류 발생: ", error);
-        }
-    });
-}
+
 
 
 
@@ -300,4 +302,5 @@ function updateProductList(products) {
       });
   };
 
-
+document.addEventListener('DOMContentLoaded', function() {
+});
