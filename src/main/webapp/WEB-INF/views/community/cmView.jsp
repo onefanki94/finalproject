@@ -80,7 +80,9 @@ window.onload = function(){
                 <div class="row bg-highlight">
                     <div class="col-sm-10 p-2 author-id">${vo.useridx}</div>
                     <div class="col-sm-1 text-end"><img src="/img/cm/ico_view.png">${vo.hit}</div>
-                    <div class="col-sm-1 text-end"><button id="reportBtn" class="btn btn-link">신고하기</button></div>
+                    <div class="col-sm-1 text-end"><button id="reportBtn" class="btn btn-link">
+                    <img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K">
+                    </button></div>
                 </div>
             </div>
 
@@ -166,23 +168,23 @@ window.onload = function(){
                                 <label for="abuse">욕설/비방</label>
                             </li>
                             <li>
-                                <input type="radio" id="PromotionalPost" value="4" />
+                                <input type="radio" id="PromotionalPost" name="report_reason" value="4" />
                                 <label for="PromotionalPost">광고/홍보글</label>
                             </li>
                             <li>
-                                <input type="radio" id="perPersonal_info_leak" value="5" />
+                                <input type="radio" id="perPersonal_info_leak" name="report_reason" value="5" />
                                 <label for="perPersonal_info_leak">개인정보 유출</label>
                             </li>
                             <li>
-                                <input type="radio" id="over_post" value="6" />
+                                <input type="radio" id="over_post" name="report_reason" value="6" />
                                 <label for="over_post">게시글 도배</label>
                             </li>
                             <li>
-                                <input type="radio" id="adult" value="7" />
+                                <input type="radio" id="adult" name="report_reason" value="7" />
                                 <label for="adult">음란/선정성</label>
                             </li>
                             <li>
-                                <input type="radio" id="etc" value="8" />
+                                <input type="radio" id="etc" name="report_reason" value="8" />
                                 <label for="etc">기타</label>
                             </li>
                         </ul>
@@ -487,6 +489,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 신고 버튼 클릭 시 모달 띄우기
     reportBtn.addEventListener("click", function () {
+
+        // 텍스트와 라디오 버튼 초기화
+        document.querySelector(".report_reason_text textarea").value = "";
+        document.querySelectorAll('input[name="report_reason"]').forEach((radio) => {
+            radio.checked = false;
+        });
+
         // 수집할 데이터: 신고 유형, 상세 사유, 신고 대상자의 아이디 및 작성 글 정보
         const authorId = document.querySelector(".author-id").textContent; // 글 작성자 아이디가 있는 요소
         const postContent = document.querySelector(".post-content").textContent; // 글 내용이 있는 요소
@@ -503,10 +512,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("submitReport").addEventListener("click", function () {
         // 신고 유형과 상세 사유 수집
         const reportType = document.querySelector('input[name="report_reason"]:checked');
-        const reason = document.querySelector(".report_reason_text textarea").value;
+        const reason = document.querySelector(".report_reason_text textarea").value.trim();
+
+        // 데이터 유효성 검사 로그 추가
+            console.log("Report Type: ", reportType ? reportType.value : "Not Selected");
+            console.log("Reason: ", reason ? reason : "Not Entered");
 
         // 데이터 유효성 검사
-        if (!reportType || !reason) {
+        if (!reportType || reason === "") {
             alert("모든 항목을 입력해 주세요.");
             return;
         }
@@ -523,7 +536,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // 댓글 신고 시에만 comment_idx 추가
             if (typeof currentCommentIdx !== 'undefined' && currentCommentIdx !== null) {
                 reportData.comment_idx = currentCommentIdx;
+            } else {
+                reportData.comment_idx = null; // 게시글 신고 시 comment_idx를 null로 설정
             }
+
+
+        // 데이터가 올바르게 수집되었는지 확인하기 위해 콘솔에 출력
+            console.log("Report Data: ", reportData);
 
         // 서버로 전송
         sendReportData(reportData);

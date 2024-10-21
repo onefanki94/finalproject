@@ -222,6 +222,8 @@ public class communityController {
 
     @PostMapping("/submitReport")
     public ResponseEntity<String> submitReport(@RequestBody ReportDTO reportDTO) {
+
+        System.out.println("Received Report Data: " + reportDTO);
         try {
             // 데이터 저장 로직
             commuService.insertReport(reportDTO);

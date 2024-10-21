@@ -71,12 +71,8 @@
         reportDT,
         useridx
         ) VALUES (
-        <if test="comunity_idx != null">
-            #{comunity_idx, jdbcType=INTEGER},
-        </if>
-        <if test="comment_idx != null">
-            #{comment_idx, jdbcType=INTEGER},
-        </if>
+        #{comunity_idx, jdbcType=INTEGER},
+        #{comment_idx, jdbcType=INTEGER},
         #{report_type, jdbcType=INTEGER},
         #{reason, jdbcType=VARCHAR},
         #{reportDT, jdbcType=TIMESTAMP},

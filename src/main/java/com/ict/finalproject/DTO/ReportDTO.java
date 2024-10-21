@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ReportDTO {
     private int idx;
-    private int comment_idx;
+    private Integer comment_idx;
     private int review_idx;
     private int report_type;
     private String reason;
@@ -19,6 +19,6 @@ public class ReportDTO {
     private int useridx;
     private int handleState;
     private LocalDateTime handleDT;
-    private int comunity_idx;
+    private Integer comunity_idx;
 
 }
