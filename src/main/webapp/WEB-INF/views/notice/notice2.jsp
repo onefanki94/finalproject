@@ -134,7 +134,7 @@
                                 <c:if test="${pVO.hasPrevious}">
                                     <li class="pre">
                                         <a class="page-link" href="javascript:reloadPage(${pVO.nowPage - 1});">
-                                            <img src="/img/cm/left-chevron.png" style="width:20px; height:18px;" />
+                                            <img src="/img/cm/left-chevron.png" />
                                         </a>
                                     </li>
                                 </c:if>
@@ -149,7 +149,7 @@
                                 <!-- 페이지 번호 -->
                                 <c:forEach var="p" begin="${pVO.startPage}" end="${pVO.endPage}">
                                     <c:if test="${p <= pVO.totalPage}">
-                                        <li class="${p == pVO.nowPage ? 'page active' : 'page'}">
+                                        <li class="${p == pVO.nowPage ? 'page active' : 'page'} ">
                                             <a class="page-link" href="javascript:reloadPage(${p});">${p}</a>
                                         </li>
                                     </c:if>
