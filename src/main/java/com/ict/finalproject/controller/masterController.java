@@ -2,12 +2,15 @@ package com.ict.finalproject.controller;
 
 
 import com.ict.finalproject.DAO.TAdminDAO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.TAdminService;
 import com.ict.finalproject.vo.MasterVO;
 import com.ict.finalproject.vo.MemberVO;
+import com.ict.finalproject.vo.OrderListVO;
+import com.ict.finalproject.vo.PointVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
@@ -400,15 +404,6 @@ public class masterController {
     }
 
 
-
-    // Dashboard - 주문관리 - 주문내역 리스트
-    @GetMapping("/orderMasterList")
-    public ModelAndView orderMasterList() {
-        mav = new ModelAndView();
-        mav.setViewName("master/orderMasterList");
-        return mav;
-    }
-
     // Dashboard - 신고관리 - 신고목록 리스트
     @GetMapping("/reportinguserMasterList")
     public ModelAndView reportinguserListMaster() {
@@ -689,31 +684,6 @@ public class masterController {
             bodyTag += "<script>alert('공지사항 수정 중 오류가 발생했습니다. 다시 시도해 주세요.');history.back();</script>";
             return new ResponseEntity<>(bodyTag, headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-
-    //  Dashboard - 매출관리 - 일/월별 매출관리
-    @GetMapping("/orderSalesMaster")
-    public ModelAndView orderSalesMaster() {
-        mav = new ModelAndView();
-        mav.setViewName("master/orderSalesMaster");
-        return mav;
-    }
-
-    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
-    @GetMapping("/orderSalesDetailMaster")
-    public ModelAndView orderSalesDetailMaster() {
-        mav = new ModelAndView();
-        mav.setViewName("master/orderSalesDetailMaster");
-        return mav;
-    }
-
-    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
-    @GetMapping("/orderSalesDetail1Master")
-    public ModelAndView orderSalesDetail1Master() {
-        mav = new ModelAndView();
-        mav.setViewName("master/orderSalesDetail1Master");
-        return mav;
     }
 
     // Dashboard - 기타관리 - 문의사항 리스트
@@ -1152,12 +1122,14 @@ public class masterController {
     }
 
     //관리자 로그인 페이지 view
-    @GetMapping("/masterLogin")
+    
+    //필요 없어보여서 지움 -> 배송지 정보 변경 : 관리자X
+    /*@GetMapping("/masterLogin")
     public ModelAndView masterLogin() {
         mav = new ModelAndView();
         mav.setViewName("join/admin_login");
         return mav;
-    }
+    }*/
 
     // 관리자 로그인
     @PostMapping("/masterLoginOK")
@@ -1308,5 +1280,210 @@ public class masterController {
         // 이벤트 상세 정보를 가져오기 위한 서비스 호출
         MasterVO eventDetail = masterService.getEventDetail(idx);
         return eventDetail;
+    }
+
+    //채원 시작
+    // Dashboard - 주문관리 - 주문내역 리스트
+    @GetMapping("/orderMasterList")
+    public ModelAndView orderMasterList() {
+        //주문 상태 count
+        OrderStateCountDTO orderStateCount = masterService.getStateCount();
+        mav = new ModelAndView();
+        mav.addObject("orderStateCount",orderStateCount);
+        mav.setViewName("master/orderMasterList");
+        return mav;
+    }
+
+    @PostMapping("/getOrderList")
+    public ResponseEntity<Map<String, Object>> getOrderList(@RequestBody Map<String, Object> params) {
+        int page = (int) params.getOrDefault("page", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 6);
+
+        String startDate = (String) params.get("startDate");
+        String endDate = (String) params.get("endDate");
+
+        String searchType = (String) params.get("searchType");
+        String searchKeyword = (String) params.get("searchKeyword");
+
+        List<CurrentOrderDataDTO> userOrderList = masterService.getUserOrderList(page, pageSize, startDate, endDate, searchType, searchKeyword);
+        int totalOrderCount = masterService.getTotalOrderListCount(startDate, endDate, searchType, searchKeyword);
+        int totalPages = (int) Math.ceil((double) totalOrderCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("userOrderList", userOrderList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+
+        return ResponseEntity.ok(response);
+    }
+
+    //주문 상세 페이지로 이동
+    @GetMapping("/orderDetail")
+    public ModelAndView orderDetail(@RequestParam("order_idx") int order_idx) {
+        // 주문 상세 정보 데이터 가져오기
+        OrderListDTO orderDetailInfo = masterService.getDetailInfo(order_idx);
+        // 주문 상품 상세 정보 데이터 가져오기
+        List<OrderListVO> orderDetailProducts = masterService.getDetailProducts(order_idx);
+        // 상품준비중 상태가 하나라도 있는지 확인
+        boolean hasPreparingProducts = orderDetailProducts.stream().anyMatch(product -> product.getOrderState() == 2);
+        mav = new ModelAndView();
+        mav.addObject("orderDetailInfo",orderDetailInfo);
+        mav.addObject("orderDetailProducts",orderDetailProducts);
+        mav.addObject("hasPreparingProducts", hasPreparingProducts);
+        mav.setViewName("master/orderDetail");
+        return mav;
+    }
+
+    //운송장 번호 저장
+    @PostMapping("/saveTrackingNumber")
+    public ResponseEntity<String> saveTrackingNumber(@RequestBody Map<String, Object> data,
+                                                     @RequestHeader("Authorization") String Headertoken) {
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            String errorMessage = "Authorization 헤더가 없거나 잘못되었습니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+        if (token.isEmpty()) {
+            String errorMessage = "JWT 토큰이 비어 있습니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            String errorMessage = "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage();
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            String errorMessage = "유효하지 않은 JWT 토큰입니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            String errorMessage = "관리자 ID에 해당하는 인덱스를 찾을 수 없습니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        Object orderIdxObj = data.get("order_idx");
+        int order_idx = 0;
+        if (orderIdxObj instanceof String) {
+            order_idx = Integer.parseInt((String) orderIdxObj);
+        } else if (orderIdxObj instanceof Integer) {
+            order_idx = (Integer) orderIdxObj;
+        }
+        String trackingNum = (String) data.get("trackingNum");
+
+        // 운송장 번호를 데이터베이스에 저장
+        int result = masterService.saveTrackingNumber(order_idx, trackingNum);
+
+        if(result>0){
+            // orderState=3(배송시작)으로 변경
+            masterService.updatedeliOrderState(order_idx,3);
+            return ResponseEntity.ok("운송장 번호가 저장되었습니다.");
+        }else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("운송장 번호 저장 실패");
+        }
+    }
+
+    // 상태 업데이트
+    @PostMapping("/updateOrderState")
+    public ResponseEntity<String> updateOrderState(@RequestBody Map<String, Object> data,
+                                                     @RequestHeader("Authorization") String Headertoken) {
+        HttpHeaders headers = new HttpHeaders();
+
+        // Authorization 헤더 확인
+        if (Headertoken == null || !Headertoken.startsWith("Bearer ")) {
+            String errorMessage = "Authorization 헤더가 없거나 잘못되었습니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // 토큰 값에서 'Bearer ' 문자열 제거
+        String token = Headertoken.substring(7);
+        if (token.isEmpty()) {
+            String errorMessage = "JWT 토큰이 비어 있습니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        String userid;
+        try {
+            userid = jwtUtil.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
+        } catch (Exception e) {
+            e.printStackTrace();
+            String errorMessage = "JWT 토큰 파싱 중 오류가 발생했습니다: " + e.getMessage();
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        if (userid == null || userid.isEmpty()) {
+            String errorMessage = "유효하지 않은 JWT 토큰입니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        // userid로 useridx 구하기
+        Integer useridx = service.getUseridx(userid);
+        if (useridx == null) {
+            String errorMessage = "관리자 ID에 해당하는 인덱스를 찾을 수 없습니다.";
+            headers.setLocation(URI.create("/master/masterLogin"));
+            return new ResponseEntity<>(errorMessage, headers, HttpStatus.SEE_OTHER);
+        }
+
+        int idx = Integer.parseInt(data.get("idx").toString());
+        int orderState = Integer.parseInt(data.get("orderState").toString());
+
+        // 상태 업데이트
+        int result = masterService.updateOrderState(idx, orderState);
+
+        if(result>0){
+            return ResponseEntity.ok("주문 상태가 업데이트되었습니다.");
+        }else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("주문 상태 업데이트중 에러 발생");
+        }
+    }
+
+    @GetMapping("/orderSalesMaster")
+    public ModelAndView orderSalesMaster() {
+        mav = new ModelAndView();
+        mav.setViewName("master/orderSalesMaster");
+        return mav;
+    }
+
+
+    //매출 내역 리스트
+    @PostMapping("/getSalesList")
+    public ResponseEntity<Map<String, Object>> getSalesList(@RequestBody Map<String, Object> params) {
+        int page = (int) params.getOrDefault("page", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 6);
+
+        String startDate = (String) params.get("startDate");
+        String endDate = (String) params.get("endDate");
+
+        List<SalesListDTO> salesList = masterService.getSalesList(page, pageSize, startDate, endDate);
+        int totalOrderCount = masterService.getTotalSalesListCount(startDate, endDate);
+        int totalPages = (int) Math.ceil((double) totalOrderCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("salesList", salesList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+
+        return ResponseEntity.ok(response);
     }
 }

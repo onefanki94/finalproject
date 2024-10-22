@@ -1,6 +1,8 @@
 package com.ict.finalproject.DAO;
 
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.MasterVO;
+import com.ict.finalproject.vo.OrderListVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -147,4 +149,34 @@ public interface MasterDAO {
     int insertEvent(MasterVO event);
     List<MasterVO> getEventList();
     public MasterVO getEventDetail(int idx);
+
+    // 채원 시작
+    // 주문 상품 데이터 불러오기
+    List<CurrentOrderDataDTO> getUserOrderList(@Param("pageSize") int pageSize,
+                                               @Param("offset") int offset,
+                                               @Param("startDate") String startDate,
+                                               @Param("endDate") String endDate,
+                                               @Param("searchType") String searchType,
+                                               @Param("searchKeyword") String searchKeyword);
+    int getTotalOrderListCount(@Param("startDate") String startDate,
+                               @Param("endDate") String endDate,
+                               @Param("searchType") String searchType,
+                               @Param("searchKeyword") String searchKeyword);
+    OrderStateCountDTO getStateCount();
+    // 주문 상세정보 데이터
+    OrderListDTO getDetailInfo(int order_idx);
+    List<OrderListVO> getDetailProducts(int order_idx);
+    // 운송장 번호 저장
+    int saveTrackingNumber(int order_idx, String trackingNum);
+    // 배송시작으로 상태 변경
+    void updatedeliOrderState(int order_idx, int state);
+    // 주문 상태 변경
+    int updateOrderState(int idx, int orderState);
+    // 매출내역
+    List<SalesListDTO> getSalesList(@Param("pageSize") int pageSize,
+                                    @Param("offset") int offset,
+                                    @Param("startDate") String startDate,
+                                    @Param("endDate") String endDate);
+    int getTotalSalesListCount(@Param("startDate") String startDate,
+                               @Param("endDate") String endDate);
 }

@@ -1,6 +1,8 @@
 package com.ict.finalproject.Service;
 
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.MasterVO;
+import com.ict.finalproject.vo.OrderListVO;
 import com.ict.finalproject.vo.StoreVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -68,4 +70,22 @@ public interface MasterService {
     void addEvent(MasterVO event);
     List<MasterVO> getEventList();
     public MasterVO getEventDetail(int idx);
+
+    // 채원 시작
+    // 주문 상품 데이터 불러오기
+    List<CurrentOrderDataDTO> getUserOrderList(int page, int pageSize,String startDate, String endDate, String searchType, String searchKeyword);
+    int getTotalOrderListCount(String startDate, String endDate, String searchType, String searchKeyword);
+    OrderStateCountDTO getStateCount();
+    // 주문 상세정보 데이터
+    OrderListDTO getDetailInfo(int order_idx);
+    List<OrderListVO> getDetailProducts(int order_idx);
+    // 운송장 번호 저장
+    int saveTrackingNumber(int order_idx, String trackingNum);
+    // 배송시작으로 상태 변경
+    void updatedeliOrderState(int order_idx, int state);
+    // 주문 상태 변경
+    int updateOrderState(int idx, int orderState);
+    // 매출 내역
+    List<SalesListDTO> getSalesList(int page, int pageSize, String startDate, String endDate);
+    int getTotalSalesListCount(String startDate, String endDate);
 }
