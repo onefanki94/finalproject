@@ -1,6 +1,8 @@
 body {
     margin: 130px 0 0 0;
     background-color: #F4F2EF;
+    font-family: var(--e-font), var(--k-font);
+    animation: none;
 }
 
 a:link,

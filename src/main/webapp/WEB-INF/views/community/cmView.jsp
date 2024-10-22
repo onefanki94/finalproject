@@ -15,7 +15,14 @@ var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변�
 var userid;
 var currentCommIdx;// 현재 페이지의 comm_idx를 전역 변수로 설정
 
-window.onload = function(){
+setTimeout(function() {
+
+
+    // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
+    checkLoginStatusForCommunity();
+}, 400);
+
+ function checkLoginStatusForCommunity(){
     console.log("호출");
 
     var token = localStorage.getItem("token"); //토근 값 가져오기

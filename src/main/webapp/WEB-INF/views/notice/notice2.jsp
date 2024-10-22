@@ -16,6 +16,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
 <script src="/ckeditor/ckeditor.js"></script>
 <link href="/css/notice2.css" rel="stylesheet" type="text/css">
+
 </link>
 </head>
 
@@ -255,7 +256,7 @@
                                 <!-- 아이디는 로그인된 사용자 아이디를 서버에서 불러와 표시 -->
                                 <tr>
                                     <th>아이디</th>
-                                    <td><span class="user-id">${userid}</span></td>
+                                    <td><span class="user-id" id="userid">{userid}</span></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
@@ -309,9 +310,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
     </div>
@@ -319,6 +317,18 @@
 
 
 <script>
+var token;
+var userid;
+var useridx;
+
+
+//로그인한 아이디값 불러오기
+setTimeout(function() {
+    checkLoginStatus() ;
+  // userid를 업데이트한 후에 DOM에 값을 설정
+    document.getElementById("userid").innerText = userid;
+},700);
+
 //로그인 상태 확인 함수
 function checkLoginStatus() {
 
@@ -338,6 +348,8 @@ function checkLoginStatus() {
                 type: "get",
                 data: { Authorization: token },
                 success: function(vo) {
+                    userid = vo.userid;
+                    useridx = vo.useridx;
                     loginDiv.innerHTML = `
                         <button id="login_btn" onclick="location.href='/user/mypage'">마이페이지</button>
                         <button id="login_btn" onclick="logout()">로그아웃</button>
@@ -537,6 +549,15 @@ function submitInquiry() {
         // 파일 추가
         for (let i = 0; i < files.length; i++) {
             formData.append('file', files[i]);
+        }
+
+        // 로컬 스토리지에서 JWT 토큰 가져오기
+        const token = localStorage.getItem("token");
+        console.log(token);
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            location.href = "/user/login";
+            return false;
         }
 
         // 서버로 전송할 데이터를 FormData 객체에 추가
