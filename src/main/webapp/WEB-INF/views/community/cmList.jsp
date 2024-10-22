@@ -200,10 +200,17 @@ function showTab(commtype) {
 
 // 검색 폼 제출 후 검색어 입력 필드를 초기화하는 함수
 function submitSearchForm() {
-    document.getElementById("searchForm").submit();
-
-    // 폼 제출 후 검색어 필드 초기화
+    // 검색어 필드 초기화
     document.getElementById("searchKeyword").value = '';
+
+    // 검색 카테고리 초기화
+    var searchCategoryElement = document.getElementById("selectCategory");
+    if (searchCategoryElement) {
+        searchCategoryElement.selectedIndex = 0; // 검색 카테고리 초기화
+    }
+
+    // 폼을 제출합니다.
+    document.getElementById("searchForm").submit();
 }
 
 function reloadPage(page) {

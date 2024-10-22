@@ -112,7 +112,7 @@
                         </div>
 
                         <!-- 공지사항 리스트 반복 출력 -->
-                            <c:forEach var="notice" items="${notices}">
+                            <c:forEach var="notice" items="${list}">
                                 <div class="row">
                                     <div class="col-sm-1 p-2">${notice.idx}</div>
                                     <div class="col-sm-8 p-2">
@@ -129,19 +129,48 @@
                     <!-- 페이지네이션 -->
                         <div class="pagination">
                             <ul class="paging">
-                                <c:if test="${paging.hasPrevious}">
-                                    <li><a href="?page=${paging.nowPage - 1}&tag=${selectedTag}&keyword=${keyword}">&lt;</a></li>
+
+                                <!-- 이전 페이지 버튼 -->
+                                <c:if test="${pVO.hasPrevious}">
+                                    <li class="pre">
+                                        <a class="page-link" href="javascript:reloadPage(${pVO.nowPage - 1});">
+                                            <img src="/img/cm/left-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${!pVO.hasPrevious}">
+                                    <li class="pre disabled">
+                                        <a class="page-link" href="javascript:void(0);">
+                                            <img src="/img/cm/left-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
                                 </c:if>
 
-                                <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-                                    <li class="<c:if test='${paging.nowPage == i}'>active</c:if>">
-                                        <a href="?page=${i}&tag=${selectedTag}&keyword=${keyword}">${i}</a>
-                                    </li>
+                                <!-- 페이지 번호 -->
+                                <c:forEach var="p" begin="${pVO.startPage}" end="${pVO.endPage}">
+                                    <c:if test="${p <= pVO.totalPage}">
+                                        <li class="${p == pVO.nowPage ? 'page active' : 'page'}">
+                                            <a class="page-link" href="javascript:reloadPage(${p});">${p}</a>
+                                        </li>
+                                    </c:if>
                                 </c:forEach>
 
-                                <c:if test="${paging.hasNext}">
-                                    <li><a href="?page=${paging.nowPage + 1}&tag=${selectedTag}&keyword=${keyword}">&gt;</a></li>
+                                <!-- 다음 페이지 버튼 -->
+                                <c:if test="${pVO.hasNext}">
+                                    <li class="next">
+                                        <a class="page-link" href="javascript:reloadPage(${pVO.nowPage + 1});">
+                                            <img src="/img/cm/right-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
                                 </c:if>
+                                <c:if test="${!pVO.hasNext}">
+                                    <li class="next disabled">
+                                        <a class="page-link" href="javascript:void(0);">
+                                            <img src="/img/cm/right-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
+                                </c:if>
+
                             </ul>
                         </div>
 

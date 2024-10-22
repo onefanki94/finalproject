@@ -11,9 +11,8 @@ public class PagingVO {
     private boolean hasPrevious;  // 이전 페이지가 있는지 여부
     private boolean hasNext;      // 다음 페이지가 있는지 여부
 
-    //노티 필드
+    //공지사항 필드
     private String keyword;     // 검색어
-    private int faqtype;        // FAQ 타입
 
     //커뮤 필드
     private String commtype;       // 커뮤니티 타입
@@ -52,9 +51,8 @@ public class PagingVO {
     }
 
     // 공지사항 설정 메서드
-    public void setForNotice(String keyword, int faqtype) {
+    public void setForNotice(String keyword) {
         this.keyword = keyword;
-        this.faqtype = faqtype;
     }
 
 
@@ -77,8 +75,6 @@ public class PagingVO {
     public void setHasNext(boolean hasNext) { this.hasNext = hasNext; }
     public String getKeyword() { return keyword; }
     public void setKeyword(String keyword) { this.keyword = keyword; }
-    public int getFaqtype() { return faqtype; }
-    public void setFaqtype(int faqtype) { this.faqtype = faqtype; }
 
     public String getCommtype() {return commtype; }
     public void setCommtype(String commtype) {this.commtype = commtype; }
