@@ -3,6 +3,7 @@ package com.ict.finalproject.DAO;
 import com.ict.finalproject.DTO.BasketDTO;
 import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
+import com.ict.finalproject.vo.ReviewVO;
 import com.ict.finalproject.vo.StoreVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -42,6 +43,12 @@ public interface StoreDAO {
     public String getCategoryType(int categoryCode);
     //별점 가져오기
     Double getAverageRating(int productId);
+
+    //리뷰 총 개수 가져오기
+    int getReviewCount(int productId);
+
+    //리뷰 리스트 가져오기
+    List<ReviewVO> getReviewsByProductId(int productId);  // 특정 상품의 리뷰 목록 가져오기
 
 
     //채원

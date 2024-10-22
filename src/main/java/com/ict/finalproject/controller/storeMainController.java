@@ -5,10 +5,7 @@ import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.NoticeService;
 import com.ict.finalproject.Service.StoreService;
-import com.ict.finalproject.vo.BasketVO;
-import com.ict.finalproject.vo.NoticeVO;
-import com.ict.finalproject.vo.ProductFilterVO;
-import com.ict.finalproject.vo.StoreVO;
+import com.ict.finalproject.vo.*;
 import jakarta.servlet.ServletContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,9 +222,19 @@ public class storeMainController {
                 averageRating = 0.0;  // 리뷰가 없으면 기본값 0.0
             }
 
+            // 6. 해당 상품에 대한 리뷰 수 가져오기
+            int reviewCount = storeService.getReviewCount(storeId);
+
+            // 7. 해당 상품에 대한 리뷰 목록 가져오기
+            List<ReviewVO> reviews = storeService.getReviewsByProductId(storeId);
+
+
             mav.addObject("storeDetail", storeDetail);
             mav.addObject("categoryType", categoryType);
             mav.addObject("averageRating", averageRating);  // 리뷰 평점 추가
+            mav.addObject("reviewCount", reviewCount);  // 리뷰 수 추가
+            mav.addObject("reviews", reviews);  // 리뷰 목록 추가
+
             return mav;
         }
 

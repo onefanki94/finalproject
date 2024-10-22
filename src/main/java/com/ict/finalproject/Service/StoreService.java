@@ -3,6 +3,7 @@ package com.ict.finalproject.Service;
 import com.ict.finalproject.DTO.BasketDTO;
 import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
+import com.ict.finalproject.vo.ReviewVO;
 import com.ict.finalproject.vo.StoreVO;
 
 import org.apache.ibatis.annotations.Param;
@@ -46,6 +47,11 @@ public interface StoreService {
 
     // 평점의 평균을 가져오는 메서드
     Double getAverageRating(int productId);
+
+    // 리뷰 총 개수 가져오기
+    int getReviewCount(int productId);
+    // 리뷰 가져오기
+    List<ReviewVO> getReviewsByProductId(int productId);  // 특정 상품의 리뷰 목록 가져오기
 
 
     //채원

@@ -4,6 +4,7 @@ import com.ict.finalproject.DAO.StoreDAO;
 import com.ict.finalproject.DTO.BasketDTO;
 import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
+import com.ict.finalproject.vo.ReviewVO;
 import com.ict.finalproject.vo.StoreVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,17 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Double getAverageRating(int productId) {
         return dao.getAverageRating(productId);  // DAO에서 평균 평점을 가져옴
+    }
+
+
+    @Override
+    public int getReviewCount(int productId) {
+        return dao.getReviewCount(productId);
+    }
+
+    @Override
+    public List<ReviewVO> getReviewsByProductId(int productId) {
+        return dao.getReviewsByProductId(productId);
     }
 
 

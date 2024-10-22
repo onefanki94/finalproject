@@ -204,7 +204,7 @@
        </div>
         <div class="total-reviews">
             <h3>전체 리뷰수</h3>
-            <div class="review-count">${reviews.size()}</div>
+            <div class="review-count">${reviewCount}</div>
         </div>
     </div>
 

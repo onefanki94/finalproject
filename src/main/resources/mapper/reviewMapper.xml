@@ -2,17 +2,31 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.StoreDAO">
-
+    <!-- 별점 가져오기 -->
     <select id="getAverageRating" parameterType="int" resultType="double">
         SELECT AVG(grade)
         FROM t_review
         WHERE orderList_idx IN (
         SELECT idx
         FROM t_orderlist
-        WHERE pro_idx = #{productId}
+        WHERE pro_idx = #{storeId}
         )
     </select>
+    <!--리뷰 갯수 가져오기-->
+    <select id="getReviewCount" parameterType="int" resultType="int">
+        SELECT COUNT(r.orderList_idx) AS reviewCount
+        FROM T_review r
+        JOIN T_orderList ol ON r.orderList_idx = ol.idx
+        JOIN T_product p ON ol.pro_idx = p.idx
+        WHERE p.idx = #{storeId};
+    </select>
 
+    <!-- 리뷰 리스트 가져오기-->
+    <select id="getReviewsByProductId" parameterType="int" resultType="com.ict.finalproject.vo.ReviewVO">
+        SELECT useridx, content, grade, imgfile1, imgfile2, regDT
+        FROM t_review
+        WHERE orderList_idx = #{productId}
+    </select>
 
 
 </mapper>
