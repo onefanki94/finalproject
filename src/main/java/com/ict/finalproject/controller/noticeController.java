@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @Slf4j
@@ -207,6 +203,24 @@ public class noticeController {
         }
     }
 
+    @PostMapping("/notice2/tap2")
+    @ResponseBody
+    public Map<String, Object> tap2(@RequestParam("type")String type){
+        List<NoticeVO>list = new ArrayList<>();
+
+        System.out.println("완요?");
+        System.out.println(type);
+        Map<String, Object> map = new HashMap<>();
+
+        if(type == ""){
+            list = noticeService.getFaqs(); //전체
+        }else{
+            list = noticeService.getSearchFas(type);
+        }
+        System.out.println(list);
+        map.put("list",list);
+        return map;
+    }
 
 
 

@@ -26,6 +26,15 @@
         ORDER BY f.regDT DESC
     </select>
 
+    <select id="getSearchFas" resultType="NoticeVO">
+        SELECT f.*, ft.type
+        FROM t_faq f
+        JOIN t_faqtype ft ON f.faqtype = ft.code
+        WHERE ft.type = #{param1}
+        ORDER BY f.regDT DESC
+    </select>
+
+
 
     <!-- 1:1 문의 등록 -->
     <insert id="saveQna" parameterType="com.ict.finalproject.vo.QnaVO">

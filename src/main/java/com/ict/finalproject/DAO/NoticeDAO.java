@@ -19,6 +19,9 @@ public interface NoticeDAO {
     // FAQ 목록 가져오는 메서드 (페이징 없이)
     List<NoticeVO> getFaqs();  // FAQ 리스트
 
+    //
+    List<NoticeVO> getSearchFas(String type);
+
     // 1:1문의 메서드 추가
     int saveQna(QnaVO qna);
     QnaVO getQnaByIdx(int idx);
