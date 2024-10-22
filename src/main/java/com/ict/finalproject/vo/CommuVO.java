@@ -12,6 +12,7 @@ import java.util.Date;
 public class CommuVO {
     private int idx;
     private int useridx;
+    private String userid; // 사용자 ID 추가
     private String title;
     private String content;
     private String regDT;

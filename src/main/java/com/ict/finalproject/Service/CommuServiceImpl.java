@@ -1,7 +1,9 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.CommuDAO;
+import com.ict.finalproject.DTO.ReportDTO;
 import com.ict.finalproject.vo.CommuVO;
+import com.ict.finalproject.vo.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +23,25 @@ public class CommuServiceImpl implements CommuService {
     }
 
     @Override
-    public List<CommuVO> List(String commtype) {
-        return commuDAO.List(commtype);
+    public List<CommuVO> getCommuList(PagingVO pagingVO) {
+        return commuDAO.getCommuList(pagingVO);
     }
 
     @Override
-    public List<CommuVO> FilteredList(String commtype, String orderBy, String searchCategory, String searchKeyword) {
-        return commuDAO.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
+    public int getTotalCount(PagingVO pagingVO) {
+        return commuDAO.getTotalCount(pagingVO);
     }
+
+
+    //@Override
+    //public List<CommuVO> List(String commtype) {
+        //return commuDAO.List(commtype);
+    //}
+
+    //@Override
+    //public List<CommuVO> FilteredList(String commtype, String orderBy, String searchCategory, String searchKeyword) {
+        //return commuDAO.FilteredList(commtype, orderBy, searchCategory, searchKeyword);
+    //}
 
     @Override
     public CommuVO Detail(int idx) {
@@ -59,6 +72,11 @@ public class CommuServiceImpl implements CommuService {
     @Override
     public int Delete(int idx) {
         return commuDAO.Delete(idx);
+    }
+
+    @Override
+    public int insertReport(ReportDTO reportDTO) {
+        return commuDAO.insertReport(reportDTO);
     }
 
 

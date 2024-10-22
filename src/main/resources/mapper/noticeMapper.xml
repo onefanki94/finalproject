@@ -18,19 +18,14 @@
         AND delState = 0
     </select>
 
-    <!-- FAQ 조회 쿼리 -->
-    <select id="getFaqs" parameterType="PagingVO" resultType="NoticeVO">
+    <!-- FAQ 목록을 가져오는 쿼리 (삭제 상태 체크 없음) -->
+    <select id="getFaqs" resultType="NoticeVO">
         SELECT f.*, ft.type
         FROM t_faq f
         JOIN t_faqtype ft ON f.faqtype = ft.code
-        WHERE f.adminidx = 2
         ORDER BY f.regDT DESC
-        LIMIT #{offset}, #{size}
     </select>
 
-    <select id="getTotalFaqCount" parameterType="PagingVO" resultType="int">
-        SELECT COUNT(*) FROM t_faq
-    </select>
 
     <!-- 1:1 문의 등록 -->
     <insert id="saveQna" parameterType="com.ict.finalproject.vo.QnaVO">
