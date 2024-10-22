@@ -228,49 +228,44 @@ function reloadPage(page) {
 var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
 var userid;
 
-window.onload = function(){
-    // console.log("호출");
+window.onload = function() {
+    // 헤더의 로그인 상태 확인 함수 호출
+    checkLoginStatus();
 
-    var token = localStorage.getItem("token"); //토근 값 가져오기
-    if(token != "" && token != null){
+    // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
+    checkLoginStatusForCommunity();
+};
+
+// 커뮤니티 페이지 전용 로그인 상태 확인 함수
+function checkLoginStatusForCommunity() {
+    var token = localStorage.getItem("token"); // 토큰 값 가져오기
+    if (token && token.trim() !== "") { // 토큰이 존재하는지 확인
         $.ajax({
-            url:"/getuser",
-            type:"get",
-            data:{Authorization:token},
-            success: function(vo){
-                // console.log("로그인된 사용자 ID:" + userid);
-
+            url: "/getuser",
+            type: "get",
+            data: { Authorization: token },
+            success: function(vo) {
                 userid = vo.userid;
                 useridx = vo.idx;
 
-                // console.log(userid);
-                // console.log(useridx);
-
-                userid = userid;
-                    if(userid && userid.trim() !== ""){
-                        //로그인 상태일 때 글쓰기 버튼을 표시
-                        document.querySelector(".new_write").style.display ="block";
-                    }else{
-                        //로그인되지 않은 상태일 때 글쓰기 버튼을 숨김
-                        document.querySelector(".new_wrtie").style.display= "none";
-                    }
-                },
-                error: function(){
-                    console.error("로그인 여부 확인 실패");
-                    document.querySelector(".new_write").style.display = "none"
+                if (userid && userid.trim() !== "") {
+                    // 로그인 상태일 때 글쓰기 버튼을 표시
+                    document.querySelector(".new_write").style.display = "block";
+                } else {
+                    // 로그인되지 않은 상태일 때 글쓰기 버튼을 숨김
+                    document.querySelector(".new_write").style.display = "none";
                 }
+            },
+            error: function() {
+                console.error("로그인 여부 확인 실패");
+                document.querySelector(".new_write").style.display = "none";
+            }
         });
-    }else{
-        //토큰이 없을 때 글쓰기 버튼 숨김
-        document.querySelector(".new_write").style.display ="none";
+    } else {
+        // 토큰이 없을 때 글쓰기 버튼 숨김
+        document.querySelector(".new_write").style.display = "none";
     }
-
-
-
-
-
-
-};
+}
 
 </script>
 
