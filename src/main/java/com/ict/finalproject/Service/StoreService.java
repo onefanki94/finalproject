@@ -44,6 +44,10 @@ public interface StoreService {
 
     public String getCategoryType(int categoryCode);
 
+    // 평점의 평균을 가져오는 메서드
+    Double getAverageRating(int productId);
+
+
     //채원
     //장바구니에 상품 있는지 체크
     int checkProductInBasket(BasketVO basketvo);

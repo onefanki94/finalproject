@@ -40,6 +40,8 @@ public interface StoreDAO {
     public List<StoreVO> getStoreWithPopularity(Map<String, Object> params);
 
     public String getCategoryType(int categoryCode);
+    //별점 가져오기
+    Double getAverageRating(int productId);
 
 
     //채원

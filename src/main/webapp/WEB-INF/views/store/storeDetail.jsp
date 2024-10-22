@@ -191,17 +191,17 @@
 
     <!-- 사용자 총 평점과 전체 리뷰수 섹션 -->
     <div class="review-summary">
-        <div class="average-rating">
-            <h3>사용자 총 평점</h3>
-            <div class="stars">
-                <c:forEach var="i" begin="1" end="5">
-                    <span class="${i <= averageRating ? 'filled-star' : 'empty-star'}">★</span>
-                </c:forEach>
-            </div>
-            <div class="rating-number">
-                ${averageRating} <small>/5</small>
-            </div>
-        </div>
+       <div class="average-rating">
+           <h3>사용자 총 평점</h3>
+           <div class="stars">
+               <c:forEach var="i" begin="1" end="5">
+                   <span class="${i <= averageRating ? 'filled-star' : 'empty-star'}">★</span>
+               </c:forEach>
+           </div>
+           <div class="rating-number">
+               ${averageRating} <small>/5</small>
+           </div>
+       </div>
         <div class="total-reviews">
             <h3>전체 리뷰수</h3>
             <div class="review-count">${reviews.size()}</div>
