@@ -90,20 +90,6 @@
                         <button type="button" id="btnSearch">검색</button>
                     </div>
                 </div>
-
-                <div class="tags">
-
-                    <h2 class="search-tags">
-                                        <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
-                                        <a class="${selectedTag == '쇼핑' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('쇼핑')">#쇼핑</a>
-                                        <a class="${selectedTag == '계정' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('계정')">#계정</a>
-                                        <a class="${selectedTag == '포인트' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('포인트')">#포인트</a>
-                                        <a class="${selectedTag == '애니' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('애니')">#애니</a>
-                                        <a class="${selectedTag == '서비스' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('서비스')">#서비스</a>
-                                    </h2>
-                </div>
-
-
             </div>
 
             <!-- 공지사항 리스트 -->
@@ -185,38 +171,43 @@
                 <!-- 자주 묻는 질문 -->
                 <div class="content" id="tap2">
                     <div class="FAQList">
+                        <h2 class="search-tags">
+                            <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
+                            <a class="${selectedTag == '쇼핑' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('쇼핑')">#쇼핑</a>
+                            <a class="${selectedTag == '계정' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('계정')">#계정</a>
+                            <a class="${selectedTag == '포인트' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('포인트')">#포인트</a>
+                            <a class="${selectedTag == '애니' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('애니')">#애니</a>
+                            <a class="${selectedTag == '서비스' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('서비스')">#서비스</a>
+                        </h2>
+                            <div class="f_header" style="height:auto; overflow:hidden; text-align:center;">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="customer_table2">
+                                    <colgroup>
+                                        <col width="20">
+                                        <col width="*">
+                                    </colgroup>
+                                    <tbody id="faqtag">
+                                        <!-- FAQ 리스트 반복 출력 -->
+                                        <c:forEach var="faq" items="${faqs}">
+                                            <tr class="faq-question" style="cursor:pointer;">
+                                                <td>Q</td>
+                                                <td>
+                                                    ${faq.question}  <!-- 질문 내용 -->
+                                                    <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
+                                                </td>
+                                            </tr>
 
-                        <div class="f_header" style="height:auto; overflow:hidden; text-align:center;">
-
-
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="customer_table2">
-                                <colgroup>
-                                    <col width="20">
-                                    <col width="*">
-                                </colgroup>
-                                <tbody id="faqtag">
-                                    <!-- FAQ 리스트 반복 출력 -->
-                                    <c:forEach var="faq" items="${faqs}">
-                                        <tr class="faq-question" style="cursor:pointer;">
-                                            <td>Q</td>
-                                            <td>
-                                                ${faq.question}  <!-- 질문 내용 -->
-                                                <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
-                                            </td>
-                                        </tr>
-
-                                        <!-- 답변 항목 (초기에는 숨김 처리) -->
-                                        <tr class="faq-answer" style="display: none;">
-                                            <td colspan="2">
-                                                <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
-                                                    <p>A. ${faq.answer}</p> <!-- 답변 내용 -->
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                                            <!-- 답변 항목 (초기에는 숨김 처리) -->
+                                            <tr class="faq-answer" style="display: none;">
+                                                <td colspan="2">
+                                                    <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
+                                                        <p>A. ${faq.answer}</p> <!-- 답변 내용 -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
                     </div>
                 </div>
 
@@ -430,7 +421,7 @@ function checkLoginStatus() {
 
     // 검색바 표시/숨기기 함수
     function toggleSearchBar(show) {
-        document.querySelector('.search').style.display = show ? 'block' : 'none';
+        document.querySelector('.tools').style.display = show ? 'block' : 'none';
     }
 
     // 탭 전환 시 검색바 처리
@@ -454,34 +445,9 @@ function checkLoginStatus() {
     // 페이지 로드 시 검색바 고정 (공지사항 탭에서 시작할 경우)
     toggleSearchBar(true);  // 페이지 로드 시 항상 공지사항에는 검색바가 표시
 
+    //여기에 이벤트 펑션없이
 
-
-    // 자주 묻는 질문 모든 질문 항목에 대해 클릭 이벤트 추가
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.addEventListener('click', function () {
-            // 현재 질문의 다음 요소(답변)를 가져옴
-            const answer = this.nextElementSibling;
-
-            console.log("list");
-            // 모든 답변을 숨기고 아이콘을 초기화
-            document.querySelectorAll('.faq-answer').forEach(ans => {
-                if (ans !== answer) ans.style.display = 'none';
-            });
-
-            document.querySelectorAll('.toggle-icon').forEach(icon => {
-                icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
-            });
-
-            // 현재 답변을 보이거나 숨기기
-            answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
-
-            // 아이콘 변경
-            const icon = this.querySelector('.toggle-icon');
-            icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
-        });
-    });
-
-    //자주 묻는 목록 tag 항목에 대해 클릭 이벤트 추가
+    //자주 묻는 목록 항목에 대해 클릭 이벤트 추가
     function test(){
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', function () {
@@ -508,9 +474,28 @@ function checkLoginStatus() {
         });
     }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        // 기본값으로 #전체 태그에 'on' 클래스 추가
+        const defaultTag = document.querySelector('.search-tags a');
+        if (defaultTag) {
+            defaultTag.classList.add('on');
+        }
+    });
+
 
     //자주 묻는 질문 태그로 검색
     function filterByTag(type){
+
+        // 모든 태그에서 'on' 클래스를 제거
+        document.querySelectorAll('.search-tags a').forEach(tag => {
+            tag.classList.remove('on');
+        });
+
+        // 클릭한 태그에 'on' 클래스 추가
+        const selectedTag = Array.from(document.querySelectorAll('.search-tags a')).find(tag => tag.textContent.includes(type) || (type === '' && tag.textContent.includes('전체')));
+        if (selectedTag) {
+            selectedTag.classList.add('on');
+        }
 
         $.ajax({
             url:"/notice2/tap2",

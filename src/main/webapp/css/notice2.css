@@ -226,7 +226,7 @@ a:hover {
 
 
 .search input {
-    margin-left:4px;
+    margin:0 4px 0 4px;
     width: 300px;
     box-sizing: border-box;
     font-size: 12px;
@@ -244,7 +244,6 @@ a:hover {
     height: 47px;
     border-radius: 5px;
     border: 1px solid #565656;
-    position: absolute;
     right: 0;
     top: 0;
     font-size: 14px;
@@ -333,11 +332,17 @@ a:hover {
     right: 20px;
 }
 
-
-
 img {
     max-width: 100%;
 }
+
+/* 선택된 태그에 대한 스타일 정의 */
+.search-tags a.on {
+    color: #ff5d24;
+    margin-bottom:20px;
+}
+
+
 
 
 /* 전체 레이아웃 스타일 */
