@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@include file="/WEB-INF/inc/main_header.jspf"%>
+<%@include file="/WEB-INF/inc/page_header.jspf"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -319,42 +319,53 @@
 
 
 <script>
-window.onload = function(){
+//로그인 상태 확인 함수
+function checkLoginStatus() {
 
-    var token = localStorage.getItem("token"); // 토큰 값 가져오기
-    if(token != "" && token != null){
-        $.ajax({
-            url: "/getuser",
-            type: "get",
-            data:{Authorization:token},
-            success: function(vo){
-                document.querySelector('.user-id').innerText = vo.userid;
-                console.log("로그인된 사용자 ID:" + vo.userid);
+    const token = localStorage.getItem("token");
+        const loginDiv = document.querySelector(".sh_login");
 
-                userid = vo.userid;
-                useridx = vo.idx;
+        if (!loginDiv) {
+            console.error(".sh_login 요소를 찾을 수 없습니다.");
+            return;
+        }
 
-                console.log(userid);
-                console.log(useridx);
-            },
-            error: function(){
-                console.error("로그인 여부 확인 실패");
-            }
-        });
-    }
+        if (!token) {
+            loginDiv.innerHTML = `<button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>`;
+        } else {
+            $.ajax({
+                url: "/getuser",
+                type: "get",
+                data: { Authorization: token },
+                success: function(vo) {
+                    loginDiv.innerHTML = `
+                        <button id="login_btn" onclick="location.href='/user/mypage'">마이페이지</button>
+                        <button id="login_btn" onclick="logout()">로그아웃</button>
+                    `;
+                    document.querySelector('.user-id').innerText = vo.userid; // 사용자 아이디 업데이트
+                },
+                error: function() {
+                    console.error("로그인 여부 확인 실패");
+                    loginDiv.innerHTML = `<button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>`;
+                }
+            });
+        }
+    };
 
     // tap3 탭 클릭 시 로그인 여부 확인
-        document.querySelector('.notice_tab .list li:nth-child(3) .btn').addEventListener('click', function() {
-            if (!token) { // 토큰이 없으면
-                alert('로그인이 필요합니다.');
-                location.href = "/user/login"; // 로그인 페이지로 이동
-                return; // 이후 코드 실행 중단
-            }
+    document.querySelector('.notice_tab .list li:nth-child(3) .btn').addEventListener('click', function() {
+        const token = localStorage.getItem("token"); // 토큰 값 가져오기
 
-            // 로그인된 사용자는 tap3의 콘텐츠에 접근 가능
-            console.log('1:1 문의하기 탭에 접근했습니다.');
-        });
-};
+        if (!token) { // 토큰이 없으면
+            alert('로그인이 필요합니다.');
+            location.href = "/user/login"; // 로그인 페이지로 이동
+            return; // 이후 코드 실행 중단
+        }
+
+        // 로그인된 사용자는 tap3의 콘텐츠에 접근 가능
+        console.log('1:1 문의하기 탭에 접근했습니다.');
+    });
+
 
 
     // 공지사항 탭 클릭 시 필터 초기화하고 전체 목록 요청
@@ -426,49 +437,49 @@ window.onload = function(){
 
 
     // 모든 질문 항목에 대해 클릭 이벤트 추가
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', function () {
-                // 현재 질문의 다음 요소(답변)를 가져옴
-                const answer = this.nextElementSibling;
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function () {
+            // 현재 질문의 다음 요소(답변)를 가져옴
+            const answer = this.nextElementSibling;
 
-                // 모든 답변을 숨기고 아이콘을 초기화
-                document.querySelectorAll('.faq-answer').forEach(ans => {
-                    if (ans !== answer) ans.style.display = 'none';
-                });
-
-                document.querySelectorAll('.toggle-icon').forEach(icon => {
-                    icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
-                });
-
-                // 현재 답변을 보이거나 숨기기
-                answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
-
-                // 아이콘 변경
-                const icon = this.querySelector('.toggle-icon');
-                icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
+            // 모든 답변을 숨기고 아이콘을 초기화
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                if (ans !== answer) ans.style.display = 'none';
             });
-        });
 
+            document.querySelectorAll('.toggle-icon').forEach(icon => {
+                icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
+            });
 
+            // 현재 답변을 보이거나 숨기기
+            answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
 
-
-
-//탭1_공지사항_모달
-function setNoticeTitleClickEvents() {
-    document.querySelectorAll('.noticeTitle').forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault(); // 링크 기본 동작 방지
-
-            // 모달 내용 업데이트
-            const title = this.getAttribute('data-title');
-            const content = this.getAttribute('data-content');
-
-            document.getElementById('modalTitle').innerHTML = title;
-            document.getElementById('modalContent').innerHTML = content;
-            document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
+            // 아이콘 변경
+            const icon = this.querySelector('.toggle-icon');
+            icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
         });
     });
-}
+
+
+
+
+
+    //탭1_공지사항_모달
+    function setNoticeTitleClickEvents() {
+        document.querySelectorAll('.noticeTitle').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault(); // 링크 기본 동작 방지
+
+                // 모달 내용 업데이트
+                const title = this.getAttribute('data-title');
+                const content = this.getAttribute('data-content');
+
+                document.getElementById('modalTitle').innerHTML = title;
+                document.getElementById('modalContent').innerHTML = content;
+                document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
+            });
+        });
+    }
 
 // 모달 닫기 이벤트 설정
 document.querySelector('.detail_layer_close').addEventListener('click', function () {
@@ -517,56 +528,47 @@ function submitInquiry() {
     let title = document.querySelector('.inquiry-title').value;
     let content = document.querySelector('.inquiry-content').value;
     let files = document.querySelector('.inquiry-attachment').files;
- console.log("1", Array.from(formData.entries()));
-    // FormData에 입력 값 추가
-    formData.append("qnatype", qnatype);
-    formData.append("title", title);
-    formData.append("content", content);
+     console.log("1", Array.from(formData.entries()));
+        // FormData에 입력 값 추가
+        formData.append("qnatype", qnatype);
+        formData.append("title", title);
+        formData.append("content", content);
 
-    // 파일 추가
-    for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i]);
-    }
-
-    // 로컬 스토리지에서 JWT 토큰 가져오기
-    const token = localStorage.getItem("token");
-    console.log(token);
-    if (!token) {
-        alert('로그인이 필요합니다.');
-        location.href = "/user/login";
-        return false;
-    }
-
-    // 서버로 전송할 데이터를 FormData 객체에 추가
-    // var formData = new FormData();
-    //formData.append("file", file);
-
-    console.log("2", Array.from(formData.entries()));
-    $.ajax({
-        url: '/inquirySubmit',
-        type: 'POST',
-        data: formData,
-        processData: false, // 데이터를 기본 문자열로 처리하지 않음
-        contentType: false, // "multipart/form-data"로 전송
-        headers: {
-                "Authorization": "Bearer "+token   // JWT 토큰을 Authorization 헤더에 포함
-          },
-        success: function(response) {
-            alert('1:1 문의가 등록되었습니다.');
-            location.reload(); // 성공 시 페이지 새로고침
-        },
-        error: function(xhr) {
-            if (xhr.status === 401) {
-                alert('인증에 실패했습니다. 다시 로그인하세요.');
-                location.href = "/user/login";  // 로그인 페이지로 이동
-            } else if (xhr.status === 404) {
-                alert('서버에서 요청을 찾을 수 없습니다.');
-            } else {
-                alert("요청 처리 중 오류가 발생했습니다.");
-            }
-            console.error("Error:", xhr);  // 오류 출력
+        // 파일 추가
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i]);
         }
-    });
+
+        // 서버로 전송할 데이터를 FormData 객체에 추가
+        // var formData = new FormData();
+        //formData.append("file", file);
+
+        console.log("2", Array.from(formData.entries()));
+        $.ajax({
+            url: '/inquirySubmit',
+            type: 'POST',
+            data: formData,
+            processData: false, // 데이터를 기본 문자열로 처리하지 않음
+            contentType: false, // "multipart/form-data"로 전송
+            headers: {
+                    "Authorization": "Bearer "+token   // JWT 토큰을 Authorization 헤더에 포함
+              },
+            success: function(response) {
+                alert('1:1 문의가 등록되었습니다.');
+                location.reload(); // 성공 시 페이지 새로고침
+            },
+            error: function(xhr) {
+                if (xhr.status === 401) {
+                    alert('인증에 실패했습니다. 다시 로그인하세요.');
+                    location.href = "/user/login";  // 로그인 페이지로 이동
+                } else if (xhr.status === 404) {
+                    alert('서버에서 요청을 찾을 수 없습니다.');
+                } else {
+                    alert("요청 처리 중 오류가 발생했습니다.");
+                }
+                console.error("Error:", xhr);  // 오류 출력
+            }
+        });
 
     return false;  // 기본 폼 제출 방지
 }
