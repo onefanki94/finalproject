@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <link href="/css/reportModal.css" rel="stylesheet" type="text/css">
-	<link href="/css/cmView.css" rel="stylesheet" type="text/css">
+<link href="/css/reportModal.css" rel="stylesheet" type="text/css">
+<link href="/css/cmView.css" rel="stylesheet" type="text/css">
+
 <script>
 var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
 var userid;
@@ -37,9 +38,9 @@ window.onload = function(){
                     console.error("로그인 여부 확인 실패");
                     document.querySelector(".new_write").style.display = "none"
                 }
-        });
+            });
         }
-        };
+    };
 
 </script>
 
@@ -49,20 +50,20 @@ window.onload = function(){
             <h1>커뮤니티</h1>
             <div class="cm_opt">
                 <ul class="list">
-                    <li class="selected">
-                        <a href="#tap1" class="btn">최신글보기</a>
+                    <li class="${commtype == 'all' ? 'selected' : ''}">
+                        <a href="javascript:void(0);" class="btn" onclick="showTab('all')">최신글보기</a>
+                    </li>
+                    <li class="${commtype == '10' ? 'selected' : ''}">
+                        <a href="javascript:void(0);" class="btn" onclick="showTab('10')">자랑</a>
+                    </li>
+                    <li class="${commtype == '30' ? 'selected' : ''}">
+                        <a href="javascript:void(0);" class="btn" onclick="showTab('30')">친목</a>
+                    </li>
+                    <li class="${commtype == '40' ? 'selected' : ''}">
+                        <a href="javascript:void(0);" class="btn" onclick="showTab('40')">팬아트</a>
                     </li>
                     <li>
-                        <a href="#tap2" class="btn">자랑</a>
-                    </li>
-                    <li>
-                        <a href="#tap4" class="btn">친목</a>
-                    </li>
-                    <li>
-                        <a href="#tap4" class="btn">팬아트</a>
-                    </li>
-                    <li>
-                        <a href="/allnotice" class="btn">통합공지</a>
+                        <a href="/notice2" class="btn">통합공지</a>
                     </li>
                 </ul>
             </div>
@@ -211,6 +212,27 @@ window.onload = function(){
                 location.href = '/cmDelete/' + idx;
             }
         }
+
+// showTab 함수 정의 (탭 전환)
+function showTab(commtype) {
+    // commtype 값에 따라 페이지 이동
+    switch (commtype) {
+        case 'all':
+            window.location.href = '/cmList?commtype=all'; // 최신글보기
+            break;
+        case '10':
+            window.location.href = '/cmList?commtype=10'; // 자랑
+            break;
+        case '30':
+            window.location.href = '/cmList?commtype=30'; // 친목
+            break;
+        case '40':
+            window.location.href = '/cmList?commtype=40'; // 팬아트
+            break;
+        default:
+            console.error('잘못된 commtype 값입니다: ' + commtype);
+    }
+}
 
     <!-- 댓글 등록 -->
      function regiComm() {

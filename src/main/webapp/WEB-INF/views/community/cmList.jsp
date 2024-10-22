@@ -176,20 +176,20 @@ function resetFilterAndShowTab(commtype) {
 
 // showTab 함수 정의(탭 전환)
 function showTab(commtype) {
-    // console.log("Tab clicked: " + commtype); // 클릭 시 commtype 값 출력
     // 검색 폼에 commtype 값을 설정
     document.getElementById("commtype").value = commtype;
 
     // 검색 조건 초기화
     document.getElementById("searchKeyword").value = '';
 
-    // 드롭다운 요소가 존재하는지 확인하고 초기화
-    var orderByElement = document.getElementById("orderBy");
+    // 드롭다운 요소가 존재하는지 확인하고 정렬 조건 초기화
+    var orderByElement = document.getElementById("selectDirection");
     if (orderByElement) {
         orderByElement.value = "DEFAULT"; // 정렬 조건 초기화
     }
 
-    var searchCategoryElement = document.getElementById("searchCategory");
+    // 검색 카테고리 초기화
+    var searchCategoryElement = document.getElementById("selectCategory");
     if (searchCategoryElement) {
         searchCategoryElement.selectedIndex = 0; // 검색 카테고리 초기화
     }
@@ -207,8 +207,6 @@ function submitSearchForm() {
 }
 
 function reloadPage(page) {
-
-
     const commtype = document.getElementById("commtype").value || 'all';
     const orderBy = document.getElementById("selectDirection").value || 'DEFAULT';
     const searchCategory = document.getElementById("selectCategory").value || 'TITLE_AND_CONTENT';
