@@ -10,39 +10,7 @@
 <link href="/css/reportModal.css" rel="stylesheet" type="text/css">
 <link href="/css/cmView.css" rel="stylesheet" type="text/css">
 
-<script>
-var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
-var userid;
-var currentCommIdx;// 현재 페이지의 comm_idx를 전역 변수로 설정
 
-window.onload = function(){
-    console.log("호출");
-
-    var token = localStorage.getItem("token"); //토근 값 가져오기
-    if(token != "" && token != null){
-        $.ajax({
-            url:"/getuser",
-            type:"get",
-            data:{Authorization:token},
-            success: function(vo){
-                console.log("로그인된 사용자 ID:" + userid);
-
-                userid = vo.userid;
-                useridx = vo.idx;
-
-                console.log(userid);
-                console.log(useridx);
-
-                },
-                error: function(){
-                    console.error("로그인 여부 확인 실패");
-                    document.querySelector(".new_write").style.display = "none"
-                }
-            });
-        }
-    };
-
-</script>
 
 
     <section class="top_info">
@@ -126,13 +94,13 @@ window.onload = function(){
                <c:if test="${nextPost == null}"></c:if>
            </div>
             <div class="listBt">
-                <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
+                <a class="btn btn-secondary btn-sm btn-edit" href="/cmEdit/${vo.idx}" role="button" style="display: none;">
                     수정
                 </a>
                 <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
                     목록
                 </a>
-                <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
+                <a class="btn btn-secondary btn-sm btn-delete" role="button" onclick="confirmDelete(${vo.idx});" style="display: none;">
                     삭제
                 </a>
             </div>
@@ -204,14 +172,80 @@ window.onload = function(){
             </div>
         </div>
 
+
+<script>
+var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
+var userid;
+var currentCommIdx;// 현재 페이지의 comm_idx를 전역 변수로 설정
+
+setTimeout(function() {
+
+
+    // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
+    checkLoginStatusForCommunity();
+}, 400);
+
+function checkLoginStatusForCommunity() {
+    console.log("호출");
+
+    var token = localStorage.getItem("token"); // 토큰 값 가져오기
+    if (token != "" && token != null) {
+        $.ajax({
+            url: "/getuser",
+            type: "get",
+            data: { Authorization: token },
+            success: function(vo) {
+                console.log("로그인된 사용자 ID: " + vo.userid);
+
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+
+                // useridx 설정 후 댓글 목록 불러오기
+                let comm_idx = $('[name=no]').val();
+                loadComments(comm_idx);
+
+                // 게시물 작성자의 아이디와 로그인된 사용자의 아이디가 같은지 확인
+                var postAuthorId = "{vo.userid}"; // JSP에서 게시물 작성자의 아이디를 가져온다고 가정
+
+                if (userid === postAuthorId) {
+                    // 로그인된 사용자가 게시물 작성자인 경우 수정, 삭제 버튼을 표시
+                    document.querySelector(".btn-edit").style.display = "block";
+                    document.querySelector(".btn-delete").style.display = "block";
+                } else {
+                    // 게시물 작성자가 아닌 경우 수정, 삭제 버튼을 숨김
+                    document.querySelector(".btn-edit").style.display = "none";
+                    document.querySelector(".btn-delete").style.display = "none";
+                }
+            },
+            error: function() {
+                console.error("로그인 여부 확인 실패");
+                // 로그인되지 않은 경우 수정, 삭제 버튼 숨김
+                document.querySelector(".btn-edit").style.display = "none";
+                document.querySelector(".btn-delete").style.display = "none";
+            }
+        });
+    } else {
+        // 토큰이 없거나 유효하지 않은 경우 수정, 삭제 버튼 숨김
+        document.querySelector(".btn-edit").style.display = "none";
+        document.querySelector(".btn-delete").style.display = "none";
+    }
+}
+
+
     <!-- 삭제 확인 및 처리 -->
-    <script type="text/javascript">
+    //<script type="text/javascript">
         function confirmDelete(idx) {
             if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
                 // 삭제 확인 시 삭제 URL로 이동
                 location.href = '/cmDelete/' + idx;
             }
         }
+
+
+
 
 // showTab 함수 정의 (탭 전환)
 function showTab(commtype) {
@@ -308,43 +342,30 @@ function showTab(commtype) {
                           let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 설정
 
                           let comm = '<div class="comment-item comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">';
-                              comm += '<div class="comment-header">';
-                              comm += '<p class="comment-user"><strong>' + comment.userid + '</strong></p>';
-                              comm += '<button id="reportCommentBtn-' + comment.idx + '" class="btn btn-link reportBtn" data-author-id="' + comment.userid + '" data-content="' + comment.content + '">'  +
-                                      '<img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K">' +
-                                      '</button>';
-                              comm += '</div>';
+                          comm += '<div class="comment-header">';
+                          comm += '<p class="comment-user"><strong>' + comment.userid + '</strong></p>';
+                          comm += '<button id="reportCommentBtn-' + comment.idx + '" class="btn btn-link reportBtn" data-author-id="' + comment.userid + '" data-content="' + comment.content + '">' +
+                                  '<img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K"></button>';
+                          comm += '</div>'; // comment-header 종료
 
-                              comm += '<p>' + comment.content + '</p>';
-                              comm += '<p class="comment-meta">' + comment.regDT + '</p>';
+                          comm += '<div class="comment-content">' + comment.content + '</div>'; // 댓글 내용 표시
 
+                          // 날짜 및 하단 버튼들
+                          comm += '<div class="comment-meta">' + comment.regDT + '</div>';
+                          comm += '<div class="comment-actions">';
+                          if (comment.depth < 2) {
+                              comm += '<span class="reply-btn" onclick="toggleReplyInput(' + comment.idx + ')">답글쓰기</span>';
+                          }
+                          if (parseInt(comment.useridx) === parseInt(useridx)) {
+                              comm += '<span class="edit-btn" onclick="editComment(' + comment.idx + ')">수정</span>';
+                              comm += '<span class="delete-btn" onclick="deleteComment(' + comment.idx + ')">삭제</span>';
+                          }
+                          comm += '</div>'; // comment-actions 종료
 
-                          // 댓글의 depth가 2 이상이면 답글 쓰기 비활성화 (자식 댓글은 depth가 2이므로)
-                            if (comment.depth < 2) {  // depth가 2 미만일 경우에만 답글 허용
-                                comm += '<span class="reply-btn" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>답글쓰기</span>';
-                                comm += '<div id="replyInput-' + comment.idx + '" class="reply_input" style="display:none;">' +
-                                        '<input type="text" id="replyContent-' + comment.idx + '" placeholder="답글을 남겨보세요." />' +
-                                        '<button onclick="regiReply(' + comment.idx + ',' + comment.comm_idx + ')">등록</button>' +
-                                        '</div>';
-                            }
-
-
-                          // 수정/삭제 버튼
-                              if (comment.useridx === useridx) {
-                                  comm += '<span class="edit-btn" onclick="editComment(' + comment.idx + ')">수정</span>';
-                                  comm += '<span class="delete-btn" onclick="deleteComment(' + comment.idx + ')">삭제</span>';
-
-                                  comm += '<div id="edit-form-' + comment.idx + '" class="reply_input" style="display:none;">' +
-                                          '<textarea id="edit-textarea-' + comment.idx + '">' + comment.content + '</textarea>' +
-                                          '<button onclick="updateComment(' + comment.idx + ',' + comment.comm_idx + ')">수정하기</button>' +
-                                          '</div>';
-                              }
-
-
-                            comm +='</p>';
-                          comm += '</div>';
+                          comm += '</div>'; // comment-item 종료
                           replyList.append(comm);
                       });
+
 
 
 
@@ -355,6 +376,8 @@ function showTab(commtype) {
                   }
               });
           }
+
+
     function test(testidx){
     alert(testidx);
     }
