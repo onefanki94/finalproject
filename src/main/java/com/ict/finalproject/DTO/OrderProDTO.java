@@ -15,4 +15,5 @@ public class OrderProDTO {
     private int pro_price;//ㅇㅇ
     private int order_pro_amount;//ㅇㅇ
     private int orderState;//ㅇㅇ
+    private int cancelCount;
 }

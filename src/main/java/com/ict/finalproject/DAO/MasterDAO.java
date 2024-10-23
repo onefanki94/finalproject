@@ -1,6 +1,8 @@
 package com.ict.finalproject.DAO;
 
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.MasterVO;
+import com.ict.finalproject.vo.OrderListVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -147,4 +149,84 @@ public interface MasterDAO {
     int insertEvent(MasterVO event);
     List<MasterVO> getEventList();
     public MasterVO getEventDetail(int idx);
+
+    int updateEvent(MasterVO event);
+    MasterVO getEventByIdx(int idx);
+
+    // 회원가입 통계 차트
+    List<Map<String, Object>> getUserRegistrationStats();
+
+    // 굿즈 상품 삭제
+    void deleteStoreByIdx(int idx);
+    void deleteProductImagesByProductIdx(int idx);
+
+    // 회원별 신고계정 목록 페이징
+    List<MasterVO> getReportingUserWithPaging(int offset, int pageSize);
+    int getTotalReportingUserCount();
+
+    // 회원별 리뷰 목록
+    List<MasterVO> getReplyListWithPaging(int offset, int pageSize);
+    int getTotalReplyCount();
+
+    public MasterVO getCommentByIdx(int idx);
+    public List<MasterVO> getRepliesByCommentIdx(int idx);
+    MasterVO findAdminByAdminid(String adminid);
+
+    List<MasterVO> getUserListWithPaging(int offset, int pageSize);
+    MasterVO getFAQById(int idx);
+    void updateFAQ(MasterVO faq);
+
+    void deleteReport(int idx);
+
+    Map<String, Object> getCategoryCodeCountByani(int categorytCode);
+
+    // 주문관리
+    List<MasterVO> getSalesStatistics(Map<String, Object> params);
+    List<MasterVO> getOrdersByDate(String date);
+    List<MasterVO> getOrdersByMonth(String month);
+
+    // 공지사항 페이징
+    List<MasterVO> getNoticeListByPage(int startRecord, int pageSize);
+    int getTotalNoticeCount();
+
+    // 문의사항 페이징
+    List<MasterVO> getQNAListByPage(int startRecord, int pageSize);
+    int getTotalQnaCount();
+
+
+    Integer findUserIdxByCommentIdx(Integer commentIdx);
+
+    // 채원 시작
+    // 주문 상품 데이터 불러오기
+    List<CurrentOrderDataDTO> getUserOrderList(@Param("pageSize") int pageSize,
+                                               @Param("offset") int offset,
+                                               @Param("startDate") String startDate,
+                                               @Param("endDate") String endDate,
+                                               @Param("searchType") String searchType,
+                                               @Param("searchKeyword") String searchKeyword);
+    int getTotalOrderListCount(@Param("startDate") String startDate,
+                               @Param("endDate") String endDate,
+                               @Param("searchType") String searchType,
+                               @Param("searchKeyword") String searchKeyword);
+    OrderStateCountDTO getStateCount();
+    // 주문 상세정보 데이터
+    OrderListDTO getDetailInfo(int order_idx);
+    List<OrderListVO> getDetailProducts(int order_idx);
+    // 운송장 번호 저장
+    int saveTrackingNumber(int order_idx, String trackingNum);
+    // 배송시작으로 상태 변경
+    void updatedeliOrderState(int order_idx, int state);
+    // 주문 상태 변경
+    int updateOrderState(int idx, int orderState);
+    // 매출내역
+    List<SalesListDTO> getSalesList(@Param("pageSize") int pageSize,
+                                    @Param("offset") int offset,
+                                    @Param("startDate") String startDate,
+                                    @Param("endDate") String endDate);
+    int getTotalSalesListCount(@Param("startDate") String startDate,
+                               @Param("endDate") String endDate);
+    List<CurrentOrderDataDTO> getSalesDetailList(@Param("pageSize") int pageSize,
+                                                 @Param("offset") int offset,
+                                                 @Param("orderDate") String orderDate);
+    int getTotalSalesDetailListCount(@Param("orderDate") String orderDate);
 }

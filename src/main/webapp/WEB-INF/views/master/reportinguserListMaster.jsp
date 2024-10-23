@@ -4,7 +4,6 @@
 <title>DashBoard - 신고 목록 리스트</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
 <script src="/js/Master.js"></script>
 
 <div class="reportinguserList-list-container">
@@ -47,7 +46,7 @@
                         <td><input type="checkbox" /></td>
                         <td>${reportinguser.idx}</td>
                         <td>${reportinguser.reason}</td>
-                        <td>${reportinguser.userid}</td>
+                        <td>${reportinguser.reportedUser}</td>
                         <td><c:choose>
                                     <c:when test="${reportinguser.handleState == 1}">
                                         처리 완료
@@ -62,8 +61,8 @@
                         <td>${reportinguser.handleDT}</td>
                         <td>
                             <!-- 신고내역추가 버튼 클릭 시 모달에 유저 ID 설정 -->
-                            <button class="btn btn-outline-success btn-sm addReportBtn" data-userid="${reportinguser.userid}">신고내역추가</button>
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+                            <button class="btn btn-outline-success btn-sm addReportBtn" data-userid="${reportinguser.reportedUser}">신고내역추가</button>
+                            <button class="btn btn-outline-danger btn-sm deleteBtn" data-idx="${reportinguser.idx}">삭제</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -72,54 +71,54 @@
 
             <!-- 신고 내역 추가 모달창 -->
             <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="reportModalLabel">신고 내역 추가/해제</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <form id="reportForm" action="/master/reportinguserOK" method="post">
-                    <!-- 모달 내용 -->
-                    <div class="modal-body">
-                      <!-- 모달 내용 입력 -->
-                      <!-- 신고 사유 -->
-                      <div class="form-group">
-                          <input type="hidden" id="userid" name="userid">
-                          <input type="hidden" id="idx" name="idx" value="">
-                          <label for="reason">신고 사유</label>
-                          <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
-                      </div>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reportModalLabel">신고 내역 추가/해제</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="reportForm" action="/master/reportinguserOK" method="post">
+                            <!-- 모달 내용 -->
+                            <div class="modal-body">
+                                <!-- 신고 사유 -->
+                                <div class="form-group">
+                                    <input type="hidden" id="userid" name="userid">
+                                    <input type="hidden" id="idx" name="idx" value="">
+                                    <input type="hidden" name="comment_idx" id="comment_idx">
+                                    <label for="reason">신고 사유</label>
+                                    <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                                </div>
 
-                      <div class="form-group">
-                          <label for="handleState">처리 상태</label>
-                          <select class="form-control" id="handleState" name="handleState">
-                              <option value="0">처리중</option>
-                              <option value="1">처리완료</option>
-                              <option value="2">처리불가</option>
-                          </select>
-                      </div>
+                                <div class="form-group">
+                                    <label for="handleState">처리 상태</label>
+                                    <select class="form-control" id="handleState" name="handleState">
+                                        <option value="0">처리중</option>
+                                        <option value="1">처리완료</option>
+                                        <option value="2">처리불가</option>
+                                    </select>
+                                </div>
 
-                      <!-- 처리 날짜 -->
-                      <div class="form-group">
-                          <label for="handleDT">처리 날짜</label>
-                          <input type="date" class="form-control" id="handleDT" name="handleDT">
-                      </div>
+                                <!-- 처리 날짜 -->
+                                <div class="form-group">
+                                    <label for="handleDT">처리 날짜</label>
+                                    <input type="date" class="form-control" id="handleDT" name="handleDT">
+                                </div>
 
-                      <!-- 제재 종료 날짜 -->
-                      <div class="form-group">
-                          <label for="endDT">제재 종료 날짜</label>
-                          <input type="date" class="form-control" id="endDT" name="endDT">
-                      </div>
+                                <!-- 제재 종료 날짜 -->
+                                <div class="form-group">
+                                    <label for="endDT">제재 종료 날짜</label>
+                                    <input type="date" class="form-control" id="endDT" name="endDT">
+                                </div>
+                            </div>
+
+                            <!-- 모달 하단 버튼 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                <button type="submit" class="btn btn-primary">신고 제출</button>
+                            </div>
+                        </form>
                     </div>
-
-                    <!-- 모달 하단 버튼 -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                      <button type="submit" class="btn btn-primary">신고 제출</button>
-                    </div>
-                  </form>
                 </div>
-              </div>
             </div>

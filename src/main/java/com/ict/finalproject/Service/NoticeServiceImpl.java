@@ -34,6 +34,12 @@ public class NoticeServiceImpl implements NoticeService{
         return noticeDAO.getFaqs();
     }
 
+    //
+    @Override
+    public List<NoticeVO> getSearchFas(String type) {
+        return noticeDAO.getSearchFas(type);
+    }
+
 
     //1:1 문의
     @Override

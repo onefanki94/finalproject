@@ -252,64 +252,62 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 });
 
-    document.addEventListener('DOMContentLoaded', function () {
+   document.addEventListener('DOMContentLoaded', function () {
+       // 백엔드 API에서 데이터 가져오기
+       fetch('/master/registrationChart')
+           .then(response => response.json())
+           .then(data => {
+               // 날짜와 가입 수 데이터를 추출
+               const dates = data.map(item => item.date);
+               const counts = data.map(item => item.count);
 
-        /* ========== 하루 평균 유저 수 차트 생성 (Line Chart) ========== */
-        const avgUserDailyData = {
-            labels: ['월', '화', '수', '목', '금', '토', '일'],  // X축 레이블
-            datasets: [{
-                label: '하루 평균 유저 수',
-                data: [20, 130, 140, 50, 160, 70, 180],  // Y축 데이터 값
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',  // 채우기 색상
-                borderColor: 'rgba(75, 192, 192, 1)',  // 선 색상
-                borderWidth: 2,  // 선 두께
-                fill: true,  // 선 아래 채우기
-                tension: 0.3  // 곡선의 부드러움 정도 (0 = 직선, 1 = 곡선)
-            }]
-        };
-
-        const avgUserDailyConfig = {
-            type: 'line',  // 라인 차트 사용
-            data: avgUserDailyData,
-            options: {
-                responsive: true,  // 반응형 설정
-                scales: {
-                    y: {  // Y축 설정
-                        beginAtZero: true,  // Y축 0부터 시작
-                        ticks: {
-                            callback: function (value) {
-                                return value + '명';  // Y축 눈금 단위 '명'
-                            }
-                        },
-                        title: {
-                            display: true,  // Y축 제목 표시
-                            text: '유저 수 (명)',  // Y축 제목 텍스트 추가
-                            font: {
-                                size: 16  // 폰트 크기 설정
-                            }
-                        }
-                    },
-                    x: {  // X축 설정
-                        title: {
-                            display: false,
-                            text: '요일',  // X축 제목 텍스트
-                            font: {
-                                size: 14  // 폰트 크기 설정
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true,  // 범례 표시
-                        position: 'top'  // 범례 위치
-                    }
-                }
-            }
-        };
-
-        const avgUserDailyChart = new Chart(
-            document.getElementById('avgUserDailyChartView'),
-            avgUserDailyConfig
-        );
-    });
+               // 차트 생성
+               const ctx = document.getElementById('registrationChart').getContext('2d');
+               const registrationChart = new Chart(ctx, {
+                   type: 'line',
+                   data: {
+                       labels: dates,
+                       datasets: [{
+                           label: '회원 가입 수',
+                           data: counts,
+                           fill: false,
+                           borderColor: 'black',
+                           tension: 0.4
+                       }]
+                   },
+                  options: {
+                      responsive: true,
+                      scales: {
+                          x: {
+                              title: {
+                                  display: true,
+                                  text: '날짜'
+                              },
+                              grid: {
+                                  display: false // X축 격자선 숨기기
+                              }
+                          },
+                          y: {
+                              title: {
+                                  display: true,
+                                  text: '가입자 수'
+                              },
+                              grid: {
+                                  display: false // Y축 격자선 숨기기
+                              },
+                              beginAtZero: true
+                          }
+                      },
+                      plugins: {
+                          legend: {
+                              display: true,
+                              position: 'top'
+                          }
+                      }
+                  }
+               });
+           })
+           .catch(error => {
+               console.error('회원 가입 데이터를 가져오는 중 오류가 발생했습니다:', error);
+           });
+   });

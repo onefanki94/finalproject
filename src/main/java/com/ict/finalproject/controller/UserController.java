@@ -162,47 +162,31 @@ public class UserController {
     }
 
     @PostMapping("/joinformOk")
-    public ModelAndView joinOk(HttpServletRequest request, @RequestParam String userid, @RequestParam String userpwd, @RequestParam String username, @RequestParam String email) {
-        // ModelAndView 객체 초기화
-        ModelAndView mav = new ModelAndView();
-
+    public ResponseEntity<Map<String, Object>> joinOk(@RequestBody MemberVO vo) {
+        Map<String, Object> response = new HashMap<>();
         try {
-            // 비밀번호 암호화를 위한 PasswordEncoder 생성
+            // 비밀번호 암호화 및 회원 정보 생성
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            vo.setUserpwd(passwordEncoder.encode(vo.getUserpwd()));
 
-            // 회원 정보 객체 생성 및 설정
-            MemberVO vo = new MemberVO();
-            vo.setUserid(userid);
-            vo.setUserpwd(passwordEncoder.encode(userpwd));  // 비밀번호 암호화
-            vo.setUsername(username);
-            vo.setEmail(email);
-
-            // 회원 정보 생성 (데이터베이스에 사용자 추가)
             int resultMember = service.memberCreate(vo);
 
             if (resultMember == 1) {
-                // 회원가입 성공 시 JWT 토큰 생성 (1시간 동안 유효)
-                String token = jwtUtil.createJwt(userid, 3600000L);  // role 제거, userid만 사용
-
-                // 세션에 JWT 토큰 저장
-                request.getSession().setAttribute("token", token);
-
-                // 로그인 페이지로 리다이렉트
-                mav.setViewName("redirect:/user/login");
+                String token = jwtUtil.createJwt(vo.getUserid(), 3600000L);
+                response.put("success", true);
+                response.put("token", token);
+                response.put("redirectUrl", "/user/login"); // 리다이렉트 URL 추가
             } else {
-                // 회원가입 실패 시 회원가입 페이지로 리다이렉트
-                mav.setViewName("redirect:/user/join");
-                mav.addObject("errorMessage", "회원가입에 실패하였습니다. 다시 시도해 주세요.");
+                response.put("success", false);
+                response.put("errorMessage", "회원가입에 실패하였습니다. 다시 시도해 주세요.");
             }
         } catch (Exception e) {
-            // 오류 발생 시 회원가입 페이지로 리다이렉트 및 오류 메시지 추가
-            log.error("회원가입 중 오류 발생: " + e.getMessage());
-            mav.setViewName("redirect:/user/join");
-            mav.addObject("errorMessage", "회원가입 중 오류가 발생하였습니다.");
+            response.put("success", false);
+            response.put("errorMessage", "회원가입 중 오류가 발생하였습니다.");
         }
-
-        return mav;
+        return ResponseEntity.ok(response);
     }
+
 
     // 채원 시작
     // 헤더에서 토큰을 추출하고, 토큰의 유효성을 검증한 후 사용자 ID와 useridx를 반환 함수(코드가 너무 중복돼서 따로 뺌)
@@ -1042,5 +1026,14 @@ public class UserController {
         }else{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경에 실패했습니다.");
         }
+    }
+
+    @GetMapping("/checkIdDuplicate")
+    public ResponseEntity<Map<String, Boolean>> checkIdDuplicate(@RequestParam String userid) {
+        boolean exists = service.checkIdDuplicate(userid);
+        System.out.println("아이디 존재 여부: " + exists); // 디버깅용 로그 추가
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", exists);
+        return ResponseEntity.ok(response);
     }
 }

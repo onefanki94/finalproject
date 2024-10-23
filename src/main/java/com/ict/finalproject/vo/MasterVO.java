@@ -48,9 +48,9 @@ public class MasterVO {
 
     // 관리자 페이지에서 애니 테이블 관리
     private MultipartFile post_img;
-    private int anitype;
+    private String anitype;
     private String director;
-    private int agetype;
+    private String agetype;
     private String outline;
     private String anitype_type;
     private String age_type;
@@ -85,6 +85,7 @@ public class MasterVO {
     private String handleDT;
     private int comunity_idx;
     private int totalUserReport;
+    private String reportedUser;
 
     // 관리자페이지에서 사용하는 리뷰 기능 사용하는 것들
     private int grade;
@@ -96,6 +97,7 @@ public class MasterVO {
     private String qnatype;
     private int qna_idx;
     private String reply;
+    private String attachmentUrl;
 
     // 페이징 네이션에 사용하는 기능들
     private int currentPage;     // 현재 페이지 번호
@@ -106,9 +108,37 @@ public class MasterVO {
     private int startPage;       // 페이지 네비게이션 시작 페이지
     private int endPage;         // 페이지 네비게이션 끝 페이지
     private int pageGroupSize;
+    private int page;
 
     // 관리자 페이지 이벤트 페이지 사용하는 기능들
     private String event_date;
     private String thumfile;
     private String thumfileName;
+
+    // 관리자에서 회원목록 기능 사용하는것
+
+    private String userpwd;
+    private String username;
+    private String tel;
+    private String email;
+    private String zipcode;
+    private String addr;
+    private String addrdetail;
+    private String birth;
+    private int point;
+    private int adult_state;
+    private int login_type;
+
+    // 관리자페이지 주문관리 기능 사용하는것들
+    private int salesAmount; // 매출금액
+    private int orderCount; // 주문 건수
+    private int deliveryFee; // 배송비
+    private int commission; // 수수료
+    private int cancelCount; // 취소 건수
+    private int cancelAmount; // 취소 금액
+    private String date;
+    private int paymentAmount;
+    private String orderId;
+    private String productName;
+    private String orderDate;
 }

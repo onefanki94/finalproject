@@ -37,11 +37,13 @@
                 <p>배송비: <fmt:formatNumber value="${storeDetail.fee}" type="number" pattern="#,###"/> 원</p>
 
                <div class="like-section">
-                   <div class="like-icon" data-product-id="${storeDetail.idx}">
-                   </div>
-                   <span class="like-count">${storeDetail.likeCount}${storeDetail.liked}</span>
-               </div>
-            </div>
+                                  <div class="like-icon" data-product-id="${storeDetail.idx}">
+                                      <i class="like-heart ${storeDetail.liked != null && storeDetail.liked == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}"></i>
+                                  </div>
+                                  <span class="like-count">${storeDetail.likeCount}</span>
+                              </div>
+                           </div>
+
     
             <!-- 상품 선택 옵션 -->
             <div class="product-selection">

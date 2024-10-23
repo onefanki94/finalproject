@@ -7,6 +7,7 @@ top: 0;
 left: 0;
 overflow-y: auto;
 padding-top: 20px;
+ text-align: center; /* 사이드바의 모든 콘텐츠를 가운데 정렬 */
 }
 
 .loginInfo {
@@ -122,6 +123,13 @@ margin-top : 30px;
 margin-bottom : 30px;
 }
 
+.masterLogo img {
+    display: block;
+    margin: 0 auto; /* 이미지를 가운데 정렬 */
+    width: 60%; /* 필요에 따라 크기 조정 */
+    height: auto;
+}
+
 // --------------------------------------------------------------------------------------------------------------
 // 관리자 회원
 /* === 테이블 스타일 === */
@@ -191,6 +199,11 @@ margin-bottom: 20px;
 display: flex;
 justify-content: space-between;
 }
+
+.btn-primary {
+width : 30%;
+}
+
 
 .summary {
 display: flex;
@@ -1518,24 +1531,43 @@ color: #fff;
 }
 
 // -----------------------------------------
-.pagination .page-link {
-    color: #007bff;
-    text-decoration: none;
-    padding: 8px 12px;
-    margin: 0 4px;
-    background-color: transparent; /* 배경색 없음 */
+/* 페이지네이션 커스텀 스타일 */
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.pagination .page-item {
+    margin: 0 3px;
+}
+
+.pagination .page-item .page-link {
+    color: #333;
+    background-color: transparent;
     border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s;
 }
 
 .pagination .page-item.active .page-link {
-    color: #fff;
-    background-color: #007bff;
-    border-radius: 4px;
-    border: none;
+    color: green;
+    background-color: #e0f7e0; /* 선택된 페이지 배경 색상 */
+    font-weight: bold;
 }
 
-.pagination .page-item:hover .page-link {
-    background-color: #e2e6ea;
-    color: #007bff;
-    border: none;
+.pagination .page-item .page-link:hover {
+    background-color: #f0f0f0; /* 마우스를 올렸을 때 배경 색상 */
+    color: #000;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    width: 40px;
+    height: 40px;
 }

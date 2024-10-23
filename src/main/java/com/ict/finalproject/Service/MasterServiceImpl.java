@@ -1,13 +1,16 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MasterDAO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.MasterVO;
+import com.ict.finalproject.vo.OrderListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.DataInput;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -347,5 +350,199 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public MasterVO getEventDetail(int idx) {
         return dao.getEventDetail(idx);
+    }
+
+    @Override
+    public boolean updateEvent(MasterVO event) {
+        return dao.updateEvent(event) > 0;
+    }
+
+    @Override
+    public MasterVO getEventByIdx(int idx) {
+        return dao.getEventByIdx(idx);
+    }
+
+    @Override
+    public List<Map<String, Object>> getUserRegistrationStats() {
+        return dao.getUserRegistrationStats();
+    }
+
+    @Override
+    public void deleteStoreByIdx(int idx) {
+        dao.deleteStoreByIdx(idx);
+    }
+
+    @Override
+    public void deleteProductImagesByProductIdx(int idx) {
+        dao.deleteProductImagesByProductIdx(idx);
+    }
+
+    @Override
+    public List<MasterVO> getReportingUserWithPaging(int offset, int pageSize) {
+        return dao.getReportingUserWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public int getTotalReportingUserCount() {
+        return dao.getTotalReportingUserCount();
+    }
+
+    @Override
+    public List<MasterVO> getReplyListWithPaging(int offset, int pageSize) {
+        return dao.getReplyListWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public int getTotalReplyCount() {
+        return dao.getTotalReplyCount();
+    }
+
+    @Override
+    public MasterVO getCommentByIdx(int idx) {
+        return dao.getCommentByIdx(idx);
+    }
+
+    @Override
+    public List<MasterVO> getRepliesByCommentIdx(int idx) {
+        return dao.getRepliesByCommentIdx(idx);
+    }
+
+    @Override
+    public boolean authenticateAdmin(String adminid, String adminpwd) {
+        MasterVO admin = dao.findAdminByAdminid(adminid);
+        if (admin != null && admin.getAdminpwd().equals(adminpwd)) {
+            return true; // 인증 성공
+        }
+        return false; // 인증 실패
+    }
+
+    @Override
+    public List<MasterVO> getUserListWithPaging(int offset, int pageSize) {
+        return dao.getUserListWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public MasterVO getFAQById(int idx) {
+        return dao.getFAQById(idx);
+    }
+
+    @Override
+    public void updateFAQ(MasterVO faq) {
+        dao.updateFAQ(faq);
+    }
+
+    @Override
+    public void deleteReport(int idx) {
+        dao.deleteReport(idx);
+    }
+
+    @Override
+    public Map<String, Object> getCategoryCodeCountByani(int categorytCode) {
+        return dao.getCategoryCodeCountByani(categorytCode);
+    }
+
+    @Override
+    public List<MasterVO> getSalesStatistics(Map<String, Object> params) {
+        return dao.getSalesStatistics(params);
+    }
+
+    @Override
+    public List<MasterVO> getOrdersByDate(String date) {
+        return dao.getOrdersByDate(date);
+    }
+
+    @Override
+    public List<MasterVO> getOrdersByMonth(String month) {
+        return dao.getOrdersByMonth(month);
+    }
+
+    @Override
+    public List<MasterVO> getNoticeListByPage(int startRecord, int pageSize) {
+        return dao.getNoticeListByPage(startRecord, pageSize);
+    }
+
+    @Override
+    public int getTotalNoticeCount() {
+        return dao.getTotalNoticeCount();
+    }
+
+    @Override
+    public List<MasterVO> getQNAListByPage(int startRecord, int pageSize) {
+        return dao.getQNAListByPage(startRecord, pageSize);
+    }
+
+    @Override
+    public int getTotalQnaCount() {
+        return dao.getTotalQnaCount();
+    }
+
+    @Override
+    public Integer findUserIdxByCommentIdx(Integer commentIdx) {
+        return dao.findUserIdxByCommentIdx(commentIdx);
+    }
+
+    // 채원 시작
+    // 주문 상품 데이터 불러오기
+    @Override
+    public List<CurrentOrderDataDTO> getUserOrderList(int page, int pageSize, String startDate, String endDate, String searchType, String searchKeyword) {
+        int offset = (page-1)*pageSize;
+        return dao.getUserOrderList(pageSize, offset,startDate,endDate, searchType, searchKeyword);
+    }
+
+    @Override
+    public int getTotalOrderListCount(String startDate, String endDate, String searchType, String searchKeyword) {
+        return dao.getTotalOrderListCount(startDate,endDate, searchType, searchKeyword);
+    }
+
+    @Override
+    public OrderStateCountDTO getStateCount() {
+        return dao.getStateCount();
+    }
+
+    @Override
+    public OrderListDTO getDetailInfo(int order_idx) {
+        return dao.getDetailInfo(order_idx);
+    }
+
+    @Override
+    public List<OrderListVO> getDetailProducts(int order_idx) {
+        return dao.getDetailProducts(order_idx);
+    }
+
+    @Override
+    public int saveTrackingNumber(int order_idx, String trackingNum) {
+        return dao.saveTrackingNumber(order_idx,trackingNum);
+    }
+
+    @Override
+    public void updatedeliOrderState(int order_idx, int state) {
+        dao.updatedeliOrderState(order_idx, state);
+    }
+
+    @Override
+    public int updateOrderState(int idx, int orderState) {
+        return dao.updateOrderState(idx, orderState);
+    }
+
+    @Override
+    public List<SalesListDTO> getSalesList(int page, int pageSize, String startDate, String endDate) {
+        int offset = (page-1)*pageSize;
+        return dao.getSalesList(pageSize, offset,startDate,endDate);
+    }
+
+    @Override
+    public int getTotalSalesListCount(String startDate, String endDate) {
+        return dao.getTotalSalesListCount(startDate,endDate);
+    }
+
+    @Override
+    public List<CurrentOrderDataDTO> getSalesDetailList(int page, int pageSize, String orderDate) {
+        int offset = (page-1)*pageSize;
+        return dao.getSalesDetailList(pageSize, offset,orderDate);
+    }
+
+    @Override
+    public int getTotalSalesDetailListCount(String orderDate) {
+        return dao.getTotalSalesDetailListCount(orderDate);
     }
 }

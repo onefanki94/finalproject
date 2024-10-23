@@ -14,7 +14,7 @@ public class OrderListDTO {
     private int order_idx;//ㅇㅇ
     private String order_date;//ㅇㅇ
     private String trackingNum;//ㅇㅇ
-    private int total_price;
+    private int total_price;//배송비+적립금 할인액까지 합친 금액
     private int use_point;//ㅇㅇ
     private String recipient;//ㅇㅇ
     private String zipcode;//ㅇㅇ
@@ -24,7 +24,8 @@ public class OrderListDTO {
     private String request_memo;//ㅇㅇ
     private String payDT;//ㅇㅇ
     private String paytype;//ㅇㅇ
-    private int amount;//ㅇㅇ
+    private int amount;//ㅇㅇ 실제 결재 금액
     private String orderId;//ㅇㅇ
+    private String customerName;
     private List<OrderProDTO> products = new ArrayList<>();
 }

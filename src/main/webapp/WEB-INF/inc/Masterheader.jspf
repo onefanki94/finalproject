@@ -18,15 +18,42 @@
          <!-- FontAwesome 추가 (아이콘 사용) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+         <script>
+         $(document).ready(function() {
+             $('#logoutBtn').on('click', function(event) {
+                 event.preventDefault(); // 기본 링크 동작을 막음
+
+                 // 로컬 스토리지에서 토큰 제거
+                 localStorage.removeItem("token");
+
+                 // 서버에 로그아웃 요청
+                 $.ajax({
+                     type: 'POST', // 로그아웃 요청을 POST로 설정
+                     url: '/logoutOk', // 로그아웃 요청을 처리하는 URL
+                     success: function() {
+                         alert("로그아웃 성공");
+                         location.href = '/'; // 메인 페이지로 이동
+                     },
+                     error: function() {
+                         alert("로그아웃에 실패했습니다.");
+                     }
+                 });
+             });
+         });
+         </script>
     <div class="sidebar">
+    <div class="masterLogo"><img src="/img/main_img/logo_ex.png"/></div>
             <a class="navbar-brand" href="/master/masterMain">관리자 Management</a>
             <div class="loginInfo">
                         <!-- [ ${logId} ] 님 어서오세요. -->
                         [ 관리자 ] 님 어서오세요 <span>( 새 문의 : <a href="/master/QNAMasterList"> ${unanswerCount} </a> 개 )</span>
             </div>
-                 <div class="logout">
-                                <a href="/">로그아웃</a>
-                            </div>
+<div class="logout">
+    <a href="#" id="logoutBtn">로그아웃</a>
+</div>
+<c:if test="${param.message != null}">
+    <div class="alert alert-success">${param.message}</div>
+</c:if>
             <nav class="navbar navbar-dark">
                 <ul class="navbar-nav">
                     <!-- 회원 목록 드롭다운 메뉴 -->
@@ -87,8 +114,8 @@
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="Dropdown">
                                                 <li><a class="dropdown-item" href="/master/boardMasterAll">게시판</a></li>
-                                                <li><a class="dropdown-item" href="/master/boardMasterReviewAll">댓글</a></li>
-                                                <li><a class="dropdown-item" href="/master/boardMasterReplyAll">리뷰</a></li>
+                                                <li><a class="dropdown-item" href="/master/boardMasterCommentAll">댓글</a></li>
+                                                <li><a class="dropdown-item" href="/master/boardMasterReviewAll">리뷰</a></li>
                                             </ul>
                                         </li>
                     <!-- 기타 관리 드롭다운 메뉴 -->

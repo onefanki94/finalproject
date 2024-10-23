@@ -42,7 +42,7 @@
                 <td>${event.event_date}</td>
                 <td>${event.regDT}</td>
                 <td>
-                    <button class="btn btn-outline-secondary btn-sm"><a href="/master/EventEditMaster">수정</a></button>
+                    <button class="btn btn-outline-secondary btn-sm"><a href="/master/EventEditMaster/${event.idx}">수정</a></button>
                     <button class="btn btn-outline-success btn-sm viewDetails" data-idx="${event.idx}">상세보기</button>
                     <button class="btn btn-outline-danger btn-sm"><a href="">삭제</a></button>
                 </td>

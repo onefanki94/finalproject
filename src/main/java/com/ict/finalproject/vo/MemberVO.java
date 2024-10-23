@@ -22,4 +22,7 @@ public class MemberVO {
     private String regDT;
     private int adult_state;
     private int login_type;
+
+    private int page;      // 현재 페이지 번호
+    private int pageSize;
 }

@@ -8,59 +8,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/join.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/daum_api.js"></script>
-    <script src="/js/join_ effectiveness.js"></script>
     <script>
-   function register() {
-       const userid = document.getElementById("userid").value.trim();
-       const userpwd = document.getElementById("userpwd").value.trim();
-       const username = document.getElementById("username").value.trim();
-       const email = document.getElementById("email").value.trim();
+       function checkIdDuplicate() {
+                   const userid = $("#userid").val().trim();
+                   console.log("입력된 아이디:", userid); // 아이디 값 출력
 
-       if (!userid || !userpwd || !username || !email) {
-           alert("모든 필드를 입력해 주세요.");
-           return;
+                   if (!userid) {
+                       alert("아이디를 입력해 주세요.");
+                       return;
+                   }
+
+                   // Ajax 요청 보내기
+                   $.ajax({
+                       url: '/user/checkIdDuplicate',
+                       type: 'GET',
+                       data: { userid: userid },
+                       success: function (data) {
+                           console.log("서버 응답:", data); // 응답 로그 추가
+                           if (data.exists) {
+                               alert("이미 사용 중인 아이디입니다.");
+                           } else {
+                               alert("사용 가능한 아이디입니다.");
+                           }
+                       },
+                       error: function (xhr, status, error) {
+                           console.error("아이디 중복 확인 중 오류 발생:", error);
+                           alert("아이디 중복 확인에 실패했습니다.");
+                       }
+                   });
+               }
+
+       function register() {
+           const userid = $("#userid").val().trim();
+           const userpwd = $("#userpwd").val().trim();
+           const userpwd2 = $("#userpwd2").val().trim();
+           const username = $("#username").val().trim();
+           const email = $("#email").val().trim();
+           const zipcode = $("#zipcode").val().trim();
+           const addr = $("#addr").val().trim();
+           const addrdetail = $("#addrdetail").val().trim();
+
+           // 클라이언트 측 기본 필드 유효성 검사
+           if (!userid) {
+               alert("아이디를 입력해 주세요.");
+               $("#userid").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!userpwd) {
+               alert("비밀번호를 입력해 주세요.");
+               $("#userpwd").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!userpwd2) {
+               alert("비밀번호 확인을 입력해 주세요.");
+               $("#userpwd2").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (userpwd !== userpwd2) {
+               alert("비밀번호가 일치하지 않습니다.");
+               $("#userpwd2").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!username) {
+               alert("이름을 입력해 주세요.");
+               $("#username").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!email) {
+               alert("이메일을 입력해 주세요.");
+               $("#email").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!zipcode) {
+               alert("우편번호를 입력해 주세요.");
+               $("#zipcode").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!addr) {
+               alert("기본 주소를 입력해 주세요.");
+               $("#addr").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+           if (!addrdetail) {
+               alert("상세 주소를 입력해 주세요.");
+               $("#addrdetail").focus();
+               return false; // 여기서 false 반환하여 리다이렉트 방지
+           }
+
+           // 모든 유효성 검사를 통과한 경우에만 AJAX 요청 전송
+           $.ajax({
+               url: '/user/joinformOk',
+               type: 'POST',
+               contentType: 'application/json',
+               data: JSON.stringify({
+                   userid: userid,
+                   userpwd: userpwd,
+                   username: username,
+                   email: email,
+                   zipcode: zipcode,
+                   addr: addr,
+                   addrdetail: addrdetail
+               }),
+               success: function(data) {
+                   if (data.success) {
+                       if (data.token) {
+                           localStorage.setItem("token", data.token);
+                       }
+                       alert("회원가입 성공!");
+                       window.location.href = "/user/login"; // 성공 시 리다이렉트
+                   } else {
+                       alert("회원가입 실패: " + data.errorMessage); // 실패 시 알림
+                   }
+               },
+               error: function(xhr, status, error) {
+                   console.error("회원가입 중 오류 발생:", error);
+                   alert("회원가입 실패: 다시 시도해 주세요.");
+               }
+           });
+
+           return false; // AJAX 요청 후 폼이 제출되지 않도록 방지
        }
-
-       // URLSearchParams를 사용하여 데이터를 인코딩
-       const params = new URLSearchParams();
-       params.append('userid', userid);
-       params.append('userpwd', userpwd);
-       params.append('username', username);
-       params.append('email', email);
-
-       // 서버에 회원가입 요청 보내기
-       fetch('/user/joinformOk', {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/x-www-form-urlencoded'
-           },
-           body: params.toString()  // URLSearchParams 객체를 문자열로 변환하여 전송
-       })
-       .then(response => {
-           if (!response.ok) {
-               throw new Error('회원가입 실패: ' + response.status);
-           }
-           return response.json();  // JSON 형식의 응답을 파싱
-       })
-       .then(data => {
-           if (data.token) {
-               // JWT 토큰을 로컬 스토리지에 저장
-               localStorage.setItem("token", data.token);
-               alert("회원가입 성공!");
-
-               // 로그인 페이지로 이동
-               window.location.href = "/user/login";
-           } else {
-               alert("회원가입 실패: " + data.errorMessage);
-           }
-       })
-       .catch(error => {
-           console.error("회원가입 중 오류 발생:", error);
-           alert("회원가입 실패: 다시 시도해 주세요.");
-       });
-   }
     </script>
   </head>
   <body>
@@ -76,11 +146,11 @@
       <div class="join_div_pa">
         <div class="join_div_ch">
           <h1 style="color: #fff; margin: 0 0 40px">회원가입</h1>
-          <form class="join-form" method="POST" action="/user/joinformOk" onsubmit="return formCheck()">
+          <form class="join-form" onsubmit="return register();">
             <div class="join_input-group">
               <span>아이디 *</span>
               <input type="text" id="userid" name="userid" />
-              <input type="button" class="id_check_btn" value="중복확인" />
+              <input type="button" class="id_check_btn" value="중복확인" onclick="checkIdDuplicate()" />
             </div>
             <div class="join_input-group">
               <span>비밀번호 *</span>

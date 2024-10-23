@@ -15,4 +15,5 @@ public class CurrentOrderDataDTO {
     private int amount;
     private String orderName;
     private String orderId;
+    private String customerName;
 }

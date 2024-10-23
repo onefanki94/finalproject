@@ -53,6 +53,7 @@ public class PagingVO {
     // 공지사항 설정 메서드
     public void setForNotice(String keyword) {
         this.keyword = keyword;
+
     }
 
 
