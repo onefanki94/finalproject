@@ -123,7 +123,6 @@ $(function(){
         console.log("주문 상품 pro_idx :", selectedProducts);
         console.log("주문 상품 갯수 :", selectedProductsCounts);
         console.log("주문 총 금액 :", totalAmount);
-        return;
         // Ajax로 주문 데이터 전송
         $.ajax({
             url: '/order/submit',
