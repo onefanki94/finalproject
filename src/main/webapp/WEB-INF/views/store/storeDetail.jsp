@@ -211,7 +211,7 @@
     <!-- 리뷰 탭과 필터 -->
     <div class="review-tabs-and-filter">
         <div class="review-tabs">
-            <span class="active" onclick="show/Tab('text')">텍스트 리뷰</span>
+            <span class="active" onclick="showTab('text')">텍스트 리뷰</span>
             <span onclick="showTab('photo')">포토/동영상 리뷰</span>
         </div>
         <div class="review-filter">
