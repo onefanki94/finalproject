@@ -114,8 +114,8 @@
     </select>
 
 
-
-     <select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
+    <!-- 리턴 타입이 잘못된 커리문 밑에 getSubcategoriesByFirstCategory1(lin132)이랑 id값 바꿈   -->
+     <select id="getSubcategoriesByFirstCategory1" parameterType="int" resultType="com.ict.finalproject.vo.ProductFilterVO">
         SELECT s.type
         FROM t_secondcategory s
         JOIN t_firstcategory f ON s.first_code = f.code
@@ -129,7 +129,7 @@
 
 <!--두번째 카테고리-->
 
-    <select id="getSubcategoriesByFirstCategory1" parameterType="int" resultType="String">
+    <select id="getSubcategoriesByFirstCategory" parameterType="int" resultType="String">
         SELECT s.type
         FROM t_secondcategory s
         JOIN t_firstcategory f ON s.first_code = f.code
@@ -197,7 +197,6 @@
         set amount=amount-1, total=${param3}
         where idx=${param1} and useridx=${param2}
     </update>
-
 
 
 </mapper>

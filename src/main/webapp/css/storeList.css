@@ -60,6 +60,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     display: inline-block; /* 필터 아이템이 가로로 배치되도록 설정 */
+    display:none;
 }
 .filter-item.active {
     background-color: #dcdcdc; /* 클릭 시 배경색 변경 */

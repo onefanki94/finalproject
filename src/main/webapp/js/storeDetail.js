@@ -25,16 +25,12 @@ function applyFilters() {
 
     // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
     if (activeTab === 'text') {
-<<<<<<< HEAD
+
         filteredReviews = reviews.filter(review => !review.querySelector('review-image img'));  // 텍스트 리뷰만 필터링
 
     } else if (activeTab === 'photo') {
         filteredReviews = reviews.filter(review => review.querySelector('review-image img'));  // 사진/동영상 리뷰만 필터링
-=======
-        filteredReviews = reviews.filter(review => !review.querySelector('review-image'));  // 텍스트 리뷰만 필터링
-    } else if (activeTab === 'photo') {
-        filteredReviews = reviews.filter(review => review.querySelector('review-image'));  // 사진/동영상 리뷰만 필터링
->>>>>>> 980ed2a2548bcdee986e4ca6a99113c7f3d2c42c
+
     }
 
     // 정렬 필터 적용 (최신순, 평점 높은순, 평점 낮은순)
@@ -71,8 +67,16 @@ function filterReviews(type) {
 
     // UI 업데이트 (정렬 필터 활성화)
     const allFilters = document.querySelectorAll('.review-filter2 span');
-    allFilters.forEach(filter => filter.classList.remove('active'));
-    document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`).classList.add('active');
+    allFilters.forEach(filter => filter.classList.remove('active'));  // 기존에 'active' 클래스를 제거
+
+    // 선택된 필터에 'active' 클래스를 추가
+    const selectedFilter = document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`);
+
+    if (selectedFilter) {
+        selectedFilter.classList.add('active');  // 선택된 필터에 'active' 클래스 추가
+    } else {
+        console.error(`해당 선택자에 대한 요소를 찾을 수 없습니다: filterReviews('${type}')`);
+    }
 
     // 필터 적용
     applyFilters();
