@@ -81,7 +81,7 @@ function createPaginationOrder(totalPages, currentPage) {
     // 이전 페이지 버튼 추가 (첫 페이지가 아닐 때만 표시)
     if (currentPage > 1) {
         $(".pagination").append(`
-            <li class="page-item"><a class="page-link" data-page="${currentPage - 1}">이전</a></li>
+            <li class="page-item"><a class="page-link" data-page="${currentPage - 1}"><</a></li>
         `);
     }
 
@@ -95,7 +95,7 @@ function createPaginationOrder(totalPages, currentPage) {
     // 다음 페이지 버튼 추가 (마지막 페이지가 아닐 때만 표시)
     if (currentPage < totalPages) {
         $(".pagination").append(`
-            <li class="page-item"><a class="page-link" data-page="${currentPage + 1}">다음</a></li>
+            <li class="page-item"><a class="page-link" data-page="${currentPage + 1}">></a></li>
         `);
     }
 
