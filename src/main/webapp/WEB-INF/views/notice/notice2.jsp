@@ -98,21 +98,19 @@
                     <div class="noticeList" id="noticeList">
                         <div class="row header">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">카테고리</div>
-                            <div class="col-sm-8 p-2">제목</div>
-                            <div class="col-sm-1 p-2">등록일</div>
+                            <div class="col-sm-9 p-2">제목</div>
+                            <div class="col-sm-2 p-2">등록일</div>
                         </div>
 
                         <!-- 공지사항 리스트 반복 출력 -->
                             <c:forEach var="notice" items="${list}">
                                 <div class="row">
                                     <div class="col-sm-1 p-2">${notice.idx}</div>
-                                    <div class="col-sm-8 p-2">
+                                    <div class="col-sm-9 p-2">
                                         <a href="#" class="noticeTitle" data-title="${notice.title}" data-content="${notice.content}">
                                             ${notice.title}
                                         </a>
                                     </div>
-                                    <div class="col-sm-1 p-2"></div>
                                     <div class="col-sm-2 p-2">${notice.regDT}</div>
                                 </div>
                             </c:forEach>

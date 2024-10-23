@@ -4,12 +4,15 @@
 <mapper namespace="com.ict.finalproject.DAO.NoticeDAO">
     <!-- 공지사항 목록을 가져오는 쿼리 -->
     <select id="getNotices" resultType="NoticeVO">
-        SELECT * FROM t_notice
+        SELECT idx, title, content, DATE_FORMAT(regDT, '%Y-%m-%d') AS regDT
+        FROM t_notice
         WHERE (#{keyword} IS NULL OR title LIKE CONCAT('%', #{keyword}, '%'))
         AND delState = 0
         ORDER BY regDT DESC
         LIMIT #{offset}, #{size}
     </select>
+
+
 
     <!-- 전체 공지사항 수를 가져오는 쿼리 -->
     <select id="getTotalCount" resultType="int">
