@@ -233,6 +233,43 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<QnaVO> getQnAList(int page, int pageSize, int useridx) {
+        int offset = (page-1)*pageSize;
+        return dao.getQnAList(pageSize, offset, useridx);
+    }
+
+    @Override
+    public int getTotalQnACount(int useridx) {
+        return dao.getTotalQnACount(useridx);
+    }
+
+    @Override
+    public QnaVO getQnADetail(int qna_idx) {
+        return dao.getQnADetail(qna_idx);
+    }
+
+    @Override
+    public int qnaDelete(int qna_idx) {
+        return dao.qnaDelete(qna_idx);
+    }
+
+    @Override
+    public List<CommuVO> getCmList(int page, int pageSize, int useridx) {
+        int offset = (page-1)*pageSize;
+        return dao.getCmList(pageSize, offset, useridx);
+    }
+
+    @Override
+    public int getTotalCmCount(int useridx) {
+        return dao.getTotalCmCount(useridx);
+    }
+
+    @Override
+    public int cmDelete(int comm_idx) {
+        return dao.cmDelete(comm_idx);
+    }
+
+    @Override
     public String findId(String username, String email) {
         return dao.findId(username, email);
     }

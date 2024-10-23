@@ -31,7 +31,10 @@ public class QnaVO {
     private String imgfile1;
     private String imgfile2;
 
-
+    //
+    private String reply;
+    private String replyDT;
+    private String QnADT;
 
 
 }

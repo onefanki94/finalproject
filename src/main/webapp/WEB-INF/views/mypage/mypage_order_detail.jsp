@@ -27,7 +27,7 @@
               <a href="/user/mypage_userEdit">회원정보수정</a>
             </li>
             <li>
-              <a href="">내가 쓴 글</a>
+              <a href="/user/mypage_comm">내가 쓴 글</a>
             </li>
             <li>
               <a href="/user/mypage_point">적립금</a>

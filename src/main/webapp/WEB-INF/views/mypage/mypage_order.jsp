@@ -27,7 +27,7 @@
               <a href="/user/mypage_userEdit">회원정보수정</a>
             </li>
             <li>
-              <a href="">내가 쓴 글</a>
+              <a href="/user/mypage_comm">내가 쓴 글</a>
             </li>
             <li>
               <a href="/user/mypage_point">적립금</a>
@@ -152,7 +152,7 @@
               </li>
             </ol>
             <div class="order_delCheck">
-              <p class="del_possible">직접취소가능</p>
+              <p class="del_possible">취소가능</p>
               <p class="del_impossible">취소불가</p>
             </div>
           </div>

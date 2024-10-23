@@ -1,4 +1,4 @@
-.my_tit_qna {
+.my_tit_cm {
   padding-bottom: 10px;
   font-weight: 600;
   font-size: 23px;
@@ -8,7 +8,7 @@
   margin: 0;
 }
 
-.qna_top {
+.cm_top {
   border-bottom: 4px solid rgb(48, 48, 51);
   padding-bottom: 5px;
   display: flex;
@@ -16,11 +16,11 @@
   position: relative;
 }
 
-.qna_top span:first-of-type {
+.cm_top span {
   display: block;
   margin-bottom: 5px;
 }
-.qna_write_btn {
+.cm_write_btn {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -28,7 +28,7 @@
   justify-content: center;
   min-width: 40px;
   min-height: 25px;
-  width: 150px;
+  width: 160px;
   height: 34px;
   font-size: 14px;
   font-weight: 600;
@@ -37,10 +37,10 @@
   border-radius: 5px;
   padding: 26px;
   position: relative;
-  top: -10px;
+  top:-5px;
 }
 
-.myqna_list {
+.mycm_list {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -49,38 +49,48 @@
   width: 100%;
 }
 
-.myqna_list ul {
+.mycm_list ul {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.myqna_list_li {
+.mycm_list_li {
   display: flex;
   flex-direction: row;
   min-height: 50px;
   border-bottom: 1px solid rgb(48, 48, 51);
 }
 
-.qna_type,
-.qna_regDT,
-.qna_replyState,
-.qna_delBtn_div {
+.cm_type,
+.cm_regDT,
+.cm_replyState,
+.cm_delBtn_div,
+.cm_title {
   display: flex;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: center;
   justify-content: center;
-  min-height: 50px;
+  height: 50px;
+}
+
+.cm_type {
   flex: 0 0 100px;
 }
 
-.qna_regDT {
-  flex: 0 0 160px !important;
+.cm_title {
+  flex: 0 0 800px;
 }
 
-.myqna_list_li span,
-.myqna_write_list span {
+.cm_regDT {
+  flex: 0 0 150px;
+}
+
+.cm_replyState {
+  flex: 0 0 100px;
+}
+
+.mycm_list_li span,
+.mycm_write_list span {
   display: inline-block;
   font-weight: bold;
   line-height: 140%;
@@ -88,26 +98,11 @@
   color: rgb(48, 48, 51);
 }
 
-.qna_title {
-  display: flex;
-  flex: 1 1 0;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: 15px 3%;
+.cm_delBtn_div {
+  gap: 8px;
 }
 
-.qna_replyState {
-  flex: 0 0 70px !important;
-}
-
-.qna_delBtn_div {
-  flex: 0 0 60px !important;
-}
-
-.myqna_write_list {
+.mycm_write_list {
   display: flex;
   flex-direction: row;
   min-height: 50px;
@@ -115,15 +110,17 @@
   cursor: pointer;
 }
 
-.myqna_write_list span {
+.mycm_write_list span {
   font-weight: normal;
 }
 
-.myqna_write_list > div:nth-child(4) span {
+.mycm_write_list > div:nth-child(4) span {
   font-weight: bold !important;
+  color: var(--primary);
 }
 
-.qna_delBtn {
+.cm_delBtn,
+.cm_editBtn {
   width: 43px;
   height: 34px;
   font-size: 12px;
@@ -163,54 +160,4 @@
   font-weight: 700;
   color: rgb(48, 48, 51);
   border-bottom: 1px solid rgb(48, 48, 51);
-}
-
-.qna_info_div {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  margin-top: -1px;
-  padding: 30px;
-  background-color: #f4f4f4;
-}
-
-.qna_q,
-.qna_a {
-  position: relative;
-  min-height: 55px;
-  padding: 0px 100px 0px 66px;
-}
-
-.qna_a {
-  margin-top: 35px;
-}
-
-.qna_q span,
-.qna_a span {
-  position: absolute;
-  top: -8px;
-  left: 0px;
-  padding: 0px;
-  font-family: Campton;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 55px;
-  color: #303030;
-}
-
-.qna_q p,
-.qna_a p {
-  font-size: 14px;
-  line-height: 24px;
-  color: rgb(48, 48, 51);
-  white-space: pre-wrap;
-  margin-bottom: 8px;
-}
-
-.qna_q img {
-  width: 5em;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }

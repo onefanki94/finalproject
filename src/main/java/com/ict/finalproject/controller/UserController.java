@@ -830,6 +830,75 @@ public class UserController {
         return mav;
     }
 
+    // 문의 내역 데이터
+    @PostMapping("/getQnAList")
+    public ResponseEntity<Map<String, Object>> getQnAList(@RequestBody Map<String, Integer> params,
+                                                            @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        int page = params.getOrDefault("page", 1);
+        int pageSize = params.getOrDefault("pageSize", 5);
+
+        List<QnaVO> qnAList = service.getQnAList(page, pageSize, useridx);
+        int totalProductCount = service.getTotalQnACount(useridx);
+        int totalPages = (int) Math.ceil((double) totalProductCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("qnAList", qnAList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 문의 내역 데이터
+    @PostMapping("/getQnADetail")
+    public ResponseEntity<Map<String, Object>> getQnADetail(@RequestBody Map<String, Object> params,
+                                                          @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        int qna_idx = (int) params.get("qna_idx");
+
+        QnaVO qnaDetail = service.getQnADetail(qna_idx);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("qnaDetail", qnaDetail);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 문의 내역 삭제
+    @PostMapping("/qnaDelete")
+    public ResponseEntity<String> qnaDelete(@RequestBody Map<String, Object> params,
+                                            @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        int qna_idx = (int) params.get("qna_idx");
+
+        int result = service.qnaDelete(qna_idx);
+        if(result>0){
+            return ResponseEntity.ok("문의내역 삭제 완료");
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("문의내역 삭제중 오류 발생");
+        }
+    }
+
     //마이페이지-회원정보수정 view
     @GetMapping("/mypage_userEdit")
     public ModelAndView mypageEdit() {
@@ -977,6 +1046,63 @@ public class UserController {
             return ResponseEntity.ok("회원 탈퇴 완료");
         }else{
             return new ResponseEntity<>(tokenResponse.getHeaders(), HttpStatus.SEE_OTHER);
+        }
+    }
+
+    //내가 쓴 글
+    @GetMapping("/mypage_comm")
+    public ModelAndView mypageComm() {
+        mav = new ModelAndView();
+        mav.setViewName("mypage/mypage_comm");
+        return mav;
+    }
+
+    // 내가 쓴 글 내역 데이터
+    @PostMapping("/getCommList")
+    public ResponseEntity<Map<String, Object>> getCommList(@RequestBody Map<String, Integer> params,
+                                                          @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        // useridx 가져오기
+        Map<String, Object> responseBody = tokenResponse.getBody();
+        Integer useridx = (Integer) responseBody.get("useridx");
+
+        int page = params.getOrDefault("page", 1);
+        int pageSize = params.getOrDefault("pageSize", 5);
+
+        List<CommuVO> cmList = service.getCmList(page, pageSize, useridx);
+        int totalProductCount = service.getTotalCmCount(useridx);
+        int totalPages = (int) Math.ceil((double) totalProductCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("cmList", cmList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 커뮤니티 글 삭제
+    @PostMapping("/cmDelete")
+    public ResponseEntity<String> cmDelete(@RequestBody Map<String, Object> params,
+                                            @RequestHeader("Authorization") String Headertoken) {
+        // JWT 토큰 검증 및 useridx 추출
+        ResponseEntity<Map<String, Object>> tokenResponse = extractUserIdFromToken(Headertoken);
+        if (!tokenResponse.getStatusCode().is2xxSuccessful()) {
+            return new ResponseEntity<>(tokenResponse.getHeaders(), tokenResponse.getStatusCode());
+        }
+
+        int comm_idx = (int) params.get("comm_idx");
+
+        int result = service.cmDelete(comm_idx);
+        if(result>0){
+            return ResponseEntity.ok("커뮤니티 글 삭제 완료");
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("커뮤니티 글 삭제중 오류 발생");
         }
     }
 

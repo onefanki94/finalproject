@@ -316,6 +316,46 @@
         FROM T_point
         WHERE useridx=${param1}
     </select>
+    <select id="getQnAList" resultType="com.ict.finalproject.vo.QnaVO">
+        SELECT idx, qnatype, title, DATE_FORMAT(regDT, '%Y.%m.%d') AS QnADT, handleState
+        FROM T_qna
+        WHERE useridx = ${param3} and delState=0
+        ORDER BY regDT DESC
+        limit ${param1} offset ${param2};
+    </select>
+    <select id="getTotalQnACount">
+        SELECT COUNT(*)
+        FROM T_qna
+        WHERE useridx=${param1} and delState=0
+    </select>
+    <select id="getQnADetail" resultType="com.ict.finalproject.vo.QnaVO">
+        SELECT q.content, q.imgfile1, r.reply, r.regDT AS replyDT
+        FROM T_qna q
+        LEFT JOIN T_reply r ON q.idx = r.qna_idx
+        WHERE q.idx = ${param1} and q.delState=0
+    </select>
+    <update id="qnaDelete">
+        update T_qna
+        set delState=1, delDT=now()
+        where idx=${param1}
+    </update>
+    <select id="getCmList" resultType="com.ict.finalproject.vo.CommuVO">
+        SELECT idx, commtype, title, DATE_FORMAT(regDT, '%Y.%m.%d') AS commDT, hit
+        FROM T_community
+        WHERE useridx = ${param3} and delState=0
+        ORDER BY regDT DESC
+        limit ${param1} offset ${param2};
+    </select>
+    <select id="getTotalCmCount">
+        SELECT COUNT(*)
+        FROM T_community
+        WHERE useridx=${param1} and delState=0
+    </select>
+    <update id="cmDelete">
+        update T_community
+        set delState=1, delDT=now()
+        where idx=${param1}
+    </update>
     <!-- 채원 끝-->
 
     <!-- 아이디 찾기 -->

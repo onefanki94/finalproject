@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="/WEB-INF/inc/page_header.jspf"%>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
@@ -108,7 +108,7 @@
         </div>
 
         <!-- 신고 모달 -->
-        <div class="reportModal_body" id="reportModal" style="display: none;">
+        <div class="reportModal_body" id="reportModal" style="visibility: hidden;">
             <div class="reportModal_background"></div>
             <div class="reportModal_container">
                 <div class="reportModal_layer">
@@ -161,6 +161,21 @@
                             <textarea placeholder="이 외 사유를 적어주세요.(100자까지 작성가능)" maxlength="100"></textarea>
                         </div>
                         <div class="report_reason_bottom">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="-4 -4 38 38"
+                            id="icon_exclamation_30x30_gray"
+                            x="740"
+                            y="77"
+                            >
+                            <path
+                              fill="#888"
+                              fill-rule="evenodd"
+                              d="M15 30C6.716 30 0 23.284 0 15 0 6.716 6.716 0 15 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15zm0-28.72C7.423 1.28 1.28 7.423 1.28 15c0 7.577 6.143 13.72 13.72 13.72 7.577 0 13.72-6.143 13.72-13.72 0-7.577-6.143-13.72-13.72-13.72zM14 19h2v2h-2v-2zm0-10h2v8h-2V9z"
+                            />
+                            </svg>
                             <p>신고해주신 내용은 관리자 검토 후 내부정책에 의거 조치가 진행됩니다.</p>
                         </div>
                         <div class="report_btn_div">
@@ -571,7 +586,7 @@ function showTab(commtype) {
             document.querySelector("#reportModal .report_info p").textContent = postContent;
 
             // 모달 열기
-            reportModal.style.display = "block";
+            reportModal.style.visibility = "visible";
         });
 
         // 댓글 신고 버튼 클릭 시 모달 띄우기 (댓글마다 개별 이벤트 등록)
@@ -592,7 +607,7 @@ function showTab(commtype) {
             currentCommentIdx = commentIdx;
 
             // 모달 열기
-            reportModal.style.display = "block";
+            reportModal.style.visibility = "visible";
         });
 
         // 모달 열릴 때 초기화 처리
@@ -637,13 +652,13 @@ function showTab(commtype) {
 
          // 모달 닫기 버튼 클릭 시 모달 닫기
             closeModal.addEventListener("click", function () {
-                reportModal.style.display = "none";
+                reportModal.style.visibility = "hidden";
                 initializeReportModal(); // 모달을 닫을 때도 초기화
             });
 
             // 취소 버튼 클릭 시 모달 닫기
             cancelReport.addEventListener("click", function () {
-                reportModal.style.display = "none";
+                reportModal.style.visibility = "hidden";
                 initializeReportModal(); // 모달을 닫을 때도 초기화
             });
 

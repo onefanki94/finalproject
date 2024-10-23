@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="/css/mypage_qna.css" type="text/css" />
 <script src="/js/mypage_common.js"></script>
-<script src="/js/mypage_main.js"></script>
+<script src="/js/mypage_qna.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -27,7 +27,7 @@
               <a href="/user/mypage_userEdit">회원정보수정</a>
             </li>
             <li>
-              <a href="">내가 쓴 글</a>
+              <a href="/user/mypage_comm">내가 쓴 글</a>
             </li>
             <li>
               <a href="/user/mypage_point">적립금</a>
@@ -111,44 +111,16 @@
               <div class="qna_delBtn_div"></div>
             </li>
             <div>
-              <ul>
-                <li class="myqna_write_list">
-                  <div class="qna_type">
-                    <span>배송문의</span>
-                  </div>
-                  <div class="qna_title">
-                      <span>배송 예정일자 문의</span>
-                  </div>
-                  <div class="qna_regDT">
-                    <span>2024-08-26</span>
-                  </div>
-                  <div class="qna_replyState">
-                    <span>답변완료</span>
-                  </div>
-                  <div class="qna_delBtn_div">
-                    <button class="qna_delBtn">삭제</button>
-                  </div>
-                </li>
-                <li class="myqna_write_list">
-                  <div class="qna_type">
-                    <span>배송문의</span>
-                  </div>
-                  <div class="qna_title">
-                      <span>배송 예정일자 문의</span>
-                  </div>
-                  <div class="qna_regDT">
-                    <span>2024-08-26</span>
-                  </div>
-                  <div class="qna_replyState">
-                    <span>답변완료</span>
-                  </div>
-                  <div class="qna_delBtn_div">
-                    <button class="qna_delBtn">삭제</button>
-                  </div>
-                </li>
+              <ul class="myqna_write_list_ul">
+
               </ul>
             </div>
           </ul>
+        </div>
+        <div id="pagination">
+          <div class="custom-pagination">
+
+          </div>
         </div>
       </div>
     </div>

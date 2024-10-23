@@ -63,6 +63,15 @@ public interface MemberService {
     // 적립금 내역
     List<PointVO> getPointList(int page, int pageSize, int useridx);
     int getTotalPointCount(int useridx);
+    // 문의내역
+    List<QnaVO> getQnAList(int page, int pageSize, int useridx);
+    int getTotalQnACount(int useridx);
+    QnaVO getQnADetail(int qna_idx);
+    int qnaDelete(int qna_idx);
+    // 내가 쓴 글
+    List<CommuVO> getCmList(int page, int pageSize, int useridx);
+    int getTotalCmCount(int useridx);
+    int cmDelete(int comm_idx);
 
     String findId(String username, String email);
     String findPwd(String userid,String username ,String email);

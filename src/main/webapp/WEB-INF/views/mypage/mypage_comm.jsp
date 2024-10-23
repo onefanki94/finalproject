@@ -3,9 +3,9 @@
 <%@include file="/WEB-INF/inc/page_header.jspf"%>
 
 <link rel="stylesheet" href="/css/mypage.css" type="text/css" />
-<link rel="stylesheet" href="/css/mypage_point.css" type="text/css" />
+<link rel="stylesheet" href="/css/mypage_comm.css" type="text/css" />
 <script src="/js/mypage_common.js"></script>
-<script src="/js/mypage_point.js"></script>
+<script src="/js/mypage_comm.js"></script>
 
 <div class="mypage_wrap">
   <div class="mypage_main_wrap">
@@ -27,10 +27,10 @@
               <a href="/user/mypage_userEdit">회원정보수정</a>
             </li>
             <li>
-              <a href="/user/mypage_comm">내가 쓴 글</a>
+              <a href="/user/mypage_comm" class="option_active">내가 쓴 글</a>
             </li>
             <li>
-              <a href="/user/mypage_point" class="option_active">적립금</a>
+              <a href="/user/mypage_point">적립금</a>
             </li>
             <li>
               <a href="/user/mypage_heart">좋아요</a>
@@ -77,37 +77,51 @@
 
       <div class="mypage_right_element">
         <!-- 여기에 페이지에 맞는 요소 넣으면 됨 -->
-        <div>
-          <h4 class="my_tit">적립금 내역</h4>
-          <div class="point_list_all">
+        <h4 class="my_tit_cm">나만의 커뮤니티</h4>
+        <div class="cm_top">
+          <div>
+            <span
+              >부적절한 글로 인한 신고 누적 시 계정 이용에 제한이 발생할 수
+              있습니다.</span
+            >
+            <span
+              >반복적인 위반 시 영구 이용 정지 조치가 이루어질 수
+              있습니다.</span
+            >
+          </div>
+          <div>
+            <button type="button" class="cm_write_btn" onclick="location.href='/cmWrite'">
+              커뮤니티 글쓰기
+            </button>
+          </div>
+        </div>
+
+        <div class="mycm_list">
+          <ul>
+            <li class="mycm_list_li">
+              <div class="cm_type">
+                <span>카테고리</span>
+              </div>
+              <div class="cm_title">
+                <span>제목</span>
+              </div>
+              <div class="cm_regDT">
+                <span>작성일</span>
+              </div>
+              <div class="cm_replyState">
+                <span>조회수</span>
+              </div>
+              <div class="cm_delBtn_div"></div>
+            </li>
             <div>
-              <ul class="point_list_ul">
-                <li class="point_list_li">
-                  <div class="point_date"><span>2024.04.21</span></div>
-                  <div class="point_inform">
-                    <div class="point_inform_detail"><span>상품 구매확정 적립</span><span>+360</span></div>
-                  </div>
-                </li>
-                <li class="point_list_li">
-                  <div class="point_date"><span>2024.04.20</span></div>
-                  <div class="point_inform">
-                    <div class="point_inform_detail"><span>리뷰 작성 적립</span><span>+100</span></div>
-                  </div>
-                </li>
-                <li class="point_list_li">
-                  <div class="point_date"><span>2024.04.19</span></div>
-                  <div class="point_inform">
-                    <div class="point_inform_detail"><span>상품 구매 사용</span><span>-1000</span></div>
-                  </div>
-                </li>
+              <ul class="mycm_write_list_ul">
+
               </ul>
             </div>
-          </div>
-          <div id="pagination">
-              <div class="custom-pagination">
-
-              </div>
-          </div>
+          </ul>
+        </div>
+        <div id="pagination">
+          <div class="custom-pagination"></div>
         </div>
       </div>
     </div>

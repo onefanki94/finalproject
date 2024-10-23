@@ -93,6 +93,15 @@ public interface MemberDAO {
         //적립금 내역
         List<PointVO> getPointList(int pageSize, int offset, int useridx);
         int getTotalPointCount(int useridx);
+        // 문의내역
+        List<QnaVO> getQnAList(int pageSize, int offset, int useridx);
+        int getTotalQnACount(int useridx);
+        QnaVO getQnADetail(int qna_idx);
+        int qnaDelete(int qna_idx);
+        // 내가 쓴 글
+        List<CommuVO> getCmList(int pageSize, int offset, int useridx);
+        int getTotalCmCount(int useridx);
+        int cmDelete(int comm_idx);
 
         // 아이디 및 비밀번호 찾기 , 비밀번호 변경
         String findId(String username, String email);
