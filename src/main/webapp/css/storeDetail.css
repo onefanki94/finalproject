@@ -366,15 +366,22 @@
     flex-grow: 1;
 }
 
-.stars {
-    color: #FFD700; /* 노란색 별 */
-    font-size: 30px; /* 별 크기를 키움 */
-    margin-bottom: 10px;
+.stars{
+font-size : 2em;
 }
+
+.filled-star {
+    color: gold;
+}
+
+.empty-star {
+    color: lightgray;
+}
+
 
 .rating-number {
     font-size: 28px;
-    font-weight: bold;
+    font-weight: bolder;
     color: #333;
 }
 

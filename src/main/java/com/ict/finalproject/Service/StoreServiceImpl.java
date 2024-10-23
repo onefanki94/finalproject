@@ -4,15 +4,14 @@ import com.ict.finalproject.DAO.StoreDAO;
 import com.ict.finalproject.DTO.BasketDTO;
 import com.ict.finalproject.vo.BasketVO;
 import com.ict.finalproject.vo.ProductFilterVO;
+import com.ict.finalproject.vo.ReviewVO;
 import com.ict.finalproject.vo.StoreVO;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -88,6 +87,34 @@ public class StoreServiceImpl implements StoreService {
         // categoryCode를 통해 카테고리 타입 조회
         return dao.getCategoryType(categoryCode);
     }
+
+
+    @Override
+    public Double getAverageRating(int productId) {
+        return dao.getAverageRating(productId);  // DAO에서 평균 평점을 가져옴
+    }
+
+
+    @Override
+    public int getReviewCount(int productId) {
+        return dao.getReviewCount(productId);
+    }
+
+    @Override
+    public List<ReviewVO> getReviewsByProductId(int productId) {
+        return dao.getReviewsByProductId(productId);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     //채원
     @Override

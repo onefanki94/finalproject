@@ -5,10 +5,7 @@ import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.Service.NoticeService;
 import com.ict.finalproject.Service.StoreService;
-import com.ict.finalproject.vo.BasketVO;
-import com.ict.finalproject.vo.NoticeVO;
-import com.ict.finalproject.vo.ProductFilterVO;
-import com.ict.finalproject.vo.StoreVO;
+import com.ict.finalproject.vo.*;
 import jakarta.servlet.ServletContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +43,7 @@ public class storeMainController {
 
     @Autowired
     NoticeService noticeService;
+
 
     // 메인 페이지 이동
     @GetMapping("/storeMain")
@@ -114,15 +112,6 @@ public class storeMainController {
         // offset 계산
         int offset = (pageNum - 1) * pageSize;
 
-        // category와 filterType이 빈 값이거나 null일 경우 기본 처리
-//        if (category == null || category == 0) {
-//            category = null;  // 기본값 null 처리
-//        }
-//        if (filterType == null || filterType.trim().isEmpty()) {
-//            filterType = null;  // 빈 문자열일 경우 null로 처리
-//        }
-
-
 
         // 페이징 처리된 상품 목록을 가져옴 (카테고리와 필터 타입을 처리)
         List<StoreVO> pagedProducts;
@@ -142,9 +131,12 @@ public class storeMainController {
         }
 
         // 총 상품 개수를 가져옴
-        int totalProducts = storeService.getTotalProductCount();
+        int totalProducts = pagedProducts.isEmpty() ? 0 : storeService.getTotalProductCount();
         // 총 페이지 수 계산
-        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        int totalPages = totalProducts > 0 ? (int) Math.ceil((double) totalProducts / pageSize) : 0;
+
+
+
         // 카테고리 목록을 가져옴
         List<ProductFilterVO> firstCategoryList = storeService.getFirstCategoryList();
 
@@ -171,40 +163,14 @@ public class storeMainController {
             @RequestParam(required = false) Integer second_category) {
 
         int offset = (pageNum - 1) * pageSize;
-        System.out.println("jo"+category);
+
         // 두 번째 카테고리를 포함한 상품 목록을 가져옵니다.
         List<StoreVO> pagedProducts = storeService.getPagedProducts(pageSize, offset, category, second_category);
 
-        // 상품 목록을 콘솔에 출력합니다.
-        System.out.println("페이지 번호: " + pageNum + ", 페이지 크기: " + pageSize);
-        System.out.println("상품 목록: " + pagedProducts);
+
 
         return pagedProducts; // JSON으로 반환
     }
-
-
-
-    // 최근 3개월 내의 상품들만 가져와서 JSP로 전달(신규굿즈)
-//    @GetMapping("/recentProducts")
-//    public ModelAndView getRecentProducts() {
-//        List<StoreVO> recentProducts = storeService.getRecentProducts();
-//        log.info("호출 " + recentProducts );
-//        // 데이터를 출력하여 확인
-//        if (recentProducts == null || recentProducts.isEmpty()) {
-//            System.out.println("신규 굿즈 데이터가 없습니다.");
-//        } else {
-//            System.out.println("신규 굿즈 데이터가 있습니다. 총 " + recentProducts.size() + "개의 상품이 있습니다.");
-//            for (StoreVO product : recentProducts) {
-//                System.out.println("상품 ID: " + product.getIdx() + ", 상품명: " + product.getTitle());
-//            }
-//        }
-//
-//        ModelAndView mav = new ModelAndView("store/storeMain");
-//        mav.addObject("recentProducts", recentProducts);
-//        return mav;
-//    }
-//
-//
 
 
     // 검색된 상품 목록 가져오기
@@ -233,42 +199,62 @@ public class storeMainController {
         return filteredStoreList;
     }
 
-    // 상품 상세 정보 가져오기
-    @GetMapping("/storeDetail/{storeId}")
-    public ModelAndView getStoreDetail(@PathVariable int storeId) {
-        ModelAndView mav = new ModelAndView("store/storeDetail");
+        // 상품 상세 정보 가져오기
+        @GetMapping("/storeDetail/{storeId}")
+        public ModelAndView getStoreDetail(@PathVariable int storeId) {
+            ModelAndView mav = new ModelAndView("store/storeDetail");
 
-        // 1. 기본 상품 정보 가져오기
-        StoreVO storeDetail = storeService.getStoreDetail(storeId);
+            // 1. 기본 상품 정보 가져오기
+            StoreVO storeDetail = storeService.getStoreDetail(storeId);
 
-        // 2. 숨겨진 이미지 리스트 가져오기
-        List<String> hiddenImages = storeService.getImagesByProductId(storeId);
+            // 2. 숨겨진 이미지 리스트 가져오기
+            List<String> hiddenImages = storeService.getImagesByProductId(storeId);
 
-        // 3. 기본 상품 정보와 숨겨진 이미지 리스트 설정
-        storeDetail.setDetailImages(hiddenImages);
+            // 3. 기본 상품 정보와 숨겨진 이미지 리스트 설정
+            storeDetail.setDetailImages(hiddenImages);
 
-        // 카테고리 코드로 해당 타입을 조회
-        String categoryType = storeService.getCategoryType(storeDetail.getCategory());
+            // 4. 카테고리 코드로 해당 타입을 조회
+            String categoryType = storeService.getCategoryType(storeDetail.getCategory());
 
-        mav.addObject("storeDetail", storeDetail);
-        mav.addObject("categoryType", categoryType);
-        return mav;
-    }
-    @GetMapping("/subcategories")
-    @ResponseBody
-    public List<String> subcategoriesByFirstCategory(@RequestParam("code") int categoryCode) {
-        // 서버에서 categoryCode 로그 출력
-        System.out.println("Received category code: " + categoryCode);
+            // 5. 해당 상품에 대한 리뷰 평점 평균 가져오기
+            Double averageRating = storeService.getAverageRating(storeId);
+            if (averageRating == null) {
+                averageRating = 0.0;  // 리뷰가 없으면 기본값 0.0
+            }
 
-        // StoreService를 통해 하위 카테고리 목록을 가져옴
-        List<String> subcategories = storeService.getSubcategoriesByFirstCategory(categoryCode);
+            // 6. 해당 상품에 대한 리뷰 수 가져오기
+            int reviewCount = storeService.getReviewCount(storeId);
 
-        // 하위 카테고리 목록을 로그로 출력하여 확인
-        System.out.println("Subcategories: " + subcategories);
+            // 7. 해당 상품에 대한 리뷰 목록 가져오기
+            List<ReviewVO> reviews = storeService.getReviewsByProductId(storeId);
+            System.out.println("reviews: "+reviews);
+            // revies에 있는 img.url http://192.168.1.92:8000/이미지 이름이 들어가야함
 
-        // JSON 형식으로 클라이언트에 반환
-        return subcategories;
-    }
+            mav.addObject("storeDetail", storeDetail);
+            mav.addObject("categoryType", categoryType);
+            mav.addObject("averageRating", averageRating);  // 리뷰 평점 추가
+            mav.addObject("reviewCount", reviewCount);  // 리뷰 수 추가
+            mav.addObject("reviews", reviews);  // 리뷰 목록 추가
+
+            return mav;
+        }
+
+
+        @GetMapping("/subcategories")
+        @ResponseBody
+        public List<String> subcategoriesByFirstCategory(@RequestParam("code") int categoryCode) {
+            // 서버에서 categoryCode 로그 출력
+            System.out.println("Received category code: " + categoryCode);
+
+            // StoreService를 통해 하위 카테고리 목록을 가져옴
+            List<String> subcategories = storeService.getSubcategoriesByFirstCategory(categoryCode);
+
+            // 하위 카테고리 목록을 로그로 출력하여 확인
+            System.out.println("Subcategories: " + subcategories);
+
+            // JSON 형식으로 클라이언트에 반환
+            return subcategories;
+        }
 
 
     @RestController
@@ -291,6 +277,8 @@ public class storeMainController {
             return titlesAndDates;  // JSON 형식으로 title과 regDT 반환
         }
     }
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

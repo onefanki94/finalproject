@@ -79,7 +79,7 @@
     <div class="product-tabs">
         <button class="tab active">상품정보</button>
         <button class="tab" onclick="scrollToShippingSection()">배송/교환/반품</button>
-        <button class="tab">1:1 상품문의</button>
+        <button class="tab" onclick="window.location.href='/notice2'">1:1 상품문의</button>
         <button class="tab" onclick ="scrollToReviewSection()">리뷰</button>
     </div>
 
@@ -171,10 +171,7 @@
         </div>
     </div>
 
-    <!-- 1:1 문의 버튼 -->
-    <div class="inquiry-button-section">
-        <button class="inquiry-button">1:1 상품 문의</button>
-    </div>
+
 
 
 
@@ -193,20 +190,20 @@
 
     <!-- 사용자 총 평점과 전체 리뷰수 섹션 -->
     <div class="review-summary">
-        <div class="average-rating">
-            <h3>사용자 총 평점</h3>
-            <div class="stars">
-                <c:forEach var="i" begin="1" end="5">
-                    <span class="${i <= averageRating ? 'filled-star' : 'empty-star'}">★</span>
-                </c:forEach>
-            </div>
-            <div class="rating-number">
-                ${averageRating} <small>/5</small>
-            </div>
-        </div>
+       <div class="average-rating">
+           <h3>사용자 총 평점</h3>
+           <div class="stars">
+               <c:forEach var="i" begin="1" end="5">
+                   <span class="${i <= averageRating ? 'filled-star' : 'empty-star'}">★</span>
+               </c:forEach>
+           </div>
+           <div class="rating-number">
+               ${averageRating} <small>/5</small>
+           </div>
+       </div>
         <div class="total-reviews">
             <h3>전체 리뷰수</h3>
-            <div class="review-count">${reviews.size()}</div>
+            <div class="review-count">${reviewCount}</div>
         </div>
     </div>
 
@@ -223,33 +220,42 @@
         </div>
     </div>
             <!-- 리뷰 리스트 -->
-            <div id="review-list">
-                <c:forEach var="review" items="${reviews}">
-                    <div class="review-item" data-rating="${review.grade}" data-date="${review.regDT}">
-                        <div class="review-nickname">
-                            <span class="review-rating">
-                                <!-- 별점 출력 -->
-                                <c:forEach var="i" begin="1" end="5">
-                                    <span class="${i <= review.grade ? 'filled-star' : 'empty-star'}">★</span>
-                                </c:forEach>
-                            </span>
-                            <span class="reviewer-name">
-                                <!-- 아이디 중간에 마스킹 처리 -->
-                                <c:out value="${fn:substring(review.useridx, 0, 3)}"/>*****
-                            </span>
-                            <span class="review-date">${review.regDT}</span>         
-                        </div>
-                        
-                        <div class="review-content">${review.content}</div>
-                        
-                        <c:if test="${not empty review.imgfile1}">
-                            <div class="review-image">
-                                <img src="${review.imgfile1}" alt="리뷰 이미지">
-                            </div>
-                        </c:if>
-                    </div>
-                </c:forEach>
-            </div>
+      <div id="review-list">
+          <c:forEach var="review" items="${reviews}">
+              <div class="review-item" data-rating="${review.grade}" data-date="${review.regDT}">
+                  <div class="review-nickname">
+                      <span class="review-rating">
+                          <!-- 별점 출력 -->
+                          <c:forEach var="i" begin="1" end="5">
+                              <span class="${i <= review.grade ? 'filled-star' : 'empty-star'}">★</span>
+                          </c:forEach>
+                      </span>
+                      <span class="reviewer-name">
+                          <!-- 아이디 중간에 마스킹 처리 -->
+                          <c:out value="${fn:substring(review.useridx, 0, 3)}"/>*****
+                      </span>
+                      <span class="review-date">${review.regDT}</span>
+                  </div>
+
+                  <div class="review-content">${review.content}</div>
+
+                  <!-- 이미지 파일1이 있을 경우 출력 -->
+                  <c:if test="${not empty review.imgfile1}">
+                      <div class="review-image">
+                          <img src="http://192.168.1.92:8000/${review.imgfile1}" alt="리뷰 이미지">
+                      </div>
+                  </c:if>
+
+                  <!-- 이미지 파일2가 있을 경우 출력 -->
+                  <c:if test="${not empty review.imgfile2}">
+                      <div class="review-image">
+                          <img src="http://192.168.1.92:8000/${review.imgfile2}" alt="리뷰 이미지 2">
+                      </div>
+                  </c:if>
+              </div>
+          </c:forEach>
+      </div>
+
 
     
         <!-- 페이지 네이션 -->

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@include file="/WEB-INF/inc/main_header.jspf"%>
+<%@include file="/WEB-INF/inc/page_header.jspf"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -112,7 +112,7 @@
                         </div>
 
                         <!-- 공지사항 리스트 반복 출력 -->
-                            <c:forEach var="notice" items="${notices}">
+                            <c:forEach var="notice" items="${list}">
                                 <div class="row">
                                     <div class="col-sm-1 p-2">${notice.idx}</div>
                                     <div class="col-sm-8 p-2">
@@ -129,19 +129,48 @@
                     <!-- 페이지네이션 -->
                         <div class="pagination">
                             <ul class="paging">
-                                <c:if test="${paging.hasPrevious}">
-                                    <li><a href="?page=${paging.nowPage - 1}&tag=${selectedTag}&keyword=${keyword}">&lt;</a></li>
+
+                                <!-- 이전 페이지 버튼 -->
+                                <c:if test="${pVO.hasPrevious}">
+                                    <li class="pre">
+                                        <a class="page-link" href="javascript:reloadPage(${pVO.nowPage - 1});">
+                                            <img src="/img/cm/left-chevron.png" />
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${!pVO.hasPrevious}">
+                                    <li class="pre disabled">
+                                        <a class="page-link" href="javascript:void(0);">
+                                            <img src="/img/cm/left-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
                                 </c:if>
 
-                                <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-                                    <li class="<c:if test='${paging.nowPage == i}'>active</c:if>">
-                                        <a href="?page=${i}&tag=${selectedTag}&keyword=${keyword}">${i}</a>
-                                    </li>
+                                <!-- 페이지 번호 -->
+                                <c:forEach var="p" begin="${pVO.startPage}" end="${pVO.endPage}">
+                                    <c:if test="${p <= pVO.totalPage}">
+                                        <li class="${p == pVO.nowPage ? 'page active' : 'page'} ">
+                                            <a class="page-link" href="javascript:reloadPage(${p});">${p}</a>
+                                        </li>
+                                    </c:if>
                                 </c:forEach>
 
-                                <c:if test="${paging.hasNext}">
-                                    <li><a href="?page=${paging.nowPage + 1}&tag=${selectedTag}&keyword=${keyword}">&gt;</a></li>
+                                <!-- 다음 페이지 버튼 -->
+                                <c:if test="${pVO.hasNext}">
+                                    <li class="next">
+                                        <a class="page-link" href="javascript:reloadPage(${pVO.nowPage + 1});">
+                                            <img src="/img/cm/right-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
                                 </c:if>
+                                <c:if test="${!pVO.hasNext}">
+                                    <li class="next disabled">
+                                        <a class="page-link" href="javascript:void(0);">
+                                            <img src="/img/cm/right-chevron.png" style="width:20px; height:18px;" />
+                                        </a>
+                                    </li>
+                                </c:if>
+
                             </ul>
                         </div>
 
@@ -186,7 +215,7 @@
                 <div class="content" id="tap3">
                     <div class="inquiry-container">
                         <!-- 카테고리 및 문의 영역 -->
-                        <form class="inquiry-form" method="post" action="/inquirySubmit" enctype="multipart/form-data">
+                        <form class="inquiry-form" method="post" onsubmit = "return submitInquiry()" enctype="multipart/form-data">
                             <table class="inquiry-table">
                                 <!-- 구매 관련 문의 -->
                                 <tr>
@@ -226,21 +255,21 @@
                                 <!-- 아이디는 로그인된 사용자 아이디를 서버에서 불러와 표시 -->
                                 <tr>
                                     <th>아이디</th>
-                                    <td><span class="user-id">${loggedInUserId}</span></td>
+                                    <td><span class="user-id">${userid}</span></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
                                 <!-- 제목 입력 -->
                                 <tr>
                                     <th>제목</th>
-                                    <td><input type="text" name="title" placeholder="제목을 입력하세요." class="inquiry-title"></td>
+                                    <td><input type="text" name="title" id="title" placeholder="제목을 입력하세요." class="inquiry-title"></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
                                 <!-- 내용 입력 -->
                                 <tr>
                                     <th>내용</th>
-                                    <td><textarea name="content" placeholder="내용을 입력하세요." class="inquiry-content"></textarea></td>
+                                    <td><textarea name="content" id="content" placeholder="내용을 입력하세요." class="inquiry-content"></textarea></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
@@ -248,7 +277,7 @@
                                 <tr>
                                     <th>사진 첨부</th>
                                     <td>
-                                        <input type="file" name="file" class="inquiry-attachment" multiple>
+                                        <input type="file" name="file" id="file" class="inquiry-attachment" multiple>
                                         <p class="attachment-info">파일용량은 최대 10MB로 제한되며, 1개의 파일을 첨부할 수 있습니다.</p>
                                     </td>
                                 </tr>
@@ -290,30 +319,53 @@
 
 
 <script>
-window.onload = function(){
-    console.log("호출");
+//로그인 상태 확인 함수
+function checkLoginStatus() {
 
-    var token = localStorage.getItem("token"); // 토큰 값 가져오기
-    if(token != "" && token != null){
-        $.ajax({
-            url: "/getuser",
-            type: "get",
-            data:{Authorization:token},
-            success: function(vo){
-                console.log("로그인된 사용자 ID:" + vo.userid);
+    const token = localStorage.getItem("token");
+        const loginDiv = document.querySelector(".sh_login");
 
-                userid = vo.userid;
-                useridx = vo.idx;
+        if (!loginDiv) {
+            console.error(".sh_login 요소를 찾을 수 없습니다.");
+            return;
+        }
 
-                console.log(userid);
-                console.log(useridx);
-            },
-            error: function(){
-                console.error("로그인 여부 확인 실패");
-            }
-        });
-    }
-};
+        if (!token) {
+            loginDiv.innerHTML = `<button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>`;
+        } else {
+            $.ajax({
+                url: "/getuser",
+                type: "get",
+                data: { Authorization: token },
+                success: function(vo) {
+                    loginDiv.innerHTML = `
+                        <button id="login_btn" onclick="location.href='/user/mypage'">마이페이지</button>
+                        <button id="login_btn" onclick="logout()">로그아웃</button>
+                    `;
+                    document.querySelector('.user-id').innerText = vo.userid; // 사용자 아이디 업데이트
+                },
+                error: function() {
+                    console.error("로그인 여부 확인 실패");
+                    loginDiv.innerHTML = `<button id="login_btn" onclick="location.href='/user/login'">로그인/가입</button>`;
+                }
+            });
+        }
+    };
+
+    // tap3 탭 클릭 시 로그인 여부 확인
+    document.querySelector('.notice_tab .list li:nth-child(3) .btn').addEventListener('click', function() {
+        const token = localStorage.getItem("token"); // 토큰 값 가져오기
+
+        if (!token) { // 토큰이 없으면
+            alert('로그인이 필요합니다.');
+            location.href = "/user/login"; // 로그인 페이지로 이동
+            return; // 이후 코드 실행 중단
+        }
+
+        // 로그인된 사용자는 tap3의 콘텐츠에 접근 가능
+        console.log('1:1 문의하기 탭에 접근했습니다.');
+    });
+
 
 
     // 공지사항 탭 클릭 시 필터 초기화하고 전체 목록 요청
@@ -385,125 +437,138 @@ window.onload = function(){
 
 
     // 모든 질문 항목에 대해 클릭 이벤트 추가
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', function () {
-                // 현재 질문의 다음 요소(답변)를 가져옴
-                const answer = this.nextElementSibling;
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function () {
+            // 현재 질문의 다음 요소(답변)를 가져옴
+            const answer = this.nextElementSibling;
 
-                // 모든 답변을 숨기고 아이콘을 초기화
-                document.querySelectorAll('.faq-answer').forEach(ans => {
-                    if (ans !== answer) ans.style.display = 'none';
-                });
+            // 모든 답변을 숨기고 아이콘을 초기화
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                if (ans !== answer) ans.style.display = 'none';
+            });
 
-                document.querySelectorAll('.toggle-icon').forEach(icon => {
-                    icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
-                });
+            document.querySelectorAll('.toggle-icon').forEach(icon => {
+                icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
+            });
 
-                // 현재 답변을 보이거나 숨기기
-                answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
+            // 현재 답변을 보이거나 숨기기
+            answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
 
-                // 아이콘 변경
-                const icon = this.querySelector('.toggle-icon');
-                icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
+            // 아이콘 변경
+            const icon = this.querySelector('.toggle-icon');
+            icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
+        });
+    });
+
+
+
+
+
+    //탭1_공지사항_모달
+    function setNoticeTitleClickEvents() {
+        document.querySelectorAll('.noticeTitle').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault(); // 링크 기본 동작 방지
+
+                // 모달 내용 업데이트
+                const title = this.getAttribute('data-title');
+                const content = this.getAttribute('data-content');
+
+                document.getElementById('modalTitle').innerHTML = title;
+                document.getElementById('modalContent').innerHTML = content;
+                document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
             });
         });
+    }
 
+// 모달 닫기 이벤트 설정
+document.querySelector('.detail_layer_close').addEventListener('click', function () {
+    document.querySelector('.detail_layer_pop').style.display = 'none'; // 모달 숨기기
+});
 
+// 초기 로드 시 공지사항의 모달 이벤트 설정
+setNoticeTitleClickEvents();
 
+// 탭 전환 시마다 이벤트 리스너 재설정 및 컨텐츠 갱신
+const tabList = document.querySelectorAll('.notice_tab .list li');
+const contentList = document.querySelectorAll('.content');
 
+tabList.forEach((tab, index) => {
+    tab.querySelector('.btn').addEventListener('click', function (e) {
+        e.preventDefault();
+        // 모든 탭 비활성화 및 콘텐츠 숨김
+        tabList.forEach(t => t.classList.remove('selected'));
+        contentList.forEach(content => content.classList.remove('active'));
 
-//탭1_공지사항_모달
-    document.querySelectorAll('.noticeTitle').forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault(); // 링크 기본 동작 방지
+        // 현재 탭 활성화 및 해당 콘텐츠 보여줌
+        tab.classList.add('selected');
+        contentList[index].classList.add('active');
 
-            // 모달 내용 업데이트
-            const title = this.getAttribute('data-title');
-            const content = this.getAttribute('data-content');
-
-            document.getElementById('modalTitle').innerHTML = title;
-            document.getElementById('modalContent').innerHTML = content;
-            document.querySelector('.detail_layer_pop').style.display = 'block'; // 모달 보이기
-        });
+        // 공지사항 탭으로 돌아왔을 때 이벤트 리스너 재설정
+        if (index === 0) { // 공지사항 탭인 경우
+            setNoticeTitleClickEvents();
+        }
     });
+});
 
-    // 모달 닫기
-    document.querySelector('.detail_layer_close').addEventListener('click', function () {
-        document.querySelector('.detail_layer_pop').style.display = 'none'; // 모달 숨기기
-    });
+// 공지사항 리스트가 AJAX로 새로 로드될 때마다 이벤트 리스너 재설정
+$(document).ajaxComplete(function() {
+    setNoticeTitleClickEvents();
+});
 
-
-
-
-//탭 전환
-    const tabList = document.querySelectorAll('.notice_tab .list li');
-    const contentList = document.querySelectorAll('.content');
-
-    tabList.forEach((tab, index) => {
-        tab.querySelector('.btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            // 모든 탭 비활성화 및 콘텐츠 숨김
-            tabList.forEach(t => t.classList.remove('selected'));
-            contentList.forEach(content => content.classList.remove('active'));
-
-            // 현재 탭 활성화 및 해당 콘텐츠 보여줌
-            tab.classList.add('selected');
-            contentList[index].classList.add('active');
-        });
-    });
 
 
 // 1:1 문의 제출 함수
 function submitInquiry() {
     //let formData = new FormData(document.querySelector(".inquiry-form"));
+    let formData = new FormData();
+
     // 입력 필드 값 가져오기
-    var qnatype = document.getElementById("qnatype").value;
-    var title  = document.getElementById("title").value;
-    var content = document.getElementById("content").value;
-    var file = document.getElementById("file").value;
+    let qnatype = document.querySelector('input[name="qnatype"]:checked').value;
+    let title = document.querySelector('.inquiry-title').value;
+    let content = document.querySelector('.inquiry-content').value;
+    let files = document.querySelector('.inquiry-attachment').files;
+     console.log("1", Array.from(formData.entries()));
+        // FormData에 입력 값 추가
+        formData.append("qnatype", qnatype);
+        formData.append("title", title);
+        formData.append("content", content);
 
-
-    // 로컬 스토리지에서 JWT 토큰 가져오기
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert('로그인이 필요합니다.');
-        location.href = "/user/login";
-        return false;
-    }
-
-    // 서버로 전송할 데이터를 FormData 객체에 추가
-    var formData = new FormData();
-    formData.append("qnatype", qnatype);
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("file", file);
-
-
-    $.ajax({
-        url: '/inquirySubmit',
-        type: 'POST',
-        data: formData,
-        processData: false, // 데이터를 기본 문자열로 처리하지 않음
-        contentType: false, // "multipart/form-data"로 전송
-        headers: {
-            "Authorization": `Bearer ${token}`  // Authorization 헤더에 JWT 토큰 추가
-        },
-        success: function(response) {
-            alert('1:1 문의가 등록되었습니다.');
-            location.reload(); // 성공 시 페이지 새로고침
-        },
-        error: function(xhr) {
-            if (xhr.status === 401) {
-                alert('인증에 실패했습니다. 다시 로그인하세요.');
-                location.href = "/user/login";  // 로그인 페이지로 이동
-            } else if (xhr.status === 404) {
-                alert('서버에서 요청을 찾을 수 없습니다.');
-            } else {
-                alert("요청 처리 중 오류가 발생했습니다.");
-            }
-            console.error("Error:", xhr);  // 오류 출력
+        // 파일 추가
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i]);
         }
-    });
+
+        // 서버로 전송할 데이터를 FormData 객체에 추가
+        // var formData = new FormData();
+        //formData.append("file", file);
+
+        console.log("2", Array.from(formData.entries()));
+        $.ajax({
+            url: '/inquirySubmit',
+            type: 'POST',
+            data: formData,
+            processData: false, // 데이터를 기본 문자열로 처리하지 않음
+            contentType: false, // "multipart/form-data"로 전송
+            headers: {
+                    "Authorization": "Bearer "+token   // JWT 토큰을 Authorization 헤더에 포함
+              },
+            success: function(response) {
+                alert('1:1 문의가 등록되었습니다.');
+                location.reload(); // 성공 시 페이지 새로고침
+            },
+            error: function(xhr) {
+                if (xhr.status === 401) {
+                    alert('인증에 실패했습니다. 다시 로그인하세요.');
+                    location.href = "/user/login";  // 로그인 페이지로 이동
+                } else if (xhr.status === 404) {
+                    alert('서버에서 요청을 찾을 수 없습니다.');
+                } else {
+                    alert("요청 처리 중 오류가 발생했습니다.");
+                }
+                console.error("Error:", xhr);  // 오류 출력
+            }
+        });
 
     return false;  // 기본 폼 제출 방지
 }
