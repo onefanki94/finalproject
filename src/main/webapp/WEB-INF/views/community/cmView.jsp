@@ -203,8 +203,12 @@ function checkLoginStatusForCommunity() {
                 console.log(userid);
                 console.log(useridx);
 
+                // useridx 설정 후 댓글 목록 불러오기
+                let comm_idx = $('[name=no]').val();
+                loadComments(comm_idx);
+
                 // 게시물 작성자의 아이디와 로그인된 사용자의 아이디가 같은지 확인
-                var postAuthorId = "${vo.userid}"; // JSP에서 게시물 작성자의 아이디를 가져온다고 가정
+                var postAuthorId = "{vo.userid}"; // JSP에서 게시물 작성자의 아이디를 가져온다고 가정
 
                 if (userid === postAuthorId) {
                     // 로그인된 사용자가 게시물 작성자인 경우 수정, 삭제 버튼을 표시
@@ -360,7 +364,7 @@ function showTab(commtype) {
 
 
                           // 수정/삭제 버튼
-                              if (comment.useridx === useridx) {
+                              if (parseInt(comment.useridx) === parseInt(useridx)) {
                                   comm += '<span class="edit-btn" onclick="editComment(' + comment.idx + ')">수정</span>';
                                   comm += '<span class="delete-btn" onclick="deleteComment(' + comment.idx + ')">삭제</span>';
 
