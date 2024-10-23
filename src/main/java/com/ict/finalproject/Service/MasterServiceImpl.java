@@ -416,4 +416,24 @@ public class MasterServiceImpl implements MasterService {
     public int getTotalSalesDetailListCount(String orderDate) {
         return dao.getTotalSalesDetailListCount(orderDate);
     }
+
+    @Override
+    public List<SalesListDTO> getMonthlySales() {
+        return dao.getMonthlySales();
+    }
+
+    @Override
+    public List<SalesListDTO> getDailySales() {
+        return dao.getDailySales();
+    }
+
+    @Override
+    public List<SalesListDTO> getAniSales() {
+        return dao.getAniSales();
+    }
+
+    @Override
+    public List<SalesListDTO> getCategorySales() {
+        return dao.getCategorySales();
+    }
 }

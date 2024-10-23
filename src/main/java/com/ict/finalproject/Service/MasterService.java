@@ -90,4 +90,10 @@ public interface MasterService {
     int getTotalSalesListCount(String startDate, String endDate);
     List<CurrentOrderDataDTO> getSalesDetailList(int page, int pageSize, String orderDate);
     int getTotalSalesDetailListCount(String orderDate);
+    //차트
+    //매출액
+    List<SalesListDTO> getMonthlySales();
+    List<SalesListDTO> getDailySales();
+    List<SalesListDTO> getAniSales();
+    List<SalesListDTO> getCategorySales();
 }

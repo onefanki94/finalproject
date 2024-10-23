@@ -9,7 +9,7 @@ $(function(){
     const token = localStorage.getItem("token");
     // 1. 장바구니 클릭
     // 로직 : ajax로 장바구니테이블에 데이터 저장 -> 계속 쇼핑? 장바구니 이동? 모달
-    $(document).on('click', '#basket_in_btn', function() {
+    $(document).on('click', '.basket_in_btn', function() {
         if (!token) {
             alert('로그인이 필요합니다.');
             return;
@@ -92,7 +92,7 @@ $(function(){
     })//장바구니 클릭 끝
 
     // 2. 바로구매 클릭
-    $('#order_buy_btn').click(function() {
+    $('.order_buy_btn').click(function() {
         // 체크된 상품의 idx 값을 배열에 저장
         var selectedProducts = [];
         // 체크된 상품의 주문 갯수

@@ -1507,9 +1507,27 @@ public class masterController {
 
     // 매출 월/일 차트데이터
     @PostMapping("/getDayChart")
-    public ResponseEntity<String> getDayChart() {
+    public ResponseEntity<Map<String, Object>> getDayChart() {
+        // 월별 매출 데이터
+        List<SalesListDTO> monthlySales = masterService.getMonthlySales();
+        // 일별 매출 데이터 (현재 주간 데이터)
+        List<SalesListDTO> dailySales = masterService.getDailySales();
+        Map<String, Object> response = new HashMap<>();
+        response.put("monthlySales", monthlySales);
+        response.put("dailySales", dailySales);
+        return ResponseEntity.ok(response);
+    }
 
-
-        return ResponseEntity.ok("성공");
+    // 매출 상품별 차트데이터
+    @PostMapping("/getProductChart")
+    public ResponseEntity<Map<String, Object>> getProductChart() {
+        // 애니별 매출 데이터
+        List<SalesListDTO> aniSales = masterService.getAniSales();
+        // 카테고리별 매출 데이터
+        List<SalesListDTO> categorySales = masterService.getCategorySales();
+        Map<String, Object> response = new HashMap<>();
+        response.put("aniSales", aniSales);
+        response.put("categorySales", categorySales);
+        return ResponseEntity.ok(response);
     }
 }

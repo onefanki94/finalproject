@@ -183,4 +183,8 @@ public interface MasterDAO {
                                                  @Param("offset") int offset,
                                                  @Param("orderDate") String orderDate);
     int getTotalSalesDetailListCount(@Param("orderDate") String orderDate);
+    List<SalesListDTO> getMonthlySales();
+    List<SalesListDTO> getDailySales();
+    List<SalesListDTO> getAniSales();
+    List<SalesListDTO> getCategorySales();
 }

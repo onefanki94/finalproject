@@ -43,8 +43,12 @@ $(function(){
             type: 'POST',
             success: function(response) {
                 console.log(response);
-                const salesDetailList = response.salesDetailList;
-                const totalPages = response.totalPages;
+                //가져온 데이터 가공
+                const monthLabels = response.monthlySales.map(sale => `${sale.orderDate}월`);
+                const monthData = response.monthlySales.map(sale => sale.totalSales);
+                const dayLabels = response.dailySales.map(sale => sale.orderDate);
+                const dayData = response.dailySales.map(sale => sale.totalSales);
+
                 tag=``;
                 if (!$('.chart_modal_body').length) {
                     tag+=`
@@ -77,7 +81,79 @@ $(function(){
                 }
                 // 모달 창을 보여줌
                 $(".chart_modal_body").show();
-                drawSalesChart();
+                drawSalesChart(monthLabels,monthData,dayLabels,dayData);
+            },
+            error: function(error) {
+                console.log('Error:', error);
+                alert("차트를 불러오는중 오류가 발생했습니다.");
+            }
+        });
+    });
+    //상품별 매출차트
+    $(document).on('click', '#product_salesChart', function() {
+        $.ajax({
+            url: '/master/getProductChart',
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                //가져온 데이터 가공
+                const topN = 5; // 상위 N개 애니만 표시
+                const aniSales = response.aniSales.sort((a, b) => b.totalSales - a.totalSales); // 매출 순으로 정렬
+                const topSales = aniSales.slice(0, topN); // 상위 N개 추출
+                const otherSales = aniSales.slice(topN); // 나머지 데이터 추출
+
+                const topLabels = topSales.map(sale => sale.aniTitle);
+                const topData = topSales.map(sale => sale.totalSales);
+                const otherTotal = otherSales.reduce((acc, sale) => acc + sale.totalSales, 0);
+
+                if (otherTotal > 0) {
+                    topLabels.push("기타");
+                    topData.push(otherTotal);
+                }
+
+                const categoryNames = {
+                    1: "의류",
+                    2: "완구/취미",
+                    3: "문구/오피스",
+                    4: "생활용품"
+                    // 필요에 따라 더 추가
+                };
+                const categoryLabels = response.categorySales.map(sale => categoryNames[sale.category]);
+                const categoryData = response.categorySales.map(sale => sale.totalSales);
+
+                tag=``;
+                if (!$('.chart_modal_body').length) {
+                    tag+=`
+                        <div class="chart_modal_body">
+                          <div></div>
+                          <div class="chart_modal_container">
+                            <div class="chart_modal_container_flex">
+                              <div>
+                                <span>상품별 매출 그래프</span>
+                                <i class="fa-solid fa-x close_modal"></i>
+                              </div>
+                              <div class="chart-day-info-modal">
+                                <div class="chart-product">
+                                  <p>애니별 매출</p>
+                                  <canvas id="ani_sales_chart"></canvas>
+                                </div>
+                                <div class="chart-product-category">
+                                  <p>카테고리별 매출</p>
+                                  <canvas id="category_sales_chart"></canvas>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>`;
+                    $("body").append(tag);
+                    // 모달 닫기 기능
+                    $('.close_modal').on('click', function () {
+                        $('.chart_modal_body').remove();  // 모달 제거
+                    });
+                }
+                // 모달 창을 보여줌
+                $(".chart_modal_body").show();
+                drawProductChart(topLabels, topData, categoryLabels, categoryData);
             },
             error: function(error) {
                 console.log('Error:', error);
@@ -316,77 +392,86 @@ $(document).on('click', '#sales_detail_btn', function() {
     getSalesDetailList(1,orderDate);
 });
 
-function drawSalesChart() {
-    let bgColor = [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
-            "rgba(255, 205, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-          ];
+$(document).on('click', '#order_detail_btn', function () {
+    var order_idx= $(this).closest(".user_orderList_tr").find('#order_idx').val();
+    console.log(order_idx);
 
-          let brColor = [
-            "rgb(255, 99, 132)",
-            "rgb(255, 159, 64)",
-            "rgb(255, 205, 86)",
-            "rgb(75, 192, 192)",
-            "rgb(54, 162, 235)",
-            "rgb(153, 102, 255)",
-            "rgb(153, 102, 255)",
-          ];
-    //bar_chart
-    new Chart(document.getElementById("day_sales_chart"), {
-      type: "bar",
-      data: {
-        labels: [
-          "Red",
-          "Orange",
-          "Yellow",
-          "Green",
-          "Blue",
-          "Purple",
-          "Purple",
-        ],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [120, 190, 330, 250, 200, 300, 400],
-            backgroundColor: bgColor,
-            borderColor: brColor,
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
+    window.open('/master/orderDetail?order_idx=' + order_idx, '_blank');
+});
 
-    //line_chart
-    const month = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]; //x축
-    const data = {
-      labels: month,
+//월/일별 차트 그리기
+function drawSalesChart(monthLabels,monthData,dayLabels,dayData) {
+    //bar_chart - 일별
+    const day_data = {
+      labels: dayLabels,
       datasets: [
         {
-          label: "2024년도 매출액",
-          data: [65, 59, 80, 81, 56, 55, 40,80, 81, 56, 55, 40], //y축
-          fill: false,
-          borderColor: "rgb(75, 192, 192)",
-          tension: 0.1,
+          label: "주간매출",
+          data: dayData,
+          backgroundColor: "#359c95",
+          borderWidth: 1,
         },
       ],
     };
 
     const config = {
-      type: "line",
-      data: data,
+      type: "bar",
+      data: day_data,
     };
 
-    new Chart(document.getElementById("month_sales_chart"), config);
+    new Chart(document.getElementById("day_sales_chart"), config);
+
+    //line_chart - 월별
+    const month_data = {
+      labels: monthLabels,
+      datasets: [
+        {
+          label: "2024년도 매출액",
+          data: monthData,
+          fill: false,
+          borderColor: "#359c95",
+          tension: 0.1,
+        },
+      ],
+    };
+
+    const config2 = {
+      type: "line",
+      data: month_data,
+    };
+
+    new Chart(document.getElementById("month_sales_chart"), config2);
+}
+
+//상품별 차트 그리기
+function drawProductChart(aniLabels,aniData,categoryLabels,categoryData) {
+    //애니별
+    new Chart(document.getElementById("ani_sales_chart"), {
+      type: "doughnut",
+      data: {
+        labels: aniLabels,
+        datasets: [
+          {
+            data: aniData,
+            backgroundColor: ["#F9B2D0", "#F98CC1", "#B2D5EB", "#97C4E3","#FCD793","#FAB567"],
+            hoverOffset: 4,
+          },
+        ],
+      },
+    });
+
+    //카테고리별
+    new Chart(document.getElementById("category_sales_chart"), {
+      type: "doughnut",
+      data: {
+        labels: categoryLabels,
+        datasets: [
+          {
+            data: categoryData,
+            backgroundColor: ["#F9B2D0", "#C997CA", "#B2D5EB", "#FCD793"],
+            hoverOffset: 4,
+          },
+        ],
+      },
+    });
 }

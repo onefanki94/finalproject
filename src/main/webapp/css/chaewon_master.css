@@ -316,3 +316,26 @@ td, th {
   border-radius: 2em;
   font-size: 1em;
 }
+
+.chart-product,.chart-product-category{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-product p{
+    position: absolute;
+    top: 49%;
+    left: 38%;
+    font-size:1.4em !important;
+    padding:15px !important;
+}
+
+.chart-product-category p{
+    position: absolute;
+    top: 47%;
+    left: 35%;
+    font-size:1.4em !important;
+    padding:15px !important;
+}
