@@ -88,4 +88,6 @@ public interface MasterService {
     // 매출 내역
     List<SalesListDTO> getSalesList(int page, int pageSize, String startDate, String endDate);
     int getTotalSalesListCount(String startDate, String endDate);
+    List<CurrentOrderDataDTO> getSalesDetailList(int page, int pageSize, String orderDate);
+    int getTotalSalesDetailListCount(String orderDate);
 }

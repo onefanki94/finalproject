@@ -4,7 +4,10 @@
 <title>DashBoard - 일/월별 매출관리</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+/>
 <link href="/css/chaewon_master.css" rel="stylesheet" type="text/css" />
 <script src="/js/chaewon_master_salesList.js"></script>
 
@@ -17,8 +20,8 @@
         <div class="menu_date">
             <input type="date" id="startDate" value="">
             ~
-            <input type="date" id="startDate" value="">
-            <button class="btn btn-secondary">검색</button>
+            <input type="date" id="endDate" value="">
+            <button class="btn btn-secondary" id="date_search">검색</button>
         </div>
     </div>
     <div class="sales_dataChart">

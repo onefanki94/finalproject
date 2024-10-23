@@ -221,10 +221,15 @@ public class OrderServiceImpl implements OrderService{
                 // 최신 취소 내역 (리스트의 마지막 요소)
                 CancelResDTO.CancelInfo latestCancel = responseData.getCancels().get(responseData.getCancels().size() - 1);
 
-                paramMap.put("paymentKey", responseData.getPaymentKey());
                 paramMap.put("cancelInfo", latestCancel);
-                // 결제 취소 성공 정보 저장
-                dao.PaymentCancelSuccess(paramMap);
+                // 결제 취소 성공 정보 저장(T_payment)
+                dao.PaymentCancelSuccess(responseData.getPaymentKey());
+                // T_payment_cancel에 취소 정보 저장
+                //1. payment_id 알아내기
+                long payment_id = dao.getPaymentId(responseData.getPaymentKey());
+                // 2. 결제정보 저장
+                paramMap.put("payment_id", payment_id);
+                dao.savePaymentCancels(paramMap);
 
                 // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리
                 int order_idx = sessionPayCancelDTO.getOrder_idx();

@@ -179,4 +179,8 @@ public interface MasterDAO {
                                     @Param("endDate") String endDate);
     int getTotalSalesListCount(@Param("startDate") String startDate,
                                @Param("endDate") String endDate);
+    List<CurrentOrderDataDTO> getSalesDetailList(@Param("pageSize") int pageSize,
+                                                 @Param("offset") int offset,
+                                                 @Param("orderDate") String orderDate);
+    int getTotalSalesDetailListCount(@Param("orderDate") String orderDate);
 }

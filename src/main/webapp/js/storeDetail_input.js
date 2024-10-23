@@ -16,6 +16,7 @@ $(function(){
         }
         var pro_idx=$("#pro_idx").val();
         var amount = $("#amount").val();
+
         var totalPrice = document.getElementById("total-price").textContent;
         var totalPriceWithoutComma = totalPrice.replace(/,/g, ''); // 콤마 제거
         var totalPriceInt = parseInt(totalPriceWithoutComma, 10);
@@ -103,7 +104,9 @@ $(function(){
         selectedProductsCounts.push(amount);
 
         var totalPrice = document.getElementById("total-price").textContent;
-        $("#total").val(totalPrice);
+        var totalPriceWithoutComma = totalPrice.replace(/,/g, ''); // 콤마 제거
+        var totalPriceInt = parseInt(totalPriceWithoutComma, 10);
+        $("#total").val(totalPriceInt);
         var totalAmount = $("#total").val();
         var fee = totalAmount >= 150000 ? 0 : 2500; // 15만원 이상이면 배송비 0원
         totalAmount = parseInt(totalAmount)+parseInt(fee);
@@ -120,6 +123,7 @@ $(function(){
         console.log("주문 상품 pro_idx :", selectedProducts);
         console.log("주문 상품 갯수 :", selectedProductsCounts);
         console.log("주문 총 금액 :", totalAmount);
+        return;
         // Ajax로 주문 데이터 전송
         $.ajax({
             url: '/order/submit',

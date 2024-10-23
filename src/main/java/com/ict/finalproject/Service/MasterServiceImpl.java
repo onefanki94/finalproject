@@ -405,4 +405,15 @@ public class MasterServiceImpl implements MasterService {
     public int getTotalSalesListCount(String startDate, String endDate) {
         return dao.getTotalSalesListCount(startDate,endDate);
     }
+
+    @Override
+    public List<CurrentOrderDataDTO> getSalesDetailList(int page, int pageSize, String orderDate) {
+        int offset = (page-1)*pageSize;
+        return dao.getSalesDetailList(pageSize, offset,orderDate);
+    }
+
+    @Override
+    public int getTotalSalesDetailListCount(String orderDate) {
+        return dao.getTotalSalesDetailListCount(orderDate);
+    }
 }

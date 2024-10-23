@@ -1465,7 +1465,6 @@ public class masterController {
         return mav;
     }
 
-
     //매출 내역 리스트
     @PostMapping("/getSalesList")
     public ResponseEntity<Map<String, Object>> getSalesList(@RequestBody Map<String, Object> params) {
@@ -1481,6 +1480,25 @@ public class masterController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("salesList", salesList);
+        response.put("totalPages", totalPages);
+        response.put("currentPage", page);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 해당 일자에 맞는 매출 내역 모달
+    @PostMapping("/getSalesDetails")
+    public ResponseEntity<Map<String, Object>> getSalesDetails(@RequestBody Map<String, Object> params) {
+        int page = (int) params.getOrDefault("page", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 6);
+        String orderDate = (String) params.get("orderDate");
+
+        List<CurrentOrderDataDTO> salesDetailList = masterService.getSalesDetailList(page, pageSize, orderDate);
+        int totalSalesDetailCount = masterService.getTotalSalesDetailListCount(orderDate);
+        int totalPages = (int) Math.ceil((double) totalSalesDetailCount / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("salesDetailList", salesDetailList);
         response.put("totalPages", totalPages);
         response.put("currentPage", page);
 
