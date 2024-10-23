@@ -155,14 +155,20 @@
     </select>
 
     <!-- 결제 취소 정보 업데이트 -->
-    <update id="PaymentCancelSuccess" parameterType="map">
+    <update id="PaymentCancelSuccess">
         UPDATE T_payment
-        SET cancelYN = 1,
-        cancelReason = #{cancelInfo.cancelReason},
-        cancelAmount = #{cancelInfo.cancelAmount},
-        cancelDT = now()
-        WHERE paymentkey = #{paymentKey}
+        SET cancelYN = 1, cancelDT=now()
+        WHERE paymentkey = #{param1}
     </update>
+    <select id="getPaymentId">
+        select payment_id
+        from T_payment
+        where paymentkey=#{param1}
+    </select>
+    <insert id="savePaymentCancels" parameterType="map">
+        insert into T_payment_cancel(payment_id, cancelAmount, cancelReason)
+        values(#{payment_id},#{cancelInfo.cancelAmount},#{cancelInfo.cancelReason})
+    </insert>
     <update id="updateOrderStateCancel">
         update T_order
         set cancelState=1, cancelDT=now()

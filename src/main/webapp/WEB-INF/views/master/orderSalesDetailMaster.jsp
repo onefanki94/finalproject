@@ -3,34 +3,46 @@
 <%@include file="/WEB-INF/inc/Masterheader.jspf" %>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <div class="order-list-container">
-   <h2>일별 매출 상세보기 - ${date}</h2>
-   <table class="order-list">
-       <thead>
-           <tr>
-               <th style="width:6%">주문번호</th>
-               <th style="width:35%">상품명</th>
-               <th style="width:6%">아이디</th>
-               <th style="width:6%">결제금액</th>
-               <th style="width:6%">결제 날짜</th>
-           </tr>
-       </thead>
-       <tbody>
-           <c:if test="${not empty orderList}">
-               <c:forEach var="order" items="${orderList}">
-                   <tr>
-                       <td>${order.orderId}</td>
-                       <td>${order.productName}</td>
-                       <td>${order.userid}</td>
-                       <td>₩${order.paymentAmount}</td>
-                       <td>${order.orderDate}</td>
-                   </tr>
-               </c:forEach>
-           </c:if>
-           <c:if test="${empty orderList}">
-               <tr>
-                   <td colspan="5">해당 날짜에 대한 주문 내역이 없습니다.</td>
-               </tr>
-           </c:if>
-       </tbody>
-   </table>
+    <h2>일별 매출 상세보기</h2>
+    <table class="order-list">
+        <thead>
+            <tr>
+                <th style="width:6%">주문번호</th>
+                <th style="width:35%">상품명</th>
+                <th style="width:6%">아이디</th>
+                <th style="width:8%">회원명</th>
+                <th style="width:6%">결제금액</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+            </tr>
+            <tr>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+                <td>데이터 바인딩</td>
+            </tr>
+            <tr>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+            </tr>
+            <tr>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+                            <td>데이터 바인딩</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

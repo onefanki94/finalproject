@@ -50,7 +50,9 @@ public interface OrderDAO {
     // 사용한 적립금 가져오기
     int getUsePoint(int order_idx);
     // 결제 취소
-    void PaymentCancelSuccess(Map<String, Object> paramMap);
+    void PaymentCancelSuccess(String paymentKey);
+    long getPaymentId(String paymentKey);
+    void savePaymentCancels(Map<String, Object> paramMap);
     void updateOrderStateCancel(int order_idx);
     void updateOrderListState(int pro_idx, int order_idx, int orderState, int cancelCount);
     void increaseProductStock(int pro_idx, int cancelCount);

@@ -632,4 +632,182 @@
         FROM t_comment
         WHERE idx = #{comment_idx}
     </select>
+
+    <!-- 채원 시작 -->
+    <!-- 주문 페이지 데이터 띄우기 -->
+    <select id="getUserOrderList" resultType="com.ict.finalproject.DTO.CurrentOrderDataDTO">
+        SELECT
+        o.idx AS order_idx,
+        pm.orderId AS orderId,
+        pm.createDT AS order_date,
+        pm.orderName AS orderName,
+        pm.customerName AS customerName,
+        pm.amount - SUM(IFNULL(pmc.cancelAmount, 0)) AS amount
+        FROM
+        T_payment pm
+        JOIN
+        T_order o ON pm.order_idx = o.idx
+        LEFT JOIN
+        T_payment_cancel pmc ON pm.payment_id = pmc.payment_id
+        WHERE
+        o.payState = 1
+        AND pm.successYN = 1
+        <if test="startDate != null">
+            AND pm.createDT &gt;= CONCAT(#{startDate}, ' 00:00:00')
+        </if>
+        <if test="endDate != null">
+            AND pm.createDT &lt;= CONCAT(#{endDate}, ' 23:59:59')
+        </if>
+        <if test="searchType != null and searchKeyword != null">
+            <choose>
+                <when test="searchType == 'orderNumber'">
+                    AND pm.orderId LIKE CONCAT('%', #{searchKeyword}, '%')  <!-- 주문번호 검색 -->
+                </when>
+                <when test="searchType == 'customerId'">
+                    AND pm.customerName LIKE CONCAT('%', #{searchKeyword}, '%')  <!-- 주문자 아이디 검색 -->
+                </when>
+            </choose>
+        </if>
+        GROUP BY
+        o.idx, pm.orderId, pm.createDT, pm.orderName, pm.customerName, pm.amount
+        ORDER BY regDT DESC
+        limit #{pageSize} offset #{offset};
+    </select>
+    <select id="getTotalOrderListCount">
+        SELECT COUNT(DISTINCT o.idx)
+        FROM T_order o
+        LEFT JOIN T_payment pm ON o.idx = pm.order_idx
+        WHERE o.payState = 1
+        AND pm.successYN = 1
+        <if test="startDate != null">
+            AND pm.createDT &gt;= CONCAT(#{startDate}, ' 00:00:00')
+        </if>
+        <if test="endDate != null">
+            AND pm.createDT &lt;= CONCAT(#{endDate}, ' 23:59:59')
+        </if>
+        <if test="searchType != null and searchKeyword != null">
+            <choose>
+                <when test="searchType == 'orderNumber'">
+                    AND pm.orderId LIKE CONCAT('%', #{searchKeyword}, '%')  <!-- 주문번호 검색 -->
+                </when>
+                <when test="searchType == 'customerId'">
+                    AND pm.customerName LIKE CONCAT('%', #{searchKeyword}, '%')  <!-- 주문자 아이디 검색 -->
+                </when>
+            </choose>
+        </if>
+    </select>
+    <select id="getStateCount" resultType="com.ict.finalproject.DTO.OrderStateCountDTO">
+        SELECT
+        SUM(CASE WHEN orderState = 1 THEN 1 ELSE 0 END) AS newOrders,
+        SUM(CASE WHEN orderState = 2 THEN 1 ELSE 0 END) AS preparingOrders,
+        SUM(CASE WHEN orderState IN(3, 4) THEN 1 ELSE 0 END) AS inTransitOrders,
+        SUM(CASE WHEN orderState = 5 THEN 1 ELSE 0 END) AS deliveredOrders,
+        SUM(CASE WHEN orderState = 6 THEN 1 ELSE 0 END) AS confirmedOrders,
+        SUM(CASE WHEN orderState IN (9, 10, 11, 12, 13, 14) THEN 1 ELSE 0 END) AS exchangeRefundOrders
+        FROM T_orderList;
+    </select>
+    <select id="getDetailInfo" resultType="com.ict.finalproject.DTO.OrderListDTO">
+        select o.idx As order_idx, o.trackingNum, o.use_point, o.recipient, o.zipcode, o.addr, o.addrdetail,
+        o.tel, o.request_memo, pm.createDT As payDT, pm.paytype, pm.amount, pm.orderId, pm.customerName
+        from T_order o
+        join T_payment pm ON o.idx = pm.order_idx
+        WHERE o.idx=${param1} AND o.payState = 1 AND pm.successYN = 1
+    </select>
+    <select id="getDetailProducts" resultType="com.ict.finalproject.vo.OrderListVO">
+        select ol.idx As idx, ol.pro_idx As pro_idx, p.title As title, ol.amount As amount, ol.cancelCount As cancelCount,
+        ol.orderState As orderState, ol.order_idx As order_idx, p.price As price
+        from T_orderList ol
+        join T_product p on ol.pro_idx = p.idx
+        where ol.order_idx=${param1} and ol.orderState!=0
+    </select>
+    <update id="saveTrackingNumber">
+        update T_order
+        set trackingNum=#{param2}
+        where idx=${param1}
+    </update>
+    <update id="updatedeliOrderState">
+        update T_orderList
+        set orderState=${param2}
+        where order_idx=${param1} and orderState=2
+    </update>
+    <update id="updateOrderState">
+        update T_orderList
+        set orderState=${param2}
+        where idx=${param1}
+    </update>
+    <!-- 매출내역 페이지 데이터 띄우기 -->
+    <select id="getSalesList" resultType="com.ict.finalproject.DTO.SalesListDTO">
+        SELECT
+        DATE(pm.createDT) AS orderDate,    -- 주문 일자
+        COUNT(DISTINCT o.idx) AS orderCount,        -- 주문 건수
+        SUM(DISTINCT pm.amount) - SUM(IFNULL(pmc.cancelAmount, 0)) AS totalSales       -- 총 매출
+        FROM
+        T_payment pm
+        JOIN
+        T_order o ON pm.order_idx = o.idx
+        LEFT JOIN
+        T_payment_cancel pmc ON pm.payment_id = pmc.payment_id
+        AND DATE(pmc.cancelDT) = DATE(pm.createDT)
+        WHERE
+        pm.successYN = 1
+        AND o.payState = 1
+        <if test="startDate != null">
+            AND pm.createDT &gt;= CONCAT(#{startDate}, ' 00:00:00')
+        </if>
+        <if test="endDate != null">
+            AND pm.createDT &lt;= CONCAT(#{endDate}, ' 23:59:59')
+        </if>
+        GROUP BY
+        DATE(pm.createDT)
+        ORDER BY
+        orderDate desc
+        limit #{pageSize} offset #{offset}
+    </select>
+    <select id="getTotalSalesListCount">
+        SELECT
+        COUNT(DISTINCT DATE(pm.createDT)) AS totalCount   -- 날짜별로 매출이 기록된 날짜의 수를 셈
+        FROM
+        T_payment pm
+        JOIN
+        T_order o ON pm.order_idx = o.idx
+        WHERE
+        pm.successYN = 1
+        AND o.payState = 1
+        <if test="startDate != null">
+            AND pm.createDT &gt;= CONCAT(#{startDate}, ' 00:00:00')
+        </if>
+        <if test="endDate != null">
+            AND pm.createDT &lt;= CONCAT(#{endDate}, ' 23:59:59')
+        </if>
+    </select>
+    <select id="getSalesDetailList" resultType="com.ict.finalproject.DTO.CurrentOrderDataDTO">
+        SELECT
+        o.idx AS order_idx,
+        pm.orderId AS orderId,
+        pm.orderName AS orderName,
+        pm.customerName AS customerName,
+        pm.amount - SUM(IFNULL(pmc.cancelAmount, 0)) AS amount
+        FROM
+        T_payment pm
+        JOIN
+        T_order o ON pm.order_idx = o.idx
+        LEFT JOIN
+        T_payment_cancel pmc ON pm.payment_id = pmc.payment_id
+        WHERE
+        o.payState = 1
+        AND pm.successYN = 1
+        AND DATE(pm.createDT) = #{orderDate}
+        GROUP BY
+        o.idx, pm.orderId, pm.createDT, pm.orderName, pm.customerName, pm.amount
+        ORDER BY regDT DESC
+        limit #{pageSize} offset #{offset};
+    </select>
+    <select id="getTotalSalesDetailListCount">
+        SELECT COUNT(DISTINCT o.idx)
+        FROM T_order o
+        LEFT JOIN T_payment pm ON o.idx = pm.order_idx
+        WHERE o.payState = 1
+        AND pm.successYN = 1
+        AND DATE(pm.createDT) = #{orderDate}
+    </select>
 </mapper>

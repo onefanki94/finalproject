@@ -420,47 +420,55 @@ font-size : 2em;
 }
 
 /* 리뷰 탭 (텍스트 리뷰/포토 리뷰) 왼쪽 정렬 */
-.review-tabs {
+.review-filter{
+    display: flex;
+    justify-content: space-between; /* 좌우로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin-bottom: 20px; /* 아래쪽에 여백 추가 */
+    padding: 10px; /* 패딩 추가 */
+}
+
+.review-filter1 {
     font-size: 16px;
     color: #333;
 }
 
-.review-tabs span {
+.review-filter1 span {
     margin-left: 50px;
     cursor: pointer;
     margin-right: 20px;
     color: #666;
 }
 
-.review-tabs span.active {
+.review-filter1 span.active {
     font-weight: bold;
     color: #007BFF; /* 활성화된 탭은 파란색 */
 }
 
-.review-tabs span:hover {
+.review-filter1 span:hover {
     color: #007BFF; /* 마우스 오버 시 파란색 */
 }
 
 /* 필터 (최신순/평점 높은순/평점 낮은순) 오른쪽 정렬 */
-.review-filter {
+.review-filter2 {
     margin-right: 100px;
-    font-size: 14px;
+    font-size: 16px;
     color: #666;
 }
 
-.review-filter span {
+.review-filter2 span {
     cursor: pointer;
     margin-left: 15px;
     color: #333;
 }
 
-.review-filter span.active {
+.review-filter2 span.active {
     margin-left: 20px;
     font-weight: bold;
     color: #007BFF; /* 선택된 필터는 파란색 */
 }
 
-.review-filter span:hover {
+.review-filter2 span:hover {
     color: #007BFF; /* 마우스 오버 시 파란색 */
 }
 

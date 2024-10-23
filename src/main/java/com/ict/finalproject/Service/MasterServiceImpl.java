@@ -1,13 +1,16 @@
 package com.ict.finalproject.Service;
 
 import com.ict.finalproject.DAO.MasterDAO;
+import com.ict.finalproject.DTO.*;
 import com.ict.finalproject.vo.MasterVO;
+import com.ict.finalproject.vo.OrderListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.DataInput;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -476,5 +479,70 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public Integer findUserIdxByCommentIdx(Integer commentIdx) {
         return dao.findUserIdxByCommentIdx(commentIdx);
+    }
+
+    // 채원 시작
+    // 주문 상품 데이터 불러오기
+    @Override
+    public List<CurrentOrderDataDTO> getUserOrderList(int page, int pageSize, String startDate, String endDate, String searchType, String searchKeyword) {
+        int offset = (page-1)*pageSize;
+        return dao.getUserOrderList(pageSize, offset,startDate,endDate, searchType, searchKeyword);
+    }
+
+    @Override
+    public int getTotalOrderListCount(String startDate, String endDate, String searchType, String searchKeyword) {
+        return dao.getTotalOrderListCount(startDate,endDate, searchType, searchKeyword);
+    }
+
+    @Override
+    public OrderStateCountDTO getStateCount() {
+        return dao.getStateCount();
+    }
+
+    @Override
+    public OrderListDTO getDetailInfo(int order_idx) {
+        return dao.getDetailInfo(order_idx);
+    }
+
+    @Override
+    public List<OrderListVO> getDetailProducts(int order_idx) {
+        return dao.getDetailProducts(order_idx);
+    }
+
+    @Override
+    public int saveTrackingNumber(int order_idx, String trackingNum) {
+        return dao.saveTrackingNumber(order_idx,trackingNum);
+    }
+
+    @Override
+    public void updatedeliOrderState(int order_idx, int state) {
+        dao.updatedeliOrderState(order_idx, state);
+    }
+
+    @Override
+    public int updateOrderState(int idx, int orderState) {
+        return dao.updateOrderState(idx, orderState);
+    }
+
+    @Override
+    public List<SalesListDTO> getSalesList(int page, int pageSize, String startDate, String endDate) {
+        int offset = (page-1)*pageSize;
+        return dao.getSalesList(pageSize, offset,startDate,endDate);
+    }
+
+    @Override
+    public int getTotalSalesListCount(String startDate, String endDate) {
+        return dao.getTotalSalesListCount(startDate,endDate);
+    }
+
+    @Override
+    public List<CurrentOrderDataDTO> getSalesDetailList(int page, int pageSize, String orderDate) {
+        int offset = (page-1)*pageSize;
+        return dao.getSalesDetailList(pageSize, offset,orderDate);
+    }
+
+    @Override
+    public int getTotalSalesDetailListCount(String orderDate) {
+        return dao.getTotalSalesDetailListCount(orderDate);
     }
 }
