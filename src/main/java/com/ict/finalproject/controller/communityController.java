@@ -120,9 +120,6 @@ public class communityController {
         // 기존 게시글 정보 조회
         CommuVO detail = commuService.Detail(idx);
 
-        // 서버에서 전달된 값 확인
-        System.out.println("수정 페이지로 이동 - 게시글 번호: " + idx);
-        System.out.println("게시글 정보: " + detail);
         model.addAttribute("vo", detail);
         return "community/cmEdit";  // 수정 페이지로 이동 (cmEdit.jsp)
     }
@@ -131,10 +128,7 @@ public class communityController {
     @PostMapping("/cmEditOk")
     public String updateBoard(CommuVO board) {
 
-        // 서버에서 전달된 값 확인
-        System.out.println("수정 요청 - 게시글 정보: " + board);
         boolean success = commuService.UpdateBoard(board);
-
 
         // 수정 성공 시 수정된 게시글의 상세 페이지로 리다이렉트
         if (success) {
