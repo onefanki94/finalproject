@@ -265,3 +265,10 @@ $(document).on('click', '#sales_detail_btn', function() {
     getSalesDetailList(1,orderDate);
 });
 
+$(document).on('click', '#order_detail_btn', function () {
+    var order_idx= $(this).closest(".user_orderList_tr").find('#order_idx').val();
+    console.log(order_idx);
+
+    window.open('/master/orderDetail?order_idx=' + order_idx, '_blank');
+});
+
