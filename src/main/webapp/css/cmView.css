@@ -1,6 +1,7 @@
 body {
-    margin: 80px 0 0 0;
+    margin: 130px 0 0 0;
     background-color: #F4F2EF;
+    animation: none;
 }
 
 .top_info{
@@ -276,8 +277,14 @@ border-bottom: 1px solid #dde1e5;
     color: #9fa1a7;
     border: 2px solid #9fa1a7;
     text-decoration: none;
-    background-color:#fff;
+    background-color: #F4F2EF;
     border-radius:0;
+    margin-right: 10px;
+}
+
+/* 마지막 버튼의 오른쪽 마진 제거 */
+.listBt a:last-child {
+    margin-right: 0;
 }
 
 
