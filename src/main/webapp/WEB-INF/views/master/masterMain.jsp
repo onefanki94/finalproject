@@ -4,6 +4,7 @@
 <title>DashBoard</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/MasterPage.js"></script>
 <script src="/js/JWTLogin.js"></script>
 <div class="page-header">
@@ -17,8 +18,8 @@
                 <canvas id="combinedDailyChartView"></canvas>
             </div>
             <div class="avgUserDailyChart">
-                <h4 class="text-center">하루 평균 유저 수</h4>
-                <canvas id="avgUserDailyChartView"></canvas>
+                <h4 class="text-center">회원가입 유저 수</h4>
+            <canvas id="registrationChart" width="400" height="200"></canvas>
             </div>
         </div>
 

@@ -119,6 +119,7 @@ public class communityController {
     public String editPage(@PathVariable("idx") int idx, Model model) {
         // 기존 게시글 정보 조회
         CommuVO detail = commuService.Detail(idx);
+
         model.addAttribute("vo", detail);
         return "community/cmEdit";  // 수정 페이지로 이동 (cmEdit.jsp)
     }
@@ -126,6 +127,7 @@ public class communityController {
 
     @PostMapping("/cmEditOk")
     public String updateBoard(CommuVO board) {
+
         boolean success = commuService.UpdateBoard(board);
 
         // 수정 성공 시 수정된 게시글의 상세 페이지로 리다이렉트

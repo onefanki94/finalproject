@@ -11,11 +11,11 @@
          <div class="summary">
              <div>
                  <strong>총 애니 수</strong>
-                 <p id="totalAnime">3 개</p>
+                 <p id="totalAnime"> ${totalAniCount} 개</p>
              </div>
              <div>
                  <strong>장르별</strong>
-                 <p id="categorySummary">액션: 1, 코미디: 1, 판타지: 1</p>
+                 <p id="categorySummary">드라마 : ${categoryCode1Count} 편 ,미스터리 : ${categoryCode2Count} 편 ,스포츠 : ${categoryCode3Count} 편 ,코미디 : ${categoryCode4Count} 편, 판타지 : ${categoryCode5Count} 편 , SF : ${categoryCode6Count} 편</p>
              </div>
          </div>
 
@@ -77,39 +77,63 @@
                                     </td>
                      <td>
                          <button class="btn btn-outline-secondary btn-sm"><a href="/master/aniEditMaster/${ani.idx}">수정</a></button>
-                         <button class="btn btn-outline-danger btn-sm" data-idx="${ani.idx}">삭제</button>
+                         <button class="btn btn-outline-danger btn-sm ani-delete" data-idx="${ani.idx}">삭제</button>
                      </td>
                  </tr>
                  </c:forEach>
              </tbody>
          </table>
 
-         <!-- 페이지네이션 -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <c:set var="pageGroupSize" value="10" />
-                <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
-                <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
+       <!-- 페이지네이션 -->
+       <nav>
+           <ul class="pagination justify-content-center">
+               <c:set var="pageGroupSize" value="5" />
+               <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
+               <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
 
-                <!-- 이전 그룹으로 이동 -->
-                <c:if test="${startPage > 1}">
-                    <li class="page-item">
-                        <a class="page-link" href="/master/aniMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo;</a>
-                    </li>
-                </c:if>
+               <!-- 첫 번째 페이지로 이동 -->
+               <c:if test="${startPage > 1}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/aniMasterList?currentPage=1&pageSize=${pageSize}">
+                           &laquo;&laquo;
+                       </a>
+                   </li>
+               </c:if>
 
-                <!-- 페이지 번호 -->
-                <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                        <a class="page-link" href="/master/aniMasterList?currentPage=${i}&pageSize=${pageSize}">${i}</a>
-                    </li>
-                </c:forEach>
+               <!-- 이전 그룹으로 이동 -->
+               <c:if test="${startPage > 1}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/aniMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">
+                           &lsaquo;
+                       </a>
+                   </li>
+               </c:if>
 
-                <!-- 다음 그룹으로 이동 -->
-                <c:if test="${endPage < totalPages}">
-                    <li class="page-item">
-                        <a class="page-link" href="/master/aniMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">&raquo;</a>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+               <!-- 페이지 번호 -->
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                   <li class="page-item ${i == currentPage ? 'active' : ''}">
+                       <a class="page-link" href="/master/aniMasterList?currentPage=${i}&pageSize=${pageSize}">
+                           ${i}
+                       </a>
+                   </li>
+               </c:forEach>
+
+               <!-- 다음 그룹으로 이동 -->
+               <c:if test="${endPage < totalPages}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/aniMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">
+                           &rsaquo;
+                       </a>
+                   </li>
+               </c:if>
+
+               <!-- 마지막 페이지로 이동 -->
+               <c:if test="${endPage < totalPages}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/aniMasterList?currentPage=${totalPages}&pageSize=${pageSize}">
+                           &raquo;&raquo;
+                       </a>
+                   </li>
+               </c:if>
+           </ul>
+       </nav>

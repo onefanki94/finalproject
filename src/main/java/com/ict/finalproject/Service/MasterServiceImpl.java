@@ -352,6 +352,135 @@ public class MasterServiceImpl implements MasterService {
         return dao.getEventDetail(idx);
     }
 
+    @Override
+    public boolean updateEvent(MasterVO event) {
+        return dao.updateEvent(event) > 0;
+    }
+
+    @Override
+    public MasterVO getEventByIdx(int idx) {
+        return dao.getEventByIdx(idx);
+    }
+
+    @Override
+    public List<Map<String, Object>> getUserRegistrationStats() {
+        return dao.getUserRegistrationStats();
+    }
+
+    @Override
+    public void deleteStoreByIdx(int idx) {
+        dao.deleteStoreByIdx(idx);
+    }
+
+    @Override
+    public void deleteProductImagesByProductIdx(int idx) {
+        dao.deleteProductImagesByProductIdx(idx);
+    }
+
+    @Override
+    public List<MasterVO> getReportingUserWithPaging(int offset, int pageSize) {
+        return dao.getReportingUserWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public int getTotalReportingUserCount() {
+        return dao.getTotalReportingUserCount();
+    }
+
+    @Override
+    public List<MasterVO> getReplyListWithPaging(int offset, int pageSize) {
+        return dao.getReplyListWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public int getTotalReplyCount() {
+        return dao.getTotalReplyCount();
+    }
+
+    @Override
+    public MasterVO getCommentByIdx(int idx) {
+        return dao.getCommentByIdx(idx);
+    }
+
+    @Override
+    public List<MasterVO> getRepliesByCommentIdx(int idx) {
+        return dao.getRepliesByCommentIdx(idx);
+    }
+
+    @Override
+    public boolean authenticateAdmin(String adminid, String adminpwd) {
+        MasterVO admin = dao.findAdminByAdminid(adminid);
+        if (admin != null && admin.getAdminpwd().equals(adminpwd)) {
+            return true; // 인증 성공
+        }
+        return false; // 인증 실패
+    }
+
+    @Override
+    public List<MasterVO> getUserListWithPaging(int offset, int pageSize) {
+        return dao.getUserListWithPaging(offset, pageSize);
+    }
+
+    @Override
+    public MasterVO getFAQById(int idx) {
+        return dao.getFAQById(idx);
+    }
+
+    @Override
+    public void updateFAQ(MasterVO faq) {
+        dao.updateFAQ(faq);
+    }
+
+    @Override
+    public void deleteReport(int idx) {
+        dao.deleteReport(idx);
+    }
+
+    @Override
+    public Map<String, Object> getCategoryCodeCountByani(int categorytCode) {
+        return dao.getCategoryCodeCountByani(categorytCode);
+    }
+
+    @Override
+    public List<MasterVO> getSalesStatistics(Map<String, Object> params) {
+        return dao.getSalesStatistics(params);
+    }
+
+    @Override
+    public List<MasterVO> getOrdersByDate(String date) {
+        return dao.getOrdersByDate(date);
+    }
+
+    @Override
+    public List<MasterVO> getOrdersByMonth(String month) {
+        return dao.getOrdersByMonth(month);
+    }
+
+    @Override
+    public List<MasterVO> getNoticeListByPage(int startRecord, int pageSize) {
+        return dao.getNoticeListByPage(startRecord, pageSize);
+    }
+
+    @Override
+    public int getTotalNoticeCount() {
+        return dao.getTotalNoticeCount();
+    }
+
+    @Override
+    public List<MasterVO> getQNAListByPage(int startRecord, int pageSize) {
+        return dao.getQNAListByPage(startRecord, pageSize);
+    }
+
+    @Override
+    public int getTotalQnaCount() {
+        return dao.getTotalQnaCount();
+    }
+
+    @Override
+    public Integer findUserIdxByCommentIdx(Integer commentIdx) {
+        return dao.findUserIdxByCommentIdx(commentIdx);
+    }
+
     // 채원 시작
     // 주문 상품 데이터 불러오기
     @Override

@@ -4,7 +4,7 @@
 <title>DashBoard - 굿즈 목록</title>
 <link href="/css/masterStyle.css" rel="stylesheet" type="text/css"></link>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/MasterPage.js"></script>
+<script src="/js/Master.js"></script>
 
  <div class="store-list-container">
         <h2>굿즈 전체 목록</h2>
@@ -71,7 +71,7 @@
                     <td>${store.relDT}</td>
                     <td>
                         <button class="btn btn-outline-secondary btn-sm"><a href="/master/storeEditMaster/${store.idx}">수정</a></button>
-                        <button class="btn btn-outline-danger btn-sm">삭제</button>
+<button class="btn btn-outline-danger btn-sm store-delete" data-idx="${store.idx}">삭제</button>
                     </td>
                 </tr>
                 </c:forEach>
@@ -80,30 +80,54 @@
 
         <!-- 페이지네이션 -->
        <nav>
-           <ul class="pagination justify-content-center">
-               <c:set var="pageGroupSize" value="10" />
-               <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
-               <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
+                  <ul class="pagination justify-content-center">
+                      <c:set var="pageGroupSize" value="5" />
+                      <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
+                      <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
 
-               <!-- 이전 그룹으로 이동 -->
-               <c:if test="${startPage > 1}">
-                   <li class="page-item">
-                       <a class="page-link" href="/master/storeMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">이전</a>
-                   </li>
-               </c:if>
+                      <!-- 첫 번째 페이지로 이동 -->
+                      <c:if test="${startPage > 1}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/storeMasterList?currentPage=1&pageSize=${pageSize}">
+                                  &laquo;&laquo;
+                              </a>
+                          </li>
+                      </c:if>
 
-               <!-- 페이지 번호 -->
-               <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                   <li class="page-item ${i == currentPage ? 'active' : ''}">
-                       <a class="page-link" href="/master/storeMasterList?currentPage=${i}&pageSize=${pageSize}">${i}</a>
-                   </li>
-               </c:forEach>
+                      <!-- 이전 그룹으로 이동 -->
+                      <c:if test="${startPage > 1}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/storeMasterList?currentPage=${startPage - 1}&pageSize=${pageSize}">
+                                  &lsaquo;
+                              </a>
+                          </li>
+                      </c:if>
 
-               <!-- 다음 그룹으로 이동 -->
-               <c:if test="${endPage < totalPages}">
-                   <li class="page-item">
-                       <a class="page-link" href="/master/storeMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">다음</a>
-                   </li>
-               </c:if>
-           </ul>
-       </nav>
+                      <!-- 페이지 번호 -->
+                      <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                          <li class="page-item ${i == currentPage ? 'active' : ''}">
+                              <a class="page-link" href="/master/storeMasterList?currentPage=${i}&pageSize=${pageSize}">
+                                  ${i}
+                              </a>
+                          </li>
+                      </c:forEach>
+
+                      <!-- 다음 그룹으로 이동 -->
+                      <c:if test="${endPage < totalPages}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/storeMasterList?currentPage=${endPage + 1}&pageSize=${pageSize}">
+                                  &rsaquo;
+                              </a>
+                          </li>
+                      </c:if>
+
+                      <!-- 마지막 페이지로 이동 -->
+                      <c:if test="${endPage < totalPages}">
+                          <li class="page-item">
+                              <a class="page-link" href="/master/storeMasterList?currentPage=${totalPages}&pageSize=${pageSize}">
+                                  &raquo;&raquo;
+                              </a>
+                          </li>
+                      </c:if>
+                  </ul>
+              </nav>

@@ -226,7 +226,7 @@ a:hover {
 
 
 .search input {
-    margin-left:4px;
+    margin:0 4px 0 4px;
     width: 300px;
     box-sizing: border-box;
     font-size: 12px;
@@ -244,7 +244,6 @@ a:hover {
     height: 47px;
     border-radius: 5px;
     border: 1px solid #565656;
-    position: absolute;
     right: 0;
     top: 0;
     font-size: 14px;
@@ -273,10 +272,19 @@ a:hover {
 
 
 
-.bbb .content{
-    margin:0px;
+.bbb .content,
+.noticeList {
+    max-width: 1500px;
+    margin: 0 auto; /* 자동으로 가운데 정렬 */
+    width: 100%;
 }
 
+.row {
+    width: 100%;
+    max-width: 1400px; /* 부모와 동일한 최대 너비 설정 */
+    margin: 0 auto;
+    box-sizing: border-box; /* 패딩 포함한 너비 계산 */
+}
 
 /*tab1-공지사항 리스트*/
 .row .header div{
@@ -304,7 +312,11 @@ a:hover {
     align-items:center;
 }
 
-
+/* 번호와 등록일 컬럼을 가운데 정렬 */
+.col-sm-1.p-2,
+.col-sm-2.p-2 {
+    text-align: center;
+}
 
 
 .FAQList table tr td:last-child {
@@ -333,11 +345,17 @@ a:hover {
     right: 20px;
 }
 
-
-
 img {
     max-width: 100%;
 }
+
+/* 선택된 태그에 대한 스타일 정의 */
+.search-tags a.on {
+    color: #ff5d24;
+    margin-bottom:20px;
+}
+
+
 
 
 /* 전체 레이아웃 스타일 */

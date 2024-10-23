@@ -15,6 +15,9 @@ public interface NoticeService {
     // FAQ 목록 메서드 (페이징 없이)
     List<NoticeVO> getFaqs();
 
+
+    List<NoticeVO> getSearchFas(String type);
+
     // 1:1문의 메서드 추가
     int saveQna(QnaVO qna);
     QnaVO getQnaByIdx(int idx);

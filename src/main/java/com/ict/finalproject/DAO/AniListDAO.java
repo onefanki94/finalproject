@@ -24,12 +24,13 @@ public interface AniListDAO {
 
     List<AniListVO> getMoviesByGenre(@Param("anitype") int anitype); // 특정 장르의 애니메이션 목록 조회
 
-    List<AniListVO> getSortedAniList(@Param("sortBy") String sortBy); // 정렬된 애니메이션 목록 조회
 
     // 별점 추가 메서드
     void addGrade(@Param("ani_idx") int aniIdx, @Param("grade") int grade, @Param("useridx") int userIdx);
+
+
     // 평균 별점 조회 메서드
-    double getAverageRatingByAniId(int aniId);
+    double getAverageGrade(int ani_idx);
 
 
     // 줄거리 조회 메서드
@@ -40,7 +41,23 @@ public interface AniListDAO {
 
     Integer getUseridx(String userid);
 
-    public void aniLike(AniListVO likeVO);  // 좋아요 추가
-    public void deleteaniLike(AniListVO likeVO);  // 좋아요 취소
-    public AniListVO selectaniLike(@Param("pro_idx") int pro_idx, @Param("userIdx") int userIdx);  // 좋아요 상태 확인
+    void insertLike(@Param("ani_idx") int ani_idx, @Param("useridx") int useridx); // 좋아요 추가
+    void removeLike(@Param("ani_idx") int ani_idx, @Param("useridx") int useridx); // 좋아요 제거
+    int checkIfLiked(@Param("ani_idx") int ani_idx, @Param("useridx") int useridx); // 좋아요 여부 확인
+
+
+
+    List<AniListVO> getAniListfilter(String filter);
+/*
+    List<AniListVO> getSortedAniList(String sortCriteria); // 정렬된 애니메이션 목록 조회*/
+
+    List<AniListVO> getAniListSortedBynew();
+    List<AniListVO> getAniListSortedBytitle();
+    List<AniListVO> getAniListSortedBypopular();
+
+    List<AniListVO> getSimilarAnimes(@Param("ani_idx") int ani_idx, @Param("anitype") int anitype);
+
+
+
+    List<AniListVO> getSimilarAnis(int ani_idx); // 유사한 애니메이션 목록을 가져오는 메서드 정의
 }

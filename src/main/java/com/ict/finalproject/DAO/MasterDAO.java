@@ -150,6 +150,52 @@ public interface MasterDAO {
     List<MasterVO> getEventList();
     public MasterVO getEventDetail(int idx);
 
+    int updateEvent(MasterVO event);
+    MasterVO getEventByIdx(int idx);
+
+    // 회원가입 통계 차트
+    List<Map<String, Object>> getUserRegistrationStats();
+
+    // 굿즈 상품 삭제
+    void deleteStoreByIdx(int idx);
+    void deleteProductImagesByProductIdx(int idx);
+
+    // 회원별 신고계정 목록 페이징
+    List<MasterVO> getReportingUserWithPaging(int offset, int pageSize);
+    int getTotalReportingUserCount();
+
+    // 회원별 리뷰 목록
+    List<MasterVO> getReplyListWithPaging(int offset, int pageSize);
+    int getTotalReplyCount();
+
+    public MasterVO getCommentByIdx(int idx);
+    public List<MasterVO> getRepliesByCommentIdx(int idx);
+    MasterVO findAdminByAdminid(String adminid);
+
+    List<MasterVO> getUserListWithPaging(int offset, int pageSize);
+    MasterVO getFAQById(int idx);
+    void updateFAQ(MasterVO faq);
+
+    void deleteReport(int idx);
+
+    Map<String, Object> getCategoryCodeCountByani(int categorytCode);
+
+    // 주문관리
+    List<MasterVO> getSalesStatistics(Map<String, Object> params);
+    List<MasterVO> getOrdersByDate(String date);
+    List<MasterVO> getOrdersByMonth(String month);
+
+    // 공지사항 페이징
+    List<MasterVO> getNoticeListByPage(int startRecord, int pageSize);
+    int getTotalNoticeCount();
+
+    // 문의사항 페이징
+    List<MasterVO> getQNAListByPage(int startRecord, int pageSize);
+    int getTotalQnaCount();
+
+
+    Integer findUserIdxByCommentIdx(Integer commentIdx);
+
     // 채원 시작
     // 주문 상품 데이터 불러오기
     List<CurrentOrderDataDTO> getUserOrderList(@Param("pageSize") int pageSize,

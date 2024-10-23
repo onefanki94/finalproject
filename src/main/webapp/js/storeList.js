@@ -2,7 +2,7 @@ let productList;
 let products;
 
 let pageNum = getParameterByName('pageNum') || 1; // URL에서 pageNum 추출, 기본값 1
-let pageSize = getParameterByName('pageSize') || 10; // URL에서 pageSize 추출, 기본값 10
+let pageSize = getParameterByName('pageSize') || 12; // URL에서 pageSize 추출, 기본값 10
 let category = getParameterByName('category');  // category 추가
 let secondCategory = getParameterByName('second_category'); // second_category 추가
 
@@ -18,7 +18,7 @@ function getParameterByName(name) {
 }
 
 // 필터를 적용하는 함수
-function applyFilter(category, second_category, pageNum = 1, pageSize = 10) {
+function applyFilter(category, second_category, pageNum = 1, pageSize = 12) {
 
         // 하위 카테고리가 선택되면 상위 카테고리를 제거 (null로 설정)
         if (second_category) {
@@ -305,4 +305,60 @@ let subcategoryMap = {
 //        }
 //    });
 //}
+
+//function showSubcategories(categoryId) {
+//    // 모든 하위 카테고리들을 가져옴
+////    const subcategories = document.querySelectorAll('.subcategory');
+//
+//    // 모든 하위 카테고리를 숨김
+//    subcategories.forEach(subcategory => {
+//        subcategory.style.display = 'none';
+//    });
+//
+//    // 선택된 상위 카테고리에 해당하는 하위 카테고리만 표시
+//    const targetSubcategory = document.querySelector(`.subcategory[data-parent-category="${categoryId}"]`);
+//    if (targetSubcategory) {
+//        targetSubcategory.style.display = 'block';
+//    } else {
+//        console.error(`하위 카테고리를 찾을 수 없습니다: ${categoryId}`);
+//    }
+//}
+
+function showSubcategories(categoryId) {
+    // subcategory-list 안의 모든 li.filter-item 요소를 가져옴
+    const subcategories = document.querySelectorAll('#subcategory-list li.filter-item');
+    console.log(subcategories); // 콘솔에서 li 목록 확인
+
+    // AJAX 요청
+    $.ajax({
+        url: "/subcategories",
+        type: "GET",
+        data: { code: categoryId },
+        success: (result) => {
+            console.log(result); // AJAX 결과 확인
+
+            // subcategories가 NodeList인지 확인 후 처리
+            if (subcategories && subcategories.length > 0) {
+                // 각 subcategory 요소에 대해 처리
+                subcategories.forEach(subcategory => {
+                    // subcategory의 텍스트와 AJAX로 받아온 값 비교
+                    const subcategoryText = subcategory.textContent.trim(); // 공백 제거한 텍스트
+                    if (result.includes(subcategoryText)) {
+                        // 일치하는 경우 해당 항목을 숨김
+                        subcategory.style.display = 'block';
+                    } else {
+                        // 일치하지 않으면 보이도록 처리
+                        subcategory.style.display = 'none';
+                    }
+                });
+            } else {
+                console.error("No subcategories found.");
+            }
+        },
+        error: (xhr, status, error) => {
+            console.error("Error: " + error);
+        }
+    });
+}
+
 

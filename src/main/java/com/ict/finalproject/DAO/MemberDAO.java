@@ -98,4 +98,5 @@ public interface MemberDAO {
         String findId(String username, String email);
         String findPwd(String userid,String username, String email);
         int changePassword(String userid, String userpwd);
+        int checkUserIdExists(String userid);
 }

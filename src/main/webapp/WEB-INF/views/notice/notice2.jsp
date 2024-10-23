@@ -16,6 +16,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
 <script src="/ckeditor/ckeditor.js"></script>
 <link href="/css/notice2.css" rel="stylesheet" type="text/css">
+
 </link>
 </head>
 
@@ -89,15 +90,6 @@
                         <button type="button" id="btnSearch">검색</button>
                     </div>
                 </div>
-
-                <!-- <h2 class="search-tags">
-                    <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
-                    <a class="${selectedTag == '쇼핑' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('쇼핑')">#쇼핑</a>
-                    <a class="${selectedTag == '계정' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('계정')">#계정</a>
-                    <a class="${selectedTag == '포인트' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('포인트')">#포인트</a>
-                    <a class="${selectedTag == '애니' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('애니')">#애니</a>
-                    <a class="${selectedTag == '서비스' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('서비스')">#서비스</a>
-                </h2> -->
             </div>
 
             <!-- 공지사항 리스트 -->
@@ -106,21 +98,19 @@
                     <div class="noticeList" id="noticeList">
                         <div class="row header">
                             <div class="col-sm-1 p-2">번호</div>
-                            <div class="col-sm-2 p-2">카테고리</div>
-                            <div class="col-sm-8 p-2">제목</div>
-                            <div class="col-sm-1 p-2">등록일</div>
+                            <div class="col-sm-9 p-2">제목</div>
+                            <div class="col-sm-2 p-2">등록일</div>
                         </div>
 
                         <!-- 공지사항 리스트 반복 출력 -->
                             <c:forEach var="notice" items="${list}">
                                 <div class="row">
                                     <div class="col-sm-1 p-2">${notice.idx}</div>
-                                    <div class="col-sm-8 p-2">
+                                    <div class="col-sm-9 p-2">
                                         <a href="#" class="noticeTitle" data-title="${notice.title}" data-content="${notice.content}">
                                             ${notice.title}
                                         </a>
                                     </div>
-                                    <div class="col-sm-1 p-2"></div>
                                     <div class="col-sm-2 p-2">${notice.regDT}</div>
                                 </div>
                             </c:forEach>
@@ -179,35 +169,43 @@
                 <!-- 자주 묻는 질문 -->
                 <div class="content" id="tap2">
                     <div class="FAQList">
-                        <div class="f_header" style="height:auto; overflow:hidden; text-align:center;">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="customer_table2">
-                                <colgroup>
-                                    <col width="20">
-                                    <col width="*">
-                                </colgroup>
-                                <tbody>
-                                    <!-- FAQ 리스트 반복 출력 -->
-                                    <c:forEach var="faq" items="${faqs}">
-                                        <tr class="faq-question" style="cursor:pointer;">
-                                            <td>Q</td>
-                                            <td>
-                                                ${faq.question}  <!-- 질문 내용 -->
-                                                <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
-                                            </td>
-                                        </tr>
+                        <h2 class="search-tags">
+                            <a class="${selectedTag == '' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('')">#전체</a>
+                            <a class="${selectedTag == '쇼핑' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('쇼핑')">#쇼핑</a>
+                            <a class="${selectedTag == '계정' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('계정')">#계정</a>
+                            <a class="${selectedTag == '포인트' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('포인트')">#포인트</a>
+                            <a class="${selectedTag == '애니' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('애니')">#애니</a>
+                            <a class="${selectedTag == '서비스' ? 'on' : ''}" style="cursor:pointer;" onclick="filterByTag('서비스')">#서비스</a>
+                        </h2>
+                            <div class="f_header" style="height:auto; overflow:hidden; text-align:center;">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="customer_table2">
+                                    <colgroup>
+                                        <col width="20">
+                                        <col width="*">
+                                    </colgroup>
+                                    <tbody id="faqtag">
+                                        <!-- FAQ 리스트 반복 출력 -->
+                                        <c:forEach var="faq" items="${faqs}">
+                                            <tr class="faq-question" style="cursor:pointer;">
+                                                <td>Q</td>
+                                                <td>
+                                                    ${faq.question}  <!-- 질문 내용 -->
+                                                    <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
+                                                </td>
+                                            </tr>
 
-                                        <!-- 답변 항목 (초기에는 숨김 처리) -->
-                                        <tr class="faq-answer" style="display: none;">
-                                            <td colspan="2">
-                                                <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
-                                                    <p>A. ${faq.answer}</p> <!-- 답변 내용 -->
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                                            <!-- 답변 항목 (초기에는 숨김 처리) -->
+                                            <tr class="faq-answer" style="display: none;">
+                                                <td colspan="2">
+                                                    <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
+                                                        <p>A. ${faq.answer}</p> <!-- 답변 내용 -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
                     </div>
                 </div>
 
@@ -255,7 +253,7 @@
                                 <!-- 아이디는 로그인된 사용자 아이디를 서버에서 불러와 표시 -->
                                 <tr>
                                     <th>아이디</th>
-                                    <td><span class="user-id">${userid}</span></td>
+                                    <td><span class="user-id" id="userid">{userid}</span></td>
                                 </tr>
                                 <tr class="line"><td colspan="2"></td></tr>
 
@@ -309,9 +307,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
     </div>
@@ -319,6 +314,18 @@
 
 
 <script>
+var token;
+var userid;
+var useridx;
+
+
+//로그인한 아이디값 불러오기
+setTimeout(function() {
+    checkLoginStatus() ;
+  // userid를 업데이트한 후에 DOM에 값을 설정
+    document.getElementById("userid").innerText = userid;
+},700);
+
 //로그인 상태 확인 함수
 function checkLoginStatus() {
 
@@ -338,6 +345,8 @@ function checkLoginStatus() {
                 type: "get",
                 data: { Authorization: token },
                 success: function(vo) {
+                    userid = vo.userid;
+                    useridx = vo.useridx;
                     loginDiv.innerHTML = `
                         <button id="login_btn" onclick="location.href='/user/mypage'">마이페이지</button>
                         <button id="login_btn" onclick="logout()">로그아웃</button>
@@ -410,7 +419,7 @@ function checkLoginStatus() {
 
     // 검색바 표시/숨기기 함수
     function toggleSearchBar(show) {
-        document.querySelector('.search').style.display = show ? 'block' : 'none';
+        document.querySelector('.tools').style.display = show ? 'block' : 'none';
     }
 
     // 탭 전환 시 검색바 처리
@@ -434,31 +443,90 @@ function checkLoginStatus() {
     // 페이지 로드 시 검색바 고정 (공지사항 탭에서 시작할 경우)
     toggleSearchBar(true);  // 페이지 로드 시 항상 공지사항에는 검색바가 표시
 
+    //여기에 이벤트 펑션없이
 
+    //자주 묻는 목록 항목에 대해 클릭 이벤트 추가
+    function test(){
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function () {
+                // 현재 질문의 다음 요소(답변)를 가져옴
+                const answer = this.nextElementSibling;
 
-    // 모든 질문 항목에 대해 클릭 이벤트 추가
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.addEventListener('click', function () {
-            // 현재 질문의 다음 요소(답변)를 가져옴
-            const answer = this.nextElementSibling;
+                console.log("list");
+                // 모든 답변을 숨기고 아이콘을 초기화
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    if (ans !== answer) ans.style.display = 'none';
+                });
 
-            // 모든 답변을 숨기고 아이콘을 초기화
-            document.querySelectorAll('.faq-answer').forEach(ans => {
-                if (ans !== answer) ans.style.display = 'none';
+                document.querySelectorAll('.toggle-icon').forEach(icon => {
+                    icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
+                });
+
+                // 현재 답변을 보이거나 숨기기
+                answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
+
+                // 아이콘 변경
+                const icon = this.querySelector('.toggle-icon');
+                icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
             });
-
-            document.querySelectorAll('.toggle-icon').forEach(icon => {
-                icon.src = "img/notice/down.png"; // 모든 아이콘을 down으로 초기화
-            });
-
-            // 현재 답변을 보이거나 숨기기
-            answer.style.display = (answer.style.display === 'none' || answer.style.display === '') ? 'table-row' : 'none';
-
-            // 아이콘 변경
-            const icon = this.querySelector('.toggle-icon');
-            icon.src = (answer.style.display === 'table-row') ? "img/notice/up.png" : "img/notice/down.png";
         });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // 기본값으로 #전체 태그에 'on' 클래스 추가
+        const defaultTag = document.querySelector('.search-tags a');
+        if (defaultTag) {
+            defaultTag.classList.add('on');
+        }
     });
+
+
+    //자주 묻는 질문 태그로 검색
+    function filterByTag(type){
+
+        // 모든 태그에서 'on' 클래스를 제거
+        document.querySelectorAll('.search-tags a').forEach(tag => {
+            tag.classList.remove('on');
+        });
+
+        // 클릭한 태그에 'on' 클래스 추가
+        const selectedTag = Array.from(document.querySelectorAll('.search-tags a')).find(tag => tag.textContent.includes(type) || (type === '' && tag.textContent.includes('전체')));
+        if (selectedTag) {
+            selectedTag.classList.add('on');
+        }
+
+        $.ajax({
+            url:"/notice2/tap2",
+            type:"post",
+            data:{type:type},
+            success:function(result){
+            var list = result.list;
+            var tag="";
+            list.forEach(function(list) {
+              tag += `<tr class="faq-question" style="cursor:pointer;">
+                     <td>Q</td>
+                     <td>
+                         `+list.question+` <!-- 질문 내용 -->
+                         <img src="img/notice/down.png" class="toggle-icon" style="width: 16px; height: 16px; vertical-align: middle;">
+                     </td>
+                 </tr>
+
+                 <!-- 답변 항목 (초기에는 숨김 처리) -->
+                 <tr class="faq-answer" style="display: none;">
+                     <td colspan="2">
+                         <div class="answer-text" style="padding: 15px; background: #333; color: #ddd;">
+                             <p>A. `+list.answer+`</p> <!-- 답변 내용 -->
+                         </div>
+                     </td>
+                 </tr>`
+               });
+
+
+               document.getElementById("faqtag").innerHTML = tag;
+            test();
+            }
+        })
+    }
 
 
 
@@ -481,97 +549,106 @@ function checkLoginStatus() {
         });
     }
 
-// 모달 닫기 이벤트 설정
-document.querySelector('.detail_layer_close').addEventListener('click', function () {
-    document.querySelector('.detail_layer_pop').style.display = 'none'; // 모달 숨기기
-});
-
-// 초기 로드 시 공지사항의 모달 이벤트 설정
-setNoticeTitleClickEvents();
-
-// 탭 전환 시마다 이벤트 리스너 재설정 및 컨텐츠 갱신
-const tabList = document.querySelectorAll('.notice_tab .list li');
-const contentList = document.querySelectorAll('.content');
-
-tabList.forEach((tab, index) => {
-    tab.querySelector('.btn').addEventListener('click', function (e) {
-        e.preventDefault();
-        // 모든 탭 비활성화 및 콘텐츠 숨김
-        tabList.forEach(t => t.classList.remove('selected'));
-        contentList.forEach(content => content.classList.remove('active'));
-
-        // 현재 탭 활성화 및 해당 콘텐츠 보여줌
-        tab.classList.add('selected');
-        contentList[index].classList.add('active');
-
-        // 공지사항 탭으로 돌아왔을 때 이벤트 리스너 재설정
-        if (index === 0) { // 공지사항 탭인 경우
-            setNoticeTitleClickEvents();
-        }
+    // 모달 닫기 이벤트 설정
+    document.querySelector('.detail_layer_close').addEventListener('click', function () {
+        document.querySelector('.detail_layer_pop').style.display = 'none'; // 모달 숨기기
     });
-});
 
-// 공지사항 리스트가 AJAX로 새로 로드될 때마다 이벤트 리스너 재설정
-$(document).ajaxComplete(function() {
+    // 초기 로드 시 공지사항의 모달 이벤트 설정
     setNoticeTitleClickEvents();
-});
 
+    // 탭 전환 시마다 이벤트 리스너 재설정 및 컨텐츠 갱신
+    const tabList = document.querySelectorAll('.notice_tab .list li');
+    const contentList = document.querySelectorAll('.content');
 
+    tabList.forEach((tab, index) => {
+        tab.querySelector('.btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            // 모든 탭 비활성화 및 콘텐츠 숨김
+            tabList.forEach(t => t.classList.remove('selected'));
+            contentList.forEach(content => content.classList.remove('active'));
 
-// 1:1 문의 제출 함수
-function submitInquiry() {
-    //let formData = new FormData(document.querySelector(".inquiry-form"));
-    let formData = new FormData();
+            // 현재 탭 활성화 및 해당 콘텐츠 보여줌
+            tab.classList.add('selected');
+            contentList[index].classList.add('active');
 
-    // 입력 필드 값 가져오기
-    let qnatype = document.querySelector('input[name="qnatype"]:checked').value;
-    let title = document.querySelector('.inquiry-title').value;
-    let content = document.querySelector('.inquiry-content').value;
-    let files = document.querySelector('.inquiry-attachment').files;
-     console.log("1", Array.from(formData.entries()));
-        // FormData에 입력 값 추가
-        formData.append("qnatype", qnatype);
-        formData.append("title", title);
-        formData.append("content", content);
-
-        // 파일 추가
-        for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i]);
-        }
-
-        // 서버로 전송할 데이터를 FormData 객체에 추가
-        // var formData = new FormData();
-        //formData.append("file", file);
-
-        console.log("2", Array.from(formData.entries()));
-        $.ajax({
-            url: '/inquirySubmit',
-            type: 'POST',
-            data: formData,
-            processData: false, // 데이터를 기본 문자열로 처리하지 않음
-            contentType: false, // "multipart/form-data"로 전송
-            headers: {
-                    "Authorization": "Bearer "+token   // JWT 토큰을 Authorization 헤더에 포함
-              },
-            success: function(response) {
-                alert('1:1 문의가 등록되었습니다.');
-                location.reload(); // 성공 시 페이지 새로고침
-            },
-            error: function(xhr) {
-                if (xhr.status === 401) {
-                    alert('인증에 실패했습니다. 다시 로그인하세요.');
-                    location.href = "/user/login";  // 로그인 페이지로 이동
-                } else if (xhr.status === 404) {
-                    alert('서버에서 요청을 찾을 수 없습니다.');
-                } else {
-                    alert("요청 처리 중 오류가 발생했습니다.");
-                }
-                console.error("Error:", xhr);  // 오류 출력
+            // 공지사항 탭으로 돌아왔을 때 이벤트 리스너 재설정
+            if (index === 0) { // 공지사항 탭인 경우
+                setNoticeTitleClickEvents();
             }
         });
+    });
 
-    return false;  // 기본 폼 제출 방지
-}
+    // 공지사항 리스트가 AJAX로 새로 로드될 때마다 이벤트 리스너 재설정
+    $(document).ajaxComplete(function() {
+        setNoticeTitleClickEvents();
+    });
+
+
+
+    // 1:1 문의 제출 함수
+    function submitInquiry() {
+        //let formData = new FormData(document.querySelector(".inquiry-form"));
+        let formData = new FormData();
+
+        // 입력 필드 값 가져오기
+        let qnatype = document.querySelector('input[name="qnatype"]:checked').value;
+        let title = document.querySelector('.inquiry-title').value;
+        let content = document.querySelector('.inquiry-content').value;
+        let files = document.querySelector('.inquiry-attachment').files;
+         console.log("1", Array.from(formData.entries()));
+            // FormData에 입력 값 추가
+            formData.append("qnatype", qnatype);
+            formData.append("title", title);
+            formData.append("content", content);
+
+            // 파일 추가
+            for (let i = 0; i < files.length; i++) {
+                formData.append('file', files[i]);
+            }
+
+            // 로컬 스토리지에서 JWT 토큰 가져오기
+            const token = localStorage.getItem("token");
+            console.log(token);
+            if (!token) {
+                alert('로그인이 필요합니다.');
+                location.href = "/user/login";
+                return false;
+            }
+
+            // 서버로 전송할 데이터를 FormData 객체에 추가
+            // var formData = new FormData();
+            //formData.append("file", file);
+
+            console.log("2", Array.from(formData.entries()));
+            $.ajax({
+                url: '/inquirySubmit',
+                type: 'POST',
+                data: formData,
+                processData: false, // 데이터를 기본 문자열로 처리하지 않음
+                contentType: false, // "multipart/form-data"로 전송
+                headers: {
+                        "Authorization": "Bearer "+token   // JWT 토큰을 Authorization 헤더에 포함
+                  },
+                success: function(response) {
+                    alert('1:1 문의가 등록되었습니다.');
+                    location.reload(); // 성공 시 페이지 새로고침
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        alert('인증에 실패했습니다. 다시 로그인하세요.');
+                        location.href = "/user/login";  // 로그인 페이지로 이동
+                    } else if (xhr.status === 404) {
+                        alert('서버에서 요청을 찾을 수 없습니다.');
+                    } else {
+                        alert("요청 처리 중 오류가 발생했습니다.");
+                    }
+                    console.error("Error:", xhr);  // 오류 출력
+                }
+            });
+
+        return false;  // 기본 폼 제출 방지
+    }
 
 
 

@@ -228,13 +228,12 @@ function reloadPage(page) {
 var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
 var userid;
 
-window.onload = function() {
-    // 헤더의 로그인 상태 확인 함수 호출
-    checkLoginStatus();
+setTimeout(function() {
+
 
     // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
     checkLoginStatusForCommunity();
-};
+}, 400);
 
 // 커뮤니티 페이지 전용 로그인 상태 확인 함수
 function checkLoginStatusForCommunity() {
