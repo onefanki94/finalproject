@@ -25,10 +25,10 @@ function applyFilters() {
 
     // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
     if (activeTab === 'text') {
-        filteredReviews = reviews.filter(review => !review.querySelector('.review-image'));  // 텍스트 리뷰만 필터링
-           console.log(document.querySelectorAll('.review-item .review-image'));
+        filteredReviews = reviews.filter(review => !review.querySelector('review-image img'));  // 텍스트 리뷰만 필터링
+
     } else if (activeTab === 'photo') {
-        filteredReviews = reviews.filter(review => review.querySelector('.review-image'));  // 사진/동영상 리뷰만 필터링
+        filteredReviews = reviews.filter(review => review.querySelector('review-image img'));  // 사진/동영상 리뷰만 필터링
     }
 
     // 정렬 필터 적용 (최신순, 평점 높은순, 평점 낮은순)
