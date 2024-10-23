@@ -48,9 +48,9 @@ public class MasterVO {
 
     // 관리자 페이지에서 애니 테이블 관리
     private MultipartFile post_img;
-    private int anitype;
+    private String anitype;
     private String director;
-    private int agetype;
+    private String agetype;
     private String outline;
     private String anitype_type;
     private String age_type;

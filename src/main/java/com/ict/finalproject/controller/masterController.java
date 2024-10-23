@@ -239,8 +239,8 @@ public class masterController {
             @RequestParam("director") String director,
             @RequestParam("outline") String outline,
             @RequestParam(value = "post_img", required = false) MultipartFile post_img,
-            @RequestParam("agetype") int agetype,
-            @RequestParam("anitype") int anitype,
+            @RequestParam("agetype") String agetype,
+            @RequestParam("anitype") String anitype,
             @RequestHeader("Authorization") String authorizationHeader) {
 
         // Authorization 헤더 확인

@@ -4,11 +4,13 @@ import com.ict.finalproject.DAO.AniListDAO;
 import com.ict.finalproject.vo.AniListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.inject.Inject;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Service
 public class AniListServicelmpl implements AniListService{
@@ -49,9 +51,8 @@ public class AniListServicelmpl implements AniListService{
     }
 
     @Override
-    public List<AniListVO> getSortedAniList(String sortBy) {
-
-        return aniListDAO.getSortedAniList(sortBy);
+    public List<AniListVO> getAniListfilter(String sortCriteria) {
+        return aniListDAO.getAniListfilter(sortCriteria);
     }
 
     @Override
@@ -71,16 +72,68 @@ public class AniListServicelmpl implements AniListService{
     }
 
     @Override
-    public double getAverageRatingByAniId(int aniId) {
+    public Double  getAverageGrade(int ani_idx) {
         // 평균 별점을 계산하기 위한 DAO 호출
-        return aniListDAO.getAverageRatingByAniId(aniId);
+        return aniListDAO.getAverageGrade(ani_idx);
     }
+
+
+    @Override
+    public void aniLike(int ani_idx, int useridx) {
+        aniListDAO.insertLike(ani_idx, useridx);
+    }
+
+    @Override
+    public void removeLike(int ani_idx, int useridx) {
+
+        aniListDAO.removeLike(ani_idx, useridx);
+    }
+
+    @Override
+    public boolean checkIfLiked(int ani_idx, int useridx) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("ani_idx", ani_idx);
+        params.put("useridx", useridx);
+        return dao.checkIfLiked(ani_idx, useridx) > 0; // 좋아요가 있다면 1, 없으면 0 반환
+    }
+
+
 
     @Override
     public Integer getUseridx(String userid) {
         return dao.getUseridx(userid);
     }
 
+  /*  @Override
+    public List<AniListVO> getAniListfilter(String filter){
+        return dao.getAniListfilter(filter);
+    }
+
+*/
+
+    @Override
+    public List<AniListVO> getAniListSortedBynew() {
+        return aniListDAO.getAniListSortedBynew();
+    }
+
+    @Override
+    public List<AniListVO> getAniListSortedBytitle() {
+        return aniListDAO.getAniListSortedBytitle();
+    }
+
+    @Override
+    public List<AniListVO> getAniListSortedBypopular() {
+        return aniListDAO.getAniListSortedBypopular();
+    }
+
+    @Override
+    public List<AniListVO> getSimilarAnimes(int ani_idx, int anitype) {
+        return aniListDAO.getSimilarAnimes(ani_idx, anitype);
+    }
 
 
+    @Override
+    public List<AniListVO> getSimilarAnis(int ani_idx) {
+        return aniListDAO.getSimilarAnis(ani_idx); // DAO에서 유사 애니메이션 목록을 가져오는 로직
+    }
 }

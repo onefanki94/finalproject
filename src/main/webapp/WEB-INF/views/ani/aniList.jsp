@@ -16,6 +16,11 @@
     <script src="${pageContext.request.contextPath}/js/aniList.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </link>
+<script>
+var alllist=`${aniAllList}`;
+
+</script>
+
 
 <body>
     <div class="aniList">
@@ -55,40 +60,42 @@
 
 
 <!--===============================================================================-->
-<div class="ani_view">
-    <div class="ani_View">
-        <div class="vod_list_select">
-            <select name="select_input vod_select" class="select_input vod_select" style="background-color: white;" onchange="sortAniList(this.value)">
-                <option value="new" style="font-weight: 600; font-size: 14px;">최신순</option>
-                <option value="title" style="font-weight: 600; font-size: 14px;">별점순 ↑</option>
-                <option value="popular" style="font-weight: 600; font-size: 14px;">인기순</option>
-            </select>
-        </div>
-
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="검색어를 입력하세요..."  onkeyup="searchTable()">
+    <div class="ani_view">
+        <div class="ani_View">
+            <div class="vod_list_select">
+                <select name="select_input vod_select" class="select_input vod_select" style="background-color: white;" onchange="onSortChange(this.value)">
+                    <option value="new" style="font-weight: 600; font-size: 14px;">최신순</option>
+                    <option value="title" style="font-weight: 600; font-size: 14px;">별점순 ↑</option>
+                    <option value="popular" style="font-weight: 600; font-size: 14px;">인기순</option>
+                </select>
             </div>
-        </div>
 
-<div class="ani_viewList">
-    <c:forEach var="ani" items="${aniAllList}">
-        <div class="div_li" data-anitype="${ani.anitype}" data-agetype="${ani.agetype}">
-            <div class="list_img_bg" data-title="${ani.title}" data-director="${ani.director}" data-idx="${ani.idx}">
-                <img src="http://192.168.1.92:8000/${ani.post_img}" alt="${ani.title}">
-                <div class="overlay">상세 보기</div>
+
+                <div class="search-container">
+                <input type="hidden" id="ani_idx" value="${ani.idx}">
+                    <input type="text" id="searchInput" placeholder="검색어를 입력하세요..."  onkeyup="searchTable()">
+                </div>
             </div>
-            <p>${ani.title}</p>
-            <p class="genre">
-                <span>${ani.anitype}</span> <!-- 장르 문자열 -->
-                <span>${ani.agetype} 관람</span> <!-- 나이 관람 문자열 -->
-            </p>
-        </div>
-    </c:forEach>
-</div>
+
+    <div class="ani_viewList">
+        <c:forEach var="ani" items="${aniAllList}">
+            <div class="div_li" data-anitype="${ani.anitype}" data-agetype="${ani.agetype}">
+                <div class="list_img_bg" data-title="${ani.title}" data-director="${ani.director}" data-idx="${ani.idx}">
+                    <img src="http://192.168.1.92:8000/${ani.post_img}" alt="${ani.title}">
+                    <div class="overlay">상세 보기</div>
+                </div>
+                <p>${ani.title}</p>
+                <p class="genre">
+                    <span>${ani.anitype}</span> <!-- 장르 문자열 -->
+                    <span>${ani.agetype} 관람</span> <!-- 나이 관람 문자열 -->
+                </p>
+            </div>
+        </c:forEach>
     </div>
-</div>
+        </div>
+    </div>
 
-<!--==========================MODAL=======================================-->
+    <!--==========================MODAL=======================================-->
 <div class="animodal_body">
       <div class="animodal_background"></div>
           <div class="animodal_container">
@@ -124,14 +131,16 @@
                       </div>
                     </div>
                     <div class="animodal_infoBody">
-                      <div class="animodal_usergrade">
+
+
+                      <div id="animodal_usergrade" class="animodal_usergrade"  data-idx="sadfsadf">
                         <span>내 평가 : </span>
                             <div id="stars">
-                                <i class="fa-regular fa-star" onclick="setRating(1)"></i>
-                                <i class="fa-regular fa-star" onclick="setRating(2)"></i>
-                                <i class="fa-regular fa-star" onclick="setRating(3)"></i>
-                                <i class="fa-regular fa-star" onclick="setRating(4)"></i>
-                                <i class="fa-regular fa-star" onclick="setRating(5)"></i>
+                                <i class="fa-regular fa-star" onclick="setRating(1, 'animodal_usergrade')"></i>
+                                <i class="fa-regular fa-star" onclick="setRating(2, 'animodal_usergrade')"></i>
+                                <i class="fa-regular fa-star" onclick="setRating(3, 'animodal_usergrade')"></i>
+                                <i class="fa-regular fa-star" onclick="setRating(4, 'animodal_usergrade')"></i>
+                                <i class="fa-regular fa-star" onclick="setRating(5, 'animodal_usergrade')"></i>
                             </div>
                         <button class="grade_inputBtn" onclick="submitRating()">등록</button>
                       </div>
@@ -157,18 +166,18 @@
                   </div>
                 </div>
                     <div class="bottom_ani_content">
-                        <div>
-                            <ul class="similar_ani_list">
-                                <c:forEach var="similarAni" items="${randomSimilarAnis}">
-                                    <li>
-                                        <div class="similar_ani_img">
-                                            <img src="${pageContext.request.contextPath}/img/ani_img/${similarAni.post_img}" alt="${similarAni.title}">
-                                        </div>
-                                        <p class="similar_ani_title">${similarAni.title}</p>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>
+                        <ul class="similar_ani_list">
+                            <c:forEach var="rand" items="${randomSimilarAnis}">
+                                <li>
+                                    <div class="similar_ani_img" style="width:195px;">
+                                        <img src="http://192.168.1.92:8000/${rand.post_img}"  alt="${rand.title}" >
+                                    </div>
+                                        <p class="similar_ani_title">${rand.title}</p>
+                                        <p>title: ${rand.title}</p>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
               </div>
 
 
