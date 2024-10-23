@@ -1504,4 +1504,12 @@ public class masterController {
 
         return ResponseEntity.ok(response);
     }
+
+    // 매출 월/일 차트데이터
+    @PostMapping("/getDayChart")
+    public ResponseEntity<String> getDayChart() {
+
+
+        return ResponseEntity.ok("성공");
+    }
 }

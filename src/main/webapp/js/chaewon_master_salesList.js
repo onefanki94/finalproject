@@ -34,6 +34,57 @@ $(function(){
         // 필터링 된 날짜로 데이터 요청
         getOrderList(1, startDate, endDate);
     });
+
+    //차트 띄우기
+    //월/일별 매출차트
+    $(document).on('click', '#day_salesChart', function() {
+        $.ajax({
+            url: '/master/getDayChart',
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                const salesDetailList = response.salesDetailList;
+                const totalPages = response.totalPages;
+                tag=``;
+                if (!$('.chart_modal_body').length) {
+                    tag+=`
+                        <div class="chart_modal_body">
+                          <div></div>
+                          <div class="chart_modal_container">
+                            <div class="chart_modal_container_flex">
+                              <div>
+                                <span>일/월별 매출 그래프</span>
+                                <i class="fa-solid fa-x close_modal"></i>
+                              </div>
+                              <div class="chart-day-info-modal">
+                                <div>
+                                  <p>월별 매출</p>
+                                  <canvas id="month_sales_chart"></canvas>
+                                </div>
+                                <div>
+                                  <p>일별 매출</p>
+                                  <canvas id="day_sales_chart"></canvas>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>`;
+                    $("body").append(tag);
+                    // 모달 닫기 기능
+                    $('.close_modal').on('click', function () {
+                        $('.chart_modal_body').remove();  // 모달 제거
+                    });
+                }
+                // 모달 창을 보여줌
+                $(".chart_modal_body").show();
+                drawSalesChart();
+            },
+            error: function(error) {
+                console.log('Error:', error);
+                alert("차트를 불러오는중 오류가 발생했습니다.");
+            }
+        });
+    });
 })
 
 function formatNumber(number) {
@@ -265,3 +316,77 @@ $(document).on('click', '#sales_detail_btn', function() {
     getSalesDetailList(1,orderDate);
 });
 
+function drawSalesChart() {
+    let bgColor = [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(255, 205, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+          ];
+
+          let brColor = [
+            "rgb(255, 99, 132)",
+            "rgb(255, 159, 64)",
+            "rgb(255, 205, 86)",
+            "rgb(75, 192, 192)",
+            "rgb(54, 162, 235)",
+            "rgb(153, 102, 255)",
+            "rgb(153, 102, 255)",
+          ];
+    //bar_chart
+    new Chart(document.getElementById("day_sales_chart"), {
+      type: "bar",
+      data: {
+        labels: [
+          "Red",
+          "Orange",
+          "Yellow",
+          "Green",
+          "Blue",
+          "Purple",
+          "Purple",
+        ],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [120, 190, 330, 250, 200, 300, 400],
+            backgroundColor: bgColor,
+            borderColor: brColor,
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+    //line_chart
+    const month = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]; //x축
+    const data = {
+      labels: month,
+      datasets: [
+        {
+          label: "2024년도 매출액",
+          data: [65, 59, 80, 81, 56, 55, 40,80, 81, 56, 55, 40], //y축
+          fill: false,
+          borderColor: "rgb(75, 192, 192)",
+          tension: 0.1,
+        },
+      ],
+    };
+
+    const config = {
+      type: "line",
+      data: data,
+    };
+
+    new Chart(document.getElementById("month_sales_chart"), config);
+}

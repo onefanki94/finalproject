@@ -207,7 +207,7 @@ td, th {
     width: 40%;
 }
 
-.sales_modal_body {
+.sales_modal_body, .chart_modal_body {
   position: fixed;
   inset: 0px;
   z-index: 20;
@@ -218,7 +218,7 @@ td, th {
   align-items: center;
 }
 
-.sales_modal_body > div:nth-of-type(1) {
+.sales_modal_body > div:nth-of-type(1),.chart_modal_body > div:nth-of-type(1) {
   opacity: 1;
   position: fixed;
   top: 0px;
@@ -229,7 +229,7 @@ td, th {
   z-index: -1;
 }
 
-.sales_modal_container {
+.sales_modal_container,.chart_modal_container {
   opacity: 1;
   transform: translate3d(0px, 0vh, 0px);
   height: calc(100% + 0vh);
@@ -241,7 +241,7 @@ td, th {
   align-items: center;
 }
 
-.sales_modal_container_flex {
+.sales_modal_container_flex,.chart_modal_container_flex {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -256,7 +256,7 @@ td, th {
   z-index:2000;
 }
 
-.sales_modal_container_flex > div:nth-of-type(1) {
+.sales_modal_container_flex > div:nth-of-type(1),.chart_modal_container_flex > div:nth-of-type(1) {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -265,21 +265,30 @@ td, th {
   padding: 1.5rem 3rem 0.625rem;
 }
 
-.sales_modal_container_flex > div:nth-of-type(1) > span {
+.chart_modal_container_flex > div:nth-of-type(1){
+    margin-bottom: 10px;
+}
+
+.sales_modal_container_flex > div:nth-of-type(1) > span,.chart_modal_container_flex > div:nth-of-type(1) > span {
   font-weight: 700;
   font-size: 1.5rem;
 }
 
-.sales_modal_container_flex > div:nth-of-type(1) > i {
+.sales_modal_container_flex > div:nth-of-type(1) > i,.chart_modal_container_flex > div:nth-of-type(1) > i {
   cursor: pointer;
   font-size: 1.5em;
   color: #303030;
 }
 
-.sales-day-info-modal {
+.sales-day-info-modal,.chart-day-info-modal {
   height: 100%;
   overflow-y: auto;
   padding: 0 3em;
+}
+
+.chart-day-info-modal{
+    display: flex;
+    margin-bottom: 30px;
 }
 
 .th-color th{
@@ -290,4 +299,20 @@ td, th {
 .sales_pagination{
     margin:0 0 30px 0;
     width:100%;
+}
+
+.chart-day-info-modal div {
+  width: 47.5%;
+}
+
+.chart-day-info-modal div:nth-of-type(1) {
+  margin-right: 5%;
+}
+
+.chart-day-info-modal div p {
+  border: 1px solid #e4e4e4;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 2em;
+  font-size: 1em;
 }

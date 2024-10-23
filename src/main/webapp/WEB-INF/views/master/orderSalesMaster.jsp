@@ -9,6 +9,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 />
 <link href="/css/chaewon_master.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/chaewon_master_salesList.js"></script>
 
 <h2 class="order_list_h2">매출 내역</h2>
@@ -29,8 +30,8 @@
             매출 그래프
         </div>
         <div class="menu_chart">
-            <button class="btn btn-secondary">일별 매출보기</button>
-            <button class="btn btn-secondary">애니별 매출보기</button>
+            <button class="btn btn-secondary" id="day_salesChart">월/일별 매출보기</button>
+            <button class="btn btn-secondary" id="product_salesChart">상품별 매출보기</button>
         </div>
     </div>
 </div>

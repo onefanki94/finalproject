@@ -479,7 +479,7 @@
         SELECT
         DATE(pm.createDT) AS orderDate,    -- 주문 일자
         COUNT(DISTINCT o.idx) AS orderCount,        -- 주문 건수
-        SUM(DISTINCT pm.amount) - SUM(IFNULL(pmc.cancelAmount, 0)) AS totalSales       -- 총 매출
+        SUM(pm.amount) - SUM(IFNULL(pmc.cancelAmount, 0)) AS totalSales       -- 총 매출
         FROM
         T_payment pm
         JOIN
