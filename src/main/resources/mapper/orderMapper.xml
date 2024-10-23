@@ -176,7 +176,7 @@
     </update>
     <update id="updateOrderListState">
         update T_orderList
-        set orderState=${param3}, cancelCount =${param4}
+        set orderState=${param3}, cancelCount = cancelCount+${param4}
         where order_idx=${param2} and pro_idx=${param1}
     </update>
     <update id="increaseProductStock">

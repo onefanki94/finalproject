@@ -108,7 +108,7 @@
             <div>
               <div class="order_point_usediv">
                 <div>
-                  <label><input id="order_use_point" type="text" value="0" /></label>
+                  <label><input id="order_use_point" type="text" placeholder="0"/></label>
                 </div>
                 <button type="button" id="order_usePoint_btn">
                   모두 사용

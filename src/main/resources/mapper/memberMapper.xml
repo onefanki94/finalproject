@@ -304,7 +304,7 @@
     <select id="getPointList" resultType="com.ict.finalproject.vo.PointVO">
         SELECT idx, point, DATE_FORMAT(regDT, '%Y.%m.%d') AS formatted_regDT, type
         FROM T_point
-        WHERE useridx = 5
+        WHERE useridx = ${param3}
         ORDER BY regDT DESC
         limit ${param1} offset ${param2};
     </select>

@@ -185,5 +185,9 @@ $(document).on('click', '#order_detail_btn', function () {
 });
 
 $(document).on('click', '#ListAll_btn', function() {
+    currentStartDate = null;
+    currentEndDate = null;
+    currentSearchType = null;
+    currentSearchKeyword = null;
     getOrderList(1);
 });
