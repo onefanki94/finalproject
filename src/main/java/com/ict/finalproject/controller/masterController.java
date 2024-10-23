@@ -14,6 +14,7 @@ import com.ict.finalproject.vo.PointVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -109,6 +110,13 @@ public class masterController {
         return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
     }
 
+    @PostMapping("/logoutOk")
+    public ResponseEntity<String> masterLogout(HttpSession session) {
+        session.invalidate(); // 세션 무효화
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+
+
 
     // Dashboard 매핑
     @GetMapping("/masterMain")
@@ -124,28 +132,46 @@ public class masterController {
 
     //Dashboard - 회원관리 - 회원 목록 리스트
     @GetMapping("/userMasterList")
-    public ModelAndView masterUserList(MemberVO vo) {
+    public ModelAndView masterUserList(
+            @RequestParam(defaultValue = "1") String currentPage,
+            @RequestParam(defaultValue = "10") int pageSize) {
 
-        // 유저 List 가져오기
-        List<MemberVO> memberList = service.getMemberList(vo);
+        // 현재 페이지를 확인하여 부동 소수점일 경우 정수로 변환
+        int currentPageInt;
+        try {
+            currentPageInt = Integer.parseInt(currentPage);
+        } catch (NumberFormatException e) {
+            // 변환 실패 시 기본값 1로 설정
+            currentPageInt = 1;
+        }
 
-        // 총 유저수 구하기
-        int totalUser = service.getTotalUser();
+        int offset = Math.max(0, (currentPageInt - 1) * pageSize);
+        List<MasterVO> memberList = masterService.getUserListWithPaging(offset, pageSize);
+
 
         // 오늘 가입자 수 구하기
         int newUsers = service.getNewUsers();
 
-        // 최근 7일간 가입자 수 구하기
-        int newSignups = service.getNewSignups();
+            // 최근 7일간 가입자 수 구하기
+            int newSignups = service.getNewSignups();
 
-        mav = new ModelAndView();
+            // 유저 리스트 가져오기
+
+            int totalUser = service.getTotalUser(); // 총 유저 수
+            int totalPages = (int) Math.ceil((double) totalUser / pageSize); // 총 페이지 수
+
+            ModelAndView mav = new ModelAndView();
         mav.addObject("memberList", memberList);
+        mav.addObject("currentPage", currentPageInt);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.addObject("totalUser", totalUser);
         mav.addObject("newUsers", newUsers);
         mav.addObject("newSignups", newSignups);
-        mav.setViewName("master/userMasterList");
+
         return mav;
     }
+
 
     @GetMapping("/userDelMasterList")
     public ModelAndView masterUserDelList(MasterVO vo) {
@@ -163,11 +189,30 @@ public class masterController {
         int currentPageInt = (int) Math.floor(currentPage); // 정수로 변환
         int offset = Math.max(0, (currentPageInt - 1) * pageSize);
         List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
+        // 전체 애니메이션 수 구하기
+        int totalAniCount = masterService.getTotalAnimeCount();
+        int totalPages = (int) Math.ceil((double) totalAniCount / pageSize);
+
+        Map<String, Object> categoryCode1Count = masterService.getCategoryCodeCountByani(1);
+        Map<String, Object> categoryCode2Count = masterService.getCategoryCodeCountByani(2);
+        Map<String, Object> categoryCode3Count = masterService.getCategoryCodeCountByani(3);
+        Map<String, Object> categoryCode4Count = masterService.getCategoryCodeCountByani(4);
+        Map<String, Object> categoryCode5Count = masterService.getCategoryCodeCountByani(5);
+        Map<String, Object> categoryCode6Count = masterService.getCategoryCodeCountByani(6);
+
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("aniList", aniList);
         mav.addObject("currentPage", currentPageInt);
         mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
+        mav.addObject("categoryCode1Count", categoryCode1Count.get("animation_count"));
+        mav.addObject("categoryCode2Count", categoryCode2Count.get("animation_count"));
+        mav.addObject("categoryCode3Count", categoryCode3Count.get("animation_count"));
+        mav.addObject("categoryCode4Count", categoryCode4Count.get("animation_count"));
+        mav.addObject("categoryCode5Count", categoryCode5Count.get("animation_count"));
+        mav.addObject("categoryCode6Count", categoryCode6Count.get("animation_count"));
+        mav.addObject("totalAniCount", totalAniCount);
         mav.setViewName("master/aniMasterList");
         return mav;
     }
@@ -351,9 +396,19 @@ public class masterController {
     }
 
     @PostMapping("/aniDeleteMaster/{idx}")
-    public String aniDeleteMaster(@PathVariable("idx") int idx) {
-        masterService.deletePostByIdx(idx);
-        return "redirect:/master/aniMasterList";
+    public ResponseEntity<Map<String, Object>> aniDeleteMaster(@PathVariable("idx") int idx) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            masterService.deletePostByIdx(idx);
+            response.put("success", true);
+            response.put("message", "삭제되었습니다.");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "삭제 중 오류가 발생했습니다.");
+        }
+
+        return ResponseEntity.ok(response); // JSON 응답 반환
     }
 
     // Dashboard - 굿즈관리 - 굿즈목록 리스트
@@ -406,21 +461,32 @@ public class masterController {
 
     // Dashboard - 신고관리 - 신고목록 리스트
     @GetMapping("/reportinguserMasterList")
-    public ModelAndView reportinguserListMaster() {
-        List<MasterVO> reportingUser = masterService.getReportingUser();  // 모든 신고된 유저 리스트를 가져옴
+    public ModelAndView reportinguserListMaster(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        int offset = (currentPage - 1) * pageSize;
+
+        // 페이징을 적용한 신고된 유저 목록 조회
+        List<MasterVO> reportingUser = masterService.getReportingUserWithPaging(offset, pageSize);
 
         // 각 유저별로 개별 신고 횟수를 계산
         for (MasterVO user : reportingUser) {
             int totalUserReport = masterService.getTotalUserReport(user.getUseridx());
-            user.setTotalUserReport(totalUserReport);  // VO에 각 유저의 신고 횟수 저장
+            user.setTotalUserReport(totalUserReport);
         }
 
         // 전체 신고 누적 횟수 계산
         int totalReportUser = masterService.getTotalReportCount();
+        int totalUsers = masterService.getTotalReportingUserCount();
+        int totalPages = (int) Math.ceil((double) totalUsers / pageSize);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("reportingUser", reportingUser);
         mav.addObject("totalReportUser", totalReportUser);
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("totalPages", totalPages);
+        mav.addObject("pageSize", pageSize);
         mav.setViewName("master/reportinguserMasterList");
         return mav;
     }
@@ -490,12 +556,12 @@ public class masterController {
 
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 리뷰 전체 목록
-    @GetMapping("/boardMasterReplyAll")
+    @GetMapping("/boardMasterCommentAll")
     public ModelAndView boardMasterReplyAll(MasterVO vo) {
         List<MasterVO> replyList = masterService.getReplyList(vo);
         mav = new ModelAndView();
         mav.addObject("replyList", replyList);
-        mav.setViewName("master/boardMasterReplyAll");
+        mav.setViewName("master/boardMasterCommentAll");
         return mav;
     }
 
@@ -1504,4 +1570,13 @@ public class masterController {
 
         return ResponseEntity.ok(response);
     }
+
+    // 회원가입자 수 차트 보여주기
+    @GetMapping("/registrationChart")
+    public ResponseEntity<List<Map<String, Object>>> getRegistrationStats() {
+        List<Map<String, Object>> stats = masterService.getUserRegistrationStats();
+        return ResponseEntity.ok(stats);
+    }
+
+
 }
