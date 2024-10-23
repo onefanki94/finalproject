@@ -250,7 +250,7 @@
                   <!-- 이미지 파일2가 있을 경우 출력 -->
                   <c:if test="${not empty review.imgfile2}">
                       <div class="review-image">
-                          <img src="${review.imgfile2}" alt="리뷰 이미지 2">
+                          <img src="http://192.168.1.92:8000/${review.imgfile2}" alt="리뷰 이미지 2">
                       </div>
                   </c:if>
               </div>
