@@ -452,4 +452,29 @@ public class MasterServiceImpl implements MasterService {
     public List<MasterVO> getOrdersByMonth(String month) {
         return dao.getOrdersByMonth(month);
     }
+
+    @Override
+    public List<MasterVO> getNoticeListByPage(int startRecord, int pageSize) {
+        return dao.getNoticeListByPage(startRecord, pageSize);
+    }
+
+    @Override
+    public int getTotalNoticeCount() {
+        return dao.getTotalNoticeCount();
+    }
+
+    @Override
+    public List<MasterVO> getQNAListByPage(int startRecord, int pageSize) {
+        return dao.getQNAListByPage(startRecord, pageSize);
+    }
+
+    @Override
+    public int getTotalQnaCount() {
+        return dao.getTotalQnaCount();
+    }
+
+    @Override
+    public Integer findUserIdxByCommentIdx(Integer commentIdx) {
+        return dao.findUserIdxByCommentIdx(commentIdx);
+    }
 }

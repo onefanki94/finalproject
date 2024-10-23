@@ -633,13 +633,27 @@ public class masterController {
 
     //  Dashboard - 기타관리 - 공지사항 목록
     @GetMapping("/noticeMasterList")
-    public ModelAndView noticeMasterList() {
-        // 관리자페이지 공지사항 글 목록 불러오기
+    public ModelAndView noticeMasterList(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         System.out.println("관리자페이지 공지사항 목록 불러오기");
 
-        List<MasterVO> noticeList = masterService.getNoticeList();
+        // 공지사항 총 개수 조회
+        int totalRecords = masterService.getTotalNoticeCount();
+
+        // 페이징 계산
+        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+        int startRecord = (currentPage - 1) * pageSize;
+
+        // 페이징된 공지사항 목록 조회
+        List<MasterVO> noticeList = masterService.getNoticeListByPage(startRecord, pageSize);
+
+        // ModelAndView 설정
         mav = new ModelAndView();
         mav.addObject("noticeList", noticeList);
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/noticeMasterList");
         return mav;
     }
@@ -848,14 +862,30 @@ public class masterController {
 
     // Dashboard - 기타관리 - 문의사항 리스트
     @GetMapping("/QNAMasterList")
-    public ModelAndView QNAMasterList() {
-        List<MasterVO> qnaList = masterService.getQNAList();
+    public ModelAndView QNAMasterList(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        // 문의 사항 테이블에서 답변 안된 문의 개수 카운트
+        // 전체 QNA 개수 조회
+        int totalRecords = masterService.getTotalQnaCount();
+
+        // 페이징 계산
+        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+        int startRecord = (currentPage - 1) * pageSize;
+
+        // 페이징된 QNA 목록 조회
+        List<MasterVO> qnaList = masterService.getQNAListByPage(startRecord, pageSize);
+
+        // 답변 안된 문의 개수 조회
         int unanswerCount = masterService.getUnansweredQnaCount();
+
+        // ModelAndView 설정
         mav = new ModelAndView();
         mav.addObject("qnaList", qnaList);
         mav.addObject("unanswerCount", unanswerCount);
+        mav.addObject("currentPage", currentPage);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalPages", totalPages);
         mav.setViewName("master/QNAMasterList");
         return mav;
     }
@@ -1396,9 +1426,11 @@ public class masterController {
                                   @RequestParam("endDT") String endDT,        // 제재 종료 날짜
                                   @RequestParam("handleState") int handleState, // 처리 상태 코드
                                   @RequestParam("idx") int idx,               // 신고 ID
+                                  @RequestParam(value = "comment_idx", required = false) Integer commentIdx,
                                   HttpServletRequest request) {
         System.out.println("Received idx: " + idx);  // idx 값 확인을 위해 콘솔에 출력
         System.out.println("Received userid: " + userid);
+        System.out.println("Received comment_idx: " + commentIdx); // 로그로 값 확인
 
         LocalDateTime stopDT = LocalDateTime.now();  // 신고 시작 시간
 
@@ -1413,7 +1445,7 @@ public class masterController {
             throw new RuntimeException("토큰이 없습니다.");
         }
 
-        Integer useridx = masterService.findUserIdxByUserid(userid);
+        Integer useridx = masterService.findUserIdxByCommentIdx(commentIdx);
         if (useridx == null) {
             throw new RuntimeException("유효하지 않은 사용자입니다.");
         }
@@ -1432,11 +1464,13 @@ public class masterController {
             return "redirect:/master/reportinguserListMaster";  // 이미 정지된 사용자는 처리할 필요 없음
         }
 
-        // 서비스에 신고 내역 추가 요청
-        masterService.updateReportAndBan(idx, userid, reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
+        // useridx를 String으로 변환하여 서비스 메서드 호출
+        masterService.updateReportAndBan(idx, useridx.toString(), reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
 
         return "redirect:/master/reportinguserListMaster";  // 신고 목록 페이지로 리다이렉트
     }
+
+
 
     @PostMapping("/reportingDeleteMaster/{idx}")
     public String reportingDeleteMaster(@PathVariable("idx") int idx) {

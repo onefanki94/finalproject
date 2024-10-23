@@ -88,4 +88,9 @@ public interface MasterService {
     List<MasterVO> getSalesStatistics(Map<String, Object> params);
     List<MasterVO> getOrdersByDate(String date);
     List<MasterVO> getOrdersByMonth(String month);
+    List<MasterVO> getNoticeListByPage(int startRecord, int pageSize);
+    int getTotalNoticeCount();
+    List<MasterVO> getQNAListByPage(int startRecord, int pageSize);
+    int getTotalQnaCount();
+    Integer findUserIdxByCommentIdx(Integer commentIdx);
 }

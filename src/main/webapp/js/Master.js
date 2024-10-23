@@ -76,49 +76,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ---------------------------------------------------------
 $(document).ready(function() {
-// 신고내역추가 버튼 클릭 시 이벤트
-$('.addReportBtn').click(function() {
-// 버튼에서 data-userid와 해당 행의 idx 가져오기
-const userid = $(this).data('userid');
-const idx = $(this).closest('tr').find('td:eq(1)').text();  // No 컬럼에서 idx 가져오기
+    // 신고내역추가 버튼 클릭 시 이벤트
+    $('.addReportBtn').click(function() {
+        // 버튼에서 data-userid와 해당 행의 idx 가져오기
+        const userid = $(this).data('userid');
+        const idx = $(this).closest('tr').find('td:eq(1)').text();  // No 컬럼에서 idx 가져오기
+        const commentId = $(this).data('comment-id');  // 버튼에서 data-comment-id 가져오기
 
-// 모달의 hidden input에 값 설정
-$('#userid').val(userid);
-$('#idx').val(idx);
+        // 모달의 hidden input에 값 설정
+        $('#userid').val(userid);
+        $('#idx').val(idx);
+        $('#comment_idx').val(commentId); // comment_idx 설정
 
-// 모달창 띄우기
-$('#reportModal').modal('show');
+        // 모달창 띄우기
+        $('#reportModal').modal('show');
+    });
+
+    // 폼 제출 이벤트
+    $('#reportForm').submit(function(event) {
+        event.preventDefault(); // 폼의 기본 제출 동작 막기
+
+        const token = localStorage.getItem('token'); // 로컬스토리지에서 토큰 가져오기
+        if (!token) {
+            alert("로그인 토큰이 없습니다.");
+            return;
+        }
+
+        // comment_idx가 설정되어 있는지 확인
+        const commentIdx = $('#comment_idx').val();
+        if (!commentIdx) {
+            alert("comment_idx가 설정되지 않았습니다.");
+            return;
+        }
+
+        const formData = $(this).serialize(); // 폼 데이터 직렬화
+
+        $.ajax({
+            type: 'POST',
+            url: '/master/reportinguserOK',
+            headers: {
+                'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
+            },
+            data: formData,
+            success: function(response) {
+                alert('신고가 성공적으로 처리되었습니다.');
+                location.reload(); // 페이지 새로고침
+            },
+            error: function() {
+                alert('신고 처리 중 오류가 발생했습니다.');
+            }
+        });
+    });
 });
 
-// 폼 제출 이벤트
-$('#reportForm').submit(function(event) {
-event.preventDefault(); // 폼의 기본 제출 동작 막기
-
-const token = localStorage.getItem('token'); // 로컬스토리지에서 토큰 가져오기
-if (!token) {
-   alert("로그인 토큰이 없습니다.");
-   return;
-}
-
-const formData = $(this).serialize(); // 폼 데이터 직렬화
-
-$.ajax({
-   type: 'POST',
-   url: '/master/reportinguserOK',
-   headers: {
-       'Authorization': `Bearer ${token}` // Authorization 헤더에 토큰 추가
-   },
-   data: formData,
-   success: function(response) {
-       alert('신고가 성공적으로 처리되었습니다.');
-       location.reload(); // 페이지 새로고침
-   },
-   error: function() {
-       alert('신고 처리 중 오류가 발생했습니다.');
-   }
-});
-});
-});
 
 $(document).ready(function() {
     // 리뷰 상세보기 버튼 클릭 시

@@ -182,4 +182,15 @@ public interface MasterDAO {
     List<MasterVO> getSalesStatistics(Map<String, Object> params);
     List<MasterVO> getOrdersByDate(String date);
     List<MasterVO> getOrdersByMonth(String month);
+
+    // 공지사항 페이징
+    List<MasterVO> getNoticeListByPage(int startRecord, int pageSize);
+    int getTotalNoticeCount();
+
+    // 문의사항 페이징
+    List<MasterVO> getQNAListByPage(int startRecord, int pageSize);
+    int getTotalQnaCount();
+
+
+    Integer findUserIdxByCommentIdx(Integer commentIdx);
 }

@@ -23,7 +23,7 @@
                     <tr>
                         <td>${notice.idx}</td>
                         <td>${notice.title}</td>
-                        <td>${notice.admin_name}</td>
+                        <td>${notice.adminid}</td>
                         <td>${notice.regDT}</td>
                         <td>${notice.modifyDT}</td>
                         <td>
