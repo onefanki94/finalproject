@@ -496,4 +496,66 @@
         at.code, at.type
     </select>
 
+    <select id="getSalesStatistics" parameterType="map" resultType="MasterVO">
+        SELECT
+        <choose>
+            <when test="groupBy == 'daily'">
+                DATE(o.regDT) AS date
+            </when>
+            <when test="groupBy == 'monthly'">
+                DATE_FORMAT(o.regDT, '%Y-%m') AS date
+            </when>
+            <otherwise>
+                DATE(o.regDT) AS date  <!-- 기본값으로 일별 설정 -->
+            </otherwise>
+        </choose>,
+        SUM(CASE WHEN p.successYN = 1 AND o.cancelState = 0 THEN o.total_price ELSE 0 END) AS salesAmount,
+        COUNT(CASE WHEN p.successYN = 1 AND o.cancelState = 0 THEN o.idx ELSE NULL END) AS orderCount,
+        SUM(CASE WHEN o.cancelState = 1 THEN o.total_price ELSE 0 END) AS cancelAmount,
+        COUNT(CASE WHEN o.cancelState = 1 THEN o.idx ELSE NULL END) AS cancelCount
+        FROM t_order o
+        LEFT JOIN t_payment p ON o.idx = p.order_idx
+        WHERE o.regDT BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+        <choose>
+            <when test="groupBy == 'daily'">
+                DATE(o.regDT)
+            </when>
+            <when test="groupBy == 'monthly'">
+                DATE_FORMAT(o.regDT, '%Y-%m')
+            </when>
+            <otherwise>
+                DATE(o.regDT)  <!-- 기본값으로 일별 설정 -->
+            </otherwise>
+        </choose>
+        ORDER BY date DESC
+    </select>
+
+    <!-- 요일별 구매 내역 상세보기  -->
+    <select id="getOrdersByDate" parameterType="string" resultType="MasterVO">
+        SELECT
+        p.orderid AS orderId,
+        p.ordername AS productName,
+        p.amount AS paymentAmount,
+        u.userid AS userid,
+        DATE_FORMAT(p.createDT, '%Y-%m-%d') AS orderDate
+        FROM t_payment p
+        JOIN t_user u ON p.customerName = u.userid
+        WHERE DATE(p.createDT) = #{date}
+        ORDER BY p.createDT DESC
+    </select>
+
+    <!-- 월별 구매 내역 상세보기 -->
+    <select id="getOrdersByMonth" parameterType="string" resultType="MasterVO">
+        SELECT
+        p.orderid AS orderId,
+        p.ordername AS productName,
+        p.amount AS paymentAmount,
+        u.userid AS userid,
+        DATE_FORMAT(p.createDT, '%Y-%m-%d') AS orderDate
+        FROM t_payment p
+        JOIN t_user u ON p.customerName = u.userid
+        WHERE DATE_FORMAT(p.createDT, '%Y-%m') = #{month}
+        ORDER BY p.createDT DESC
+    </select>
 </mapper>

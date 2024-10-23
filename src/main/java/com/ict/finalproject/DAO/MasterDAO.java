@@ -177,4 +177,9 @@ public interface MasterDAO {
     void deleteReport(int idx);
 
     Map<String, Object> getCategoryCodeCountByani(int categorytCode);
+
+    // 주문관리
+    List<MasterVO> getSalesStatistics(Map<String, Object> params);
+    List<MasterVO> getOrdersByDate(String date);
+    List<MasterVO> getOrdersByMonth(String month);
 }

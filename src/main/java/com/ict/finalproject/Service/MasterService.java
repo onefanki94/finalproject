@@ -85,4 +85,7 @@ public interface MasterService {
     void updateFAQ(MasterVO faq);
     void deleteReport(int idx);
     Map<String, Object>getCategoryCodeCountByani(int categorytCode);
+    List<MasterVO> getSalesStatistics(Map<String, Object> params);
+    List<MasterVO> getOrdersByDate(String date);
+    List<MasterVO> getOrdersByMonth(String month);
 }

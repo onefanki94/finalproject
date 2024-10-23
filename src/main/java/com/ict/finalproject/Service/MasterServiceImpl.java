@@ -437,4 +437,19 @@ public class MasterServiceImpl implements MasterService {
     public Map<String, Object> getCategoryCodeCountByani(int categorytCode) {
         return dao.getCategoryCodeCountByani(categorytCode);
     }
+
+    @Override
+    public List<MasterVO> getSalesStatistics(Map<String, Object> params) {
+        return dao.getSalesStatistics(params);
+    }
+
+    @Override
+    public List<MasterVO> getOrdersByDate(String date) {
+        return dao.getOrdersByDate(date);
+    }
+
+    @Override
+    public List<MasterVO> getOrdersByMonth(String month) {
+        return dao.getOrdersByMonth(month);
+    }
 }

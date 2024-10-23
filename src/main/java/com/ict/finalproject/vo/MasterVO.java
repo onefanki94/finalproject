@@ -127,4 +127,17 @@ public class MasterVO {
     private int point;
     private int adult_state;
     private int login_type;
+
+    // 관리자페이지 주문관리 기능 사용하는것들
+    private int salesAmount; // 매출금액
+    private int orderCount; // 주문 건수
+    private int deliveryFee; // 배송비
+    private int commission; // 수수료
+    private int cancelCount; // 취소 건수
+    private int cancelAmount; // 취소 금액
+    private String date;
+    private int paymentAmount;
+    private String orderId;
+    private String productName;
+    private String orderDate;
 }

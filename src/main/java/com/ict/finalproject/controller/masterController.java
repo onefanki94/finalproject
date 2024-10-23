@@ -776,25 +776,73 @@ public class masterController {
 
     //  Dashboard - 매출관리 - 일/월별 매출관리
     @GetMapping("/orderSalesMaster")
-    public ModelAndView orderSalesMaster() {
-        mav = new ModelAndView();
+    public ModelAndView orderSalesMaster(
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate) {
+
+        // 기본 날짜 범위 설정 (최근 30일)
+        if (startDate == null || endDate == null) {
+            LocalDate today = LocalDate.now();
+            endDate = today.toString();
+            startDate = today.minusDays(30).toString();
+        }
+
+        // 일별 매출 통계 조회
+        Map<String, Object> dailyParams = new HashMap<>();
+        dailyParams.put("startDate", startDate);
+        dailyParams.put("endDate", endDate);
+        dailyParams.put("groupBy", "daily");
+        List<MasterVO> dailySalesList = masterService.getSalesStatistics(dailyParams);
+
+        // 월별 매출 통계 조회
+        Map<String, Object> monthlyParams = new HashMap<>();
+        monthlyParams.put("startDate", startDate);
+        monthlyParams.put("endDate", endDate);
+        monthlyParams.put("groupBy", "monthly");
+        List<MasterVO> monthlySalesList = masterService.getSalesStatistics(monthlyParams);
+
+        // ModelAndView 설정
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("dailySalesList", dailySalesList);
+        mav.addObject("monthlySalesList", monthlySalesList);
+        mav.addObject("startDate", startDate);
+        mav.addObject("endDate", endDate);
         mav.setViewName("master/orderSalesMaster");
+
         return mav;
     }
 
     // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
     @GetMapping("/orderSalesDetailMaster")
-    public ModelAndView orderSalesDetailMaster() {
-        mav = new ModelAndView();
+    public ModelAndView orderSalesDetailMaster(@RequestParam("date") String date) {
+        ModelAndView mav = new ModelAndView();
+
+        // 해당 날짜의 주문 내역 조회
+        List<MasterVO> orderList = masterService.getOrdersByDate(date);
+        mav.addObject("orderList", orderList);
+        mav.addObject("date", date);
         mav.setViewName("master/orderSalesDetailMaster");
+
         return mav;
     }
 
     // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
     @GetMapping("/orderSalesDetail1Master")
-    public ModelAndView orderSalesDetail1Master() {
-        mav = new ModelAndView();
+    public ModelAndView orderSalesDetail1Master(@RequestParam(value = "month", required = false) String month) {
+        ModelAndView mav = new ModelAndView();
+
+        // month 파라미터가 없는 경우 기본값으로 현재 달 설정
+        if (month == null || month.isEmpty()) {
+            LocalDate now = LocalDate.now();
+            month = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        }
+
+        // 해당 월의 주문 내역 조회
+        List<MasterVO> orderList = masterService.getOrdersByMonth(month);
+        mav.addObject("orderList", orderList);
+        mav.addObject("month", month);
         mav.setViewName("master/orderSalesDetail1Master");
+
         return mav;
     }
 
