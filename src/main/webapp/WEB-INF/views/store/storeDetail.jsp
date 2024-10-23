@@ -261,10 +261,7 @@
     
         <!-- 페이지 네이션 -->
         <div class="pagination">
-            <button class="active" onclick="changePage(1)">1</button>
-            <button onclick="changePage(2)">2</button>
-            <button onclick="changePage(3)">3</button>
-            <!-- 페이지 번호 추가 가능 -->
+
         </div>
 
     <!-- Sticky Footer -->

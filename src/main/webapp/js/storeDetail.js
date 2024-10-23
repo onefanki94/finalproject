@@ -25,10 +25,9 @@ function applyFilters() {
 
     // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
     if (activeTab === 'text') {
-        filteredReviews = reviews.filter(review => !review.querySelector('.review-image'));  // 텍스트 리뷰만 필터링
-           console.log(document.querySelectorAll('.review-item .review-image'));
+        filteredReviews = reviews.filter(review => !review.querySelector('review-image'));  // 텍스트 리뷰만 필터링
     } else if (activeTab === 'photo') {
-        filteredReviews = reviews.filter(review => review.querySelector('.review-image'));  // 사진/동영상 리뷰만 필터링
+        filteredReviews = reviews.filter(review => review.querySelector('review-image'));  // 사진/동영상 리뷰만 필터링
     }
 
     // 정렬 필터 적용 (최신순, 평점 높은순, 평점 낮은순)
@@ -66,15 +65,7 @@ function filterReviews(type) {
     // UI 업데이트 (정렬 필터 활성화)
     const allFilters = document.querySelectorAll('.review-filter2 span');
     allFilters.forEach(filter => filter.classList.remove('active'));
-
-    const selectedFilter = document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`);
-
-    // 선택된 요소가 존재하는지 확인 (null 체크)
-    if (selectedFilter) {
-        selectedFilter.classList.add('active');  // 요소가 존재할 때만 classList 사용
-    } else {
-        console.error(`해당 선택자에 대한 요소가 없습니다: filterReviews('${type}')`);
-    }
+    document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`).classList.add('active');
 
     // 필터 적용
     applyFilters();
@@ -107,14 +98,14 @@ function toggleDescription() {
 
 $(document).ready(function() {
     $(window).scroll(function() {
-
+        console.log("Scroll event triggered");
         var scrollPosition = $(window).scrollTop();
         var windowHeight = $(window).height();
         var documentHeight = $(document).height();
 
         if (scrollPosition > (documentHeight - windowHeight) * 0.1) {
             $('.sticky-footer').addClass('show');
-
+            console.log("Scroll event triggered");
         } else {
             $('.sticky-footer').removeClass('show');
         }
