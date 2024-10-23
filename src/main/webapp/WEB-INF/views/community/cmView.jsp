@@ -342,43 +342,30 @@ function showTab(commtype) {
                           let indentLevel = comment.depth * 30;  // depth에 따라 들여쓰기 설정
 
                           let comm = '<div class="comment-item comment-' + comment.idx + '" style="margin-left: ' + indentLevel + 'px;">';
-                              comm += '<div class="comment-header">';
-                              comm += '<p class="comment-user"><strong>' + comment.userid + '</strong></p>';
-                              comm += '<button id="reportCommentBtn-' + comment.idx + '" class="btn btn-link reportBtn" data-author-id="' + comment.userid + '" data-content="' + comment.content + '">'  +
-                                      '<img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K">' +
-                                      '</button>';
-                              comm += '</div>';
+                          comm += '<div class="comment-header">';
+                          comm += '<p class="comment-user"><strong>' + comment.userid + '</strong></p>';
+                          comm += '<button id="reportCommentBtn-' + comment.idx + '" class="btn btn-link reportBtn" data-author-id="' + comment.userid + '" data-content="' + comment.content + '">' +
+                                  '<img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMycgaGVpZ2h0PScyMycgdmlld0JveD0nMCAwIDIzIDIzJz48cGF0aCBkPSdNNDEuNjI4IDQyLjAyaDIzdjIzaC0yM3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MS42MjggLTQyLjAyKScgc3R5bGU9J2ZpbGw6bm9uZScvPjxwYXRoIGQ9J000NS42NDUgNTguNTkxdi00Ljg1N2E2LjExNiA2LjExNiAwIDAgMSAyLjkyNC01LjU5MSA2LjA1IDYuMDUgMCAwIDEgNi4yODQgMCA2LjExNiA2LjExNiAwIDAgMSAyLjkyNCA1LjU5MXY0Ljg1N2gyLjF2MS42MTlINDMuNTQ0di0xLjYxOXptMS41MTctNC44NTdoMS41MTdBMy4xNDEgMy4xNDEgMCAwIDEgNTEuNzEgNTAuNXYtMS42MjNhNC43MTIgNC43MTIgMCAwIDAtNC41NDkgNC44NTd6bTMuNzkxLTkuNzE0aDEuNTE3djIuNDI4aC0xLjUxOHptNi42NTUgMi4yNzMgMS4wNzQgMS4xNDQtMS42MTIgMS43MThMNTYgNDguMDExem0tMTIuODY3IDEuMTQ0IDEuMDc0LTEuMTQ0IDEuNiAxLjcxNi0xLjA3NCAxLjE0N3onIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC00MC4yMTEgLTQxLjYxNSknIHN0eWxlPSdmaWxsOiNjY2NjZDAnLz48L3N2Zz4K"></button>';
+                          comm += '</div>'; // comment-header 종료
 
-                              comm += '<p>' + comment.content + '</p>';
-                              comm += '<p class="comment-meta">' + comment.regDT + '</p>';
+                          comm += '<div class="comment-content">' + comment.content + '</div>'; // 댓글 내용 표시
 
+                          // 날짜 및 하단 버튼들
+                          comm += '<div class="comment-meta">' + comment.regDT + '</div>';
+                          comm += '<div class="comment-actions">';
+                          if (comment.depth < 2) {
+                              comm += '<span class="reply-btn" onclick="toggleReplyInput(' + comment.idx + ')">답글쓰기</span>';
+                          }
+                          if (parseInt(comment.useridx) === parseInt(useridx)) {
+                              comm += '<span class="edit-btn" onclick="editComment(' + comment.idx + ')">수정</span>';
+                              comm += '<span class="delete-btn" onclick="deleteComment(' + comment.idx + ')">삭제</span>';
+                          }
+                          comm += '</div>'; // comment-actions 종료
 
-                          // 댓글의 depth가 2 이상이면 답글 쓰기 비활성화 (자식 댓글은 depth가 2이므로)
-                            if (comment.depth < 2) {  // depth가 2 미만일 경우에만 답글 허용
-                                comm += '<span class="reply-btn" value="답글쓰기" onclick="toggleReplyInput('+comment.idx+')"/>답글쓰기</span>';
-                                comm += '<div id="replyInput-' + comment.idx + '" class="reply_input" style="display:none;">' +
-                                        '<input type="text" id="replyContent-' + comment.idx + '" placeholder="답글을 남겨보세요." />' +
-                                        '<button onclick="regiReply(' + comment.idx + ',' + comment.comm_idx + ')">등록</button>' +
-                                        '</div>';
-                            }
-
-
-                          // 수정/삭제 버튼
-                              if (parseInt(comment.useridx) === parseInt(useridx)) {
-                                  comm += '<span class="edit-btn" onclick="editComment(' + comment.idx + ')">수정</span>';
-                                  comm += '<span class="delete-btn" onclick="deleteComment(' + comment.idx + ')">삭제</span>';
-
-                                  comm += '<div id="edit-form-' + comment.idx + '" class="reply_input" style="display:none;">' +
-                                          '<textarea id="edit-textarea-' + comment.idx + '">' + comment.content + '</textarea>' +
-                                          '<button onclick="updateComment(' + comment.idx + ',' + comment.comm_idx + ')">수정하기</button>' +
-                                          '</div>';
-                              }
-
-
-                            comm +='</p>';
-                          comm += '</div>';
+                          comm += '</div>'; // comment-item 종료
                           replyList.append(comm);
                       });
+
 
 
 
@@ -389,6 +376,8 @@ function showTab(commtype) {
                   }
               });
           }
+
+
     function test(testidx){
     alert(testidx);
     }

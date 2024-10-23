@@ -166,6 +166,19 @@ body {
     height: 90px;
 }
 
+
+/* 날짜와 답글쓰기, 수정, 삭제의 공통 스타일 */
+/* 댓글의 정렬을 위해 comment-header에 flex 스타일 적용 */
+.comment-header {
+    display: flex;
+    align-items: center; /* 세로 가운데 정렬 */
+}
+
+/* 내용 부분 스타일 */
+.comment-content {
+    margin: 10px 0;
+}
+
 /* 날짜와 답글쓰기, 수정, 삭제의 공통 스타일 */
 .comment-meta,
 .reply-btn,
@@ -178,6 +191,23 @@ body {
     margin-right: 10px; /* 요소 간 여백 추가 */
 }
 
+.comment-user {
+    margin-right: 5px; /* 아이디와 아이콘 사이의 간격 추가 */
+}
+
+.comment-meta-wrapper {
+    display: flex;
+    align-items: center; /* 날짜와 버튼들을 같은 줄에 배치 */
+    justify-content: space-between; /* 버튼들을 오른쪽 정렬 */
+}
+
+/* 하단 버튼들 정렬을 위해 별도의 wrapper를 사용 */
+.comment-actions {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 */
+    margin-top: 5px;
+}
 
 /* 댓글 요소 스타일 */
 .comment-item {
@@ -191,38 +221,11 @@ body {
 }
 
 
-/* 답변쓰기, 수정, 삭제 정렬 */
-.comment-actions {
-    display: inline-flex;
-    align-items: center;
-    margin-top: 5px; /* 위쪽 여백 */
-}
-
-.edit-btn,
-.delete-btn {
-    margin-left: 10px; /* 왼쪽에 여백을 줘서 작성자와 떨어지게 함 */
-    border: 1px solid #ddd; /* 보더 추가 */
-    padding: 2px 6px; /* 버튼 크기 조정 */
-    background-color: transparent; /* 배경색 투명 */
-    cursor: pointer;
-    font-size: 13px;
-    line-height: 18px;
-    color: var(--skinText979797);
-}
-
-/* 답글쓰기와 수정/삭제 버튼 간격 조절 */
-.reply-btn {
-    margin-left: 15px; /* 답글쓰기와 이전 요소 사이의 간격 */
-}
-
-/* 수정과 삭제 사이의 간격 */
-.edit-btn {
-    margin-left: auto; /* 우측으로 정렬 */
-}
 
 
 
 
+/*이전페이지, 다음페이지*/
 .list_section {
     margin: 60px auto 100px auto; /* 자동 여백으로 가운데 정렬 */
     max-width: 1200px; /* 최대 너비 1200px 설정 */
@@ -238,8 +241,6 @@ body {
     color:black;
 }
 
-
-
 .list_pre,
 .list_next {
     border-collapse: separate;
@@ -252,8 +253,6 @@ body {
 border-bottom: 1px solid #dde1e5;
 }
 
-
-
 .list_pre i,
 .list_next i {
     font-size: 1em;
@@ -261,6 +260,8 @@ border-bottom: 1px solid #dde1e5;
     color:#8E8081;
 }
 
+
+/*상세페이지에서 목록이동 버튼 (작성자일 경우 + 수정 삭제)*/
 .listBt {
     display: flex;
     justify-content: center;
