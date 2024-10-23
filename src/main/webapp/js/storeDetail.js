@@ -1,10 +1,4 @@
 
-
-
-// 탭 전환 및 필터링 상태를 관리하는 전역 변수
-let activeTab = 'text';  // 기본값: 텍스트 리뷰
-let activeFilter = 'latest';  // 기본값: 최신순
-
 // 리뷰 탭 전환 함수
 function showTab(tabType) {
   if (tabType === 'inquiry') {
@@ -20,61 +14,71 @@ function showTab(tabType) {
     applyFilters();  // 필터 적용
 }
 
-// 필터링 함수
-function filterReviews(filterType) {
-    activeFilter = filterType;
-    const allFilters = document.querySelectorAll('.review-filter span');
-    allFilters.forEach(filter => filter.classList.remove('active'));
+// 기본 설정
+let activeTab = 'text';  // 기본적으로 텍스트 리뷰 탭이 활성화됨
+let activeFilter = 'latest';  // 기본 정렬 필터는 최신순
 
-    document.querySelector(`.review-filter span[onclick="filterReviews('${filterType}')"]`).classList.add('active');
-    applyFilters();  // 필터 적용
-}
-
-// 필터와 탭 적용 로직
+// 필터 적용 함수
 function applyFilters() {
-    let reviews = Array.from(document.getElementsByClassName("review-item"));
-    // 리뷰 들고와서 .review-image 유무에 따라 reviews 목록 들고오기(단 다른거 누르면 작동 안함)
-    reviews.forEach((review, index) => {
-        //여기서부터 콘솔용
-        console.log("working");
-        console.log("review : " + review);
-        if (review.querySelector('.review-image')) {  // review 내부에 .review-image 요소가 있는지 확인
-            console.log(`리뷰 ${index + 1}는 review-image 요소를 가지고 있음.`);
-        } else {
-            console.log(`리뷰 ${index + 1}는 review-image 요소를 가지고 있지 않음.`);
-        }
-        //  여기 위까지 콘솔 확인용
+    let reviews = Array.from(document.getElementsByClassName("review-item"));  // 모든 리뷰 아이템을 가져옴
+    let filteredReviews = [...reviews];  // 필터링된 결과를 저장할 배열
 
-        // 밑은 작동
-        if (activeTab === 'text') {
-            reviews = reviews.filter(review => !review.querySelector('.review-image'));  // review-image 요소가 없는 텍스트 리뷰
-        } else if (activeTab === 'photo') {
-            reviews = reviews.filter(review => review.querySelector('.review-image'));  // review-image 요소가 있는 포토/동영상 리뷰
-        }
-    });
+    // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
+    if (activeTab === 'text') {
+        filteredReviews = reviews.filter(review => !review.querySelector('review-image'));  // 텍스트 리뷰만 필터링
+    } else if (activeTab === 'photo') {
+        filteredReviews = reviews.filter(review => review.querySelector('review-image'));  // 사진/동영상 리뷰만 필터링
+    }
 
-    // 탭에 따른 리뷰 종류 필터링 (예: 텍스트 리뷰, 포토/동영상 리뷰)
-//    if (activeTab === 'text') {
-//        reviews = reviews.filter(review => !review.classList.contains('photo'));  // 예: photo 클래스가 없는 텍스트 리뷰
-//    } else if (activeTab === 'photo') {
-//        reviews = reviews.filter(review => review.classList.contains('photo'));  // 예: photo 클래스가 있는 포토/동영상 리뷰
-//    }
-
-
-    // 정렬 필터 (최신순, 평점 높은순, 평점 낮은순)
+    // 정렬 필터 적용 (최신순, 평점 높은순, 평점 낮은순)
     if (activeFilter === 'latest') {
-        reviews.sort((a, b) => new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));
+        filteredReviews.sort((a, b) => new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));  // 최신순
     } else if (activeFilter === 'highest') {
-        reviews.sort((a, b) => b.getAttribute("data-rating") - a.getAttribute("data-rating"));
+        filteredReviews.sort((a, b) => b.getAttribute("data-rating") - a.getAttribute("data-rating"));  // 평점 높은순
     } else if (activeFilter === 'lowest') {
-        reviews.sort((a, b) => a.getAttribute("data-rating") - b.getAttribute("data-rating"));
+        filteredReviews.sort((a, b) => a.getAttribute("data-rating") - b.getAttribute("data-rating"));  // 평점 낮은순
     }
 
     // 필터링된 리뷰를 화면에 표시
     const reviewList = document.getElementById("review-list");
-    reviewList.innerHTML = "";
-    reviews.forEach(review => reviewList.appendChild(review));
+    reviewList.innerHTML = "";  // 기존 리뷰 삭제
+    filteredReviews.forEach(review => reviewList.appendChild(review));  // 필터링된 리뷰 추가
 }
+
+// 리뷰 유형 필터 전환 함수 (텍스트 리뷰 또는 사진/동영상 리뷰)
+function filterTab(type) {
+    activeTab = type;
+
+    // UI 업데이트 (리뷰 유형 필터 활성화)
+    const allTabs = document.querySelectorAll('.review-filter1 span');
+    allTabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelector(`.review-filter1 span[onclick="filterTab('${type}')"]`).classList.add('active');
+
+    // 필터 적용
+    applyFilters();
+}
+
+// 정렬 필터 전환 함수 (최신순, 평점 높은순, 평점 낮은순)
+function filterReviews(type) {
+    activeFilter = type;
+
+    // UI 업데이트 (정렬 필터 활성화)
+    const allFilters = document.querySelectorAll('.review-filter2 span');
+    allFilters.forEach(filter => filter.classList.remove('active'));
+    document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`).classList.add('active');
+
+    // 필터 적용
+    applyFilters();
+}
+
+// 페이지 로드 시 기본 설정 적용 (최신순 정렬)
+window.onload = function() {
+    applyFilters();  // 초기화 시 필터 적용
+}
+
+
+
+
 
 
 
@@ -292,3 +296,74 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+let reviewsPerPage = 5;  // 페이지당 리뷰 수
+let currentPage = 1;  // 현재 페이지 번호
+
+// 페이지 네이션 함수
+function changePage(pageNumber) {
+    currentPage = pageNumber;  // 현재 페이지를 업데이트
+    applyPagination();  // 페이지 네이션 적용
+}
+
+// 페이지 네이션 적용 함수
+function applyPagination() {
+    let reviews = Array.from(document.getElementsByClassName("review-item"));  // 모든 리뷰 아이템을 가져옴
+    const reviewList = document.getElementById("review-list");
+
+    reviewList.innerHTML = "";  // 기존 리뷰 삭제
+
+    // 현재 페이지에 맞는 리뷰 시작/끝 인덱스 계산
+    let startIndex = (currentPage - 1) * reviewsPerPage;
+    let endIndex = startIndex + reviewsPerPage;
+
+    let paginatedReviews = reviews.slice(startIndex, endIndex);  // 현재 페이지의 리뷰만 가져옴
+
+    // 필터링된 리뷰를 화면에 추가
+    paginatedReviews.forEach(review => reviewList.appendChild(review));
+
+    // 페이지 버튼 활성화 처리
+    createPaginationButtons(reviews.length);  // 동적으로 페이지 버튼 생성
+}
+
+// 페이지 버튼 동적 생성 함수
+function createPaginationButtons(totalReviews) {
+    const paginationContainer = document.querySelector(".pagination");
+    paginationContainer.innerHTML = "";  // 기존 버튼 삭제
+
+    let totalPages = Math.ceil(totalReviews / reviewsPerPage);  // 총 페이지 수 계산
+    let pageRange = 1;  // 현재 페이지를 기준으로 양쪽으로 보여줄 페이지 수 (현재 페이지 + 좌우 1개씩)
+
+    // 이전 버튼 추가
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "이전";
+    prevButton.onclick = () => changePage(currentPage - 1);
+    prevButton.disabled = currentPage === 1;  // 첫 페이지일 때 비활성화
+    paginationContainer.appendChild(prevButton);
+
+    // 시작 페이지와 끝 페이지 계산
+    let startPage = Math.max(1, currentPage - pageRange);  // 최소 1페이지부터 시작
+    let endPage = Math.min(totalPages, currentPage + pageRange);  // 최대 마지막 페이지까지
+
+    // 페이지 번호 버튼 생성
+    for (let i = startPage; i <= endPage; i++) {
+        const button = document.createElement("button");
+        button.textContent = i;
+        button.onclick = () => changePage(i);  // 페이지 번호 클릭 시 이동
+        if (i === currentPage) {
+            button.classList.add("active");  // 현재 페이지는 활성화
+        }
+        paginationContainer.appendChild(button);
+    }
+
+    // 다음 버튼 추가
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "다음";
+    nextButton.onclick = () => changePage(currentPage + 1);
+    nextButton.disabled = currentPage === totalPages;  // 마지막 페이지일 때 비활성화
+    paginationContainer.appendChild(nextButton);
+}
+
+// 페이지 로드 시 기본적으로 첫 페이지를 적용
+window.onload = function() {
+    applyPagination();  // 첫 페이지 적용
+}
