@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="/WEB-INF/inc/page_header.jspf" %>
 
 
 
@@ -73,22 +74,26 @@
     </div>
 
  <script>
-     window.onload =()=>{
-         CKEDITOR.ClassicEditor.create(document.getElementById("content"),option)
-             .then(editor => {
-                 console.log('CKEditor 5 is ready.');
-                 window.editorInstance = editor; // 에디터 인스턴스를 전역 변수로 저장
-             })
-             .catch(error => {
-                 console.error('CKEditor 5 initialization error:', error);
-             });
+     setTimeout(function() {
 
 
-         var token = localStorage.getItem("token"); //토근 값 가져오기
-         document.getElementById("token").value=token;
+          // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
+          checkLoginStatusForCommunity();
+         }, 400);
 
+         function checkLoginStatusForCommunity() {
+          CKEDITOR.ClassicEditor.create(document.getElementById("content"),option)
+              .then(editor => {
+                  console.log('CKEditor 5 is ready.');
+                  window.editorInstance = editor; // 에디터 인스턴스를 전역 변수로 저장
+              })
+              .catch(error => {
+                  console.error('CKEditor 5 initialization error:', error);
+              });
 
-     };
+             var token = localStorage.getItem("token"); //토근 값 가져오기
+             document.getElementById("token").value=token;
+          };
 
 
 

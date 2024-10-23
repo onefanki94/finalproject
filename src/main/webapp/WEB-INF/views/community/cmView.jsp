@@ -10,46 +10,7 @@
 <link href="/css/reportModal.css" rel="stylesheet" type="text/css">
 <link href="/css/cmView.css" rel="stylesheet" type="text/css">
 
-<script>
-var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
-var userid;
-var currentCommIdx;// 현재 페이지의 comm_idx를 전역 변수로 설정
 
-setTimeout(function() {
-
-
-    // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
-    checkLoginStatusForCommunity();
-}, 400);
-
- function checkLoginStatusForCommunity(){
-    console.log("호출");
-
-    var token = localStorage.getItem("token"); //토근 값 가져오기
-    if(token != "" && token != null){
-        $.ajax({
-            url:"/getuser",
-            type:"get",
-            data:{Authorization:token},
-            success: function(vo){
-                console.log("로그인된 사용자 ID:" + userid);
-
-                userid = vo.userid;
-                useridx = vo.idx;
-
-                console.log(userid);
-                console.log(useridx);
-
-                },
-                error: function(){
-                    console.error("로그인 여부 확인 실패");
-                    document.querySelector(".new_write").style.display = "none"
-                }
-            });
-        }
-    };
-
-</script>
 
 
     <section class="top_info">
@@ -133,13 +94,13 @@ setTimeout(function() {
                <c:if test="${nextPost == null}"></c:if>
            </div>
             <div class="listBt">
-                <a class="btn btn-secondary btn-sm" href="/cmEdit/${vo.idx}" role="button">
+                <a class="btn btn-secondary btn-sm btn-edit" href="/cmEdit/${vo.idx}" role="button" style="display: none;">
                     수정
                 </a>
                 <a class="btn btn-secondary btn-sm" href="/cmList" role="button">
                     목록
                 </a>
-                <a class="btn btn-secondary btn-sm" role="button" onclick="confirmDelete(${vo.idx});">
+                <a class="btn btn-secondary btn-sm btn-delete" role="button" onclick="confirmDelete(${vo.idx});" style="display: none;">
                     삭제
                 </a>
             </div>
@@ -211,14 +172,76 @@ setTimeout(function() {
             </div>
         </div>
 
+
+<script>
+var useridx; // 해당 페이지에서 모두 사용 가능하도록! 전역변수로 선언
+var userid;
+var currentCommIdx;// 현재 페이지의 comm_idx를 전역 변수로 설정
+
+setTimeout(function() {
+
+
+    // 커뮤니티 페이지 전용 로그인 상태 확인 함수 호출
+    checkLoginStatusForCommunity();
+}, 400);
+
+function checkLoginStatusForCommunity() {
+    console.log("호출");
+
+    var token = localStorage.getItem("token"); // 토큰 값 가져오기
+    if (token != "" && token != null) {
+        $.ajax({
+            url: "/getuser",
+            type: "get",
+            data: { Authorization: token },
+            success: function(vo) {
+                console.log("로그인된 사용자 ID: " + vo.userid);
+
+                userid = vo.userid;
+                useridx = vo.idx;
+
+                console.log(userid);
+                console.log(useridx);
+
+                // 게시물 작성자의 아이디와 로그인된 사용자의 아이디가 같은지 확인
+                var postAuthorId = "${vo.userid}"; // JSP에서 게시물 작성자의 아이디를 가져온다고 가정
+
+                if (userid === postAuthorId) {
+                    // 로그인된 사용자가 게시물 작성자인 경우 수정, 삭제 버튼을 표시
+                    document.querySelector(".btn-edit").style.display = "block";
+                    document.querySelector(".btn-delete").style.display = "block";
+                } else {
+                    // 게시물 작성자가 아닌 경우 수정, 삭제 버튼을 숨김
+                    document.querySelector(".btn-edit").style.display = "none";
+                    document.querySelector(".btn-delete").style.display = "none";
+                }
+            },
+            error: function() {
+                console.error("로그인 여부 확인 실패");
+                // 로그인되지 않은 경우 수정, 삭제 버튼 숨김
+                document.querySelector(".btn-edit").style.display = "none";
+                document.querySelector(".btn-delete").style.display = "none";
+            }
+        });
+    } else {
+        // 토큰이 없거나 유효하지 않은 경우 수정, 삭제 버튼 숨김
+        document.querySelector(".btn-edit").style.display = "none";
+        document.querySelector(".btn-delete").style.display = "none";
+    }
+}
+
+
     <!-- 삭제 확인 및 처리 -->
-    <script type="text/javascript">
+    //<script type="text/javascript">
         function confirmDelete(idx) {
             if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
                 // 삭제 확인 시 삭제 URL로 이동
                 location.href = '/cmDelete/' + idx;
             }
         }
+
+
+
 
 // showTab 함수 정의 (탭 전환)
 function showTab(commtype) {
