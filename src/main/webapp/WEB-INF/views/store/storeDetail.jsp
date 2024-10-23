@@ -225,7 +225,8 @@
             <!-- 리뷰 리스트 -->
       <div id="review-list">
           <c:forEach var="review" items="${reviews}">
-              <div class="review-item" data-rating="${review.grade}" data-date="${review.regDT}">
+               <div class="review-item ${not empty review.imgfile1 || not empty review.imgfile2 ? 'photo' : 'text'}"
+                           data-rating="${review.grade}" data-date="${review.regDT}">
                   <div class="review-nickname">
                       <span class="review-rating">
                           <!-- 별점 출력 -->
