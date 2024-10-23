@@ -153,7 +153,7 @@
         LEFT JOIN
         T_payment pm ON o.idx = pm.order_idx
         WHERE
-        o.useridx = ${param1} and o.payState=1
+        o.useridx = ${param1} and o.payState=1 and pm.successYN=1
         AND
         ol.idx = (
         SELECT MIN(sub_ol.idx)
@@ -314,4 +314,24 @@
         WHERE useridx=${param1}
     </select>
     <!-- 채원 끝-->
+
+    <!-- 아이디 찾기 -->
+    <select id="findId" parameterType="map" resultType="string">
+        SELECT userid
+        FROM t_user
+        WHERE username = #{username} AND email = #{email}
+    </select>
+
+    <!-- 비밀번호 찾기 -->
+    <select id="findPwd" parameterType="map" resultType="string">
+        SELECT userpwd
+        FROM t_user
+        WHERE userid = #{userid} AND username = #{username} AND email = #{email}
+    </select>
+
+    <!-- 비밀번호 변경 -->
+    <update id="changePassword">
+        update t_user set userpwd = #{userpwd}
+        where userid = #{userid}
+    </update>
 </mapper>

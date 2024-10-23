@@ -35,7 +35,16 @@
                 <c:forEach var="board" items="${boardList}">
                     <tr>
                         <td>${board.idx}</td>
-                        <td>${board.category}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${board.commtype == 10}">자랑</c:when>
+                                <c:when test="${board.commtype == 20}">덕질</c:when>
+                                <c:when test="${board.commtype == 30}">친목</c:when>
+                                <c:when test="${board.commtype == 40}">팬아트</c:when>
+                                <c:when test="${board.commtype == 50}">추천</c:when>
+                                <c:otherwise>기타</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${board.title}</td>
                         <td>${board.author}</td>
                         <td>${board.regDT}</td>
@@ -51,18 +60,32 @@
         </div>
 
         <!-- 페이징 영역 -->
-        <div class="boardPageing">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">이전</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <nav>
+           <ul class="pagination justify-content-center">
+               <c:set var="pageGroupSize" value="10" />
+               <c:set var="startPage" value="${((currentPage - 1) / pageGroupSize) * pageGroupSize + 1}" />
+               <c:set var="endPage" value="${startPage + pageGroupSize - 1 > totalPages ? totalPages : startPage + pageGroupSize - 1}" />
+
+               <!-- 이전 그룹으로 이동 -->
+               <c:if test="${startPage > 1}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/boardMasterAll?currentPage=${startPage - 1}&pageSize=${pageSize}">&laquo;</a>
+                   </li>
+               </c:if>
+
+               <!-- 페이지 번호 -->
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                   <li class="page-item ${i == currentPage ? 'active' : ''}">
+                       <a class="page-link" href="/master/boardMasterAll?currentPage=${i}&pageSize=${pageSize}">${i}</a>
+                   </li>
+               </c:forEach>
+
+               <!-- 다음 그룹으로 이동 -->
+               <c:if test="${endPage < totalPages}">
+                   <li class="page-item">
+                       <a class="page-link" href="/master/boardMasterAll?currentPage=${endPage + 1}&pageSize=${pageSize}">&raquo</a>
+                   </li>
+               </c:if>
+           </ul>
+        </nav>
+

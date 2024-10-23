@@ -320,4 +320,55 @@
         LIMIT #{offset}, #{limit}
     </select>
 
+    <select id="getStoreListWithPaging" resultType="MasterVO">
+        SELECT * FROM t_product
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getBoardListWithPaging" parameterType="map" resultType="MasterVO">
+        SELECT c.idx, tc.type AS category, c.title,
+       u.userid AS author,
+        c.regDT, c.hit, c.commtype
+        FROM t_community c
+        LEFT JOIN t_communitytype tc ON c.commtype = tc.code
+        LEFT JOIN t_user u ON c.useridx = u.idx
+        ORDER BY c.idx
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 전체 게시글 수 조회 -->
+    <select id="getTotalBoardCount" resultType="int">
+        SELECT COUNT(*) FROM t_community
+    </select>
+
+    <!-- 페이징을 적용한 리뷰 목록 조회 -->
+    <select id="getReviewListWithPaging" parameterType="map" resultType="MasterVO">
+        SELECT * FROM t_review
+        ORDER BY idx DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 전체 리뷰 개수 조회 -->
+    <select id="getTotalReviewCount" resultType="int">
+        SELECT COUNT(*) FROM t_review
+    </select>
+
+<!--  이벤트 추가 쿼리  -->
+    <insert id="insertEvent">
+        insert into t_event (title, thumfile, content, event_date, adminidx)
+        values (#{title}, #{thumfile}, #{content},#{event_date}, #{adminidx})
+    </insert>
+
+    <!-- 이벤트 목록 불러오기 -->
+    <select id="getEventList">
+        select idx, title, event_date, regDT from t_event
+    </select>
+
+    <!-- 이벤트 해당 idx로 모달창 내용 띄우기 -->
+    <select id="getEventDetail" parameterType="int" resultType="MasterVO">
+        SELECT idx, title, content, event_date, regDT
+        FROM t_event
+        WHERE idx = #{idx}
+    </select>
 </mapper>

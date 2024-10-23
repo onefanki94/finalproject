@@ -1011,4 +1011,36 @@ public class UserController {
 
         return mav;
     }
+
+    // 아이디 찾기
+    @PostMapping("/findId")
+    public ResponseEntity<String> findId(@RequestParam String username, @RequestParam String email){
+        String userid = service.findId(username, email);
+        if(userid!= null){
+            return ResponseEntity.ok("회원님의 아이디는  " + userid + " 입니다");
+        } else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찾으시는 아이디가 없습니다.");
+        }
+    }
+
+    // 비밀번호찾기
+    @PostMapping("findPwd")
+    public ResponseEntity<String> findPwd(@RequestParam String userid, @RequestParam String username , @RequestParam String email){
+        String userpwd = service.findPwd(userid, username ,email);
+        if(userpwd!= null){
+            return ResponseEntity.ok("회원님의 비밀번호는 암호화된 상태입니다.");
+        } else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("찾으시는 아이디의 비밀번호가 없습니다.");
+        }
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestParam String userid, @RequestParam String newPassword){
+        boolean isUpdated = service.changePassword(userid, newPassword);
+        if(isUpdated){
+            return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경에 실패했습니다.");
+        }
+    }
 }

@@ -23,7 +23,7 @@
 
     <!-- 특정 상품에 대해 사용자가 좋아요를 눌렀는지 확인 -->
     <select id="selectLikeStatus" parameterType="map" resultType="ProLikeVO">
-        SELECT pro_idx, useridx, (CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END) AS liked
+        SELECT pro_idx, useridx, (CASE WHEN COUNT(*) > 0 THEN true ELSE false END) AS liked
         FROM t_prolike
         WHERE pro_idx = #{pro_idx} AND useridx = #{useridx}
     </select>

@@ -29,6 +29,7 @@ public class ProlikeServiceimpl implements ProlikeService{
   
     public boolean isLiked(int pro_idx, int useridx) {
         ProLikeVO likeStatus = dao.selectLikeStatus(pro_idx, useridx);
+        System.out.println(likeStatus.toString());
        return likeStatus != null && likeStatus.isLiked();// 좋아요 상태 확인
     }
 

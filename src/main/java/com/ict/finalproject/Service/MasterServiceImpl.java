@@ -294,4 +294,58 @@ public class MasterServiceImpl implements MasterService {
         params.put("limit", limit);
         return dao.getAniListWithPaging(params);
     }
+
+    @Override
+    public List<MasterVO> getStoreListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getStoreListWithPaging(params);
+    }
+
+    @Override
+    public List<MasterVO> getBoardListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getBoardListWithPaging(params);
+    }
+
+    @Override
+    public int getTotalBoardCount() {
+        return dao.getTotalBoardCount();
+    }
+
+    @Override
+    public List<MasterVO> getReviewListWithPaging(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return dao.getReviewListWithPaging(params);
+    }
+
+    @Override
+    public int getTotalReviewCount() {
+        return dao.getTotalReviewCount();
+    }
+
+    @Override
+    public void addEvent(MasterVO event) {
+        int result = dao.insertEvent(event);
+        if (result > 0) {
+            log.info("이벤트 등록 성공. Event idx: {}", result);
+        } else {
+            log.error("이벤트 등록 실패");
+        }
+    }
+
+    @Override
+    public List<MasterVO> getEventList() {
+        return dao.getEventList();
+    }
+
+    @Override
+    public MasterVO getEventDetail(int idx) {
+        return dao.getEventDetail(idx);
+    }
 }

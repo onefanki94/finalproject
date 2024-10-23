@@ -40,7 +40,7 @@ function createPaginationPoint(totalPages, currentPage) {
         const page = $(this).data('page');
         $(".custom-pagination .pageNumber_span span").removeClass("clicked");
         $(this).addClass("clicked");
-        mypageGoodsLike(page);
+        getPointList(page);
     });
 }
 
@@ -65,9 +65,9 @@ function getPointList(page){
                 pointList.forEach(pointList => {
                     const formattedPoint = formatNumber(pointList.point); // 여기서 형식화된 금액을 변수로 저장
                     const getPointType = getPoinType(pointList.type);
-                    const pointClass = pointList.type <3
+                    const pointClass = pointList.type <3 || pointList.type==4
                         ? `<span style="color:var(--primary); font-weight: bold;">+${formattedPoint}</span>`
-                        : `<span style="color:#a0a0a0; font-weight: bold;">-${formattedPoint}</span>`;
+                        : `<span style="color:#a0a0a0; font-weight: bold;">${formattedPoint}</span>`;
                     $(".point_list_ul").append(`
                         <li class="point_list_li">
                           <div class="point_date"><span>${pointList.formatted_regDT}</span></div>
@@ -98,6 +98,8 @@ function getPoinType(type) {
             return "리뷰 작성 적립";
         case 3:
             return "상품 구매시 사용";
+        case 4:
+            return "상품 취소 적립금 환불";
         default:
             return "타입값 오류";
     }

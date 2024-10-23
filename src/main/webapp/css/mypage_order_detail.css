@@ -18,8 +18,11 @@
 
 .order_detail_all .order_detail_state .my_data {
     display: flex;
-    padding: 16px 0px;
-    border-bottom: 1px solid #d4d4d4;
+    padding: 10px 0px;
+    border-bottom: 2px solid #d4d4d4;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
 }
 
 .order_detail_all .order_detail_state .my_data p {
@@ -122,7 +125,7 @@
 
 .order_current_state_div {
   width: min(28%, 300px);
-  padding: 20px;
+  padding: 0 20px;
   text-align:center;
 }
 
@@ -142,6 +145,7 @@
   background: transparent;
   border: 0;
   margin-top: 10px;
+  width:100%;
 }
 
 .order_package span {
@@ -283,4 +287,31 @@ table {
     color: rgb(48, 48, 51);
     text-decoration: underline;
     margin-bottom:3px;
+}
+
+#payCancel_btn{
+    border: 1px solid transparent;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0px;
+    position: relative;
+    min-height: 50px;
+    border-radius: 4px;
+    padding: 0 20px;
+    background-color: #303030;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+    transform: scale(0.9);
+    margin-left: auto;
+    margin-right: 0.3em;
+}
+
+.orderConfirm{
+    color:var(--primary);
+    font-weight:bold;
 }

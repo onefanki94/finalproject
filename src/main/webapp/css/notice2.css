@@ -305,6 +305,8 @@ a:hover {
 }
 
 
+
+
 .FAQList table tr td:last-child {
     text-align: left;
 }
@@ -508,12 +510,21 @@ img {
 }
 
 
-
-.page-link {
-    font-size:16px;
-    border-color: #FFF;
-    font-weight:700;
+.page.active .page-link  {
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    font-size: 12px;
+    background: #525252;
+    background: linear-gradient(135deg, #525252, #292929);
+    cursor: pointer;
 }
+
+
+
 
 .content {
     display: none; /* 기본적으로 숨김 */

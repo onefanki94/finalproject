@@ -92,11 +92,11 @@
           <div>
             <div>
               <span>회원 아이디</span>
-              <span class="delinfo_span">sing2727</span>
+              <span class="delinfo_span delid"></span>
             </div>
             <div>
               <span>소멸 예정 적립금</span>
-              <span class="delinfo_span">1,200원</span>
+              <span class="delinfo_span delPoint"></span>
             </div>
           </div>
           <dl class="delAgree_info">

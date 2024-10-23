@@ -110,17 +110,17 @@
                 <div>
                   <label><input id="order_use_point" type="text" value="0" /></label>
                 </div>
-                <button type="button">
-                  <span>모두 사용</span>
+                <button type="button" id="order_usePoint_btn">
+                  모두 사용
                 </button>
               </div>
               <span class="use_point">
                 사용 가능
-                <em>${order.user_point}P</em>
+                <em class="available_point"></em>
                 /
                 <span>
                   보유
-                  <em>${order.user_point}</em>
+                  <em class="user_point_info"></em>
                 </span>
               </span>
             </div>
@@ -149,7 +149,7 @@
       </dl>
       <dl class="point">
         <dt>적립금 사용</dt>
-        <dd>-0P</dd>
+        <dd class="order_usePoint_info"></dd>
       </dl>
       <dl class="total_price">
         <dt>총 결제 예정 금액</dt>
@@ -192,3 +192,6 @@
 </script>
 <script src="/js/tosspayments.js"></script>
 
+<script>
+    let user_point = ${order.user_point};
+</script>

@@ -96,11 +96,11 @@
           </tr>
           <tr>
             <th>적립금 사용금액</th>
-            <td class="order_usePoint" data-usePoint="${orderData.use_point}">${orderData.use_point}</td>
+            <td class="order_usePoint" data-usePoint="${orderData.use_point}"></td>
           </tr>
           <tr>
             <th>결제금액</th>
-            <td class="order_totalPrice" data-totalPrice="${orderData.total_price}">${orderData.total_price}</td>
+            <td class="order_totalPrice" data-totalPrice="${paymentData.amount}"></td>
           </tr>
           <tr>
             <th>영수증</th>
@@ -140,7 +140,7 @@
   </div>
   <div class="btn_div">
     <a href="/storeMain">계속 쇼핑하기</a>
-    <button onclick="window.location.href='/user/mypage_order_detail'">주문/배송조회</button>
+    <button onclick="window.location.href='/user/mypage_order_detail/${orderData.idx}'">주문/배송조회</button>
   </div>
 </div>
 

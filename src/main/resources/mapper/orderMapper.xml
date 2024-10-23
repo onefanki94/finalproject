@@ -67,7 +67,7 @@
         WHERE order_idx=${param1}
     </update>
     <select id="getOrderListByOrderIdx" resultType="com.ict.finalproject.vo.OrderListVO">
-        SELECT pro_idx, amount
+        SELECT pro_idx, amount, cancelCount
         FROM T_orderList
         WHERE order_idx = ${param1}
     </select>
@@ -89,9 +89,14 @@
         WHERE ol.order_idx = ${param1}
     </select>
     <select id="paymentSuccessData" resultType="com.ict.finalproject.vo.PaymentVO">
-        select paytype, orderId, createDT
+        select paytype, orderId, createDT, amount
         from T_payment
         where order_idx = ${param1}
+    </select>
+    <select id="getUseridx">
+        select useridx
+        from T_order
+        where idx=${param1}
     </select>
 
     <!-- 결제 실패 정보 업데이트 -->
@@ -102,4 +107,87 @@
         WHERE orderId = #{orderId}
     </update>
 
+    <!-- 결제 취소 페이먼츠키 가져오기 -->
+    <select id="getPaymentKey">
+        select paymentkey
+        from T_payment
+        where order_idx=${param1}
+    </select>
+    <select id="getCancelProduct" resultType="com.ict.finalproject.vo.OrderListVO">
+        SELECT
+        ol.pro_idx,
+        ol.order_idx,
+        ol.orderState,
+        ol.cancelCount,
+        p.title,
+        p.ani_title,
+        ol.amount,
+        p.price,
+        p.thumImg
+        FROM
+        T_orderList ol
+        JOIN
+        T_product p ON ol.pro_idx = p.idx
+        WHERE
+        ol.order_idx = ${param1}
+        AND (ol.orderState = 1 OR ol.orderState = 8)
+    </select>
+    <select id="getOrderProducts" resultType="com.ict.finalproject.vo.OrderListVO">
+        SELECT
+        ol.pro_idx,
+        ol.order_idx,
+        ol.orderState,
+        ol.cancelCount,
+        ol.amount,
+        p.price,
+        p.thumImg
+        FROM
+        T_orderList ol
+        JOIN
+        T_product p ON ol.pro_idx = p.idx
+        WHERE
+        ol.order_idx = ${param1}
+    </select>
+    <select id="getUsePoint">
+        select use_point
+        from T_order
+        where idx=${param1}
+    </select>
+
+    <!-- 결제 취소 정보 업데이트 -->
+    <update id="PaymentCancelSuccess" parameterType="map">
+        UPDATE T_payment
+        SET cancelYN = 1,
+        cancelReason = #{cancelInfo.cancelReason},
+        cancelAmount = #{cancelInfo.cancelAmount},
+        cancelDT = now()
+        WHERE paymentkey = #{paymentKey}
+    </update>
+    <update id="updateOrderStateCancel">
+        update T_order
+        set cancelState=1, cancelDT=now()
+        where idx=${param1}
+    </update>
+    <update id="updateOrderListState">
+        update T_orderList
+        set orderState=${param3}, cancelCount =${param4}
+        where order_idx=${param2} and pro_idx=${param1}
+    </update>
+    <update id="increaseProductStock">
+        update T_product
+        set stock = stock+${param2}
+        where idx=${param1}
+    </update>
+    <!-- 구매확정 -->
+    <update id="updateOrderStateConfirm">
+        update T_orderList
+        set orderState=6
+        where order_idx=${param1} and pro_idx=${param2}
+    </update>
+    <select id="getOrderProductPriceAmount" resultType="com.ict.finalproject.vo.OrderListVO">
+        select p.price, ol.amount, ol.cancelCount
+        from T_orderList ol
+        JOIN T_product p ON ol.pro_idx = p.idx
+        where ol.order_idx = ${param1} and pro_idx=${param2}
+    </select>
 </mapper>

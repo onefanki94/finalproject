@@ -46,24 +46,39 @@ public class noticeController {
     public String getNoticeList(@RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 @RequestParam(defaultValue = "") String keyword,
-                                @RequestParam(defaultValue = "0") int faqtype,
+                                @RequestHeader(value = "Authorization", required = false) String token,
                                 Model model) {
 
-        // 공지사항 페이징 처리 및 리스트 조회
-        PagingVO noticePVO = noticeService.getNoticePage(page, size, keyword);  // 공지사항 페이징
-        List<NoticeVO> notices = noticeService.getNotices(noticePVO);
+        // 로그인된 사용자의 아이디를 추가하는 부분
+        if (token != null) {
+            token = token.replace("Bearer ", ""); // "Bearer " 제거
+            String userId = jwtUtil.getUserIdFromToken(token); // 토큰에서 사용자 아이디 추출
+            model.addAttribute("userid", userId); // 아이디를 Model에 추가
+        }
 
-        // FAQ 페이징 처리 및 리스트 조회
-        PagingVO faqPVO = noticeService.getFaqPage(page, size, faqtype);  // 자주 묻는 질문 페이징
-        List<NoticeVO> faqs = noticeService.getFaqs(faqPVO);
+        // 공지사항 페이징 처리
+        PagingVO pVO = new PagingVO(page, 0, size);
+        pVO.setForNotice(keyword);
+
+        // 전체 항목 수 가져오기
+        int totalElements = noticeService.getTotalCount(pVO);
+        pVO.setTotalElements(totalElements);
+
+        // 페이징 정보 재설정
+        pVO = new PagingVO(page, totalElements, size);
+        pVO.setForNotice(keyword);
+
+        List<NoticeVO> list = noticeService.getNotices(pVO);
+
+        // FAQ 목록 가져오기
+        List<NoticeVO> faqList = noticeService.getFaqs();
+
 
         // 모델에 데이터 추가
-        model.addAttribute("notices", notices);
-        model.addAttribute("noticePaging", noticePVO);  // 공지사항 페이징 정보
-        model.addAttribute("faqs", faqs);
-        model.addAttribute("faqPaging", faqPVO);  // 자주 묻는 질문 페이징 정보
+        model.addAttribute("list", list);
+        model.addAttribute("pVO", pVO);  // 공지사항 페이징 정보
         model.addAttribute("keyword", keyword);
-        model.addAttribute("faqtype", faqtype);
+        model.addAttribute("faqs", faqList);
 
         return "notice/notice2";  // 고객센터 페이지로 이동
     }
@@ -77,11 +92,16 @@ public class noticeController {
                                                 @RequestParam(value = "file", required = false) List<MultipartFile> files,
                                                 @RequestHeader("Authorization") String token) {
         System.out.println("여긴오니?");
+        System.out.println("1" + title + "2" + content + "3" + qnatype + "4" + files + "5" + token);
+
 
         // 토큰에서 "Bearer " 제거
-        //String token = authorization.replace("Bearer ", "");
+        token = token.replace("Bearer ", "");
+
         //토큰에서 사용자 아이디 추출
         String userid = jwtUtil.getUserIdFromToken(token);
+        System.out.println("id : " +userid);
+
         // userid로 index구하기
         int useridx= mservice.getUseridx(userid);
 
@@ -190,11 +210,4 @@ public class noticeController {
 
 
 
-
-
-    //상세페이지
-//    @GetMapping("/noticeView")
-//    public String cmView(){
-//        return "notice/noticeView";
-//    }
 }

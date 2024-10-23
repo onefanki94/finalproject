@@ -106,4 +106,9 @@ public class MasterVO {
     private int startPage;       // 페이지 네비게이션 시작 페이지
     private int endPage;         // 페이지 네비게이션 끝 페이지
     private int pageGroupSize;
+
+    // 관리자 페이지 이벤트 페이지 사용하는 기능들
+    private String event_date;
+    private String thumfile;
+    private String thumfileName;
 }

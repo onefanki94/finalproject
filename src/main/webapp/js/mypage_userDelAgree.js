@@ -33,6 +33,17 @@ function pwdCheckModal_exit(){
 }
 
 $(function(){
+    // 회원정보 적립금 표시
+     setTimeout(function() {
+        // 공통 함수에서 업데이트된 데이터 사용
+        var currentID = $('.currentID').text().replace(" 님", "");  // currentID에서 " 님"을 제거
+        var reservePoint = $('.reservePoint').text();
+
+        // 탈퇴 페이지의 DOM 요소 업데이트
+        $('.delid').text(currentID);  // 첫 번째 span에 아이디 표시
+        $('.delPoint').text(reservePoint + "원");  // 두 번째 span에 적립금 표시
+    }, 500);
+
     const token = localStorage.getItem("token");
 
     $("#chk_agree").change(function () {
