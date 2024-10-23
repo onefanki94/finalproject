@@ -25,9 +25,10 @@ function applyFilters() {
 
     // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
     if (activeTab === 'text') {
-        filteredReviews = reviews.filter(review => !review.querySelector('review-image'));  // 텍스트 리뷰만 필터링
+        filteredReviews = reviews.filter(review => !review.querySelector('.review-image'));  // 텍스트 리뷰만 필터링
+           console.log(document.querySelectorAll('.review-item .review-image'));
     } else if (activeTab === 'photo') {
-        filteredReviews = reviews.filter(review => review.querySelector('review-image'));  // 사진/동영상 리뷰만 필터링
+        filteredReviews = reviews.filter(review => review.querySelector('.review-image'));  // 사진/동영상 리뷰만 필터링
     }
 
     // 정렬 필터 적용 (최신순, 평점 높은순, 평점 낮은순)
@@ -65,7 +66,15 @@ function filterReviews(type) {
     // UI 업데이트 (정렬 필터 활성화)
     const allFilters = document.querySelectorAll('.review-filter2 span');
     allFilters.forEach(filter => filter.classList.remove('active'));
-    document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`).classList.add('active');
+
+    const selectedFilter = document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`);
+
+    // 선택된 요소가 존재하는지 확인 (null 체크)
+    if (selectedFilter) {
+        selectedFilter.classList.add('active');  // 요소가 존재할 때만 classList 사용
+    } else {
+        console.error(`해당 선택자에 대한 요소가 없습니다: filterReviews('${type}')`);
+    }
 
     // 필터 적용
     applyFilters();
@@ -98,14 +107,14 @@ function toggleDescription() {
 
 $(document).ready(function() {
     $(window).scroll(function() {
-        console.log("Scroll event triggered");
+
         var scrollPosition = $(window).scrollTop();
         var windowHeight = $(window).height();
         var documentHeight = $(document).height();
 
         if (scrollPosition > (documentHeight - windowHeight) * 0.1) {
             $('.sticky-footer').addClass('show');
-            console.log("Scroll event triggered");
+
         } else {
             $('.sticky-footer').removeClass('show');
         }
@@ -296,3 +305,74 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+let reviewsPerPage = 5;  // 페이지당 리뷰 수
+let currentPage = 1;  // 현재 페이지 번호
+
+// 페이지 네이션 함수
+function changePage(pageNumber) {
+    currentPage = pageNumber;  // 현재 페이지를 업데이트
+    applyPagination();  // 페이지 네이션 적용
+}
+
+// 페이지 네이션 적용 함수
+function applyPagination() {
+    let reviews = Array.from(document.getElementsByClassName("review-item"));  // 모든 리뷰 아이템을 가져옴
+    const reviewList = document.getElementById("review-list");
+
+    reviewList.innerHTML = "";  // 기존 리뷰 삭제
+
+    // 현재 페이지에 맞는 리뷰 시작/끝 인덱스 계산
+    let startIndex = (currentPage - 1) * reviewsPerPage;
+    let endIndex = startIndex + reviewsPerPage;
+
+    let paginatedReviews = reviews.slice(startIndex, endIndex);  // 현재 페이지의 리뷰만 가져옴
+
+    // 필터링된 리뷰를 화면에 추가
+    paginatedReviews.forEach(review => reviewList.appendChild(review));
+
+    // 페이지 버튼 활성화 처리
+    createPaginationButtons(reviews.length);  // 동적으로 페이지 버튼 생성
+}
+
+// 페이지 버튼 동적 생성 함수
+function createPaginationButtons(totalReviews) {
+    const paginationContainer = document.querySelector(".pagination");
+    paginationContainer.innerHTML = "";  // 기존 버튼 삭제
+
+    let totalPages = Math.ceil(totalReviews / reviewsPerPage);  // 총 페이지 수 계산
+    let pageRange = 1;  // 현재 페이지를 기준으로 양쪽으로 보여줄 페이지 수 (현재 페이지 + 좌우 1개씩)
+
+    // 이전 버튼 추가
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "이전";
+    prevButton.onclick = () => changePage(currentPage - 1);
+    prevButton.disabled = currentPage === 1;  // 첫 페이지일 때 비활성화
+    paginationContainer.appendChild(prevButton);
+
+    // 시작 페이지와 끝 페이지 계산
+    let startPage = Math.max(1, currentPage - pageRange);  // 최소 1페이지부터 시작
+    let endPage = Math.min(totalPages, currentPage + pageRange);  // 최대 마지막 페이지까지
+
+    // 페이지 번호 버튼 생성
+    for (let i = startPage; i <= endPage; i++) {
+        const button = document.createElement("button");
+        button.textContent = i;
+        button.onclick = () => changePage(i);  // 페이지 번호 클릭 시 이동
+        if (i === currentPage) {
+            button.classList.add("active");  // 현재 페이지는 활성화
+        }
+        paginationContainer.appendChild(button);
+    }
+
+    // 다음 버튼 추가
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "다음";
+    nextButton.onclick = () => changePage(currentPage + 1);
+    nextButton.disabled = currentPage === totalPages;  // 마지막 페이지일 때 비활성화
+    paginationContainer.appendChild(nextButton);
+}
+
+// 페이지 로드 시 기본적으로 첫 페이지를 적용
+window.onload = function() {
+    applyPagination();  // 첫 페이지 적용
+}

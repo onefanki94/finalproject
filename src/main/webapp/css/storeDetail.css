@@ -452,7 +452,7 @@ font-size : 2em;
 /* 필터 (최신순/평점 높은순/평점 낮은순) 오른쪽 정렬 */
 .review-filter2 {
     margin-right: 100px;
-    font-size: 14px;
+    font-size: 16px;
     color: #666;
 }
 
