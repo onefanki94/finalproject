@@ -3,71 +3,179 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict.finalproject.DAO.CommuDAO">
     <insert id="insertBoard" parameterType="CommuVO">
-        insert into t_community (useridx, commtype, title, content, regDT, modifyState, modifyDT, delState, delDT, hit)
-        values (#{useridx}, #{commtype}, #{title}, #{content}, NOW(), 0, NOW(), 0, NOW(), 0)
+        insert into t_community (useridx, commtype, title, content, regDT)
+        values (#{useridx}, #{commtype}, #{title}, #{content}, NOW())
     </insert>
 
-    <!-- 리스트 -->
-    <select id="List" resultType="com.ict.finalproject.vo.CommuVO">
+
+
+    <select id="getCommuList" parameterType="com.ict.finalproject.vo.PagingVO" resultType="com.ict.finalproject.vo.CommuVO">
         SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit
         FROM t_community c
         JOIN t_communitytype ct ON c.commtype = ct.code
+        LEFT JOIN (
+        SELECT comm_idx, COUNT(*) AS commentCount, MAX(regDT) AS lastCommentDT
+        FROM t_comment
+        GROUP BY comm_idx
+        ) com ON c.idx = com.comm_idx
         WHERE c.delState = 0
         <if test="commtype != null and commtype != 'all'">
-            AND c.commtype = #{commtype}  <!-- 필터링 조건 확인 -->
+            AND c.commtype = #{commtype}
         </if>
-        ORDER BY c.regDT DESC
-    </select>
-
-    <!-- 필터, 정렬, 검색 조건에 따른 게시글 목록 조회 메서드 -->
-    <select id="FilteredList" resultType="com.ict.finalproject.vo.CommuVO">
-        SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit
-        FROM t_community c
-        JOIN t_communitytype ct ON c.commtype = ct.code
-        WHERE c.delState = 0
-        <if test="commtype != null and commtype != 'all'">
-            AND c.commtype = #{commtype} <!-- 커뮤니티 타입 필터링 -->
+        <if test="searchCategory != null and searchCategory == 'TITLE'">
+            AND c.title LIKE CONCAT('%', #{searchKeyword}, '%')
         </if>
-
-        <!-- 검색어 조건 설정 -->
-        <if test="searchKeyword != null and searchKeyword != ''">
-            <choose>
-                <when test="searchCategory == 'TITLE_AND_CONTENT'">
-                    AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%')
-                    OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
-                </when>
-                <when test="searchCategory == 'TITLE'">
-                    AND c.title LIKE CONCAT('%', #{searchKeyword}, '%')
-                </when>
-                <when test="searchCategory == 'CONTENT'">
-                    AND c.content LIKE CONCAT('%', #{searchKeyword}, '%')
-                </when>
-            </choose>
+        <if test="searchCategory != null and searchCategory == 'CONTENT'">
+            AND c.content LIKE CONCAT('%', #{searchKeyword}, '%')
         </if>
-
-        <!-- 정렬 조건 -->
+        <if test="searchCategory != null and searchCategory == 'TITLE_AND_CONTENT'">
+            AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%') OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
+        </if>
+        ORDER BY
         <choose>
-            <when test="orderBy == 'DEFAULT'">
-                ORDER BY c.regDT DESC
-            </when>
-            <when test="orderBy == 'NEW_REPLY'">
-                ORDER BY c.lastReplyDT DESC
-            </when>
-            <when test="orderBy == 'REPLY'">
-                ORDER BY c.replyCount DESC
-            </when>
-            <when test="orderBy == 'LIKE'">
-                ORDER BY c.hit DESC
-            </when>
+            <when test="orderBy == 'DEFAULT'">c.regDT DESC</when> <!-- 최신글순 -->
+            <when test="orderBy == 'NEW_REPLY'">com.lastCommentDT DESC</when> <!-- 최신댓글순 -->
+            <when test="orderBy == 'REPLY'">com.commentCount DESC</when> <!-- 많은댓글순 -->
+            <when test="orderBy == 'LIKE'">c.hit DESC</when> <!-- 조회순 -->
         </choose>
+        LIMIT #{offset}, #{size}
     </select>
+
+    <select id="getTotalCount" parameterType="com.ict.finalproject.vo.PagingVO" resultType="int">
+        SELECT COUNT(*)
+        FROM t_community c
+        JOIN t_communitytype ct ON c.commtype = ct.code
+        WHERE c.delState = 0
+        <if test="commtype != null and commtype != 'all'">
+            AND c.commtype = #{commtype}
+        </if>
+        <if test="searchCategory != null and searchCategory == 'TITLE'">
+            AND c.title LIKE CONCAT('%', #{searchKeyword}, '%')
+        </if>
+        <if test="searchCategory != null and searchCategory == 'CONTENT'">
+            AND c.content LIKE CONCAT('%', #{searchKeyword}, '%')
+        </if>
+        <if test="searchCategory != null and searchCategory == 'TITLE_AND_CONTENT'">
+            AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%') OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))
+        </if>
+    </select>
+
+
+
+    <insert id="insertReport" parameterType="com.ict.finalproject.DTO.ReportDTO">
+        INSERT INTO t_report (
+        comunity_idx,
+        comment_idx,
+        report_type,
+        reason,
+        reportDT,
+        useridx
+        ) VALUES (
+        #{comunity_idx, jdbcType=INTEGER},
+        #{comment_idx, jdbcType=INTEGER},
+        #{report_type, jdbcType=INTEGER},
+        #{reason, jdbcType=VARCHAR},
+        #{reportDT, jdbcType=TIMESTAMP},
+        #{useridx, jdbcType=INTEGER}
+        )
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--    &lt;!&ndash; 리스트 &ndash;&gt;-->
+<!--    <select id="List" resultType="com.ict.finalproject.vo.CommuVO">-->
+<!--        SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit-->
+<!--        FROM t_community c-->
+<!--        JOIN t_communitytype ct ON c.commtype = ct.code-->
+<!--        WHERE c.delState = 0-->
+<!--        <if test="commtype != null and commtype != 'all'">-->
+<!--            AND c.commtype = #{commtype}  &lt;!&ndash; 필터링 조건 확인 &ndash;&gt;-->
+<!--        </if>-->
+<!--        ORDER BY c.regDT DESC-->
+<!--    </select>-->
+
+
+
+
+
+
+<!--    &lt;!&ndash; 필터, 정렬, 검색 조건에 따른 게시글 목록 조회 메서드 &ndash;&gt;-->
+<!--    <select id="FilteredList" resultType="com.ict.finalproject.vo.CommuVO">-->
+<!--        SELECT c.idx, ct.type AS commtype, c.title, DATE_FORMAT(c.regDT, '%y.%m.%d') AS regDT, c.hit-->
+<!--        FROM t_community c-->
+<!--        JOIN t_communitytype ct ON c.commtype = ct.code-->
+<!--        WHERE c.delState = 0-->
+<!--        <if test="commtype != null and commtype != 'all'">-->
+<!--            AND c.commtype = #{commtype} &lt;!&ndash; 커뮤니티 타입 필터링 &ndash;&gt;-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 검색어 조건 설정 &ndash;&gt;-->
+<!--        <if test="searchKeyword != null and searchKeyword != ''">-->
+<!--            <choose>-->
+<!--                <when test="searchCategory == 'TITLE_AND_CONTENT'">-->
+<!--                    AND (c.title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                    OR c.content LIKE CONCAT('%', #{searchKeyword}, '%'))-->
+<!--                </when>-->
+<!--                <when test="searchCategory == 'TITLE'">-->
+<!--                    AND c.title LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                </when>-->
+<!--                <when test="searchCategory == 'CONTENT'">-->
+<!--                    AND c.content LIKE CONCAT('%', #{searchKeyword}, '%')-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 정렬 조건 &ndash;&gt;-->
+<!--        <choose>-->
+<!--            <when test="orderBy == 'DEFAULT'">-->
+<!--                ORDER BY c.regDT DESC-->
+<!--            </when>-->
+<!--            <when test="orderBy == 'NEW_REPLY'">-->
+<!--                ORDER BY c.lastReplyDT DESC-->
+<!--            </when>-->
+<!--            <when test="orderBy == 'REPLY'">-->
+<!--                ORDER BY c.replyCount DESC-->
+<!--            </when>-->
+<!--            <when test="orderBy == 'LIKE'">-->
+<!--                ORDER BY c.hit DESC-->
+<!--            </when>-->
+<!--        </choose>-->
+<!--    </select>-->
 
     <!-- 상세페이지 -->
     <select id="Detail" parameterType="int" resultType="com.ict.finalproject.vo.CommuVO">
-        SELECT c.idx, c.commtype, c.title, c.content, c.regDT, c.hit
-        FROM t_community c
-        WHERE c.idx = #{idx} <!-- idx에 해당하는 항목 조회 -->
+        SELECT
+        c.idx,
+        ct.type AS commtype,
+        c.title,
+        c.content,
+        DATE_FORMAT(c.regDT, '%Y-%m-%d') AS regDT,
+        c.hit,
+        u.userid AS userid
+        FROM
+        t_community c
+        LEFT JOIN
+        t_user u ON c.useridx = u.idx
+        LEFT JOIN
+        t_communitytype ct ON c.commtype = ct.code
+        WHERE
+        c.idx = #{idx} -- idx에 해당하는 항목 조회
     </select>
+
 
     <update id="HitCount" parameterType="int">
         UPDATE t_community SET hit = hit + 1 WHERE idx = #{idx}

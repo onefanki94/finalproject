@@ -7,6 +7,11 @@ let activeFilter = 'latest';  // 기본값: 최신순
 
 // 리뷰 탭 전환 함수
 function showTab(tabType) {
+  if (tabType === 'inquiry') {
+        // 1:1 상품문의 탭을 누르면 /notice2로 이동
+        window.location.href = '/notice2';
+        return;  // 이후 동작을 막기 위해 함수 종료
+    }
     activeTab = tabType;
     const allTabs = document.querySelectorAll('.review-tabs span');
     allTabs.forEach(tab => tab.classList.remove('active'));
@@ -28,13 +33,33 @@ function filterReviews(filterType) {
 // 필터와 탭 적용 로직
 function applyFilters() {
     let reviews = Array.from(document.getElementsByClassName("review-item"));
+    // 리뷰 들고와서 .review-image 유무에 따라 reviews 목록 들고오기(단 다른거 누르면 작동 안함)
+    reviews.forEach((review, index) => {
+        //여기서부터 콘솔용
+        console.log("working");
+        console.log("review : " + review);
+        if (review.querySelector('.review-image')) {  // review 내부에 .review-image 요소가 있는지 확인
+            console.log(`리뷰 ${index + 1}는 review-image 요소를 가지고 있음.`);
+        } else {
+            console.log(`리뷰 ${index + 1}는 review-image 요소를 가지고 있지 않음.`);
+        }
+        //  여기 위까지 콘솔 확인용
+
+        // 밑은 작동
+        if (activeTab === 'text') {
+            reviews = reviews.filter(review => !review.querySelector('.review-image'));  // review-image 요소가 없는 텍스트 리뷰
+        } else if (activeTab === 'photo') {
+            reviews = reviews.filter(review => review.querySelector('.review-image'));  // review-image 요소가 있는 포토/동영상 리뷰
+        }
+    });
 
     // 탭에 따른 리뷰 종류 필터링 (예: 텍스트 리뷰, 포토/동영상 리뷰)
-    if (activeTab === 'text') {
-        reviews = reviews.filter(review => !review.classList.contains('photo'));  // 예: photo 클래스가 없는 텍스트 리뷰
-    } else if (activeTab === 'photo') {
-        reviews = reviews.filter(review => review.classList.contains('photo'));  // 예: photo 클래스가 있는 포토/동영상 리뷰
-    }
+//    if (activeTab === 'text') {
+//        reviews = reviews.filter(review => !review.classList.contains('photo'));  // 예: photo 클래스가 없는 텍스트 리뷰
+//    } else if (activeTab === 'photo') {
+//        reviews = reviews.filter(review => review.classList.contains('photo'));  // 예: photo 클래스가 있는 포토/동영상 리뷰
+//    }
+
 
     // 정렬 필터 (최신순, 평점 높은순, 평점 낮은순)
     if (activeFilter === 'latest') {
@@ -149,6 +174,7 @@ function updateTotalPrice() {
     }
 }
 document.addEventListener('DOMContentLoaded', function () {
+
     // 로컬스토리지에서 토큰 가져오기
     const token = localStorage.getItem('token');
     console.log("로컬스토리지 토큰 " + token);
@@ -217,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error:', error));
     });
 
+
     // 좋아요 UI 업데이트 함수
     function updateLikeUI(isLiked, likeHeart, likeCountElement, currentCount) {
         if (isLiked) {
@@ -229,6 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
             likeCountElement.textContent = currentCount + 1;  // 카운트 증가
         }
     }
+
 
     // 새로고침 시 좋아요 상태 불러오는 함수
     function fetchLikeStatusAndUpdateUI(productId, token) {

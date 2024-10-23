@@ -16,9 +16,8 @@ public interface NoticeDAO {
     List<NoticeVO> getNotices(PagingVO pVO);  // 검색 조건 및 페이징 정보를 사용해 공지사항 목록을 가져오는 메서드
     int getTotalCount(PagingVO pVO);  // 검색 조건을 포함한 전체 공지사항 수를 가져오는 메서드
 
-    // 자주 묻는 질문(FAQ) 관련 메서드
-    List<NoticeVO> getFaqs(PagingVO pVO);  // FAQ 페이징
-    int getTotalFaqCount(PagingVO pVO);  // FAQ 전체 개수
+    // FAQ 목록 가져오는 메서드 (페이징 없이)
+    List<NoticeVO> getFaqs();  // FAQ 리스트
 
     // 1:1문의 메서드 추가
     int saveQna(QnaVO qna);
