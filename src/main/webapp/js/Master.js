@@ -313,29 +313,33 @@ $(document).ready(function() {
     });
 
     // 스토어 삭제 버튼 클릭 시
-    $('.btn-outline-danger.store-delete').on('click', function() {
-        var idx = $(this).data('idx'); // 삭제할 스토어의 idx 값
+    $(document).ready(function() {
+        // 삭제 버튼 클릭 이벤트 핸들러
+        $('.btn-outline-danger.store-delete').on('click', function() {
+            var idx = $(this).data('idx'); // 삭제할 스토어의 idx 값
 
-        if (confirm("정말로 삭제하시겠습니까?")) {
-            $.ajax({
-                type: 'POST',
-                url: '/master/storeDeleteMaster/' + idx,
-                success: function(response) {
-                    if (response.success) {
-                        alert('해당 ' + idx + ' 번호의 스토어가 삭제되었습니다.');
-                        window.location.href = '/master/storeMasterList';  // 성공 시 스토어 리스트로 리다이렉트
-                    } else {
-                        alert(response.message);
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/master/storeDeleteMaster/' + idx,
+                    success: function(response) {
+                        // 서버에서 JSON 형식의 응답을 반환한다고 가정하고 처리
+                        if (response.success) {
+                            alert('해당 ' + idx + ' 번호의 스토어가 삭제되었습니다.');
+                            window.location.href = '/master/storeMasterList';  // 성공 시 스토어 리스트로 리다이렉트
+                        } else {
+                            // 실패 시 서버에서 반환한 메시지를 표시
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('삭제 중 에러 발생:', xhr.responseText);
+                        alert('삭제 중 오류가 발생했습니다.');
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('삭제 중 에러 발생:', xhr.responseText);
-                    alert('삭제 중 오류가 발생했습니다.');
-                }
-            });
-        }
+                });
+            }
+        });
     });
-});
 
 // 굿즈 상품 수정 --------------------------------------------------------------------------
  $(document).ready(function() {
@@ -734,4 +738,5 @@ $(document).ready(function() {
              });
          }
      });
+ });
  });
