@@ -209,16 +209,17 @@
     </div>
 
     <!-- 리뷰 탭과 필터 -->
-    <div class="review-tabs-and-filter">
-        <div class="review-tabs">
-            <span class="active" onclick="showTab('text')">텍스트 리뷰</span>
-            <span onclick="showTab('photo')">포토/동영상 리뷰</span>
+    <div class="review-filter">
+
+        <div class="review-filter1">
+            <span onclick="filterReviews('text')">텍스트 리뷰</span>
+            <span onclick="filterReviews('photo')">포토/동영상 리뷰</span>
         </div>
-        <div class="review-filter">
+        <div class="review-filter2">
             <span class="active" onclick="filterReviews('latest')">최신순</span>
             <span onclick="filterReviews('highest')">평점 높은순</span>
             <span onclick="filterReviews('lowest')">평점 낮은순</span>
-        </div>
+          </div>
     </div>
             <!-- 리뷰 리스트 -->
       <div id="review-list">
