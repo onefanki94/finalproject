@@ -92,8 +92,9 @@
                 }
             }
         }
-        // 페이지가 로드된 후 checkLoginStatus 함수 호출
-        window.onload = checkLoginStatus;
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+        });
     </script>
   </head>
   <body>
