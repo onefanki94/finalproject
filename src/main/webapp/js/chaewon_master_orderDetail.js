@@ -34,6 +34,9 @@ $(function(){
             case 8: // 부분취소 완료
                 buttonContainer.text('상품준비').attr('id', 'btn_prepare').show();
                 break;
+            case 2: // 상품준비중
+                buttonContainer.text('결제완료').attr('id', 'btn_payOk').show();
+                break;
             case 3: // 배송시작
             case 4: // 배송중
             case 6: // 구매확정
@@ -167,6 +170,62 @@ $(document).on('click', '#btn_refund', function() {
     var idx = $(this).closest('tr').find('#idx').val();
     updateOrderState(idx, 13); // 환불 처리중으로 변경
 });
+//결제완료 -> 상품준비중인 상품 취소하고싶어하는 경우 되돌려주기 위함
+$(document).on('click', '#btn_payOk', function() {
+    var idx = $(this).closest('tr').find('#idx').val();
+    updateOrderState(idx, 1); // 환불 처리중으로 변경
+});
+//환불완료 -> 환불액 입력하는 칸 필요
+//환불액과 order_idx값을 전달
+$(document).on('click', '#btn_refund_complete', function() {
+    var idx = $(this).closest('tr').find('#idx').val(); // 상품 인덱스 값
+    var orderProductCell = $(this).closest('td'); // 현재 셀
+
+    // 상태 텍스트를 숨기고 input 필드를 추가
+    var productStateSpan = orderProductCell.find('.order_productState');
+    var productBtn = orderProductCell.find('.productBtn');
+    productStateSpan.hide();
+    productBtn.hide();
+
+    // input 필드로 변경
+    var refundInput = $('<input type="text" class="form-control" id="refundAmountInput" placeholder="환불금액 입력" />');
+    orderProductCell.prepend(refundInput);
+
+    // 버튼 그룹에 "환불금액 입력" 버튼 추가
+    var buttonGroup = orderProductCell.find('.button-group');
+    buttonGroup.empty(); // 기존 버튼 초기화
+    buttonGroup.append('<button class="btn btn-secondary" id="refundAmountSubmit">입력</button>');
+});
+
+// 환불 금액 입력 버튼 클릭 시
+$(document).on('click', '#refundAmountSubmit', function() {
+    var refundAmount = $(this).closest('td').find('#refundAmountInput').val();
+    var order_idx = $(this).closest('tr').find('#order_idx').val();
+
+    console.log(refundAmount);
+    console.log(order_idx);
+
+    // refundAmount 조건주기 -> 나중
+
+    $.ajax({
+        url: '/order/refund',
+        type: 'POST',
+        data: JSON.stringify({ order_idx: order_idx, refundAmount: refundAmount }),
+        contentType: 'application/json',
+        headers: {
+            "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
+        },
+        success: function(response) {
+            alert('환불이 완료되었습니다.');
+            location.reload(); // 성공 시 페이지 새로고침
+        },
+        error: function(error) {
+            alert('환불 완료 처리중 오류가 발생했습니다.');
+            console.log(error);
+        }
+    });
+});
+
 
 // 주문 상태 업데이트 함수
 function updateOrderState(idx, newState) {

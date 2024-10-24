@@ -95,13 +95,14 @@
                 <tr class="user_orderList_tr">
                     <td>${orderDetailProduct.pro_idx}</td>
                     <input type="hidden" id="idx" value="${orderDetailProduct.idx}">
+                    <input type="hidden" id="order_idx" value="${orderDetailProduct.order_idx}">
                     <td>${orderDetailProduct.title}</td>
                     <td><span>${orderDetailProduct.amount}개<span></td>
                     <td><span>${orderDetailProduct.cancelCount}개<span></td>
                     <td><span class="order_productPrice"><span></td>
                     <td>
                         <span class="order_productState"></span>
-                        <button class="btn btn-secondary"></button>
+                        <button class="btn btn-secondary productBtn"></button>
                         <div class="button-group"></div>
                     </td>
                 </tr>

@@ -714,7 +714,7 @@
         WHERE o.idx=${param1} AND o.payState = 1 AND pm.successYN = 1
     </select>
     <select id="getDetailProducts" resultType="com.ict.finalproject.vo.OrderListVO">
-        select ol.idx As idx, ol.pro_idx As pro_idx, p.title As title, ol.amount As amount, ol.cancelCount As cancelCount,
+        select ol.idx As idx, ol.order_idx AS order_idx,ol.pro_idx As pro_idx, p.title As title, ol.amount As amount, ol.cancelCount As cancelCount,
         ol.orderState As orderState, ol.order_idx As order_idx, p.price As price
         from T_orderList ol
         join T_product p on ol.pro_idx = p.idx

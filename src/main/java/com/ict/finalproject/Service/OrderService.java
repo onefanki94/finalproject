@@ -48,4 +48,7 @@ public interface OrderService {
     // 구매확정
     int confirmOrder(int order_idx,int pro_idx);
 
+    //환불
+    String refundPayment(int cancelAmount,String paymentkey);
+
 }

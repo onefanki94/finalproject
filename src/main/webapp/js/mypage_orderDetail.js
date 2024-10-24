@@ -72,7 +72,7 @@ function displayOrderDetail(orderDetail,orderer,cancelData){
                     ${orderDetail.products.map(product => {
                       const formattedAmount = formatNumber(product.pro_price) + "원";
                       const packageButton = product.orderState >= 3 && product.orderState <=6
-                          ? `<button class="order_package">CJ대한통운 <span>${orderDetail.trackingNum}</span></button>`
+                          ? `<button class="order_package">CJ대한통운 <span id="deli_tracking">${orderDetail.trackingNum}</span></button>`
                           : '';
                       const orderConfirmButton = product.orderState ==5
                           ? `<button class="order_package orderConfirm">구매확정 하기</button>`
@@ -329,4 +329,22 @@ $(document).on('click', '.orderConfirm', function() {
             }
         });
     }
+});
+
+// 운송장 조회
+$(document).on('click', '#deli_tracking', function() {
+    var trackingNum = $(this).text();
+    console.log("trackingNum", trackingNum);
+
+    var width = 486;
+    var height = 780;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+
+    // SweetTracker 템플릿 URL에 직접 쿼리스트링으로 파라미터 전달
+    var trackingWindow = window.open(
+        "https://info.sweettracker.co.kr/tracking/4?t_key=A1BfrxML1uWBvVcj1iVhWg&t_code=04&t_invoice=" + trackingNum,
+        "배송 조회 결과",
+        "width=" + width + ", height=" + height + ", top=" + top + ", left=" + left
+    );
 });
