@@ -213,8 +213,8 @@
     <div class="review-filter">
 
         <div class="review-filter1">
-            <span onclick="filterReviews('text')">텍스트 리뷰</span>
-            <span onclick="filterReviews('photo')">포토/동영상 리뷰</span>
+            <span onclick="filterTab('text')">텍스트 리뷰</span>
+            <span onclick="filterTab('photo')">포토/동영상 리뷰</span>
         </div>
         <div class="review-filter2">
             <span class="active" onclick="filterReviews('latest')">최신순</span>
@@ -226,7 +226,7 @@
       <div id="review-list">
           <c:forEach var="review" items="${reviews}">
                <div class="review-item ${not empty review.imgfile1 || not empty review.imgfile2 ? 'photo' : 'text'}"
-                           data-rating="${review.grade}" data-date="${review.regDT}">
+                           data-rating="${review.grade}"  data-date="${review.regDT}">
                   <div class="review-nickname">
                       <span class="review-rating">
                           <!-- 별점 출력 -->

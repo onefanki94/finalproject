@@ -13,7 +13,6 @@ function showTab(tabType) {
     document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
     applyFilters();  // 필터 적용
 }
-
 // 기본 설정
 let activeTab = 'text';  // 기본적으로 텍스트 리뷰 탭이 활성화됨
 let activeFilter = 'latest';  // 기본 정렬 필터는 최신순
@@ -21,19 +20,29 @@ let activeFilter = 'latest';  // 기본 정렬 필터는 최신순
 // 필터 적용 함수
 function applyFilters() {
     let reviews = Array.from(document.getElementsByClassName("review-item"));  // 모든 리뷰 아이템을 가져옴
-    let filteredReviews = [...reviews];  // 필터링된 결과를 저장할 배열
 
     // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
-    if (activeTab === 'text') {
+    reviews.forEach(review => {
+        if (activeTab === 'text') {
+            // 텍스트 리뷰만 보이도록 설정 (이미지가 없는 리뷰)
+            if (!review.querySelector('.review-image')) {
+                review.style.display = 'block';  // 텍스트 리뷰는 보이게
+            } else {
+                review.style.display = 'none';  // 이미지가 있으면 숨김
+            }
+        } else if (activeTab === 'photo') {
+            // 사진/동영상 리뷰만 보이도록 설정 (이미지가 있는 리뷰)
+            if (review.querySelector('.review-image')) {
+                review.style.display = 'block';  // 이미지가 있는 리뷰는 보이게
+            } else {
+                review.style.display = 'none';  // 텍스트 리뷰는 숨김
+            }
+        }
+    });
 
-        filteredReviews = reviews.filter(review => !review.querySelector('review-image img'));  // 텍스트 리뷰만 필터링
+    // 필터링된 리뷰를 정렬하여 표시 (평점, 최신순, 높은순, 낮은순)
+    let filteredReviews = reviews.filter(review => review.style.display !== 'none');  // 필터링된 리뷰만 정렬
 
-    } else if (activeTab === 'photo') {
-        filteredReviews = reviews.filter(review => review.querySelector('review-image img'));  // 사진/동영상 리뷰만 필터링
-
-    }
-
-    // 정렬 필터 적용 (최신순, 평점 높은순, 평점 낮은순)
     if (activeFilter === 'latest') {
         filteredReviews.sort((a, b) => new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));  // 최신순
     } else if (activeFilter === 'highest') {
@@ -42,11 +51,13 @@ function applyFilters() {
         filteredReviews.sort((a, b) => a.getAttribute("data-rating") - b.getAttribute("data-rating"));  // 평점 낮은순
     }
 
-    // 필터링된 리뷰를 화면에 표시
-    const reviewList = document.getElementById("review-list");
-    reviewList.innerHTML = "";  // 기존 리뷰 삭제
-    filteredReviews.forEach(review => reviewList.appendChild(review));  // 필터링된 리뷰 추가
+    // 정렬된 리뷰를 순서대로 다시 화면에 표시 (기존 리뷰 삭제하지 않고 재정렬만 수행)
+    filteredReviews.forEach(review => {
+        review.parentNode.appendChild(review);  // 리뷰를 재정렬해서 다시 추가
+    });
 }
+
+
 
 // 리뷰 유형 필터 전환 함수 (텍스트 리뷰 또는 사진/동영상 리뷰)
 function filterTab(type) {
