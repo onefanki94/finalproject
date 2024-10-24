@@ -13,89 +13,75 @@ function showTab(tabType) {
     document.querySelector(`.review-tabs span[onclick="showTab('${tabType}')"]`).classList.add('active');
     applyFilters();  // 필터 적용
 }
-// 기본 설정
-let activeTab = 'text';  // 기본적으로 텍스트 리뷰 탭이 활성화됨
-let activeFilter = 'latest';  // 기본 정렬 필터는 최신순
 
-// 필터 적용 함수
-function applyFilters() {
-    let reviews = Array.from(document.getElementsByClassName("review-item"));  // 모든 리뷰 아이템을 가져옴
-
-    // 탭에 따른 필터링 (텍스트 리뷰 또는 사진/동영상 리뷰)
-    reviews.forEach(review => {
-        if (activeTab === 'text') {
-            // 텍스트 리뷰만 보이도록 설정 (이미지가 없는 리뷰)
-            if (!review.querySelector('.review-image')) {
-                review.style.display = 'block';  // 텍스트 리뷰는 보이게
-            } else {
-                review.style.display = 'none';  // 이미지가 있으면 숨김
-            }
-        } else if (activeTab === 'photo') {
-            // 사진/동영상 리뷰만 보이도록 설정 (이미지가 있는 리뷰)
-            if (review.querySelector('.review-image')) {
-                review.style.display = 'block';  // 이미지가 있는 리뷰는 보이게
-            } else {
-                review.style.display = 'none';  // 텍스트 리뷰는 숨김
-            }
-        }
-    });
-
-    // 필터링된 리뷰를 정렬하여 표시 (평점, 최신순, 높은순, 낮은순)
-    let filteredReviews = reviews.filter(review => review.style.display !== 'none');  // 필터링된 리뷰만 정렬
-
-    if (activeFilter === 'latest') {
-        filteredReviews.sort((a, b) => new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));  // 최신순
-    } else if (activeFilter === 'highest') {
-        filteredReviews.sort((a, b) => b.getAttribute("data-rating") - a.getAttribute("data-rating"));  // 평점 높은순
-    } else if (activeFilter === 'lowest') {
-        filteredReviews.sort((a, b) => a.getAttribute("data-rating") - b.getAttribute("data-rating"));  // 평점 낮은순
-    }
-
-    // 정렬된 리뷰를 순서대로 다시 화면에 표시 (기존 리뷰 삭제하지 않고 재정렬만 수행)
-    filteredReviews.forEach(review => {
-        review.parentNode.appendChild(review);  // 리뷰를 재정렬해서 다시 추가
-    });
-}
-
-
-
-// 리뷰 유형 필터 전환 함수 (텍스트 리뷰 또는 사진/동영상 리뷰)
 function filterTab(type) {
-    activeTab = type;
+    activeTab = type;  // 선택된 리뷰 유형 업데이트
 
-    // UI 업데이트 (리뷰 유형 필터 활성화)
+    // UI에서 선택된 탭 활성화 상태로 변경
     const allTabs = document.querySelectorAll('.review-filter1 span');
     allTabs.forEach(tab => tab.classList.remove('active'));
     document.querySelector(`.review-filter1 span[onclick="filterTab('${type}')"]`).classList.add('active');
 
-    // 필터 적용
-    applyFilters();
+    // 모든 리뷰 아이템을 가져옴
+    let reviews = Array.from(document.getElementsByClassName("review-item"));
+
+    // 선택된 유형에 따른 필터링 적용
+    reviews.forEach(review => {
+        if (type === 'text') {
+            // 텍스트 리뷰만 보이게 (이미지가 없는 리뷰)
+            if (!review.querySelector('.review-image')) {
+                review.style.visibility = 'visible';  // 텍스트 리뷰는 보이게
+                review.style.height = 'auto';  // 높이를 자동으로 설정
+                review.style.opacity = '1';  // 불투명하게 설정
+            } else {
+                review.style.visibility = 'hidden';  // 이미 있는 리뷰는 숨김
+                review.style.height = '0';  // 높이를 0으로 설정
+                review.style.opacity = '0';  // 투명하게 설정
+            }
+        } else if (type === 'photo') {
+            // 포토/동영상 리뷰만 보이게 (이미지가 있는 리뷰)
+            if (review.querySelector('.review-image')) {
+                review.style.visibility = 'visible';  // 포토 리뷰는 보이게
+                review.style.height = 'auto';  // 높이를 자동으로 설정
+                review.style.opacity = '1';  // 불투명하게 설정
+            } else {
+                review.style.visibility = 'hidden';  // 텍스트 리뷰는 숨김
+                review.style.height = '0';  // 높이를 0으로 설정
+                review.style.opacity = '0';  // 투명하게 설정
+            }
+        }
+    });
 }
 
-// 정렬 필터 전환 함수 (최신순, 평점 높은순, 평점 낮은순)
-function filterReviews(type) {
-    activeFilter = type;
+let activeFilter = 'latest';  // 기본 정렬 기준은 최신순
 
-    // UI 업데이트 (정렬 필터 활성화)
-    const allFilters = document.querySelectorAll('.review-filter2 span');
-    allFilters.forEach(filter => filter.classList.remove('active'));  // 기존에 'active' 클래스를 제거
+// 정렬 기준에 따른 필터링 및 정렬 함수
+function applyFilters(filterType) {
+    activeFilter = filterType;  // 선택된 정렬 기준 업데이트
 
-    // 선택된 필터에 'active' 클래스를 추가
-    const selectedFilter = document.querySelector(`.review-filter2 span[onclick="filterReviews('${type}')"]`);
+    // UI에서 선택된 정렬 기준에 활성화 상태 적용
+    const allSortTabs = document.querySelectorAll('.review-filter2 span');
+    allSortTabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelector(`.review-filter2 span[onclick="applyFilters('${filterType}')"]`).classList.add('active');
 
-    if (selectedFilter) {
-        selectedFilter.classList.add('active');  // 선택된 필터에 'active' 클래스 추가
-    } else {
-        console.error(`해당 선택자에 대한 요소를 찾을 수 없습니다: filterReviews('${type}')`);
-    }
+    // 모든 리뷰 아이템을 가져옴
+    let reviews = Array.from(document.getElementsByClassName("review-item"))
+                       .filter(review => review.style.display === 'block');  // 보이는 리뷰만 정렬 대상
 
-    // 필터 적용
-    applyFilters();
-}
+  // 정렬 기준에 따라 필터링된 리뷰들을 정렬
+  if (filterType === 'latest') {
+      reviews.sort((a, b) => new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));  // 최신순
+  } else if (filterType === 'highest') {
+      reviews.sort((a, b) => parseFloat(b.getAttribute("data-rating")) - parseFloat(a.getAttribute("data-rating")));  // 평점 높은순
+  } else if (filterType === 'lowest') {
+      reviews.sort((a, b) => parseFloat(a.getAttribute("data-rating")) - parseFloat(b.getAttribute("data-rating")));  // 평점 낮은순
+  }
 
-// 페이지 로드 시 기본 설정 적용 (최신순 정렬)
-window.onload = function() {
-    applyFilters();  // 초기화 시 필터 적용
+
+    // 정렬된 리뷰를 화면에 다시 표시 (기존 리뷰 삭제하지 않고 순서만 변경)
+    reviews.forEach(review => {
+        review.parentNode.appendChild(review);  // 리뷰를 재정렬해서 다시 추가
+    });
 }
 
 
@@ -120,14 +106,13 @@ function toggleDescription() {
 
 $(document).ready(function() {
     $(window).scroll(function() {
-        console.log("Scroll event triggered");
+
         var scrollPosition = $(window).scrollTop();
         var windowHeight = $(window).height();
         var documentHeight = $(document).height();
 
         if (scrollPosition > (documentHeight - windowHeight) * 0.1) {
             $('.sticky-footer').addClass('show');
-            console.log("Scroll event triggered");
         } else {
             $('.sticky-footer').removeClass('show');
         }

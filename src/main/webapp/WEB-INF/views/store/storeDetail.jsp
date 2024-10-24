@@ -217,9 +217,9 @@
             <span onclick="filterTab('photo')">포토/동영상 리뷰</span>
         </div>
         <div class="review-filter2">
-            <span class="active" onclick="filterReviews('latest')">최신순</span>
-            <span onclick="filterReviews('highest')">평점 높은순</span>
-            <span onclick="filterReviews('lowest')">평점 낮은순</span>
+            <span class="active" onclick="applyFilters('latest')">최신순</span>
+            <span onclick="applyFilters('highest')">평점 높은순</span>
+            <span onclick="applyFilters('lowest')">평점 낮은순</span>
           </div>
     </div>
             <!-- 리뷰 리스트 -->
