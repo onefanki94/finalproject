@@ -298,6 +298,13 @@
         from T_payment
         where order_idx=${param1}
     </select>
+    <select id="getCancelData" resultType="com.ict.finalproject.DTO.PayCancelDTO">
+        SELECT SUM(cancelAmount) AS cancelAmount,
+        SUM(refundUsePoint) AS refundUsePoint,
+        MAX(cancelDT) AS cancelDT
+        FROM T_payment_cancel
+        WHERE payment_id = ${param1}
+    </select>
     <!-- 적립금 리스트 업데이트-->
     <insert id="pointInsert">
         insert into T_point(useridx, point, type)

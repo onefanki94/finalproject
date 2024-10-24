@@ -4,6 +4,7 @@ function formatNumber(number) {
 
 let orderDetail = null;
 let orderer = null;
+let cancelData = null;
 
 $(function(){
     const token = localStorage.getItem("token");
@@ -16,9 +17,12 @@ $(function(){
             "Authorization": `Bearer ${token}`  // JWT 토큰을 Authorization 헤더에 포함
         },
         success: function(response) {
+            console.log(response);
             orderDetail = response.orderDatail;
             orderer = response.orderer;
-            displayOrderDetail(orderDetail,orderer);
+            cancelData = response.cancelData;
+            console.log(cancelData);
+            displayOrderDetail(orderDetail,orderer,cancelData);
         },
         error: function(error) {
             console.log('Error:', error);
@@ -26,7 +30,7 @@ $(function(){
     });
 })
 
-function displayOrderDetail(orderDetail,orderer){
+function displayOrderDetail(orderDetail,orderer,cancelData){
     const orderContainer = $(".order_detail_all_container");
     orderContainer.empty();
 
@@ -47,7 +51,7 @@ function displayOrderDetail(orderDetail,orderer){
         ? `<button id="payCancel_btn">상품 결제 취소하기</button>`
         : ''; // 조건에 맞는 상품이 있으면 취소하기 버튼 추가
 
-    const orderHTML = `
+    let orderHTML = `
         <div class="order_detail_all">
             <input type="hidden" id="order_idx" value="${orderDetail.order_idx}"/>
             <div class="order_detail_state">
@@ -154,53 +158,88 @@ function displayOrderDetail(orderDetail,orderer){
                   </li>
                   <li class="pay_inform_li_toss">
                     <ol>
-                      <li class="li_top" style="color: var(--primary)"><strong>결제금액</strong><strong>${formatNumber(orderDetail.amount)}원</strong></li>
+                      <li class="li_top" style="color: var(--primary)"><strong>총 결제금액</strong><strong>${formatNumber(orderDetail.amount)}원</strong></li>
                       <li class="li_bottom"><span>${orderDetail.paytype}</span><span>${formatNumber(orderDetail.amount)}원</span></li>
                       <li class="li_bottom"><span style="color: #a0a0a0">결제일시 ${orderDetail.payDT}</span></li>
                     </ol>
                   </li>
                 </ol>
               </div>
-            </div>
-            <div>
-              <div>
-                <h4 class="my_tit">배송지정보</h4>
-              </div>
-              <table class="delivery_inform">
-                <colgroup>
-                  <col width="140" />
-                  <col />
-                  <col width="140" />
-                  <col />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <th scope="row" class="th_style">받는사람</th>
-                    <td colspan="3" class="td_style">${orderDetail.recipient}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="th_style">휴대폰번호</th>
-                    <td class="td_style">${orderDetail.tel}</td>
-                    <th scope="row" class="th_style">전화번호</th>
-                    <td class="td_style">-</td>
+            </div>`;
 
-                  </tr>
-                  <tr>
-                    <th scope="row" class="th_style">주소</th>
-                    <td colspan="3" class="td_style">[${orderDetail.zipcode}] ${orderDetail.addr} ${orderDetail.addrdetail}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="th_style">배송요청사항</th>
-                    <td colspan="3" class="td_style">${orderDetail.request_memo}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="receipt_btn_div">
-              <button type="button">영수증 출력</button>
-            </div>
-        </div>
-    `;
+            // cancelData가 존재하면 환불 정보 추가
+            if (cancelData && Object.keys(cancelData).length > 0) {
+            orderHTML += `
+                <div>
+                  <h4 class="my_tit">환불정보</h4>
+                  <div>
+                    <ol class="pay_inform_ol">
+                      <li class="pay_inform_li">
+                        <ol>
+                          <li class="li_top"><span>환불금액</span><strong>${formatNumber(cancelData.cancelAmount+cancelData.refundUsePoint)}원</strong></li>
+                          <li class="li_bottom"><span>결제금액</span><span>${formatNumber(cancelData.cancelAmount)}원</span></li>
+                          <li class="li_bottom"><span>적립금</span><span>${formatNumber(cancelData.refundUsePoint)}원</span></li>
+                        </ol>
+                      </li>
+                      <li class="pay_inform_li">
+                        <ol>
+                          <li class="li_top li_hopstyle"><span>반환금액</span><strong>${formatNumber(cancelData.refundUsePoint)}원</strong></li>
+                          <li class="li_bottom"><span>적립금</span><span>${formatNumber(cancelData.refundUsePoint)}원</span></li>
+                        </ol>
+                      </li>
+                      <li class="pay_inform_li_toss">
+                        <ol>
+                          <li class="li_top" style="color: #f16731"><strong>총 환불금액</strong><strong>${formatNumber(cancelData.cancelAmount)}원</strong></li>
+                          <li class="li_bottom"><span>${orderDetail.paytype}</span><span>${formatNumber(cancelData.cancelAmount)}원</span></li>
+                          <li class="li_bottom"><span style="color: #a0a0a0">취소일시 ${cancelData.cancelDT}</span></li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+                `;
+            }
+
+            orderHTML += `
+              <div>
+                  <div>
+                    <h4 class="my_tit">배송지정보</h4>
+                  </div>
+                  <table class="delivery_inform">
+                    <colgroup>
+                      <col width="140" />
+                      <col />
+                      <col width="140" />
+                      <col />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th scope="row" class="th_style">받는사람</th>
+                        <td colspan="3" class="td_style">${orderDetail.recipient}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" class="th_style">휴대폰번호</th>
+                        <td class="td_style">${orderDetail.tel}</td>
+                        <th scope="row" class="th_style">전화번호</th>
+                        <td class="td_style">-</td>
+
+                      </tr>
+                      <tr>
+                        <th scope="row" class="th_style">주소</th>
+                        <td colspan="3" class="td_style">[${orderDetail.zipcode}] ${orderDetail.addr} ${orderDetail.addrdetail}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" class="th_style">배송요청사항</th>
+                        <td colspan="3" class="td_style">${orderDetail.request_memo}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="receipt_btn_div">
+                  <button type="button">영수증 출력</button>
+                </div>
+              </div>
+            `;
     orderContainer.append(orderHTML);
 }
 
