@@ -324,6 +324,8 @@ let subcategoryMap = {
 //    }
 //}
 
+
+//지금까지
 function showSubcategories(categoryId) {
     // subcategory-list 안의 모든 li.filter-item 요소를 가져옴
     const subcategories = document.querySelectorAll('#subcategory-list li.filter-item');
@@ -361,4 +363,20 @@ function showSubcategories(categoryId) {
     });
 }
 
+document.querySelectorAll('.category-filter a').forEach(function(categoryLink) {
+    categoryLink.addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 동작인 페이지 리로드를 막음
 
+        const url = this.href; // 클릭한 카테고리의 URL
+
+        // AJAX 요청을 통해 새로운 페이지 데이터를 가져옴
+        fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('#product-list').innerHTML = html; // 응답 데이터를 원하는 요소에 적용
+        })
+        .catch(error => {
+            console.error('Error fetching category data:', error);
+        });
+    });
+});
