@@ -482,9 +482,16 @@ public class UserController {
         OrderListDTO orderDatail = service.getOrderDetailData(order_idx,useridx);
         // 주문자 데이터
         MemberVO orderer = service.getUserinfo(useridx);
+        //주문 취소 데이터
+        //1. order_idx로 payment_id 알아내기
+        int payment_id = service.getPaymentId(order_idx);
+        log.info("payment_id : {}",payment_id);
+        //2. payment_id로 cancel테이블 접근해서 환불액, 적립금 환불액, 취소사유
+        PayCancelDTO cancelData = service.getCancelData(payment_id);
         Map<String, Object> response = new HashMap<>();
         response.put("orderDatail", orderDatail);
         response.put("orderer", orderer);
+        response.put("cancelData", cancelData);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

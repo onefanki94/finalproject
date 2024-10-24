@@ -293,6 +293,11 @@
         WHERE
         o.idx=${param1} and o.useridx = ${param2} and o.payState=1 and pm.successYN=1
     </select>
+    <select id="getPaymentId">
+        select payment_id
+        from T_payment
+        where order_idx=${param1}
+    </select>
     <!-- 적립금 리스트 업데이트-->
     <insert id="pointInsert">
         insert into T_point(useridx, point, type)

@@ -229,6 +229,8 @@ public class OrderServiceImpl implements OrderService{
                 long payment_id = dao.getPaymentId(responseData.getPaymentKey());
                 // 2. 결제정보 저장
                 paramMap.put("payment_id", payment_id);
+                // 반환되는 적립금
+                paramMap.put("refundUsePoint",sessionPayCancelDTO.getRefundUsePoint());
                 dao.savePaymentCancels(paramMap);
 
                 // 승인과 동시에 T_order, T_orderList State 변경 + 재고관리

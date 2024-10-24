@@ -140,7 +140,7 @@ function mypageGoodsLike(page){
                           <div class="prd_b">
                             <a href="/storeDetail/${likeGoodsList.idx}">
                               <div class="goods_img_bx">
-                                <img src="http://192.168.1.92:8000/${likeGoodsList.thumImg}" />
+                                <img src="http://192.168.1.180:8000/${likeGoodsList.thumImg}" />
                                 <div class="heart_state"><i class="fa-solid fa-heart"></i></div>
                               </div>
                               <div class="goods_imform">
@@ -197,7 +197,7 @@ function mypageAniLike(page){
                           <div class="prd_b">
                             <a>
                               <div class="ani_img_bx">
-                                <img src="http://192.168.1.92:8000/${likeAniList.post_img}" />
+                                <img src="http://192.168.1.180:8000/${likeAniList.post_img}" />
                                 <div class="heart_state"><i class="fa-solid fa-heart ani_heart"></i></div>
                               </div>
                               <div class="ani_imform">

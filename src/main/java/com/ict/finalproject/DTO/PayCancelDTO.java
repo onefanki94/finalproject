@@ -18,4 +18,5 @@ public class PayCancelDTO {
     private String cancelReason;//취소이유
     private int cancelState;//취소상태 ??필요한가?
     private int refundUsePoint;//반환될 적립금
+    private String cancelDT;
 }

@@ -31,7 +31,7 @@ $(function () {
                           </div>
                           <div class="basket_list_li_proinfo_div">
                             <div class="basket_list_li_proinfo">
-                              <a href=""><img src="http://192.168.1.92:8000/${basketList.thumImg}" /></a>
+                              <a href=""><img src="http://192.168.1.180:8000/${basketList.thumImg}" /></a>
                               <div class="basket_list_proinfo_detail">
                                 <p class="ani_title_p">${basketList.ani_title}</p>
                                 <a class="basket_list_protitle" href="">${basketList.title}</a>

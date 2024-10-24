@@ -98,7 +98,7 @@ function review_writeModal(index){
             </div>`;
     $("body").append(tag);
 
-    $(".review_modal_proinfo img").attr("src","http://192.168.1.92:8000/" + reviewbefore.thumImg);
+    $(".review_modal_proinfo img").attr("src","http://192.168.1.180:8000/" + reviewbefore.thumImg);
     console.log(reviewbefore.detail_img);
     $(".review_modal_protitle").html(`
             <p>${reviewbefore.title}</p>
@@ -138,10 +138,10 @@ function review_EditModal(index){
     // 이미지 파일 있으면 보여주기
     let filePreviewHtml = '';
     if (reviewCompleted.imgfile1) {
-        filePreviewHtml += `<div class="image-container"><img src="http://192.168.1.92:8000/${reviewCompleted.imgfile1}" style="width: 76px; height: 76px; margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
+        filePreviewHtml += `<div class="image-container"><img src="http://192.168.1.180:8000/${reviewCompleted.imgfile1}" style="width: 76px; height: 76px; margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
     }
     if (reviewCompleted.imgfile2) {
-        filePreviewHtml += `<div class="image-container"><img src="http://192.168.1.92:8000/${reviewCompleted.imgfile2}" style="width: 76px; height: 76px;  margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
+        filePreviewHtml += `<div class="image-container"><img src="http://192.168.1.180:8000/${reviewCompleted.imgfile2}" style="width: 76px; height: 76px;  margin-right:10px; position:relative"><button class="file-delete-btn">X</button></div>`;
     }
 
     tag += `<div class="review_modal_body">
@@ -213,7 +213,7 @@ function review_EditModal(index){
             </div>`;
     $("body").append(tag);
 
-    $(".review_modal_proinfo img").attr("src","http://192.168.1.92:8000/" + reviewCompleted.pro_thumImg);
+    $(".review_modal_proinfo img").attr("src","http://192.168.1.180:8000/" + reviewCompleted.pro_thumImg);
     $(".review_modal_protitle").html(`
             <p>${reviewCompleted.pro_title}</p>
             <p>${reviewCompleted.pro_price}원 / 수량 ${reviewCompleted.order_amount}개</p>
@@ -268,7 +268,7 @@ $(function(){
                              <div class="review_list_li_one_detail">
                                <div class="review_product">
                                  <a href="">
-                                   <img src="http://192.168.1.92:8000/${reviewbefore.thumImg}" class="review_product_img" />
+                                   <img src="http://192.168.1.180:8000/${reviewbefore.thumImg}" class="review_product_img" />
                                  </a>
                                  <div class="review_product_inform">
                                    <a href="">
@@ -302,7 +302,7 @@ $(function(){
                       <input type="hidden" name="orderList_idx" id="orderList_idx" value="${reviewCompleted.orderList_idx}">
                       <div class="review_write_list">
                         <a href="">
-                          <img src="http://192.168.1.92:8000/${reviewCompleted.pro_thumImg}" class="css-1d5qj71 egc1z4c3" />
+                          <img src="http://192.168.1.180:8000/${reviewCompleted.pro_thumImg}" class="css-1d5qj71 egc1z4c3" />
                           <div class="review_write_list_inform">
                             <strong>${reviewCompleted.pro_title}</strong>
                             <div>
@@ -315,8 +315,8 @@ $(function(){
                         </div>
                         ${reviewCompleted.imgfile1 || reviewCompleted.imgfile2 ? `
                         <div class="review_img">
-                          ${reviewCompleted.imgfile1 ? `<img src="http://192.168.1.92:8000/${reviewCompleted.imgfile1}" />` : ''}
-                          ${reviewCompleted.imgfile2 ? `<img src="http://192.168.1.92:8000/${reviewCompleted.imgfile2}" />` : ''}
+                          ${reviewCompleted.imgfile1 ? `<img src="http://192.168.1.180:8000/${reviewCompleted.imgfile1}" />` : ''}
+                          ${reviewCompleted.imgfile2 ? `<img src="http://192.168.1.180:8000/${reviewCompleted.imgfile2}" />` : ''}
                         </div>` : ''}
                       </div>
                       <div class="review_regDT">

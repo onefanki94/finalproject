@@ -212,6 +212,16 @@ public class MemberServiceImpl implements MemberService {
         return orderDetail;
     }
 
+    @Override
+    public int getPaymentId(int order_idx) {
+        return dao.getPaymentId(order_idx);
+    }
+
+    @Override
+    public PayCancelDTO getCancelData(int payment_id) {
+        return dao.getCancelData(payment_id);
+    }
+
     @Transactional
     @Override
     public void pointUpdate(int useridx, int type, int point) {

@@ -170,7 +170,7 @@ $(document).on('click', '.myqna_write_list', function(e) {
 
             // imgfile1이 있을 경우에만 이미지 태그를 추가
             if (qnaDetail.imgfile1) {
-                qnaInfo += `<img src="http://192.168.1.92:8000/${qnaDetail.imgfile1}" />`;
+                qnaInfo += `<img src="http://192.168.1.180:8000/${qnaDetail.imgfile1}" />`;
             }
             qnaInfo += `
                     </div>

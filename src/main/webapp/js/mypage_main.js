@@ -35,7 +35,7 @@ $(function(){
                             <div class="history">
                               <div class="imgbx">
                                 <div class="imgin">
-                                  <img src="http://192.168.1.92:8000/${currentOrderData.pro_image}" />
+                                  <img src="http://192.168.1.180:8000/${currentOrderData.pro_image}" />
                                 </div>
                               </div>
                               <div class="prd_order">
@@ -62,7 +62,7 @@ $(function(){
                               <a href="/storeDetail/${currentLikeGoodsData.idx}" style="color: #5d5d5d">
                                 <div class="imgbx">
                                   <div class="imgin">
-                                    <img src="http://192.168.1.92:8000/${currentLikeGoodsData.thumImg}" />
+                                    <img src="http://192.168.1.180:8000/${currentLikeGoodsData.thumImg}" />
                                   </div>
                                 </div>
                                 <p class="txtani">${currentLikeGoodsData.ani_title}</p>
@@ -86,7 +86,7 @@ $(function(){
                               <a href="" style="color: #5d5d5d">
                                 <div class="imgbx">
                                   <div class="imgin">
-                                    <img src="http://192.168.1.92:8000/${currentLikeAniData.post_img}" />
+                                    <img src="http://192.168.1.180:8000/${currentLikeAniData.post_img}" />
                                   </div>
                                 </div>
                                 <p class="txtani" style="text-decoration:none">${currentLikeAniData.title}</p>

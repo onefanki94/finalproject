@@ -166,8 +166,8 @@
         where paymentkey=#{param1}
     </select>
     <insert id="savePaymentCancels" parameterType="map">
-        insert into T_payment_cancel(payment_id, cancelAmount, cancelReason)
-        values(#{payment_id},#{cancelInfo.cancelAmount},#{cancelInfo.cancelReason})
+        insert into T_payment_cancel(payment_id, cancelAmount, cancelReason, refundUsePoint)
+        values(#{payment_id},#{cancelInfo.cancelAmount},#{cancelInfo.cancelReason}, #{refundUsePoint})
     </insert>
     <update id="updateOrderStateCancel">
         update T_order

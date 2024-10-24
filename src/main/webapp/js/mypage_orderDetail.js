@@ -80,7 +80,7 @@ function displayOrderDetail(orderDetail,orderer){
                               <input type="hidden" id="pro_idx" value="${product.pro_idx}"/>
                               <a href="/storeDetail/${product.pro_idx}">
                                 <div class="order_data_inform">
-                                  <div class="order_data_img"><img src="http://192.168.1.92:8000/${product.pro_image}" /></div>
+                                  <div class="order_data_img"><img src="http://192.168.1.180:8000/${product.pro_image}" /></div>
                                   <div>
                                     <p class="order_aniTitle">${product.pro_anititle}</p>
                                     <p class="order_pro_name">${product.pro_title}</p>
@@ -148,7 +148,7 @@ function displayOrderDetail(orderDetail,orderer){
                   </li>
                   <li class="pay_inform_li">
                     <ol>
-                      <li class="li_top"><span>할인금액</span><strong>${formatNumber(orderDetail.use_point)}원</strong></li>
+                      <li class="li_top li_hopstyle"><span>할인금액</span><strong>${formatNumber(orderDetail.use_point)}원</strong></li>
                       <li class="li_bottom"><span>적립금</span><span>${formatNumber(orderDetail.use_point)}원</span></li>
                     </ol>
                   </li>

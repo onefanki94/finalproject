@@ -83,10 +83,13 @@ public interface MemberDAO {
         // 마이페이지 좋아요 취소
         int deleteGoodsLike(int useridx, int pro_idx);
         int deleteAniLike(int useridx, int ani_idx);
+        // 마이페이지 주문내역
         List<OrderListDTO> getPagedOrderList(int userIdx, int offset, int pageSize);
         List<OrderProDTO> getOrderProducts(int order_idx);
         long getTotalOrderCount(int userIdx);
         OrderListDTO getOrderDetailData(int order_idx, int useridx);
+        int getPaymentId(int order_idx);
+        PayCancelDTO getCancelData(int payment_id);
         //적립금 업데이트
         void pointInsert(int useridx, int type, int point);
         void userPointUpdate(int useridx, int point);

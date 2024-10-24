@@ -140,7 +140,7 @@
                     <tr>
                       <td>
                         <div class="cancel_product_info">
-                          <img src="http://192.168.1.92:8000/${product.thumImg}" />
+                          <img src="http://192.168.1.180:8000/${product.thumImg}" />
                           <div>
                             <p class="order_aniTitle">${product.ani_title}</p>
                             <strong>${product.title}</strong>

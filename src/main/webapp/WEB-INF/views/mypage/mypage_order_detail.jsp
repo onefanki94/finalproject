@@ -85,38 +85,6 @@
                 <p><span>주문일자 </span>2020.05.20</p>
                 <p><span>주문번호 </span>ORD20200520-1294067</p>
               </div>
-              <ol class="order_state">
-                <li class="order_state_li">
-                  <div class="order_state_div">
-                    <div class="order_state_ok"><span>결제완료</span></div>
-                  </div>
-                </li>
-                <li class="order_state_li">
-                  <div class="order_state_div">
-                    <div class="order_state_ok"><span>상품준비중</span></div>
-                  </div>
-                </li>
-                <li class="order_state_li">
-                  <div class="order_state_div">
-                    <div class="order_state_ok"><span>배송시작</span></div>
-                  </div>
-                </li>
-                <li class="order_state_li">
-                  <div class="order_state_div">
-                    <div class="order_state_ok"><span>배송중</span></div>
-                  </div>
-                </li>
-                <li class="order_state_li">
-                  <div class="order_state_div">
-                    <div class="order_state_ok"><span>배송완료</span></div>
-                  </div>
-                </li>
-                <li class="order_state_li">
-                  <div class="order_current_state">
-                    <div class="order_state_ok"><span>구매확정</span></div>
-                  </div>
-                </li>
-              </ol>
             </div>
             <div class="order_detail_inform">
               <h4 class="my_tit">주문상품정보</h4>
@@ -127,34 +95,7 @@
                   <div class="tb_header_state">진행상태</div>
                 </div>
                 <ul class="tb_body_ul">
-                  <li>
-                    <ul>
-                      <li class="order_data_list_one">
-                        <a href="">
-                          <div class="order_data_inform">
-                            <div class="order_data_img"><img src="https://img.29cm.co.kr/item/202407/11ef4816869b278989fb1114c15fa422.jpg?width=80" /></div>
-                            <div>
-                              <p class="order_pro_name">WOMAN GNRL 에센셜 베이직 가디건 [GREY] / WBC1L04504</p>
-                              <ul class="order_pro_option">
-                                <li>[COLOR:SIZE]GREY:S</li>
-                                <li>40,000원 / 수량 1개</li>
-                              </ul>
-                            </div>
-                          </div>
-                        </a>
-                        <div class="order_delivery_fee_data">무료배송</div>
-                        <div class="order_current_state_div">
-                          <div>
-                            <div class="order_state_all">
-                              <p class="order_state_data">구매확정</p>
-                              <p class="order_state_okdate">2023.04.21</p>
-                            </div>
-                            <button class="order_package">CJ대한통운 <span>571223585731</span></button>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
+
                 </ul>
               </div>
             </div>

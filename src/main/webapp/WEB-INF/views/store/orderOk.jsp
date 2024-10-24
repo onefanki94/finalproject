@@ -52,7 +52,7 @@
             <li class="pay_product_table_data">
               <div class="pay_product_table_data_info">
                 <a>
-                  <img src="http://192.168.1.92:8000/${orderListData.thumImg}" />
+                  <img src="http://192.168.1.180:8000/${orderListData.thumImg}" />
                   <div>
                     <p>${orderListData.ani_title}</p>
                     <h3>${orderListData.title}</h3>

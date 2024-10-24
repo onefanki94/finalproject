@@ -315,3 +315,20 @@ table {
     color:var(--primary);
     font-weight:bold;
 }
+
+.li_hopstyle::before{
+    height: 6px !important;
+    background-color: #303030 !important;
+    border-style: solid;
+    border-color: white;
+    border-image: initial;
+    border-width: 2px 0px;
+}
+
+.li_hopstyle::after{
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    background-color: rgb(93, 93, 93);
+    border-radius: 50%;
+}

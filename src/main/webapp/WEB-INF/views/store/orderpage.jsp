@@ -34,7 +34,7 @@
             <li>
                 <div class="order_product_li">
                   <div class="order_product_img">
-                    <img src="http://192.168.1.92:8000/${orderProduct.thumImg}" />
+                    <img src="http://192.168.1.180:8000/${orderProduct.thumImg}" />
                   </div>
                   <div class="order_product_info">
                     <div class="order_product_info_detail">

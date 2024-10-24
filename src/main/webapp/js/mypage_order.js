@@ -70,7 +70,7 @@ function displayOrderList(orderList) {
                         <li class="order_data_list_one">
                           <a href="/user/mypage_order_detail/${order.order_idx}">
                             <div class="order_data_inform">
-                              <div class="order_data_img"><img src="http://192.168.1.92:8000/${product.pro_image}"/></div>
+                              <div class="order_data_img"><img src="http://192.168.1.180:8000/${product.pro_image}"/></div>
                               <div style="padding: 5px 0;">
                                 <p class="order_aniTitle">${product.pro_anititle}</p>
                                 <p class="order_pro_name">${product.pro_title}</p>

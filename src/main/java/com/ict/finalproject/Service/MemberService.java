@@ -58,6 +58,8 @@ public interface MemberService {
     PageResponse<OrderListDTO> getOrderListWithPaging(int useridx,int page,int pageSize);
     // 마이페이지 주문내역 상세
     OrderListDTO getOrderDetailData(int order_idx,int useridx);
+    int getPaymentId(int order_idx);
+    PayCancelDTO getCancelData(int payment_id);
     //적립금 업데이트
     void pointUpdate(int useridx, int type, int point);
     // 적립금 내역
