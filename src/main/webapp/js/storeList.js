@@ -83,7 +83,7 @@ fetch(url)
 
                         listItem.innerHTML = `
                             <a href="/storeDetail/${product.idx}">
-                                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                                <img src="http://192.168.1.180:8000/${product.thumImg}" alt="${product.title}">
                             </a>
                             <p>${product.title}</p>
                             <p>${product.price.toLocaleString()} 원</p>
@@ -201,7 +201,7 @@ function updateProductList(products) {
         listItem.className = 'list-product';
         listItem.innerHTML = `
             <a href="/storeDetail/${product.idx}">
-                <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                <img src="http://192.168.1.180:8000/${product.thumImg}" alt="${product.title}">
             </a>
             <p>${product.title}</p>
             <p>${product.price.toLocaleString()} 원</p>
@@ -324,6 +324,8 @@ let subcategoryMap = {
 //    }
 //}
 
+
+//지금까지
 function showSubcategories(categoryId) {
     // subcategory-list 안의 모든 li.filter-item 요소를 가져옴
     const subcategories = document.querySelectorAll('#subcategory-list li.filter-item');
@@ -361,4 +363,21 @@ function showSubcategories(categoryId) {
     });
 }
 
+document.querySelectorAll('.category-filter a').forEach(function(categoryLink) {
+    categoryLink.addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 동작인 페이지 리로드를 막음
 
+             let url = new URL(this.href);
+             url.searchParams.set('pageNum', 1); // pageNum을 1로 설정
+
+        // AJAX 요청을 통해 새로운 페이지 데이터를 가져옴
+        fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('#product-list').innerHTML = html; // 응답 데이터를 원하는 요소에 적용
+        })
+        .catch(error => {
+            console.error('Error fetching category data:', error);
+        });
+    });
+});

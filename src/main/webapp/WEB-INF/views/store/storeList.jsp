@@ -116,7 +116,7 @@
                                     <li class="list-product">
                                         <!-- idx 값을 사용하여 링크 생성 -->
                                      <a href="<c:url value='/storeDetail/${product.idx}' />">
-                                         <img src="http://192.168.1.92:8000/${product.thumImg}" alt="${product.title}">
+                                         <img src="http://192.168.1.180:8000/${product.thumImg}" alt="${product.title}">
                                      </a>
 
                                         <p>${product.title}</p>
@@ -128,8 +128,7 @@
                         </ul>
                     </div>
                 </section>
-
- <div class="pagination">
+<div class="pagination">
      <!-- 이전 페이지 링크 -->
      <c:if test="${currentPage > 1}">
          <a href="/storeList?pageNum=${currentPage - 1}
@@ -158,6 +157,19 @@
             <c:if test='${selectedFilterType != null}'>&filterType=${selectedFilterType}</c:if>">다음 &raquo;</a>
      </c:if>
  </div>
+
+<!-- 카테고리 변경 시 페이지 넘버를 1로 설정 -->
+<div class="category-filter">
+    <c:forEach var="category" items="${categories}">
+        <a href="/storeList?pageNum=1&category=${category.id}
+            ${selectedFilterType != null ? '&filterType=' + selectedFilterType : ''}">
+            ${category.name}
+        </a>
+    </c:forEach>
+</div>
+
+
+
 
 
 <script>

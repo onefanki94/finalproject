@@ -228,7 +228,7 @@ public class storeMainController {
             // 7. 해당 상품에 대한 리뷰 목록 가져오기
             List<ReviewVO> reviews = storeService.getReviewsByProductId(storeId);
             System.out.println("reviews: "+reviews);
-            // revies에 있는 img.url http://192.168.1.92:8000/이미지 이름이 들어가야함
+            // revies에 있는 img.url http://192.168.1.180:8000/이미지 이름이 들어가야함
 
             mav.addObject("storeDetail", storeDetail);
             mav.addObject("categoryType", categoryType);
