@@ -367,7 +367,8 @@ document.querySelectorAll('.category-filter a').forEach(function(categoryLink) {
     categoryLink.addEventListener('click', function(event) {
         event.preventDefault(); // 기본 동작인 페이지 리로드를 막음
 
-        const url = this.href; // 클릭한 카테고리의 URL
+             let url = new URL(this.href);
+             url.searchParams.set('pageNum', 1); // pageNum을 1로 설정
 
         // AJAX 요청을 통해 새로운 페이지 데이터를 가져옴
         fetch(url)
