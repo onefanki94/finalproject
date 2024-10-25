@@ -52,6 +52,7 @@
 
                                   <!-- 하위 카테고리를 표시할 영역 -->
                                    <h3>하위 카테고리</h3>
+                                   <!-- mapper에서 커리문을 들고와서 해당하는 서브카테고리가 있으면 display : block, default는 none -->
                                    <ul id="subcategory-list" class="filter-list">
                                        <li class="filter-item" onclick="applyFilter(null,'아우터')"><span class="filter-text">아우터</span></li>
                                        <li class="filter-item" onclick="applyFilter(null,'상의')"><span class="filter-text">상의</span></li>
@@ -127,8 +128,7 @@
                         </ul>
                     </div>
                 </section>
-
- <div class="pagination">
+<div class="pagination">
      <!-- 이전 페이지 링크 -->
      <c:if test="${currentPage > 1}">
          <a href="/storeList?pageNum=${currentPage - 1}
@@ -158,8 +158,35 @@
      </c:if>
  </div>
 
+<!-- 카테고리 변경 시 페이지 넘버를 1로 설정 -->
+<div class="category-filter">
+    <c:forEach var="category" items="${categories}">
+        <a href="/storeList?pageNum=1&category=${category.id}
+            ${selectedFilterType != null ? '&filterType=' + selectedFilterType : ''}">
+            ${category.name}
+        </a>
+    </c:forEach>
+</div>
 
 
+
+
+
+<script>
+    // URL에서 파라미터를 추출하는 함수
+    function getParameterByName(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    window.onload = function() {
+        // URL에서 'category' 파라미터 값을 가져와서 함수 호출
+        const categoryId = getParameterByName('category');  // 'category' 파라미터 추출
+        if (categoryId) {
+            showSubcategories(categoryId);  // 이미 정의된 함수 호출
+        }
+    };
+</script>
 
 <%@include file="/WEB-INF/inc/store_footer.jspf"%>
 
