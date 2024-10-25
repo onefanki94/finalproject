@@ -225,7 +225,8 @@
             <!-- 리뷰 리스트 -->
       <div id="review-list">
           <c:forEach var="review" items="${reviews}">
-              <div class="review-item" data-rating="${review.grade}" data-date="${review.regDT}">
+               <div class="review-item ${not empty review.imgfile1 || not empty review.imgfile2 ? 'photo' : 'text'}"
+                           data-rating="${review.grade}" data-date="${review.regDT}">
                   <div class="review-nickname">
                       <span class="review-rating">
                           <!-- 별점 출력 -->
@@ -245,14 +246,14 @@
                   <!-- 이미지 파일1이 있을 경우 출력 -->
                   <c:if test="${not empty review.imgfile1}">
                       <div class="review-image">
-                          <img src="http://192.168.1.92:8000/${review.imgfile1}" alt="리뷰 이미지">
+                          <img src="http://192.168.1.180:8000/${review.imgfile1}" alt="리뷰 이미지">
                       </div>
                   </c:if>
 
                   <!-- 이미지 파일2가 있을 경우 출력 -->
                   <c:if test="${not empty review.imgfile2}">
                       <div class="review-image">
-                          <img src="http://192.168.1.92:8000/${review.imgfile2}" alt="리뷰 이미지 2">
+                          <img src="http://192.168.1.180:8000/${review.imgfile2}" alt="리뷰 이미지 2">
                       </div>
                   </c:if>
               </div>

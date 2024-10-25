@@ -36,36 +36,28 @@ public class SecurityConfig {
         this.jwtUtil = jwtUtil;
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());  // CSRF 비활성화
-        http.formLogin(form -> form.disable());
-        http.httpBasic(httpBasic -> httpBasic.disable());
-
-
-
-        // JWT 필터와 Admin 필터를 임시로 비활성화 (필터에 인증 검증 로직이 있을 경우)
-        // http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-        //         .addFilterAfter(new AdminFilter(tAdminService, jwtUtil), JWTFilter.class);
-
-        // 세션 관리 설정
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        http.logout(logout -> logout
-                .logoutUrl("/logoutOk")  // 로그아웃 요청을 처리할 URL
-                .logoutSuccessUrl("/")   // 로그아웃 성공 후 리다이렉트 URL
-                .invalidateHttpSession(true) // 세션 무효화
-                .deleteCookies("JSESSIONID") // 세션 쿠키 삭제
-        );
-
-        // 예외 처리: 예외가 발생해도 페이지가 정상적으로 로드되도록 임시 설정
-        http.exceptionHandling(handling -> handling
-                .authenticationEntryPoint((request, response, authException) -> {
-                    System.out.println("접근 거부됨: " + authException.getMessage());
-                    response.sendError(HttpServletResponse.SC_OK, "권한 없음");  // UNAUTHORIZED 대신 OK로 설정
-                })
-        );
+        http.csrf(csrf -> csrf.disable())  // CSRF 비활성화
+                .formLogin(form -> form.disable())  // 기본 폼 로그인 비활성화
+                .httpBasic(httpBasic -> httpBasic.disable())  // HTTP 기본 인증 비활성화
+               /* .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("/", true)  // 성공 시 리디렉션할 URL
+                        .failureUrl("/login?error=true")  // 실패 시 리디렉션할 URL
+                )*/
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // 세션 관리 설정
+                .logout(logout -> logout
+                        .logoutUrl("/logoutOk")  // 로그아웃 요청을 처리할 URL
+                        .logoutSuccessUrl("/")  // 로그아웃 성공 후 리다이렉트할 URL
+                        .invalidateHttpSession(true)  // 세션 무효화
+                        .deleteCookies("JSESSIONID")  // 세션 쿠키 삭제
+                )
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            System.out.println("접근 거부됨: " + authException.getMessage());
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "권한 없음");  // UNAUTHORIZED 응답
+                        })
+                );
 
         return http.build();
     }
@@ -89,6 +81,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // BCryptPasswordEncoder를 빈으로 등록
+        return new BCryptPasswordEncoder();  // BCryptPasswordEncoder를 빈으로 등록
     }
 }

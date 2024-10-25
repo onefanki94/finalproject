@@ -255,4 +255,9 @@ public class MemberServiceImpl implements MemberService {
         System.out.println("아이디: " + userid + ", 존재 여부: " + (count > 0)); // 디버깅 로그
         return count > 0;
     }
+
+    @Override
+    public MemberVO findUserByEmail(String email) {
+        return dao.findUserByEmail(email);
+    }
 }

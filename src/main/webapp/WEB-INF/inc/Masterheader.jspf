@@ -94,7 +94,7 @@
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="Dropdown">
                                                 <li><a class="dropdown-item" href="/master/orderMasterList">주문 내역 리스트</a></li>
-                                                <li><a class="dropdown-item" href="/master/orderSalesMaster">일/월별 매출내역</a></li>
+                                                <li><a class="dropdown-item" href="/master/orderSalesMaster">매출내역</a></li>
                                             </ul>
                                         </li>
                     <!-- 신고 관리 드롭다운 메뉴 -->

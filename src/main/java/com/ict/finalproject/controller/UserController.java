@@ -8,8 +8,6 @@ import com.ict.finalproject.JWT.JWTUtil;
 import com.ict.finalproject.Service.MasterService;
 import com.ict.finalproject.Service.MemberService;
 import com.ict.finalproject.vo.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
@@ -29,7 +27,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,6 +36,8 @@ import java.util.*;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
+
     @Inject
     MemberService service;
     @Autowired
@@ -46,6 +45,12 @@ public class UserController {
     ModelAndView mav = null;
     @Autowired
     JWTUtil jwtUtil;
+    @Autowired
+    public UserController( MemberService service, JWTUtil jwtUtil, MasterService masterService) {
+        this.service = service;
+        this.jwtUtil = jwtUtil;
+        this.masterService = masterService;
+    }
 
     //로그인 페이지 view
     @GetMapping("/login")
@@ -91,6 +96,8 @@ public class UserController {
             return userid;
         }
     }*/
+
+    // 구글 소설 로그인
 
 
     @PostMapping("/loginOk")

@@ -110,12 +110,12 @@ public class masterController {
         return masterService.getUnansweredQnaCount();  // 미답변 문의 수 조회
     }
 
-    // 관리자페이지 로그아웃
     @PostMapping("/logoutOk")
     public ResponseEntity<String> masterLogout(HttpSession session) {
         session.invalidate(); // 세션 무효화
         return ResponseEntity.ok("로그아웃 성공");
     }
+
 
 
     // Dashboard 매핑
@@ -130,6 +130,7 @@ public class masterController {
         return mav;  // 중복 리다이렉트 발생 여부 확인
     }
 
+    //Dashboard - 회원관리 - 회원 목록 리스트
     @GetMapping("/userMasterList")
     public ModelAndView masterUserList(
             @RequestParam(defaultValue = "1") String currentPage,
@@ -151,15 +152,15 @@ public class masterController {
         // 오늘 가입자 수 구하기
         int newUsers = service.getNewUsers();
 
-        // 최근 7일간 가입자 수 구하기
-        int newSignups = service.getNewSignups();
+            // 최근 7일간 가입자 수 구하기
+            int newSignups = service.getNewSignups();
 
-        // 유저 리스트 가져오기
+            // 유저 리스트 가져오기
 
-        int totalUser = service.getTotalUser(); // 총 유저 수
-        int totalPages = (int) Math.ceil((double) totalUser / pageSize); // 총 페이지 수
+            int totalUser = service.getTotalUser(); // 총 유저 수
+            int totalPages = (int) Math.ceil((double) totalUser / pageSize); // 총 페이지 수
 
-        ModelAndView mav = new ModelAndView();
+            ModelAndView mav = new ModelAndView();
         mav.addObject("memberList", memberList);
         mav.addObject("currentPage", currentPageInt);
         mav.addObject("pageSize", pageSize);
@@ -167,7 +168,7 @@ public class masterController {
         mav.addObject("totalUser", totalUser);
         mav.addObject("newUsers", newUsers);
         mav.addObject("newSignups", newSignups);
-        mav.setViewName("master/userMasterList");
+
         return mav;
     }
 
@@ -187,7 +188,7 @@ public class masterController {
                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         int currentPageInt = (int) Math.floor(currentPage); // 정수로 변환
         int offset = Math.max(0, (currentPageInt - 1) * pageSize);
-
+        List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
         // 전체 애니메이션 수 구하기
         int totalAniCount = masterService.getTotalAnimeCount();
         int totalPages = (int) Math.ceil((double) totalAniCount / pageSize);
@@ -199,7 +200,6 @@ public class masterController {
         Map<String, Object> categoryCode5Count = masterService.getCategoryCodeCountByani(5);
         Map<String, Object> categoryCode6Count = masterService.getCategoryCodeCountByani(6);
 
-        List<MasterVO> aniList = masterService.getAniListWithPaging(offset, pageSize);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("aniList", aniList);
@@ -216,6 +216,7 @@ public class masterController {
         mav.setViewName("master/aniMasterList");
         return mav;
     }
+
 
 
     // Dashboard - 회원관리 - 신고계정목록 리스트
@@ -301,6 +302,9 @@ public class masterController {
     }
 
 
+
+
+
     private String uploadFileToExternalServer(MultipartFile file) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         String imageServerUrl = "http://192.168.1.92:8000/upload"; // 이미지 서버의 파일 업로드 엔드포인트
@@ -345,6 +349,7 @@ public class masterController {
             return -1; // length를 모르는 경우 -1 반환
         }
     }
+
 
 
     // Dashboard - 애니관리 - 애니 목록 - 애니 수정
@@ -520,6 +525,7 @@ public class masterController {
         mav.setViewName("master/boardMasterAll");
         return mav;
     }
+
 
 
     //  Dashboard - 게시판, 댓글, 리뷰 - 댓글 전체 목록
@@ -771,6 +777,7 @@ public class masterController {
             boolean updateResult = masterService.updateNotice(editNotice);
             if (!updateResult) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정 실패. 다시 시도해 주세요.");
+
             }
 
             return ResponseEntity.ok("공지사항이 성공적으로 수정되었습니다."); // 성공 메시지
@@ -779,81 +786,6 @@ public class masterController {
             log.error("공지사항 수정 중 오류 발생", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
-    }
-
-
-
-
-    //  Dashboard - 매출관리 - 일/월별 매출관리
-    @GetMapping("/orderSalesMaster")
-    public ModelAndView orderSalesMaster(
-            @RequestParam(value = "startDate", required = false) String startDate,
-            @RequestParam(value = "endDate", required = false) String endDate) {
-
-        // 기본 날짜 범위 설정 (최근 30일)
-        if (startDate == null || endDate == null) {
-            LocalDate today = LocalDate.now();
-            endDate = today.toString();
-            startDate = today.minusDays(30).toString();
-        }
-
-        // 일별 매출 통계 조회
-        Map<String, Object> dailyParams = new HashMap<>();
-        dailyParams.put("startDate", startDate);
-        dailyParams.put("endDate", endDate);
-        dailyParams.put("groupBy", "daily");
-        List<MasterVO> dailySalesList = masterService.getSalesStatistics(dailyParams);
-
-        // 월별 매출 통계 조회
-        Map<String, Object> monthlyParams = new HashMap<>();
-        monthlyParams.put("startDate", startDate);
-        monthlyParams.put("endDate", endDate);
-        monthlyParams.put("groupBy", "monthly");
-        List<MasterVO> monthlySalesList = masterService.getSalesStatistics(monthlyParams);
-
-        // ModelAndView 설정
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("dailySalesList", dailySalesList);
-        mav.addObject("monthlySalesList", monthlySalesList);
-        mav.addObject("startDate", startDate);
-        mav.addObject("endDate", endDate);
-        mav.setViewName("master/orderSalesMaster");
-
-        return mav;
-    }
-
-    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
-    @GetMapping("/orderSalesDetailMaster")
-    public ModelAndView orderSalesDetailMaster(@RequestParam("date") String date) {
-        ModelAndView mav = new ModelAndView();
-
-        // 해당 날짜의 주문 내역 조회
-        List<MasterVO> orderList = masterService.getOrdersByDate(date);
-        mav.addObject("orderList", orderList);
-        mav.addObject("date", date);
-        mav.setViewName("master/orderSalesDetailMaster");
-
-        return mav;
-    }
-
-    // Dashboard - 매출관리 - 일/월별 매출관리 - 상세보기
-    @GetMapping("/orderSalesDetail1Master")
-    public ModelAndView orderSalesDetail1Master(@RequestParam(value = "month", required = false) String month) {
-        ModelAndView mav = new ModelAndView();
-
-        // month 파라미터가 없는 경우 기본값으로 현재 달 설정
-        if (month == null || month.isEmpty()) {
-            LocalDate now = LocalDate.now();
-            month = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-        }
-
-        // 해당 월의 주문 내역 조회
-        List<MasterVO> orderList = masterService.getOrdersByMonth(month);
-        mav.addObject("orderList", orderList);
-        mav.addObject("month", month);
-        mav.setViewName("master/orderSalesDetail1Master");
-
-        return mav;
     }
 
     // Dashboard - 기타관리 - 문의사항 리스트
@@ -1060,9 +992,6 @@ public class masterController {
         }
     }
 
-
-
-
     // Dashboard - 기타관리 - 자주묻는질문 - 삭제
     @GetMapping("/FAQDelMaster")
     public ModelAndView FAQDelMaster() {
@@ -1118,6 +1047,7 @@ public class masterController {
         return mav;
     }
 
+
     // Dashboard - 굿즈관리 - 상품 추가
     @GetMapping("/storeAddMaster")
     public ModelAndView storeAddMaster() {
@@ -1139,6 +1069,74 @@ public class masterController {
         }
 
         return adminid;
+    }
+
+    @PostMapping("/EventEditMasterOk")
+    public ResponseEntity<String> EventEditMasterOk(
+            @RequestParam(value = "idx", required = false, defaultValue = "0") int idx,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("event_date") String event_date,
+            @RequestParam("thumfile") MultipartFile thumfile,
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+
+        // Authorization 헤더 확인
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
+        }
+
+        // JWT 토큰에서 관리자 ID 추출
+        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
+        String adminid;
+        try {
+            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
+            if (adminid == null || adminid.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
+        }
+
+        // adminid로 adminidx 변환
+        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
+        if (adminidx == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
+        }
+
+        // 파일 저장 처리
+        String thumfileName = null;
+        try {
+            if (thumfile != null && !thumfile.isEmpty()) {
+                // 파일 저장 메서드 호출
+                thumfileName = uploadFileToExternalServer(thumfile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 중 오류가 발생했습니다.");
+        }
+
+        // 이벤트 수정 엔티티 생성 및 데이터 설정
+        MasterVO event = new MasterVO();
+        event.setIdx(idx);
+        event.setTitle(title);
+        event.setContent(content);
+        event.setEvent_date(event_date);
+        event.setThumfile(thumfileName); // 파일명 설정
+        event.setAdminidx(adminidx);
+
+        try {
+            // 이벤트 수정 서비스 호출
+            boolean isUpdated = masterService.updateEvent(event);
+            if (isUpdated) {
+                return ResponseEntity.ok("이벤트가 성공적으로 수정되었습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 수정 중 오류가 발생했습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 수정 중 오류가 발생했습니다.");
+        }
     }
 
     @PostMapping("/storeAddMasterOk")
@@ -1354,13 +1352,22 @@ public class masterController {
         }
     }
 
-
     @PostMapping("/storeDeleteMaster/{idx}")
-    public String storeDeleteMaster(@PathVariable("idx") int idx) {
-        masterService.deleteProductImagesByProductIdx(idx);
-        masterService.deleteStoreByIdx(idx);
-        return "redirect:/master/storeMasterList";
+    @ResponseBody
+    public Map<String, Object> storeDeleteMaster(@PathVariable("idx") int idx) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            masterService.deleteProductImagesByProductIdx(idx);
+            masterService.deleteStoreByIdx(idx);
+            response.put("success", true);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "스토어 삭제 중 오류가 발생했습니다.");
+        }
+        return response;
     }
+
+
 
 
     @GetMapping("/getSubCategories/{category}")
@@ -1424,11 +1431,9 @@ public class masterController {
                                   @RequestParam("endDT") String endDT,        // 제재 종료 날짜
                                   @RequestParam("handleState") int handleState, // 처리 상태 코드
                                   @RequestParam("idx") int idx,               // 신고 ID
-                                  @RequestParam(value = "comment_idx", required = false) Integer commentIdx,
                                   HttpServletRequest request) {
         System.out.println("Received idx: " + idx);  // idx 값 확인을 위해 콘솔에 출력
         System.out.println("Received userid: " + userid);
-        System.out.println("Received comment_idx: " + commentIdx); // 로그로 값 확인
 
         LocalDateTime stopDT = LocalDateTime.now();  // 신고 시작 시간
 
@@ -1443,7 +1448,7 @@ public class masterController {
             throw new RuntimeException("토큰이 없습니다.");
         }
 
-        Integer useridx = masterService.findUserIdxByCommentIdx(commentIdx);
+        Integer useridx = masterService.findUserIdxByUserid(userid);
         if (useridx == null) {
             throw new RuntimeException("유효하지 않은 사용자입니다.");
         }
@@ -1462,19 +1467,10 @@ public class masterController {
             return "redirect:/master/reportinguserListMaster";  // 이미 정지된 사용자는 처리할 필요 없음
         }
 
-        // useridx를 String으로 변환하여 서비스 메서드 호출
-        masterService.updateReportAndBan(idx, useridx.toString(), reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
+        // 서비스에 신고 내역 추가 요청
+        masterService.updateReportAndBan(idx, userid, reason, stopDT, parsedHandleDT, parsedEndDT, handleState);
 
         return "redirect:/master/reportinguserListMaster";  // 신고 목록 페이지로 리다이렉트
-    }
-
-
-
-    @PostMapping("/reportingDeleteMaster/{idx}")
-    public String reportingDeleteMaster(@PathVariable("idx") int idx) {
-        System.out.println("Received idx: " + idx); // 로그로 idx 값 출력
-        masterService.deleteReport(idx);
-        return "redirect:/master/reportinguserListMaster";
     }
 
     // 이벤트 페이지 글 쓰기
@@ -1671,7 +1667,7 @@ public class masterController {
     // 상태 업데이트
     @PostMapping("/updateOrderState")
     public ResponseEntity<String> updateOrderState(@RequestBody Map<String, Object> data,
-                                                     @RequestHeader("Authorization") String Headertoken) {
+                                                   @RequestHeader("Authorization") String Headertoken) {
         HttpHeaders headers = new HttpHeaders();
 
         // Authorization 헤더 확인
@@ -1773,78 +1769,12 @@ public class masterController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/EventEditMasterOk")
-    public ResponseEntity<String> EventEditMasterOk(
-            @RequestParam(value = "idx", required = false, defaultValue = "0") int idx,
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam("event_date") String event_date,
-            @RequestParam("thumfile") MultipartFile thumfile,
-            @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
-
-        // Authorization 헤더 확인
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 없습니다.");
-        }
-
-        // JWT 토큰에서 관리자 ID 추출
-        String token = authorizationHeader.substring(7);  // "Bearer " 부분을 제거
-        String adminid;
-        try {
-            adminid = jwtUtil.getUserIdFromToken(token); // JWT에서 관리자 ID 추출
-            if (adminid == null || adminid.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 JWT 토큰입니다.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT 토큰 파싱 중 오류가 발생했습니다.");
-        }
-
-        // adminid로 adminidx 변환
-        Integer adminidx = masterService.getAdminIdxByAdminid(adminid);
-        if (adminidx == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 정보를 찾을 수 없습니다.");
-        }
-
-        // 파일 저장 처리
-        String thumfileName = null;
-        try {
-            if (thumfile != null && !thumfile.isEmpty()) {
-                // 파일 저장 메서드 호출
-                thumfileName = uploadFileToExternalServer(thumfile);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 중 오류가 발생했습니다.");
-        }
-
-        // 이벤트 수정 엔티티 생성 및 데이터 설정
-        MasterVO event = new MasterVO();
-        event.setIdx(idx);
-        event.setTitle(title);
-        event.setContent(content);
-        event.setEvent_date(event_date);
-        event.setThumfile(thumfileName); // 파일명 설정
-        event.setAdminidx(adminidx);
-
-        try {
-            // 이벤트 수정 서비스 호출
-            boolean isUpdated = masterService.updateEvent(event);
-            if (isUpdated) {
-                return ResponseEntity.ok("이벤트가 성공적으로 수정되었습니다.");
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 수정 중 오류가 발생했습니다.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이벤트 수정 중 오류가 발생했습니다.");
-        }
-    }
-
-    // 차트 보여주기
+    // 회원가입자 수 차트 보여주기
     @GetMapping("/registrationChart")
     public ResponseEntity<List<Map<String, Object>>> getRegistrationStats() {
         List<Map<String, Object>> stats = masterService.getUserRegistrationStats();
         return ResponseEntity.ok(stats);
     }
+
+
 }
